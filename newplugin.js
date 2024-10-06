@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.1',
+    version: '1.9.2',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -24,76 +24,38 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
 
-  // URL for phone lookup
-  phoneInfoUrl: 'https://www.so.com/s?q=',
-
   // Generate output object
   generateOutput(phoneNumber) {
-    return new Promise((resolve, reject) => {
-      try {
-        console.log("generateOutput function called with phoneNumber:", phoneNumber);
+    console.log("generateOutput function called with phoneNumber:", phoneNumber);
+    
+    // Extract information from the current page
+    const jsonObject = this.extractPhoneInfo(document, phoneNumber);
 
-        // 创建一个新的 iframe
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none'; // 设置 iframe 为不可见
-        document.body.appendChild(iframe);
-
-        // Load the phone info URL in the iframe
-        iframe.src = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
-
-        // Wait for the iframe to load
-        iframe.onload = () => {
-          try {
-            // Extract information from the iframe's content
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            const jsonObject = this.extractPhoneInfo(iframeDocument, phoneNumber);
-
-            let matchedLabel = null;
-            for (const [key, value] of Object.entries(this.manualMapping)) {
-              if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
-                matchedLabel = value;
-                break;
-              }
-            }
-            if (!matchedLabel) {
-              matchedLabel = 'Unknown';
-            }
-
-            const output = {
-              phoneNumber: phoneNumber,
-              sourceLabel: jsonObject.sourceLabel,
-              count: jsonObject.count,
-              predefinedLabel: matchedLabel,
-              source: this.info.name,
-              province: jsonObject.province,
-              city: jsonObject.city,
-              carrier: jsonObject.carrier,
-              date: new Date().toISOString().split('T')[0],
-            };
-
-            console.log("Final output:", JSON.stringify(output));
-
-            // Remove the iframe
-            document.body.removeChild(iframe);
-
-            resolve(output);
-          } catch (error) {
-            console.error('Error processing iframe content:', error);
-            document.body.removeChild(iframe);
-            reject(error);
-          }
-        };
-
-        iframe.onerror = (error) => {
-          console.error('Error loading iframe:', error);
-          document.body.removeChild(iframe);
-          reject(error);
-        };
-      } catch (error) {
-        console.error('Error in generateOutput:', error);
-        reject(error);
+    let matchedLabel = null;
+    for (const [key, value] of Object.entries(this.manualMapping)) {
+      if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
+        matchedLabel = value;
+        break;
       }
-    });
+    }
+    if (!matchedLabel) {
+      matchedLabel = 'Unknown';
+    }
+
+    const output = {
+      phoneNumber: phoneNumber,
+      sourceLabel: jsonObject.sourceLabel,
+      count: jsonObject.count,
+      predefinedLabel: matchedLabel,
+      source: this.info.name,
+      province: jsonObject.province,
+      city: jsonObject.city,
+      carrier: jsonObject.carrier,
+      date: new Date().toISOString().split('T')[0],
+    };
+
+    console.log("Final output:", JSON.stringify(output));
+    return output;
   },
 
   // Extract phone information function
