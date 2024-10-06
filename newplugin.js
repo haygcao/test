@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.2',
+    version: '1.9.5',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -24,38 +24,58 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
 
+  // URL for phone lookup
+  phoneInfoUrl: 'https://www.so.com/s?q=',
+
   // Generate output object
-  generateOutput(phoneNumber) {
-    console.log("generateOutput function called with phoneNumber:", phoneNumber);
-    
-    // Extract information from the current page
-    const jsonObject = this.extractPhoneInfo(document, phoneNumber);
+  async generateOutput(phoneNumber) {
+    try {
+      console.log("generateOutput function called with phoneNumber:", phoneNumber);
 
-    let matchedLabel = null;
-    for (const [key, value] of Object.entries(this.manualMapping)) {
-      if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
-        matchedLabel = value;
-        break;
+      // 使用 Fetch API 获取网页内容
+      const response = await fetch(this.phoneInfoUrl + encodeURIComponent(phoneNumber));
+      if (!response.ok) {
+        throw new Error(`Failed to fetch page: ${response.status}`);
       }
-    }
-    if (!matchedLabel) {
-      matchedLabel = 'Unknown';
-    }
+      const html = await response.text();
 
-    const output = {
-      phoneNumber: phoneNumber,
-      sourceLabel: jsonObject.sourceLabel,
-      count: jsonObject.count,
-      predefinedLabel: matchedLabel,
-      source: this.info.name,
-      province: jsonObject.province,
-      city: jsonObject.city,
-      carrier: jsonObject.carrier,
-      date: new Date().toISOString().split('T')[0],
-    };
+      // 创建一个虚拟 DOM 解析 HTML 内容
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
 
-    console.log("Final output:", JSON.stringify(output));
-    return output;
+      // Extract information from the virtual DOM
+      const jsonObject = this.extractPhoneInfo(doc, phoneNumber);
+
+      let matchedLabel = null;
+      for (const [key, value] of Object.entries(this.manualMapping)) {
+        if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
+          matchedLabel = value;
+          break;
+        }
+      }
+      if (!matchedLabel) {
+        matchedLabel = 'Unknown';
+      }
+
+      const output = {
+        phoneNumber: phoneNumber,
+        sourceLabel: jsonObject.sourceLabel,
+        count: jsonObject.count,
+        predefinedLabel: matchedLabel,
+        source: this.info.name,
+        province: jsonObject.province,
+        city: jsonObject.city,
+        carrier: jsonObject.carrier,
+        date: new Date().toISOString().split('T')[0],
+      };
+
+      console.log("Final output:", JSON.stringify(output));
+
+      return output;
+    } catch (error) {
+      console.error('Error in generateOutput:', error);
+      throw error;
+    }
   },
 
   // Extract phone information function
