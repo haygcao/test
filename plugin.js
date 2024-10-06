@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.7.0',
+    version: '1.8.0',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -25,7 +25,7 @@ const pluginInfo = {
   },
 
   // Base URL for phone lookup
-  phoneInfoBaseUrl: 'https://www.example.com/phone-lookup?phone=',
+  phoneInfoBaseUrl: 'https://www.so.com/s?q=',
 
   // Generate output object
   generateOutput(phoneNumber) {
@@ -36,16 +36,21 @@ const pluginInfo = {
         // Construct the full URL
         const url = this.phoneInfoBaseUrl + encodeURIComponent(phoneNumber);
         
-        // Use XMLHttpRequest to avoid CORS issues
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        
-        xhr.onload = () => {
-          if (xhr.status === 200) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(xhr.responseText, 'text/html');
+        // Create a new iframe
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        // Load the URL in the iframe
+        iframe.src = url;
+
+        // Wait for the iframe to load
+        iframe.onload = () => {
+          try {
+            // Access the iframe's content
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
             
-            const jsonObject = this.extractPhoneInfo(doc);
+            const jsonObject = this.extractPhoneInfo(iframeDoc);
 
             let matchedLabel = null;
             for (const [key, value] of Object.entries(this.manualMapping)) {
@@ -71,19 +76,24 @@ const pluginInfo = {
             };
 
             console.log("Final output:", JSON.stringify(output));
+            
+            // Remove the iframe
+            document.body.removeChild(iframe);
+            
             resolve(output);
-          } else {
-            console.error('Failed to load page:', xhr.status);
-            reject('Failed to load page: ' + xhr.status);
+          } catch (error) {
+            console.error('Error processing iframe content:', error);
+            document.body.removeChild(iframe);
+            reject(error);
           }
         };
 
-        xhr.onerror = () => {
-          console.error('Network error occurred');
-          reject('Network error occurred');
+        iframe.onerror = (error) => {
+          console.error('Error loading iframe:', error);
+          document.body.removeChild(iframe);
+          reject(error);
         };
 
-        xhr.send();
       } catch (error) {
         console.error('Error in generateOutput:', error);
         reject(error);
