@@ -26,12 +26,12 @@ const pluginInfo = {
 
   // Phone query function - 360 search
   // 手机号查询函数 - 360搜索
+  // 手机号查询函数 - 360搜索
   async queryPhoneInfo(phoneNumber) {
     const jsonObject = { count: 0 };
     try {
-      const proxyUrl = 'https://corsproxy.io/';
       const targetUrl = `https://www.so.com/s?q=${phoneNumber}`;
-      const response = await fetch(proxyUrl + targetUrl, {
+      const response = await fetch(targetUrl, { // 直接访问目标网址
         headers: {
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
