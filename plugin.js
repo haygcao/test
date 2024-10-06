@@ -109,6 +109,17 @@ const pluginInfo = {
     if (!matchedLabel) {
       matchedLabel = this.manualMapping[info.sourceLabel] || null;
     }
+
+
+        // 添加日志输出，输出最终返回的数据对象
+    console.log("最终输出:", {
+      phoneNumber: phoneNumber,
+      sourceLabel: info.sourceLabel,
+      count: info.count,
+      predefinedLabel: matchedLabel,
+      source: info.sourceName || this.info.name,
+    });
+    
     // 返回所需的数据对象
     return {
       phoneNumber: phoneNumber,
