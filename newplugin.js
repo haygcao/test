@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.0',
+    version: '1.9.1',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -33,14 +33,20 @@ const pluginInfo = {
       try {
         console.log("generateOutput function called with phoneNumber:", phoneNumber);
 
-        // Load the phone info URL in the current page
-        window.location.href = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
+        // 创建一个新的 iframe
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none'; // 设置 iframe 为不可见
+        document.body.appendChild(iframe);
 
-        // Wait for the page to load
-        window.addEventListener('load', () => {
+        // Load the phone info URL in the iframe
+        iframe.src = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
+
+        // Wait for the iframe to load
+        iframe.onload = () => {
           try {
-            // Extract information from the page
-            const jsonObject = this.extractPhoneInfo(document, phoneNumber);
+            // Extract information from the iframe's content
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            const jsonObject = this.extractPhoneInfo(iframeDocument, phoneNumber);
 
             let matchedLabel = null;
             for (const [key, value] of Object.entries(this.manualMapping)) {
@@ -67,13 +73,22 @@ const pluginInfo = {
 
             console.log("Final output:", JSON.stringify(output));
 
+            // Remove the iframe
+            document.body.removeChild(iframe);
+
             resolve(output);
           } catch (error) {
-            console.error('Error processing page content:', error);
+            console.error('Error processing iframe content:', error);
+            document.body.removeChild(iframe);
             reject(error);
           }
-        });
+        };
 
+        iframe.onerror = (error) => {
+          console.error('Error loading iframe:', error);
+          document.body.removeChild(iframe);
+          reject(error);
+        };
       } catch (error) {
         console.error('Error in generateOutput:', error);
         reject(error);
