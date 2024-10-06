@@ -26,15 +26,15 @@ const pluginInfo = {
 
   // Generate output object
   generateOutput(phoneNumber, nationalNumber, e164Number) {
-    console.log("generateOutput function called with phoneNumber:", phoneNumber); // 日志信息
+    console.log("generateOutput function called with phoneNumber:", phoneNumber); 
     try {
       // 在 WebView 中执行 JavaScript 代码获取网页信息
       const phoneInfo = new Promise((resolve, reject) => {
-        console.log('Waiting for DOMContentLoaded event...'); // 日志信息
+        console.log('Waiting for DOMContentLoaded event...'); 
 
         // 监听 DOMContentLoaded 事件
         document.addEventListener('DOMContentLoaded', () => {
-          console.log('DOMContentLoaded event fired.'); // 日志信息
+          console.log('DOMContentLoaded event fired.'); 
 
           // 使用 MutationObserver 监听 DOM 变化
           const targetNode = document.body;
@@ -43,19 +43,21 @@ const pluginInfo = {
           const callback = (mutationsList, observer) => {
             for (const mutation of mutationsList) {
               if (mutation.type === 'childList') {
-                console.log('DOM changed:', mutation); // 日志信息
+                console.log('DOM changed:', mutation); 
 
                 // 检查目标元素是否已经加载
                 const countElement = document.querySelector(".mohe-tips-zp b");
                 const addressElement = document.querySelector(".mh-detail span:nth-child(2)");
 
                 if (countElement && addressElement) {
-                  console.log('Target elements found. Extracting information...'); // 日志信息
+                  console.log('Target elements found. Extracting information...'); 
                   const jsonObject = { count: 0 };
                   try {
                     jsonObject.count = parseInt(countElement.textContent);
+                    console.log('Count:', jsonObject.count); // 打印 countElement 的内容
 
                     const addressParts = addressElement.textContent.trim().split(/\s+/);
+                    console.log('Address parts:', addressParts); // 打印 addressParts 的内容
                     jsonObject.province = addressParts[0];
                     jsonObject.city = addressParts[1];
                     jsonObject.carrier = addressParts[2];
@@ -63,19 +65,21 @@ const pluginInfo = {
                     const sourceLabelElement = document.querySelector(".mohe-tips-zp");
                     if (sourceLabelElement) {
                       jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
+                      console.log('Source label:', jsonObject.sourceLabel); // 打印 sourceLabelElement 的内容
                     }
 
                     const sourceNameElement = document.querySelector(".mohe-tips-zp .mohe-sjws");
                     if (sourceNameElement) {
                       jsonObject.sourceName = sourceNameElement.textContent.trim();
+                      console.log('Source name:', jsonObject.sourceName); // 打印 sourceNameElement 的内容
                     }
 
                     jsonObject.date = new Date().toISOString().split('T')[0];
-                    console.log('Information extracted:', jsonObject); // 日志信息
+                    console.log('Information extracted:', jsonObject);
                     resolve(jsonObject);
                   } catch (e) {
                     console.error('Error querying phone info:', e);
-                    reject(e.toString()); // 使用 reject 将错误传递给 Promise
+                    reject(e.toString()); 
                   }
 
                   // 停止监听 DOM 变化
