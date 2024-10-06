@@ -24,149 +24,126 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
 
+  // URL for phone lookup
+  phoneInfoUrl: 'https://www.so.com/s?q=',
+
   // Generate output object
-  generateOutput(phoneNumber, nationalNumber, e164Number) {
-    console.log("generateOutput function called with phoneNumber:", phoneNumber);
-    try {
-      // 在 WebView 中执行 JavaScript 代码获取网页信息
-      const phoneInfoPromise = new Promise((resolve, reject) => {
-        console.log('Waiting for DOMContentLoaded event...');
+  generateOutput(phoneNumber) {
+    return new Promise((resolve, reject) => {
+      try {
+        console.log("generateOutput function called with phoneNumber:", phoneNumber);
+        
+        // Create a new iframe
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
 
-        // 监听 DOMContentLoaded 事件
-        document.addEventListener('DOMContentLoaded', () => {
-          console.log('DOMContentLoaded event fired.');
+        // Load the phone info URL in the iframe
+        iframe.src = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
 
-          // 检查目标元素是否已经存在于 DOM 中
-          const countElement = document.querySelector(".mohe-tips-zp b");
-          const addressElement = document.querySelector(".mh-detail span:nth-child(2)");
+        // Wait for the iframe to load
+        iframe.onload = () => {
+          try {
+            // Extract information from the iframe's content
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            const jsonObject = this.extractPhoneInfo(iframeDocument);
 
-          if (countElement && addressElement) {
-            console.log('Target elements found. Extracting information...');
-            extractPhoneInfo(resolve, reject);
-          } else {
-            // 使用 MutationObserver 监听 DOM 变化，等待目标元素出现
-            const targetNode = document.body;
-            const config = { childList: true, subtree: true };
-
-            const callback = (mutationsList, observer) => {
-              for (const mutation of mutationsList) {
-                if (mutation.type === 'childList') {
-                  console.log('DOM changed:', mutation);
-
-                  // 每次 DOM 变化后，重新检查目标元素是否存在
-                  const countElement = document.querySelector(".mohe-tips-zp b");
-                  const addressElement = document.querySelector(".mh-detail span:nth-child(2)");
-
-                  if (countElement && addressElement) {
-                    console.log('Target elements found. Extracting information...');
-                    extractPhoneInfo(resolve, reject);
-
-                    // 停止监听 DOM 变化
-                    observer.disconnect();
-                  }
-                }
+            let matchedLabel = null;
+            for (const [key, value] of Object.entries(this.manualMapping)) {
+              if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
+                matchedLabel = value;
+                break;
               }
+            }
+            if (!matchedLabel) {
+              matchedLabel = 'Unknown';
+            }
+
+            const output = {
+              phoneNumber: phoneNumber,
+              sourceLabel: jsonObject.sourceLabel,
+              count: jsonObject.count,
+              predefinedLabel: matchedLabel,
+              source: this.info.name,
+              province: jsonObject.province,
+              city: jsonObject.city,
+              carrier: jsonObject.carrier,
+              date: new Date().toISOString().split('T')[0],
             };
 
-            const observer = new MutationObserver(callback);
-            observer.observe(targetNode, config);
+            console.log("Final output:", JSON.stringify(output));
+            
+            // Remove the iframe
+            document.body.removeChild(iframe);
+            
+            resolve(output);
+          } catch (error) {
+            console.error('Error processing iframe content:', error);
+            document.body.removeChild(iframe);
+            reject(error);
           }
-        });
-      });
+        };
 
-      // 提取电话信息并返回结果或错误
-      return phoneInfoPromise
-        .then((result) => {
-          let matchedLabel = null;
-          for (const [key, value] of Object.entries(this.manualMapping)) {
-            if (result.sourceLabel && result.sourceLabel.includes(key)) {
-              matchedLabel = value;
-              break;
-            }
-          }
-          if (!matchedLabel) {
-            matchedLabel = 'Unknown';
-          }
+        iframe.onerror = (error) => {
+          console.error('Error loading iframe:', error);
+          document.body.removeChild(iframe);
+          reject(error);
+        };
 
-          const output = {
-            phoneNumber: result.phoneNumber || phoneNumber,
-            sourceLabel: result.sourceLabel,
-            count: result.count,
-            predefinedLabel: matchedLabel,
-            source: this.info.name,
-            province: result.province,
-            city: result.city,
-            carrier: result.carrier,
-            date: result.date,
-          };
+      } catch (error) {
+        console.error('Error in generateOutput:', error);
+        reject(error);
+      }
+    });
+  },
 
-          console.log("Final output:", JSON.stringify(output));
+  // Extract phone information function
+  extractPhoneInfo(doc) {
+    const jsonObject = { count: 0 };
+    try {
+      const countElement = doc.querySelector(".mohe-tips-zp b");
+      const addressElement = doc.querySelector(".mh-detail span:nth-child(2)");
+      const sourceLabelElement = doc.querySelector(".mohe-tips-zp");
+      const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws");
 
-          // 将结果发送回 Flutter 应用
-          window.FlutterChannel.postMessage(JSON.stringify(output));
+      if (countElement) {
+        jsonObject.count = parseInt(countElement.textContent);
+        console.log('Count:', jsonObject.count);
+      }
 
-          return output;
-        })
-        .catch((error) => {
-          console.error('Error in generateOutput:', error);
-          // 将错误信息发送回 Flutter 应用
-          window.FlutterChannel.postMessage(JSON.stringify({ error: error }));
-          return { error: error };
-        });
-    } catch (error) {
-      console.error('Error in generateOutput:', error);
-      // 将错误信息发送回 Flutter 应用
-      window.FlutterChannel.postMessage(JSON.stringify({ error: error.toString() }));
-      return { error: error.toString() };
+      if (addressElement) {
+        const addressParts = addressElement.textContent.trim().split(/\s+/);
+        console.log('Address parts:', addressParts);
+        jsonObject.province = addressParts[0];
+        jsonObject.city = addressParts[1];
+        jsonObject.carrier = addressParts[2];
+      }
+
+      if (sourceLabelElement) {
+        jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
+        console.log('Source label:', jsonObject.sourceLabel);
+      }
+
+      if (sourceNameElement) {
+        jsonObject.sourceName = sourceNameElement.textContent.trim();
+        console.log('Source name:', jsonObject.sourceName);
+      }
+
+      console.log('Information extracted:', jsonObject);
+      return jsonObject;
+    } catch (e) {
+      console.error('Error querying phone info:', e);
+      throw e;
     }
   }
 };
 
-// 提取电话信息的函数
-function extractPhoneInfo(resolve, reject) {
-  const jsonObject = { count: 0 };
-  try {
-    const countElement = document.querySelector(".mohe-tips-zp b");
-    const addressElement = document.querySelector(".mh-detail span:nth-child(2)");
-    const sourceLabelElement = document.querySelector(".mohe-tips-zp");
-    const sourceNameElement = document.querySelector(".mohe-tips-zp .mohe-sjws");
-
-    if (countElement) {
-      jsonObject.count = parseInt(countElement.textContent);
-      console.log('Count:', jsonObject.count); // 打印 countElement 的内容
-    }
-
-    if (addressElement) {
-      const addressParts = addressElement.textContent.trim().split(/\s+/);
-      console.log('Address parts:', addressParts); // 打印 addressParts 的内容
-      jsonObject.province = addressParts[0];
-      jsonObject.city = addressParts[1];
-      jsonObject.carrier = addressParts[2];
-    }
-
-    if (sourceLabelElement) {
-      jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
-      console.log('Source label:', jsonObject.sourceLabel); // 打印 sourceLabelElement 的内容
-    }
-
-    if (sourceNameElement) {
-      jsonObject.sourceName = sourceNameElement.textContent.trim();
-      console.log('Source name:', jsonObject.sourceName); // 打印 sourceNameElement 的内容
-    }
-
-    jsonObject.date = new Date().toISOString().split('T')[0];
-    console.log('Information extracted:', jsonObject); // 打印提取的信息
-    resolve(jsonObject);
-  } catch (e) {
-    console.error('Error querying phone info:', e);
-    reject(e.toString());
-  }
-}
-
 // Make pluginInfo globally accessible
 window.pluginInfo = pluginInfo;
 
-// 通知 Flutter 应用 JavaScript 代码已经加载完成
-window.FlutterChannel.postMessage('JavaScript loaded');
+// Notify Flutter app that JavaScript code has been loaded
+if (window.FlutterChannel) {
+  window.FlutterChannel.postMessage('JavaScript loaded');
+}
 
 console.log('Plugin loaded successfully');
