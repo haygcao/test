@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.8.0',
+    version: '1.9.0',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -24,8 +24,8 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
 
-  // Base URL for phone lookup
-  phoneInfoBaseUrl: 'https://www.so.com/s?q=',
+  // URL for phone lookup
+  phoneInfoUrl: 'https://www.so.com/s?q=',
 
   // Generate output object
   generateOutput(phoneNumber) {
@@ -33,24 +33,20 @@ const pluginInfo = {
       try {
         console.log("generateOutput function called with phoneNumber:", phoneNumber);
         
-        // Construct the full URL
-        const url = this.phoneInfoBaseUrl + encodeURIComponent(phoneNumber);
-        
         // Create a new iframe
         const iframe = document.createElement('iframe');
         iframe.style.display = 'none';
         document.body.appendChild(iframe);
 
-        // Load the URL in the iframe
-        iframe.src = url;
+        // Load the phone info URL in the iframe
+        iframe.src = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
 
         // Wait for the iframe to load
         iframe.onload = () => {
           try {
-            // Access the iframe's content
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            
-            const jsonObject = this.extractPhoneInfo(iframeDoc);
+            // Extract information from the iframe's content
+            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            const jsonObject = this.extractPhoneInfo(iframeDocument, phoneNumber);
 
             let matchedLabel = null;
             for (const [key, value] of Object.entries(this.manualMapping)) {
@@ -102,7 +98,7 @@ const pluginInfo = {
   },
 
   // Extract phone information function
-  extractPhoneInfo(doc) {
+  extractPhoneInfo(doc, phoneNumber) { 
     const jsonObject = { count: 0 };
     try {
       const countElement = doc.querySelector(".mohe-tips-zp b");
@@ -133,6 +129,7 @@ const pluginInfo = {
         console.log('Source name:', jsonObject.sourceName);
       }
 
+      jsonObject.phoneNumber = phoneNumber;
       console.log('Information extracted:', jsonObject);
       return jsonObject;
     } catch (e) {
