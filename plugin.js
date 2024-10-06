@@ -24,68 +24,52 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
 
-  // Phone query function - 360 search
-  // 手机号查询函数 - 360搜索
-  // 手机号查询函数 - 360搜索
-  async queryPhoneInfo(phoneNumber) {
-    const jsonObject = { count: 0 };
-    try {
-      const targetUrl = `https://www.so.com/s?q=${phoneNumber}`;
-      const response = await fetch(targetUrl, {
-        headers: {
-          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-          "Origin": "https://www.so.com" // 手动设置 Origin 头
-        }
-      });
-      if (response.ok) {
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-
-        // 使用更精确的选择器查找元素
-        const countElement = doc.querySelector(".mohe-tips-zp b"); 
-        const addressElement = doc.querySelector(".mh-detail span:nth-child(2)"); 
-        const sourceLabelElement = doc.querySelector(".mohe-tips-zp");
-        const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws"); 
-
-        if (countElement) {
-          jsonObject.count = parseInt(countElement.textContent); // 直接解析为整数
-        }
-        if (addressElement) {
-          const addressParts = addressElement.textContent.trim().split(/\s+/); // 使用正则表达式分割地址
-          jsonObject.province = addressParts[0];
-          jsonObject.city = addressParts[1];
-          jsonObject.carrier = addressParts[2];
-        }
-        if (sourceLabelElement) {
-          jsonObject.sourceLabel = sourceLabelElement.textContent.trim(); 
-        }
-        if (sourceNameElement) {
-          jsonObject.sourceName = sourceNameElement.textContent.trim(); 
-        }
-
-        jsonObject.date = new Date().toISOString().split('T')[0];
-      }
-    } catch (e) {
-      console.error('Error querying phone info:', e);
-      jsonObject.error = e.toString();
-    }
-    return jsonObject;
-  }
-
-  // ... 其他代码 ...
-
   // Generate output object
   async generateOutput(phoneNumber, nationalNumber, e164Number) {
     try {
-      const queryResults = await Promise.all([
-        phoneNumber ? this.queryPhoneInfo(phoneNumber) : Promise.resolve({}),
-        nationalNumber ? this.queryPhoneInfo(nationalNumber) : Promise.resolve({}),
-        e164Number ? this.queryPhoneInfo(e164Number) : Promise.resolve({})
-      ]);
+      // 在 WebView 中执行 JavaScript 代码获取网页信息
+      const phoneInfo = await new Promise((resolve, reject) => {
+        // 将获取网页信息的代码封装成一个函数
+        const getPhoneInfo = () => {
+          const jsonObject = { count: 0 };
+          try {
+            const countElement = document.querySelector(".mohe-tips-zp b");
+            const addressElement = document.querySelector(".mh-detail span:nth-child(2)");
+            const sourceLabelElement = document.querySelector(".mohe-tips-zp");
+            const sourceNameElement = document.querySelector(".mohe-tips-zp .mohe-sjws");
 
-      const [phoneInfo] = queryResults;
+            if (countElement) {
+              jsonObject.count = parseInt(countElement.textContent);
+            }
+            if (addressElement) {
+              const addressParts = addressElement.textContent.trim().split(/\s+/);
+              jsonObject.province = addressParts[0];
+              jsonObject.city = addressParts[1];
+              jsonObject.carrier = addressParts[2];
+            }
+            if (sourceLabelElement) {
+              jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
+            }
+            if (sourceNameElement) {
+              jsonObject.sourceName = sourceNameElement.textContent.trim();
+            }
+
+            jsonObject.date = new Date().toISOString().split('T')[0];
+            return jsonObject;
+          } catch (e) {
+            console.error('Error querying phone info:', e);
+            return { error: e.toString() };
+          }
+        };
+
+        // 使用 setTimeout 延迟执行 getPhoneInfo 函数，确保页面加载完成
+        setTimeout(() => {
+          const result = getPhoneInfo();
+          resolve(result);
+        }, 1000); // 延迟 1 秒
+      });
+
+      // ... 其他代码 (使用 phoneInfo 对象进行处理) ...
 
       let matchedLabel = null;
       for (const [key, value] of Object.entries(this.manualMapping)) {
