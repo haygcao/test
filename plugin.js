@@ -13,44 +13,53 @@ const pluginInfo = {
   predefinedLabels: [
     {'label': 'Fraud Scam Likely'},
     {'label': 'Spam Likely'},
-    // ... (other labels)
+    {'label': 'Telemarketing'},
+    {'label': 'Unknown'},
   ],
 
   // Manual mapping table
   manualMapping: {
-    '标签1': 'Fraud Scam Likely',
-    '疑似为骚扰电话': 'Spam Likely',
-    // ... (other mappings)
+    '疑似为骚扰电话！': 'Spam Likely',
+    '用户标记，疑似为骚扰电话！': 'Fraud Scam Likely',
+    '电话营销': 'Telemarketing',
   },
 
   // Phone query function - 360 search
   async queryPhoneInfo(phoneNumber) {
     const jsonObject = { count: 0 };
     try {
-      const response = await fetch(`https://www.so.com/s?q=${phoneNumber}`, {
+      const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      const targetUrl = `https://www.so.com/s?q=${phoneNumber}`;
+      const response = await fetch(proxyUrl + targetUrl, {
         headers: {
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
-        },
-        mode: 'no-cors'  // 添加 no-cors 模式
+        }
       });
       if (response.ok) {
         const text = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
 
-        const countElement = doc.querySelector(".mohe-tips-zp b");
-        const addressElement = doc.querySelector(".mh-detail span:nth-child(2)");
-        const sourceLabelElement = doc.querySelector(".mohe-tips-zp");
-        const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws");
+        const detailElement = doc.querySelector(".mh-detail");
+        const tipsElement = doc.querySelector(".mohe-tips-zp");
 
-        if (countElement) {
-          jsonObject.count = countElement.textContent;
-          jsonObject.address = addressElement?.textContent?.trim();
-          jsonObject.sourceLabel = sourceLabelElement?.textContent?.trim();
-          jsonObject.sourceName = sourceNameElement?.textContent?.trim();
-          jsonObject.date = new Date().toISOString().split('T')[0];
+        if (detailElement) {
+          const spans = detailElement.querySelectorAll('span');
+          jsonObject.phoneNumber = spans[0]?.textContent.trim();
+          const locationInfo = spans[1]?.textContent.trim().split(' ');
+          jsonObject.province = locationInfo?.[0];
+          jsonObject.city = locationInfo?.[1];
+          jsonObject.carrier = locationInfo?.[2];
         }
+
+        if (tipsElement) {
+          const countElement = tipsElement.querySelector('b');
+          jsonObject.count = countElement ? parseInt(countElement.textContent) : 0;
+          jsonObject.sourceLabel = tipsElement.textContent.trim();
+        }
+
+        jsonObject.date = new Date().toISOString().split('T')[0];
       }
     } catch (e) {
       console.error('Error querying phone info:', e);
@@ -68,31 +77,29 @@ const pluginInfo = {
         e164Number ? this.queryPhoneInfo(e164Number) : Promise.resolve({})
       ]);
 
-      const [phoneInfo, nationalInfo, e164Info] = queryResults;
-
-      const info = {
-        count: phoneInfo.count || nationalInfo.count || e164Info.count,
-        sourceLabel: phoneInfo.sourceLabel || nationalInfo.sourceLabel || e164Info.sourceLabel,
-        sourceName: phoneInfo.sourceName || nationalInfo.sourceName || e164Info.sourceName,
-      };
+      const [phoneInfo] = queryResults;
 
       let matchedLabel = null;
-      for (const label of this.predefinedLabels) {
-        if (label.label === info.sourceLabel) {
-          matchedLabel = label.label;
+      for (const [key, value] of Object.entries(this.manualMapping)) {
+        if (phoneInfo.sourceLabel && phoneInfo.sourceLabel.includes(key)) {
+          matchedLabel = value;
           break;
         }
       }
       if (!matchedLabel) {
-        matchedLabel = this.manualMapping[info.sourceLabel] || null;
+        matchedLabel = 'Unknown';
       }
 
       const result = {
-        phoneNumber: phoneNumber,
-        sourceLabel: info.sourceLabel,
-        count: info.count,
+        phoneNumber: phoneInfo.phoneNumber || phoneNumber,
+        sourceLabel: phoneInfo.sourceLabel,
+        count: phoneInfo.count,
         predefinedLabel: matchedLabel,
-        source: info.sourceName || this.info.name,
+        source: this.info.name,
+        province: phoneInfo.province,
+        city: phoneInfo.city,
+        carrier: phoneInfo.carrier,
+        date: phoneInfo.date,
       };
 
       console.log("Final output:", JSON.stringify(result));
