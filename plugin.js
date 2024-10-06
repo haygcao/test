@@ -90,14 +90,22 @@ const pluginInfo = {
           };
 
           console.log("Final output:", JSON.stringify(output));
+
+          // 将结果发送回 Flutter 应用
+          window.FlutterChannel.postMessage(JSON.stringify(output)); 
+
           return output;
         })
         .catch((error) => {
           console.error('Error in generateOutput:', error);
+          // 将错误信息发送回 Flutter 应用
+          window.FlutterChannel.postMessage(JSON.stringify({ error: error })); 
           return { error: error };
         });
     } catch (error) {
       console.error('Error in generateOutput:', error);
+      // 将错误信息发送回 Flutter 应用
+      window.FlutterChannel.postMessage(JSON.stringify({ error: error.toString() })); 
       return { error: error.toString() };
     }
   }
