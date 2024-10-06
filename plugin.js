@@ -19,7 +19,7 @@ const pluginInfo = {
   // Manual mapping table
   manualMapping: {
     '标签1': 'Fraud Scam Likely',
-    '诈骗电话': 'Spam Likely',
+    '疑似为骚扰电话': 'Spam Likely',
     // ... (other mappings)
   },
 
