@@ -45,6 +45,7 @@ const pluginInfo = {
   },
 
   // 手机号查询函数 - 360搜索
+  // Phone query function - 360 search
   async queryPhoneInfo(phoneNumber) {
     const jsonObject = { count: 0 };
     try {
@@ -54,25 +55,25 @@ const pluginInfo = {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
         }
       });
-    if (response.ok) {
-      const text = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, 'text/html');
-
-      // 更新后的 DOM 查询语句
-      const countElement = doc.querySelector(".mohe-tips-zp b"); 
-      const addressElement = doc.querySelector(".mh-detail span:nth-child(2)"); // 地址在第二个 span 中
-      const sourceLabelElement = doc.querySelector(".mohe-tips-zp"); // 标签包含在 .mohe-tips-zp 中
-      const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws"); // 来源包含在 .mohe-tips-zp 中
-
-      if (countElement) {
-        jsonObject.count = countElement.textContent;
-        jsonObject.address = addressElement?.textContent?.trim(); // 去除空格
-        jsonObject.sourceLabel = sourceLabelElement?.textContent?.trim(); // 去除空格
-        jsonObject.sourceName = sourceNameElement?.textContent?.trim(); // 去除空格
-        jsonObject.date = new Date().toISOString().split('T')[0];
+      if (response.ok) {
+        const text = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+  
+        // 更新后的 DOM 查询语句
+        const countElement = doc.querySelector(".mohe-tips-zp b"); 
+        const addressElement = doc.querySelector(".mh-detail span:nth-child(2)"); // 地址在第二个 span 中
+        const sourceLabelElement = doc.querySelector(".mohe-tips-zp"); // 标签包含在 .mohe-tips-zp 中
+        const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws"); // 来源包含在 .mohe-tips-zp 中
+  
+        if (countElement) {
+          jsonObject.count = countElement.textContent;
+          jsonObject.address = addressElement?.textContent?.trim(); // 去除空格
+          jsonObject.sourceLabel = sourceLabelElement?.textContent?.trim(); // 去除空格
+          jsonObject.sourceName = sourceNameElement?.textContent?.trim(); // 去除空格
+          jsonObject.date = new Date().toISOString().split('T')[0];
+        }
       }
-    }
     } catch (e) {
       console.error('Error querying phone info:', e);
     }
@@ -80,7 +81,7 @@ const pluginInfo = {
   },
 
   // 生成输出对象
-  async function generateOutput(phoneNumber, nationalNumber, e164Number) {
+  async generateOutput(phoneNumber, nationalNumber, e164Number) {
   // 使用所有提供的号码格式进行查询，但跳过空值
   const queryResults = await Promise.all([
     //this.queryPhoneInfo(phoneNumber),
@@ -132,4 +133,5 @@ const pluginInfo = {
 };
 
 
-
+// Make pluginInfo globally accessible
+window.pluginInfo = pluginInfo;
