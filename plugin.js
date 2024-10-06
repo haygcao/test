@@ -80,7 +80,7 @@ const pluginInfo = {
   },
 
   // 生成输出对象
-  async generateOutput(phoneNumber, nationalNumber, e164Number) {
+  async function generateOutput(phoneNumber, nationalNumber, e164Number) {
   // 使用所有提供的号码格式进行查询，但跳过空值
   const queryResults = await Promise.all([
     //this.queryPhoneInfo(phoneNumber),
