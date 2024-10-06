@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.3.0',
+    version: '1.5.0',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -165,5 +165,8 @@ function extractPhoneInfo(resolve, reject) {
 
 // Make pluginInfo globally accessible
 window.pluginInfo = pluginInfo;
+
+// 通知 Flutter 应用 JavaScript 代码已经加载完成
+window.FlutterChannel.postMessage('JavaScript loaded');
 
 console.log('Plugin loaded successfully');
