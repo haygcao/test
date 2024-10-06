@@ -25,10 +25,11 @@ const pluginInfo = {
   },
 
   // Phone query function - 360 search
+  // 手机号查询函数 - 360搜索
   async queryPhoneInfo(phoneNumber) {
     const jsonObject = { count: 0 };
     try {
-      const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      const proxyUrl = 'https://corsproxy.io/';
       const targetUrl = `https://www.so.com/s?q=${phoneNumber}`;
       const response = await fetch(proxyUrl + targetUrl, {
         headers: {
@@ -41,22 +42,26 @@ const pluginInfo = {
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
 
-        const detailElement = doc.querySelector(".mh-detail");
-        const tipsElement = doc.querySelector(".mohe-tips-zp");
+        // 使用更精确的选择器查找元素
+        const countElement = doc.querySelector(".mohe-tips-zp b"); 
+        const addressElement = doc.querySelector(".mh-detail span:nth-child(2)"); 
+        const sourceLabelElement = doc.querySelector(".mohe-tips-zp");
+        const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws"); 
 
-        if (detailElement) {
-          const spans = detailElement.querySelectorAll('span');
-          jsonObject.phoneNumber = spans[0]?.textContent.trim();
-          const locationInfo = spans[1]?.textContent.trim().split(' ');
-          jsonObject.province = locationInfo?.[0];
-          jsonObject.city = locationInfo?.[1];
-          jsonObject.carrier = locationInfo?.[2];
+        if (countElement) {
+          jsonObject.count = parseInt(countElement.textContent); // 直接解析为整数
         }
-
-        if (tipsElement) {
-          const countElement = tipsElement.querySelector('b');
-          jsonObject.count = countElement ? parseInt(countElement.textContent) : 0;
-          jsonObject.sourceLabel = tipsElement.textContent.trim();
+        if (addressElement) {
+          const addressParts = addressElement.textContent.trim().split(/\s+/); // 使用正则表达式分割地址
+          jsonObject.province = addressParts[0];
+          jsonObject.city = addressParts[1];
+          jsonObject.carrier = addressParts[2];
+        }
+        if (sourceLabelElement) {
+          jsonObject.sourceLabel = sourceLabelElement.textContent.trim(); 
+        }
+        if (sourceNameElement) {
+          jsonObject.sourceName = sourceNameElement.textContent.trim(); 
         }
 
         jsonObject.date = new Date().toISOString().split('T')[0];
@@ -67,6 +72,8 @@ const pluginInfo = {
     }
     return jsonObject;
   },
+
+  // ... 其他代码 ...
 
   // Generate output object
   async generateOutput(phoneNumber, nationalNumber, e164Number) {
