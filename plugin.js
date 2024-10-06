@@ -31,10 +31,10 @@ const pluginInfo = {
     const jsonObject = { count: 0 };
     try {
       const targetUrl = `https://www.so.com/s?q=${phoneNumber}`;
-      const response = await fetch(targetUrl, { // 直接访问目标网址
+      const response = await fetch(targetUrl, {
         headers: {
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
         }
       });
       if (response.ok) {
@@ -71,7 +71,7 @@ const pluginInfo = {
       jsonObject.error = e.toString();
     }
     return jsonObject;
-  },
+  }
 
   // ... 其他代码 ...
 
