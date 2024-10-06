@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
   id: 'your-plugin-id', // 插件ID，必须唯一
   name: 'Your Plugin Name', // 插件名称
-  version: '1.0.0', // 插件版本
+  version: '1.1.0', // 插件版本
   description: 'This is a plugin template.', // 插件描述
   author: 'Your Name', // 插件作者
   },
@@ -54,20 +54,25 @@ const pluginInfo = {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
         }
       });
-      if (response.ok) {
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-        const count = doc.querySelector(".mohe-tips b")?.textContent;
-        
-        if (count) {
-          jsonObject.count = count;
-          jsonObject.address = doc.querySelector(".mohe-mobileInfoContent .mh-detail span:last-child")?.textContent;//地址
-          jsonObject.sourceLabel = doc.querySelector(".mohe-tips .mohe-ph-mark")?.textContent;//标签
-          jsonObject.sourceName = doc.querySelector(".mohe-tips .mohe-sjws")?.textContent;//来源
-          jsonObject.date = new Date().toISOString().split('T')[0];
-        }
+    if (response.ok) {
+      const text = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+
+      // 更新后的 DOM 查询语句
+      const countElement = doc.querySelector(".mohe-tips-zp b"); 
+      const addressElement = doc.querySelector(".mh-detail span:nth-child(2)"); // 地址在第二个 span 中
+      const sourceLabelElement = doc.querySelector(".mohe-tips-zp"); // 标签包含在 .mohe-tips-zp 中
+      const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws"); // 来源包含在 .mohe-tips-zp 中
+
+      if (countElement) {
+        jsonObject.count = countElement.textContent;
+        jsonObject.address = addressElement?.textContent?.trim(); // 去除空格
+        jsonObject.sourceLabel = sourceLabelElement?.textContent?.trim(); // 去除空格
+        jsonObject.sourceName = sourceNameElement?.textContent?.trim(); // 去除空格
+        jsonObject.date = new Date().toISOString().split('T')[0];
       }
+    }
     } catch (e) {
       console.error('Error querying phone info:', e);
     }
