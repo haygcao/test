@@ -32,21 +32,15 @@ const pluginInfo = {
     return new Promise((resolve, reject) => {
       try {
         console.log("generateOutput function called with phoneNumber:", phoneNumber);
-        
-        // Create a new iframe
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
 
-        // Load the phone info URL in the iframe
-        iframe.src = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
+        // Load the phone info URL in the current page
+        window.location.href = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
 
-        // Wait for the iframe to load
-        iframe.onload = () => {
+        // Wait for the page to load
+        window.addEventListener('load', () => {
           try {
-            // Extract information from the iframe's content
-            const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            const jsonObject = this.extractPhoneInfo(iframeDocument, phoneNumber);
+            // Extract information from the page
+            const jsonObject = this.extractPhoneInfo(document, phoneNumber);
 
             let matchedLabel = null;
             for (const [key, value] of Object.entries(this.manualMapping)) {
@@ -72,23 +66,13 @@ const pluginInfo = {
             };
 
             console.log("Final output:", JSON.stringify(output));
-            
-            // Remove the iframe
-            document.body.removeChild(iframe);
-            
+
             resolve(output);
           } catch (error) {
-            console.error('Error processing iframe content:', error);
-            document.body.removeChild(iframe);
+            console.error('Error processing page content:', error);
             reject(error);
           }
-        };
-
-        iframe.onerror = (error) => {
-          console.error('Error loading iframe:', error);
-          document.body.removeChild(iframe);
-          reject(error);
-        };
+        });
 
       } catch (error) {
         console.error('Error in generateOutput:', error);
@@ -98,7 +82,7 @@ const pluginInfo = {
   },
 
   // Extract phone information function
-  extractPhoneInfo(doc, phoneNumber) { 
+  extractPhoneInfo(doc, phoneNumber) {
     const jsonObject = { count: 0 };
     try {
       const countElement = doc.querySelector(".mohe-tips-zp b");
