@@ -19,7 +19,7 @@ const pluginInfo = {
   // Manual mapping table
   manualMapping: {
     '标签1': 'Fraud Scam Likely',
-    '骚扰电话': 'Spam Likely',
+    '诈骗电话': 'Spam Likely',
     // ... (other mappings)
   },
 
@@ -33,7 +33,6 @@ const pluginInfo = {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
         },
         mode: 'no-cors'  // 添加 no-cors 模式
-        
       });
       if (response.ok) {
         const text = await response.text();
@@ -55,52 +54,53 @@ const pluginInfo = {
       }
     } catch (e) {
       console.error('Error querying phone info:', e);
+      jsonObject.error = e.toString();
     }
     return jsonObject;
   },
 
   // Generate output object
   async generateOutput(phoneNumber, nationalNumber, e164Number) {
-    const queryResults = await Promise.all([
-      phoneNumber ? this.queryPhoneInfo(phoneNumber) : Promise.resolve({}),
-      nationalNumber ? this.queryPhoneInfo(nationalNumber) : Promise.resolve({}),
-      e164Number ? this.queryPhoneInfo(e164Number) : Promise.resolve({})
-    ]);
+    try {
+      const queryResults = await Promise.all([
+        phoneNumber ? this.queryPhoneInfo(phoneNumber) : Promise.resolve({}),
+        nationalNumber ? this.queryPhoneInfo(nationalNumber) : Promise.resolve({}),
+        e164Number ? this.queryPhoneInfo(e164Number) : Promise.resolve({})
+      ]);
 
-    const [phoneInfo, nationalInfo, e164Info] = queryResults;
+      const [phoneInfo, nationalInfo, e164Info] = queryResults;
 
-    const info = {
-      count: phoneInfo.count || nationalInfo.count || e164Info.count,
-      sourceLabel: phoneInfo.sourceLabel || nationalInfo.sourceLabel || e164Info.sourceLabel,
-      sourceName: phoneInfo.sourceName || nationalInfo.sourceName || e164Info.sourceName,
-    };
+      const info = {
+        count: phoneInfo.count || nationalInfo.count || e164Info.count,
+        sourceLabel: phoneInfo.sourceLabel || nationalInfo.sourceLabel || e164Info.sourceLabel,
+        sourceName: phoneInfo.sourceName || nationalInfo.sourceName || e164Info.sourceName,
+      };
 
-    let matchedLabel = null;
-    for (const label of this.predefinedLabels) {
-      if (label.label === info.sourceLabel) {
-        matchedLabel = label.label;
-        break;
+      let matchedLabel = null;
+      for (const label of this.predefinedLabels) {
+        if (label.label === info.sourceLabel) {
+          matchedLabel = label.label;
+          break;
+        }
       }
-    }
-    if (!matchedLabel) {
-      matchedLabel = this.manualMapping[info.sourceLabel] || null;
-    }
+      if (!matchedLabel) {
+        matchedLabel = this.manualMapping[info.sourceLabel] || null;
+      }
 
-    console.log("Final output:", {
-      phoneNumber: phoneNumber,
-      sourceLabel: info.sourceLabel,
-      count: info.count,
-      predefinedLabel: matchedLabel,
-      source: info.sourceName || this.info.name,
-    });
+      const result = {
+        phoneNumber: phoneNumber,
+        sourceLabel: info.sourceLabel,
+        count: info.count,
+        predefinedLabel: matchedLabel,
+        source: info.sourceName || this.info.name,
+      };
 
-    return {
-      phoneNumber: phoneNumber,
-      sourceLabel: info.sourceLabel,
-      count: info.count,
-      predefinedLabel: matchedLabel,
-      source: info.sourceName || this.info.name,
-    };
+      console.log("Final output:", JSON.stringify(result));
+      return result;
+    } catch (error) {
+      console.error('Error in generateOutput:', error);
+      return { error: error.toString() };
+    }
   }
 };
 
