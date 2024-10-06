@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', (event) => {
 // JS脚本，插件信息
 const pluginInfo = {
   // 插件信息
@@ -131,6 +130,6 @@ const pluginInfo = {
     };
   }
 };
-});
+
 
 
