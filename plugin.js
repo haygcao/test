@@ -25,12 +25,12 @@ const pluginInfo = {
   },
 
   // Generate output object
-  async generateOutput(phoneNumber, nationalNumber, e164Number) {
+  generateOutput(phoneNumber, nationalNumber, e164Number) {
     try {
       // 在 WebView 中执行 JavaScript 代码获取网页信息
-      const phoneInfo = await new Promise((resolve, reject) => {
-        // 将获取网页信息的代码封装成一个函数
-        const getPhoneInfo = () => {
+      const phoneInfo = new Promise((resolve, reject) => {
+        // 监听 DOMContentLoaded 事件，确保页面完全加载完成后再执行代码
+        document.addEventListener('DOMContentLoaded', () => {
           const jsonObject = { count: 0 };
           try {
             const countElement = document.querySelector(".mohe-tips-zp b");
@@ -55,47 +55,47 @@ const pluginInfo = {
             }
 
             jsonObject.date = new Date().toISOString().split('T')[0];
-            return jsonObject;
+            resolve(jsonObject);
           } catch (e) {
             console.error('Error querying phone info:', e);
-            return { error: e.toString() };
+            reject(e.toString()); // 使用 reject 将错误传递给 Promise
           }
-        };
-
-        // 使用 setTimeout 延迟执行 getPhoneInfo 函数，确保页面加载完成
-        setTimeout(() => {
-          const result = getPhoneInfo();
-          resolve(result);
-        }, 1000); // 延迟 1 秒
+        });
       });
 
-      // ... 其他代码 (使用 phoneInfo 对象进行处理) ...
+      // 使用 then 处理 Promise 的结果，使用 catch 处理错误
+      return phoneInfo
+        .then((result) => {
+          let matchedLabel = null;
+          for (const [key, value] of Object.entries(this.manualMapping)) {
+            if (result.sourceLabel && result.sourceLabel.includes(key)) {
+              matchedLabel = value;
+              break;
+            }
+          }
+          if (!matchedLabel) {
+            matchedLabel = 'Unknown';
+          }
 
-      let matchedLabel = null;
-      for (const [key, value] of Object.entries(this.manualMapping)) {
-        if (phoneInfo.sourceLabel && phoneInfo.sourceLabel.includes(key)) {
-          matchedLabel = value;
-          break;
-        }
-      }
-      if (!matchedLabel) {
-        matchedLabel = 'Unknown';
-      }
+          const output = {
+            phoneNumber: result.phoneNumber || phoneNumber,
+            sourceLabel: result.sourceLabel,
+            count: result.count,
+            predefinedLabel: matchedLabel,
+            source: this.info.name,
+            province: result.province,
+            city: result.city,
+            carrier: result.carrier,
+            date: result.date,
+          };
 
-      const result = {
-        phoneNumber: phoneInfo.phoneNumber || phoneNumber,
-        sourceLabel: phoneInfo.sourceLabel,
-        count: phoneInfo.count,
-        predefinedLabel: matchedLabel,
-        source: this.info.name,
-        province: phoneInfo.province,
-        city: phoneInfo.city,
-        carrier: phoneInfo.carrier,
-        date: phoneInfo.date,
-      };
-
-      console.log("Final output:", JSON.stringify(result));
-      return result;
+          console.log("Final output:", JSON.stringify(output));
+          return output;
+        })
+        .catch((error) => {
+          console.error('Error in generateOutput:', error);
+          return { error: error };
+        });
     } catch (error) {
       console.error('Error in generateOutput:', error);
       return { error: error.toString() };
