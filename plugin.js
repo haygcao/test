@@ -14,14 +14,32 @@ const pluginInfo = {
   {'label': 'Fraud Scam Likely'},
   {'label': 'Spam Likely'},
   {'label': 'Telemarketing'},
-  // ... 省略其他预设标签
+  {'label': 'Robocall'},
+  {'label': 'Delivery'},
+  {'label': 'Takeaway'},
+  {'label': 'Ridesharing'},
+  {'label': 'Insurance'},
+  {'label': 'Loan'},
+  {'label': 'Customer Service'},
+  {'label': 'Unknown'},
+  {'label': 'Financial'},
+  {'label': 'Bank'},
+  {'label': 'Education'},
+  {'label': 'Medical'},
+  {'label': 'Charity'},
+  {'label': 'Other'},
+  {'label': 'Collection'},
+  {'label': 'Survey'},
+  {'label': 'Political'},
+  {'label': 'Ecommerce'},
   {'label': 'Risk'},
   ],
 
   // 手动映射表，将 source label 映射到预设标签
   manualMapping: {
-  '标签1': 'Fraud Scam Likely', // 对应预设标签 "Fraud Scam Likely"
-  '标签2': 'Spam Likely', // 对应预设标签 "Spam Likely"
+  '标签1': '诈骗', // 对应预设标签 "Fraud Scam Likely"
+  '标签2': '骚扰电话', // 对应预设标签 "Spam Likely"
+  '标签3': '未知', // 对应预设标签 "Unknown"  
   // ... 省略其他手动映射
   '标签22': 'Risk', // 对应预设标签 "Risk"
   },
