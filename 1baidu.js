@@ -2,7 +2,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.90.15',
+    version: '1.1.15',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -26,93 +26,59 @@ const pluginInfo = {
       city: "",
       carrier: ""
     };
-    try {
-      // 使用正则表达式查找包含电话号码的文本
-      const regex = new RegExp(phoneNumber, 'g');
-      const elements = doc.querySelectorAll('*'); // 获取所有元素
 
-      elements.forEach(element => {
-        const textContent = element.textContent;
-
-        // 检查元素文本是否包含电话号码
-        if (regex.test(textContent)) {
-          // 从父元素中查找标题和位置信息
-          let titleElement = element;
-          let locationElement = null;
-
-          while (titleElement && !titleElement.classList.contains('cc-title_31ypU')) {
-            titleElement = titleElement.parentElement;
-          }
-
-          if (titleElement) {
-            jsonObject.sourceLabel = titleElement.textContent.trim();
-
-            const markerElement = titleElement.querySelector('.marker-color_3IDoi');
-            if (markerElement) {
-              jsonObject.count = 1;
-            }
-
-            locationElement = titleElement.nextElementSibling;
-            if (locationElement && locationElement.classList.contains('cc-row_dDm_G')) {
-              const locationText = locationElement.textContent.trim();
-              const locationParts = locationText.split(' ');
-              if (locationParts.length >= 2) {
-                jsonObject.province = locationParts[0];
-                jsonObject.city = locationParts[1];
-              }
-            }
-          }
-        }
-      });
-
-      jsonObject.phoneNumber = phoneNumber;
-      console.log('Information extracted:', jsonObject);
-      return jsonObject;
-
-    } catch (e) {
-      console.error('Error querying phone info:', e);
-      throw e;
+    // Extract phone number
+    jsonObject.count = 1; // Assuming we always find one phone number in this context
+    const phoneElement = doc.querySelector(".c-title a em");
+    if (phoneElement) {
+      phoneNumber = phoneElement.textContent.trim();
     }
+
+    // Extract label
+    const labelElement = doc.querySelector(".cc-title_31ypU");
+    if (labelElement) {
+      jsonObject.sourceLabel = labelElement.textContent.trim();
+      // Map label if necessary
+      if (this.manualMapping[jsonObject.sourceLabel]) {
+        jsonObject.sourceLabel = this.manualMapping[jsonObject.sourceLabel];
+      }
+    }
+
+    // Extract province and city
+    const locationElement = doc.querySelector(".cc-row_dDm_G");
+    if (locationElement) {
+      const locationParts = locationElement.textContent.trim().split(" ");
+      if (locationParts.length >= 2) {
+        jsonObject.province = locationParts[0];
+        jsonObject.city = locationParts[1];
+      }
+    }
+
+    return jsonObject;
+  },
+  queryPhoneInfo(phoneNumber) {
+    // We don't need to make an external request here since we're injecting 
+    // the script directly into the page with the data.
+    return document; 
+  },
+  generateOutput(phoneNumber, nationalNumber, e164Number) {
+    const doc = this.queryPhoneInfo(phoneNumber);
+    const phoneInfo = this.extractPhoneInfo(doc, phoneNumber);
+
+    // Format the output based on extracted information 
+    // You can customize this part to your needs.
+    let output = `Phone Number: ${phoneNumber}\n`;
+    if (phoneInfo.sourceLabel) {
+      output += `Label: ${phoneInfo.sourceLabel}\n`;
+    }
+    if (phoneInfo.province) {
+      output += `Province: ${phoneInfo.province}\n`;
+    }
+    if (phoneInfo.city) {
+      output += `City: ${phoneInfo.city}\n`;
+    }
+    
+    return output; 
   }
 };
 
-window.pluginInfo = pluginInfo;
-
-if (window.FlutterChannel) {
-  window.FlutterChannel.postMessage('JavaScript loaded');
-}
-
-function processPhoneNumberData(data, phoneNumber) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(data, 'text/html');
-  const jsonObject = pluginInfo.extractPhoneInfo(doc, phoneNumber);
-
-  let matchedLabel = null;
-  for (const [key, value] of Object.entries(pluginInfo.manualMapping)) {
-    if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
-      matchedLabel = value;
-      break;
-    }
-  }
-  if (!matchedLabel) {
-    matchedLabel = 'Unknown';
-  }
-
-  const output = {
-    phoneNumber: phoneNumber,
-    sourceLabel: jsonObject.sourceLabel,
-    count: jsonObject.count,
-    predefinedLabel: matchedLabel,
-    source: pluginInfo.info.name,
-    province: jsonObject.province,
-    city: jsonObject.city,
-    carrier: jsonObject.carrier,
-    date: new Date().toISOString().split('T')[0],
-  };
-
-  console.log("Final output:", JSON.stringify(output));
-
-  window.FlutterChannel.postMessage(JSON.stringify(output));
-}
-
-console.log('Plugin loaded successfully');
