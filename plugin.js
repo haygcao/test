@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.12',
+    version: '1.9.13',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -85,12 +85,12 @@ const pluginInfo = {
     });
   },
 
-// Extract phone information function (revised)
+// Extract phone information function (revised again)
 extractPhoneInfo(doc, phoneNumber) {
   const jsonObject = { count: 0, sourceLabel: "" };
   try {
-    const countElement = doc.querySelector(".mohe-tips-zp > div[style*='color:#d73130;'] > b");
-    const sourceLabelElement = doc.querySelector(".mohe-tips-zp > div[style*='color:#d73130;']");
+    const countElement = doc.querySelector(".mohe-tips-zp div[style*='color:#d73130;'] b"); // 使用空格表示后代元素关系
+    const sourceLabelElement = doc.querySelector(".mohe-tips-zp div[style*='color:#d73130;']"); // 使用空格表示后代元素关系
 
     if (countElement) {
       jsonObject.count = parseInt(countElement.textContent);
