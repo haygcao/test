@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.9',
+    version: '1.9.10',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -89,8 +89,8 @@ const pluginInfo = {
   extractPhoneInfo(doc, phoneNumber) {
     const jsonObject = { count: 0 };
     try {
-      const countElement = doc.querySelector(".mohe-tips-zp b");
-      const addressElement = doc.querySelector(".mh-detail span:nth-child(2)");
+      const countElement = doc.querySelector(".mohe-tips-zp b"); 
+      const addressElement = doc.querySelector(".mh-detail span"); // 更新选择器
       const sourceLabelElement = doc.querySelector(".mohe-tips-zp");
       const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws");
 
@@ -100,11 +100,10 @@ const pluginInfo = {
       }
 
       if (addressElement) {
-        const addressParts = addressElement.textContent.trim().split(/\s+/);
-        console.log('Address parts:', addressParts);
-        jsonObject.province = addressParts[0];
-        jsonObject.city = addressParts[1];
-        jsonObject.carrier = addressParts[2];
+        const addressParts = addressElement.textContent.trim().split(/\s+/); 
+        jsonObject.province = addressParts[0];  // 更新索引
+        jsonObject.city = addressParts[1];     // 更新索引
+        jsonObject.carrier = addressParts[2];    // 更新索引
       }
 
       if (sourceLabelElement) {
