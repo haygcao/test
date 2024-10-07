@@ -2,7 +2,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.997',
+    version: '1.9.9971',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -30,25 +30,22 @@ extractPhoneInfo(doc, phoneNumber) {
   };
   try {
     // 更新后的 DOM 选择器
-    const infoContainer = doc.querySelector('#app > div > div:nth-child(2) > div.c-container > div.main_content-wrapper_1RWkL > div > div:nth-child(2) > div'); 
+    const infoContainer = doc.querySelector('#app > div > div:nth-child(2) > div.c-container > div.main_content-wrapper_1RWkL > div > div:nth-child(2) > div');
 
     if (infoContainer) {
-      const infoElement = infoContainer.querySelector('.c-gap-top-xsmall > div.c-span22.c-span-last'); // 使用更精确的选择器
+      const titleElement = infoContainer.querySelector('.c-gap-top-xsmall > div.c-span22.c-span-last > .c-row.c-gap-top-cc.cc-title_31ypU'); // 使用更精确的选择器
 
-      if (infoElement) {
-        const titleElement = infoElement.querySelector('.cc-title_31ypU'); // 获取标题元素
-        const locationElement = infoElement.querySelector('.cc-row_dDm_G'); // 获取位置元素
+      if (titleElement) {
+        jsonObject.sourceLabel = titleElement.textContent.trim();
 
-        if (titleElement) {
-          jsonObject.sourceLabel = titleElement.textContent.trim();
-
-          const markerElement = titleElement.querySelector('.marker-color_3IDoi');
-          if (markerElement) {
-            jsonObject.count = 1; 
-          }
+        const markerElement = titleElement.querySelector('.marker-color_3IDoi');
+        if (markerElement) {
+          jsonObject.count = 1;
         }
 
-        if (locationElement) {
+        // 提取省份和城市信息 (假设它们在标题元素的下一个兄弟元素中)
+        const locationElement = titleElement.nextElementSibling;
+        if (locationElement && locationElement.classList.contains('cc-row_dDm_G')) {
           const locationText = locationElement.textContent.trim();
           const locationParts = locationText.split(' ');
           if (locationParts.length >= 2) {
