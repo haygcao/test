@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.5',
+    version: '1.9.6',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -24,58 +24,39 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
 
-  // URL for phone lookup
-  phoneInfoUrl: 'https://www.so.com/s?q=',
-
   // Generate output object
-  async generateOutput(phoneNumber) {
-    try {
-      console.log("generateOutput function called with phoneNumber:", phoneNumber);
+  generateOutput(phoneNumber) {
+    console.log("generateOutput function called with phoneNumber:", phoneNumber);
 
-      // 使用 Fetch API 获取网页内容
-      const response = await fetch(this.phoneInfoUrl + encodeURIComponent(phoneNumber));
-      if (!response.ok) {
-        throw new Error(`Failed to fetch page: ${response.status}`);
+    // 提取信息
+    const jsonObject = this.extractPhoneInfo(document, phoneNumber);
+
+    let matchedLabel = null;
+    for (const [key, value] of Object.entries(this.manualMapping)) {
+      if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
+        matchedLabel = value;
+        break;
       }
-      const html = await response.text();
-
-      // 创建一个虚拟 DOM 解析 HTML 内容
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-
-      // Extract information from the virtual DOM
-      const jsonObject = this.extractPhoneInfo(doc, phoneNumber);
-
-      let matchedLabel = null;
-      for (const [key, value] of Object.entries(this.manualMapping)) {
-        if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
-          matchedLabel = value;
-          break;
-        }
-      }
-      if (!matchedLabel) {
-        matchedLabel = 'Unknown';
-      }
-
-      const output = {
-        phoneNumber: phoneNumber,
-        sourceLabel: jsonObject.sourceLabel,
-        count: jsonObject.count,
-        predefinedLabel: matchedLabel,
-        source: this.info.name,
-        province: jsonObject.province,
-        city: jsonObject.city,
-        carrier: jsonObject.carrier,
-        date: new Date().toISOString().split('T')[0],
-      };
-
-      console.log("Final output:", JSON.stringify(output));
-
-      return output;
-    } catch (error) {
-      console.error('Error in generateOutput:', error);
-      throw error;
     }
+    if (!matchedLabel) {
+      matchedLabel = 'Unknown';
+    }
+
+    const output = {
+      phoneNumber: phoneNumber,
+      sourceLabel: jsonObject.sourceLabel,
+      count: jsonObject.count,
+      predefinedLabel: matchedLabel,
+      source: this.info.name,
+      province: jsonObject.province,
+      city: jsonObject.city,
+      carrier: jsonObject.carrier,
+      date: new Date().toISOString().split('T')[0],
+    };
+
+    console.log("Final output:", JSON.stringify(output));
+    // 直接将结果返回，不需要 Promise
+    return output; 
   },
 
   // Extract phone information function
