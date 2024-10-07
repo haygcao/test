@@ -1,5 +1,5 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js"></script>
 
 // 提取百度数据
 function extractBaiduData(doc, phoneNumber) {
