@@ -1,84 +1,64 @@
-const pluginInfo = {
-  info: {
-    id: 'your-plugin-id',
-    name: 'Your Plugin Name',
-    version: '1.1.15',
-    description: 'This is a plugin template.',
-    author: 'Your Name',
-  },
-  predefinedLabels: [
-    {'label': 'Fraud Scam Likely'},
-    {'label': 'Spam Likely'},
-    {'label': 'Telemarketing'},
-    {'label': 'Unknown'},
-  ],
-  manualMapping: {
-    '诈骗电话': 'Fraud Scam Likely',
-    '骚扰电话': 'Spam Likely',
-    '电话营销': 'Telemarketing',
-  },
-  phoneInfoUrl: 'https://www.baidu.com/s?wd=',
-  extractPhoneInfo(doc, phoneNumber) {
-    const jsonObject = {
-      count: 0,
-      sourceLabel: "",
-      province: "",
-      city: "",
-      carrier: ""
-    };
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-    // Extract phone number
-    jsonObject.count = 1; // Assuming we always find one phone number in this context
-    const phoneElement = doc.querySelector(".c-title a em");
-    if (phoneElement) {
-      phoneNumber = phoneElement.textContent.trim();
-    }
+// 提取百度数据
+function extractBaiduData(doc, phoneNumber) {
+  const jsonObject = {
+    count: 0,
+    sourceLabel: "",
+    province: "",
+    city: "",
+    carrier: ""
+  };
 
-    // Extract label
-    const labelElement = doc.querySelector(".cc-title_31ypU");
-    if (labelElement) {
-      jsonObject.sourceLabel = labelElement.textContent.trim();
-      // Map label if necessary
-      if (this.manualMapping[jsonObject.sourceLabel]) {
-        jsonObject.sourceLabel = this.manualMapping[jsonObject.sourceLabel];
+  try {
+    // 更新后的选择器
+    const sourceElement = doc.querySelector('.op_fraudphone_word a');
+    const descElement = doc.querySelector('.op_fraudphone_word');
+    const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU'); // 标题元素
+    const locationElement = doc.querySelector('.c-span22.c-span-last .cc-row_dDm_G'); // 位置元素
+
+    if (descElement != null) {
+      const descText = descElement.text.trim();
+      const countMatch = RegExp(r'被(\d+)个').firstMatch(descText);
+      if (countMatch != null) {
+        jsonObject.count = parseInt(countMatch.group(1), 10);
       }
     }
 
-    // Extract province and city
-    const locationElement = doc.querySelector(".cc-row_dDm_G");
-    if (locationElement) {
-      const locationParts = locationElement.textContent.trim().split(" ");
-      if (locationParts.length >= 2) {
-        jsonObject.province = locationParts[0];
-        jsonObject.city = locationParts[1];
-      }
-    }
-
+    jsonObject.sourceLabel = titleElement ? titleElement.textContent.trim() : ''; // 从标题元素提取 sourceLabel
+    jsonObject.province = locationElement ? locationElement.textContent.trim().split(' ')[0] : ''; 
+    jsonObject.city = locationElement ? locationElement.textContent.trim().split(' ')[1] : '';
+    jsonObject.carrier = ''; 
+    jsonObject.phoneNumber = phoneNumber;
+    console.log('Information extracted:', jsonObject);
     return jsonObject;
-  },
-  queryPhoneInfo(phoneNumber) {
-    // We don't need to make an external request here since we're injecting 
-    // the script directly into the page with the data.
-    return document; 
-  },
-  generateOutput(phoneNumber, nationalNumber, e164Number) {
-    const doc = this.queryPhoneInfo(phoneNumber);
-    const phoneInfo = this.extractPhoneInfo(doc, phoneNumber);
-
-    // Format the output based on extracted information 
-    // You can customize this part to your needs.
-    let output = `Phone Number: ${phoneNumber}\n`;
-    if (phoneInfo.sourceLabel) {
-      output += `Label: ${phoneInfo.sourceLabel}\n`;
-    }
-    if (phoneInfo.province) {
-      output += `Province: ${phoneInfo.province}\n`;
-    }
-    if (phoneInfo.city) {
-      output += `City: ${phoneInfo.city}\n`;
-    }
-    
-    return output; 
+  } catch (e) {
+    console.error('Error querying phone info:', e);
+    throw e;
   }
+}
+
+// 插件接口
+async function queryPhoneNumber(phoneNumber) {
+  // 使用 axios 获取百度搜索结果的 HTML
+  const response = await axios.get(`https://www.baidu.com/s?wd=${phoneNumber}`);
+
+  if (response.status === 200) {
+    const html = response.data;
+    const $ = cheerio.load(html);
+    return extractBaiduData($, phoneNumber);
+  } else {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+}
+
+// 导出插件实例
+const plugin = {
+  platform: "百度号码查询插件",
+  version: "1.0.0",
+  queryPhoneNumber
 };
 
+// 通知 Flutter 应用插件已加载
+window.FlutterChannel.postMessage('Plugin loaded'); 
