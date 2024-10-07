@@ -18,7 +18,9 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
   phoneInfoUrl: 'https://www.baidu.com/s?wd=',
-  extractPhoneInfo(doc, phoneNumber) {
+// ... (其他代码与之前相同)
+
+extractPhoneInfo(doc, phoneNumber) {
   const jsonObject = {
     count: 0,
     sourceLabel: "",
@@ -28,28 +30,31 @@ const pluginInfo = {
   };
   try {
     // 更新后的 DOM 选择器
-    const infoContainer = doc.querySelector('#app > div > div:nth-child(2) > div.c-container > div.main_content-wrapper_1RWkL > div > div:nth-child(2) > div'); // 获取包含电话号码信息的容器元素
+    const infoContainer = doc.querySelector('#app > div > div:nth-child(2) > div.c-container > div.main_content-wrapper_1RWkL > div > div:nth-child(2) > div'); 
 
     if (infoContainer) {
-      const titleElement = infoContainer.querySelector('.c-gap-top-xsmall > div:nth-child(2) > div:nth-child(1)'); // 获取标题元素
-      const locationElement = infoContainer.querySelector('.c-gap-top-xsmall > div:nth-child(2) > div:nth-child(2)'); // 获取位置元素
+      const infoElement = infoContainer.querySelector('.c-gap-top-xsmall > div.c-span22.c-span-last'); // 使用更精确的选择器
 
-      if (titleElement) {
-        jsonObject.sourceLabel = titleElement.textContent.trim();
+      if (infoElement) {
+        const titleElement = infoElement.querySelector('.cc-title_31ypU'); // 获取标题元素
+        const locationElement = infoElement.querySelector('.cc-row_dDm_G'); // 获取位置元素
 
-        // 检查是否包含 "用户标记"
-        const markerElement = titleElement.querySelector('.marker-color_3IDoi');
-        if (markerElement) {
-          jsonObject.count = 1; // 假设至少有一个报告
+        if (titleElement) {
+          jsonObject.sourceLabel = titleElement.textContent.trim();
+
+          const markerElement = titleElement.querySelector('.marker-color_3IDoi');
+          if (markerElement) {
+            jsonObject.count = 1; 
+          }
         }
-      }
 
-      if (locationElement) {
-        const locationText = locationElement.textContent.trim();
-        const locationParts = locationText.split(' ');
-        if (locationParts.length >= 2) {
-          jsonObject.province = locationParts[0];
-          jsonObject.city = locationParts[1];
+        if (locationElement) {
+          const locationText = locationElement.textContent.trim();
+          const locationParts = locationText.split(' ');
+          if (locationParts.length >= 2) {
+            jsonObject.province = locationParts[0];
+            jsonObject.city = locationParts[1];
+          }
         }
       }
     }
@@ -63,6 +68,8 @@ const pluginInfo = {
     throw e;
   }
 }
+
+// ... (其他代码与之前相同)
 };
 
 window.pluginInfo = pluginInfo;
