@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.10',
+    version: '1.9.11',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -86,45 +86,31 @@ const pluginInfo = {
   },
 
   // Extract phone information function
-  extractPhoneInfo(doc, phoneNumber) {
-    const jsonObject = { count: 0 };
-    try {
-      const countElement = doc.querySelector(".mohe-tips-zp b"); 
-      const addressElement = doc.querySelector(".mh-detail span"); // 更新选择器
-      const sourceLabelElement = doc.querySelector(".mohe-tips-zp");
-      const sourceNameElement = doc.querySelector(".mohe-tips-zp .mohe-sjws");
+// Extract phone information function (simplified)
+extractPhoneInfo(doc, phoneNumber) {
+  const jsonObject = { count: 0, sourceLabel: "" }; // 初始化 sourceLabel 为空字符串
+  try {
+    const countElement = doc.querySelector(".mohe-tips-zp b");
+    const sourceLabelElement = doc.querySelector(".mohe-tips-zp"); 
 
-      if (countElement) {
-        jsonObject.count = parseInt(countElement.textContent);
-        console.log('Count:', jsonObject.count);
-      }
-
-      if (addressElement) {
-        const addressParts = addressElement.textContent.trim().split(/\s+/); 
-        jsonObject.province = addressParts[0];  // 更新索引
-        jsonObject.city = addressParts[1];     // 更新索引
-        jsonObject.carrier = addressParts[2];    // 更新索引
-      }
-
-      if (sourceLabelElement) {
-        jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
-        console.log('Source label:', jsonObject.sourceLabel);
-      }
-
-      if (sourceNameElement) {
-        jsonObject.sourceName = sourceNameElement.textContent.trim();
-        console.log('Source name:', jsonObject.sourceName);
-      }
-
-      jsonObject.phoneNumber = phoneNumber;
-      console.log('Information extracted:', jsonObject);
-      return jsonObject;
-    } catch (e) {
-      console.error('Error querying phone info:', e);
-      throw e;
+    if (countElement) {
+      jsonObject.count = parseInt(countElement.textContent);
+      console.log('Count:', jsonObject.count);
     }
+
+    if (sourceLabelElement) {
+      jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
+      console.log('Source label:', jsonObject.sourceLabel);
+    }
+
+    jsonObject.phoneNumber = phoneNumber;
+    console.log('Information extracted:', jsonObject);
+    return jsonObject;
+  } catch (e) {
+    console.error('Error querying phone info:', e);
+    throw e;
   }
-};
+}
 
 // Make pluginInfo globally accessible
 window.pluginInfo = pluginInfo;
