@@ -2,7 +2,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.97',
+    version: '1.9.997',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
