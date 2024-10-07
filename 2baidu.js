@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.76',
+    version: '1.9.68',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -33,8 +33,8 @@ const pluginInfo = {
       try {
         postMessageToFlutter("generateOutput function called with phoneNumber: " + phoneNumber);
 
-        // 使用 JavaScript 注入的方式导航到目标页面并提取信息
-        navigateToPageAndExtractInfo(this.phoneInfoUrl + encodeURIComponent(phoneNumber), (jsonObject) => {
+        // 使用 JavaScript 注入的方式获取页面内容
+        injectScriptAndExtractInfo(this.phoneInfoUrl + encodeURIComponent(phoneNumber), (jsonObject) => {
           // 直接使用原始标签作为 predefinedLabel
           const output = {
             phoneNumber: phoneNumber,
@@ -49,7 +49,6 @@ const pluginInfo = {
           };
 
           postMessageToFlutter("Final output: " + JSON.stringify(output));
-
           resolve(output);
         }, (error) => {
           postMessageToFlutter('Error in injectScriptAndExtractInfo: ' + error.message);
@@ -64,7 +63,7 @@ const pluginInfo = {
   },
 
   // Extract phone information function
-  extractPhoneInfo(doc, phoneNumber) {
+  extractPhoneInfo(htmlContent, phoneNumber) {
     const jsonObject = {
       count: 0,
       sourceLabel: "",
@@ -72,8 +71,13 @@ const pluginInfo = {
       city: "",
       carrier: ""
     };
+
     try {
       postMessageToFlutter("开始提取电话信息...");
+
+      // 将 HTML 内容解析为 DOM
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
 
       // 提取标记次数 - 检查是否存在风险提示
       const riskTipElement = doc.querySelector(".c-border .mark-tip_3WkLJ");
@@ -84,7 +88,7 @@ const pluginInfo = {
         postMessageToFlutter("未检测到风险提示");
       }
 
-      // 提取来源标签 - 获取诈骗电话类型 (原始标签) - 修改后的逻辑
+      // 提取来源标签 - 获取诈骗电话类型 (原始标签) 
       const sourceLabelElement = doc.querySelector(".c-border .cc-title_31ypU");
       if (sourceLabelElement) {
         jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
@@ -120,27 +124,41 @@ const pluginInfo = {
   }
 };
 
-// 导航到目标页面并提取信息
-function navigateToPageAndExtractInfo(url, onSuccess, onError) {
+// 将脚本注入页面并提取信息
+function injectScriptAndExtractInfo(url, onSuccess, onError) {
   try {
-    // 导航到目标页面
-    window.location.href = url;
+    // 创建一个 <script> 元素
+    const script = document.createElement('script');
 
-    // 监听页面加载完成事件
-    window.addEventListener('load', () => {
-      try {
-        // 获取页面内容
-        const pageContent = document.documentElement.outerHTML;
+    // 设置脚本内容，使用 XMLHttpRequest 获取页面内容并调用 extractPhoneInfo 函数
+    script.textContent = `
+      (function() {
+        try {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', '${url}', true); 
+          xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              const jsonObject = pluginInfo.extractPhoneInfo(xhr.responseText, "${getPhoneNumberFromUrl(url)}");
+              ${onSuccess.toString()}(jsonObject);
+            } else {
+              throw new Error('Request failed with status ' + xhr.status);
+            }
+          };
+          xhr.onerror = function() {
+            throw new Error('Request failed');
+          };
+          xhr.send();
+        } catch (error) {
+          ${onError.toString()}(error);
+        }
+      })();
+    `;
 
-        // 将页面内容传递给 extractPhoneInfo 函数
-        const jsonObject = pluginInfo.extractPhoneInfo(new DOMParser().parseFromString(pageContent, 'text/html'), getPhoneNumberFromUrl(url));
+    // 将 <script> 元素添加到页面中
+    document.body.appendChild(script);
 
-        // 将提取到的信息传递给 onSuccess 回调函数
-        onSuccess(jsonObject);
-      } catch (error) {
-        onError(error);
-      }
-    });
+    // 移除 <script> 元素
+    document.body.removeChild(script);
   } catch (error) {
     onError(error);
   }
