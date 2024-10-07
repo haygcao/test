@@ -1,15 +1,16 @@
+// JavaScript 代码 (plugin.js)
 // Plugin information and functionality
 const pluginInfo = {
   // Plugin information
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.69',
+    version: '1.9.85',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
 
-  // Predefined labels list (暂时不需要)
+  // Predefined labels list
   predefinedLabels: [
     { 'label': 'Fraud Scam Likely' },
     { 'label': 'Spam Likely' },
@@ -21,64 +22,11 @@ const pluginInfo = {
   manualMapping: {
     '诈骗电话': 'Fraud Scam Likely',
     '骚扰电话': 'Spam Likely',
-    '电话营销': 'Telemarketing',
+    '电话营销': 'Telemarketing', 
   },
 
   // URL for phone lookup
   phoneInfoUrl: 'https://www.baidu.com/s?wd=',
-
-  // Generate output object
-  generateOutput(phoneNumber) {
-    return new Promise((resolve, reject) => {
-      try {
-        console.log("generateOutput function called with phoneNumber:", phoneNumber);
-
-        // Navigate to the phone lookup URL
-        window.location.href = this.phoneInfoUrl + encodeURIComponent(phoneNumber);
-
-        // Wait for the page to load and then extract information
-        setTimeout(() => {
-          const jsonObject = this.extractPhoneInfo(document, phoneNumber);
-
-          let matchedLabel = null;
-          for (const [key, value] of Object.entries(this.manualMapping)) {
-            if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
-              matchedLabel = value;
-              break;
-            }
-          }
-          if (!matchedLabel) {
-            matchedLabel = 'Unknown';
-          }
-
-          const output = {
-            phoneNumber: phoneNumber,
-            sourceLabel: jsonObject.sourceLabel,
-            count: jsonObject.count,
-            predefinedLabel: matchedLabel,
-            source: this.info.name,
-            province: jsonObject.province,
-            city: jsonObject.city,
-            carrier: jsonObject.carrier,
-            date: new Date().toISOString().split('T')[0],
-          };
-
-          console.log("Final output:", JSON.stringify(output));
-
-          // Send the result back to Flutter
-          window.FlutterChannel.postMessage(JSON.stringify(output));
-
-          // You can optionally navigate back to a blank page or a previous page here
-          // window.location.href = 'about:blank';
-
-        }, 3000); // Adjust the timeout as needed
-
-      } catch (error) {
-        console.error('Error in generateOutput:', error);
-        window.FlutterChannel.postMessage(JSON.stringify({ error: error.toString() }));
-      }
-    });
-  },
 
   // Extract phone information function (Updated to use DOM manipulation)
   extractPhoneInfo(doc, phoneNumber) {
@@ -127,6 +75,51 @@ window.pluginInfo = pluginInfo;
 // Notify Flutter app that JavaScript code has been loaded
 if (window.FlutterChannel) {
   window.FlutterChannel.postMessage('JavaScript loaded');
+}
+
+// 处理 Flutter 应用传递的数据
+function processPhoneNumberData(data) {
+  // 解析 HTML 响应
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(data, 'text/html');
+
+  // 从 Flutter 代码中获取电话号码
+  // 注意：你需要找到一种方法将电话号码从 Flutter 传递到 JavaScript
+  // 例如，你可以将电话号码作为参数传递给 processPhoneNumberData 函数
+  // 或者，你可以在 JavaScript 代码中访问 Flutter 注入的全局变量
+  // 这里假设你已经将电话号码存储在名为 'phoneNumber' 的全局变量中
+  const phoneNumber = window.phoneNumber; 
+
+  // 提取电话号码信息 (使用 DOM 操作)
+  const jsonObject = pluginInfo.extractPhoneInfo(doc, phoneNumber); 
+
+  let matchedLabel = null;
+  for (const [key, value] of Object.entries(pluginInfo.manualMapping)) {
+    if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
+      matchedLabel = value;
+      break;
+    }
+  }
+  if (!matchedLabel) {
+    matchedLabel = 'Unknown';
+  }
+
+  const output = {
+    phoneNumber: phoneNumber,
+    sourceLabel: jsonObject.sourceLabel,
+    count: jsonObject.count,
+    predefinedLabel: matchedLabel,
+    source: pluginInfo.info.name,
+    province: jsonObject.province,
+    city: jsonObject.city,
+    carrier: jsonObject.carrier,
+    date: new Date().toISOString().split('T')[0],
+  };
+
+  console.log("Final output:", JSON.stringify(output));
+
+  // Send the result back to Flutter
+  window.FlutterChannel.postMessage(JSON.stringify(output));
 }
 
 console.log('Plugin loaded successfully');
