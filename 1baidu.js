@@ -2,7 +2,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.9971',
+    version: '1.90.15',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -18,55 +18,62 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
   phoneInfoUrl: 'https://www.baidu.com/s?wd=',
-// ... (其他代码与之前相同)
+  extractPhoneInfo(doc, phoneNumber) {
+    const jsonObject = {
+      count: 0,
+      sourceLabel: "",
+      province: "",
+      city: "",
+      carrier: ""
+    };
+    try {
+      // 使用正则表达式查找包含电话号码的文本
+      const regex = new RegExp(phoneNumber, 'g');
+      const elements = doc.querySelectorAll('*'); // 获取所有元素
 
-extractPhoneInfo(doc, phoneNumber) {
-  const jsonObject = {
-    count: 0,
-    sourceLabel: "",
-    province: "",
-    city: "",
-    carrier: ""
-  };
-  try {
-    // 更新后的 DOM 选择器
-    const infoContainer = doc.querySelector('#app > div > div:nth-child(2) > div.c-container > div.main_content-wrapper_1RWkL > div > div:nth-child(2) > div');
+      elements.forEach(element => {
+        const textContent = element.textContent;
 
-    if (infoContainer) {
-      const titleElement = infoContainer.querySelector('.c-gap-top-xsmall > div.c-span22.c-span-last > .c-row.c-gap-top-cc.cc-title_31ypU'); // 使用更精确的选择器
+        // 检查元素文本是否包含电话号码
+        if (regex.test(textContent)) {
+          // 从父元素中查找标题和位置信息
+          let titleElement = element;
+          let locationElement = null;
 
-      if (titleElement) {
-        jsonObject.sourceLabel = titleElement.textContent.trim();
+          while (titleElement && !titleElement.classList.contains('cc-title_31ypU')) {
+            titleElement = titleElement.parentElement;
+          }
 
-        const markerElement = titleElement.querySelector('.marker-color_3IDoi');
-        if (markerElement) {
-          jsonObject.count = 1;
-        }
+          if (titleElement) {
+            jsonObject.sourceLabel = titleElement.textContent.trim();
 
-        // 提取省份和城市信息 (假设它们在标题元素的下一个兄弟元素中)
-        const locationElement = titleElement.nextElementSibling;
-        if (locationElement && locationElement.classList.contains('cc-row_dDm_G')) {
-          const locationText = locationElement.textContent.trim();
-          const locationParts = locationText.split(' ');
-          if (locationParts.length >= 2) {
-            jsonObject.province = locationParts[0];
-            jsonObject.city = locationParts[1];
+            const markerElement = titleElement.querySelector('.marker-color_3IDoi');
+            if (markerElement) {
+              jsonObject.count = 1;
+            }
+
+            locationElement = titleElement.nextElementSibling;
+            if (locationElement && locationElement.classList.contains('cc-row_dDm_G')) {
+              const locationText = locationElement.textContent.trim();
+              const locationParts = locationText.split(' ');
+              if (locationParts.length >= 2) {
+                jsonObject.province = locationParts[0];
+                jsonObject.city = locationParts[1];
+              }
+            }
           }
         }
-      }
+      });
+
+      jsonObject.phoneNumber = phoneNumber;
+      console.log('Information extracted:', jsonObject);
+      return jsonObject;
+
+    } catch (e) {
+      console.error('Error querying phone info:', e);
+      throw e;
     }
-
-    jsonObject.phoneNumber = phoneNumber;
-    console.log('Information extracted:', jsonObject);
-    return jsonObject;
-
-  } catch (e) {
-    console.error('Error querying phone info:', e);
-    throw e;
   }
-}
-
-// ... (其他代码与之前相同)
 };
 
 window.pluginInfo = pluginInfo;
