@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.15',
+    version: '1.9.65',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -33,43 +33,28 @@ const pluginInfo = {
       try {
         postMessageToFlutter("generateOutput function called with phoneNumber: " + phoneNumber);
 
-        // Use XMLHttpRequest to fetch page content
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', this.phoneInfoUrl + encodeURIComponent(phoneNumber), true);
-        xhr.onload = () => {
-          if (xhr.status === 200) {
-            // Parse HTML content
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(xhr.responseText, 'text/html');
+        // 使用 JavaScript 注入的方式获取页面内容
+        injectScriptAndExtractInfo(phoneNumber, (jsonObject) => {
+          // 直接使用原始标签作为 predefinedLabel
+          const output = {
+            phoneNumber: phoneNumber,
+            sourceLabel: jsonObject.sourceLabel,
+            count: jsonObject.count,
+            predefinedLabel: jsonObject.sourceLabel, // 直接使用原始标签
+            source: this.info.name,
+            province: jsonObject.province,
+            city: jsonObject.city,
+            carrier: jsonObject.carrier,
+            date: new Date().toISOString().split('T')[0],
+          };
 
-            // Extract information
-            const jsonObject = this.extractPhoneInfo(doc, phoneNumber);
+          postMessageToFlutter("Final output: " + JSON.stringify(output));
 
-            // 直接使用原始标签作为 predefinedLabel
-            const output = {
-              phoneNumber: phoneNumber,
-              sourceLabel: jsonObject.sourceLabel,
-              count: jsonObject.count,
-              predefinedLabel: jsonObject.sourceLabel, // 直接使用原始标签
-              source: this.info.name,
-              province: jsonObject.province,
-              city: jsonObject.city,
-              carrier: jsonObject.carrier,
-              date: new Date().toISOString().split('T')[0],
-            };
-
-            postMessageToFlutter("Final output: " + JSON.stringify(output));
-
-            resolve(output);
-          } else {
-            reject(new Error(`Request failed with status ${xhr.status}`));
-          }
-        };
-        xhr.onerror = () => {
-          postMessageToFlutter("Request failed");
-          reject(new Error('Request failed'));
-        };
-        xhr.send();
+          resolve(output);
+        }, (error) => {
+          postMessageToFlutter('Error in injectScriptAndExtractInfo: ' + error.message);
+          reject(error);
+        });
 
       } catch (error) {
         postMessageToFlutter('Error in generateOutput: ' + error.message);
@@ -134,6 +119,42 @@ const pluginInfo = {
     }
   }
 };
+
+// 将脚本注入页面并提取信息
+function injectScriptAndExtractInfo(phoneNumber, onSuccess, onError) {
+  try {
+    // 创建一个 <script> 元素
+    const script = document.createElement('script');
+
+    // 设置脚本内容，使用 JavaScript 获取页面内容并调用 extractPhoneInfo 函数
+    script.textContent = `
+      (function() {
+        try {
+          // 获取页面内容 (这里需要根据实际页面结构调整)
+          const pageContent = document.documentElement.outerHTML; 
+
+          // 将页面内容传递给 extractPhoneInfo 函数
+          const jsonObject = pluginInfo.extractPhoneInfo(new DOMParser().parseFromString(pageContent, 'text/html'), "${phoneNumber}");
+
+          // 将提取到的信息传递给 onSuccess 回调函数
+          ${onSuccess.toString()}(jsonObject); 
+        } catch (error) {
+          // 将错误信息传递给 onError 回调函数
+          ${onError.toString()}(error);
+        }
+      })();
+    `;
+
+    // 将 <script> 元素添加到页面中
+    document.body.appendChild(script);
+
+    // 移除 <script> 元素 (可选)
+    document.body.removeChild(script);
+  } catch (error) {
+    onError(error);
+  }
+}
+
 
 // 将消息发送到 Flutter 应用
 function postMessageToFlutter(message) {
