@@ -89,12 +89,18 @@ extractPhoneInfo(doc, phoneNumber) {
     const riskTipElement = doc.querySelector(".c-border .mark-tip_3WkLJ");
     if (riskTipElement) {
       jsonObject.count = 1; // 存在风险提示，设置 count 为 1
+      console.log("检测到风险提示，count 设置为 1"); 
+    } else {
+      console.log("未检测到风险提示");
     }
 
     // 提取来源标签 - 获取诈骗电话类型 (原始标签) - 修改后的逻辑
     const sourceLabelElement = doc.querySelector(".c-border .cc-title_31ypU"); 
     if (sourceLabelElement) {
       jsonObject.sourceLabel = sourceLabelElement.textContent.trim(); 
+      console.log("提取到 sourceLabel:", jsonObject.sourceLabel);
+    } else {
+      console.log("未找到 sourceLabel 元素"); 
     }
 
     // 提取省份和城市
@@ -104,7 +110,12 @@ extractPhoneInfo(doc, phoneNumber) {
       if (locationParts.length >= 2) {
         jsonObject.province = locationParts[0];
         jsonObject.city = locationParts[1];
+        console.log("提取到省份:", jsonObject.province, "城市:", jsonObject.city);
+      } else {
+        console.log("locationElement 文本内容格式不正确");
       }
+    } else {
+      console.log("未找到 locationElement 元素");
     }
 
     jsonObject.phoneNumber = phoneNumber;
