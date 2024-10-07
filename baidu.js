@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.33',
+    version: '1.9.53',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -75,46 +75,46 @@ const pluginInfo = {
     });
   },
 
-  // Extract phone information function
-  extractPhoneInfo(doc, phoneNumber) {
-    const jsonObject = {
-      count: 0,
-      sourceLabel: "",
-      province: "",
-      city: "",
-      carrier: ""
-    };
-    try {
-      // 提取标记次数 - 检查是否存在风险提示
-      const riskTipElement = doc.querySelector(".c-border .mark-tip_3WkLJ");
-      if (riskTipElement) {
-        jsonObject.count = 1; // 存在风险提示，设置 count 为 1
-      }
-
-      // 提取来源标签 - 获取诈骗电话类型 (原始标签)
-      const sourceLabelElement = doc.querySelector(".c-border .cc-title_31ypU");
-      if (sourceLabelElement) {
-        jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
-      }
-
-      // 提取省份和城市
-      const locationElement = doc.querySelector(".c-border .cc-row_dDm_G");
-      if (locationElement) {
-        const locationParts = locationElement.textContent.trim().split(" ");
-        if (locationParts.length >= 2) {
-          jsonObject.province = locationParts[0];
-          jsonObject.city = locationParts[1];
-        }
-      }
-
-      jsonObject.phoneNumber = phoneNumber;
-      console.log('提取到的信息:', jsonObject);
-      return jsonObject;
-    } catch (e) {
-      console.error('查询电话信息时出错:', e);
-      throw e;
+// Extract phone information function
+extractPhoneInfo(doc, phoneNumber) {
+  const jsonObject = {
+    count: 0,
+    sourceLabel: "",
+    province: "",
+    city: "",
+    carrier: ""
+  };
+  try {
+    // 提取标记次数 - 检查是否存在风险提示
+    const riskTipElement = doc.querySelector(".c-border .mark-tip_3WkLJ");
+    if (riskTipElement) {
+      jsonObject.count = 1; // 存在风险提示，设置 count 为 1
     }
+
+    // 提取来源标签 - 获取诈骗电话类型 (原始标签) - 修改后的逻辑
+    const sourceLabelElement = doc.querySelector(".c-border .cc-title_31ypU"); 
+    if (sourceLabelElement) {
+      jsonObject.sourceLabel = sourceLabelElement.textContent.trim(); 
+    }
+
+    // 提取省份和城市
+    const locationElement = doc.querySelector(".c-border .cc-row_dDm_G");
+    if (locationElement) {
+      const locationParts = locationElement.textContent.trim().split(" ");
+      if (locationParts.length >= 2) {
+        jsonObject.province = locationParts[0];
+        jsonObject.city = locationParts[1];
+      }
+    }
+
+    jsonObject.phoneNumber = phoneNumber;
+    console.log('提取到的信息:', jsonObject);
+    return jsonObject;
+  } catch (e) {
+    console.error('查询电话信息时出错:', e);
+    throw e;
   }
+}
 };
 
 // Make pluginInfo globally accessible
