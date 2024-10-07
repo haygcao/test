@@ -1,8 +1,13 @@
-// 引入 axios 和 cheerio
-// 使用 <script> 标签引入 axios 和 cheerio
-document.write('<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"><\/script>');
-document.write('<script src="https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js"><\/script>');
-// 提取百度数据
+document.addEventListener('DOMContentLoaded', (event) => {
+  // 引入 axios 和 cheerio
+  let axiosScript = document.createElement('script');
+  axiosScript.src = 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
+  document.head.appendChild(axiosScript);
+
+  let cheerioScript = document.createElement('script');
+  cheerioScript.src = 'https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js';
+  document.head.appendChild(cheerioScript);
+  // 提取百度数据
 function extractBaiduData(doc, phoneNumber) {
   const jsonObject = {
     count: 0,
@@ -64,3 +69,4 @@ const plugin = {
 
 // 通知 Flutter 应用插件已加载
 window.FlutterChannel.postMessage('Plugin loaded'); 
+});
