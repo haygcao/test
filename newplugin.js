@@ -4,17 +4,17 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.6',
+    version: '1.9.9',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
 
   // Predefined labels list
   predefinedLabels: [
-    {'label': 'Fraud Scam Likely'},
-    {'label': 'Spam Likely'},
-    {'label': 'Telemarketing'},
-    {'label': 'Unknown'},
+    { 'label': 'Fraud Scam Likely' },
+    { 'label': 'Spam Likely' },
+    { 'label': 'Telemarketing' },
+    { 'label': 'Unknown' },
   ],
 
   // Manual mapping table
@@ -24,39 +24,65 @@ const pluginInfo = {
     '电话营销': 'Telemarketing',
   },
 
+  // URL for phone lookup
+  phoneInfoUrl: 'https://www.so.com/s?q=',
+
   // Generate output object
   generateOutput(phoneNumber) {
-    console.log("generateOutput function called with phoneNumber:", phoneNumber);
+    return new Promise((resolve, reject) => {
+      try {
+        console.log("generateOutput function called with phoneNumber:", phoneNumber);
 
-    // 提取信息
-    const jsonObject = this.extractPhoneInfo(document, phoneNumber);
+        // Use XMLHttpRequest to fetch page content
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', this.phoneInfoUrl + encodeURIComponent(phoneNumber), true);
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            // Parse HTML content
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(xhr.responseText, 'text/html');
 
-    let matchedLabel = null;
-    for (const [key, value] of Object.entries(this.manualMapping)) {
-      if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
-        matchedLabel = value;
-        break;
+            // Extract information
+            const jsonObject = this.extractPhoneInfo(doc, phoneNumber);
+
+            let matchedLabel = null;
+            for (const [key, value] of Object.entries(this.manualMapping)) {
+              if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
+                matchedLabel = value;
+                break;
+              }
+            }
+            if (!matchedLabel) {
+              matchedLabel = 'Unknown';
+            }
+
+            const output = {
+              phoneNumber: phoneNumber,
+              sourceLabel: jsonObject.sourceLabel,
+              count: jsonObject.count,
+              predefinedLabel: matchedLabel,
+              source: this.info.name,
+              province: jsonObject.province,
+              city: jsonObject.city,
+              carrier: jsonObject.carrier,
+              date: new Date().toISOString().split('T')[0],
+            };
+
+            console.log("Final output:", JSON.stringify(output));
+
+            resolve(output);
+          } else {
+            reject(new Error(`Request failed with status ${xhr.status}`));
+          }
+        };
+        xhr.onerror = () => reject(new Error('Request failed'));
+        xhr.send();
+
+      } catch (error) {
+        console.error('Error in generateOutput:', error);
+        reject(error);
       }
-    }
-    if (!matchedLabel) {
-      matchedLabel = 'Unknown';
-    }
-
-    const output = {
-      phoneNumber: phoneNumber,
-      sourceLabel: jsonObject.sourceLabel,
-      count: jsonObject.count,
-      predefinedLabel: matchedLabel,
-      source: this.info.name,
-      province: jsonObject.province,
-      city: jsonObject.city,
-      carrier: jsonObject.carrier,
-      date: new Date().toISOString().split('T')[0],
-    };
-
-    console.log("Final output:", JSON.stringify(output));
-    // 直接将结果返回，不需要 Promise
-    return output; 
+    });
   },
 
   // Extract phone information function
@@ -109,4 +135,4 @@ if (window.FlutterChannel) {
   window.FlutterChannel.postMessage('JavaScript loaded');
 }
 
-console.log('Plugin loaded successfully');
+console.log('Plugin loaded successfully'); 
