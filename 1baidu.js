@@ -1,6 +1,5 @@
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js"></script>
-
+https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js
+ https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js
 // 提取百度数据
 function extractBaiduData(doc, phoneNumber) {
   const jsonObject = {
@@ -41,11 +40,12 @@ function extractBaiduData(doc, phoneNumber) {
 
 // 插件接口
 async function queryPhoneNumber(phoneNumber) {
-  // 使用 axios 获取百度搜索结果的 HTML
+  // 直接使用 axios 对象
   const response = await axios.get(`https://www.baidu.com/s?wd=${phoneNumber}`);
 
   if (response.status === 200) {
     const html = response.data;
+    // 直接使用 cheerio 对象
     const $ = cheerio.load(html);
     return extractBaiduData($, phoneNumber);
   } else {
