@@ -4,12 +4,12 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.25',
+    version: '1.9.33',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
 
-  // Predefined labels list
+  // Predefined labels list (暂时不需要)
   predefinedLabels: [
     { 'label': 'Fraud Scam Likely' },
     { 'label': 'Spam Likely' },
@@ -17,11 +17,11 @@ const pluginInfo = {
     { 'label': 'Unknown' },
   ],
 
-  // Manual mapping table
+  // Manual mapping table (暂时不需要)
   manualMapping: {
     '诈骗电话': 'Fraud Scam Likely',
     '骚扰电话': 'Spam Likely',
-    '电话营销': 'Telemarketing', 
+    '电话营销': 'Telemarketing',
   },
 
   // URL for phone lookup
@@ -45,22 +45,12 @@ const pluginInfo = {
             // Extract information
             const jsonObject = this.extractPhoneInfo(doc, phoneNumber);
 
-            let matchedLabel = null;
-            for (const [key, value] of Object.entries(this.manualMapping)) {
-              if (jsonObject.sourceLabel && jsonObject.sourceLabel.includes(key)) {
-                matchedLabel = value;
-                break;
-              }
-            }
-            if (!matchedLabel) {
-              matchedLabel = 'Unknown';
-            }
-
+            // 直接使用原始标签作为 predefinedLabel
             const output = {
               phoneNumber: phoneNumber,
-              sourceLabel: jsonObject.sourceLabel,
+              sourceLabel: jsonObject.sourceLabel, 
               count: jsonObject.count,
-              predefinedLabel: matchedLabel,
+              predefinedLabel: jsonObject.sourceLabel, // 直接使用原始标签
               source: this.info.name,
               province: jsonObject.province,
               city: jsonObject.city,
@@ -86,26 +76,25 @@ const pluginInfo = {
   },
 
   // Extract phone information function
-  // Extract phone information function
   extractPhoneInfo(doc, phoneNumber) {
-    const jsonObject = { 
-      count: 0, 
-      sourceLabel: "", 
-      province: "", 
+    const jsonObject = {
+      count: 0,
+      sourceLabel: "",
+      province: "",
       city: "",
-      carrier: "" 
+      carrier: ""
     };
     try {
       // 提取标记次数 - 检查是否存在风险提示
       const riskTipElement = doc.querySelector(".c-border .mark-tip_3WkLJ");
       if (riskTipElement) {
-        jsonObject.count = 1; // 假设存在风险提示则至少有一次标记
+        jsonObject.count = 1; // 存在风险提示，设置 count 为 1
       }
 
-      // 提取来源标签 - 获取诈骗电话类型
+      // 提取来源标签 - 获取诈骗电话类型 (原始标签)
       const sourceLabelElement = doc.querySelector(".c-border .cc-title_31ypU");
       if (sourceLabelElement) {
-        jsonObject.sourceLabel = sourceLabelElement.textContent.trim(); 
+        jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
       }
 
       // 提取省份和城市
