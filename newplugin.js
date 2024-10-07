@@ -86,14 +86,15 @@ const pluginInfo = {
   },
 
 // Extract phone information function (revised again)
+// Extract phone information function (final revision)
 extractPhoneInfo(doc, phoneNumber) {
   const jsonObject = { count: 0, sourceLabel: "" };
   try {
-    const countElement = doc.querySelector(".mohe-tips-zp div[style*='color:#d73130;'] b"); // 使用空格表示后代元素关系
-    const sourceLabelElement = doc.querySelector(".mohe-tips-zp div[style*='color:#d73130;']"); // 使用空格表示后代元素关系
+    const countElement = doc.querySelector(".mohe-tips-zp div[style*='color:#d73130;'] b");
+    const sourceLabelElement = doc.querySelector(".mohe-tips-zp div[style*='color:#d73130;']");
 
     if (countElement) {
-      jsonObject.count = parseInt(countElement.textContent);
+      jsonObject.count = parseInt(countElement.textContent.trim()); // 使用 trim() 方法去除空格
       console.log('Count:', jsonObject.count);
     }
 
