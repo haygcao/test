@@ -1,13 +1,22 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-  // 引入 axios 和 cheerio
-  let axiosScript = document.createElement('script');
-  axiosScript.src = 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
-  document.head.appendChild(axiosScript);
+  // 使用 DOMParser 解析 HTML 字符串
+  const parser = new DOMParser();
+  const doc = parser.parseFromString('<html><head></head><body></body></html>', 'text/html');
 
-  let cheerioScript = document.createElement('script');
+  // 创建 <script> 标签并设置 src 属性
+  const axiosScript = doc.createElement('script');
+  axiosScript.src = 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
+
+  const cheerioScript = doc.createElement('script');
   cheerioScript.src = 'https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js';
-  document.head.appendChild(cheerioScript);
-  
+
+  // 将 <script> 标签添加到 <head> 元素中
+  doc.head.appendChild(axiosScript);
+  doc.head.appendChild(cheerioScript);
+
+  // 等待 axios 和 cheerio 加载完成
+  axiosScript.onload = () => {
+    cheerioScript.onload = () => {
   // 提取百度数据
 function extractBaiduData(doc, phoneNumber) {
   const jsonObject = {
@@ -74,4 +83,9 @@ const plugin = {
 
 // 通知 Flutter 应用插件已加载
 window.FlutterChannel.postMessage('Plugin loaded'); 
+    };
+  };
+
+  // 将解析后的 HTML 代码写入 WebView
+  document.body.innerHTML = doc.body.innerHTML;
 });
