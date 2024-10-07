@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.15',
+    version: '1.9.25',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -86,6 +86,7 @@ const pluginInfo = {
   },
 
   // Extract phone information function
+  // Extract phone information function
   extractPhoneInfo(doc, phoneNumber) {
     const jsonObject = { 
       count: 0, 
@@ -95,19 +96,19 @@ const pluginInfo = {
       carrier: "" 
     };
     try {
-      // Extract count (if available) - Updated selector
-      const countElement = doc.querySelector(".c-border .mark-tip_3WkLJ span"); 
-      if (countElement && countElement.textContent.includes("此号码存在风险")) {
-        jsonObject.count = 1; // Assuming at least one report if the warning exists
+      // 提取标记次数 - 检查是否存在风险提示
+      const riskTipElement = doc.querySelector(".c-border .mark-tip_3WkLJ");
+      if (riskTipElement) {
+        jsonObject.count = 1; // 假设存在风险提示则至少有一次标记
       }
 
-      // Extract source label - Updated selector
+      // 提取来源标签 - 获取诈骗电话类型
       const sourceLabelElement = doc.querySelector(".c-border .cc-title_31ypU");
       if (sourceLabelElement) {
-        jsonObject.sourceLabel = sourceLabelElement.textContent.trim();
+        jsonObject.sourceLabel = sourceLabelElement.textContent.trim(); 
       }
 
-      // Extract province and city - Updated selector
+      // 提取省份和城市
       const locationElement = doc.querySelector(".c-border .cc-row_dDm_G");
       if (locationElement) {
         const locationParts = locationElement.textContent.trim().split(" ");
@@ -118,10 +119,10 @@ const pluginInfo = {
       }
 
       jsonObject.phoneNumber = phoneNumber;
-      console.log('Information extracted:', jsonObject);
+      console.log('提取到的信息:', jsonObject);
       return jsonObject;
     } catch (e) {
-      console.error('Error querying phone info:', e);
+      console.error('查询电话信息时出错:', e);
       throw e;
     }
   }
