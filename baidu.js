@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   let cheerioScript = document.createElement('script');
   cheerioScript.src = 'https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js';
   document.head.appendChild(cheerioScript);
+  
   // 提取百度数据
 function extractBaiduData(doc, phoneNumber) {
   const jsonObject = {
@@ -45,20 +46,24 @@ function extractBaiduData(doc, phoneNumber) {
   }
 }
 
-// 插件接口
-async function queryPhoneNumber(phoneNumber) {
-  // 直接使用 axios 对象
-  const response = await axios.get(`https://www.baidu.com/s?wd=${phoneNumber}`);
+  // 插件接口
+  async function queryPhoneNumber(phoneNumber) {
+    // 循环检查 axios 和 cheerio 是否已经加载完成
+    while (!window.axios || !window.cheerio) {
+      await new Promise(resolve => setTimeout(resolve, 100)); // 等待 100 毫秒
+    }
 
-  if (response.status === 200) {
-    const html = response.data;
-    // 直接使用 cheerio 对象
-    const $ = cheerio.load(html);
-    return extractBaiduData($, phoneNumber);
-  } else {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    // axios 和 cheerio 已经加载完成，可以安全地使用它们
+    const response = await axios.get(`https://www.baidu.com/s?wd=${phoneNumber}`);
+
+    if (response.status === 200) {
+      const html = response.data;
+      const $ = cheerio.load(html);
+      return extractBaiduData($, phoneNumber);
+    } else {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
   }
-}
 
 // 导出插件实例
 const plugin = {
