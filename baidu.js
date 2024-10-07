@@ -1,6 +1,7 @@
 // 引入 axios 和 cheerio
-const axios = require('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-const cheerio = require('https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js');
+// 使用 <script> 标签引入 axios 和 cheerio
+document.write('<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"><\/script>');
+document.write('<script src="https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js"><\/script>');
 // 提取百度数据
 function extractBaiduData(doc, phoneNumber) {
   const jsonObject = {
