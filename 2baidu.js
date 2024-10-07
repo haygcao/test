@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.65',
+    version: '1.9.75',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -33,8 +33,8 @@ const pluginInfo = {
       try {
         postMessageToFlutter("generateOutput function called with phoneNumber: " + phoneNumber);
 
-        // 使用 JavaScript 注入的方式获取页面内容
-        injectScriptAndExtractInfo(phoneNumber, (jsonObject) => {
+        // 使用 JavaScript 注入的方式导航到目标页面并提取信息
+        navigateToPageAndExtractInfo(this.phoneInfoUrl + encodeURIComponent(phoneNumber), (jsonObject) => {
           // 直接使用原始标签作为 predefinedLabel
           const output = {
             phoneNumber: phoneNumber,
@@ -120,41 +120,37 @@ const pluginInfo = {
   }
 };
 
-// 将脚本注入页面并提取信息
-function injectScriptAndExtractInfo(phoneNumber, onSuccess, onError) {
+// 导航到目标页面并提取信息
+function navigateToPageAndExtractInfo(url, onSuccess, onError) {
   try {
-    // 创建一个 <script> 元素
-    const script = document.createElement('script');
+    // 导航到目标页面
+    window.location.href = url;
 
-    // 设置脚本内容，使用 JavaScript 获取页面内容并调用 extractPhoneInfo 函数
-    script.textContent = `
-      (function() {
-        try {
-          // 获取页面内容 (这里需要根据实际页面结构调整)
-          const pageContent = document.documentElement.outerHTML; 
+    // 监听页面加载完成事件
+    window.addEventListener('load', () => {
+      try {
+        // 获取页面内容
+        const pageContent = document.documentElement.outerHTML;
 
-          // 将页面内容传递给 extractPhoneInfo 函数
-          const jsonObject = pluginInfo.extractPhoneInfo(new DOMParser().parseFromString(pageContent, 'text/html'), "${phoneNumber}");
+        // 将页面内容传递给 extractPhoneInfo 函数
+        const jsonObject = pluginInfo.extractPhoneInfo(new DOMParser().parseFromString(pageContent, 'text/html'), getPhoneNumberFromUrl(url));
 
-          // 将提取到的信息传递给 onSuccess 回调函数
-          ${onSuccess.toString()}(jsonObject); 
-        } catch (error) {
-          // 将错误信息传递给 onError 回调函数
-          ${onError.toString()}(error);
-        }
-      })();
-    `;
-
-    // 将 <script> 元素添加到页面中
-    document.body.appendChild(script);
-
-    // 移除 <script> 元素 (可选)
-    document.body.removeChild(script);
+        // 将提取到的信息传递给 onSuccess 回调函数
+        onSuccess(jsonObject);
+      } catch (error) {
+        onError(error);
+      }
+    });
   } catch (error) {
     onError(error);
   }
 }
 
+// 从 URL 中提取电话号码
+function getPhoneNumberFromUrl(url) {
+  const urlParams = new URLSearchParams(url.split('?')[1]);
+  return urlParams.get('wd');
+}
 
 // 将消息发送到 Flutter 应用
 function postMessageToFlutter(message) {
