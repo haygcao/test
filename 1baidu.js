@@ -4,7 +4,7 @@ const pluginInfo = {
   info: {
     id: 'your-plugin-id',
     name: 'Your Plugin Name',
-    version: '1.9.55',
+    version: '1.9.56',
     description: 'This is a plugin template.',
     author: 'Your Name',
   },
@@ -76,6 +76,7 @@ const pluginInfo = {
   },
 
 // Extract phone information function
+// Extract phone information function
 extractPhoneInfo(doc, phoneNumber) {
   const jsonObject = {
     count: 0,
@@ -85,6 +86,8 @@ extractPhoneInfo(doc, phoneNumber) {
     carrier: ""
   };
   try {
+    console.log("开始提取电话信息...");
+
     // 提取标记次数 - 检查是否存在风险提示
     const riskTipElement = doc.querySelector(".c-border .mark-tip_3WkLJ");
     if (riskTipElement) {
@@ -119,7 +122,9 @@ extractPhoneInfo(doc, phoneNumber) {
     }
 
     jsonObject.phoneNumber = phoneNumber;
-    console.log('提取到的信息:', jsonObject);
+    console.log('提取到的信息:', jsonObject); 
+    console.log("电话信息提取完成");
+
     return jsonObject;
   } catch (e) {
     console.error('查询电话信息时出错:', e);
