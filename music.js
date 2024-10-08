@@ -33,21 +33,21 @@ function extractDataFromDOM(doc, phoneNumber) {
     phoneNumber: phoneNumber
   };
 
-  const descElement = doc.querySelector('.op_fraudphone_word');
+  const descElement = doc.querySelector('.mark-tip_3WkLJ span'); 
   if (descElement) {
     const descText = descElement.textContent.trim();
-    const countMatch = descText.match(/被(\d+)个/);
-    if (countMatch) {
-      jsonObject.count = parseInt(countMatch[1], 10);
+    // 调整 count 的提取逻辑，根据实际情况修改
+    if (descText.includes("存在风险")) {
+      jsonObject.count = 1; // 假设存在风险就认为 count 为 1
     }
   }
 
-  const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU');
+  const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU'); 
   if (titleElement) {
-    jsonObject.sourceLabel = titleElement.textContent.trim();
+    jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', ''); 
   }
 
-  const locationElement = doc.querySelector('.c-span22.c-span-last .cc-row_dDm_G');
+  const locationElement = doc.querySelector('.cc-row_dDm_G'); 
   if (locationElement) {
     const locationParts = locationElement.textContent.trim().split(' ');
     jsonObject.province = locationParts[0] || '';
@@ -93,7 +93,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.8.9",
+  version: "1.9.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
