@@ -1,31 +1,25 @@
-// 检查是否已经加载了 axios 和 cheerio
-if (typeof axios === 'undefined') {
-  const axiosScript = document.createElement('script');
-  axiosScript.src = 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js';
-  document.head.appendChild(axiosScript);
-}
-
-if (typeof cheerio === 'undefined') {
-  const cheerioScript = document.createElement('script');
-  cheerioScript.src = 'https://cdn.jsdelivr.net/npm/cheerio/cheerio.min.js';
-  document.head.appendChild(cheerioScript);
-}
-
-// 等待库加载完成
-function waitForLibraries() {
-  return new Promise((resolve) => {
-    const checkLibraries = () => {
-      console.log('Checking for libraries...');
-      if (typeof axios !== 'undefined' && typeof cheerio !== 'undefined') {
-        console.log('Libraries loaded successfully');
-        resolve();
-      } else {
-        console.log('Libraries not loaded yet, retrying...');
-        setTimeout(checkLibraries, 100);
-      }
-    };
-    checkLibraries();
+// 使用 Promise 来加载脚本
+function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
   });
+}
+
+// 加载 axios 和 cheerio
+async function loadLibraries() {
+  try {
+    await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
+    await loadScript('https://cdn.jsdelivr.net/npm/cheerio/dist/cheerio.min.js');
+    console.log('Libraries loaded successfully');
+    return true;
+  } catch (error) {
+    console.error('Error loading libraries:', error);
+    return false;
+  }
 }
 
 // 提取百度数据
@@ -98,7 +92,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.3.0",
+  version: "1.4.0",
   queryPhoneNumber,
   test: function() {
     console.log('Plugin test function called');
@@ -106,20 +100,24 @@ const plugin = {
   }
 };
 
-// 等待库加载完成后设置全局插件对象
-waitForLibraries().then(() => {
-  window.plugin = plugin;
-  console.log('Plugin object set to window.plugin');
-  console.log('window.plugin:', window.plugin);
-  
-  // 通知 Flutter 应用插件已加载
-  if (typeof FlutterChannel !== 'undefined') {
-    FlutterChannel.postMessage('Plugin loaded');
-    console.log('Notified Flutter that plugin is loaded');
+// 初始化插件
+async function initializePlugin() {
+  const librariesLoaded = await loadLibraries();
+  if (librariesLoaded) {
+    window.plugin = plugin;
+    console.log('Plugin object set to window.plugin');
+    console.log('window.plugin:', window.plugin);
+    
+    if (typeof FlutterChannel !== 'undefined') {
+      FlutterChannel.postMessage('Plugin loaded');
+      console.log('Notified Flutter that plugin is loaded');
+    } else {
+      console.error('FlutterChannel is not defined');
+    }
   } else {
-    console.error('FlutterChannel is not defined');
+    console.error('Failed to load libraries. Plugin not initialized.');
   }
-});
+}
 
 // 为了调试，添加全局错误处理
 window.onerror = function(message, source, lineno, colno, error) {
@@ -142,8 +140,5 @@ window.checkPluginStatus = function() {
   }
 };
 
-// 立即执行函数来模拟异步加载
-(async function() {
-  await waitForLibraries();
-  console.log('Libraries and plugin initialized');
-})();
+// 初始化插件
+initializePlugin();
