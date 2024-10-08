@@ -13,7 +13,7 @@ function loadScript(url) {
 async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-    await loadScript('https://cdn.jsdelivr.net/npm/cheerio/dist/cheerio.min.js');
+    await loadScript('https://cdnjs.cloudflare.com/ajax/libs/cheerio/1.0.0/dist/browser/cheerio.min.js');
     console.log('Libraries loaded successfully');
     return true;
   } catch (error) {
