@@ -14,16 +14,14 @@ async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
     await loadScript(
-        'https://cdnjs.cloudflare.com/ajax/libs/cheerio/1.0.0/dist/browser/cheerio.min.js'); 
+        'https://cdnjs.cloudflare.com/ajax/libs/cheerio/1.0.0/dist/browser/cheerio.min.js');
     await loadScript('https://cdn.jsdelivr.net/npm/cheerio@1.0.0/dist/browser/api/attributes.js'); 
     await loadScript('https://cdn.jsdelivr.net/npm/cheerio@1.0.0/dist/browser/api/traversing.js'); 
     await loadScript('https://cdn.jsdelivr.net/npm/cheerio@1.0.0/dist/browser/api/manipulation.js'); 
     await loadScript('https://cdn.jsdelivr.net/npm/cheerio@1.0.0/dist/browser/api/css.js'); 
     await loadScript('https://cdn.jsdelivr.net/npm/cheerio@1.0.0/dist/browser/api/forms.js'); 
     await loadScript('https://cdn.jsdelivr.net/npm/cheerio@1.0.0/dist/browser/api/extract.js'); 
-  
-   
-   
+
     console.log('Libraries loaded successfully');
     return true;
   } catch (error) {
@@ -83,9 +81,6 @@ function extractBaiduData($, phoneNumber) {
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
 
-  // 等待 Flutter 准备好接收 XMLHttpRequest 请求信息
-  await FlutterChannel.postMessage('readyForXhr'); // 发送一个准备信号给 Flutter
-
   // 将 XMLHttpRequest 请求的信息传递给 Flutter
   FlutterChannel.postMessage(JSON.stringify({
     method: 'GET',
@@ -138,8 +133,8 @@ async function initializePlugin() {
     if (typeof FlutterChannel !== 'undefined') {
       FlutterChannel.postMessage('Plugin loaded');
       console.log('Notified Flutter that plugin is loaded');
-          // 发送 "PluginReady" 消息给 Flutter，表示插件已经初始化完成
-    FlutterChannel.postMessage('PluginReady'); 
+      // 发送 "PluginReady" 消息给 Flutter，表示插件已经初始化完成
+      FlutterChannel.postMessage('PluginReady'); 
     } else {
       console.error('FlutterChannel is not defined');
     }
