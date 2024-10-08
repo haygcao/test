@@ -16,7 +16,6 @@ function loadScript(url) {
 async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-
     console.log('Libraries loaded successfully');
     return true;
   } catch (error) {
@@ -61,37 +60,66 @@ function extractDataFromDOM(doc, phoneNumber) {
   return jsonObject;
 }
 
+// FlutterChannel 类
+class FlutterChannel {
+  constructor(pluginId) {
+    this.pluginId = pluginId;
+  }
+
+  register() {
+    // 监听 message 事件
+    window.addEventListener('message', (event) => {
+      // 只处理 pluginId 匹配的消息
+      if (event.data.type === `xhrResponse_${this.pluginId}`) { 
+        const response = event.data.response;
+        if (response.status >= 200 && response.status < 300) {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(response.responseText, 'text/html');
+          const jsonObject = extractDataFromDOM(doc, phoneNumber);
+          console.log('Extracted information:', jsonObject); 
+
+          // 将数据传递回 Flutter
+          this.sendMessageToFlutter({
+            type: 'pluginResult',
+            pluginId: this.pluginId,
+            data: jsonObject, 
+          });
+        } else {
+          console.error(`HTTP error! status: ${response.status}`);
+
+          // 错误处理：将错误信息传递回 Flutter
+          this.sendMessageToFlutter({
+            type: 'pluginError',
+            pluginId: this.pluginId, 
+            error: `HTTP error! status: ${response.status}`,
+          });
+        }
+      }
+    });
+  }
+
+  sendMessage(message) {
+    message.pluginId = this.pluginId;
+    window.parent.postMessage(JSON.stringify(message), '*'); 
+  }
+
+  sendMessageToFlutter(message) {
+    window.parent.postMessage(JSON.stringify(message), '*'); 
+  }
+}
+
+// 创建 FlutterChannel 实例
+const flutterChannel = new FlutterChannel(pluginId); 
+
 // 查询电话号码
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
-
-  // 添加 pluginId 到消息中
-  FlutterChannel.postMessage(JSON.stringify({
-    pluginId: pluginId, // 添加 pluginId
+  flutterChannel.sendMessage({
     method: 'GET',
     url: `https://www.baidu.com/s?wd=${phoneNumber}`,
     headers: {
       "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     },
-  }));
-
-  return new Promise((resolve, reject) => {
-    window.addEventListener('message', (event) => {
-      if (event.source === window && event.data.type === 'xhrResponse') {
-        const response = event.data.response;
-        if (response.status >= 200 && response.status < 300) {
-          // 使用 DOMParser 解析 HTML
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(response.responseText, 'text/html');
-
-          // 使用 JavaScript 代码提取数据
-          const jsonObject = extractDataFromDOM(doc, phoneNumber); 
-          resolve(jsonObject);
-        } else {
-          reject(new Error(`HTTP error! status: ${response.status}`));
-        }
-      }
-    });
   });
 }
 
@@ -118,6 +146,9 @@ async function initializePlugin() {
       FlutterChannel.postMessage('Plugin loaded');
       console.log('Notified Flutter that plugin is loaded');
       FlutterChannel.postMessage('PluginReady'); 
+
+      // 在发送 PluginReady 消息之后注册事件监听器
+      flutterChannel.register(); 
     } else {
       console.error('FlutterChannel is not defined');
     }
