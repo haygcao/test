@@ -63,7 +63,10 @@ function extractDataFromDOM(doc, phoneNumber) {
 // 查询电话号码
 function queryPhoneNumber(phoneNumber) {  // 注意：不再是 async 函数
   console.log('Querying phone number:', phoneNumber);
+// 将 phoneNumber 存储在 window 对象上
+  window.currentPhoneNumber = phoneNumber; // 存储电话号码
 
+  
   // 添加 pluginId 到消息中
   FlutterChannel.postMessage(JSON.stringify({
     pluginId: pluginId,
@@ -85,7 +88,7 @@ window.addEventListener('message', (event) => {
       const doc = parser.parseFromString(response.responseText, 'text/html');
 
       // 使用 JavaScript 代码提取数据
-      const jsonObject = extractDataFromDOM(doc, phoneNumber);
+      const jsonObject = extractDataFromDOM(doc, window.currentPhoneNumber); // 使用存储的电话号码
       console.log('Extracted information:', jsonObject);
 
       // 将数据传递回 Flutter
