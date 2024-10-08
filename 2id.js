@@ -77,7 +77,7 @@ async function queryPhoneNumber(phoneNumber) {
   return new Promise((resolve, reject) => {
     window.addEventListener('message', (event) => {
       // 检查消息来源和类型
-      if (event.data.type === `xhrResponse_${pluginId}`) { 
+      if (event.source !== window && event.data.type === `xhrResponse_${pluginId}`) { 
         const response = event.data.response;
         if (response.status >= 200 && response.status < 300) {
           // 使用 DOMParser 解析 HTML
@@ -98,7 +98,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.1.9",
+  version: "1.9.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
