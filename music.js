@@ -1,5 +1,5 @@
 // 插件 ID，每个插件必须唯一
-const pluginId = 'baiduPhoneNumberPlugin'; 
+const pluginId = 'baiduPhoneNumberPlugin';
 
 // 使用 Promise 来加载脚本
 function loadScript(url) {
@@ -12,7 +12,7 @@ function loadScript(url) {
   });
 }
 
-// 加载 axios 
+// 加载 axios
 async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
@@ -35,20 +35,20 @@ function extractDataFromDOM(doc, phoneNumber) {
     phoneNumber: phoneNumber
   };
 
-  const descElement = doc.querySelector('.mark-tip_3WkLJ span'); 
+  const descElement = doc.querySelector('.mark-tip_3WkLJ span');
   if (descElement) {
     const descText = descElement.textContent.trim();
     if (descText.includes("存在风险")) {
-      jsonObject.count = 1; 
+      jsonObject.count = 1;
     }
   }
 
-  const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU'); 
+  const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU');
   if (titleElement) {
-    jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', ''); 
+    jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', '');
   }
 
-  const locationElement = doc.querySelector('.cc-row_dDm_G'); 
+  const locationElement = doc.querySelector('.cc-row_dDm_G');
   if (locationElement) {
     const locationParts = locationElement.textContent.trim().split(' ');
     jsonObject.province = locationParts[0] || '';
@@ -63,7 +63,6 @@ function extractDataFromDOM(doc, phoneNumber) {
 class FlutterChannel {
   constructor(pluginId) {
     this.pluginId = pluginId;
-    this.pendingRequests = {}; // 用于存储待处理的请求
   }
 
   register() {
@@ -74,26 +73,25 @@ class FlutterChannel {
         if (response.status >= 200 && response.status < 300) {
           const parser = new DOMParser();
           const doc = parser.parseFromString(response.responseText, 'text/html');
-          const requestId = event.data.requestId; // 获取请求 ID
-          const phoneNumber = this.pendingRequests[requestId].phoneNumber; // 获取之前存储的电话号码
-          delete this.pendingRequests[requestId]; // 从待处理请求中移除
+
+          // 直接使用 queryPhoneNumber 函数的参数 phoneNumber
           const jsonObject = extractDataFromDOM(doc, phoneNumber);
-          console.log('Extracted information:', jsonObject); 
+          console.log('Extracted information:', jsonObject);
 
           // 将数据传递回 Flutter
           this.sendMessageToFlutter({
-            type: 'pluginResult', // 自定义消息类型
-            requestId: requestId, // 返回请求 ID，以便 Flutter 侧能够识别响应
-            data: jsonObject, // 将提取到的数据作为 data 属性传递
+            type: 'pluginResult',
+            pluginId: this.pluginId, // 添加 pluginId
+            data: jsonObject,
           });
         } else {
           console.error(`HTTP error! status: ${response.status}`);
 
           // 错误处理：将错误信息传递回 Flutter
           this.sendMessageToFlutter({
-            type: 'pluginError', // 自定义消息类型
-            requestId: requestId, // 返回请求 ID
-            error: `HTTP error! status: ${response.status}`, // 将错误信息作为 error 属性传递
+            type: 'pluginError',
+            pluginId: this.pluginId, // 添加 pluginId
+            error: `HTTP error! status: ${response.status}`,
           });
         }
       }
@@ -101,29 +99,20 @@ class FlutterChannel {
   }
 
   sendMessage(message) {
-    const requestId = this.generateRequestId(); // 生成唯一的请求 ID
     message.pluginId = this.pluginId;
-    message.requestId = requestId; // 添加请求 ID
-    this.pendingRequests[requestId] = { // 将请求信息存储到待处理请求中
-      phoneNumber: message.url.split('wd=')[1], 
-    };
-    // 使用 window.parent.postMessage 发送信息给 Flutter
-    window.parent.postMessage(JSON.stringify(message), '*'); 
-  }
 
-  // 生成唯一的请求 ID
-  generateRequestId() {
-    return 'req_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    // 使用 window.parent.postMessage 发送信息给 Flutter
+    window.parent.postMessage(JSON.stringify(message), '*');
   }
 
   // 发送消息给 Flutter
   sendMessageToFlutter(message) {
-    window.parent.postMessage(JSON.stringify(message), '*'); 
+    window.parent.postMessage(JSON.stringify(message), '*');
   }
 }
 
 // 创建 FlutterChannel 实例
-const flutterChannel = new FlutterChannel(pluginId); 
+const flutterChannel = new FlutterChannel(pluginId);
 
 // 查询电话号码
 async function queryPhoneNumber(phoneNumber) {
@@ -162,7 +151,7 @@ async function initializePlugin() {
       FlutterChannel.postMessage('PluginReady');
 
       // 在发送 PluginReady 消息之后注册事件监听器
-      flutterChannel.register(); 
+      flutterChannel.register();
     } else {
       console.error('FlutterChannel is not defined');
     }
