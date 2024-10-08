@@ -15,10 +15,12 @@ if (typeof cheerio === 'undefined') {
 function waitForLibraries() {
   return new Promise((resolve) => {
     const checkLibraries = () => {
+      console.log('Checking for libraries...');
       if (typeof axios !== 'undefined' && typeof cheerio !== 'undefined') {
         console.log('Libraries loaded successfully');
         resolve();
       } else {
+        console.log('Libraries not loaded yet, retrying...');
         setTimeout(checkLibraries, 100);
       }
     };
@@ -93,17 +95,22 @@ async function queryPhoneNumber(phoneNumber) {
   }
 }
 
-// 导出插件实例
+// 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.2.0",
-  queryPhoneNumber
+  version: "1.3.0",
+  queryPhoneNumber,
+  test: function() {
+    console.log('Plugin test function called');
+    return 'Plugin is working';
+  }
 };
 
 // 等待库加载完成后设置全局插件对象
 waitForLibraries().then(() => {
   window.plugin = plugin;
   console.log('Plugin object set to window.plugin');
+  console.log('window.plugin:', window.plugin);
   
   // 通知 Flutter 应用插件已加载
   if (typeof FlutterChannel !== 'undefined') {
@@ -121,3 +128,22 @@ window.onerror = function(message, source, lineno, colno, error) {
     FlutterChannel.postMessage('JS Error: ' + message);
   }
 };
+
+// 添加全局函数来检查插件状态
+window.checkPluginStatus = function() {
+  console.log('Checking plugin status...');
+  console.log('window.plugin:', window.plugin);
+  if (window.plugin && typeof window.plugin.queryPhoneNumber === 'function') {
+    console.log('Plugin is properly loaded and queryPhoneNumber is available');
+    return true;
+  } else {
+    console.log('Plugin is not properly loaded or queryPhoneNumber is not available');
+    return false;
+  }
+};
+
+// 立即执行函数来模拟异步加载
+(async function() {
+  await waitForLibraries();
+  console.log('Libraries and plugin initialized');
+})();
