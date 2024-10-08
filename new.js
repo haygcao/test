@@ -13,7 +13,7 @@ function loadScript(url) {
 async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-    await loadScript('https://cdn.jsdelivr.net/npm/htmlparser2@8.0.1/lib/index.min.js');
+    await loadScript('https://cdn.jsdelivr.net/npm/htmlparser2@9.1.0/lib/index.js');
 
     console.log('Libraries loaded successfully');
     return true;
