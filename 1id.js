@@ -16,7 +16,6 @@ function loadScript(url) {
 async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-
     console.log('Libraries loaded successfully');
     return true;
   } catch (error) {
@@ -78,7 +77,7 @@ async function queryPhoneNumber(phoneNumber) {
   return new Promise((resolve, reject) => {
     window.addEventListener('message', (event) => {
     // 检查消息来源是否为 Flutter 应用，并检查消息类型是否为 xhrResponse_${pluginId}
-    if (event.source !== window && event.data.type === `xhrResponse_${pluginId}`) {  
+    if (event.source !== window && event.data.type === `xhrResponse_${pluginId}`) { 
         const response = event.data.response;
         if (response.status >= 200 && response.status < 300) {
           // 使用 DOMParser 解析 HTML
@@ -99,7 +98,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.5.9",
+  version: "1.3.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
