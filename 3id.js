@@ -61,7 +61,7 @@ function extractDataFromDOM(doc, phoneNumber) {
 }
 
 // 查询电话号码
-async function queryPhoneNumber(phoneNumber) {
+function queryPhoneNumber(phoneNumber) {  // 注意：不再是 async 函数
   console.log('Querying phone number:', phoneNumber);
 
   // 添加 pluginId 到消息中
@@ -73,32 +73,43 @@ async function queryPhoneNumber(phoneNumber) {
       "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     },
   }));
-
-  return new Promise((resolve, reject) => {
-    window.addEventListener('message', (event) => {
-      // 检查消息来源和类型
-      if (event.data.type === `xhrResponse_${pluginId}`) { 
-        const response = event.data.response;
-        if (response.status >= 200 && response.status < 300) {
-          // 使用 DOMParser 解析 HTML
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(response.responseText, 'text/html');
-
-          // 使用 JavaScript 代码提取数据
-          const jsonObject = extractDataFromDOM(doc, phoneNumber);
-          resolve(jsonObject);
-        } else {
-          reject(new Error(`HTTP error! status: ${response.status}`));
-        }
-      }
-    });
-  });
 }
+
+// 在全局作用域中注册事件监听器
+window.addEventListener('message', (event) => {
+  if (event.data.type === `xhrResponse_${pluginId}`) {
+    const response = event.data.response;
+    if (response.status >= 200 && response.status < 300) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(response.responseText, 'text/html');
+
+      // 使用 JavaScript 代码提取数据
+      const jsonObject = extractDataFromDOM(doc, phoneNumber);
+      console.log('Extracted information:', jsonObject);
+
+      // 将数据传递回 Flutter
+      FlutterChannel.postMessage(JSON.stringify({
+        type: 'pluginResult',
+        pluginId: pluginId,
+        data: jsonObject,
+      }));
+    } else {
+      console.error(`HTTP error! status: ${response.status}`);
+
+      // 将错误信息传递回 Flutter
+      FlutterChannel.postMessage(JSON.stringify({
+        type: 'pluginError',
+        pluginId: pluginId,
+        error: `HTTP error! status: ${response.status}`,
+      }));
+    }
+  }
+});
 
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.9.9",
+  version: "1.1.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
