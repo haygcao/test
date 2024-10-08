@@ -114,7 +114,21 @@ const flutterChannel = new FlutterChannel(pluginId);
 // 查询电话号码
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
+
+  // 等待 PluginReady 消息发送完成后再发送请求信息
+  await new Promise(resolve => {
+    const listener = (event) => {
+      if (event.data === 'PluginReady') {
+        window.removeEventListener('message', listener);
+        resolve();
+      }
+    };
+    window.addEventListener('message', listener);
+  });
+
+  // 发送请求信息
   flutterChannel.sendMessage({
+    pluginId: pluginId,
     method: 'GET',
     url: `https://www.baidu.com/s?wd=${phoneNumber}`,
     headers: {
