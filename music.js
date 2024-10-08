@@ -1,3 +1,6 @@
+// 插件 ID，每个插件必须唯一
+const pluginId = 'baiduPhoneNumberPlugin'; 
+
 // 使用 Promise 来加载脚本
 function loadScript(url) {
   return new Promise((resolve, reject) => {
@@ -13,7 +16,6 @@ function loadScript(url) {
 async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-
     console.log('Libraries loaded successfully');
     return true;
   } catch (error) {
@@ -36,9 +38,8 @@ function extractDataFromDOM(doc, phoneNumber) {
   const descElement = doc.querySelector('.mark-tip_3WkLJ span'); 
   if (descElement) {
     const descText = descElement.textContent.trim();
-    // 调整 count 的提取逻辑，根据实际情况修改
     if (descText.includes("存在风险")) {
-      jsonObject.count = 1; // 假设存在风险就认为 count 为 1
+      jsonObject.count = 1; 
     }
   }
 
@@ -58,38 +59,51 @@ function extractDataFromDOM(doc, phoneNumber) {
   return jsonObject;
 }
 
+// FlutterChannel 类
+class FlutterChannel {
+  constructor(pluginId) {
+    this.pluginId = pluginId;
+  }
+
+  register() {
+    window.addEventListener(`xhrResponse_${this.pluginId}`, (event) => {
+      const response = event.detail.response;
+      if (response.status >= 200 && response.status < 300) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(response.responseText, 'text/html');
+        const phoneNumber = this.pendingPhoneNumber; // 获取之前存储的电话号码
+        delete this.pendingPhoneNumber; // 清除存储的电话号码
+        const jsonObject = extractDataFromDOM(doc, phoneNumber);
+        console.log('Extracted information:', jsonObject); 
+
+        // ...后续处理，例如将数据传递给 Flutter...
+      } else {
+        console.error(`HTTP error! status: ${response.status}`);
+        // ...错误处理...
+      }
+    });
+  }
+
+  sendMessage(message) {
+    message.pluginId = this.pluginId;
+    this.pendingPhoneNumber = message.url.split('wd=')[1]; // 存储电话号码
+    FlutterChannel.postMessage(JSON.stringify(message));
+  }
+}
+
+// 创建 FlutterChannel 实例
+const flutterChannel = new FlutterChannel(pluginId); 
+
 // 查询电话号码
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
 
-  FlutterChannel.postMessage(JSON.stringify({
+  flutterChannel.sendMessage({
     method: 'GET',
     url: `https://www.baidu.com/s?wd=${phoneNumber}`,
     headers: {
       "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     },
-  }));
-
-  return new Promise((resolve, reject) => {
-    // 监听 DOMContentLoaded 事件
-    document.addEventListener('DOMContentLoaded', function() {
-      window.addEventListener('message', (event) => {
-        if (event.source === window && event.data.type === 'xhrResponse') {
-          const response = event.data.response;
-          if (response.status >= 200 && response.status < 300) {
-            // 使用 DOMParser 解析 HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(response.responseText, 'text/html');
-
-            // 使用 JavaScript 代码提取数据
-            const jsonObject = extractDataFromDOM(doc, phoneNumber); 
-            resolve(jsonObject);
-          } else {
-            reject(new Error(`HTTP error! status: ${response.status}`));
-          }
-        }
-      });
-    });
   });
 }
 
@@ -123,6 +137,11 @@ async function initializePlugin() {
     console.error('Failed to load libraries. Plugin not initialized.');
   }
 }
+
+// 注册 JavaScriptChannel 和事件监听器
+document.addEventListener('DOMContentLoaded', function() {
+  flutterChannel.register();
+});
 
 // 为了调试，添加全局错误处理
 window.onerror = function (message, source, lineno, colno, error) {
