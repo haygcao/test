@@ -71,7 +71,7 @@ function queryPhoneNumber(phoneNumber) {  // 注意：不再是 async 函数
   FlutterChannel.postMessage(JSON.stringify({
     pluginId: pluginId,
     method: 'GET',
-    url: `https://www.baidu.com/s?wd=${phoneNumber}`,
+    url: `https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=${phoneNumber}&fenlei=256&rsv_pq=0xcffe73dc01b50174&rsv_t=3753dJdqYZ7dxvodeu3GbEkJUNR9kmodY8IZsS8tA3xIr5znCF4XJHbMw2qs&rqlang=en&rsv_dl=tb&rsv_enter=1&rsv_sug3=11&rsv_sug1=9&rsv_sug7=100&rsv_sug2=0&rsv_btype=i&inputT=2230&rsv_sug4=2230&rsv_sug=1`,
     headers: {
       "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     },
