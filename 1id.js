@@ -1,5 +1,5 @@
 // 插件 ID，每个插件必须唯一
-const pluginId = 'baiduPhoneNumberPlugin'; 
+const pluginId = 'baiduPhoneNumberPlugin';
 
 // 使用 Promise 来加载脚本
 function loadScript(url) {
@@ -12,7 +12,7 @@ function loadScript(url) {
   });
 }
 
-// 加载 axios 
+// 加载 axios
 async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
@@ -35,26 +35,24 @@ function extractDataFromDOM(doc, phoneNumber) {
     phoneNumber: phoneNumber
   };
 
-  const descElement = doc.querySelector('.mark-tip_3WkLJ span'); 
+  const descElement = doc.querySelector('.mark-tip_3WkLJ span');
   if (descElement) {
     const descText = descElement.textContent.trim();
-    // 调整 count 的提取逻辑，根据实际情况修改
     if (descText.includes("存在风险")) {
-      jsonObject.count = 1; // 假设存在风险就认为 count 为 1
+      jsonObject.count = 1;
     }
   }
 
-  const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU'); 
+  const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU');
   if (titleElement) {
-    jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', ''); 
+    jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', '');
   }
 
-  const locationElement = doc.querySelector('.c-span20.c-span-last .cr-title1_1_Ro-'); 
+  const locationElement = doc.querySelector('.cc-row_dDm_G');
   if (locationElement) {
     const locationParts = locationElement.textContent.trim().split(' ');
     jsonObject.province = locationParts[0] || '';
     jsonObject.city = locationParts[1] || '';
-    jsonObject.carrier = locationParts[2] || ''; // 提取运营商信息
   }
 
   console.log('Extracted information:', jsonObject);
@@ -67,7 +65,7 @@ async function queryPhoneNumber(phoneNumber) {
 
   // 添加 pluginId 到消息中
   FlutterChannel.postMessage(JSON.stringify({
-    pluginId: pluginId, // 添加 pluginId
+    pluginId: pluginId,
     method: 'GET',
     url: `https://www.baidu.com/s?wd=${phoneNumber}`,
     headers: {
@@ -77,8 +75,8 @@ async function queryPhoneNumber(phoneNumber) {
 
   return new Promise((resolve, reject) => {
     window.addEventListener('message', (event) => {
-    // 检查消息来源是否为 Flutter 应用，并检查消息类型是否为 xhrResponse_${pluginId}
-    if (event.source == window && event.data.type === `xhrResponse_${pluginId}`) { 
+      // 检查消息来源和类型
+      if (event.source !== window && event.data.type === `xhrResponse_${pluginId}`) { 
         const response = event.data.response;
         if (response.status >= 200 && response.status < 300) {
           // 使用 DOMParser 解析 HTML
@@ -86,7 +84,7 @@ async function queryPhoneNumber(phoneNumber) {
           const doc = parser.parseFromString(response.responseText, 'text/html');
 
           // 使用 JavaScript 代码提取数据
-          const jsonObject = extractDataFromDOM(doc, phoneNumber); 
+          const jsonObject = extractDataFromDOM(doc, phoneNumber);
           resolve(jsonObject);
         } else {
           reject(new Error(`HTTP error! status: ${response.status}`));
@@ -99,7 +97,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.3.9",
+  version: "1.9.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
