@@ -84,6 +84,7 @@ window.addEventListener('message', (event) => {
   if (event.data.type === `xhrResponse_${pluginId}`) {
     const response = event.data.response;
     if (response.status >= 200 && response.status < 300) {
+      console.log('HTML content:', response.responseText); // 打印 HTML 内容到 Flutter 日志
       const parser = new DOMParser();
       const doc = parser.parseFromString(response.responseText, 'text/html');
 
