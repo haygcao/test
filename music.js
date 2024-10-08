@@ -63,31 +63,57 @@ function extractDataFromDOM(doc, phoneNumber) {
 class FlutterChannel {
   constructor(pluginId) {
     this.pluginId = pluginId;
+    this.pendingRequests = {}; // 用于存储待处理的请求
   }
 
   register() {
-    window.addEventListener(`xhrResponse_${this.pluginId}`, (event) => {
-      const response = event.detail.response;
-      if (response.status >= 200 && response.status < 300) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(response.responseText, 'text/html');
-        const phoneNumber = this.pendingPhoneNumber; // 获取之前存储的电话号码
-        delete this.pendingPhoneNumber; // 清除存储的电话号码
-        const jsonObject = extractDataFromDOM(doc, phoneNumber);
-        console.log('Extracted information:', jsonObject); 
+    // 监听 message 事件
+    window.addEventListener('message', (event) => {
+      if (event.data.type === `xhrResponse_${this.pluginId}`) {
+        const response = event.data.response;
+        if (response.status >= 200 && response.status < 300) {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(response.responseText, 'text/html');
+          const requestId = event.data.requestId; // 获取请求 ID
+          const phoneNumber = this.pendingRequests[requestId].phoneNumber; // 获取之前存储的电话号码
+          delete this.pendingRequests[requestId]; // 从待处理请求中移除
+          const jsonObject = extractDataFromDOM(doc, phoneNumber);
+          console.log('Extracted information:', jsonObject); 
 
-        // ...后续处理，例如将数据传递给 Flutter...
-      } else {
-        console.error(`HTTP error! status: ${response.status}`);
-        // ...错误处理...
+          // 将数据传递回 Flutter
+          this.sendMessageToFlutter({
+            type: 'pluginResult', // 自定义消息类型
+            requestId: requestId, // 返回请求 ID，以便 Flutter 侧能够识别响应
+            data: jsonObject, // 将提取到的数据作为 data 属性传递
+          });
+        } else {
+          console.error(`HTTP error! status: ${response.status}`);
+
+          // 错误处理：将错误信息传递回 Flutter
+          this.sendMessageToFlutter({
+            type: 'pluginError', // 自定义消息类型
+            requestId: requestId, // 返回请求 ID
+            error: `HTTP error! status: ${response.status}`, // 将错误信息作为 error 属性传递
+          });
+        }
       }
     });
   }
 
   sendMessage(message) {
+    const requestId = this.generateRequestId(); // 生成唯一的请求 ID
     message.pluginId = this.pluginId;
-    this.pendingPhoneNumber = message.url.split('wd=')[1]; // 存储电话号码
-    FlutterChannel.postMessage(JSON.stringify(message));
+    message.requestId = requestId; // 添加请求 ID
+    this.pendingRequests[requestId] = { // 将请求信息存储到待处理请求中
+      phoneNumber: message.url.split('wd=')[1], 
+    };
+    // 使用 window.parent.postMessage 发送信息给 Flutter
+    window.parent.postMessage(JSON.stringify(message), '*'); 
+  }
+
+  // 生成唯一的请求 ID
+  generateRequestId() {
+    return 'req_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   }
 }
 
@@ -97,7 +123,6 @@ const flutterChannel = new FlutterChannel(pluginId);
 // 查询电话号码
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
-
   flutterChannel.sendMessage({
     method: 'GET',
     url: `https://www.baidu.com/s?wd=${phoneNumber}`,
