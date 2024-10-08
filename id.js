@@ -115,7 +115,14 @@ const flutterChannel = new FlutterChannel(pluginId);
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
 
-  // 直接发送请求信息，无需等待 PluginReady 消息
+  // 等待 jsReady 事件触发后再发送请求信息
+  await new Promise(resolve => { 
+    window.addEventListener('jsReady', () => {
+      resolve();
+    });
+  });
+
+  // 发送请求信息
   flutterChannel.sendMessage({
     pluginId: pluginId,
     method: 'GET',
@@ -129,7 +136,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.9.9",
+  version: "1.8.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
