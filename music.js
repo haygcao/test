@@ -9,50 +9,80 @@ function loadScript(url) {
   });
 }
 
-// 加载 axios
-async function loadAxios() {
+// 加载 axios 
+async function loadLibraries() {
   try {
     await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-    console.log('Axios loaded successfully');
-    FlutterChannel.postMessage('Axios loaded successfully', window.location.origin); // 发送日志到 Flutter
+
+    console.log('Libraries loaded successfully');
     return true;
   } catch (error) {
-    console.error('Error loading Axios:', error);
-    FlutterChannel.postMessage('Error loading Axios: ' + error, window.location.origin); // 发送错误信息到 Flutter
+    console.error('Error loading libraries:', error);
     return false;
   }
 }
 
-// 获取百度首页标题
-async function getBaiduTitle() {
-  const that = this; // 保存 this 指向
-  console.log('Getting Baidu title...');
-  FlutterChannel.postMessage('Getting Baidu title...', window.location.origin); // 发送日志到 Flutter
+// 使用 DOMParser API 提取百度数据
+function extractDataFromDOM(doc, phoneNumber) {
+  const jsonObject = {
+    count: 0,
+    sourceLabel: "",
+    province: "",
+    city: "",
+    carrier: "",
+    phoneNumber: phoneNumber
+  };
 
-  // 发送请求信息给 Flutter
+  const descElement = doc.querySelector('.op_fraudphone_word');
+  if (descElement) {
+    const descText = descElement.textContent.trim();
+    const countMatch = descText.match(/被(\d+)个/);
+    if (countMatch) {
+      jsonObject.count = parseInt(countMatch[1], 10);
+    }
+  }
+
+  const titleElement = doc.querySelector('.c-span22.c-span-last .cc-title_31ypU');
+  if (titleElement) {
+    jsonObject.sourceLabel = titleElement.textContent.trim();
+  }
+
+  const locationElement = doc.querySelector('.c-span22.c-span-last .cc-row_dDm_G');
+  if (locationElement) {
+    const locationParts = locationElement.textContent.trim().split(' ');
+    jsonObject.province = locationParts[0] || '';
+    jsonObject.city = locationParts[1] || '';
+  }
+
+  console.log('Extracted information:', jsonObject);
+  return jsonObject;
+}
+
+// 查询电话号码
+async function queryPhoneNumber(phoneNumber) {
+  console.log('Querying phone number:', phoneNumber);
+
   FlutterChannel.postMessage(JSON.stringify({
     method: 'GET',
-    url: 'https://www.baidu.com',
+    url: `https://www.baidu.com/s?wd=${phoneNumber}`,
     headers: {
       "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     },
-  }), window.location.origin);
+  }));
 
-  // 监听来自 Flutter 的响应
   return new Promise((resolve, reject) => {
     window.addEventListener('message', (event) => {
       if (event.source === window && event.data.type === 'xhrResponse') {
         const response = event.data.response;
         if (response.status >= 200 && response.status < 300) {
-          // 提取标题
-          const titleMatch = response.responseText.match(/<title>(.*?)<\/title>/);
-          const title = titleMatch ? titleMatch[1] : 'Title not found';
-          console.log('Baidu title:', title);
-          that.FlutterChannel.postMessage('Baidu title: ' + title, window.location.origin); // 使用 that.FlutterChannel
-          resolve(title);
+          // 使用 DOMParser 解析 HTML
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(response.responseText, 'text/html');
+
+          // 使用 JavaScript 代码提取数据
+          const jsonObject = extractDataFromDOM(doc, phoneNumber); 
+          resolve(jsonObject);
         } else {
-          console.error(`HTTP error! status: ${response.status}`);
-          that.FlutterChannel.postMessage(`HTTP error! status: ${response.status}`, window.location.origin); // 使用 that.FlutterChannel
           reject(new Error(`HTTP error! status: ${response.status}`));
         }
       }
@@ -60,28 +90,58 @@ async function getBaiduTitle() {
   });
 }
 
+// 插件对象
+const plugin = {
+  platform: "百度号码查询插件",
+  version: "1.8.9",
+  queryPhoneNumber,
+  test: function () {
+    console.log('Plugin test function called');
+    return 'Plugin is working';
+  }
+};
+
 // 初始化插件
 async function initializePlugin() {
-  const axiosLoaded = await loadAxios();
-  if (axiosLoaded) {
-    // 在这里发送 PluginReady 消息
-    if (typeof FlutterChannel !== 'undefined') {
-      FlutterChannel.postMessage('PluginReady', window.location.origin);
+  const librariesLoaded = await loadLibraries();
+  if (librariesLoaded) {
+    window.plugin = plugin;
+    console.log('Plugin object set to window.plugin');
+    console.log('window.plugin:', window.plugin);
 
-      // 在发送 PluginReady 消息后立即调用 getBaiduTitle
-      getBaiduTitle().then((title) => {
-        // 标题处理逻辑已在 getBaiduTitle 函数中完成
-      }).catch((error) => {
-        // 错误处理逻辑已在 getBaiduTitle 函数中完成
-      });
+    if (typeof FlutterChannel !== 'undefined') {
+      FlutterChannel.postMessage('Plugin loaded');
+      console.log('Notified Flutter that plugin is loaded');
+      FlutterChannel.postMessage('PluginReady'); 
     } else {
       console.error('FlutterChannel is not defined');
     }
   } else {
-    console.error('Failed to load Axios. Plugin not initialized.');
-    FlutterChannel.postMessage('Failed to load Axios. Plugin not initialized.', window.location.origin); // 发送错误信息到 Flutter
+    console.error('Failed to load libraries. Plugin not initialized.');
   }
 }
+
+// 为了调试，添加全局错误处理
+window.onerror = function (message, source, lineno, colno, error) {
+  console.error('Global error:', message, 'at', source, lineno, colno, error);
+  if (typeof FlutterChannel !== 'undefined') {
+    FlutterChannel.postMessage('JS Error: ' + message);
+  }
+};
+
+// 添加全局函数来检查插件状态
+window.checkPluginStatus = function () {
+  console.log('Checking plugin status...');
+  console.log('window.plugin:', window.plugin);
+  if (window.plugin && typeof window.plugin.queryPhoneNumber === 'function') {
+    console.log('Plugin is properly loaded and queryPhoneNumber is available');
+    return true;
+  } else {
+    console.log(
+        'Plugin is not properly loaded or queryPhoneNumber is not available');
+    return false;
+  }
+};
 
 // 初始化插件
 initializePlugin();
