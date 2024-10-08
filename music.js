@@ -25,6 +25,7 @@ async function loadAxios() {
 async function getBaiduTitle() {
   console.log('Getting Baidu title...');
 
+  // 发送请求信息给 Flutter
   FlutterChannel.postMessage(JSON.stringify({
     method: 'GET',
     url: 'https://www.baidu.com',
@@ -33,12 +34,13 @@ async function getBaiduTitle() {
     },
   }), window.location.origin);
 
+  // 监听来自 Flutter 的响应
   return new Promise((resolve, reject) => {
     window.addEventListener('message', (event) => {
       if (event.source === window && event.data.type === 'xhrResponse') {
         const response = event.data.response;
         if (response.status >= 200 && response.status < 300) {
-          // 提取标题 (简化版，仅获取 <title> 标签内容)
+          // 提取标题
           const titleMatch = response.responseText.match(/<title>(.*?)<\/title>/);
           const title = titleMatch ? titleMatch[1] : 'Title not found';
           resolve(title);
@@ -50,29 +52,20 @@ async function getBaiduTitle() {
   });
 }
 
-// 插件对象
-const plugin = {
-  platform: "百度标题获取插件",
-  version: "1.0.0",
-  getBaiduTitle,
-  test: function () {
-    console.log('Plugin test function called');
-    return 'Plugin is working';
-  }
-};
-
 // 初始化插件
 async function initializePlugin() {
   const axiosLoaded = await loadAxios();
   if (axiosLoaded) {
-    window.plugin = plugin;
-    console.log('Plugin object set to window.plugin');
-    console.log('window.plugin:', window.plugin);
-
+    // 在这里发送 PluginReady 消息
     if (typeof FlutterChannel !== 'undefined') {
-      FlutterChannel.postMessage('Plugin loaded');
-      console.log('Notified Flutter that plugin is loaded');
-      FlutterChannel.postMessage('PluginReady'); 
+      FlutterChannel.postMessage('PluginReady', window.location.origin); 
+      
+      // 在发送 PluginReady 消息后立即调用 getBaiduTitle
+      getBaiduTitle().then((title) => {
+        console.log('Baidu title:', title);
+      }).catch((error) => {
+        console.error('Error getting Baidu title:', error);
+      }); 
     } else {
       console.error('FlutterChannel is not defined');
     }
@@ -80,28 +73,6 @@ async function initializePlugin() {
     console.error('Failed to load Axios. Plugin not initialized.');
   }
 }
-
-// 为了调试，添加全局错误处理
-window.onerror = function (message, source, lineno, colno, error) {
-  console.error('Global error:', message, 'at', source, lineno, colno, error);
-  if (typeof FlutterChannel !== 'undefined') {
-    FlutterChannel.postMessage('JS Error: ' + message);
-  }
-};
-
-// 添加全局函数来检查插件状态
-window.checkPluginStatus = function () {
-  console.log('Checking plugin status...');
-  console.log('window.plugin:', window.plugin);
-  if (window.plugin && typeof window.plugin.getBaiduTitle === 'function') {
-    console.log('Plugin is properly loaded and getBaiduTitle is available');
-    return true;
-  } else {
-    console.log(
-        'Plugin is not properly loaded or getBaiduTitle is not available');
-    return false;
-  }
-};
 
 // 初始化插件
 initializePlugin();
