@@ -77,6 +77,7 @@ function queryPhoneNumber(phoneNumber) {  // 注意：不再是 async 函数
 
 // 在全局作用域中注册事件监听器
 window.addEventListener('message', (event) => {
+  console.log('Received message:', event.data); // 输出接收到的消息内容
   if (event.data.type === `xhrResponse_${pluginId}`) {
     const response = event.data.response;
     if (response.status >= 200 && response.status < 300) {
