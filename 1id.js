@@ -126,7 +126,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.9.9",
+  version: "1.6.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
