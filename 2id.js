@@ -48,11 +48,12 @@ function extractDataFromDOM(doc, phoneNumber) {
     jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', '');
   }
 
-  const locationElement = doc.querySelector('.cc-row_dDm_G');
+  const locationElement = doc.querySelector('.c-span20.c-span-last .cr-title1_1_Ro-'); 
   if (locationElement) {
     const locationParts = locationElement.textContent.trim().split(' ');
     jsonObject.province = locationParts[0] || '';
     jsonObject.city = locationParts[1] || '';
+    jsonObject.carrier = locationParts[2] || ''; // 提取运营商信息
   }
 
   console.log('Extracted information:', jsonObject);
