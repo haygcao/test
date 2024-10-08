@@ -74,14 +74,20 @@ function extractBaiduData($, phoneNumber) {
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
 
+  // 等待 Flutter 准备好接收 XMLHttpRequest 请求信息
+  await FlutterChannel.postMessage('readyForXhr'); // 发送一个准备信号给 Flutter
+
   // 将 XMLHttpRequest 请求的信息传递给 Flutter
   FlutterChannel.postMessage(JSON.stringify({
     method: 'GET',
     url: `https://www.baidu.com/s?wd=${phoneNumber}`,
     headers: {
-      // ... 添加需要的 headers
+      // ... 添加需要的 headers，例如:
+      "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+      // ... 其他需要的 headers
     },
-    // 如果有请求体，添加 body 属性
+    // 如果有请求体，添加 body 属性，例如:
+    // body: JSON.stringify({ /* 你的请求体数据 */ })
   }));
 
   // 等待 Flutter 的响应
@@ -104,7 +110,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.9.0",
+  version: "1.8.9",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
