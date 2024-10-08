@@ -139,12 +139,25 @@ async function getMediaSource(musicItem, quality) {
 // }
 
 // 初始化
+// 初始化
 async function initialize() {
   const axiosLoaded = await loadAxios();
   if (axiosLoaded) {
-    // 初始化完成后，通知 Flutter 插件已加载完成
+    // 初始化完成后，通知 Flutter 插件已加载完成，并将插件对象赋值给 window.plugin
     if (typeof FlutterChannel !== 'undefined') {
-      FlutterChannel.postMessage('PluginReady'); 
+      FlutterChannel.postMessage('PluginReady');
+      window.plugin = {
+        platform: "音悦台",
+        author: '猫头猫',
+        version: "0.0.1",
+        supportedSearchType: ["music"],
+        srcUrl:
+          "https://gitee.com/maotoumao/MusicFreePlugins/raw/v0.1/dist/yinyuetai/index.js",
+        cacheControl: "no-cache",
+        search,
+        getMediaSource,
+        getArtistWorks,
+      };
     } else {
       console.error('FlutterChannel is not defined');
     }
