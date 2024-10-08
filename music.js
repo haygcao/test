@@ -25,6 +25,7 @@ async function loadAxios() {
 
 // 获取百度首页标题
 async function getBaiduTitle() {
+  const that = this; // 保存 this 指向
   console.log('Getting Baidu title...');
   FlutterChannel.postMessage('Getting Baidu title...', window.location.origin); // 发送日志到 Flutter
 
@@ -47,11 +48,11 @@ async function getBaiduTitle() {
           const titleMatch = response.responseText.match(/<title>(.*?)<\/title>/);
           const title = titleMatch ? titleMatch[1] : 'Title not found';
           console.log('Baidu title:', title);
-          FlutterChannel.postMessage('Baidu title: ' + title, window.location.origin); // 发送标题到 Flutter
+          that.FlutterChannel.postMessage('Baidu title: ' + title, window.location.origin); // 使用 that.FlutterChannel
           resolve(title);
         } else {
           console.error(`HTTP error! status: ${response.status}`);
-          FlutterChannel.postMessage(`HTTP error! status: ${response.status}`, window.location.origin); // 发送错误信息到 Flutter
+          that.FlutterChannel.postMessage(`HTTP error! status: ${response.status}`, window.location.origin); // 使用 that.FlutterChannel
           reject(new Error(`HTTP error! status: ${response.status}`));
         }
       }
