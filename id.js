@@ -96,10 +96,21 @@ class FlutterChannel {
         }
       }
     });
+
+    // 通知 queryPhoneNumber 函数可以发送请求了
+    window.dispatchEvent(new Event('jsReady')); 
   }
 
   sendMessage(message) {
-    message.pluginId = this.pluginId;
+    // 将 message 对象中的属性值转换为字符串
+    message.pluginId = String(message.pluginId);
+    message.method = String(message.method);
+    message.url = String(message.url);
+    for (const key in message.headers) {
+      message.headers[key] = String(message.headers[key]);
+    }
+
+    // 使用 window.parent.postMessage 发送信息给 Flutter
     window.parent.postMessage(JSON.stringify(message), '*'); 
   }
 
@@ -136,7 +147,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.8.9",
+  version: "1.8.8",
   queryPhoneNumber,
   test: function () {
     console.log('Plugin test function called');
