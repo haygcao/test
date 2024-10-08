@@ -129,6 +129,8 @@ async function initializePlugin() {
     if (typeof FlutterChannel !== 'undefined') {
       FlutterChannel.postMessage('Plugin loaded');
       console.log('Notified Flutter that plugin is loaded');
+          // 发送 "PluginReady" 消息给 Flutter，表示插件已经初始化完成
+    FlutterChannel.postMessage('PluginReady'); 
     } else {
       console.error('FlutterChannel is not defined');
     }
