@@ -78,7 +78,7 @@ async function queryPhoneNumber(phoneNumber) {
   return new Promise((resolve, reject) => {
     window.addEventListener('message', (event) => {
     // 检查消息来源是否为 Flutter 应用，并检查消息类型是否为 xhrResponse_${pluginId}
-    if (event.source !== window && event.data.type === `xhrResponse_${pluginId}`) { 
+    if (event.source == window && event.data.type === `xhrResponse_${pluginId}`) { 
         const response = event.data.response;
         if (response.status >= 200 && response.status < 300) {
           // 使用 DOMParser 解析 HTML
