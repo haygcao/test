@@ -71,24 +71,21 @@ async function queryPhoneNumber(phoneNumber) {
   }));
 
   return new Promise((resolve, reject) => {
-    // 监听 DOMContentLoaded 事件
-    document.addEventListener('DOMContentLoaded', function() {
-      window.addEventListener('message', (event) => {
-        if (event.source === window && event.data.type === 'xhrResponse') {
-          const response = event.data.response;
-          if (response.status >= 200 && response.status < 300) {
-            // 使用 DOMParser 解析 HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(response.responseText, 'text/html');
+    window.addEventListener('message', (event) => {
+      if (event.source === window && event.data.type === 'xhrResponse') {
+        const response = event.data.response;
+        if (response.status >= 200 && response.status < 300) {
+          // 使用 DOMParser 解析 HTML
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(response.responseText, 'text/html');
 
-            // 使用 JavaScript 代码提取数据
-            const jsonObject = extractDataFromDOM(doc, phoneNumber); 
-            resolve(jsonObject);
-          } else {
-            reject(new Error(`HTTP error! status: ${response.status}`));
-          }
+          // 使用 JavaScript 代码提取数据
+          const jsonObject = extractDataFromDOM(doc, phoneNumber); 
+          resolve(jsonObject);
+        } else {
+          reject(new Error(`HTTP error! status: ${response.status}`));
         }
-      });
+      }
     });
   });
 }
