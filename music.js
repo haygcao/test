@@ -115,6 +115,11 @@ class FlutterChannel {
   generateRequestId() {
     return 'req_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
   }
+
+  // 发送消息给 Flutter
+  sendMessageToFlutter(message) {
+    window.parent.postMessage(JSON.stringify(message), '*'); 
+  }
 }
 
 // 创建 FlutterChannel 实例
@@ -154,7 +159,10 @@ async function initializePlugin() {
     if (typeof FlutterChannel !== 'undefined') {
       FlutterChannel.postMessage('Plugin loaded');
       console.log('Notified Flutter that plugin is loaded');
-      FlutterChannel.postMessage('PluginReady'); 
+      FlutterChannel.postMessage('PluginReady');
+
+      // 在发送 PluginReady 消息之后注册事件监听器
+      flutterChannel.register(); 
     } else {
       console.error('FlutterChannel is not defined');
     }
@@ -162,11 +170,6 @@ async function initializePlugin() {
     console.error('Failed to load libraries. Plugin not initialized.');
   }
 }
-
-// 注册 JavaScriptChannel 和事件监听器
-document.addEventListener('DOMContentLoaded', function() {
-  flutterChannel.register();
-});
 
 // 为了调试，添加全局错误处理
 window.onerror = function (message, source, lineno, colno, error) {
