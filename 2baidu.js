@@ -68,21 +68,43 @@ function extractBaiduData($, phoneNumber) {
   }
 }
 
-// 查询电话号码 (现在可以直接使用 axios)
+// 查询电话号码
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
   try {
-    const response = await axios.get(`https://www.baidu.com/s?wd=${phoneNumber}`);
+    // 创建一个新的 XMLHttpRequest 对象
+    const xhr = new XMLHttpRequest();
 
-    console.log('Baidu response status:', response.status);
-    if (response.status === 200) {
-      const html = response.data;
-      console.log('HTML content length:', html.length);
-      const $ = cheerio.load(html);
-      return extractBaiduData($, phoneNumber);
-    } else {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    // 使用 Promise 包装 XMLHttpRequest 的操作
+    return new Promise((resolve, reject) => {
+      // 设置 onreadystatechange 回调函数
+      xhr.onreadystatechange = function () {
+        if (this.readyState === 4) { // 请求完成
+          if (this.status >= 200 && this.status < 300) { // 请求成功
+            console.log('Baidu response status:', this.status);
+            const html = this.responseText;
+            console.log('HTML content length:', html.length);
+            const $ = cheerio.load(html);
+            resolve(extractBaiduData($, phoneNumber));
+          } else { // 请求失败
+            reject(new Error(`HTTP error! status: ${this.status}`));
+          }
+        }
+      };
+
+      // 使用 fetch API 发送请求，绕过 CORS 限制
+      fetch(`https://www.baidu.com/s?wd=${phoneNumber}`)
+        .then(response => response.text())
+        .then(text => {
+          // 将 fetch API 的响应结果设置到 XMLHttpRequest 对象上
+          Object.defineProperty(xhr, 'responseText', { value: text });
+          Object.defineProperty(xhr, 'response', { value: text });
+          Object.defineProperty(xhr, 'status', { value: 200 });
+          xhr.readyState = 4; // 设置 readyState 为 4，表示请求完成
+          xhr.onreadystatechange(); // 触发 onreadystatechange 回调函数
+        })
+        .catch(error => reject(error));
+    });
   } catch (error) {
     console.error('Error in queryPhoneNumber:', error);
     throw error;
@@ -92,7 +114,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.7.0",
+  version: "1.8.0",
   queryPhoneNumber,
   test: function() {
     console.log('Plugin test function called');
@@ -100,7 +122,7 @@ const plugin = {
   }
 };
 
-// XMLHttpRequest 代理实现
+// XMLHttpRequest 代理实现 (关键部分)
 function proxyAjax(XHR) {
   if (!XHR) {
     return;
@@ -108,16 +130,51 @@ function proxyAjax(XHR) {
   const _open = XHR.prototype.open;
   const _send = XHR.prototype.send;
 
-  // mock open()
+  // 代理 open() 方法
   XHR.prototype.open = function (...args) {
+    // 保存方法和 URL
     this._method = args[0];
     this._url = args[1];
+
+    // 调用原始的 open() 方法
     return _open.apply(this, args);
   };
 
-  // mock send()
+  // 代理 send() 方法
   XHR.prototype.send = function (...args) {
-    return _send.apply(this, args);
+    const self = this; // 保存 this 指针
+
+    // 使用 fetch API 发送请求
+    fetch(this._url, {
+      method: this._method,
+      headers: this.headers, // 使用 XMLHttpRequest 对象上的 headers
+      body: args[0] // 如果有请求体
+    })
+    .then(response => {
+      return response.text().then(text => {
+        // 将 fetch 的响应结果设置到 XMLHttpRequest 对象上
+        Object.defineProperty(self, 'responseText', { value: text });
+        Object.defineProperty(self, 'response', { value: text });
+        Object.defineProperty(self, 'status', { value: response.status });
+        Object.defineProperty(self, 'statusText', { value: response.statusText });
+
+        // 模拟 readyState 变化
+        self.readyState = 2; // HEADERS_RECEIVED
+        self.onreadystatechange();
+        self.readyState = 3; // LOADING
+        self.onreadystatechange();
+        self.readyState = 4; // DONE
+        self.onreadystatechange();
+      });
+    })
+    .catch(error => {
+      // 处理错误
+      console.error('Error in proxyAjax:', error);
+      // 可以根据需要设置 XMLHttpRequest 的状态和错误信息
+      self.readyState = 4; // DONE
+      self.status = 0; // 设置一个错误状态码
+      self.onreadystatechange();
+    });
   };
 }
 
