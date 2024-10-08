@@ -53,7 +53,7 @@ function extractBaiduData($, phoneNumber) {
     }
 
     jsonObject.sourceLabel = titleElement.length ? titleElement.text().trim() : '';
-    
+
     if (locationElement.length) {
       const locationParts = locationElement.text().trim().split(' ');
       jsonObject.province = locationParts[0] || '';
@@ -68,12 +68,12 @@ function extractBaiduData($, phoneNumber) {
   }
 }
 
-// 查询电话号码
+// 查询电话号码 (现在可以直接使用 axios)
 async function queryPhoneNumber(phoneNumber) {
   console.log('Querying phone number:', phoneNumber);
   try {
     const response = await axios.get(`https://www.baidu.com/s?wd=${phoneNumber}`);
-    
+
     console.log('Baidu response status:', response.status);
     if (response.status === 200) {
       const html = response.data;
@@ -92,7 +92,7 @@ async function queryPhoneNumber(phoneNumber) {
 // 插件对象
 const plugin = {
   platform: "百度号码查询插件",
-  version: "1.6.0",
+  version: "1.7.0",
   queryPhoneNumber,
   test: function() {
     console.log('Plugin test function called');
@@ -100,14 +100,38 @@ const plugin = {
   }
 };
 
-// 初始化插件
+// XMLHttpRequest 代理实现
+function proxyAjax(XHR) {
+  if (!XHR) {
+    return;
+  }
+  const _open = XHR.prototype.open;
+  const _send = XHR.prototype.send;
+
+  // mock open()
+  XHR.prototype.open = function (...args) {
+    this._method = args[0];
+    this._url = args[1];
+    return _open.apply(this, args);
+  };
+
+  // mock send()
+  XHR.prototype.send = function (...args) {
+    return _send.apply(this, args);
+  };
+}
+
+// 初始化插件，并启动 XMLHttpRequest 代理
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
     window.plugin = plugin;
     console.log('Plugin object set to window.plugin');
     console.log('window.plugin:', window.plugin);
-    
+
+    // 启动 XMLHttpRequest 代理
+    proxyAjax(global.originalXMLHttpRequest || global.XMLHttpRequest);
+
     if (typeof FlutterChannel !== 'undefined') {
       FlutterChannel.postMessage('Plugin loaded');
       console.log('Notified Flutter that plugin is loaded');
@@ -141,4 +165,4 @@ window.checkPluginStatus = function() {
 };
 
 // 初始化插件
-initializePlugin();
+initializePlugin(); 
