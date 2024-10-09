@@ -228,21 +228,7 @@ window.addEventListener('message', (event) => {
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
-   /*
-    window.plugin = { // 修改：使用 window.plugin[pluginId] 存储插件信息
-      id: pluginInfo.info.id,
-      pluginId: pluginId,
-      version: pluginInfo.info.version,
-      queryPhoneInfo: queryPhoneInfo, // 使用版本 A 的函数
-      generateOutput: generateOutput, // 修改：添加 generateOutput 函数
-      manualMapping: manualMapping, // 修改：添加 manualMapping
-      extractDataFromDOM: extractDataFromDOM, // 修改：添加 extractDataFromDOM
-      test: function () {
-        console.log('Plugin test function called');
-        return 'Plugin is working';
-      }
-    }; 
-*/
+
  // 确保 window.plugin 被初始化为空对象
     window.plugin = {}; 
     // 创建一个新的插件对象
@@ -291,21 +277,7 @@ window.onerror = function (message, source, lineno, colno, error) {
     FlutterChannel.postMessage('JS Error: ' + message);
   }
 };
-/*
-// 添加全局函数来检查插件状态
-window.checkPluginStatus = function (pluginId) { // 修改：添加 pluginId 参数
-  console.log('Checking plugin status for plugin:', pluginId);
-  console.log('window.plugin:', window.plugin);
-  if (window.plugin && typeof window.plugin.queryPhoneInfo === 'function') { 
-    console.log('Plugin', pluginId, 'is properly loaded and queryPhoneInfo is available');
-    return true;
-  } else {
-    console.log(
-        'Plugin', pluginId, 'is not properly loaded or queryPhoneInfo is not available');
-    return false;
-  }
-};
-*/
+
 // 添加全局函数来检查插件状态
 window.checkPluginStatus = function (pluginId) { 
   console.log('Checking plugin status for plugin:', pluginId);
