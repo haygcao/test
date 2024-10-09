@@ -71,7 +71,7 @@ function queryPhoneNumber(phoneNumber) {  // 注意：不再是 async 函数
   FlutterChannel.postMessage(JSON.stringify({
     pluginId: pluginId,
     method: 'GET',
-    url: `https://www.so.com/s?q=${phoneNumber}`,
+    url: `https://m.so.com/s?q=${phoneNumber}`,
     headers: {
       //"User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     },
