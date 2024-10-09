@@ -175,7 +175,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) { // è¿™é
     sourceLabel: info.sourceLabel,
     count: info.count,
     predefinedLabel: matchedLabel,
-    source: info.sourceName || this.info.name,
+    source: pluginInfo.info.name,
   };
 }
 
