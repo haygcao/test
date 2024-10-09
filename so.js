@@ -48,12 +48,12 @@ if (titleElement) {
   jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', '');
 }
 
-const locationElement = doc.querySelector('.c-span20.c-span-last .cr-title1_1_Ro-'); 
-if (locationElement) {
-  const locationParts = locationElement.textContent.trim().split(' ');
-  jsonObject.province = locationParts[0] || '';
-  jsonObject.city = locationParts[1] || '';
-  jsonObject.carrier = locationParts[2] || ''; // 提取运营商信息
+const addressElement = doc.querySelector(".mh-detail span:nth-child(2)"); // 获取包含省份和城市的 span 元素
+if (addressElement) {
+  const addressText = addressElement.textContent.trim();
+  const addressParts = addressText.split(/\s+/); // 使用正则表达式分割，处理多个空格
+  jsonObject.province = addressParts[0] || '';
+  jsonObject.city = addressParts[1] || '';
 }
 
   console.log('Extracted information:', jsonObject);
