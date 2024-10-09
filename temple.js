@@ -225,7 +225,7 @@ async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
     window.plugin = {
-      platform: pluginInfo.info.name,
+      id: pluginInfo.info.id,
       version: pluginInfo.info.version,
       queryPhoneInfo: queryPhoneInfo, // 使用版本 A 的函数
       test: function () {
