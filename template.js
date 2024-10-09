@@ -226,9 +226,10 @@ window.addEventListener('message', (event) => {
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
-    // 确保 window.plugin 对象存在，并初始化为一个空对象
-    window.plugin = window.plugin || {};
-
+    // 检查 window.plugin 是否存在，如果不存在则创建
+    if (!window.plugin) {
+      window.plugin = {};
+    }
     // 使用 Object.assign() 方法添加插件信息
     Object.assign(window.plugin, {
       [pluginId]: { // 使用计算属性名，确保 pluginId 是一个字符串
