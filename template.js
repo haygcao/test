@@ -11,22 +11,23 @@ const pluginInfo = {
     author: 'Your Name', // 插件作者
   },
 };  
-  // 预设标签列表
-const  predefinedLabels: [
+
+// 预设标签列表  
+const predefinedLabels = [ // 修改：添加初始值
   {'label': 'Fraud Scam Likely'},
   {'label': 'Spam Likely'},
   {'label': 'Telemarketing'},
   // ... 省略其他预设标签
   {'label': 'Risk'},
-  ],
+];
 
-  // 手动映射表，将 source label 映射到预设标签
-const  manualMapping: {
+// 手动映射表，将 source label 映射到预设标签  
+const manualMapping = { // 修改：添加初始值
   '标签1': 'Fraud Scam Likely', // 对应预设标签 "Fraud Scam Likely"
   '标签2': 'Spam Likely', // 对应预设标签 "Spam Likely"
   // ... 省略其他手动映射
   '标签22': 'Risk', // 对应预设标签 "Risk"
-  },
+};
 
 // 插件 ID,每个插件必须唯一
 const pluginId = 'baiduPhoneNumberPlugin';
