@@ -1,5 +1,28 @@
 // 插件 ID,每个插件必须唯一
 const pluginId = 'baiduPhoneNumberPlugin';
+//App 没有内置任何package，所以需要引入或者webpackage 打包。
+// 使用 Promise 来加载脚本
+function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+// 加载 axios
+async function loadLibraries() {
+  try {
+    await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
+    console.log('Libraries loaded successfully');
+    return true;
+  } catch (error) {
+    console.error('Error loading libraries:', error);
+    return false;
+  }
+}
 
 // 插件信息
 const pluginInfo = {
@@ -28,31 +51,6 @@ const pluginInfo = {
   '标签22': 'Risk', // 对应预设标签 "Risk"
   },
 
-
-
-
-// 使用 Promise 来加载脚本
-function loadScript(url) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = url;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-}
-
-// 加载 axios
-async function loadLibraries() {
-  try {
-    await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-    console.log('Libraries loaded successfully');
-    return true;
-  } catch (error) {
-    console.error('Error loading libraries:', error);
-    return false;
-  }
-}
 
 // 使用 DOMParser API 提取数据 (版本 A 的 extractDataFromDOM 函数)
 function extractDataFromDOM(doc, phoneNumber) {
