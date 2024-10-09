@@ -275,10 +275,10 @@ async function initializePlugin() {
     } else {
       console.error('FlutterChannel is not defined');
     }
-  } else {
+  } else { // <-- 这里少了一个 "}" 
     console.error('Failed to load libraries. Plugin not initialized.');
   }
-}
+}; 
 
 // 为了调试,添加全局错误处理
 window.onerror = function (message, source, lineno, colno, error) {
