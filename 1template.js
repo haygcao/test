@@ -115,6 +115,7 @@ const pendingPromises = new Map();
 
 // 生成输出信息 (版本 B 的 generateOutput 函数,使用版本 A 的结构和逻辑)
 async function generateOutput(phoneNumber, nationalNumber, e164Number) { // 这里的三个号码必须完整保留
+  console.log("generateOutput 函数开始执行"); 
   // 存储查询结果
   const queryResults = [];
 // 但是这里 phoneNumber,nationalNumber,e164Number你可以删除任何一个,但是至少保留一个,选择最符合你的地区的号码格式即可
@@ -168,7 +169,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) { // 这�
   if (!matchedLabel) {
     matchedLabel = manualMapping[info.sourceLabel] || null;
   }
-
+console.log("generateOutput 函数执行完毕");
   // 返回所需的数据对象
   return {
     phoneNumber: phoneNumber, 
