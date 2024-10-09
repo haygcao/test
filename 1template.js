@@ -251,7 +251,8 @@ async function initializePlugin() {
     
     console.log('Plugin object set to window.plugin');
     console.log('window.plugin:', window.plugin);
-
+console.log('pluginId:', pluginId); // 输出 pluginId 的值
+    
     if (typeof FlutterChannel !== 'undefined') {
       FlutterChannel.postMessage(JSON.stringify({  // 修改：使用 JSON 格式发送消息
         type: 'pluginLoaded', // 修改：添加消息类型
