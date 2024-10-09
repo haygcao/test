@@ -226,18 +226,24 @@ window.addEventListener('message', (event) => {
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
-    window.plugin[pluginId] = { // 修改：使用 window.plugin[pluginId] 存储插件信息
-      id: pluginInfo.info.id,
-      version: pluginInfo.info.version,
-      queryPhoneInfo: queryPhoneInfo, // 使用版本 A 的函数
-      generateOutput: generateOutput, // 修改：添加 generateOutput 函数
-      manualMapping: manualMapping, // 修改：添加 manualMapping
-      extractDataFromDOM: extractDataFromDOM, // 修改：添加 extractDataFromDOM
-      test: function () {
-        console.log('Plugin test function called');
-        return 'Plugin is working';
+    // 确保 window.plugin 对象存在，并初始化为一个空对象
+    window.plugin = window.plugin || {};
+
+    // 使用 Object.assign() 方法添加插件信息
+    Object.assign(window.plugin, {
+      [pluginId]: { // 使用计算属性名，确保 pluginId 是一个字符串
+        id: pluginInfo.info.id,
+        version: pluginInfo.info.version,
+        queryPhoneInfo: queryPhoneInfo, 
+        generateOutput: generateOutput,
+        manualMapping: manualMapping, 
+        extractDataFromDOM: extractDataFromDOM,
+        test: function () {
+          console.log('Plugin test function called');
+          return 'Plugin is working';
+        }
       }
-    }; 
+    }); 
     console.log('Plugin object set to window.plugin');
     console.log('window.plugin:', window.plugin);
 
