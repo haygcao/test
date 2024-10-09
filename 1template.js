@@ -228,6 +228,7 @@ window.addEventListener('message', (event) => {
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
+   /*
     window.plugin = { // 修改：使用 window.plugin[pluginId] 存储插件信息
       id: pluginInfo.info.id,
       pluginId: pluginId,
@@ -241,6 +242,26 @@ async function initializePlugin() {
         return 'Plugin is working';
       }
     }; 
+*/
+
+    // 创建一个新的插件对象
+    const thisPlugin = { 
+      id: pluginInfo.info.id,
+      pluginId: pluginId,
+      version: pluginInfo.info.version,
+      queryPhoneInfo: queryPhoneInfo, 
+      generateOutput: generateOutput,
+      manualMapping: manualMapping,
+      extractDataFromDOM: extractDataFromDOM,
+      test: function () {
+        console.log('Plugin test function called');
+        return 'Plugin is working';
+      }
+    }; 
+
+    // 将插件对象赋值给 window.plugin，以插件 ID 作为属性名
+    window.plugin[pluginId] = thisPlugin;
+    
     console.log('Plugin object set to window.plugin');
     console.log('window.plugin:', window.plugin);
 
