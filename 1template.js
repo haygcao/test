@@ -243,7 +243,8 @@ async function initializePlugin() {
       }
     }; 
 */
-
+ // 确保 window.plugin 被初始化为空对象
+    window.plugin = {}; 
     // 创建一个新的插件对象
     const thisPlugin = { 
       id: pluginInfo.info.id,
