@@ -1,10 +1,12 @@
 
+// 插件 ID,每个插件必须唯一
+const pluginId = 'baiduPhoneNumberPlugin';
 
 // 插件信息
 const pluginInfo = {
   // 插件信息
   info: {
-    id: 'your-plugin-id', // 插件ID,必须唯一
+    id: 'yourpluginid', // 插件ID,必须唯一
     name: 'Your Plugin Name', // 插件名称
     version: '1.0.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
@@ -29,8 +31,7 @@ const manualMapping = { // 修改：添加初始值
   '标签22': 'Risk', // 对应预设标签 "Risk"
 };
 
-// 插件 ID,每个插件必须唯一
-const pluginId = 'baiduPhoneNumberPlugin';
+
 
 
 // 使用 Promise 来加载脚本
