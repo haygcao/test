@@ -1,5 +1,5 @@
 // 插件 ID，每个插件必须唯一
-const pluginId = 'baiduPhoneNumberPlugin';
+const pluginId = 'soPhoneNumberPlugin';
 
 // 使用 Promise 来加载脚本
 function loadScript(url) {
@@ -113,7 +113,7 @@ window.addEventListener('message', (event) => {
 
 // 插件对象
 const plugin = {
-  platform: "百度号码查询插件",
+  platform: "so查询插件",
   version: "1.1.9",
   queryPhoneNumber,
   test: function () {
