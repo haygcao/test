@@ -223,6 +223,7 @@ window.addEventListener('message', (event) => {
 });
 
 // 初始化插件
+// 初始化插件
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
@@ -255,30 +256,10 @@ async function initializePlugin() {
     } else {
       console.error('FlutterChannel is not defined');
     }
-  } else {
+  } else { //  **删除了重复的代码块** 
     console.error('Failed to load libraries. Plugin not initialized.');
   }
 }
-    console.log('Plugin object set to window.plugin');
-    console.log('window.plugin:', window.plugin);
-
-    if (typeof FlutterChannel !== 'undefined') {
-      FlutterChannel.postMessage(JSON.stringify({  // 修改：使用 JSON 格式发送消息
-        type: 'pluginLoaded', // 修改：添加消息类型
-        pluginId: pluginId, // 修改：添加插件 ID
-      }));
-      console.log('Notified Flutter that plugin is loaded');
-      FlutterChannel.postMessage(JSON.stringify({ // 修改：使用 JSON 格式发送消息
-        type: 'pluginReady', // 修改：添加消息类型
-        pluginId: pluginId, // 修改：添加插件 ID
-      })); 
-    } else {
-      console.error('FlutterChannel is not defined');
-    }
-  } else { // <-- 这里少了一个 "}" 
-    console.error('Failed to load libraries. Plugin not initialized.');
-  }
-}; 
 
 // 为了调试,添加全局错误处理
 window.onerror = function (message, source, lineno, colno, error) {
