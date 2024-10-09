@@ -271,15 +271,15 @@ window.onerror = function (message, source, lineno, colno, error) {
 };
 
 // 添加全局函数来检查插件状态
-window.checkPluginStatus = function () {
-  console.log('Checking plugin status...');
+window.checkPluginStatus = function (pluginId) { // 修改：添加 pluginId 参数
+  console.log('Checking plugin status for plugin:', pluginId);
   console.log('window.plugin:', window.plugin);
-  if (window.plugin && typeof window.plugin.queryPhoneInfo === 'function') {
-    console.log('Plugin is properly loaded and queryPhoneInfo is available');
+  if (window.plugin[pluginId] && typeof window.plugin[pluginId].queryPhoneInfo === 'function') { // 修改：检查 window.plugin[pluginId]
+    console.log('Plugin', pluginId, 'is properly loaded and queryPhoneInfo is available');
     return true;
   } else {
     console.log(
-        'Plugin is not properly loaded or queryPhoneInfo is not available');
+        'Plugin', pluginId, 'is not properly loaded or queryPhoneInfo is not available');
     return false;
   }
 };
