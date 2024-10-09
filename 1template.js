@@ -290,7 +290,7 @@ window.onerror = function (message, source, lineno, colno, error) {
     FlutterChannel.postMessage('JS Error: ' + message);
   }
 };
-
+/*
 // 添加全局函数来检查插件状态
 window.checkPluginStatus = function (pluginId) { // 修改：添加 pluginId 参数
   console.log('Checking plugin status for plugin:', pluginId);
@@ -304,6 +304,21 @@ window.checkPluginStatus = function (pluginId) { // 修改：添加 pluginId 参
     return false;
   }
 };
+*/
+// 添加全局函数来检查插件状态
+window.checkPluginStatus = function (pluginId) { 
+  console.log('Checking plugin status for plugin:', pluginId);
+  console.log('window.plugin:', window.plugin);
+  // 检查对应的插件对象是否存在
+  if (window.plugin[pluginId] && typeof window.plugin[pluginId].queryPhoneInfo === 'function') {
+    console.log('Plugin', pluginId, 'is properly loaded and queryPhoneInfo is available');
+    return true;
+  } else {
+    console.log('Plugin', pluginId, 'is not properly loaded or queryPhoneInfo is not available');
+    return false;
+  }
+};
+
 
 // 初始化插件
 initializePlugin();
