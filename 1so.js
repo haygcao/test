@@ -35,6 +35,8 @@ function extractDataFromDOM(doc, phoneNumber) {
     phoneNumber: phoneNumber
   };
 
+const jsonObject = {};
+
 const descElement = doc.querySelector('.mark-tip_3WkLJ span');
 if (descElement) {
   const descText = descElement.textContent.trim();
@@ -48,17 +50,27 @@ if (titleElement) {
   jsonObject.sourceLabel = titleElement.textContent.trim().replace('用户标记', '');
 }
 
-const addressElement = doc.querySelector(".mh-detail span:nth-child(2)"); // 获取包含省份和城市的 span 元素
-if (addressElement) {
-  const addressText = addressElement.textContent.trim();
-  const addressParts = addressText.split(/\s+/); // 使用正则表达式分割，处理多个空格
-  jsonObject.province = addressParts[0] || '';
-  jsonObject.city = addressParts[1] || '';
+// 获取电话号码
+const phoneElement = doc.querySelector(".mh-tel-info .mh-tel-num a");
+if (phoneElement) {
+  jsonObject.phone = phoneElement.textContent.trim();
 }
 
-  console.log('Extracted information:', jsonObject);
-  return jsonObject;
+// 获取省份和城市
+const addressElement = doc.querySelector(".mh-tel-info .mh-tel-adr p");
+if (addressElement) {
+  const addressText = addressElement.textContent.trim();
+  const addressParts = addressText.split(/\s+/);
+  jsonObject.province = addressParts[0] || '';
+  jsonObject.city = addressParts[1] || '';
+  // 提取运营商信息 (如果存在)
+  if (addressParts.length > 2) {
+    jsonObject.carrier = addressParts.slice(2).join(' '); 
+  }
 }
+
+console.log('Extracted information:', jsonObject);
+return jsonObject;
 
 // 查询电话号码
 function queryPhoneNumber(phoneNumber) {  // 注意：不再是 async 函数
