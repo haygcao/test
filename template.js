@@ -226,25 +226,39 @@ window.addEventListener('message', (event) => {
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
-    // 检查 window.plugin 是否存在，如果不存在则创建
-    if (!window.plugin) {
-      window.plugin = {};
-    }
-    // 使用 Object.assign() 方法添加插件信息
-    Object.assign(window.plugin, {
-      [pluginId]: { // 使用计算属性名，确保 pluginId 是一个字符串
-        id: pluginInfo.info.id,
-        version: pluginInfo.info.version,
-        queryPhoneInfo: queryPhoneInfo, 
-        generateOutput: generateOutput,
-        manualMapping: manualMapping, 
-        extractDataFromDOM: extractDataFromDOM,
-        test: function () {
-          console.log('Plugin test function called');
-          return 'Plugin is working';
-        }
+    window.plugin = { // 修改：使用 window.plugin[pluginId] 存储插件信息
+      id: pluginInfo.info.id,
+      pluginId: pluginId,
+      version: pluginInfo.info.version,
+      queryPhoneInfo: queryPhoneInfo, // 使用版本 A 的函数
+      generateOutput: generateOutput, // 修改：添加 generateOutput 函数
+      manualMapping: manualMapping, // 修改：添加 manualMapping
+      extractDataFromDOM: extractDataFromDOM, // 修改：添加 extractDataFromDOM
+      test: function () {
+        console.log('Plugin test function called');
+        return 'Plugin is working';
       }
-    }); 
+    }; 
+    console.log('Plugin object set to window.plugin');
+    console.log('window.plugin:', window.plugin);
+
+    if (typeof FlutterChannel !== 'undefined') {
+      FlutterChannel.postMessage(JSON.stringify({  // 修改：使用 JSON 格式发送消息
+        type: 'pluginLoaded', // 修改：添加消息类型
+        pluginId: pluginId, // 修改：添加插件 ID
+      }));
+      console.log('Notified Flutter that plugin is loaded');
+      FlutterChannel.postMessage(JSON.stringify({ // 修改：使用 JSON 格式发送消息
+        type: 'pluginReady', // 修改：添加消息类型
+        pluginId: pluginId, // 修改：添加插件 ID
+      })); 
+    } else {
+      console.error('FlutterChannel is not defined');
+    }
+  } else {
+    console.error('Failed to load libraries. Plugin not initialized.');
+  }
+}
     console.log('Plugin object set to window.plugin');
     console.log('window.plugin:', window.plugin);
 
