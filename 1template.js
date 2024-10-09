@@ -7,7 +7,7 @@ const pluginInfo = {
   // 插件信息
   info: {
     id: 'yourpluginid', // 插件ID,必须唯一
-    name: 'Your Plugin Name', // 插件名称
+    name: 'baidu', // 插件名称
     version: '1.0.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
