@@ -1,6 +1,37 @@
+
+
+// 插件信息
+const pluginInfo = {
+  // 插件信息
+  info: {
+    id: 'your-plugin-id', // 插件ID,必须唯一
+    name: 'Your Plugin Name', // 插件名称
+    version: '1.0.0', // 插件版本
+    description: 'This is a plugin template.', // 插件描述
+    author: 'Your Name', // 插件作者
+  },
+};  
+  // 预设标签列表
+const  predefinedLabels: [
+  {'label': 'Fraud Scam Likely'},
+  {'label': 'Spam Likely'},
+  {'label': 'Telemarketing'},
+  // ... 省略其他预设标签
+  {'label': 'Risk'},
+  ],
+
+  // 手动映射表，将 source label 映射到预设标签
+const  manualMapping: {
+  '标签1': 'Fraud Scam Likely', // 对应预设标签 "Fraud Scam Likely"
+  '标签2': 'Spam Likely', // 对应预设标签 "Spam Likely"
+  // ... 省略其他手动映射
+  '标签22': 'Risk', // 对应预设标签 "Risk"
+  },
+
 // 插件 ID,每个插件必须唯一
 const pluginId = 'baiduPhoneNumberPlugin';
-//App 没有内置任何package，所以需要引入或者webpackage 打包。
+
+
 // 使用 Promise 来加载脚本
 function loadScript(url) {
   return new Promise((resolve, reject) => {
@@ -23,34 +54,6 @@ async function loadLibraries() {
     return false;
   }
 }
-
-// 插件信息
-const pluginInfo = {
-  // 插件信息
-  info: {
-    id: 'your-plugin-id', // 插件ID,必须唯一
-    name: 'Your Plugin Name', // 插件名称
-    version: '1.0.0', // 插件版本
-    description: 'This is a plugin template.', // 插件描述
-    author: 'Your Name', // 插件作者
-  },
-  // 预设标签列表
-  predefinedLabels: [
-  {'label': 'Fraud Scam Likely'},
-  {'label': 'Spam Likely'},
-  {'label': 'Telemarketing'},
-  // ... 省略其他预设标签
-  {'label': 'Risk'},
-  ],
-
-  // 手动映射表，将 source label 映射到预设标签
-  manualMapping: {
-  '标签1': 'Fraud Scam Likely', // 对应预设标签 "Fraud Scam Likely"
-  '标签2': 'Spam Likely', // 对应预设标签 "Spam Likely"
-  // ... 省略其他手动映射
-  '标签22': 'Risk', // 对应预设标签 "Risk"
-  },
-
 
 // 使用 DOMParser API 提取数据 (版本 A 的 extractDataFromDOM 函数)
 function extractDataFromDOM(doc, phoneNumber) {
@@ -153,7 +156,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) { // 这�
 
   // 使用原有的逻辑匹配预定义标签
   let matchedLabel = null;
-  for (const label of this.predefinedLabels) {
+  for (const label of predefinedLabels) {
     if (label.label === info.sourceLabel) {
       matchedLabel = label.label;
       break;
@@ -161,7 +164,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) { // 这�
   }
   // 如果没有匹配到预定义标签,尝试使用手动映射
   if (!matchedLabel) {
-    matchedLabel = this.manualMapping[info.sourceLabel] || null;
+    matchedLabel = manualMapping[info.sourceLabel] || null;
   }
 
   // 返回所需的数据对象
@@ -222,10 +225,13 @@ window.addEventListener('message', (event) => {
 async function initializePlugin() {
   const librariesLoaded = await loadLibraries();
   if (librariesLoaded) {
-    window.plugin = {
+    window.plugin[pluginId] = { // 修改：使用 window.plugin[pluginId] 存储插件信息
       id: pluginInfo.info.id,
       version: pluginInfo.info.version,
       queryPhoneInfo: queryPhoneInfo, // 使用版本 A 的函数
+      generateOutput: generateOutput, // 修改：添加 generateOutput 函数
+      manualMapping: manualMapping, // 修改：添加 manualMapping
+      extractDataFromDOM: extractDataFromDOM, // 修改：添加 extractDataFromDOM
       test: function () {
         console.log('Plugin test function called');
         return 'Plugin is working';
@@ -235,9 +241,15 @@ async function initializePlugin() {
     console.log('window.plugin:', window.plugin);
 
     if (typeof FlutterChannel !== 'undefined') {
-      FlutterChannel.postMessage('Plugin loaded');
+      FlutterChannel.postMessage(JSON.stringify({  // 修改：使用 JSON 格式发送消息
+        type: 'pluginLoaded', // 修改：添加消息类型
+        pluginId: pluginId, // 修改：添加插件 ID
+      }));
       console.log('Notified Flutter that plugin is loaded');
-      FlutterChannel.postMessage('PluginReady'); 
+      FlutterChannel.postMessage(JSON.stringify({ // 修改：使用 JSON 格式发送消息
+        type: 'pluginReady', // 修改：添加消息类型
+        pluginId: pluginId, // 修改：添加插件 ID
+      })); 
     } else {
       console.error('FlutterChannel is not defined');
     }
@@ -255,15 +267,15 @@ window.onerror = function (message, source, lineno, colno, error) {
 };
 
 // 添加全局函数来检查插件状态
-window.checkPluginStatus = function () {
-  console.log('Checking plugin status...');
+window.checkPluginStatus = function (pluginId) { // 修改：添加 pluginId 参数
+  console.log('Checking plugin status for plugin:', pluginId);
   console.log('window.plugin:', window.plugin);
-  if (window.plugin && typeof window.plugin.queryPhoneInfo === 'function') {
-    console.log('Plugin is properly loaded and queryPhoneInfo is available');
+  if (window.plugin[pluginId] && typeof window.plugin[pluginId].queryPhoneInfo === 'function') { // 修改：检查 window.plugin[pluginId]
+    console.log('Plugin', pluginId, 'is properly loaded and queryPhoneInfo is available');
     return true;
   } else {
     console.log(
-        'Plugin is not properly loaded or queryPhoneInfo is not available');
+        'Plugin', pluginId, 'is not properly loaded or queryPhoneInfo is not available');
     return false;
   }
 };
@@ -271,4 +283,3 @@ window.checkPluginStatus = function () {
 // 初始化插件
 initializePlugin();
 
-};
