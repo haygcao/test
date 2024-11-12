@@ -125,7 +125,7 @@ function queryPhoneInfo(phoneNumber) {
   FlutterChannel.postMessage(JSON.stringify({
     pluginId: pluginId, 
     method: 'GET',
-   url: `https://m.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&ch=&tn=baiduerr&bar=&wd=${phoneNumber}`,
+   url: `https://wwww.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&ch=&tn=baiduerr&bar=&wd=${phoneNumber}`,
 
     headers: {
       "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 13; SM-G9880) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.98 YaBrowser/24.10.4.98.00 SA/3 Mobile Safari/537.36',
