@@ -82,29 +82,26 @@ function extractDataFromDOM(doc) {
   };
 
   try {
-    // Count extraction
-    const bElement = doc.querySelector('.mh-tel-desc b');
-    if (bElement) {
-      const count = parseInt(bElement.textContent.trim(), 10);
-      jsonObject.count = !isNaN(count) ? count : 0;
+    // Count extraction - more robust way to find the count
+    const descElement = doc.querySelector('.mh-tel-desc');
+    if (descElement) {
+      const countText = descElement.textContent;
+      const match = countText.match(/(\d+)位/); // Match digits followed by "位"
+      if (match) {
+        jsonObject.count = parseInt(match[1], 10);
+      }
+
+      // Source label extraction (improved)
+      let sourceLabelText = countText
+        .replace(/\d+/g, '') // Remove digits
+        .replace(/此号码近期被|位|360手机卫士|用户标记，疑似为|！/g, '') // Remove specific phrases
+        .replace(/，/g, '')
+        .trim();
+      jsonObject.sourceLabel = sourceLabelText;
     }
 
-    // Source label extraction
-    const sourceLabelElement = doc.querySelector('.mh-tel-desc');
-        if (sourceLabelElement) {
-            let sourceLabelText = sourceLabelElement.textContent.trim()
-            .replace(/\d+/g, '') //移除数字
-        .replace('位', '')
-       .replace('此号码近期被', '')
-       .replace('，', '')
-       .replace('！', '')
-        .replace('360手机卫士', '') //移除"360手机卫士"
-        .trim(); //移除首尾空格
-            jsonObject.sourceLabel = sourceLabelText;
-        }
-
-    // Location information extraction
-    const locationElement = doc.querySelector('.mh-tel-adr p');
+    // Location and carrier extraction
+    const locationElement = doc.querySelector('.mh-tel-info .mh-tel-adr p');
     if (locationElement) {
       const locationParts = locationElement.textContent.trim().split(/\s+/);
       jsonObject.province = locationParts[0] || '';
