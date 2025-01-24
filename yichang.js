@@ -72,57 +72,88 @@ async function loadLibraries() {
 
 
 // 使用 DOMParser API 提取数据 (这里重要的就是count 和label，phone number，其他的都是为了测试使用的)
-// 使用 DOMParser API 提取数据 (这里重要的就是count 和label，phone number，其他的都是为了测试使用的)
 function extractDataFromDOM(doc) {
   const jsonObject = {
-       feedbackText: null,
-         whyText: null,
-         textNodeValue:null
+    count: null,
+    sourceLabel: null,
+    province: null,
+    city: null,
+    carrier: null,
+     feedbackText: null,
+        whyText: null,
+       textNodeValue:null
   };
 
   try {
-       console.log('Document Object:', doc); // 输出整个 doc 对象
+    console.log('Document Object:', doc);
+
+        const bodyElement = doc.body;
+        console.log('Body Element:', bodyElement);
+         if (!bodyElement) {
+                console.error('Error: Could not find body element.');
+                return jsonObject;
+         }
 
 
-        // 1. 提取 feedback 文本内容
        const feedbackElement = doc.querySelector('.feedback');
-        console.log('feedbackElement:', feedbackElement);
-        if (feedbackElement) {
-          const feedbackText = feedbackElement.textContent.trim();
-            console.log('feedbackText:', feedbackText);
-            jsonObject.feedbackText = feedbackText;
-
-             // 提取  `>提交</a
-            const submitLink = feedbackElement.querySelector('a[href]');
-                console.log('submitLink:', submitLink);
-            if(submitLink){
-            let text = submitLink.textContent
-            console.log('text:',text);
-                 jsonObject.textNodeValue = text;
-
-            }
-           
-
-        }
-
-           // 2. 提取 why 文本内容
-      const whyElement = doc.querySelector('.why');
-      console.log('whyElement:', whyElement);
-        if (whyElement) {
-          const whyText = whyElement.textContent.trim();
-          console.log('whyText:', whyText);
-          jsonObject.whyText = whyText;
-          }
+          console.log('feedbackElement:', feedbackElement);
+            if (feedbackElement) {
+                  const feedbackText = feedbackElement.textContent.trim();
+                     console.log('feedbackText:', feedbackText);
+                    jsonObject.feedbackText = feedbackText;
 
 
-   } catch (error) {
-        console.error('Error extracting data:', error);
+                       // 提取  `>提交</a`
+                    const submitLink = feedbackElement.querySelector('a[href]');
+                    console.log('submitLink:', submitLink);
+                       if(submitLink){
+                         let text = submitLink.textContent
+                              console.log('text:',text);
+                         jsonObject.textNodeValue = text;
+                         }
+
+                    // 使用IP地址填充 count
+                    const ipMatch = feedbackText.match(/您的IP是：\s*(.*?)\s*<br/);
+                       if (ipMatch && ipMatch[1]) {
+                            jsonObject.count = ipMatch[1];
+                         } else {
+                           jsonObject.count = "verify_error";
+                           }
+
+                    // 使用 “请输入验证码以便正常访问”填充 sourceLabel
+                jsonObject.sourceLabel = '请输入验证码以便正常访问';
+                  console.log('jsonObject.count:', jsonObject.count);
+                   console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+                 jsonObject.province = 'verify'
+                 jsonObject.city = 'verify'
+           console.log('jsonObject.province:', jsonObject.province);
+                console.log('jsonObject.city:', jsonObject.city);
+           }else{
+               jsonObject.count = "no_feedback"
+              jsonObject.sourceLabel = "no_feedback";
+             jsonObject.province="no_feedback";
+             jsonObject.city= "no_feedback";
+
+           }
+
+       const whyElement = doc.querySelector('.why');
+             console.log('whyElement:', whyElement);
+           if (whyElement) {
+                 const whyText = whyElement.textContent.trim();
+               console.log('whyText:', whyText);
+                 jsonObject.whyText = whyText;
+         }
+
+
+
+  } catch (error) {
+      console.error('Error extracting data:', error);
     }
-      console.log('Final jsonObject:', jsonObject);
-
+     console.log('Final jsonObject:', jsonObject);
 
   return jsonObject;
 }
+
 
 // 查询电话号码信息 (版本 A 的 queryPhoneNumber 函数)
 // 查询电话号码信息
