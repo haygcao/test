@@ -87,26 +87,37 @@ function extractDataFromDOM(doc, phoneNumber) {
 
   //从这里到你根据实际的html 的element 进行修改，
   // 提取标记次数 (count)
-  const countElement = doc.querySelector('.mohe-tips .mohe-tips-zp b');
-  if (countElement) {
-    const countText = countElement.textContent.trim();
-    const count = parseInt(countText, 10); // 将提取的文本转换为数字
-    if (!isNaN(count)) { // 确保转换成功
-      jsonObject.count = count;
+  const tipsElement = doc.querySelector('.mohe-tips .mohe-tips-zp');
+  if (tipsElement) {
+    const bElement = tipsElement.querySelector('b');
+    if (bElement) {
+      const count = parseInt(bElement.textContent.trim(), 10);
+      if (!isNaN(count)) {
+        jsonObject.count = count;
+      }
     }
   }
 
-  // 提取标记来源
-  const sourceElement = doc.querySelector('.mh-hy-tips .mh-hy-360');
-  if (sourceElement) {
-    jsonObject.sourceLabel = sourceElement.textContent.trim();
+  // 提取标记类型 (sourceLabel)
+  const sourceLabelElement = doc.querySelector('.mohe-tips .mohe-tips-zp');
+  if (sourceLabelElement) {
+    let sourceLabelText = sourceLabelElement.textContent.trim()
+                            .replace(/\d+/g, '')
+                            .replace('用户标记', '')
+                            .replace('位', '')
+                            .replace('此号码近期被', '')
+                            .replace('，', '')
+                            .replace('！','')
+                            .trim();
+    jsonObject.sourceLabel = sourceLabelText;
   }
 
   // 提取归属地信息
   const locationElement = doc.querySelector('.gclearfix.mh-detail span:nth-child(2)');
   if (locationElement) {
     const locationText = locationElement.textContent.trim();
-    const locationParts = locationText.split(/\s+/);
+    // 使用 replace(/ /g, ' ') 将   替换成普通空格
+    const locationParts = locationText.replace(/ /g, ' ').split(/\s+/); 
     jsonObject.province = locationParts[0] || '';
     jsonObject.city = locationParts[1] || '';
     jsonObject.carrier = locationParts[2] || '';
