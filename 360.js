@@ -82,35 +82,48 @@ function extractDataFromDOM(doc) {
   };
 
   try {
-    // Count extraction - more robust way to find the count
+    // 1. 提取描述文本
     const descElement = doc.querySelector('.mh-tel-desc');
-    if (descElement) {
-      const countText = descElement.textContent;
-      const match = countText.match(/(\d+)位/); // Match digits followed by "位"
-      if (match) {
-        jsonObject.count = parseInt(match[1], 10);
-      }
+        if (descElement) {
+          const descText = descElement.textContent.trim();
+            console.log('descText:', descText);
 
-      // Source label extraction (improved)
-      let sourceLabelText = countText
-        .replace(/\d+/g, '') // Remove digits
-        .replace(/此号码近期被|位|360手机卫士|用户标记，疑似为|！/g, '') // Remove specific phrases
-        .replace(/，/g, '')
-        .trim();
-      jsonObject.sourceLabel = sourceLabelText;
-    }
+            // 2. 提取标记次数 (count)
+            const match = descText.match(/(\d+)位/);
+            console.log('count match:', match);
+           if (match) {
+             jsonObject.count = parseInt(match[1], 10);
+           }
+        console.log('jsonObject.count:', jsonObject.count);
 
-    // Location and carrier extraction
-    const locationElement = doc.querySelector('.mh-tel-info .mh-tel-adr p');
-    if (locationElement) {
-      const locationParts = locationElement.textContent.trim().split(/\s+/);
-      jsonObject.province = locationParts[0] || '';
-      jsonObject.city = locationParts[1] || '';
-      jsonObject.carrier = locationParts[2] || '';
-    }
+
+         // 3. 提取标记标签 (sourceLabel)
+          let sourceLabelText = descText
+            .replace(/\d+/g, '') // Remove digits
+            .replace(/此号码近期被|位|360手机卫士|用户标记，疑似为|！/g, '') // Remove specific phrases
+            .replace(/，/g, '')
+            .trim();
+          jsonObject.sourceLabel = sourceLabelText;
+          console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+        }
+
+
+      // 4. 提取省份、城市、运营商 (province, city, carrier)
+      const locationElement = doc.querySelector('.mh-tel-adr p');
+      console.log('locationElement:', locationElement);
+      if (locationElement) {
+        const locationParts = locationElement.textContent.trim().split(/\s+/);
+        jsonObject.province = locationParts[0] || '';
+        jsonObject.city = locationParts[1] || '';
+        jsonObject.carrier = locationParts[2] || '';
+      console.log('jsonObject.province:', jsonObject.province);
+      console.log('jsonObject.city:', jsonObject.city);
+      console.log('jsonObject.carrier:', jsonObject.carrier);
+     }
   } catch (error) {
     console.error('Error extracting data:', error);
   }
+    console.log('Final jsonObject:', jsonObject);
 
   return jsonObject;
 }
