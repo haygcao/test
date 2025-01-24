@@ -227,46 +227,66 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
 // 在全局作用域中注册事件监听器
 window.addEventListener('message', (event) => {
-  console.log('Received message:', event.data); 
-  if (event.data.type === `xhrResponse_${pluginId}`) {
-    const response = event.data.response;
-        const requestId = event.data.requestId; // 直接从 event.data 中获取 requestId
-        console.log('requestId:',requestId)
-    if (response.status >= 200 && response.status < 300) {
-      console.log('HTML content:', response.responseText); // 后期一定注释掉,打印 HTML 内容到 Flutter 日志,Android studio 打开flutter inspector,打开chrome://inspect/#devices,Remote Target,Inspect
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(response.responseText, 'text/html');
+    console.log('Received message in event listener:', event.data);
 
-      // 使用 JavaScript 代码提取数据
-      const jsonObject = extractDataFromDOM(doc, window.currentPhoneNumber); 
-      console.log('Extracted information:', jsonObject);
+    if (event.data.type === `xhrResponse_${pluginId}`) {
+        const detail = event.data.detail; // 获取 detail 对象
+        const response = detail.response;
+        const requestId = detail.requestId;
 
-          // 将数据传递回 Flutter,纯粹为了测试,后期测试后可以省略的
-      FlutterChannel.postMessage(JSON.stringify({
-        type: 'pluginResult',
-        pluginId: pluginId,
-        phoneNumber: window.currentPhoneNumber,
-        data: jsonObject,
-      }));
 
-      // resolve 对应的 Promise
-      const resolveFn = pendingPromises.get(window.currentPhoneNumber);
-      if (resolveFn) {
-        resolveFn(jsonObject);
-        pendingPromises.delete(window.currentPhoneNumber); // 移除已处理的 Promise
-      }
+        console.log('requestId from detail:', requestId);
 
-    } else {
-      console.error(`HTTP error! status: ${response.status}`);
+        if (response.status >= 200 && response.status < 300) {
+            console.log('HTML content:', response.responseText);
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(response.responseText, 'text/html');
 
-         // 将数据传递回 Flutter,纯粹为了测试,后期测试后可以省略的
-      FlutterChannel.postMessage(JSON.stringify({
-        type: 'pluginError',
-        pluginId: pluginId,
-        error: `HTTP error! status: ${response.status}`,
-      }));
+            // 使用 JavaScript 代码提取数据
+            const jsonObject = extractDataFromDOM(doc);
+            console.log('Extracted information:', jsonObject);
+
+            // 将数据传递回 Flutter
+            FlutterChannel.postMessage(JSON.stringify({
+                type: 'pluginResult',
+                pluginId: pluginId,
+                data: jsonObject,  // 不再需要 phoneNumber
+                requestId: requestId // 将requestId 发送回 Flutter
+
+
+            }));
+
+            // resolve 对应的 Promise，使用 requestId
+            const resolveFn = pendingPromises.get(requestId);
+            if (resolveFn) {
+                resolveFn(jsonObject);
+                pendingPromises.delete(requestId);
+                console.log('Resolved promise for requestId:', requestId);
+            } else {
+                console.error('Resolve function not found for requestId:', requestId);
+            }
+
+        } else {
+            console.error(`HTTP error! status: ${response.status}`);
+
+
+            FlutterChannel.postMessage(JSON.stringify({
+                type: 'pluginError',
+                pluginId: pluginId,
+                error: `HTTP error! status: ${response.status}`,
+                requestId:requestId
+            }));
+
+            const rejectFn = pendingPromises.get(requestId);
+            if (rejectFn) {
+                rejectFn(new Error(`HTTP error! status: ${response.status}`));
+                pendingPromises.delete(requestId);
+                console.error('Rejected promise for requestId:', requestId); // 添加错误日志
+            } else {
+                console.error('Reject function not found for requestId:', requestId); // 添加错误日志
+            }
+        }
     }
-  }
 });
 
 // 初始化插件
@@ -342,4 +362,3 @@ window.checkPluginStatus = function (pluginId) {
 
 // 初始化插件
 initializePlugin();
-
