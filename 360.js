@@ -81,23 +81,18 @@ function extractDataFromDOM(doc) {
     carrier: "",
   };
 
-  // 提取标记次数 (count)
-  const descElement = doc.querySelector('.mh-tel-desc');
-  if (descElement) {
-      const bElement = descElement.querySelector('b');
-     if (bElement) {
-          const countText = bElement.textContent.trim();
-          const count = parseInt(countText, 10);
-           if (!isNaN(count)) {
-            jsonObject.count = count;
-           }
-      }
-  }
+  try {
+    // Count extraction
+    const bElement = doc.querySelector('.mh-tel-desc b');
+    if (bElement) {
+      const count = parseInt(bElement.textContent.trim(), 10);
+      jsonObject.count = !isNaN(count) ? count : 0;
+    }
 
-    // 提取标记类型 (sourceLabel)
-  const sourceLabelElement = doc.querySelector('.mh-tel-desc');
-    if (sourceLabelElement) {
-       let sourceLabelText = sourceLabelElement.textContent.trim()
+    // Source label extraction
+    const sourceLabelElement = doc.querySelector('.mh-tel-desc');
+        if (sourceLabelElement) {
+            let sourceLabelText = sourceLabelElement.textContent.trim()
             .replace(/\d+/g, '') //移除数字
         .replace('位', '')
        .replace('此号码近期被', '')
@@ -105,23 +100,23 @@ function extractDataFromDOM(doc) {
        .replace('！', '')
         .replace('360手机卫士', '') //移除"360手机卫士"
         .trim(); //移除首尾空格
-       jsonObject.sourceLabel = sourceLabelText.trim();
-    }
+            jsonObject.sourceLabel = sourceLabelText;
+        }
 
-
-     // 提取归属地信息
+    // Location information extraction
     const locationElement = doc.querySelector('.mh-tel-adr p');
-     if (locationElement) {
-      const locationText = locationElement.textContent.trim();
-        const locationParts = locationText.split(/\s+/);
-        jsonObject.province = locationParts[0] || '';
-        jsonObject.city = locationParts[1] || '';
-        jsonObject.carrier = locationParts[2] || '';
-      }
-  console.log('Extracted information:', jsonObject);
+    if (locationElement) {
+      const locationParts = locationElement.textContent.trim().split(/\s+/);
+      jsonObject.province = locationParts[0] || '';
+      jsonObject.city = locationParts[1] || '';
+      jsonObject.carrier = locationParts[2] || '';
+    }
+  } catch (error) {
+    console.error('Error extracting data:', error);
+  }
+
   return jsonObject;
 }
-
 
 // 查询电话号码信息 (版本 A 的 queryPhoneNumber 函数)
 // 查询电话号码信息
