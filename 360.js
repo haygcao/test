@@ -7,50 +7,47 @@ const pluginInfo = {
   info: {
     id: 'yourpluginid', // 插件ID,必须唯一
     name: '360', // 插件名称
-    version: '1.2.0', // 插件版本
+    version: '1.0.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
   },
-};  
-
-// 预设标签列表  
-const predefinedLabels = [ // 修改：添加初始值
-  {'label': 'Fraud Scam Likely'},
-  {'label': 'Spam Likely'},
-  {'label': 'Telemarketing'},
-  {'label': 'Robocall'},
-  {'label': 'Delivery'},
-  {'label': 'Takeaway'},
-  {'label': 'Ridesharing'},
-  {'label': 'Insurance'},
-  {'label': 'Loan'},
-  {'label': 'Customer Service'},
-  {'label': 'Unknown'},
-  {'label': 'Financial'},
-  {'label': 'Bank'},
-  {'label': 'Education'},
-  {'label': 'Medical'},
-  {'label': 'Charity'},
-  {'label': 'Other'},
-  {'label': 'Collection'},
-  {'label': 'Survey'},
-  {'label': 'Political'},
-  {'label': 'Ecommerce'},
-  {'label': 'Risk'},
-];
-
-// 手动映射表，将 source label 映射到预设标签  
-const manualMapping = { // 修改：添加初始值
-  '标签1': 'Fraud Scam Likely', // 对应预设标签 "Fraud Scam Likely"
-  '标签2': 'Spam Likely', // 对应预设标签 "Spam Likely"
-  // ... 省略其他手动映射
-  '标签22': 'Risk', // 对应预设标签 "Risk"
 };
 
+// 预设标签列表
+const predefinedLabels = [
+    {'label': 'Fraud Scam Likely'},
+    {'label': 'Spam Likely'},
+    {'label': 'Telemarketing'},
+    {'label': 'Robocall'},
+    {'label': 'Delivery'},
+    {'label': 'Takeaway'},
+    {'label': 'Ridesharing'},
+    {'label': 'Insurance'},
+    {'label': 'Loan'},
+    {'label': 'Customer Service'},
+    {'label': 'Unknown'},
+    {'label': 'Financial'},
+    {'label': 'Bank'},
+    {'label': 'Education'},
+    {'label': 'Medical'},
+    {'label': 'Charity'},
+    {'label': 'Other'},
+    {'label': 'Collection'},
+    {'label': 'Survey'},
+    {'label': 'Political'},
+    {'label': 'Ecommerce'},
+    {'label': 'Risk'},
+];
 
+// 手动映射表，将 source label 映射到预设标签
+const manualMapping = {
+    '标签1': 'Fraud Scam Likely', // 对应预设标签 "Fraud Scam Likely"
+    '标签2': 'Spam Likely', // 对应预设标签 "Spam Likely"
+    // ... 省略其他手动映射
+    '标签22': 'Risk', // 对应预设标签 "Risk"
+};
 
-
-// 使用 Promise 来加载脚本// 因为app 没有内置npm包，所以只能引入url 或者打包
+// 使用 Promise 来加载脚本
 function loadScript(url) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
@@ -73,6 +70,7 @@ async function loadLibraries() {
   }
 }
 
+
 // 使用 DOMParser API 提取数据 (这里重要的就是count 和label，phone number，其他的都是为了测试使用的)
 function extractDataFromDOM(doc) {
   const jsonObject = {
@@ -83,49 +81,46 @@ function extractDataFromDOM(doc) {
     carrier: "",
   };
 
-  //从这里到你根据实际的html 的element 进行修改，
   // 提取标记次数 (count)
-  const tipsElement = doc.querySelector('.mohe-tips .mohe-tips-zp');
-  if (tipsElement) {
-    const bElement = tipsElement.querySelector('b');
-    if (bElement) {
-      const count = parseInt(bElement.textContent.trim(), 10);
-      if (!isNaN(count)) {
-        jsonObject.count = count;
+  const descElement = doc.querySelector('.mh-tel-desc');
+  if (descElement) {
+      const bElement = descElement.querySelector('b');
+     if (bElement) {
+          const countText = bElement.textContent.trim();
+          const count = parseInt(countText, 10);
+           if (!isNaN(count)) {
+            jsonObject.count = count;
+           }
       }
+  }
+
+    // 提取标记类型 (sourceLabel)
+  const sourceLabelElement = doc.querySelector('.mh-tel-desc');
+    if (sourceLabelElement) {
+       let sourceLabelText = sourceLabelElement.textContent.trim()
+            .replace(/\d+/g, '') //移除数字
+        .replace('位', '')
+       .replace('此号码近期被', '')
+       .replace('，', '')
+       .replace('！', '')
+        .replace('360手机卫士', '') //移除"360手机卫士"
+        .trim(); //移除首尾空格
+       jsonObject.sourceLabel = sourceLabelText.trim();
     }
-  }
 
-  // 提取标记类型 (sourceLabel)
-  const sourceLabelElement = doc.querySelector('.mohe-tips .mohe-tips-zp');
-  if (sourceLabelElement) {
-    let sourceLabelText = sourceLabelElement.textContent.trim()
-                            .replace(/\d+/g, '')
-                            .replace('用户标记', '')
-                            .replace('位', '')
-                            .replace('此号码近期被', '')
-                            .replace('，', '')
-                            .replace('！','')
-                            .trim();
-    jsonObject.sourceLabel = sourceLabelText;
-  }
 
-  // 提取归属地信息
-  const locationElement = doc.querySelector('.gclearfix.mh-detail span:nth-child(2)');
-  if (locationElement) {
-    const locationText = locationElement.textContent.trim();
-    // 使用 replace(/ /g, ' ') 将   替换成普通空格
-    const locationParts = locationText.replace(/ /g, ' ').split(/\s+/); 
-    jsonObject.province = locationParts[0] || '';
-    jsonObject.city = locationParts[1] || '';
-    jsonObject.carrier = locationParts[2] || '';
-  }
-
+     // 提取归属地信息
+    const locationElement = doc.querySelector('.mh-tel-adr p');
+     if (locationElement) {
+      const locationText = locationElement.textContent.trim();
+        const locationParts = locationText.split(/\s+/);
+        jsonObject.province = locationParts[0] || '';
+        jsonObject.city = locationParts[1] || '';
+        jsonObject.carrier = locationParts[2] || '';
+      }
   console.log('Extracted information:', jsonObject);
   return jsonObject;
 }
-//到这里需要你根据实际的html 的element 进行修改，
-
 
 
 // 查询电话号码信息 (版本 A 的 queryPhoneNumber 函数)
@@ -137,11 +132,10 @@ function queryPhoneInfo(phoneNumber,requestId) {
     FlutterChannel.postMessage(JSON.stringify({
         pluginId: pluginId,
         method: 'GET',
-        requestId:requestId, //将requestID 放到请求体里面 
+        requestId:requestId, //将requestID 放到请求体里面
         url: `https://www.so.com/s?q=${phoneNumber}`,
         headers: {
             "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
-
         },
     }));
 }
@@ -156,7 +150,7 @@ const pendingPromises = new Map();
 
 // 生成输出信息
 async function generateOutput(phoneNumber, nationalNumber, e164Number) {
-    // 这里的三个号码必须完整保留
+  // 这里的三个号码必须完整保留
   // 存储查询结果
     const queryResults = [];
 
@@ -188,7 +182,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     }
 
       // 等待所有查询完成
-  try {
+    try {
     const results = await Promise.all(queryResults);
     console.log('All queries completed:', results);
 
@@ -204,7 +198,6 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
         let matchedLabel = predefinedLabels.find(label => label.label === info.sourceLabel)?.label || manualMapping[info.sourceLabel] || 'Unknown';
 
-
     return {
       phoneNumber: phoneNumber || nationalNumber || e164Number, // 返回第一个非空的号码
       sourceLabel: info.sourceLabel,
@@ -213,14 +206,12 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       source:  pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
     };
   } catch (error) {
-    console.error('Error in generateOutput:', error);    // 返回错误信息给 Flutter
+    console.error('Error in generateOutput:', error); // 返回错误信息给 Flutter
     return {
         error: error.message || 'Unknown error occurred during phone number lookup.',
     };
   }
 }
-
-
 
 
 // 在全局作用域中注册事件监听器
@@ -250,7 +241,9 @@ window.addEventListener('message', (event) => {
                 type: 'pluginResult',
                 pluginId: pluginId,
                 data: jsonObject,
-                requestId: requestId // 将requestId 发送回 Flutter
+                 requestId: requestId // 将requestId 发送回 Flutter
+
+
             }));
 
             // resolve 对应的 Promise，使用 requestId
@@ -293,13 +286,13 @@ async function initializePlugin() {
   if (librariesLoaded) {
 
  // 确保 window.plugin 被初始化为空对象
-    window.plugin = {}; 
+    window.plugin = {};
     // 创建一个新的插件对象
-    const thisPlugin = { 
+    const thisPlugin = {
       id: pluginInfo.info.id,
       pluginId: pluginId,
       version: pluginInfo.info.version,
-      queryPhoneInfo: queryPhoneInfo, 
+      queryPhoneInfo: queryPhoneInfo,
       generateOutput: generateOutput,
       manualMapping: manualMapping,
       extractDataFromDOM: extractDataFromDOM,
@@ -307,7 +300,7 @@ async function initializePlugin() {
         console.log('Plugin test function called');
         return 'Plugin is working';
       }
-    }; 
+    };
 
     // 将插件对象赋值给 window.plugin，以插件 ID 作为属性名
     window.plugin[pluginId] = thisPlugin;
@@ -325,14 +318,15 @@ console.log('pluginId:', pluginId); // 输出 pluginId 的值
       TestPageChannel.postMessage(JSON.stringify({ // 修改：使用 JSON 格式发送消息
         type: 'pluginReady', // 修改：添加消息类型
         pluginId: pluginId, // 修改：添加插件 ID
-      })); 
+      }));
     } else {
       console.error('FlutterChannel is not defined');
     }
-  } else { //  **删除了重复的代码块** 
+  } else { //  **删除了重复的代码块**
     console.error('Failed to load libraries. Plugin not initialized.');
   }
 }
+
 
 // 为了调试,添加全局错误处理
 window.onerror = function (message, source, lineno, colno, error) {
@@ -343,7 +337,7 @@ window.onerror = function (message, source, lineno, colno, error) {
 };
 
 // 添加全局函数来检查插件状态
-window.checkPluginStatus = function (pluginId) { 
+window.checkPluginStatus = function (pluginId) {
   console.log('Checking plugin status for plugin:', pluginId);
   console.log('window.plugin:', window.plugin);
   // 检查对应的插件对象是否存在
