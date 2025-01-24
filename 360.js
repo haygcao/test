@@ -1,4 +1,3 @@
-
 // 插件 ID,每个插件必须唯一
 const pluginId = '360PhoneNumberPlugin';
 
@@ -8,7 +7,7 @@ const pluginInfo = {
   info: {
     id: 'yourpluginid', // 插件ID,必须唯一
     name: '360', // 插件名称
-    version: '1.0.0', // 插件版本
+    version: '1.2.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
   },
@@ -75,14 +74,13 @@ async function loadLibraries() {
 }
 
 // 使用 DOMParser API 提取数据 (这里重要的就是count 和label，phone number，其他的都是为了测试使用的)
-function extractDataFromDOM(doc, phoneNumber) {
+function extractDataFromDOM(doc) {
   const jsonObject = {
     count: 0,
     sourceLabel: "",
     province: "",
     city: "",
     carrier: "",
-    phoneNumber: phoneNumber
   };
 
   //从这里到你根据实际的html 的element 进行修改，
@@ -246,14 +244,13 @@ window.addEventListener('message', (event) => {
             const jsonObject = extractDataFromDOM(doc);
             console.log('Extracted information:', jsonObject);
 
+
             // 将数据传递回 Flutter
             FlutterChannel.postMessage(JSON.stringify({
                 type: 'pluginResult',
                 pluginId: pluginId,
-                data: jsonObject,  // 不再需要 phoneNumber
+                data: jsonObject,
                 requestId: requestId // 将requestId 发送回 Flutter
-
-
             }));
 
             // resolve 对应的 Promise，使用 requestId
