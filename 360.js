@@ -131,96 +131,97 @@ function extractDataFromDOM(doc, phoneNumber) {
 
 
 // 查询电话号码信息 (版本 A 的 queryPhoneNumber 函数)
-function queryPhoneInfo(phoneNumber) {
-  console.log('Querying phone number:', phoneNumber);
-// 将 phoneNumber 存储在 window 对象上
-  window.currentPhoneNumber = phoneNumber; // 存储电话号码
+// 查询电话号码信息
+function queryPhoneInfo(phoneNumber,requestId) {
 
-///  这里url 和headers 是你需要你修改的
+    ///  这里url 和headers 是你需要你修改的
   // 添加 pluginId 到消息中
-  FlutterChannel.postMessage(JSON.stringify({
-    pluginId: pluginId, 
-    method: 'GET',
-    url: `https://www.so.com/s?q=${phoneNumber}`,
-    headers: {
-      "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
-    },
-  }));
+    FlutterChannel.postMessage(JSON.stringify({
+        pluginId: pluginId,
+        method: 'GET',
+        requestId:requestId, //将requestID 放到请求体里面 
+        url: `https://www.so.com/s?q=${phoneNumber}`,
+        headers: {
+            "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+
+        },
+    }));
 }
 //// 这里url 和headers 是你需要你修改的
 
 
-///剩下的部分都是固定的你不需要改动
 
 
 // 使用 Map 对象来存储 pending 的 Promise
 const pendingPromises = new Map();
 
-// 生成输出信息 (版本 B 的 generateOutput 函数,使用版本 A 的结构和逻辑)
-async function generateOutput(phoneNumber, nationalNumber, e164Number) { // 这里的三个号码必须完整保留
+
+// 生成输出信息
+async function generateOutput(phoneNumber, nationalNumber, e164Number) {
+    // 这里的三个号码必须完整保留
   // 存储查询结果
-  const queryResults = [];
-// 但是这里 phoneNumber,nationalNumber,e164Number你可以删除任何一个,但是至少保留一个,选择最符合你的地区的号码格式即可
-  if (phoneNumber) {
-    this.queryPhoneInfo(phoneNumber); // 调用 queryPhoneInfo 发起查询
-    queryResults.push(new Promise((resolve) => {
-      pendingPromises.set(phoneNumber, resolve); // 将 resolve 函数存储到 pendingPromises 中
-    }));
-  }
+    const queryResults = [];
 
+    // 为每个号码生成唯一的 requestId
+    const phoneRequestId =  Math.random().toString(36).substring(2);
+    const nationalRequestId = Math.random().toString(36).substring(2);
+    const e164RequestId = Math.random().toString(36).substring(2);
 
 // 但是这里 phoneNumber,nationalNumber,e164Number你可以删除任何一个,但是至少保留一个,选择最符合你的地区的号码格式即可
+    if (phoneNumber) {
+        queryPhoneInfo(phoneNumber,phoneRequestId); // 调用 queryPhoneInfo 发起查询
+        queryResults.push(new Promise((resolve) => {
+            pendingPromises.set(phoneRequestId, resolve); // 将 resolve 函数存储到 pendingPromises 中
+        }));
+    }
 
     if (nationalNumber) {
-    this.queryPhoneInfo(nationalNumber); // 调用 queryPhoneInfo 发起查询
-    queryResults.push(new Promise((resolve) => {
-      pendingPromises.set(nationalNumber, resolve); // 将 resolve 函数存储到 pendingPromises 中
-    }));
-  }
+        queryPhoneInfo(nationalNumber,nationalRequestId);
+        queryResults.push(new Promise((resolve) => {
+            pendingPromises.set(nationalRequestId, resolve);
+        }));
+    }
 
+    if (e164Number) {
+        queryPhoneInfo(e164Number,e164RequestId);
+        queryResults.push(new Promise((resolve) => {
+            pendingPromises.set(e164RequestId, resolve);
+        }));
+    }
 
-// 但是这里 你可以删除任何一个,但是至少保留一个
-  if (e164Number) {
-    this.queryPhoneInfo(e164Number); // 调用 queryPhoneInfo 发起查询
-    queryResults.push(new Promise((resolve) => {
-      pendingPromises.set(e164Number, resolve); // 将 resolve 函数存储到 pendingPromises 中
-    }));
-  }
+      // 等待所有查询完成
+  try {
+    const results = await Promise.all(queryResults);
+    console.log('All queries completed:', results);
 
-  // 等待所有查询完成
-  const results = await Promise.all(queryResults); 
-
-  const [phoneInfo, nationalInfo, e164Info] = results;
+    const [phoneInfo, nationalInfo, e164Info] = results;
 
   // 合并查询结果,优先使用非空值
-  const info = {
-    count: phoneInfo?.count || nationalInfo?.count || e164Info?.count || 0,
-    sourceLabel: phoneInfo?.sourceLabel || nationalInfo?.sourceLabel || e164Info?.sourceLabel || "",
-    sourceName: phoneInfo?.sourceName || nationalInfo?.sourceName || e164Info?.sourceName || "",
-  };
+    const info = {
+      count: phoneInfo?.count || nationalInfo?.count || e164Info?.count || 0,
+      sourceLabel: phoneInfo?.sourceLabel || nationalInfo?.sourceLabel || e164Info?.sourceLabel || "",
+      sourceName: pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
+    };
 
-  // 使用原有的逻辑匹配预定义标签
-  let matchedLabel = null;
-  for (const label of predefinedLabels) {
-    if (label.label === info.sourceLabel) {
-      matchedLabel = label.label;
-      break;
-    }
-  }
-  // 如果没有匹配到预定义标签,尝试使用手动映射
-  if (!matchedLabel) {
-    matchedLabel = manualMapping[info.sourceLabel] || null;
-  }
 
-  // 返回所需的数据对象
-  return {
-    phoneNumber: phoneNumber, 
-    sourceLabel: info.sourceLabel,
-    count: info.count,
-    predefinedLabel: matchedLabel,
-    source: pluginInfo.info.name,
-  };
+        let matchedLabel = predefinedLabels.find(label => label.label === info.sourceLabel)?.label || manualMapping[info.sourceLabel] || 'Unknown';
+
+
+    return {
+      phoneNumber: phoneNumber || nationalNumber || e164Number, // 返回第一个非空的号码
+      sourceLabel: info.sourceLabel,
+        count: info.count,
+        predefinedLabel: matchedLabel || '',
+      source:  pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
+    };
+  } catch (error) {
+    console.error('Error in generateOutput:', error);    // 返回错误信息给 Flutter
+    return {
+        error: error.message || 'Unknown error occurred during phone number lookup.',
+    };
+  }
 }
+
 
 
 
@@ -339,3 +340,4 @@ window.checkPluginStatus = function (pluginId) {
 
 // 初始化插件
 initializePlugin();
+
