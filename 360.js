@@ -1,6 +1,6 @@
 
 // 插件 ID,每个插件必须唯一
-const pluginId = 'baiduPhoneNumberPlugin';
+const pluginId = '360PhoneNumberPlugin';
 
 // 插件信息
 const pluginInfo = {
