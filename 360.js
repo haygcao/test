@@ -230,6 +230,8 @@ window.addEventListener('message', (event) => {
   console.log('Received message:', event.data); 
   if (event.data.type === `xhrResponse_${pluginId}`) {
     const response = event.data.response;
+        const requestId = event.data.requestId; // 直接从 event.data 中获取 requestId
+        console.log('requestId:',requestId)
     if (response.status >= 200 && response.status < 300) {
       console.log('HTML content:', response.responseText); // 后期一定注释掉,打印 HTML 内容到 Flutter 日志,Android studio 打开flutter inspector,打开chrome://inspect/#devices,Remote Target,Inspect
       const parser = new DOMParser();
