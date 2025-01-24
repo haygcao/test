@@ -73,59 +73,68 @@ async function loadLibraries() {
 
 // 使用 DOMParser API 提取数据 (这里重要的就是count 和label，phone number，其他的都是为了测试使用的)
 function extractDataFromDOM(doc) {
-  const jsonObject = {
+   const jsonObject = {
     count: 0,
     sourceLabel: "",
     province: "",
     city: "",
     carrier: "",
   };
-
   try {
-    // 1. 提取描述文本
-    const descElement = doc.querySelector('.mh-tel-desc');
+        console.log('Document Object:', doc); // 输出整个 doc 对象
+
+        // 1. 检查 body 元素是否存在
+    const bodyElement = doc.body;
+    console.log('Body Element:', bodyElement);
+    if (!bodyElement) {
+        console.error('Error: Could not find body element.');
+        return jsonObject;
+    }
+
+       // 2. 提取描述文本
+        const descElement = doc.querySelector('.mh-tel-desc');
+        console.log('descElement:', descElement);
         if (descElement) {
           const descText = descElement.textContent.trim();
             console.log('descText:', descText);
 
-            // 2. 提取标记次数 (count)
+            // 3. 提取标记次数 (count)
             const match = descText.match(/(\d+)位/);
-            console.log('count match:', match);
+             console.log('count match:', match);
            if (match) {
-             jsonObject.count = parseInt(match[1], 10);
+              jsonObject.count = parseInt(match[1], 10);
            }
-        console.log('jsonObject.count:', jsonObject.count);
+          console.log('jsonObject.count:', jsonObject.count);
 
-
-         // 3. 提取标记标签 (sourceLabel)
+          // 4. 提取标记标签 (sourceLabel)
           let sourceLabelText = descText
-            .replace(/\d+/g, '') // Remove digits
-            .replace(/此号码近期被|位|360手机卫士|用户标记，疑似为|！/g, '') // Remove specific phrases
+            .replace(match ? match[0] : '', '') // Remove matched count string
+            .replace(/此号码近期被|360手机卫士|用户标记，疑似为|！/g, '') // Remove specific phrases
             .replace(/，/g, '')
             .trim();
-          jsonObject.sourceLabel = sourceLabelText;
+         jsonObject.sourceLabel = sourceLabelText;
           console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
         }
-
-
-      // 4. 提取省份、城市、运营商 (province, city, carrier)
+       
+    // 5. 提取省份、城市、运营商 (province, city, carrier)
       const locationElement = doc.querySelector('.mh-tel-adr p');
-      console.log('locationElement:', locationElement);
-      if (locationElement) {
-        const locationParts = locationElement.textContent.trim().split(/\s+/);
-        jsonObject.province = locationParts[0] || '';
-        jsonObject.city = locationParts[1] || '';
-        jsonObject.carrier = locationParts[2] || '';
-      console.log('jsonObject.province:', jsonObject.province);
-      console.log('jsonObject.city:', jsonObject.city);
-      console.log('jsonObject.carrier:', jsonObject.carrier);
-     }
-  } catch (error) {
-    console.error('Error extracting data:', error);
-  }
-    console.log('Final jsonObject:', jsonObject);
+       console.log('locationElement:', locationElement);
+        if (locationElement) {
+            const locationParts = locationElement.textContent.trim().split(/\s+/);
+            jsonObject.province = locationParts[0] || '';
+            jsonObject.city = locationParts[1] || '';
+            jsonObject.carrier = locationParts[2] || '';
+             console.log('jsonObject.province:', jsonObject.province);
+             console.log('jsonObject.city:', jsonObject.city);
+             console.log('jsonObject.carrier:', jsonObject.carrier);
+        }
 
-  return jsonObject;
+    } catch (error) {
+        console.error('Error extracting data:', error);
+    }
+        console.log('Final jsonObject:', jsonObject);
+
+    return jsonObject;
 }
 
 // 查询电话号码信息 (版本 A 的 queryPhoneNumber 函数)
@@ -140,7 +149,7 @@ function queryPhoneInfo(phoneNumber,requestId) {
         requestId:requestId, //将requestID 放到请求体里面
         url: `https://www.so.com/s?q=${phoneNumber}`,
         headers: {
-            "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711D) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
+            "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
         },
     }));
 }
@@ -232,34 +241,36 @@ window.addEventListener('message', (event) => {
         console.log('requestId from detail:', requestId);
 
         if (response.status >= 200 && response.status < 300) {
-            console.log('HTML content:', response.responseText);
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(response.responseText, 'text/html');
+           
+              const parser = new DOMParser();
+             const doc = parser.parseFromString(response.responseText, 'text/html');
 
+            doc.addEventListener('DOMContentLoaded', function() {
             // 使用 JavaScript 代码提取数据
-            const jsonObject = extractDataFromDOM(doc);
-            console.log('Extracted information:', jsonObject);
-
+              const jsonObject = extractDataFromDOM(doc);
+              console.log('Extracted information:', jsonObject);
 
             // 将数据传递回 Flutter
-            FlutterChannel.postMessage(JSON.stringify({
-                type: 'pluginResult',
-                pluginId: pluginId,
-                data: jsonObject,
-                 requestId: requestId // 将requestId 发送回 Flutter
-
-
-            }));
+              FlutterChannel.postMessage(JSON.stringify({
+                  type: 'pluginResult',
+                  pluginId: pluginId,
+                  data: jsonObject,
+                   requestId: requestId // 将requestId 发送回 Flutter
+               }));
 
             // resolve 对应的 Promise，使用 requestId
-            const resolveFn = pendingPromises.get(requestId);
-            if (resolveFn) {
-                resolveFn(jsonObject);
-                pendingPromises.delete(requestId);
-                console.log('Resolved promise for requestId:', requestId);
-            } else {
-                console.error('Resolve function not found for requestId:', requestId);
-            }
+              const resolveFn = pendingPromises.get(requestId);
+              if (resolveFn) {
+                   resolveFn(jsonObject);
+                    pendingPromises.delete(requestId);
+                    console.log('Resolved promise for requestId:', requestId);
+                } else {
+                    console.error('Resolve function not found for requestId:', requestId);
+                }
+              })
+
+
+
 
         } else {
             console.error(`HTTP error! status: ${response.status}`);
@@ -276,9 +287,9 @@ window.addEventListener('message', (event) => {
             if (rejectFn) {
                 rejectFn(new Error(`HTTP error! status: ${response.status}`));
                 pendingPromises.delete(requestId);
-                console.error('Rejected promise for requestId:', requestId); // 添加错误日志
+                console.error('Rejected promise for requestId:', requestId);
             } else {
-                console.error('Reject function not found for requestId:', requestId); // 添加错误日志
+                console.error('Reject function not found for requestId:', requestId);
             }
         }
     }
