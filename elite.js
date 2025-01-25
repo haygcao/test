@@ -1,18 +1,6 @@
 // 插件 ID,每个插件必须唯一
 const pluginId = '360PhoneNumberPlugin';
 
-// 插件信息
-const pluginInfo = {
-  // 插件信息
-  info: {
-    id: 'yourpluginid', // 插件ID,必须唯一
-    name: '360', // 插件名称
-    version: '1.0.0', // 插件版本
-    description: 'This is a plugin template.', // 插件描述
-    author: 'Your Name', // 插件作者
-  },
-};
-
 // 使用 Map 对象来存储 pending 的 Promise
 const pendingPromises = new Map();
 
@@ -30,67 +18,39 @@ function queryPhoneInfo(phoneNumber, requestId) {
   }));
 }
 
-// 生成输出信息, 你可以根据需要修改
+// 生成输出信息
 async function generateOutput(phoneNumber, nationalNumber, e164Number) {
-  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number)
-  // 这里的三个号码必须完整保留
-  // 存储查询结果
-    const queryResults = [];
+  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number);
+  const queryResults = [];
 
-    // 为每个号码生成唯一的 requestId
-    const phoneRequestId =  Math.random().toString(36).substring(2);
-    const nationalRequestId = Math.random().toString(36).substring(2);
-    const e164RequestId = Math.random().toString(36).substring(2);
+  if (phoneNumber) {
+    const phoneRequestId = Math.random().toString(36).substring(2);
+    queryPhoneInfo(phoneNumber, phoneRequestId);
+    queryResults.push(new Promise((resolve) => {
+      pendingPromises.set(phoneRequestId, resolve);
+    }));
+  }
 
-// 但是这里 phoneNumber,nationalNumber,e164Number你可以删除任何一个,但是至少保留一个,选择最符合你的地区的号码格式即可
-    if (phoneNumber) {
-        queryPhoneInfo(phoneNumber,phoneRequestId); // 调用 queryPhoneInfo 发起查询
-        queryResults.push(new Promise((resolve) => {
-            pendingPromises.set(phoneRequestId, resolve); // 将 resolve 函数存储到 pendingPromises 中
-        }));
-    }
+  // 可以添加对 nationalNumber 和 e164Number 的处理
 
-    if (nationalNumber) {
-        queryPhoneInfo(nationalNumber,nationalRequestId);
-        queryResults.push(new Promise((resolve) => {
-            pendingPromises.set(nationalRequestId, resolve);
-        }));
-    }
-
-    if (e164Number) {
-        queryPhoneInfo(e164Number,e164RequestId);
-        queryResults.push(new Promise((resolve) => {
-            pendingPromises.set(e164RequestId, resolve);
-        }));
-    }
-
-      // 等待所有查询完成
-    try {
+  try {
     const results = await Promise.all(queryResults);
     console.log('All queries completed:', results);
 
-    const [phoneInfo, nationalInfo, e164Info] = results;
-
-  // 合并查询结果,优先使用非空值
-    const info = {
-      count: phoneInfo?.count || nationalInfo?.count || e164Info?.count || 0,
-      sourceLabel: phoneInfo?.sourceLabel || nationalInfo?.sourceLabel || e164Info?.sourceLabel || "",
-      sourceName: pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
-    };
-
-        let matchedLabel = predefinedLabels.find(label => label.label === info.sourceLabel)?.label || manualMapping[info.sourceLabel] || 'Unknown';
+    // 这里简化处理，只返回第一个结果
+    const phoneInfo = results[0] || {};
 
     return {
-      phoneNumber: phoneNumber || nationalNumber || e164Number, // 返回第一个非空的号码
-      sourceLabel: info.sourceLabel,
-        count: info.count,
-        predefinedLabel: matchedLabel || '',
-      source:  pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
+      phoneNumber: phoneNumber,
+      sourceLabel: phoneInfo.sourceLabel || "",
+      count: phoneInfo.count || 0,
+      predefinedLabel: phoneInfo.predefinedLabel || "",
+      source: "360" // 临时使用固定值
     };
   } catch (error) {
-    console.error('Error in generateOutput:', error); // 返回错误信息给 Flutter
+    console.error('Error in generateOutput:', error);
     return {
-        error: error.message || 'Unknown error occurred during phone number lookup.',
+      error: error.message || 'Unknown error occurred during phone number lookup.',
     };
   }
 }
@@ -109,9 +69,7 @@ window.addEventListener('message', (event) => {
     console.log('event.data.detail.response:', response);
 
     if (response.status >= 200 && response.status < 300) {
-      // 打印 response.responseText 的长度
       console.log('response.responseText length:', response.responseText.length);
-      // 打印 response.responseText 的完整内容
       console.log('response.responseText:', response.responseText);
 
       // 将数据传递回 Flutter (简化, 只传递长度)
@@ -152,15 +110,9 @@ function initializePlugin() {
   console.log("initializePlugin called");
   window.plugin = {};
   const thisPlugin = {
-    id: pluginInfo.info.id,
     pluginId: pluginId,
-    version: pluginInfo.info.version,
     queryPhoneInfo: queryPhoneInfo,
-    generateOutput: generateOutput,
-    test: function () {
-      console.log('Plugin test function called');
-      return 'Plugin is working';
-    }
+    generateOutput: generateOutput
   };
 
   window.plugin[pluginId] = thisPlugin;
