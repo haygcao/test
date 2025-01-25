@@ -13,10 +13,6 @@ const pluginInfo = {
   },
 };
 
-
-// 插件 ID,每个插件必须唯一
-const pluginId = '360PhoneNumberPlugin';
-
 // 使用 Map 对象来存储 pending 的 Promise
 const pendingPromises = new Map();
 
@@ -32,6 +28,43 @@ function queryPhoneInfo(phoneNumber, requestId) {
       "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
     },
   }));
+}
+
+// 生成输出信息
+async function generateOutput(phoneNumber, nationalNumber, e164Number) {
+  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number);
+  const queryResults = [];
+
+  if (phoneNumber) {
+    const phoneRequestId = Math.random().toString(36).substring(2);
+    queryPhoneInfo(phoneNumber, phoneRequestId);
+    queryResults.push(new Promise((resolve) => {
+      pendingPromises.set(phoneRequestId, resolve);
+    }));
+  }
+
+  // 可以添加对 nationalNumber 和 e164Number 的处理
+
+  try {
+    const results = await Promise.all(queryResults);
+    console.log('All queries completed:', results);
+
+    // 这里简化处理，只返回第一个结果
+    const phoneInfo = results[0] || {};
+
+    return {
+      phoneNumber: phoneNumber,
+      sourceLabel: phoneInfo.sourceLabel || "",
+      count: phoneInfo.count || 0,
+      predefinedLabel: phoneInfo.predefinedLabel || "",
+      source: pluginInfo.info.name || "",
+    };
+  } catch (error) {
+    console.error('Error in generateOutput:', error);
+    return {
+      error: error.message || 'Unknown error occurred during phone number lookup.',
+    };
+  }
 }
 
 // 在全局作用域中注册事件监听器
@@ -89,7 +122,15 @@ function initializePlugin() {
   console.log("initializePlugin called");
   window.plugin = {};
   const thisPlugin = {
+    id: pluginInfo.info.id,
     pluginId: pluginId,
+    version: pluginInfo.info.version,
+    queryPhoneInfo: queryPhoneInfo,
+    generateOutput: generateOutput, // 添加 generateOutput 函数
+    test: function () {
+      console.log('Plugin test function called');
+      return 'Plugin is working';
+    }
   };
 
   window.plugin[pluginId] = thisPlugin;
