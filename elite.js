@@ -98,49 +98,26 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
 // 在全局作用域中注册事件监听器
 window.addEventListener('message', (event) => {
-  console.log('Received message in event listener:', event);
-  console.log('Received message in event listener data:', event.data);
+  console.log('Received message in event listener:', event.data);
   console.log('Received message event.data.type:', event.data.type);
 
-  // 不再判断消息类型，直接尝试解析所有消息
-  const detail = event.data.detail;
-  console.log('detail:', detail);
-  const response = detail ? detail.response : null;
-  console.log('response:', response);
-  const requestId = detail ? detail.requestId : null;
-  console.log('requestId:', requestId);
+  // 确认接收到 xhrResponse_ 开头的事件
+  if (event.data && event.data.type && event.data.type.startsWith('xhrResponse_')) {
+        console.log("Received xhrResponse event");
+        const detail = event.data.detail;
+        console.log('detail:', detail);
+        const response = detail ? detail.response : null;
+        console.log('response:', response);
+        const requestId = detail ? detail.requestId : null;
+        console.log('requestId:', requestId);
 
-  if (response && response.status >= 200 && response.status < 300) {
-    console.log('response.responseText length:', response.responseText.length);
-    console.log('response.responseText:', response.responseText);
-
-    // 将数据传递回 Flutter (简化, 只传递长度)
-    FlutterChannel.postMessage(JSON.stringify({
-      type: 'pluginResult',
-      pluginId: pluginId,
-      data: {
-        responseTextLength: response.responseText.length
-      },
-      requestId: requestId
-    }));
-
-    // resolve 对应的 Promise (简化, 不做实际解析)
-    const resolveFn = pendingPromises.get(requestId);
-    if (resolveFn) {
-      resolveFn({});
-      pendingPromises.delete(requestId);
-      console.log('Resolved promise for requestId:', requestId);
-    } else {
-      console.error('Resolve function not found for requestId:', requestId);
-    }
+        if (response) {
+            console.log('response.responseText length:', response.responseText.length);
+            console.log('response.responseText:', response.responseText);
+        }
+    
   } else {
-    console.error(`HTTP error or unexpected response format:`, response);
-    FlutterChannel.postMessage(JSON.stringify({
-      type: 'pluginError',
-      pluginId: pluginId,
-      error: `HTTP error or unexpected response format`,
-      requestId: requestId
-    }));
+    console.log('Received unknown message type:', event.data.type);
   }
 });
 
