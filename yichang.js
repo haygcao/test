@@ -227,7 +227,11 @@ window.addEventListener('message', (event) => {
         console.log('requestId from detail:', requestId);
 
         if (response.status >= 200 && response.status < 300) {
-            // 直接解析 HTML
+            // 打印 response.responseText 的长度
+            console.log('response.responseText length:', response.responseText.length);
+            console.log('response.responseText:', response.responseText); // 打印完整的 HTML
+          
+          // 直接解析 HTML
             const extractedData = extractData(response.responseText);
             console.log('Extracted information:', extractedData);
 
