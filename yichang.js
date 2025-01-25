@@ -225,7 +225,9 @@ window.addEventListener('message', (event) => {
         const requestId = detail.requestId;
 
         console.log('requestId from detail:', requestId);
-
+        // 打印 event.data.detail.response 对象
+        console.log('event.data.detail.response:', response);
+      
         if (response.status >= 200 && response.status < 300) {
             // 打印 response.responseText 的长度
             console.log('response.responseText length:', response.responseText.length);
