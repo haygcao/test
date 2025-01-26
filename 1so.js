@@ -132,20 +132,37 @@ function extractDataFromDOM(doc) {
     }
 
     // 提取号码、省份、城市和运营商
-    const detailElement = doc.querySelector('.mh-detail');
-    console.log('detailElement:', detailElement);
-    if (detailElement) {
-        const spans = detailElement.querySelectorAll('span');
-        if (spans.length >= 3) {
-            jsonObject.phoneNumber = spans[0].textContent.trim();
-            jsonObject.province = spans[1].textContent.trim();
-            jsonObject.city = spans[1].textContent.trim();
-            jsonObject.carrier = spans[2].textContent.trim();
+// 提取号码、省份、城市和运营商
+const detailElement = doc.querySelector('.mh-detail');
+console.log('detailElement:', detailElement);
+if (detailElement) {
+  const spans = detailElement.querySelectorAll('span');
+  console.log('spans:', spans);
+  if (spans.length >= 2) {
+    jsonObject.phoneNumber = spans[0].textContent.trim();
+    const locationCarrierText = spans[1].textContent.trim();
+    
+    // 尝试匹配包含运营商的格式
+    let match = locationCarrierText.match(/(.*?)(.*?)(?:\s*?(移动|联通|电信|广电))$/);
+    if (match) {
+        jsonObject.province = match[1].trim();
+        jsonObject.city = match[2].trim();
+        jsonObject.carrier = match[3].trim();
+    } else {
+        // 如果不包含运营商，尝试只匹配省份和城市
+        match = locationCarrierText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
+        if (match) {
+            jsonObject.province = match[1].trim();
+            jsonObject.city = match[2] ? match[2].trim() : '';
+            jsonObject.carrier = ''; // 没有匹配到运营商，设置为空
         }
     }
 
-    console.log('Final jsonObject:', jsonObject);
-    return jsonObject;
+    console.log('jsonObject.phoneNumber:', jsonObject.phoneNumber);
+    console.log('jsonObject.province:', jsonObject.province);
+    console.log('jsonObject.city:', jsonObject.city);
+    console.log('jsonObject.carrier:', jsonObject.carrier);
+  }
 }
 
 // 在全局作用域中注册事件监听器
