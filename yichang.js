@@ -233,7 +233,17 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     queryResults.push(handleNumberQuery(e164Number, e164RequestId));
   }
   try {
+    const results = await Promise.all(queryResults);
+    console.log('All queries completed:', results);
 
+    // 返回所有查询结果
+    return results.map(result => {
+      // 确保 result 不为空
+      if (!result) return {};
+      let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+      if (!matchedLabel) {
+        matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
+      }
 
        console.log('Returning result:', {
         //phoneNumber: result.phoneNumber,
