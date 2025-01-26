@@ -13,136 +13,21 @@ const pluginInfo = {
   },
 };
 
-// 预设标签列表
-const predefinedLabels = [
-    {'label': 'Fraud Scam Likely'},
-    {'label': 'Spam Likely'},
-    {'label': 'Telemarketing'},
-    {'label': 'Robocall'},
-    {'label': 'Delivery'},
-    {'label': 'Takeaway'},
-    {'label': 'Ridesharing'},
-    {'label': 'Insurance'},
-    {'label': 'Loan'},
-    {'label': 'Customer Service'},
-    {'label': 'Unknown'},
-    {'label': 'Financial'},
-    {'label': 'Bank'},
-    {'label': 'Education'},
-    {'label': 'Medical'},
-    {'label': 'Charity'},
-    {'label': 'Other'},
-    {'label': 'Collection'},
-    {'label': 'Survey'},
-    {'label': 'Political'},
-    {'label': 'Ecommerce'},
-    {'label': 'Risk'},
-];
+// 使用 Map 对象来存储 pending 的 Promise
+const pendingPromises = new Map();
 
-// 手动映射表，将 source label 映射到预设标签
-const manualMapping = {
-    '标签1': 'Fraud Scam Likely', // 对应预设标签 "Fraud Scam Likely"
-    '标签2': 'Spam Likely', // 对应预设标签 "Spam Likely"
-    // ... 省略其他手动映射
-    '标签22': 'Risk', // 对应预设标签 "Risk"
-};
-
-// 使用 Promise 来加载脚本
-function loadScript(url) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = url;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
-}
-
-// 加载 axios
-async function loadLibraries() {
-  try {
-    await loadScript('https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
-    console.log('Libraries loaded successfully');
-    return true;
-  } catch (error) {
-    console.error('Error loading libraries:', error);
-    return false;
-  }
-}
-
-// 使用 DOMParser API 提取数据 (这里重要的就是count 和label，phone number，其他的都是为了测试使用的)
-function extractDataFromDOM(doc) {
-  // **注意：你需要根据 360 验证页面的实际 HTML 结构修改这里的选择器**
-  const jsonObject = {
-    count: 0,
-    sourceLabel: "",
-    province: "",
-    city: "",
-    carrier: "",
-  };
-
-  console.log('Document Object:', doc);
-
-  const bodyElement = doc.body;
-  console.log('Body Element:', bodyElement);
-  if (!bodyElement) {
-    console.error('Error: Could not find body element.');
-    return jsonObject;
-  }
-
-  // 以下代码需要根据 360 验证页面的实际 HTML 结构进行修改
-  const descElement = doc.querySelector('.mh-tel-desc'); // 示例选择器，需要根据实际情况修改
-  console.log('descElement:', descElement);
-  if (descElement) {
-    const descText = descElement.textContent.trim();
-    console.log('descText:', descText);
-
-    const match = descText.match(/(\d+)位/); // 示例正则表达式，需要根据实际情况修改
-    console.log('count match:', match);
-    if (match) {
-      jsonObject.count = parseInt(match[1], 10);
-    }
-    console.log('jsonObject.count:', jsonObject.count);
-
-    let sourceLabelText = descText
-      .replace(match ? match[0] : '', '')
-      .replace(/此号码近期被|360手机卫士|用户标记，疑似为|！/g, '') // 示例替换规则，需要根据实际情况修改
-      .replace(/，/g, '')
-      .trim();
-    jsonObject.sourceLabel = sourceLabelText;
-    console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
-  }
-
-  const locationElement = doc.querySelector('.mh-tel-adr p'); // 示例选择器，需要根据实际情况修改
-  console.log('locationElement:', locationElement);
-  if (locationElement) {
-    const locationParts = locationElement.textContent.trim().split(/\s+/); // 示例分割规则，需要根据实际情况修改
-    jsonObject.province = locationParts[0] || '';
-    jsonObject.city = locationParts[1] || '';
-    jsonObject.carrier = locationParts[2] || '';
-    console.log('jsonObject.province:', jsonObject.province);
-    console.log('jsonObject.city:', jsonObject.city);
-    console.log('jsonObject.carrier:', jsonObject.carrier);
-  }
-  // 你需要根据 360 验证页面的实际 HTML 结构，添加更多代码来提取其他信息
-
-  console.log('Final jsonObject:', jsonObject);
-
-  return jsonObject;
-}
-
-// 查询电话号码信息 (版本 A 的 queryPhoneNumber 函数)
-// 查询电话号码信息, 你可以根据需要修改
-function queryPhoneInfo(phoneNumber,requestId) {
-    FlutterChannel.postMessage(JSON.stringify({
-        pluginId: pluginId,
-        method: 'GET',
-        requestId:requestId, //将requestID 放到请求体里面
-        url: `https://www.so.com/s?q=${phoneNumber}`,
-        headers: {
-            "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
-        },
-    }));
+// 查询电话号码信息
+function queryPhoneInfo(phoneNumber, requestId) {
+  console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
+  FlutterChannel.postMessage(JSON.stringify({
+    pluginId: pluginId,
+    method: 'GET',
+    requestId: requestId,
+    url: `https://www.so.com/s?q=${phoneNumber}`,
+    headers: {
+      "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
+    },
+  }));
 }
 
 // 生成输出信息, 你可以根据需要修改
@@ -186,20 +71,17 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
     const [phoneInfo, nationalInfo, e164Info] = results;
 
-  // 合并查询结果,优先使用非空值
+    // 合并查询结果,优先使用非空值
     const info = {
       count: phoneInfo?.count || nationalInfo?.count || e164Info?.count || 0,
       sourceLabel: phoneInfo?.sourceLabel || nationalInfo?.sourceLabel || e164Info?.sourceLabel || "",
       sourceName: pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
     };
 
-        let matchedLabel = predefinedLabels.find(label => label.label === info.sourceLabel)?.label || manualMapping[info.sourceLabel] || 'Unknown';
-
     return {
       phoneNumber: phoneNumber || nationalNumber || e164Number, // 返回第一个非空的号码
       sourceLabel: info.sourceLabel,
-        count: info.count,
-        predefinedLabel: matchedLabel || '',
+      count: info.count,
       source:  pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
     };
   } catch (error) {
@@ -210,135 +92,160 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
   }
 }
 
-// 使用 Map 对象来存储 pending 的 Promise
-const pendingPromises = new Map();
+// 使用 DOMParser API 提取数据
+function extractDataFromDOM(doc) {
+    const jsonObject = {
+        count: 0,
+        sourceLabel: "",
+        province: "",
+        city: "",
+        carrier: "",
+    };
 
-// 添加事件监听器，监听 message 事件
+    console.log('Document Object:', doc);
+
+    const bodyElement = doc.body;
+    console.log('Body Element:', bodyElement);
+    if (!bodyElement) {
+        console.error('Error: Could not find body element.');
+        return jsonObject;
+    }
+
+    // 提取标记次数
+    const countElement = doc.querySelector('.mohe-tips-zp b');
+    console.log('countElement:', countElement);
+    if (countElement) {
+        const countText = countElement.textContent.trim();
+        console.log('countText:', countText);
+        jsonObject.count = parseInt(countText, 10) || 0;
+    }
+
+    // 提取标记标签
+    const sourceLabelElement = doc.querySelector('.mohe-tips-zp');
+    console.log('sourceLabelElement:', sourceLabelElement);
+    if (sourceLabelElement) {
+        let sourceLabelText = sourceLabelElement.textContent.trim();
+        // 清理标签文本
+        sourceLabelText = sourceLabelText.replace(/此号码近期被|\d+位|360手机卫士|用户标记，疑似为|！/g, '').replace(/，/g, '').trim();
+        jsonObject.sourceLabel = sourceLabelText;
+        console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+    }
+
+    // 提取号码、省份、城市和运营商
+    const detailElement = doc.querySelector('.mh-detail');
+    console.log('detailElement:', detailElement);
+    if (detailElement) {
+        const spans = detailElement.querySelectorAll('span');
+        if (spans.length >= 3) {
+            jsonObject.phoneNumber = spans[0].textContent.trim();
+            jsonObject.province = spans[1].textContent.trim();
+            jsonObject.city = spans[1].textContent.trim();
+            jsonObject.carrier = spans[2].textContent.trim();
+        }
+    }
+
+    console.log('Final jsonObject:', jsonObject);
+    return jsonObject;
+}
+
+// 在全局作用域中注册事件监听器
 window.addEventListener('message', (event) => {
   console.log('Received message in event listener:', event.data);
   console.log('Received message event.data.type:', event.data.type);
 
-  // 检查消息类型是否匹配
-  if (event.data && event.data.type === `xhrResponse_${pluginId}`) {
-        const detail = event.data.detail; // 获取 detail 对象
-        const response = detail.response;
-        const requestId = detail.requestId;
+  if (event.data.type === `xhrResponse_${pluginId}`) {
+    const detail = event.data.detail;
+    const response = detail.response;
+    const requestId = detail.requestId;
 
-        console.log('requestId from detail:', requestId);
+    console.log('requestId from detail:', requestId);
+    console.log('event.data.detail.response:', response);
 
-        if (response.status >= 200 && response.status < 300) {
-           
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(response.responseText, 'text/html');
+    if (response.status >= 200 && response.status < 300) {
+      console.log('response.responseText length:', response.responseText.length);
+      console.log('response.responseText:', response.responseText);
 
-            console.log("response.responseText",response.responseText);
-            
-            // 使用 JavaScript 代码提取数据
-            const jsonObject = extractDataFromDOM(doc);
-            console.log('Extracted information:', jsonObject);
+      // 解析 HTML
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(response.responseText, 'text/html');
 
-            // 将数据传递回 Flutter
-            FlutterChannel.postMessage(JSON.stringify({
-                type: 'pluginResult',
-                pluginId: pluginId,
-                data: jsonObject,
-                requestId: requestId // 将requestId 发送回 Flutter
-            }));
+      // 使用 JavaScript 代码提取数据
+      const jsonObject = extractDataFromDOM(doc);
+      console.log('Extracted information:', jsonObject);
 
-            // resolve 对应的 Promise，使用 requestId
-            const resolveFn = pendingPromises.get(requestId);
-            if (resolveFn) {
-                resolveFn(jsonObject);
-                pendingPromises.delete(requestId);
-                console.log('Resolved promise for requestId:', requestId);
-            } else {
-                console.error('Resolve function not found for requestId:', requestId);
-            }
-        } else {
-            console.error(`HTTP error! status: ${response.status}`);
+      // 将数据传递回 Flutter
+      FlutterChannel.postMessage(JSON.stringify({
+        type: 'pluginResult',
+        pluginId: pluginId,
+        data: jsonObject,
+        requestId: requestId
+      }));
 
-            FlutterChannel.postMessage(JSON.stringify({
-                type: 'pluginError',
-                pluginId: pluginId,
-                error: `HTTP error! status: ${response.status}`,
-                requestId:requestId
-            }));
-
-            const rejectFn = pendingPromises.get(requestId);
-            if (rejectFn) {
-                rejectFn(new Error(`HTTP error! status: ${response.status}`));
-                pendingPromises.delete(requestId);
-                console.error('Rejected promise for requestId:', requestId);
-            } else {
-                console.error('Reject function not found for requestId:', requestId);
-            }
-        }
+      // resolve 对应的 Promise
+      const resolveFn = pendingPromises.get(requestId);
+      if (resolveFn) {
+        resolveFn(jsonObject);
+        pendingPromises.delete(requestId);
+        console.log('Resolved promise for requestId:', requestId);
+      } else {
+        console.error('Resolve function not found for requestId:', requestId);
+      }
     } else {
-        console.log('Received unknown message type or unmatched pluginId:', event.data.type);
+      console.error(`HTTP error! status: ${response.status}`);
+
+      FlutterChannel.postMessage(JSON.stringify({
+        type: 'pluginError',
+        pluginId: pluginId,
+        error: `HTTP error! status: ${response.status}`,
+        requestId: requestId
+      }));
+
+      const rejectFn = pendingPromises.get(requestId);
+      if (rejectFn) {
+        rejectFn(new Error(`HTTP error! status: ${response.status}`));
+        pendingPromises.delete(requestId);
+        console.error('Rejected promise for requestId:', requestId);
+      } else {
+        console.error('Reject function not found for requestId:', requestId);
+      }
     }
+  } else {
+    console.log('Received unknown message type:', event.data.type);
+  }
 });
 
 // 初始化插件
 async function initializePlugin() {
-  const librariesLoaded = await loadLibraries();
-  if (librariesLoaded) {
-    window.plugin = {};
-    const thisPlugin = {
-      id: pluginInfo.info.id,
-      pluginId: pluginId,
-      version: pluginInfo.info.version,
-      queryPhoneInfo: queryPhoneInfo,
-      generateOutput: generateOutput,
-      test: function () {
-        console.log('Plugin test function called');
-        return 'Plugin is working';
-      }
-    };
-
-    window.plugin[pluginId] = thisPlugin;
-
-    // ... (通知 Flutter 插件已加载的代码不变)
-     // 通知 Flutter 插件已加载并准备好
-    if (typeof TestPageChannel !== 'undefined') {
-      TestPageChannel.postMessage(JSON.stringify({
-        type: 'pluginLoaded',
-        pluginId: pluginId,
-      }));
-      console.log('Notified Flutter that plugin is loaded');
-      TestPageChannel.postMessage(JSON.stringify({
-        type: 'pluginReady',
-        pluginId: pluginId,
-      }));
-      console.log('Notified Flutter that plugin is ready');
-    } else {
-      console.error('TestPageChannel is not defined');
+  window.plugin = {};
+  const thisPlugin = {
+    id: pluginInfo.info.id,
+    pluginId: pluginId,
+    version: pluginInfo.info.version,
+    queryPhoneInfo: queryPhoneInfo,
+    generateOutput: generateOutput,
+    test: function () {
+      console.log('Plugin test function called');
+      return 'Plugin is working';
     }
-  } else { //  **删除了重复的代码块** 
-    console.error('Failed to load libraries. Plugin not initialized.');
+  };
+
+  window.plugin[pluginId] = thisPlugin;
+
+  if (typeof TestPageChannel !== 'undefined') {
+    TestPageChannel.postMessage(JSON.stringify({
+      type: 'pluginLoaded',
+      pluginId: pluginId,
+    }));
+    console.log('Notified Flutter that plugin is loaded');
+    TestPageChannel.postMessage(JSON.stringify({
+      type: 'pluginReady',
+      pluginId: pluginId,
+    }));
+    console.log('Notified Flutter that plugin is ready');
+  } else {
+    console.error('TestPageChannel is not defined');
   }
 }
-
-// 为了调试,添加全局错误处理
-window.onerror = function (message, source, lineno, colno, error) {
-  console.error('Global error:', message, 'at', source, lineno, colno, error);
-  if (typeof FlutterChannel !== 'undefined') {
-    FlutterChannel.postMessage('JS Error: ' + message);
-  }
-};
-
-// 添加全局函数来检查插件状态
-window.checkPluginStatus = function (pluginId) {
-  console.log('Checking plugin status for plugin:', pluginId);
-  console.log('window.plugin:', window.plugin);
-  // 检查对应的插件对象是否存在
-  if (window.plugin[pluginId] && typeof window.plugin[pluginId].queryPhoneInfo === 'function') {
-    console.log('Plugin', pluginId, 'is properly loaded and queryPhoneInfo is available');
-    return true;
-  } else {
-    console.log('Plugin', pluginId, 'is not properly loaded or queryPhoneInfo is not available');
-    return false;
-  }
-};
 
 // 初始化插件
 initializePlugin();
