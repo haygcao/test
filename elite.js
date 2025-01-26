@@ -78,14 +78,13 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       sourceName: pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
     };
 
-    //因为你这里并没有返回这些数据， 我log 也打印不出来，所以我暂时注释掉
-    //    let matchedLabel = predefinedLabels.find(label => label.label === info.sourceLabel)?.label || manualMapping[info.sourceLabel] || 'Unknown';
+        let matchedLabel = predefinedLabels.find(label => label.label === info.sourceLabel)?.label || manualMapping[info.sourceLabel] || 'Unknown';
 
     return {
       phoneNumber: phoneNumber || nationalNumber || e164Number, // 返回第一个非空的号码
       sourceLabel: info.sourceLabel,
         count: info.count,
-        // predefinedLabel: matchedLabel || '',
+        predefinedLabel: matchedLabel || '',
       source:  pluginInfo?.info?.name || "", // 使用 pluginInfo 中的名称
     };
   } catch (error) {
@@ -96,28 +95,68 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
   }
 }
 
-// 在全局作用域中注册事件监听器
+// 添加事件监听器，监听 message 事件
 window.addEventListener('message', (event) => {
   console.log('Received message in event listener:', event.data);
-  console.log('Received message event.data.type:', event.data.type);
 
-  // 确认接收到 xhrResponse_ 开头的事件
-  if (event.data && event.data.type && event.data.type.startsWith('xhrResponse_')) {
-        console.log("Received xhrResponse event");
-        const detail = event.data.detail;
-        console.log('detail:', detail);
-        const response = detail ? detail.response : null;
-        console.log('response:', response);
-        const requestId = detail ? detail.requestId : null;
-        console.log('requestId:', requestId);
+  // 检查消息来源是否是 Flutter 应用程序
+  if (event.origin !== 'https://www.so.com') { // 这里要改成你实际的网址
+    console.log("event.origin:", event.origin);
+    //return; // 如果来源不是目标网址，则忽略消息
+  }
 
-        if (response) {
-            console.log('response.responseText length:', response.responseText.length);
-            console.log('response.responseText:', response.responseText);
-        }
-    
+  // 检查消息类型是否匹配
+  if (event.data && event.data.type === `xhrResponse_${pluginId}`) {
+    const detail = event.data.detail;
+    const response = detail.response;
+    const requestId = detail.requestId;
+
+    console.log('Received xhrResponse event for requestId:', requestId);
+    console.log('event.data.detail.response:', response);
+
+    if (response.status >= 200 && response.status < 300) {
+      console.log('response.responseText length:', response.responseText.length);
+      console.log('response.responseText:', response.responseText);
+
+      // 将数据传递回 Flutter (简化, 只传递长度)
+      FlutterChannel.postMessage(JSON.stringify({
+        type: 'pluginResult',
+        pluginId: pluginId,
+        data: {
+          responseTextLength: response.responseText.length,
+        },
+        requestId: requestId
+      }));
+
+      // resolve 对应的 Promise (简化, 不做实际解析)
+      const resolveFn = pendingPromises.get(requestId);
+      if (resolveFn) {
+        resolveFn({}); // 传入空对象
+        pendingPromises.delete(requestId);
+        console.log('Resolved promise for requestId:', requestId);
+      } else {
+        console.error('Resolve function not found for requestId:', requestId);
+      }
+    } else {
+      console.error(`HTTP error! status: ${response.status}`);
+      FlutterChannel.postMessage(JSON.stringify({
+        type: 'pluginError',
+        pluginId: pluginId,
+        error: `HTTP error! status: ${response.status}`,
+        requestId: requestId
+      }));
+
+      const rejectFn = pendingPromises.get(requestId);
+      if (rejectFn) {
+        rejectFn(new Error(`HTTP error! status: ${response.status}`));
+        pendingPromises.delete(requestId);
+        console.error('Rejected promise for requestId:', requestId);
+      } else {
+        console.error('Reject function not found for requestId:', requestId);
+      }
+    }
   } else {
-    console.log('Received unknown message type:', event.data.type);
+    console.log('Received unknown message type or unmatched pluginId:', event.data.type);
   }
 });
 
