@@ -59,7 +59,7 @@ function queryPhoneInfo(phoneNumber, requestId) {
     requestId: requestId,
     url: `https://www.so.com/s?q=${phoneNumber}`,
     headers: {
-      "User-Agent": 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/120.0.2210.116 Version/17.0 Mobile/15E148 Safari/604.1',
+      "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
     },
   }));
 }
@@ -143,7 +143,6 @@ function extractDataFromDOM(doc, phoneNumber) {
 // 生成输出信息
 async function generateOutput(phoneNumber, nationalNumber, e164Number) {
   console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number);
-  const queryResults = [];
 
   // 处理单个号码查询的函数
   async function handleNumberQuery(number, requestId) {
@@ -185,7 +184,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
               // 使用 JavaScript 代码提取数据
               const jsonObject = extractDataFromDOM(doc);
-              console.log('Extracted information:', jsonObject,jsonObject.sourceLabel);
+              console.log('Extracted information:', jsonObject);
 
               resolve(jsonObject); // 使用提取的数据 resolve Promise
               console.log('Resolved promise for requestId:', requestId);
@@ -217,65 +216,41 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     });
   }
 
-  // 对每个号码调用 handleNumberQuery 函数
-  if (phoneNumber) {
-    const phoneRequestId = Math.random().toString(36).substring(2);
-    queryResults.push(handleNumberQuery(phoneNumber, phoneRequestId));
-  }
-
-  if (nationalNumber) {
-    const nationalRequestId = Math.random().toString(36).substring(2);
-    queryResults.push(handleNumberQuery(nationalNumber, nationalRequestId));
-  }
-
-  if (e164Number) {
-    const e164RequestId = Math.random().toString(36).substring(2);
-    queryResults.push(handleNumberQuery(e164Number, e164RequestId));
-  }
-
-  // 等待所有查询完成
+  // 使用 Promise.any 等待第一个成功的 Promise
   try {
-    const results = await Promise.all(queryResults);
-    console.log('All queries completed:', results);
+    const result = await Promise.any([
+      handleNumberQuery(phoneNumber, Math.random().toString(36).substring(2)),
+      handleNumberQuery(nationalNumber, Math.random().toString(36).substring(2)),
+      handleNumberQuery(e164Number, Math.random().toString(36).substring(2))
+    ].filter(promise => promise !== undefined)); // 过滤掉 undefined 的 promise
 
-    // 返回所有查询结果
-    return results.map(result => {
-      // 确保 result 不为空
-      if (!result) return {};
-      let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
-      if (!matchedLabel) {
-        matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
-      }
-       console.log('Returning result:', {
-        phoneNumber: result.phoneNumber,
-        sourceLabel: result.sourceLabel,
-        count: result.count,
-        province: result.province,
-        city: result.city,
-        carrier: result.carrier,
-       predefinedLabel: matchedLabel,
-        source: pluginInfo.info.name,
-        });
-      
-      return {
-        phoneNumber: result.phoneNumber,
-        sourceLabel: result.sourceLabel,
-        count: result.count,
-        province: result.province,
-        city: result.city,
-        carrier: result.carrier,
-        predefinedLabel: matchedLabel,
-        source: pluginInfo.info.name,
-      };
-    });
+    console.log('First successful query completed:', result);
+
+    // 确保 result 不为空
+    if (!result) return {};
+
+    let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+    if (!matchedLabel) {
+      matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
+    }
+
+    return {
+      phoneNumber: result.phoneNumber,
+      sourceLabel: result.sourceLabel,
+      count: result.count,
+      province: result.province,
+      city: result.city,
+      carrier: result.carrier,
+      predefinedLabel: matchedLabel,
+      source: pluginInfo.info.name,
+    };
   } catch (error) {
     console.error('Error in generateOutput:', error);
     return {
-      error: error.message || 'Unknown error occurred during phone number lookup.',
+      error: error.message || 'All attempts failed or timed out.',
     };
   }
 }
-
 
 
 
