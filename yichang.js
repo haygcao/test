@@ -59,7 +59,7 @@ function queryPhoneInfo(phoneNumber, requestId) {
     requestId: requestId,
     url: `https://www.so.com/s?q=${phoneNumber}`,
     headers: {
-      "User-Agent": 'Mozilla/5.0 (Linux; Android 12; TAS-AN00 Build/HUAWEITAS-AN00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/107.0.5304.141 Mobile Safari/537.36 XWEB/5061 MMWEBSDK/20230405 MMWEBID/3471 MicroMessenger/8.0.35.2360(0x28002353) WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64',
+      "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
     },
   }));
 }
@@ -232,6 +232,8 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     const e164RequestId = Math.random().toString(36).substring(2);
     queryResults.push(handleNumberQuery(e164Number, e164RequestId));
   }
+
+  // 等待所有查询完成
   try {
     const results = await Promise.all(queryResults);
     console.log('All queries completed:', results);
@@ -244,45 +246,26 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       if (!matchedLabel) {
         matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
       }
-
        console.log('Returning result:', {
-        //phoneNumber: result.phoneNumber,
-      //  sourceLabel: result.sourceLabel,
-      //  count: result.count,
-      //  province: result.province,
-     //   city: result.city,
-     //   carrier: result.carrier,
-    //    predefinedLabel: matchedLabel,
-    //    source: pluginInfo.info.name,
-    phoneNumber: phoneNumber,
-    sourceLabel: "这是固定测试数据",
-    count: 123,
-    province: "广东",
-    city: "深圳",
-    carrier: "中国移动",
-    source: "360",
-    predefinedLabel: 'Fraud Scam Likely',
+        phoneNumber: result.phoneNumber,
+        sourceLabel: result.sourceLabel,
+        count: result.count,
+        province: result.province,
+        city: result.city,
+        carrier: result.carrier,
+       predefinedLabel: matchedLabel,
+        source: pluginInfo.info.name,
         });
       
       return {
-        //phoneNumber: result.phoneNumber,
-      //  sourceLabel: result.sourceLabel,
-      //  count: result.count,
-      //  province: result.province,
-     //   city: result.city,
-     //   carrier: result.carrier,
-    //    predefinedLabel: matchedLabel,
-    //    source: pluginInfo.info.name,
-    phoneNumber: phoneNumber,
-    sourceLabel: "这是固定测试数据",
-    count: 123,
-    province: "广东",
-    city: "深圳",
-    carrier: "中国移动",
-    source: "360",
-    predefinedLabel: 'Fraud Scam Likely',
-
-        
+        phoneNumber: result.phoneNumber,
+        sourceLabel: result.sourceLabel,
+        count: result.count,
+        province: result.province,
+        city: result.city,
+        carrier: result.carrier,
+        predefinedLabel: matchedLabel,
+        source: pluginInfo.info.name,
       };
     });
   } catch (error) {
