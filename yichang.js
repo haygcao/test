@@ -107,7 +107,23 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
         if (!matchedLabel) {
           matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
         }
-  
+      // 定义要返回的结果对象
+    const result = {
+      phoneNumber: phoneNumber || nationalNumber || e164Number,
+      sourceLabel: info.sourceLabel,
+      count: info.count,
+      province: phoneInfo?.province,
+      city: phoneInfo?.city,
+      carrier: phoneInfo?.carrier,
+      predefinedLabel: matchedLabel,
+      source: info.sourceName,
+    };
+
+    // 打印结果对象
+    console.log('generateOutput result:', JSON.stringify(result));
+
+    // 返回结果对象
+  // return result;
         return {
           phoneNumber: result.phoneNumber,
           sourceLabel: result.sourceLabel,
