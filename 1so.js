@@ -92,43 +92,44 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
   }
 }
 
-// 使用 DOMParser API 提取数据
-function extractDataFromDOM(doc) {
-    const jsonObject = {
-        count: 0,
-        sourceLabel: "",
-        province: "",
-        city: "",
-        carrier: "",
-    };
+function extractDataFromDOM(doc, phoneNumber) {
+  const jsonObject = {
+    count: 0,
+    sourceLabel: "",
+    province: "",
+    city: "",
+    carrier: "",
+    phoneNumber: phoneNumber
+  };
 
+  try {
     console.log('Document Object:', doc);
 
     const bodyElement = doc.body;
     console.log('Body Element:', bodyElement);
     if (!bodyElement) {
-        console.error('Error: Could not find body element.');
-        return jsonObject;
+      console.error('Error: Could not find body element.');
+      return jsonObject;
     }
 
     // 提取标记次数
     const countElement = doc.querySelector('.mohe-tips-zp b');
     console.log('countElement:', countElement);
     if (countElement) {
-        const countText = countElement.textContent.trim();
-        console.log('countText:', countText);
-        jsonObject.count = parseInt(countText, 10) || 0;
+      const countText = countElement.textContent.trim();
+      console.log('countText:', countText);
+      jsonObject.count = parseInt(countText, 10) || 0;
+      console.log('jsonObject.count:', jsonObject.count);
     }
 
     // 提取标记标签
     const sourceLabelElement = doc.querySelector('.mohe-tips-zp');
     console.log('sourceLabelElement:', sourceLabelElement);
     if (sourceLabelElement) {
-        let sourceLabelText = sourceLabelElement.textContent.trim();
-        // 清理标签文本
-        sourceLabelText = sourceLabelText.replace(/此号码近期被|\d+位|360手机卫士|用户标记，疑似为|！/g, '').replace(/，/g, '').trim();
-        jsonObject.sourceLabel = sourceLabelText;
-        console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+      let sourceLabelText = sourceLabelElement.textContent.trim();
+      sourceLabelText = sourceLabelText.replace(/此号码近期被|\d+位|360手机卫士|用户标记，疑似为|！/g, '').replace(/，/g, '').trim();
+      jsonObject.sourceLabel = sourceLabelText;
+      console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
     }
 
     // 提取号码、省份、城市和运营商
