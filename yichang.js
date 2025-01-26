@@ -234,7 +234,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
     }
 
-    return {
+    const finalResult = {
       phoneNumber: result.phoneNumber,
       sourceLabel: result.sourceLabel,
       count: result.count,
@@ -244,11 +244,13 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       predefinedLabel: matchedLabel,
       source: pluginInfo.info.name,
     };
+
+    return JSON.stringify(finalResult); // 将对象转换为 JSON 字符串
   } catch (error) {
     console.error('Error in generateOutput:', error);
-    return {
+    return JSON.stringify({ // 返回包含错误信息的 JSON 字符串
       error: error.message || 'All attempts failed or timed out.',
-    };
+    });
   }
 }
 
