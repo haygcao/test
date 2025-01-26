@@ -59,7 +59,7 @@ function queryPhoneInfo(phoneNumber, requestId) {
     requestId: requestId,
     url: `https://www.so.com/s?q=${phoneNumber}`,
     headers: {
-      "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
+      "User-Agent": 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/120.0.2210.116 Version/17.0 Mobile/15E148 Safari/604.1',
     },
   }));
 }
