@@ -140,14 +140,16 @@ function extractDataFromDOM(doc, phoneNumber) {
 
 
 
+// ... (pluginId, pluginInfo, predefinedLabels, manualMapping, queryPhoneInfo, extractDataFromDOM 等保持不变)
+
 // 生成输出信息
 async function generateOutput(phoneNumber, nationalNumber, e164Number) {
   console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number);
 
-  // 处理单个号码查询的函数
-  async function handleNumberQuery(number, requestId) {
-    queryPhoneInfo(number, requestId);
+  // 处理单个号码查询的函数 (返回一个 Promise)
+  function handleNumberQuery(number, requestId) {
     return new Promise((resolve, reject) => {
+      queryPhoneInfo(number, requestId);
       pendingPromises.set(requestId, resolve);
 
       // 设置超时
@@ -167,7 +169,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
         if (event.data.type === `xhrResponse_${pluginId}`) {
           const detail = event.data.detail;
           const response = detail.response;
-          const receivedRequestId = detail.requestId; // 使用 receivedRequestId 避免命名冲突
+          const receivedRequestId = detail.requestId;
 
           console.log('requestId from detail:', receivedRequestId);
           console.log('event.data.detail.response:', response);
@@ -185,15 +187,15 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
               // 使用 JavaScript 代码提取数据
               const jsonObject = extractDataFromDOM(doc);
               console.log('Extracted information:', jsonObject);
-
-              resolve(jsonObject); // 使用提取的数据 resolve Promise
-              console.log('Resolved promise for requestId:', requestId);
+              console.log('Extracted information type:', typeof jsonObject);
 
               // 清理工作
               clearTimeout(timeoutId);
               pendingPromises.delete(requestId);
-              // 移除事件监听器
               window.removeEventListener('message', messageListener);
+
+              // 关键改动：resolve 后立即返回结果
+              resolve(jsonObject);
             } else {
               console.error(`HTTP error! status: ${response.status}`);
               reject(new Error(`HTTP error! status: ${response.status}`));
@@ -201,7 +203,6 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
               // 清理工作
               clearTimeout(timeoutId);
               pendingPromises.delete(requestId);
-              // 移除事件监听器
               window.removeEventListener('message', messageListener);
             }
           } else {
@@ -216,25 +217,51 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     });
   }
 
-  // 使用 Promise.any 等待第一个成功的 Promise
+  // 依次处理每个号码，哪个先返回有效结果就用哪个
   try {
-    const result = await Promise.any([
-      handleNumberQuery(phoneNumber, Math.random().toString(36).substring(2)),
-      handleNumberQuery(nationalNumber, Math.random().toString(36).substring(2)),
-      handleNumberQuery(e164Number, Math.random().toString(36).substring(2))
-    ].filter(promise => promise !== undefined)); // 过滤掉 undefined 的 promise
+    let result;
+
+    if (phoneNumber && !result) {
+      const phoneRequestId = Math.random().toString(36).substring(2);
+      try {
+        result = await handleNumberQuery(phoneNumber, phoneRequestId);
+      } catch (error) {
+        console.error('Error querying phoneNumber:', error);
+      }
+    }
+
+    if (nationalNumber && !result) {
+      const nationalRequestId = Math.random().toString(36).substring(2);
+      try {
+        result = await handleNumberQuery(nationalNumber, nationalRequestId);
+      } catch (error) {
+        console.error('Error querying nationalNumber:', error);
+      }
+    }
+
+    if (e164Number && !result) {
+      const e164RequestId = Math.random().toString(36).substring(2);
+      try {
+        result = await handleNumberQuery(e164Number, e164RequestId);
+      } catch (error) {
+        console.error('Error querying e164Number:', error);
+      }
+    }
 
     console.log('First successful query completed:', result);
+    console.log('First successful query completed type:', typeof result);
 
     // 确保 result 不为空
-    if (!result) return {};
+    if (!result) {
+        return { error: 'All attempts failed or timed out.' };
+    }
 
     let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
     if (!matchedLabel) {
       matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
     }
 
-    const finalResult = {
+    return {
       phoneNumber: result.phoneNumber,
       sourceLabel: result.sourceLabel,
       count: result.count,
@@ -244,13 +271,11 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       predefinedLabel: matchedLabel,
       source: pluginInfo.info.name,
     };
-
-    return JSON.stringify(finalResult); // 将对象转换为 JSON 字符串
   } catch (error) {
     console.error('Error in generateOutput:', error);
-    return JSON.stringify({ // 返回包含错误信息的 JSON 字符串
-      error: error.message || 'All attempts failed or timed out.',
-    });
+    return {
+      error: error.message || 'Unknown error occurred during phone number lookup.',
+    };
   }
 }
 
