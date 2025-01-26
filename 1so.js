@@ -140,7 +140,7 @@ function queryPhoneInfo(phoneNumber,requestId) {
         requestId:requestId, //将requestID 放到请求体里面
         url: `https://www.so.com/s?q=${phoneNumber}`,
         headers: {
-            "User-Agent": 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBAV/481.1.0.63.108;FBBV/656141417;FBDV/iPhone17,2;FBMD/iPhone;FBSN/iOS;FBSV/18.0.1;FBSS/3;FBCR/;FBID/phone;FBLC/en_US;FBOP/80]',
+            "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
         },
     }));
 }
