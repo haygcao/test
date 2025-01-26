@@ -258,14 +258,24 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
         });
       
       return {
-        phoneNumber: result.phoneNumber,
-        sourceLabel: result.sourceLabel,
-        count: result.count,
-        province: result.province,
-        city: result.city,
-        carrier: result.carrier,
-        predefinedLabel: matchedLabel,
-        source: pluginInfo.info.name,
+        //phoneNumber: result.phoneNumber,
+      //  sourceLabel: result.sourceLabel,
+      //  count: result.count,
+      //  province: result.province,
+     //   city: result.city,
+     //   carrier: result.carrier,
+    //    predefinedLabel: matchedLabel,
+    //    source: pluginInfo.info.name,
+    phoneNumber: phoneNumber,
+    sourceLabel: "这是固定测试数据",
+    count: 123,
+    province: "广东",
+    city: "深圳",
+    carrier: "中国移动",
+    source: "360",
+    predefinedLabel: 'Fraud Scam Likely',
+
+        
       };
     });
   } catch (error) {
