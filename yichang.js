@@ -185,7 +185,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
               // 使用 JavaScript 代码提取数据
               const jsonObject = extractDataFromDOM(doc);
-              console.log('Extracted information:', jsonObject);
+              console.log('Extracted information:', jsonObject,jsonObject.sourceLabel);
 
               resolve(jsonObject); // 使用提取的数据 resolve Promise
               console.log('Resolved promise for requestId:', requestId);
