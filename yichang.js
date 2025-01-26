@@ -59,89 +59,11 @@ function queryPhoneInfo(phoneNumber, requestId) {
     requestId: requestId,
     url: `https://www.so.com/s?q=${phoneNumber}`,
     headers: {
-      "User-Agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36 -',
+      "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
     },
   }));
 }
 
-// 生成输出信息
-async function generateOutput(phoneNumber, nationalNumber, e164Number) {
-  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number);
-  const queryResults = [];
-
-  // 为每个号码生成唯一的 requestId
-  if (phoneNumber) {
-    const phoneRequestId = Math.random().toString(36).substring(2);
-    queryPhoneInfo(phoneNumber, phoneRequestId);
-    queryResults.push(new Promise((resolve) => {
-      pendingPromises.set(phoneRequestId, resolve);
-    }));
-  }
-
-  if (nationalNumber) {
-    const nationalRequestId = Math.random().toString(36).substring(2);
-    queryPhoneInfo(nationalNumber, nationalRequestId);
-    queryResults.push(new Promise((resolve) => {
-      pendingPromises.set(nationalRequestId, resolve);
-    }));
-  }
-
-  if (e164Number) {
-    const e164RequestId = Math.random().toString(36).substring(2);
-    queryPhoneInfo(e164Number, e164RequestId);
-    queryResults.push(new Promise((resolve) => {
-      pendingPromises.set(e164RequestId, resolve);
-    }));
-  }
-
-  // 等待所有查询完成
-  try {
-    const results = await Promise.all(queryResults);
-    console.log('All queries completed:', results);
-
-    // 返回所有查询结果
-    return results.map(result => {
-        // 确保 result 不为空
-        if (!result) return {};
-        let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
-        if (!matchedLabel) {
-          matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
-        }
-      // 定义要返回的结果对象
-    const result = {
-      phoneNumber: phoneNumber || nationalNumber || e164Number,
-      sourceLabel: info.sourceLabel,
-      count: info.count,
-      province: phoneInfo?.province,
-      city: phoneInfo?.city,
-      carrier: phoneInfo?.carrier,
-      predefinedLabel: matchedLabel,
-      source: info.sourceName,
-    };
-
-    // 打印结果对象
-    console.log('generateOutput result:', JSON.stringify(result));
-
-    // 返回结果对象
-  // return result;
-        return {
-          phoneNumber: result.phoneNumber,
-          sourceLabel: result.sourceLabel,
-          count: result.count,
-          province: result.province,
-          city: result.city,
-          carrier: result.carrier,
-          predefinedLabel: matchedLabel,
-          source: pluginInfo.info.name,
-        };
-      });
-    } catch (error) {
-      console.error('Error in generateOutput:', error);
-      return {
-        error: error.message || 'Unknown error occurred during phone number lookup.',
-      };
-    }
-  }
 
 // 使用 DOMParser API 提取数据 (这里重要的就是count 和label，phone number，其他的都是为了测试使用的)
 function extractDataFromDOM(doc, phoneNumber) {
@@ -215,71 +137,138 @@ function extractDataFromDOM(doc, phoneNumber) {
   return jsonObject;
 }
 
-// 在全局作用域中注册事件监听器
-window.addEventListener('message', (event) => {
-  console.log('Received message in event listener:', event.data);
-  console.log('Received message event.data.type:', event.data.type);
 
-  if (event.data.type === `xhrResponse_${pluginId}`) {
-    const detail = event.data.detail;
-    const response = detail.response;
-    const requestId = detail.requestId;
 
-    console.log('requestId from detail:', requestId);
-    console.log('event.data.detail.response:', response);
 
-    if (response.status >= 200 && response.status < 300) {
-      console.log('response.responseText length:', response.responseText.length);
-      console.log('response.responseText:', response.responseText);
+// 生成输出信息
+async function generateOutput(phoneNumber, nationalNumber, e164Number) {
+  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number);
+  const queryResults = [];
 
-      // 解析 HTML
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(response.responseText, 'text/html');
+  // 处理单个号码查询的函数
+  async function handleNumberQuery(number, requestId) {
+    queryPhoneInfo(number, requestId);
+    return new Promise((resolve, reject) => {
+      pendingPromises.set(requestId, resolve);
 
-      // 使用 JavaScript 代码提取数据
-      const jsonObject = extractDataFromDOM(doc);
-      console.log('Extracted information:', jsonObject);
+      // 设置超时
+      const timeoutId = setTimeout(() => {
+        if (pendingPromises.has(requestId)) {
+          reject(new Error('Timeout waiting for response'));
+          pendingPromises.delete(requestId);
+          window.removeEventListener('message', messageListener);
+        }
+      }, 5000); // 5秒超时
 
-      // 将数据传递回 Flutter
-      FlutterChannel.postMessage(JSON.stringify({
-        type: 'pluginResult',
-        pluginId: pluginId,
-        data: jsonObject,
-        requestId: requestId
-      }));
+      // 监听 message 事件
+      function messageListener(event) {
+        console.log('Received message in event listener:', event.data);
+        console.log('Received message event.data.type:', event.data.type);
 
-      // resolve 对应的 Promise
-      const resolveFn = pendingPromises.get(requestId);
-      if (resolveFn) {
-        resolveFn(jsonObject);
-        pendingPromises.delete(requestId);
-        console.log('Resolved promise for requestId:', requestId);
-      } else {
-        console.error('Resolve function not found for requestId:', requestId);
+        if (event.data.type === `xhrResponse_${pluginId}`) {
+          const detail = event.data.detail;
+          const response = detail.response;
+          const receivedRequestId = detail.requestId; // 使用 receivedRequestId 避免命名冲突
+
+          console.log('requestId from detail:', receivedRequestId);
+          console.log('event.data.detail.response:', response);
+
+          // 检查 requestId 是否匹配
+          if (receivedRequestId === requestId) {
+            if (response.status >= 200 && response.status < 300) {
+              console.log('response.responseText length:', response.responseText.length);
+              console.log('response.responseText:', response.responseText);
+
+              // 解析 HTML
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(response.responseText, 'text/html');
+
+              // 使用 JavaScript 代码提取数据
+              const jsonObject = extractDataFromDOM(doc);
+              console.log('Extracted information:', jsonObject);
+
+              resolve(jsonObject); // 使用提取的数据 resolve Promise
+              console.log('Resolved promise for requestId:', requestId);
+
+              // 清理工作
+              clearTimeout(timeoutId);
+              pendingPromises.delete(requestId);
+              // 移除事件监听器
+              window.removeEventListener('message', messageListener);
+            } else {
+              console.error(`HTTP error! status: ${response.status}`);
+              reject(new Error(`HTTP error! status: ${response.status}`));
+
+              // 清理工作
+              clearTimeout(timeoutId);
+              pendingPromises.delete(requestId);
+              // 移除事件监听器
+              window.removeEventListener('message', messageListener);
+            }
+          } else {
+            console.log('Received response for a different requestId:', receivedRequestId);
+          }
+        } else {
+          console.log('Received unknown message type:', event.data.type);
+        }
       }
-    } else {
-      console.error(`HTTP error! status: ${response.status}`);
 
-      FlutterChannel.postMessage(JSON.stringify({
-        type: 'pluginError',
-        pluginId: pluginId,
-        error: `HTTP error! status: ${response.status}`,
-        requestId: requestId
-      }));
-
-      const rejectFn = pendingPromises.get(requestId);
-      if (rejectFn) {
-        rejectFn(new Error(`HTTP error! status: ${response.status}`));
-        pendingPromises.delete(requestId);
-        console.error('Rejected promise for requestId:', requestId);
-      } else {
-        console.error('Reject function not found for requestId:', requestId);
-      }
-    }
-  } else {
-    console.log('Received unknown message type:', event.data.type);
+      window.addEventListener('message', messageListener);
+    });
   }
-});
+
+  // 对每个号码调用 handleNumberQuery 函数
+  if (phoneNumber) {
+    const phoneRequestId = Math.random().toString(36).substring(2);
+    queryResults.push(handleNumberQuery(phoneNumber, phoneRequestId));
+  }
+
+  if (nationalNumber) {
+    const nationalRequestId = Math.random().toString(36).substring(2);
+    queryResults.push(handleNumberQuery(nationalNumber, nationalRequestId));
+  }
+
+  if (e164Number) {
+    const e164RequestId = Math.random().toString(36).substring(2);
+    queryResults.push(handleNumberQuery(e164Number, e164RequestId));
+  }
+
+  // 等待所有查询完成
+  try {
+    const results = await Promise.all(queryResults);
+    console.log('All queries completed:', results);
+
+    // 返回所有查询结果
+    return results.map(result => {
+      // 确保 result 不为空
+      if (!result) return {};
+      let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+      if (!matchedLabel) {
+        matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
+      }
+
+      return {
+        phoneNumber: result.phoneNumber,
+        sourceLabel: result.sourceLabel,
+        count: result.count,
+        province: result.province,
+        city: result.city,
+        carrier: result.carrier,
+        predefinedLabel: matchedLabel,
+        source: pluginInfo.info.name,
+      };
+    });
+  } catch (error) {
+    console.error('Error in generateOutput:', error);
+    return {
+      error: error.message || 'Unknown error occurred during phone number lookup.',
+    };
+  }
+}
+
+
+
+
 
 // 初始化插件
 async function initializePlugin() {
