@@ -246,7 +246,17 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       if (!matchedLabel) {
         matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
       }
-
+       console.log('Returning result:', {
+          phoneNumber: result.phoneNumber,
+          sourceLabel: result.sourceLabel,
+          count: result.count,
+          province: result.province,
+          city: result.city,
+          carrier: result.carrier,
+          predefinedLabel: matchedLabel,
+          source: pluginInfo.info.name,
+        });
+      
       return {
         phoneNumber: result.phoneNumber,
         sourceLabel: result.sourceLabel,
