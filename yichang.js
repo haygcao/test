@@ -232,6 +232,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     const e164RequestId = Math.random().toString(36).substring(2);
     queryResults.push(handleNumberQuery(e164Number, e164RequestId));
   }
+  try {
 
 
        console.log('Returning result:', {
