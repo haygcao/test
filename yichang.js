@@ -86,44 +86,80 @@ function extractDataFromDOM(doc, phoneNumber) {
       return jsonObject;
     }
 
-    // 提取标记次数
-    const countElement = doc.querySelector('.mh-tel-desc b');
+    // 尝试提取结构一的标记次数和标签
+    const countElement = doc.querySelector('.mohe-tips-zp b');
     console.log('countElement:', countElement);
-    if (countElement) {
-      const countText = countElement.textContent.trim();
-      console.log('countText:', countText);
-      jsonObject.count = parseInt(countText, 10) || 0;
-      console.log('jsonObject.count:', jsonObject.count);
-    }
-
-    // 提取标记标签
-    const sourceLabelElement = doc.querySelector('.mh-tel-desc');
+    const sourceLabelElement = doc.querySelector('.mohe-tips-zp');
     console.log('sourceLabelElement:', sourceLabelElement);
-    if (sourceLabelElement) {
-      let sourceLabelText = sourceLabelElement.textContent.trim();
-      sourceLabelText = sourceLabelText.replace(/此号码近期被|\d+位|360手机卫士|用户标记，疑似为|！/g, '').replace(/，/g, '').trim();
-      jsonObject.sourceLabel = sourceLabelText;
-      console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+
+    if (countElement && sourceLabelElement) {
+        const countText = countElement.textContent.trim();
+        console.log('countText:', countText);
+        jsonObject.count = parseInt(countText, 10) || 0;
+        console.log('jsonObject.count:', jsonObject.count);
+
+        let sourceLabelText = sourceLabelElement.textContent.trim();
+        sourceLabelText = sourceLabelText.replace(/此号码近期被|\d+位|360手机卫士|用户标记，疑似为|！/g, '').replace(/，/g, '').trim();
+        jsonObject.sourceLabel = sourceLabelText;
+        console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+    } else {
+        // 尝试提取结构二的标记次数和标签
+        const countElement2 = doc.querySelector('.mh-tel-desc b');
+        console.log('countElement2:', countElement2);
+        const sourceLabelElement2 = doc.querySelector('.mh-tel-mark'); //尝试根据新的结构进行选择
+        console.log('sourceLabelElement2:', sourceLabelElement2);
+
+        if (countElement2) {
+            const countText = countElement2.textContent.trim();
+            console.log('countText:', countText);
+            jsonObject.count = parseInt(countText, 10) || 0;
+            console.log('jsonObject.count:', jsonObject.count);
+        }
+
+        if (sourceLabelElement2) {
+            let sourceLabelText = sourceLabelElement2.textContent.trim();
+            jsonObject.sourceLabel = sourceLabelText;
+            console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+        }
     }
 
-    // 提取号码、省份、城市、运营商
-    const detailElement = doc.querySelector('.mh-tel-adr');
+    // 尝试提取结构一的号码、省份、城市、运营商
+    const detailElement = doc.querySelector('.mh-detail');
     console.log('detailElement:', detailElement);
     if (detailElement) {
       const spans = detailElement.querySelectorAll('span');
       console.log('spans:', spans);
       if (spans.length >= 2) {
         jsonObject.phoneNumber = spans[0].textContent.trim();
-        // 使用正则表达式匹配归属地和运营商
         const locationCarrierText = spans[1].textContent.trim();
-        // 匹配中文字符，以及可能存在的  
         const match = locationCarrierText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?[\s ]*([\u4e00-\u9fa5]+)?/);
         if (match) {
           jsonObject.province = match[1] || '';
           jsonObject.city = match[2] || '';
           jsonObject.carrier = match[3] || '';
         }
+      }
+    } else {
+      // 尝试提取结构二的号码、省份、城市、运营商
+      const phoneNumberElement = doc.querySelector('.mh-tel-num span');
+      console.log('phoneNumberElement:', phoneNumberElement);
+      const locationElement = doc.querySelector('.mh-tel-adr p');
+      console.log('locationElement:', locationElement);
+
+      if (phoneNumberElement) {
+        jsonObject.phoneNumber = phoneNumberElement.textContent.trim();
         console.log('jsonObject.phoneNumber:', jsonObject.phoneNumber);
+      }
+
+      if (locationElement) {
+        const locationText = locationElement.textContent.trim();
+        console.log('locationText:', locationText);
+        const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?[\s ]*([\u4e00-\u9fa5]+)?/);
+        if (match) {
+          jsonObject.province = match[1] || '';
+          jsonObject.city = match[2] || '';
+          jsonObject.carrier = match[3] || '';
+        }
         console.log('jsonObject.province:', jsonObject.province);
         console.log('jsonObject.city:', jsonObject.city);
         console.log('jsonObject.carrier:', jsonObject.carrier);
@@ -134,6 +170,7 @@ function extractDataFromDOM(doc, phoneNumber) {
   }
 
   console.log('Final jsonObject:', jsonObject);
+  console.log('Final jsonObject type:', typeof jsonObject);
   return jsonObject;
 }
 
@@ -221,7 +258,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
   try {
     let result;
 
-    if (phoneNumber && !result) {
+    if (phoneNumber) {
       const phoneRequestId = Math.random().toString(36).substring(2);
       try {
         result = await handleNumberQuery(phoneNumber, phoneRequestId);
@@ -230,7 +267,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       }
     }
 
-    if (nationalNumber && !result) {
+    if (nationalNumber) {
       const nationalRequestId = Math.random().toString(36).substring(2);
       try {
         result = await handleNumberQuery(nationalNumber, nationalRequestId);
@@ -239,7 +276,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       }
     }
 
-    if (e164Number && !result) {
+    if (e164Number) {
       const e164RequestId = Math.random().toString(36).substring(2);
       try {
         result = await handleNumberQuery(e164Number, e164RequestId);
@@ -253,7 +290,13 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
     // 确保 result 不为空
     if (!result) {
-        return { error: 'All attempts failed or timed out.' };
+      // 通过 FlutterChannel 发送错误信息
+      FlutterChannel.postMessage(JSON.stringify({
+        type: 'pluginError',
+        pluginId: pluginId,
+        error: 'All attempts failed or timed out.',
+      }));
+      return { error: 'All attempts failed or timed out.' }; // 同时返回错误信息
     }
 
     let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
@@ -261,7 +304,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
     }
 
-    return {
+    const finalResult = {
       phoneNumber: result.phoneNumber,
       sourceLabel: result.sourceLabel,
       count: result.count,
@@ -271,8 +314,23 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       predefinedLabel: matchedLabel,
       source: pluginInfo.info.name,
     };
+
+    // 通过 FlutterChannel 发送结果
+    FlutterChannel.postMessage(JSON.stringify({
+      type: 'pluginResult',
+      pluginId: pluginId,
+      data: finalResult,
+    }));
+
+    return finalResult; // 同时返回结果
   } catch (error) {
     console.error('Error in generateOutput:', error);
+    // 通过 FlutterChannel 发送错误信息
+    FlutterChannel.postMessage(JSON.stringify({
+      type: 'pluginError',
+      pluginId: pluginId,
+      error: error.message || 'Unknown error occurred during phone number lookup.',
+    }));
     return {
       error: error.message || 'Unknown error occurred during phone number lookup.',
     };
