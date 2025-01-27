@@ -334,13 +334,13 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       data: finalResult,
     }));
     
-    // 通过 PluginResultChannel 发送结果
-    console.log(`Plugin ${pluginId} - Sending result via PluginResultChannel`);
-    PluginResultChannel.postMessage(JSON.stringify({
+    // 通过 window.parent.postMessage 发送结果
+    console.log(`Plugin ${pluginId} - Sending result via window.parent.postMessage`);
+    window.parent.postMessage(JSON.stringify({
       type: 'pluginResult',
       pluginId: pluginId,
       data: finalResult,
-    }));
+    }), '*');
 
     
     return finalResult; // 同时返回结果
