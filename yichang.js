@@ -87,7 +87,7 @@ function extractDataFromDOM(doc, phoneNumber) {
     }
 
     // 提取标记次数
-    const countElement = doc.querySelector('.mohe-tips-zp b');
+    const countElement = doc.querySelector('.mh-tel-desc b');
     console.log('countElement:', countElement);
     if (countElement) {
       const countText = countElement.textContent.trim();
@@ -97,7 +97,7 @@ function extractDataFromDOM(doc, phoneNumber) {
     }
 
     // 提取标记标签
-    const sourceLabelElement = doc.querySelector('.mohe-tips-zp');
+    const sourceLabelElement = doc.querySelector('.mh-tel-desc');
     console.log('sourceLabelElement:', sourceLabelElement);
     if (sourceLabelElement) {
       let sourceLabelText = sourceLabelElement.textContent.trim();
@@ -107,7 +107,7 @@ function extractDataFromDOM(doc, phoneNumber) {
     }
 
     // 提取号码、省份、城市、运营商
-    const detailElement = doc.querySelector('.mh-detail');
+    const detailElement = doc.querySelector('.mh-tel-adr');
     console.log('detailElement:', detailElement);
     if (detailElement) {
       const spans = detailElement.querySelectorAll('span');
