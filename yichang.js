@@ -335,12 +335,12 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     }));
     
     // 通过 window.parent.postMessage 发送结果
-    console.log(`Plugin ${pluginId} - Sending result via window.parent.postMessage`);
-    window.parent.postMessage(JSON.stringify({
+    console.log(`Plugin ${pluginId} - Sending result via postMessage`);
+    TestPageChannel.postMessage(JSON.stringify({
       type: 'pluginResult',
       pluginId: pluginId,
       data: finalResult,
-    }), '*');
+    }));
 
     
     return finalResult; // 同时返回结果
