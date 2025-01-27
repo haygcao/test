@@ -337,7 +337,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     // 通过 window.parent.postMessage 发送结果
   console.log(`Plugin ${pluginId} - Sending result via window.currentPluginChannel`);
   // 通过统一通道名发送结果
-  TestPageChannel.postMessage(JSON.stringify({
+  PluginResultChannel.postMessage(JSON.stringify({
     type: 'pluginResult',
     pluginId: pluginId,
     data: finalResult
