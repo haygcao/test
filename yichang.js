@@ -176,12 +176,7 @@ function extractDataFromDOM(doc, phoneNumber) {
 
 
 
-// 定义 PluginResultChannel 对象 (关键)
-window.PluginResultChannel = {
-  postMessage: function(message) {
-    window.parent.postMessage(message, '*');
-  }
-};
+
 // ... (pluginId, pluginInfo, predefinedLabels, manualMapping, queryPhoneInfo, extractDataFromDOM 等保持不变)
 
 // 生成输出信息
