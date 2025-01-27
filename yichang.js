@@ -322,6 +322,13 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       data: finalResult,
     }));
 
+    PluginResultChannel.postMessage(JSON.stringify({
+      type: 'pluginResult',
+      pluginId: pluginId,
+      data: finalResult,
+    }));
+
+    
     return finalResult; // 同时返回结果
   } catch (error) {
     console.error('Error in generateOutput:', error);
