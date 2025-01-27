@@ -335,12 +335,15 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     }));
     
     // 通过 window.parent.postMessage 发送结果
-  console.log(`Plugin ${pluginId} - Sending result via window.parent.PluginResultChannel`);
-       window.parent.postMessage(JSON.stringify({
+  console.log(`Plugin ${pluginId} - Sending result via window.currentPluginChannel`);
+ // 如果存在专门的通道，就用该通道发送
+  if (window.currentPluginChannel) {
+    window.currentPluginChannel.postMessage(JSON.stringify({
       type: 'pluginResult',
       pluginId: pluginId,
-      data: finalResult,
-    }), '*');
+      data: finalResult
+    }));
+  }
 
     
     return finalResult; // 同时返回结果
