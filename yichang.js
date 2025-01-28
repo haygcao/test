@@ -1,12 +1,12 @@
 // 插件 ID,每个插件必须唯一
-const pluginId = '360PhoneNumberPlugin';
+const pluginId = 'soPhoneNumberPlugin';
 
 // 插件信息
 const pluginInfo = {
   // 插件信息
   info: {
-    id: 'yourpluginid', // 插件ID,必须唯一
-    name: '360', // 插件名称
+    id: 'soyourpluginid', // 插件ID,必须唯一
+    name: 'so', // 插件名称
     version: '1.0.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
@@ -317,12 +317,12 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
 
     const finalResult = {
       phoneNumber: "19736309029",
-      sourceLabel: "骚扰电话",
-      count: 16,
+      sourceLabel: "疑似骚扰",
+      count: 19,
       province: "山东",
       city: "威海",
       carrier: "移动",
-      predefinedLabel: "Unknown",
+      predefinedLabel: "spam",
       source: "360",
     };
     
