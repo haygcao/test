@@ -181,7 +181,7 @@ function extractDataFromDOM(doc, phoneNumber) {
 
 // 生成输出信息
 async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
-  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number);
+  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, requestId);
 
   // 处理单个号码查询的函数 (返回一个 Promise)
   function handleNumberQuery(number, requestId) {
