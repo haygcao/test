@@ -180,8 +180,8 @@ function extractDataFromDOM(doc, phoneNumber) {
 // ... (pluginId, pluginInfo, predefinedLabels, manualMapping, queryPhoneInfo, extractDataFromDOM 等保持不变)
 
 // 生成输出信息
-async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
-  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, requestId);
+async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
+  console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
 
   // 处理单个号码查询的函数 (返回一个 Promise)
   function handleNumberQuery(number, requestId) {
@@ -330,7 +330,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId
     // 通过 FlutterChannel 发送结果
     FlutterChannel.postMessage(JSON.stringify({
       type: 'pluginResult',
-      requestId: requestId, // 修改为 requestId
+      externalRequestId, // 修改为 requestId
       pluginId: pluginId,
       data: finalResult,
     }));
@@ -340,7 +340,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId
   // 通过统一通道名发送结果
   PluginResultChannel.postMessage(JSON.stringify({
       type: 'pluginResult',
-      requestId: requestId, // 修改为 requestId
+      externalRequestId, // 修改为externalRequestId
       pluginId: pluginId,
       data: finalResult,
   }));
