@@ -5,7 +5,7 @@ const pluginId = 'soPhoneNumberPlugin';
 const pluginInfo = {
   // 插件信息
   info: {
-    id: 'soyourpluginid', // 插件ID,必须唯一
+    id: 'soPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'so', // 插件名称
     version: '1.0.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
