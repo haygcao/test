@@ -330,7 +330,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
     // 通过 FlutterChannel 发送结果
     FlutterChannel.postMessage(JSON.stringify({
       type: 'pluginResult',
-      requestId: requestId, // 修改为 requestId
+      "requestId": externalRequestId, // 修改为 requestId
       pluginId: pluginId,
       data: finalResult,
     }));
