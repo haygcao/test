@@ -7,7 +7,7 @@ const pluginInfo = {
   info: {
     id: '360PhoneNumberPlugin', // 插件ID,必须唯一
     name: '360', // 插件名称
-    version: '1.0.0', // 插件版本
+    version: '1.2.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
   },
