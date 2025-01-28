@@ -304,7 +304,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       matchedLabel = manualMapping[result.sourceLabel] || 'Unknown';
     }
 
-    const finalResult1 = {
+    const finalResult = {
       phoneNumber: result.phoneNumber,
       sourceLabel: result.sourceLabel,
       count: result.count,
@@ -315,7 +315,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
       source: pluginInfo.info.name,
     };
 
-    const finalResult = {
+    const finalResult1 = {
       phoneNumber: "19736309029",
       sourceLabel: "骚扰电话",
       count: 16,
