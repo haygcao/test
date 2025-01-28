@@ -335,7 +335,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number) {
     }));
 
     // 通过 FlutterChannel 发送结果
-    TestFlutterChannel.postMessage(JSON.stringify({
+    TestPageChannel.postMessage(JSON.stringify({
       type: 'pluginResult',
       pluginId: pluginId,
       data: finalResult,
