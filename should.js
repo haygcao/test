@@ -3,44 +3,44 @@ const pluginId = 'tellowsPlugin';
 
 // Plugin information
 const pluginInfo = {
-    // Plugin information
-    info: {
-        id: 'tellowsPlugin', // Plugin ID, must be unique
-        name: 'Tellows', // Plugin name
-        version: '1.29.0', // Plugin version
-        description: 'This plugin retrieves information about phone numbers from tellows.com.', // Plugin description
-        author: 'Your Name', // Plugin author
-    },
+  // Plugin information
+  info: {
+    id: 'tellowsPlugin', // Plugin ID, must be unique
+    name: 'Tellows', // Plugin name
+    version: '1.2.0', // Plugin version
+    description: 'This plugin retrieves information about phone numbers from shouldianswer.com.', // Plugin description
+    author: 'Your Name', // Plugin author
+  },
 };
 
 // Predefined label list (you can adjust this list based on your needs)
 const predefinedLabels = [
-    { 'label': 'Fraud Scam Likely' },
-    { 'label': 'Spam Likely' },
-    { 'label': 'Telemarketing' },
-    { 'label': 'Robocall' },
-    { 'label': 'Delivery' },
-    { 'label': 'Takeaway' },
-    { 'label': 'Ridesharing' },
-    { 'label': 'Insurance' },
-    { 'label': 'Loan' },
-    { 'label': 'Customer Service' },
-    { 'label': 'Unknown' },
-    { 'label': 'Financial' },
-    { 'label': 'Bank' },
-    { 'label': 'Education' },
-    { 'label': 'Medical' },
-    { 'label': 'Charity' },
-    { 'label': 'Other' },
-    { 'label': 'Debt Collection' },
-    { 'label': 'Survey' },
-    { 'label': 'Political' },
-    { 'label': 'Ecommerce' },
-    { 'label': 'Risk' },
-    { 'label': 'Agent' },
-    { 'label': 'Recruiter' },
-    { 'label': 'Headhunter' },
-    { 'label': 'Silent Call(Voice Clone?)' },
+    {'label': 'Fraud Scam Likely'},
+    {'label': 'Spam Likely'},
+    {'label': 'Telemarketing'},
+    {'label': 'Robocall'},
+    {'label': 'Delivery'},
+    {'label': 'Takeaway'},
+    {'label': 'Ridesharing'},
+    {'label': 'Insurance'},
+    {'label': 'Loan'},
+    {'label': 'Customer Service'},
+    {'label': 'Unknown'},
+    {'label': 'Financial'},
+    {'label': 'Bank'},
+    {'label': 'Education'},
+    {'label': 'Medical'},
+    {'label': 'Charity'},
+    {'label': 'Other'},
+    {'label': 'Debt Collection'},
+    {'label': 'Survey'},
+    {'label': 'Political'},
+    {'label': 'Ecommerce'},
+    {'label': 'Risk'},
+    {'label': 'Agent'},
+    {'label': 'Recruiter'},
+    {'label': 'Headhunter'},
+    {'label': 'Silent Call(Voice Clone?)'},  
 
 ];
 
@@ -60,24 +60,41 @@ const manualMapping = {
     'Spam Call': 'Spam Likely', // Added, map label extracted "spam call" to predefined "Spam Likely"
 };
 
+
 // Using a Map object to store pending Promises
 const pendingPromises = new Map();
 
-// Function to query phone number information
+// Function to query phone number information (修改: 使用 XMLHttpRequest)
 function queryPhoneInfo(phoneNumber, requestId) {
-    console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
-    window.flutter_inappwebview.callHandler('FlutterChannel', JSON.stringify({  // 使用 window.flutter_inappwebview.callHandler
-        pluginId: pluginId,
-        method: 'GET',
-        requestId: requestId,
-        url: `https://www.tellows.com/num/${phoneNumber}`, // 恢复 URL
-        headers: {
-            "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
-        },
-    }));
+  console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
+
+  return new Promise((resolve, reject) => { // 返回 Promise
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `https://www.tellows.com/num/${phoneNumber}`);
+    xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 添加自定义头部
+     xhr.timeout = 5000; // 设置超时
+
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(xhr.responseText); // 成功时 resolve 响应文本
+      } else {
+        reject(new Error(`HTTP error! status: ${xhr.status}`)); // 失败时 reject 错误
+      }
+    };
+
+    xhr.onerror = () => {
+        reject(new Error('Network error'));
+    }
+    xhr.ontimeout = () => {
+        reject(new Error('Request timed out'));
+    };
+
+    xhr.send();
+  });
 }
 
 function extractDataFromDOM(doc, phoneNumber) {
+   // ... (与之前相同, 不需要修改)
     const jsonObject = {
         count: 0,
         sourceLabel: "",
@@ -135,11 +152,11 @@ function extractDataFromDOM(doc, phoneNumber) {
         }
 
         // 3. Extract Name (Caller ID) - ROBUST METHOD
-        // 3. Extract Name (Caller ID) - Corrected: Directly select the span.callerId
-        const callerIdElement = doc.querySelector('span.callerId');
-        if (callerIdElement) {
-            jsonObject.name = callerIdElement.textContent.trim();
-        }
+    // 3. Extract Name (Caller ID) - Corrected: Directly select the span.callerId
+    const callerIdElement = doc.querySelector('span.callerId');
+    if (callerIdElement) {
+        jsonObject.name = callerIdElement.textContent.trim();
+    }
 
 
         // 4. Extract Rate and Count (using Ratings)
@@ -147,12 +164,12 @@ function extractDataFromDOM(doc, phoneNumber) {
         const ratingsElement = findElementByText('strong', "Ratings:"); // More robust way to locate
 
         if (ratingsElement) {
-            const spanElement = ratingsElement.querySelector('span');
-            if (spanElement) {
-                const rateValue = parseInt(spanElement.textContent.trim(), 10) || 0;
-                jsonObject.rate = rateValue;
-                jsonObject.count = rateValue;
-            }
+          const spanElement = ratingsElement.querySelector('span');
+          if (spanElement) {
+            const rateValue = parseInt(spanElement.textContent.trim(), 10) || 0;
+            jsonObject.rate = rateValue;
+            jsonObject.count = rateValue;
+          }
         }
         // 5. Extract City and Province - CORRECTED LOGIC
         const cityElement = findElementByText('strong', "City:");
@@ -187,147 +204,91 @@ function extractDataFromDOM(doc, phoneNumber) {
     console.log('Final jsonObject:', jsonObject);
     console.log('Final jsonObject type:', typeof jsonObject);
     return jsonObject;
-
 }
 
-//update
-
-// Function to generate output information
+// Function to generate output information (修改: 使用 Promise 和 then/catch)
 async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
     console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
 
-    // Function to handle a single number query (returns a Promise)
-    function handleNumberQuery(number, requestId) {
-        return new Promise((resolve, reject) => {
-            queryPhoneInfo(number, requestId);
-            pendingPromises.set(requestId, resolve);
-
-            // Set timeout
-            const timeoutId = setTimeout(() => {
-                if (pendingPromises.has(requestId)) {
-                    reject(new Error('Timeout waiting for response'));
-                    pendingPromises.delete(requestId);
-                    window.removeEventListener('message', messageListener);
-                }
-            }, 5000); // 5 seconds timeout
-
-            // Listen for message events
-            function messageListener(event) {
-                console.log('Received message in event listener:', event.data);
-                console.log('Received message event.data.type:', event.data.type);
-
-                if (event.data.type === `xhrResponse_${pluginId}`) {
-                    const detail = event.data.detail;
-                    const response = detail.response;
-                    const receivedRequestId = detail.requestId;
-
-                    console.log('requestId from detail:', receivedRequestId);
-                    console.log('event.data.detail.response:', response);
-
-                    // Check if requestId matches
-                    if (receivedRequestId === requestId) {
-                        if (response.status >= 200 && response.status < 300) {
-                            console.log('response.responseText length:', response.responseText.length);
-                            console.log('response.responseText:', response.responseText);
-
-                            // Parse HTML
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(response.responseText, 'text/html');
-
-                            // Use JavaScript code to extract data
-                            const jsonObject = extractDataFromDOM(doc, number); // Pass the number to extractDataFromDOM
-                            console.log('Extracted information:', jsonObject);
-                            console.log('Extracted information type:', typeof jsonObject);
-
-                            // Cleanup
-                            clearTimeout(timeoutId);
-                            pendingPromises.delete(requestId);
-                            window.removeEventListener('message', messageListener);
-
-                            // Resolve the promise with the extracted data
-                            resolve(jsonObject);
-                        } else {
-                            console.error(`HTTP error! status: ${response.status}`);
-                            reject(new Error(`HTTP error! status: ${response.status}`));
-
-                            // Cleanup
-                            clearTimeout(timeoutId);
-                            pendingPromises.delete(requestId);
-                            window.removeEventListener('message', messageListener);
-                        }
-                    } else {
-                        console.log('Received response for a different requestId:', receivedRequestId);
-                    }
-                } else {
-                    console.log('Received unknown message type:', event.data.type);
-                }
-            }
-
-            window.addEventListener('message', messageListener);
-        });
-
+    // Helper function to send result or error to Flutter
+    function sendResultToFlutter(type, data) {
+        const message = {
+            type: type,
+            pluginId: pluginId,
+            requestId: externalRequestId,
+            data: data,
+        };
+        const messageString = JSON.stringify(message);
+        console.log('Sending message to Flutter:', messageString);
+        if(window.flutter_inappwebview){
+            window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
+        }
+        else{
+            console.error("flutter_inappwebview is undefined");
+        }
     }
 
-    // Process each number sequentially, use whichever returns a valid result first
+  // Process each number sequentially, use whichever returns a valid result first
+  // 依次处理每个号码，使用第一个返回有效结果的
     try {
         let result;
 
-        if (phoneNumber) {
-            const phoneRequestId = Math.random().toString(36).substring(2);
+        if (phoneNumber && !result) {
             try {
-                result = await handleNumberQuery(phoneNumber, phoneRequestId);
+                const responseText = await queryPhoneInfo(phoneNumber, externalRequestId);
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(responseText, 'text/html');
+                result = extractDataFromDOM(doc, phoneNumber);
                 console.log('Query result for phoneNumber:', result);
             } catch (error) {
                 console.error('Error querying phoneNumber:', error);
             }
         }
 
-        if (nationalNumber) {
-            const nationalRequestId = Math.random().toString(36).substring(2);
-            try {
-                result = await handleNumberQuery(nationalNumber, nationalRequestId);
+        if (nationalNumber && !result) {
+          try {
+                const responseText = await queryPhoneInfo(nationalNumber, externalRequestId);
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(responseText, 'text/html');
+                result = extractDataFromDOM(doc, nationalNumber); // Pass nationalNumber here
                 console.log('Query result for nationalNumber:', result);
             } catch (error) {
                 console.error('Error querying nationalNumber:', error);
             }
         }
 
-        if (e164Number) {
-            const e164RequestId = Math.random().toString(36).substring(2);
-            try {
-                result = await handleNumberQuery(e164Number, e164RequestId);
+        if (e164Number && !result) {
+             try {
+                const responseText = await queryPhoneInfo(e164Number, externalRequestId);
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(responseText, 'text/html');
+                result = extractDataFromDOM(doc, e164Number);
                 console.log('Query result for e164Number:', result);
             } catch (error) {
                 console.error('Error querying e164Number:', error);
             }
         }
 
-        console.log('First successful query completed:', result);
-        console.log('First successful query completed type:', typeof result);
+    console.log('First successful query completed:', result);
 
-        // Ensure result is not null
-        if (!result) {
-            // Send error message via FlutterChannel
-            window.flutter_inappwebview.callHandler('FlutterChannel', JSON.stringify({ // 使用 window.flutter_inappwebview.callHandler
-                type: 'pluginError',
-                pluginId: pluginId,
-                error: 'All attempts failed or timed out.',
-            }));
-            return { error: 'All attempts failed or timed out.' }; // Also return the error information
-        }
+    // Ensure result is not null or undefined
+    if (result === null || result === undefined) {
+            sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' });
+          return;
+    }
 
-        // Find a matching predefined label using the found sourceLabel
-        let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+    // Find a matching predefined label using the found sourceLabel
+    let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
 
-        // If no direct match is found, try to find one in manualMapping
-        if (!matchedLabel) {
-            matchedLabel = manualMapping[result.sourceLabel];
-        }
+    // If no direct match is found, try to find one in manualMapping
+    if (!matchedLabel) {
+      matchedLabel = manualMapping[result.sourceLabel];
+    }
 
-        // If no match is found in manualMapping, use 'Unknown'
-        if (!matchedLabel) {
-            matchedLabel = 'Unknown';
-        }
+    // If no match is found in manualMapping, use 'Unknown'
+    if (!matchedLabel) {
+      matchedLabel = 'Unknown';
+    }
 
         const finalResult = {
             phoneNumber: result.phoneNumber,
@@ -341,48 +302,32 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
             source: pluginInfo.info.name,
         };
 
-        // Send the result via FlutterChannel
-        window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 使用 window.flutter_inappwebview.callHandler
-            type: 'pluginResult',
-            requestId: externalRequestId,
-            pluginId: pluginId,
-            data: finalResult,
-        }));
+     // Send the result via FlutterChannel
+        sendResultToFlutter('pluginResult', finalResult);
 
-
-        return finalResult; // Also return the result
-
-    } catch (error) {
+    }  catch (error) {
         console.error('Error in generateOutput:', error);
-        // Send error message via FlutterChannel
-        window.flutter_inappwebview.callHandler('FlutterChannel', JSON.stringify({  // 使用 window.flutter_inappwebview.callHandler
-            type: 'pluginError',
-            pluginId: pluginId,
-            error: error.message || 'Unknown error occurred during phone number lookup.',
-        }));
-        return {
-            error: error.message || 'Unknown error occurred during phone number lookup.',
-        };
+        sendResultToFlutter('pluginError', { error: error.message || 'Unknown error occurred during phone number lookup.' });
     }
 }
 
 // Initialize plugin
 async function initializePlugin() {
-    window.plugin = {};
-    const thisPlugin = {
-        id: pluginInfo.info.id,
-        pluginId: pluginId,
-        version: pluginInfo.info.version,
-        queryPhoneInfo: queryPhoneInfo,
-        generateOutput: generateOutput,
-        test: function () {
-            console.log('Plugin test function called');
-            return 'Plugin is working';
-        }
-    };
+  window.plugin = {};
+  const thisPlugin = {
+    id: pluginInfo.info.id,
+    pluginId: pluginId,
+    version: pluginInfo.info.version,
+    queryPhoneInfo: queryPhoneInfo, // 现在 queryPhoneInfo 返回 Promise
+    generateOutput: generateOutput,
+    test: function () {
+      console.log('Plugin test function called');
+      return 'Plugin is working';
+    }
+  };
 
-    window.plugin[pluginId] = thisPlugin;
-    // 使用 window.flutter_inappwebview.callHandler
+  window.plugin[pluginId] = thisPlugin;
+
     if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
         window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
             type: 'pluginLoaded',
@@ -395,8 +340,6 @@ async function initializePlugin() {
             pluginId: pluginId,
         }));
         console.log('Notified Flutter that plugin is ready');
-
-
     } else {
         console.error('TestPageChannel (flutter_inappwebview) is not defined');
     }
