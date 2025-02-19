@@ -1,5 +1,5 @@
 // Plugin ID, each plugin must be unique
-const pluginId = 'tellowsPlugin';
+const pluginId = 'tellowsPlugin';  //您需要确保每个插件的 ID 都是唯一的。
 
 // Plugin information
 const pluginInfo = {
@@ -7,7 +7,7 @@ const pluginInfo = {
     info: {
         id: 'tellowsPlugin', // Plugin ID, must be unique
         name: 'Tellows', // Plugin name
-        version: '1.2.0', // Plugin version
+        version: '1.22.0', // Plugin version
         description: 'This plugin retrieves information about phone numbers from shouldianswer.com.', // Plugin description
         author: 'Your Name', // Plugin author
     },
