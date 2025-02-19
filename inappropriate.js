@@ -211,13 +211,14 @@ async function handleNumberQuery(number, requestId) {
 
         // 监听来自 Dart 的消息 (模拟 onmessage)
         window.addEventListener('message', function listener(event) {
-            // console.log("Received message:", event);
+             console.log("收到Received message:", event);
             if (event.data.type === `xhrResponse_${pluginId}` && event.data.detail.requestId === requestId) {
                 clearTimeout(timeoutId); // 取消超时计时器
                 window.removeEventListener('message', listener); // 移除监听器
                 const response = event.data.detail.response;
-                // console.log("response status: ", response.status);
-
+                 console.log("response status: ", response.status);
+          console.log('打印requestId from detail:', receivedRequestId);
+          console.log('event.data.detail.response:', response);
                if (response.status >= 200 && response.status < 300) {
                     // 请求成功, 解析返回的结果
                     const parser = new DOMParser();
