@@ -61,31 +61,35 @@ const manualMapping = {
 };
 
 
-// Using a Map object to store pending Promises
-const pendingPromises = new Map();
+// Using a Map object to store pending Promises  (不再需要)
+// const pendingPromises = new Map();
 
-// Function to query phone number information (修改: 使用 XMLHttpRequest)
+// Function to query phone number information (修改: 使用 XMLHttpRequest, 添加 requestId 到 URL)
 function queryPhoneInfo(phoneNumber, requestId) {
   console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
 
-  return new Promise((resolve, reject) => { // 返回 Promise
+  return new Promise((resolve, reject) => {
+    const url = `https://www.tellows.com/num/${phoneNumber}?requestId=${requestId}`; // 将 requestId 添加到 URL
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://www.tellows.com/num/${phoneNumber}`);
+    xhr.open('GET', url);
     xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 添加自定义头部
-     xhr.timeout = 5000; // 设置超时
+    xhr.timeout = 5000;
 
     xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        resolve(xhr.responseText); // 成功时 resolve 响应文本
-      } else {
-        reject(new Error(`HTTP error! status: ${xhr.status}`)); // 失败时 reject 错误
-      }
+      // 由于我们在 Flutter 端拦截并修改了请求，这里的 xhr.status, xhr.responseText 等将不会是最终结果
+      // 真正的响应处理在 Flutter 的 onLoadResource 中进行
+      // 我们在这里只 resolve 一个空值，或者不 resolve/reject，让 Promise 保持 pending 状态
+      // 这实际上是利用了 XMLHttpRequest 的机制，但我们并不真正使用它的结果
+      resolve(); // 或者什么都不做
     };
 
-    xhr.onerror = () => {
+     xhr.onerror = () => {
+        // 这里的 onerror 仍然可能被触发 (例如，网络连接问题)
         reject(new Error('Network error'));
-    }
+    };
+
     xhr.ontimeout = () => {
+       // 超时也可能被触发
         reject(new Error('Request timed out'));
     };
 
@@ -94,8 +98,8 @@ function queryPhoneInfo(phoneNumber, requestId) {
 }
 
 function extractDataFromDOM(doc, phoneNumber) {
-   // ... (与之前相同, 不需要修改)
-    const jsonObject = {
+    // ... (与之前版本相同, 不需要修改)
+     const jsonObject = {
         count: 0,
         sourceLabel: "",
         province: "",
@@ -208,23 +212,24 @@ function extractDataFromDOM(doc, phoneNumber) {
 
 // Function to generate output information (修改: 使用 Promise 和 then/catch)
 async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
-    console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
+   console.log('generateOutput called with:', phoneNumber,  externalRequestId);
 
-    // Helper function to send result or error to Flutter
+      // Helper function to send result or error to Flutter
     function sendResultToFlutter(type, data) {
         const message = {
             type: type,
             pluginId: pluginId,
-            requestId: externalRequestId,
+            requestId: externalRequestId, // 使用 externalRequestId
             data: data,
         };
         const messageString = JSON.stringify(message);
         console.log('Sending message to Flutter:', messageString);
-        if(window.flutter_inappwebview){
-            window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
-        }
-        else{
-            console.error("flutter_inappwebview is undefined");
+
+        // 使用 PluginResultChannel 发送消息
+        if (typeof PluginResultChannel !== 'undefined') {
+            PluginResultChannel.postMessage(messageString);
+        } else {
+            console.error('PluginResultChannel is not defined');
         }
     }
 
@@ -235,81 +240,168 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
 
         if (phoneNumber && !result) {
             try {
-                const responseText = await queryPhoneInfo(phoneNumber, externalRequestId);
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(responseText, 'text/html');
-                result = extractDataFromDOM(doc, phoneNumber);
-                console.log('Query result for phoneNumber:', result);
+                // 注意：这里我们 await queryPhoneInfo，但实际上它不会 resolve 或 reject
+                // 真正的响应处理在 Flutter 的 onLoadResource 中
+                await queryPhoneInfo(phoneNumber, externalRequestId); // Pass externalRequestId
+                 // 由于我们在 queryPhoneInfo 中不解析 HTML，这里不需要解析
+                // result = extractDataFromDOM(doc, phoneNumber);  // 不需要这行
+               // console.log('Query result for phoneNumber:', result); // 这里的 result 将是 undefined
+              // 我们不需要在这里设置 result，因为实际的结果会在 onLoadResource 中获取
             } catch (error) {
                 console.error('Error querying phoneNumber:', error);
+              //即使出错也不要reject, 继续尝试其他号码
             }
         }
 
         if (nationalNumber && !result) {
           try {
-                const responseText = await queryPhoneInfo(nationalNumber, externalRequestId);
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(responseText, 'text/html');
-                result = extractDataFromDOM(doc, nationalNumber); // Pass nationalNumber here
-                console.log('Query result for nationalNumber:', result);
+                await queryPhoneInfo(nationalNumber, externalRequestId);
+                // result = extractDataFromDOM(doc, nationalNumber); // 不需要这行
+                // console.log('Query result for nationalNumber:', result); // 这里的 result 将是 undefined
             } catch (error) {
                 console.error('Error querying nationalNumber:', error);
             }
         }
 
         if (e164Number && !result) {
-             try {
-                const responseText = await queryPhoneInfo(e164Number, externalRequestId);
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(responseText, 'text/html');
-                result = extractDataFromDOM(doc, e164Number);
-                console.log('Query result for e164Number:', result);
+            try {
+                await queryPhoneInfo(e164Number, externalRequestId);
+                // result = extractDataFromDOM(doc, e164Number); // 不需要这行
+                // console.log('Query result for e164Number:', result); // 这里的 result 将是 undefined
             } catch (error) {
                 console.error('Error querying e164Number:', error);
             }
         }
 
-    console.log('First successful query completed:', result);
+        // 由于真正的结果在 onLoadResource 中处理，这里我们不需要检查 result
+        // 我们只需要确保 generateOutput 不要过早地 resolve 或 reject
 
-    // Ensure result is not null or undefined
-    if (result === null || result === undefined) {
-            sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' });
-          return;
+    }  catch (error) {
+        console.error('Error in generateOutput:', error);
+          // 在这里，我们只处理 queryPhoneInfo 中可能发生的网络错误 (onerror, ontimeout)
+        sendResultToFlutter('pluginError', { error: error.message || 'Unknown error occurred during phone number lookup.' });
     }
+}
 
-    // Find a matching predefined label using the found sourceLabel
-    let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+// 拦截器 (用于模拟 handleResponse)
+window.xhrInterceptor = {
+    originalXHR: window.XMLHttpRequest,
+    requests: {},
 
-    // If no direct match is found, try to find one in manualMapping
-    if (!matchedLabel) {
-      matchedLabel = manualMapping[result.sourceLabel];
-    }
+     myXHR: function() {
+        let xhr = new window.xhrInterceptor.originalXHR();
+        let myRequestId;
 
-    // If no match is found in manualMapping, use 'Unknown'
-    if (!matchedLabel) {
-      matchedLabel = 'Unknown';
-    }
+        xhr.open = function(method, url) {
+            myRequestId = Date.now().toString();
+            this.method = method;
+            this.url = url;
+            // 重要: 将 *当前* XHR 对象存储到 requests 中
+            window.xhrInterceptor.requests[myRequestId] = this;
+            console.log('myXHR open:', method, url, myRequestId);
+            return xhr.open.apply(xhr, arguments);
+        };
 
+        xhr.send = function(body) {
+            console.log('myXHR send:', this.method, this.url, body, myRequestId);
+            xhr.send.apply(xhr, arguments); // 必须实际发送请求
+        };
+        return xhr;
+    },
+
+    handleResponse: function(requestId, responseData) {
+        console.log('handleResponse called with:', requestId, responseData);
+
+        // 重要: 从 requests 中获取 *原始* XHR 对象
+        const xhr = window.xhrInterceptor.requests[requestId];
+        if (!xhr) {
+            console.error("Request not found for requestId:", requestId);
+            return;
+        }
+
+        // 清理 requests, 防止内存泄漏
+        delete window.xhrInterceptor.requests[requestId];
+
+        // 使用 Object.defineProperty 设置属性
+        Object.defineProperty(xhr, 'readyState', { value: 4 });
+        Object.defineProperty(xhr, 'status', { value: responseData.status });
+        Object.defineProperty(xhr, 'statusText', { value: responseData.statusText || '' });
+        Object.defineProperty(xhr, 'responseText', { value: responseData.responseText });
+        Object.defineProperty(xhr, 'response', { value: responseData.responseText });
+
+        // 模拟 getAllResponseHeaders() 方法 (返回字符串)
+        let headersString = "";
+        for (let key in responseData.headers) {
+            headersString += key + ": " + responseData.headers[key] + "\r\n";
+        }
+        Object.defineProperty(xhr, 'getAllResponseHeaders', { value: function() { return headersString; } });
+
+       // 触发 onreadystatechange 事件
+        if (xhr.onreadystatechange) {
+             console.log('Triggering onreadystatechange');
+            xhr.onreadystatechange();
+        } else {
+           console.log('No onreadystatechange handler found');
+        }
+
+        // 解析 HTML 并提取数据 (在 handleResponse 中)
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(responseData.responseText, 'text/html');
+        const result = extractDataFromDOM(doc, ''); // 这里可以传递一个默认的电话号码，或者从 responseData 中获取
+
+        // Find a matching predefined label using the found sourceLabel
+        let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+
+        // If no direct match is found, try to find one in manualMapping
+        if (!matchedLabel) {
+            matchedLabel = manualMapping[result.sourceLabel];
+        }
+
+        // If no match is found in manualMapping, use 'Unknown'
+        if (!matchedLabel) {
+            matchedLabel = 'Unknown';
+        }
+
+        // 构建最终结果
         const finalResult = {
-            phoneNumber: result.phoneNumber,
+            phoneNumber: result.phoneNumber, // Use extracted or default phone number
             sourceLabel: result.sourceLabel,
             count: result.count,
             province: result.province,
             city: result.city,
             carrier: result.carrier,
             name: result.name,
-            predefinedLabel: matchedLabel, // Use the matched label
+            predefinedLabel: matchedLabel,
             source: pluginInfo.info.name,
         };
 
-     // Send the result via FlutterChannel
+        // 发送最终结果 (使用 PluginResultChannel)
+        console.log('Sending final result to Flutter:', finalResult);
+
+         // Helper function to send result or error to Flutter
+        function sendResultToFlutter(type, data) {
+            const message = {
+                type: type,
+                pluginId: pluginId,
+                requestId: requestId, // 使用 handleResponse 的 requestId
+                data: data,
+            };
+            const messageString = JSON.stringify(message);
+            console.log('Sending message to Flutter:', messageString);
+
+            // 使用 PluginResultChannel 发送消息
+            if (typeof PluginResultChannel !== 'undefined') {
+                PluginResultChannel.postMessage(messageString);
+            } else {
+                console.error('PluginResultChannel is not defined');
+            }
+        }
         sendResultToFlutter('pluginResult', finalResult);
 
-    }  catch (error) {
-        console.error('Error in generateOutput:', error);
-        sendResultToFlutter('pluginError', { error: error.message || 'Unknown error occurred during phone number lookup.' });
-    }
-}
+    },
+};
+
+window.XMLHttpRequest = window.xhrInterceptor.myXHR; // 替换 XMLHttpRequest
 
 // Initialize plugin
 async function initializePlugin() {
@@ -318,7 +410,7 @@ async function initializePlugin() {
     id: pluginInfo.info.id,
     pluginId: pluginId,
     version: pluginInfo.info.version,
-    queryPhoneInfo: queryPhoneInfo, // 现在 queryPhoneInfo 返回 Promise
+    queryPhoneInfo: queryPhoneInfo,
     generateOutput: generateOutput,
     test: function () {
       console.log('Plugin test function called');
