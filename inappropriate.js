@@ -1,49 +1,50 @@
 // Plugin ID, each plugin must be unique
 const pluginId = 'tellowsPlugin';
 
-// Plugin information (unchanged)
+// Plugin information
 const pluginInfo = {
-    info: {
-        id: 'tellowsPlugin', // Plugin ID, must be unique
-        name: 'Tellows', // Plugin name
-        version: '1.2.0', // Plugin version
-        description: 'This plugin retrieves information about phone numbers from tellows.com.', // Plugin description
-        author: 'Your Name', // Plugin author
-    },
+  // Plugin information
+  info: {
+    id: 'tellowsPlugin', // Plugin ID, must be unique
+    name: 'Tellows', // Plugin name
+    version: '1.2.0', // Plugin version
+    description: 'This plugin retrieves information about phone numbers from shouldianswer.com.', // Plugin description
+    author: 'Your Name', // Plugin author
+  },
 };
 
-// Predefined label list (unchanged)
+// Predefined label list (you can adjust this list based on your needs)
 const predefinedLabels = [
-    { 'label': 'Fraud Scam Likely' },
-    { 'label': 'Spam Likely' },
-    { 'label': 'Telemarketing' },
-    { 'label': 'Robocall' },
-    { 'label': 'Delivery' },
-    { 'label': 'Takeaway' },
-    { 'label': 'Ridesharing' },
-    { 'label': 'Insurance' },
-    { 'label': 'Loan' },
-    { 'label': 'Customer Service' },
-    { 'label': 'Unknown' },
-    { 'label': 'Financial' },
-    { 'label': 'Bank' },
-    { 'label': 'Education' },
-    { 'label': 'Medical' },
-    { 'label': 'Charity' },
-    { 'label': 'Other' },
-    { 'label': 'Debt Collection' },
-    { 'label': 'Survey' },
-    { 'label': 'Political' },
-    { 'label': 'Ecommerce' },
-    { 'label': 'Risk' },
-    { 'label': 'Agent' },
-    { 'label': 'Recruiter' },
-    { 'label': 'Headhunter' },
-    { 'label': 'Silent Call(Voice Clone?)' },
+    {'label': 'Fraud Scam Likely'},
+    {'label': 'Spam Likely'},
+    {'label': 'Telemarketing'},
+    {'label': 'Robocall'},
+    {'label': 'Delivery'},
+    {'label': 'Takeaway'},
+    {'label': 'Ridesharing'},
+    {'label': 'Insurance'},
+    {'label': 'Loan'},
+    {'label': 'Customer Service'},
+    {'label': 'Unknown'},
+    {'label': 'Financial'},
+    {'label': 'Bank'},
+    {'label': 'Education'},
+    {'label': 'Medical'},
+    {'label': 'Charity'},
+    {'label': 'Other'},
+    {'label': 'Debt Collection'},
+    {'label': 'Survey'},
+    {'label': 'Political'},
+    {'label': 'Ecommerce'},
+    {'label': 'Risk'},
+    {'label': 'Agent'},
+    {'label': 'Recruiter'},
+    {'label': 'Headhunter'},
+    {'label': 'Silent Call(Voice Clone?)'},
 
 ];
 
-// Manual mapping table (unchanged)
+// Manual mapping table to map source labels to predefined labels (updated based on shouldianswer.com labels)
 const manualMapping = {
     'Unknown': 'Unknown',
     'Trustworthy number': 'Other', //  Could be mapped to something more specific if you have a "safe" category.
@@ -59,26 +60,46 @@ const manualMapping = {
     'Spam Call': 'Spam Likely', // Added, map label extracted "spam call" to predefined "Spam Likely"
 };
 
-// Using a Map object to store pending Promises (Keep this - it's part of your original logic)
+
+// Using a Map object to store pending Promises
 const pendingPromises = new Map();
 
-// Function to query phone number information (Keep this - it's part of your original logic)
+// Function to query phone number information
 function queryPhoneInfo(phoneNumber, requestId) {
-    console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
-
-    // Use callHandler to send the XHR request details to Flutter.  This replaces your original FlutterChannel.postMessage.
-    window.flutter_inappwebview.callHandler('FlutterChannel', JSON.stringify({
-        pluginId: pluginId,
-        method: 'GET',
-        requestId: requestId,
-        url: `https://www.tellows.com/num/${phoneNumber}`,
-        headers: {
-            "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
-        },
-    }));
+  console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
+  //  FlutterChannel.postMessage(JSON.stringify({
+  //   pluginId: pluginId,
+  //   method: 'GET',
+  //   requestId: requestId,
+  //   url: `https://www.tellows.com/num/${phoneNumber}`, // Updated URL
+  //   headers: {
+  //     "User-Agent": 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36',
+  //   },
+  // }));
+    // 直接发起 AJAX 请求, 不需要再通过 FlutterChannel 发送请求信息
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', `https://www.tellows.com/num/${phoneNumber}`);
+    xhr.setRequestHeader("User-Agent", 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36'); // 设置 User-Agent
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+             // 通过 FlutterChannel 发送响应
+            FlutterChannel.postMessage(JSON.stringify({
+                type: `xhrResponse_${pluginId}`,
+                detail: {
+                    response: {
+                        status: xhr.status,
+                        statusText: xhr.statusText,
+                        responseText: xhr.responseText,
+                        headers: xhr.getAllResponseHeaders(), // getAllResponseHeaders() 返回一个字符串
+                    },
+                    requestId: requestId,
+                },
+            }));
+        }
+    };
+     xhr.send();
 }
 
-// Function to extract data from the DOM (Keep this - it's part of your original logic)
 function extractDataFromDOM(doc, phoneNumber) {
     const jsonObject = {
         count: 0,
@@ -136,7 +157,8 @@ function extractDataFromDOM(doc, phoneNumber) {
             }
         }
 
-        // 3. Extract Name (Caller ID)
+        // 3. Extract Name (Caller ID) - ROBUST METHOD
+        // 3. Extract Name (Caller ID) - Corrected: Directly select the span.callerId
         const callerIdElement = doc.querySelector('span.callerId');
         if (callerIdElement) {
             jsonObject.name = callerIdElement.textContent.trim();
@@ -144,7 +166,8 @@ function extractDataFromDOM(doc, phoneNumber) {
 
 
         // 4. Extract Rate and Count (using Ratings)
-        const ratingsElement = findElementByText('strong', "Ratings:");
+        // const ratingsElement = doc.querySelector('a[href="#complaint_list"] strong span'); // Original selector
+        const ratingsElement = findElementByText('strong', "Ratings:"); // More robust way to locate
 
         if (ratingsElement) {
             const spanElement = ratingsElement.querySelector('span');
@@ -154,7 +177,7 @@ function extractDataFromDOM(doc, phoneNumber) {
                 jsonObject.count = rateValue;
             }
         }
-        // 5. Extract City and Province
+        // 5. Extract City and Province - CORRECTED LOGIC
         const cityElement = findElementByText('strong', "City:");
         if (cityElement) {
             let nextSibling = cityElement.nextSibling;
@@ -185,78 +208,91 @@ function extractDataFromDOM(doc, phoneNumber) {
     }
 
     console.log('Final jsonObject:', jsonObject);
+    console.log('Final jsonObject type:', typeof jsonObject);
     return jsonObject;
 }
 
+//update
 
-// Function to generate output information (Keep this - it's part of your original logic)
+// Function to generate output information
 async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
     console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
 
-    // Function to handle a single number query (returns a Promise - Keep this)
+    // Function to handle a single number query (returns a Promise)
     function handleNumberQuery(number, requestId) {
         return new Promise((resolve, reject) => {
-            queryPhoneInfo(number, requestId); // Call your original queryPhoneInfo
-            pendingPromises.set(requestId, resolve); // Store the promise
+            queryPhoneInfo(number, requestId);
+            pendingPromises.set(requestId, resolve);
 
-            // Set timeout (Keep this)
+            // Set timeout
             const timeoutId = setTimeout(() => {
                 if (pendingPromises.has(requestId)) {
                     reject(new Error('Timeout waiting for response'));
                     pendingPromises.delete(requestId);
-                    window.removeEventListener('message', messageListener); // Cleanup
+                    window.removeEventListener('message', messageListener); // 移除监听器
                 }
             }, 5000); // 5 seconds timeout
 
-            // Listen for message events (Keep this - it handles the simulated XHR response)
-            function messageListener(event) {
-                console.log('Received message in event listener:', event.data);
+            //  window.addEventListener('message', messageListener);  不需要了, 因为我们在 queryPhoneInfo 中直接处理了响应
 
-                if (event.data && event.data.type === `xhrResponse_${pluginId}`) {
+            // Listen for message events  (这个函数也不需要了)
+            function messageListener(event) {
+               /* console.log('Received message in event listener:', event.data);
+                console.log('Received message event.data.type:', event.data.type);
+
+                if (event.data.type === `xhrResponse_${pluginId}`) {
                     const detail = event.data.detail;
                     const response = detail.response;
                     const receivedRequestId = detail.requestId;
 
                     console.log('requestId from detail:', receivedRequestId);
+                    console.log('event.data.detail.response:', response);
 
-                    // Check if requestId matches (Keep this)
+                    // Check if requestId matches
                     if (receivedRequestId === requestId) {
                         if (response.status >= 200 && response.status < 300) {
+                            console.log('response.responseText length:', response.responseText.length);
                             console.log('response.responseText:', response.responseText);
 
-                            // Parse HTML (Keep this)
+                            // Parse HTML
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(response.responseText, 'text/html');
 
-                            // Use JavaScript code to extract data (Keep this)
-                            const jsonObject = extractDataFromDOM(doc, number); // Pass number
+                            // Use JavaScript code to extract data
+                            const jsonObject = extractDataFromDOM(doc, number); // Pass the number to extractDataFromDOM
                             console.log('Extracted information:', jsonObject);
+                            console.log('Extracted information type:', typeof jsonObject);
 
-                            // Cleanup (Keep this)
+                            // Cleanup
                             clearTimeout(timeoutId);
                             pendingPromises.delete(requestId);
                             window.removeEventListener('message', messageListener);
 
-                            // Resolve the promise with the extracted data (Keep this)
+                            // Resolve the promise with the extracted data
                             resolve(jsonObject);
                         } else {
                             console.error(`HTTP error! status: ${response.status}`);
                             reject(new Error(`HTTP error! status: ${response.status}`));
 
-                            // Cleanup (Keep this)
+                            // Cleanup
                             clearTimeout(timeoutId);
                             pendingPromises.delete(requestId);
                             window.removeEventListener('message', messageListener);
                         }
+                    } else {
+                        console.log('Received response for a different requestId:', receivedRequestId);
                     }
+                } else {
+                    console.log('Received unknown message type:', event.data.type);
                 }
-            }
 
-            window.addEventListener('message', messageListener); // Attach listener
+                */
+            }
         });
     }
 
-    // Process each number sequentially (Keep this - it's part of your original logic)
+
+    // Process each number sequentially, use whichever returns a valid result first
     try {
         let result;
 
@@ -270,7 +306,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
             }
         }
 
-        if (!result && nationalNumber) {
+        if (nationalNumber) {
             const nationalRequestId = Math.random().toString(36).substring(2);
             try {
                 result = await handleNumberQuery(nationalNumber, nationalRequestId);
@@ -280,7 +316,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
             }
         }
 
-        if (!result && e164Number) {
+        if (e164Number) {
             const e164RequestId = Math.random().toString(36).substring(2);
             try {
                 result = await handleNumberQuery(e164Number, e164RequestId);
@@ -291,27 +327,28 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
         }
 
         console.log('First successful query completed:', result);
+        console.log('First successful query completed type:', typeof result);
 
-        // Ensure result is not null (Keep this)
+        // Ensure result is not null
         if (!result) {
-            // Send error message via callHandler -- Use callHandler and JSON.stringify
-            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+            // Send error message via FlutterChannel
+            FlutterChannel.postMessage(JSON.stringify({
                 type: 'pluginError',
                 pluginId: pluginId,
                 error: 'All attempts failed or timed out.',
             }));
-            return { error: 'All attempts failed or timed out.' };
+            return {error: 'All attempts failed or timed out.'}; // Also return the error information
         }
 
-        // Find a matching predefined label (Keep this)
+        // Find a matching predefined label using the found sourceLabel
         let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
 
-        // If no direct match is found, try to find one in manualMapping (Keep this)
+        // If no direct match is found, try to find one in manualMapping
         if (!matchedLabel) {
             matchedLabel = manualMapping[result.sourceLabel];
         }
 
-        // If no match is found in manualMapping, use 'Unknown' (Keep this)
+        // If no match is found in manualMapping, use 'Unknown'
         if (!matchedLabel) {
             matchedLabel = 'Unknown';
         }
@@ -328,18 +365,32 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
             source: pluginInfo.info.name,
         };
 
-        // Send the result via callHandler -- Use callHandler and JSON.stringify
-        window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+        // Send the result via FlutterChannel
+        FlutterChannel.postMessage(JSON.stringify({
             type: 'pluginResult',
+            requestId: externalRequestId,
             pluginId: pluginId,
             data: finalResult,
         }));
 
-        return finalResult;
+        // Send the result via window.parent.postMessage (this part might need adjustment based on your environment)
+        console.log(`Plugin ${pluginId} - Sending result via window.currentPluginChannel`);
+        if (typeof PluginResultChannel !== 'undefined') {
+            PluginResultChannel.postMessage(JSON.stringify({
+                type: 'pluginResult',
+                requestId: externalRequestId,
+                pluginId: pluginId,
+                data: finalResult,
+            }));
+        } else {
+            console.error('PluginResultChannel is not defined');
+        }
+
+        return finalResult; // Also return the result
     } catch (error) {
         console.error('Error in generateOutput:', error);
-        // Send error message via callHandler -- Use callHandler and JSON.stringify
-        window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+        // Send error message via FlutterChannel
+        FlutterChannel.postMessage(JSON.stringify({
             type: 'pluginError',
             pluginId: pluginId,
             error: error.message || 'Unknown error occurred during phone number lookup.',
@@ -349,76 +400,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
         };
     }
 }
-
-let lastXhr; // Keep track of the last XHR.
-
-// Override the XMLHttpRequest object (Keep this - it's essential for interception).
-window.XMLHttpRequest = class extends window.XMLHttpRequest {
-    constructor() {
-        super();
-        this.requestId = Date.now().toString(); // Generate unique ID for each request
-        lastXhr = this; // Store the last XHR for postMessage handling
-    }
-
-    open(method, url) {
-        this.method = method;
-        this.url = url;
-        console.log("XHR open:", method, url);
-        super.open(method, url); // Call original open()
-    }
-
-    send(body) {
-        this.body = body;
-        console.log("XHR send:", body);
-
-        // Send request details to Flutter using callHandler.  This replaces your original FlutterChannel.postMessage.
-        window.flutter_inappwebview.callHandler('FlutterChannel', JSON.stringify({
-            requestId: this.requestId,
-            method: this.method,
-            url: this.url,
-            headers: this.getAllResponseHeaders(), // Get all headers
-            body: this.body, // Include the request body
-            pluginId: pluginId  //  VERY IMPORTANT for routing the response
-        }));
-
-        // DO NOT call super.send() here.  Flutter will handle the actual request.
-    }
-    // onreadystatechange, onload, onerror, etc., will be handled by Flutter
-    // and dispatched via window.postMessage.
-};
-
-// Listen for the simulated XHR response from Flutter (Keep this).
-window.addEventListener('message', function (event) {
-    if (event.data && event.data.type && event.data.type.startsWith('xhrResponse_')) {
-        const pluginIdFromResponse = event.data.type.substring('xhrResponse_'.length);
-        console.log("Received postMessage:", event.data);
-
-        // Check if the response is for this plugin AND matches the last XHR request.
-        if (pluginIdFromResponse === pluginId && lastXhr && event.data.detail.requestId == lastXhr.requestId) {
-            const response = event.data.detail.response;
-
-            // Populate the XHR object with the simulated response data.
-            lastXhr.status = response.status;
-            lastXhr.statusText = response.statusText;
-            lastXhr.responseText = response.responseText;
-            // lastXhr.responseHeaders = response.headers; // If you need to set headers
-
-            // Call the appropriate event handlers (onload, onerror, onreadystatechange).
-            if (lastXhr.onload && response.status >= 200 && response.status < 300) {
-                lastXhr.onload();
-            } else if (lastXhr.onerror) {
-                lastXhr.onerror();
-            }
-
-            if (lastXhr.onreadystatechange) {
-                lastXhr.readyState = 4; // Simulate DONE state
-                lastXhr.onreadystatechange();
-            }
-        }
-    }
-});
-
-// Initialize plugin (Keep this - it's part of your original logic)
+// Initialize plugin
 async function initializePlugin() {
     window.plugin = {};
     const thisPlugin = {
@@ -435,18 +417,20 @@ async function initializePlugin() {
 
     window.plugin[pluginId] = thisPlugin;
 
-    // Use callHandler to send pluginLoaded and pluginReady messages.  This replaces your original TestPageChannel.postMessage.
-    window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
-        type: 'pluginLoaded',
-        pluginId: pluginId,
-    }));
-    console.log('Notified Flutter that plugin is loaded');
-
-    window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
-        type: 'pluginReady',
-        pluginId: pluginId,
-    }));
-    console.log('Notified Flutter that plugin is ready');
+    if (typeof TestPageChannel !== 'undefined') {
+        TestPageChannel.postMessage(JSON.stringify({
+            type: 'pluginLoaded',
+            pluginId: pluginId,
+        }));
+        console.log('Notified Flutter that plugin is loaded');
+        TestPageChannel.postMessage(JSON.stringify({
+            type: 'pluginReady',
+            pluginId: pluginId,
+        }));
+        console.log('Notified Flutter that plugin is ready');
+    } else {
+        console.error('TestPageChannel is not defined');
+    }
 }
 
 // Initialize plugin
