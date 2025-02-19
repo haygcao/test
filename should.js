@@ -65,36 +65,41 @@
     };
 
     // Function to query phone number information (Modified)
-    function queryPhoneInfo(phoneNumber, requestId) {
-        console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
+function queryPhoneInfo(phoneNumber, requestId) {
+  console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
 
-        return new Promise((resolve, reject) => {
-            const url = `https://www.tellows.com/num/${phoneNumber}`; // URL 不再包含 requestId
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', url);
-            xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 告诉 Flutter 拦截请求
-            xhr.setRequestHeader('X-Request-ID', requestId);       // (可选) 传递 requestId，方便调试
-            xhr.timeout = 5000;
+  return new Promise((resolve, reject) => {
+    const url = `https://www.tellows.com/num/${phoneNumber}`; // URL 不再包含 requestId
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 告诉 Flutter 拦截请求
+    // 不需要设置 X-Request-ID，因为 Flutter 会生成
+    xhr.timeout = 5000;
 
-            xhr.onload = () => {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    resolve(xhr.responseText); // 直接 resolve responseText
-                } else {
-                    reject(new Error(`HTTP error! status: ${xhr.status}`));
-                }
-            };
+    xhr.onload = () => {
+        console.log("xhr onload, status:", xhr.status);
+      if (xhr.status >= 200 && xhr.status < 300) {
+        console.log("xhr onload, resolving:", xhr.responseText);
+        resolve(xhr.responseText); // 直接 resolve responseText
+      } else {
+         console.log("xhr onload, rejecting:", xhr.status);
+        reject(new Error(`HTTP error! status: ${xhr.status}`));
+      }
+    };
 
-            xhr.onerror = () => {
-                reject(new Error('Network error'));
-            };
+    xhr.onerror = () => {
+      console.log("xhr onerror");
+      reject(new Error('Network error'));
+    };
 
-            xhr.ontimeout = () => {
-              reject(new Error('Request timed out'));
-            }
-
-            xhr.send(); //  GET 请求不需要 body
-        });
+    xhr.ontimeout = () => {
+     console.log("xhr ontimeout");
+      reject(new Error('Request timed out'));
     }
+
+    xhr.send(); //  GET 请求不需要 body
+  });
+}
 
 
     function extractDataFromDOM(doc, phoneNumber) {
@@ -210,7 +215,7 @@
         return jsonObject;
     }
 
-    // Function to generate output information (Modified: Uses Promise and then/catch)
+// Function to generate output information (Modified: Uses Promise and then/catch)
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
         console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
 
@@ -315,6 +320,7 @@
             sendResultToFlutter('pluginError', { error: error.message || 'Unknown error occurred during phone number lookup.' });
         }
     }
+
 
     // Initialize plugin
     async function initializePlugin() {
