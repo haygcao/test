@@ -94,7 +94,7 @@ function extractDataFromDOM(doc, phoneNumber) {
         }
 
         // 1. Extract Label (Priority 1: Types of call)
-        const typesOfCallElement = findElementByText('b', "Types of call:"); // Find <b> containing the text
+        const typesOfCallElement = findElementByText('b', "Types of call:"); // Find b containing the text
         if (typesOfCallElement) {
             const nextSibling = typesOfCallElement.nextSibling;
             if (nextSibling && nextSibling.nodeType === Node.TEXT_NODE) {
