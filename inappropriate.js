@@ -1,19 +1,18 @@
 // Plugin ID, each plugin must be unique
 const pluginId = 'tellowsPlugin';
 
-// Plugin information
+// Plugin information (保持不变)
 const pluginInfo = {
-    // Plugin information
     info: {
-        id: 'tellowsPlugin', // Plugin ID, must be unique
-        name: 'Tellows', // Plugin name
-        version: '1.2.0', // Plugin version
-        description: 'This plugin retrieves information about phone numbers from tellows.com.', // Plugin description
-        author: 'Your Name', // Plugin author
+        id: 'tellowsPlugin',
+        name: 'Tellows',
+        version: '1.2.0',
+        description: 'This plugin retrieves information about phone numbers from tellows.com.',
+        author: 'Your Name',
     },
 };
 
-// Predefined label list (you can adjust this list based on your needs)
+// Predefined label list (保持不变)
 const predefinedLabels = [
     { 'label': 'Fraud Scam Likely' },
     { 'label': 'Spam Likely' },
@@ -41,30 +40,28 @@ const predefinedLabels = [
     { 'label': 'Recruiter' },
     { 'label': 'Headhunter' },
     { 'label': 'Silent Call(Voice Clone?)' },
-
 ];
 
-// Manual mapping table to map source labels to predefined labels (updated based on shouldianswer.com labels)
+// Manual mapping table (保持不变)
 const manualMapping = {
     'Unknown': 'Unknown',
-    'Trustworthy number': 'Other', //  Could be mapped to something more specific if you have a "safe" category.
-    'Sweepstakes, lottery': 'Spam Likely', //  Or 'Fraud Scam Likely', depending on context
+    'Trustworthy number': 'Other',
+    'Sweepstakes, lottery': 'Spam Likely',
     'Debt collection company': 'Debt Collection',
-    'Aggressive advertising': 'Telemarketing', // Or 'Spam Likely'
+    'Aggressive advertising': 'Telemarketing',
     'Survey': 'Survey',
-    'Harassment calls': 'Spam Likely',  // Or 'Fraud Scam Likely', if threats are involved
+    'Harassment calls': 'Spam Likely',
     'Cost trap': 'Fraud Scam Likely',
     'Telemarketer': 'Telemarketing',
-    'Ping Call': 'Spam Likely', // Often associated with scams
+    'Ping Call': 'Spam Likely',
     'SMS spam': 'Spam Likely',
-    'Spam Call': 'Spam Likely', // Added, map label extracted "spam call" to predefined "Spam Likely"
+    'Spam Call': 'Spam Likely',
 };
 
-
-
+// Function to extract data from DOM (保持不变)
 function extractDataFromDOM(doc, phoneNumber) {
-   // ... (保持不变) ...
-    const jsonObject = {
+    // ... (保持不变，您的 HTML 解析逻辑) ...
+     const jsonObject = {
         count: 0,
         sourceLabel: "",
         province: "",
@@ -175,25 +172,149 @@ function extractDataFromDOM(doc, phoneNumber) {
     return jsonObject;
 }
 
-// Function to generate output information
-async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
-     console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
-    // 构造查询 URL
-    const queryUrl = `https://www.tellows.com/num/${phoneNumber}`;
+// 公共函数：处理单个号码的查询
+async function handleNumberQuery(number, requestId) {
+    // 1. 构造请求体
+    const requestData = {
+        requestId: requestId,
+        pluginId: pluginId,
+        method: 'GET', // 假设都是 GET 请求
+        url: `https://www.tellows.com/num/${number}`,
+        headers: {
+            // 您可以在这里添加一些默认的请求头，例如：
+            'Content-Type': 'application/json',
+            // 'User-Agent': '...', // 如果需要，可以在这里设置 User-Agent
+        },
+        // body: null, // GET 请求通常没有 body
+    };
 
-    // 通过 FlutterChannel 将 URL 发送给 Dart
-     if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-        window.flutter_inappwebview.callHandler('FlutterChannel', JSON.stringify({
-            url: queryUrl,
-            requestId: externalRequestId, // 传递 requestId
-            pluginId: pluginId // 传递插件 ID
-        }));
+    // 2. 通过 FlutterChannel 将请求体发送给 Dart
+    if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
+        window.flutter_inappwebview.callHandler('FlutterChannel', JSON.stringify(requestData));
     } else {
         console.error('FlutterChannel (flutter_inappwebview) is not defined');
+        return Promise.reject('FlutterChannel is not defined'); // 返回一个 rejected Promise
+    }
+
+    // 3. 返回一个 Promise，用于 Dart 侧等待结果
+    return new Promise((resolve, reject) => {
+        // 设置一个超时计时器
+        const timeoutId = setTimeout(() => {
+            reject(new Error('Timeout waiting for response from Dart'));
+              window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                    type: 'pluginError',
+                    pluginId: pluginId,
+                    requestId: requestId,
+                    error: 'Timeout waiting for response from Dart',
+                }));
+        }, 5000); // 5 秒超时
+
+        // 监听来自 Dart 的消息 (模拟 onmessage)
+        window.addEventListener('message', function listener(event) {
+            if (event.data.type === `xhrResponse_${pluginId}` && event.data.detail.requestId === requestId) {
+                clearTimeout(timeoutId); // 取消超时计时器
+                window.removeEventListener('message', listener); // 移除监听器
+                const response = event.data.detail.response;
+
+               if (response.status >= 200 && response.status < 300) {
+                    // 请求成功, 解析返回的结果
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(response.responseText, 'text/html');
+                    const result = extractDataFromDOM(doc, number);
+                      resolve(result); // 解析 Promise
+                } else {
+                     console.error(`HTTP error! status: ${response.status}`);
+                    reject(new Error(`HTTP error! status: ${response.status}`)); // 拒绝 Promise
+                }
+            }
+        });
+    });
+}
+
+// Function to generate output information
+// Function to generate output information
+async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
+    console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
+
+    try {
+        let result;
+
+        if (phoneNumber) {
+            const phoneRequestId = Math.random().toString(36).substring(2);
+            try {
+                result = await handleNumberQuery(phoneNumber, phoneRequestId);
+                 // 发送结果到 Flutter
+                if(result){
+                    window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                        type: 'pluginResult',
+                        requestId: phoneRequestId, // 使用 phoneRequestId
+                        pluginId: pluginId,
+                        data: result,
+                    }));
+                }
+            } catch (error) {
+                console.error('Error querying phoneNumber:', error);
+            }
+        }
+
+        if (nationalNumber) {
+            const nationalRequestId = Math.random().toString(36).substring(2);
+            try {
+                result = await handleNumberQuery(nationalNumber, nationalRequestId);
+                if(result){
+                      window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                        type: 'pluginResult',
+                        requestId: nationalRequestId, // 使用 nationalRequestId
+                        pluginId: pluginId,
+                        data: result,
+                    }));
+                }
+
+            } catch (error) {
+                console.error('Error querying nationalNumber:', error);
+            }
+        }
+
+        if (e164Number) {
+            const e164RequestId = Math.random().toString(36).substring(2);
+            try {
+                result = await handleNumberQuery(e164Number, e164RequestId);
+                 if(result){
+                    window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                        type: 'pluginResult',
+                        requestId: e164RequestId, // 使用 e164RequestId
+                        pluginId: pluginId,
+                        data: result,
+                    }));
+                }
+            } catch (error) {
+                console.error('Error querying e164Number:', error);
+            }
+        }
+
+      // 如果没有任何结果
+        if (!result) {
+            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                type: 'pluginError',
+                pluginId: pluginId,
+                requestId: externalRequestId, // 使用 externalRequestId
+                error: 'All attempts failed or timed out.',
+            }));
+        }
+
+
+    } catch (error) {
+        console.error('Error in generateOutput:', error);
+         window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                type: 'pluginError',
+                pluginId: pluginId,
+                requestId: externalRequestId,
+                error: error.message || 'Unknown error occurred during phone number lookup.',
+            }));
     }
 }
 
-// Initialize plugin
+// Initialize plugin (保持不变)
 async function initializePlugin() {
     window.plugin = {};
     const thisPlugin = {
@@ -201,7 +322,7 @@ async function initializePlugin() {
         pluginId: pluginId,
         version: pluginInfo.info.version,
         generateOutput: generateOutput,
-        test: function () {
+        test: function() {
             console.log('Plugin test function called');
             return 'Plugin is working';
         }
@@ -222,9 +343,8 @@ async function initializePlugin() {
         }));
         console.log('Notified Flutter that plugin is ready');
 
-
     } else {
-        console.error('TestPageChannel (flutter_inappwebview) is not defined');
+        console.error('FlutterChannel (flutter_inappwebview) is not defined');
     }
 }
 
