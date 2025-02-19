@@ -358,12 +358,12 @@ async function initializePlugin() {
     window.plugin[pluginId] = thisPlugin;
 
     // 通过 TestPageChannel 发送 pluginLoaded 和 pluginReady 消息 (使用 callHandler)
-    window.postMessage('TestPageChannel', JSON.stringify({
+    TestPageChannel.postMessage('TestPageChannel', JSON.stringify({
         type: 'pluginLoaded',
         pluginId: pluginId,
     }));
     console.log('Notified Flutter that plugin is loaded');
-    window.postMessage('TestPageChannel', JSON.stringify({
+    TestPageChannel.postMessage('TestPageChannel', JSON.stringify({
         type: 'pluginReady',
         pluginId: pluginId,
     }));
