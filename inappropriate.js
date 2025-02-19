@@ -201,97 +201,116 @@ async function handleNumberQuery(number, requestId) {
         // 设置一个超时计时器
         const timeoutId = setTimeout(() => {
             reject(new Error('Timeout waiting for response from Dart'));
-             window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 发送超时错误
-                    type: 'pluginError',
-                    pluginId: pluginId,
-                    requestId: requestId,
-                    error: 'Timeout waiting for response from Dart',
-                }));
+            //  window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 发送超时错误
+            //         type: 'pluginError',
+            //         pluginId: pluginId,
+            //         requestId: requestId,
+            //         error: 'Timeout waiting for response from Dart',
+            //     }));
         }, 5000); // 5 秒超时
 
         // 监听来自 Dart 的消息 (模拟 onmessage)
         window.addEventListener('message', function listener(event) {
-             console.log("收到Received message:", event);
+            // console.log("Received message:", event);  // 调试用
+            // 检查消息来源和类型
             if (event.data.type === `xhrResponse_${pluginId}` && event.data.detail.requestId === requestId) {
                 clearTimeout(timeoutId); // 取消超时计时器
                 window.removeEventListener('message', listener); // 移除监听器
                 const response = event.data.detail.response;
-                 console.log("response status: ", response.status);
-          console.log('打印requestId from detail:', receivedRequestId);
-          console.log('event.data.detail.response:', response);
+                // console.log("response status: ", response.status);  // 调试用
                if (response.status >= 200 && response.status < 300) {
                     // 请求成功, 解析返回的结果
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(response.responseText, 'text/html');
                     const result = extractDataFromDOM(doc, number);
-                    resolve(result); // 使用解析后的结果 resolve Promise
+                    resolve(result)
+
+                    //  // 通过 PluginResultChannel 将结果发送给 Dart  //这里result 只是单个号码的结果
+                    // window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                    //     type: 'pluginResult',
+                    //     requestId: requestId, // 使用传入的 requestId
+                    //     pluginId: pluginId,
+                    //     data: result,
+                    // }));
+
+
                 } else {
                      console.error(`HTTP error! status: ${response.status}`);
+                      // 通过 PluginResultChannel 将错误信息发送给 Dart  // 这里result 只是单个号码的结果
+                    // window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                    //     type: 'pluginError',
+                    //     pluginId: pluginId,
+                    //     requestId: requestId, // 包含 requestId
+                    //     error: 'Request failed with status: ' + response.status,
+                    // }));
                     reject(new Error(`HTTP error! status: ${response.status}`)); // 拒绝 Promise,  这里不需要发送错误信息了。
                 }
             }
         });
     });
 }
+
 // Function to generate output information
 async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
     console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
-
-    let finalResult = null; // 用于存储最终结果
-
+     // 存储所有查询的结果
+    const results = [];
     // Process each number sequentially
     if (phoneNumber) {
       const phoneRequestId = Math.random().toString(36).substring(2);
       try {
-        const result = await handleNumberQuery(phoneNumber, phoneRequestId);
-        if (result && !finalResult) { // 如果当前结果不为空且最终结果为空，则更新最终结果
-          finalResult = result;
-        }
+         const result = await handleNumberQuery(phoneNumber, phoneRequestId);
+         results.push(result)
       } catch (error) {
-          console.error('Error querying phoneNumber:', error);
-           window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 捕获到错误，发送错误信息
-                type: 'pluginError',
-                pluginId: pluginId,
-                requestId: phoneRequestId,
-                error: error.message || 'Unknown error occurred during phone number lookup.',
-            }));
+            console.error('Error querying phoneNumber:', error);
+        //     window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 捕获到错误，发送错误信息
+        //         type: 'pluginError',
+        //         pluginId: pluginId,
+        //         requestId: phoneRequestId,
+        //         error: error.message || 'Unknown error occurred during phone number lookup.',
+        //     }));
       }
     }
 
     if (nationalNumber) {
       const nationalRequestId = Math.random().toString(36).substring(2);
       try {
-        const result = await handleNumberQuery(nationalNumber, nationalRequestId);
-          if (result && !finalResult) { // 如果当前结果不为空且最终结果为空，则更新最终结果
-          finalResult = result;
-        }
+         const result = await handleNumberQuery(nationalNumber, nationalRequestId);
+         results.push(result);
       } catch (error) {
         console.error('Error querying nationalNumber:', error);
-         window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 捕获到错误，发送错误信息
-                type: 'pluginError',
-                pluginId: pluginId,
-                requestId: nationalRequestId,
-                error: error.message || 'Unknown error occurred during phone number lookup.',
-            }));
+        //   window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 捕获到错误，发送错误信息
+        //         type: 'pluginError',
+        //         pluginId: pluginId,
+        //         requestId: nationalRequestId,
+        //         error: error.message || 'Unknown error occurred during phone number lookup.',
+        //     }));
       }
     }
 
     if (e164Number) {
       const e164RequestId = Math.random().toString(36).substring(2);
       try {
-        const result = await handleNumberQuery(e164Number, e164RequestId);
-         if (result && !finalResult) { // 如果当前结果不为空且最终结果为空，则更新最终结果
-          finalResult = result;
-        }
+        const result =  await handleNumberQuery(e164Number, e164RequestId);
+        results.push(result);
       } catch (error) {
-         console.error('Error querying e164Number:', error);
-          window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 捕获到错误，发送错误信息
-                type: 'pluginError',
-                pluginId: pluginId,
-                requestId: e164RequestId,
-                error: error.message || 'Unknown error occurred during phone number lookup.',
-            }));
+        console.error('Error querying e164Number:', error);
+        //   window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({ // 捕获到错误，发送错误信息
+        //         type: 'pluginError',
+        //         pluginId: pluginId,
+        //         requestId: e164RequestId,
+        //         error: error.message || 'Unknown error occurred during phone number lookup.',
+        //     }));
       }
+    }
+
+    // 从所有结果中选择一个最佳结果（例如，第一个非空的结果）
+    let finalResult = null;
+    for (const result of results) {
+        if (result) {
+            finalResult = result;
+            break;
+        }
     }
 
     // 检查是否有最终结果
@@ -335,7 +354,7 @@ async function generateOutput(phoneNumber, nationalNumber, e164Number, externalR
 
 // Initialize plugin (保持不变)
 async function initializePlugin() {
-    window.plugin = {};
+   window.plugin = {};
     const thisPlugin = {
         id: pluginInfo.info.id,
         pluginId: pluginId,
