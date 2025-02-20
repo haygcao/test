@@ -11,7 +11,7 @@
         info: {
             id: 'tellowsPlugin', // Plugin ID, must be unique
             name: 'Tellows', // Plugin name
-            version: '1.2.0', // Plugin version
+            version: '1.92.0', // Plugin version
             description: 'This plugin retrieves information about phone numbers from shouldianswer.com.', // Plugin description
             author: 'Your Name', // Plugin author
         },
@@ -69,33 +69,28 @@ function queryPhoneInfo(phoneNumber, requestId) {
   console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
 
   return new Promise((resolve, reject) => {
-    const url = `https://www.tellows.com/num/${phoneNumber}`; // URL 不再包含 requestId
+    const url = `https://www.tellows.com/num/${phoneNumber}`;
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 告诉 Flutter 拦截请求
-    // 不需要设置 X-Request-ID，因为 Flutter 会生成
+    // 不需要 X-Request-ID，因为 Flutter 会处理所有事情
     xhr.timeout = 5000;
 
-    xhr.onload = () => {
-        console.log("xhr onload, status:", xhr.status);
-      if (xhr.status >= 200 && xhr.status < 300) {
-        console.log("xhr onload, resolving:", xhr.responseText);
-        resolve(xhr.responseText); // 直接 resolve responseText
-      } else {
-         console.log("xhr onload, rejecting:", xhr.status);
-        reject(new Error(`HTTP error! status: ${xhr.status}`));
-      }
-    };
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.responseText); // 直接 resolve responseText, 因为Flutter已经处理了请求
+        } else {
+          reject(new Error(`HTTP error! status: ${xhr.status}`));
+        }
+      };
 
-    xhr.onerror = () => {
-      console.log("xhr onerror");
-      reject(new Error('Network error'));
-    };
+      xhr.onerror = () => {
+        reject(new Error('Network error'));
+      };
 
-    xhr.ontimeout = () => {
-     console.log("xhr ontimeout");
-      reject(new Error('Request timed out'));
-    }
+       xhr.ontimeout = () => {
+          reject(new Error('Request timed out'));
+        }
 
     xhr.send(); //  GET 请求不需要 body
   });
