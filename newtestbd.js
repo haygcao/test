@@ -92,7 +92,7 @@
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
 
-        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
+        const url = `https://www.baidu.com/s?wd=${phoneNumber}`;
         const method = 'GET';
         const headers = {
             'User-Agent': 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36', // Example User-Agent
