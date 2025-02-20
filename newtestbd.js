@@ -133,51 +133,45 @@ function handleResponse(response) {
     if (response.status >= 200 && response.status < 300) {
         document.body.innerHTML = response.responseText;
 
-        let startTime = Date.now();
-        let observer = new MutationObserver((mutationsList, observer) => {
-            const reportWrapper = document.querySelector('.info-container');
-            if (reportWrapper) {
-                const reportName = reportWrapper.querySelector('.info-container');
-                // 检查 reportName 是否有内容，并且内容不只是空格
-                if (reportName && reportName.textContent.trim() !== "") {
-                    observer.disconnect();
-                    let result = parseResponse(document, response.phoneNumber);
-                    // ... (后续处理，发送结果到 Flutter，与之前相同) ...
-                    return; // 找到内容，提前返回
+        // 使用 MutationObserver 等待 Shadow DOM 宿主元素出现
+        const observer = new MutationObserver((mutationsList, observer) => {
+            // 1. 找到 Shadow DOM 的宿主元素 (根据你的图片，是 <div id="__hcfy__">)
+            const shadowHost = document.querySelector('#__hcfy__');
+
+            if (shadowHost) {
+                // 2. 穿透 Shadow DOM，获取 shadowRoot
+                if (shadowHost.shadowRoot) {
+                    // 3. 在 shadowRoot 内部查找目标元素 (例如 .report-wrapper)
+                    const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper'); // 替换为你的目标元素
+
+                    if (targetElement && targetElement.textContent.trim() !== "") {
+                        observer.disconnect();
+                        let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber); // 传入 shadowRoot
+                        // ... (后续处理) ...
+                        return;
+                    }
                 }
             }
 
-            // 超时检查
-            if (Date.now() - startTime > 10000) { // 10 秒超时
-                observer.disconnect();
-                console.error('Timeout: report-wrapper content not found.');
-                sendResultToFlutter('pluginError', { error: 'Timeout: Content not found' }, response.externalRequestId);
-            }
+            // 超时检查 (可选)
+            // ...
         });
 
-        // 配置 MutationObserver (观察更精细的变化)
-        const config = {
-            childList: true, // 子节点变化
-            subtree: true, // 所有后代节点
-            characterData: true, // 文本内容变化
-            attributes: true, // 属性变化 (以防 class 属性动态改变)
-        };
-
+        const config = { childList: true, subtree: true, characterData: true, attributes: true };
         observer.observe(document.body, config);
 
     } else {
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
     }
 }
-// parseResponse 函数 (JavaScript)
-function parseResponse(doc, phoneNumber) {
-    // 不需要再创建 DOMParser 了，直接使用传入的 doc (document)
-    return extractDataFromDOM(doc, phoneNumber);
+
+// parseResponse 函数 (修改：接收 shadowRoot)
+function parseResponse(shadowRoot, phoneNumber) {
+  return extractDataFromDOM(shadowRoot, phoneNumber);
 }
 
-
-    
-function extractDataFromDOM(doc, phoneNumber) {
+// extractDataFromDOM 函数 (修改：从 shadowRoot 查找元素)
+function extractDataFromDOM(shadowRoot, phoneNumber) {
     const jsonObject = {
         count: 0,
         sourceLabel: "",
@@ -188,67 +182,37 @@ function extractDataFromDOM(doc, phoneNumber) {
     };
 
     try {
-        console.log('Document Object:', doc);
+        // --- 从 shadowRoot 中查找元素 ---
+        const reportWrapper = shadowRoot.querySelector('.report-wrapper'); // 在 shadowRoot 内查找
 
-        const bodyElement = doc.body;
-        console.log('Body Element:', bodyElement);
-        if (!bodyElement) {
-            console.error('Error: Could not find body element.');
-            return jsonObject;
-        }
-
-        // --- 按照原逻辑，并添加解码 ---
-        const infoRightElement = doc.querySelector('.info-right'); // info-right 还在
-        console.log('infoRightElement:', infoRightElement);
-
-        if (infoRightElement) {
-            const reportWrapper = infoRightElement.querySelector('.report-wrapper'); // report-wrapper 还在
-            console.log('reportWrapper:', reportWrapper);
-
-            if (reportWrapper) {
-                // 主要从 report-name 获取 sourceLabel，并解码
-                const reportNameElement = reportWrapper.querySelector('.report-name');
-                console.log('reportNameElement:', reportNameElement);
-                if (reportNameElement) {
-                    jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim()); // 解码
-                    console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
-                }
-
-                // 只有 report-type 为 "用户标记" 时，count 才为 1
-                const reportTypeElement = reportWrapper.querySelector('.report-type');
-                console.log('reportTypeElement:', reportTypeElement);
-                if (reportTypeElement) {
-                    const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim()); // 解码
-                    if (reportTypeText === '用户标记') {
-                        jsonObject.count = 1;
-                        console.log('jsonObject.count:', jsonObject.count);
-                    }
-                }
+        if (reportWrapper) {
+            // ... (其余代码与之前类似，但都在 shadowRoot 内查找) ...
+            const reportNameElement = reportWrapper.querySelector('.report-name');
+            if (reportNameElement) {
+                jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
             }
 
-            // 提取 province 和 city，并解码
-            const locationElement = infoRightElement.querySelector('.location');
-            console.log('locationElement:', locationElement);
-            if (locationElement) {
-                const locationText = decodeQuotedPrintable(locationElement.textContent.trim()); // 解码
-                console.log('locationText:', locationText);
+            const reportTypeElement = reportWrapper.querySelector('.report-type');
+            if (reportTypeElement) {
+                const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
+                if (reportTypeText === '用户标记') {
+                    jsonObject.count = 1;
+                }
+            }
+        }
+        const locationElement = shadowRoot.querySelector('.location');
+        if (locationElement) {
+                const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
                 const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
                 if (match) {
                     jsonObject.province = match[1] || '';
                     jsonObject.city = match[2] || '';
                 }
-                console.log('jsonObject.province:', jsonObject.province);
-                console.log('jsonObject.city:', jsonObject.city);
             }
-        }
-        // --- 原逻辑和解码结束 ---
-
     } catch (error) {
         console.error('Error extracting data:', error);
     }
 
-    console.log('Final jsonObject:', jsonObject);
-    console.log('Final jsonObject type:', typeof jsonObject);
     return jsonObject;
 }
 // Quoted-Printable 解码函数 (保持不变)
