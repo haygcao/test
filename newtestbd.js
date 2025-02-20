@@ -136,7 +136,7 @@ function handleResponse(response) {
 
         // 2. 等待包含数据的元素出现 (例如 .cc-title_31ypU)
         const checkInterval = setInterval(() => {
-            const targetElement = document.querySelector('.cc-title_31ypU'); // 或其他包含数据的元素
+            const targetElement = document.querySelector('.report-wrapper'); // 或其他包含数据的元素
             if (targetElement) {
                 clearInterval(checkInterval); // 停止检查
 
