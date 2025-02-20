@@ -190,105 +190,90 @@
         return extractDataFromDOM(doc, phoneNumber);
     }
 
-    function extractDataFromDOM(doc, phoneNumber) {
-        const jsonObject = {
-            count: 0,
-            sourceLabel: "",
-            province: "",
-            city: "",
-            carrier: "",
-            phoneNumber: phoneNumber,
-            name: "unknown",
-            rate: 0
-        };
+function extractDataFromDOM(doc, phoneNumber) {
+    const jsonObject = {
+        count: 0,
+        sourceLabel: "",
+        province: "",
+        city: "",
+        carrier: "unknown",
+        phoneNumber: phoneNumber
+    };
 
-        try {
-            const bodyElement = doc.body;
-            if (!bodyElement) {
-                console.error('Error: Could not find body element.');
-                return jsonObject;
-            }
+    try {
+        console.log('Document Object:', doc);
 
-            function findElementByText(selector, text) {
-                const elements = doc.querySelectorAll(selector);
-                for (const element of elements) {
-                    if (element.textContent.includes(text)) {
-                        return element;
-                    }
-                }
-                return null;
-            }
-
-            const typesOfCallElement = findElementByText('b', "Types of call:");
-            if (typesOfCallElement) {
-                const nextSibling = typesOfCallElement.nextSibling;
-                if (nextSibling && nextSibling.nodeType === Node.TEXT_NODE) {
-                    let labelText = nextSibling.textContent.trim();
-                    if (labelText) {
-                        jsonObject.sourceLabel = labelText;
-                    }
-                }
-            }
-
-            if (!jsonObject.sourceLabel) {
-                const scoreImage = doc.querySelector('a[href*="tellows_score"] img.scoreimage');
-                if (scoreImage) {
-                    const altText = scoreImage.alt;
-                    const scoreMatch = altText.match(/Score\s([789])/);
-                    if (scoreMatch) {
-                        jsonObject.sourceLabel = "Spam Call";
-                    }
-                }
-            }
-
-            const callerIdElement = doc.querySelector('span.callerId');
-            if (callerIdElement) {
-                jsonObject.name = callerIdElement.textContent.trim();
-            }
-
-
-            const ratingsElement = findElementByText('strong', "Ratings:");
-
-            if (ratingsElement) {
-                const spanElement = ratingsElement.querySelector('span');
-                if (spanElement) {
-                    const rateValue = parseInt(spanElement.textContent.trim(), 10) || 0;
-                    jsonObject.rate = rateValue;
-                    jsonObject.count = rateValue;
-                }
-            }
-
-            const cityElement = findElementByText('strong', "City:");
-            if (cityElement) {
-                let nextSibling = cityElement.nextSibling;
-                while (nextSibling) {
-                    if (nextSibling.nodeType === Node.TEXT_NODE) {
-                        let cityText = nextSibling.textContent.trim();
-
-                        const parts = cityText.split('-');
-                        if (parts.length > 0) {
-                            jsonObject.city = parts[0].trim();
-
-                            if (parts.length > 1) {
-                                const countries = parts[1].trim().split(',').map(c => c.trim());
-                                jsonObject.province = countries.join(", ");
-                            }
-                        }
-                        break;
-                    }
-                    nextSibling = nextSibling.nextSibling;
-                }
-            }
-
-
-        } catch (error) {
-            console.error('Error extracting data:', error);
+        const bodyElement = doc.body;
+        console.log('Body Element:', bodyElement);
+        if (!bodyElement) {
+            console.error('Error: Could not find body element.');
+            return jsonObject;
         }
 
-        console.log('Final jsonObject:', jsonObject);
-        console.log('Final jsonObject type:', typeof jsonObject);
-        return jsonObject;
+        // --- 按照原逻辑，并添加解码 ---
+        const infoRightElement = doc.querySelector('.info-right'); // info-right 还在
+        console.log('infoRightElement:', infoRightElement);
+
+        if (infoRightElement) {
+            const reportWrapper = infoRightElement.querySelector('.report-wrapper'); // report-wrapper 还在
+            console.log('reportWrapper:', reportWrapper);
+
+            if (reportWrapper) {
+                // 主要从 report-name 获取 sourceLabel，并解码
+                const reportNameElement = reportWrapper.querySelector('.report-name');
+                console.log('reportNameElement:', reportNameElement);
+                if (reportNameElement) {
+                    jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim()); // 解码
+                    console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+                }
+
+                // 只有 report-type 为 "用户标记" 时，count 才为 1
+                const reportTypeElement = reportWrapper.querySelector('.report-type');
+                console.log('reportTypeElement:', reportTypeElement);
+                if (reportTypeElement) {
+                    const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim()); // 解码
+                    if (reportTypeText === '用户标记') {
+                        jsonObject.count = 1;
+                        console.log('jsonObject.count:', jsonObject.count);
+                    }
+                }
+            }
+
+            // 提取 province 和 city，并解码
+            const locationElement = infoRightElement.querySelector('.location');
+            console.log('locationElement:', locationElement);
+            if (locationElement) {
+                const locationText = decodeQuotedPrintable(locationElement.textContent.trim()); // 解码
+                console.log('locationText:', locationText);
+                const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
+                if (match) {
+                    jsonObject.province = match[1] || '';
+                    jsonObject.city = match[2] || '';
+                }
+                console.log('jsonObject.province:', jsonObject.province);
+                console.log('jsonObject.city:', jsonObject.city);
+            }
+        }
+        // --- 原逻辑和解码结束 ---
+
+    } catch (error) {
+        console.error('Error extracting data:', error);
     }
+
+    console.log('Final jsonObject:', jsonObject);
+    console.log('Final jsonObject type:', typeof jsonObject);
+    return jsonObject;
+}
+
+// Quoted-Printable 解码函数 (保持不变)
+function decodeQuotedPrintable(str) {
+    str = str.replace(/=3D/g, "=");
+    str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
+        return String.fromCharCode(parseInt(p1, 16));
+    });
+    str = str.replace(/=\r?\n/g, '');
+    return str;
+}
 
     // generateOutput function (modified)
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
