@@ -135,16 +135,46 @@ function handleResponse(response) {
 
         // 使用 MutationObserver 等待目标元素
         const observer = new MutationObserver((mutationsList, observer) => {
-            const targetElement = document.querySelector('.report-wrapper'); // 目标元素
+            const targetElement = document.querySelector('.report-wrapper');
             if (targetElement) {
-                observer.disconnect(); // 停止观察
-                let result = parseResponse(document, response.phoneNumber);
-                // ... (后续处理，发送结果到 Flutter) ...
+                if (targetElement.textContent.trim() !== "") { // 确保有内容
+                    observer.disconnect();
+                    let result = parseResponse(document, response.phoneNumber);
+
+                    // ... (后续处理，发送结果到 Flutter，与之前相同) ...
+                    console.log('First successful query completed:', result);
+
+                    if (result === null || result === undefined) {
+                        sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' }, response.externalRequestId);
+                        return;
+                    }
+
+                    let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+                    if (!matchedLabel) {
+                        matchedLabel = manualMapping[result.sourceLabel];
+                    }
+                    if (!matchedLabel) {
+                        matchedLabel = 'Unknown';
+                    }
+
+                    const finalResult = {
+                        phoneNumber: result.phoneNumber,
+                        sourceLabel: result.sourceLabel,
+                        count: result.count,
+                        province: result.province,
+                        city: result.city,
+                        carrier: result.carrier,
+                        name: result.name,
+                        predefinedLabel: matchedLabel,
+                        source: pluginInfo.info.name,
+                    };
+                    sendResultToFlutter('pluginResult', finalResult, response.externalRequestId);
+                }
             }
         });
 
-        // 配置观察选项 (观察 body 的子节点变化)
-        const config = { childList: true, subtree: true };
+        // 配置观察选项
+        const config = { childList: true, subtree: true, characterData: true };
 
         // 开始观察 body
         observer.observe(document.body, config);
@@ -153,13 +183,14 @@ function handleResponse(response) {
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
     }
 }
-
-
 // parseResponse 函数 (JavaScript)
 function parseResponse(doc, phoneNumber) {
     // 不需要再创建 DOMParser 了，直接使用传入的 doc (document)
     return extractDataFromDOM(doc, phoneNumber);
 }
+
+
+    
 function extractDataFromDOM(doc, phoneNumber) {
     const jsonObject = {
         count: 0,
