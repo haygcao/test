@@ -1,24 +1,21 @@
-//inappropriate.js
 (function () {
     if (window.plugin) return;
 
-    // Plugin ID, each plugin must be unique
     const pluginId = 'tellowsPlugin';
 
-    // Plugin information (可以根据需要添加更多信息)
     const pluginInfo = {
-        // Plugin information
         info: {
-            id: 'tellowsPlugin', // Plugin ID, must be unique
-            name: 'Tellows', // Plugin name
-            version: '1.332.0', // Plugin version
-            description: 'This plugin retrieves information about phone numbers from tellows.com.', // Plugin description
-            author: 'Your Name', // Plugin author
+            id: 'tellowsPlugin',
+            name: 'Tellows Plugin',
+            version: '1.0.0',
+            description: 'This plugin retrieves information about phone numbers.',
         },
     };
-    // 插件可以定义它支持的预定义标签
+
+     // 插件可以定义它支持的预定义标签
     const predefinedLabels = [
-        { 'label': 'Fraud Scam Likely' },
+       // ...
+       { 'label': 'Fraud Scam Likely' },
         { 'label': 'Spam Likely' },
         { 'label': 'Telemarketing' },
         { 'label': 'Robocall' },
@@ -48,6 +45,7 @@
 
     // 手动映射表，用于将提取的标签映射到预定义标签
     const manualMapping = {
+        // ...
         'Unknown': 'Unknown',
         'Trustworthy number': 'Other', //  Could be mapped to something more specific if you have a "safe" category.
         'Sweepstakes, lottery': 'Spam Likely', //  Or 'Fraud Scam Likely', depending on context
@@ -61,45 +59,98 @@
         'SMS spam': 'Spam Likely',
         'Spam Call': 'Spam Likely', // Added, map label extracted "spam call" to predefined "Spam Likely"
     };
-    // fetchData 函数 (由插件定义)
-    function fetchData(phoneNumber, requestId) {
-      // 插件 *自由地* 构造 URL
-      const url = `https://www.tellows.com/num/${phoneNumber}`;
-      // const url = 'https://www.example.com/api/data'; // 可以是任何 URL
-      // const url = `https://www.anysite.com/search?q=${phoneNumber}`;
-
-      return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 告诉 Flutter 拦截
-        // 可以根据需要添加任何头部
-        // xhr.setRequestHeader('Authorization', 'Bearer mytoken');
-        // xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.timeout = 5000;
-
-        xhr.onload = () => {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            resolve(xhr.responseText);
-          } else {
-            reject(new Error(`HTTP error! status: ${xhr.status}`));
-          }
+    // sendRequest 函数 (负责发送请求信息)
+    function sendRequest(url, method, headers, body, requestId) {
+        const requestData = {
+            url: url,
+            method: method,
+            headers: headers,
+            body: body,
+            requestId: requestId,
+            pluginId: pluginId,
         };
 
-        xhr.onerror = () => reject(new Error('Network error'));
-        xhr.ontimeout = () => reject(new Error('Request timed out'));
-        xhr.send();
-      });
+        // 使用 callHandler 将请求数据发送到 Flutter
+        if (window.flutter_inappwebview) {
+            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
+        } else {
+            console.error("flutter_inappwebview is undefined");
+        }
+    }
+
+    // handleResponse 函数 (处理来自 Flutter 的响应)
+    function handleResponse(response) {
+        console.log('handleResponse called with:', response);
+        // response 包含 { requestId, status, statusText, responseText, headers }
+
+        if (response.status >= 200 && response.status < 300) {
+             // 调用 parseResponse 解析响应文本, 并传入phoneNumber
+            let result = parseResponse(response.responseText,  response.phoneNumber);
+
+            console.log('First successful query completed:', result);
+
+            // Ensure result is not null or undefined
+            if (result === null || result === undefined) {
+              sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' });
+              return;
+            }
+
+            // Find a matching predefined label using the found sourceLabel
+            let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+
+            // If no direct match is found, try to find one in manualMapping
+            if (!matchedLabel) {
+                matchedLabel = manualMapping[result.sourceLabel];
+            }
+
+            // If no match is found in manualMapping, use 'Unknown'
+            if (!matchedLabel) {
+                matchedLabel = 'Unknown';
+            }
+
+            const finalResult = {
+                phoneNumber: result.phoneNumber,
+                sourceLabel: result.sourceLabel,
+                count: result.count,
+                province: result.province,
+                city: result.city,
+                carrier: result.carrier,
+                name: result.name,
+                predefinedLabel: matchedLabel, // Use the matched label
+                source: pluginInfo.info.name,
+            };
+            // 通过 PluginResultChannel 将结果发送回 Flutter
+            sendResultToFlutter('pluginResult', finalResult, response.requestId); // 包含 requestId
+
+        } else {
+            //如果失败了也需要返回给flutter
+             sendResultToFlutter('pluginError', { error: response.statusText  },  response.requestId);        }
+    }
+    // 辅助函数：向 Flutter 发送结果或错误 (现在接收 requestId)
+    function sendResultToFlutter(type, data, requestId) {
+        const message = {
+            type: type,
+            pluginId: pluginId,
+            requestId: requestId, // 包含 requestId
+            data: data,
+        };
+        const messageString = JSON.stringify(message);
+        console.log('Sending message to Flutter:', messageString);
+        if (window.flutter_inappwebview) {
+            window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
+        } else {
+            console.error("flutter_inappwebview is undefined");
+        }
     }
 
     // parseResponse 函数 (由插件定义)
-    function parseResponse(responseText,phoneNumber) {
-      // 在这里解析响应 (例如，解析 HTML)
-      // ... (您的 HTML 解析逻辑) ...
+    function parseResponse(responseText, phoneNumber) {
         const parser = new DOMParser();
         const doc = parser.parseFromString(responseText, 'text/html');
-        return extractDataFromDOM(doc, phoneNumber); // 调用您已有的 extractDataFromDOM
+        return extractDataFromDOM(doc, phoneNumber);
     }
-        function extractDataFromDOM(doc, phoneNumber) {
+
+    function extractDataFromDOM(doc, phoneNumber) {
         // ... (与之前相同, 不需要修改)
         const jsonObject = {
             count: 0,
@@ -211,71 +262,37 @@
         console.log('Final jsonObject type:', typeof jsonObject);
         return jsonObject;
     }
-    // 新增：generateOutput 函数
+
+    // generateOutput 函数 (修改)
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
         console.log('generateOutput called with:', phoneNumber, externalRequestId);
 
-      // 辅助函数：向 Flutter 发送结果或错误
-        function sendResultToFlutter(type, data) {
-            const message = { type, pluginId, requestId: externalRequestId, data };
-            const messageString = JSON.stringify(message);
-             console.log('Sending message to Flutter:', messageString);
-            if (window.flutter_inappwebview) {
-                window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
-            } else {
-                console.error("flutter_inappwebview is undefined");
-            }
+        // 1. 构造请求参数 (现在在插件内部完成)
+        // const url = `https://www.tellows.com/num/${phoneNumber}`; // 不再写死 URL
+        const method = 'GET';
+        const headers = {
+            // 'X-Flutter-Intercept': 'true', // 不需要了
+            'User-Agent': 'Mozilla/5.0 ...', // 您可以根据需要设置 User-Agent
+        };
+        const body = null; // GET 请求通常没有 body
+
+        // 2. 调用 sendRequest 发送请求信息
+        // sendRequest(url, method, headers, body, externalRequestId);
+        // 处理多个号码 (phoneNumber, nationalNumber, e164Number)
+        if (phoneNumber) {
+            const url = `https://www.tellows.com/num/${phoneNumber}`;
+            sendRequest(url, method, headers, body, externalRequestId);
+        }
+        if (nationalNumber) {
+             const url = `https://www.tellows.com/num/${nationalNumber}`;
+            sendRequest(url, method, headers, body, externalRequestId);
+        }
+        if (e164Number) {
+            const url = `https://www.tellows.com/num/${e164Number}`;
+            sendRequest(url, method, headers, body, externalRequestId);
         }
 
-        try {
-             // 1. 调用 fetchData 获取响应文本
-            const responseText = await fetchData(phoneNumber, externalRequestId);
-
-            // 2. 调用 parseResponse 解析响应文本
-            let result = parseResponse(responseText, phoneNumber);
-
-            console.log('First successful query completed:', result);
-
-            // Ensure result is not null or undefined
-            if (result === null || result === undefined) {
-              sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' });
-              return;
-            }
-
-            // Find a matching predefined label using the found sourceLabel
-            let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
-
-            // If no direct match is found, try to find one in manualMapping
-            if (!matchedLabel) {
-                matchedLabel = manualMapping[result.sourceLabel];
-            }
-
-            // If no match is found in manualMapping, use 'Unknown'
-            if (!matchedLabel) {
-                matchedLabel = 'Unknown';
-            }
-
-            const finalResult = {
-                phoneNumber: result.phoneNumber,
-                sourceLabel: result.sourceLabel,
-                count: result.count,
-                province: result.province,
-                city: result.city,
-                carrier: result.carrier,
-                name: result.name,
-                predefinedLabel: matchedLabel, // Use the matched label
-                source: pluginInfo.info.name,
-            };
-
-            // 3. 通过 PluginResultChannel 将结果发送回 Flutter
-            sendResultToFlutter('pluginResult', finalResult);
-
-        } catch (error) {
-            console.error('Error in generateOutput:', error);
-            sendResultToFlutter('pluginError', { error: error.message || 'Unknown error occurred during phone number lookup.' });
-        }
     }
-
     // Initialize plugin
     async function initializePlugin() {
         window.plugin = {};
@@ -283,9 +300,8 @@
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
-            generateOutput: generateOutput, // 现在 generateOutput 是入口
-            fetchData: fetchData,          // 添加 fetchData
-            parseResponse: parseResponse,  // 添加 parseResponse
+            generateOutput: generateOutput,
+              handleResponse: handleResponse,  // 添加 handleResponse
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
@@ -300,12 +316,6 @@
                 pluginId: pluginId,
             }));
             console.log('Notified Flutter that plugin is loaded');
-
-            window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
-                type: 'pluginReady',
-                pluginId: pluginId,
-            }));
-            console.log('Notified Flutter that plugin is ready');
         } else {
             console.error('flutter_inappwebview is not defined');
         }
