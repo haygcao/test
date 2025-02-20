@@ -272,7 +272,7 @@
         const method = 'GET';
         const headers = {
             // 'X-Flutter-Intercept': 'true', // 不需要了
-            'User-Agent': 'Mozilla/5.0 ...', // 您可以根据需要设置 User-Agent
+            'User-Agent': 'Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.6723.199 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36', // 您可以根据需要设置 User-Agent
         };
         const body = null; // GET 请求通常没有 body
 
