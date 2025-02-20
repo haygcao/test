@@ -45,20 +45,48 @@
 
     // 手动映射表，用于将提取的标签映射到预定义标签
     const manualMapping = {
-        // ...
-        'Unknown': 'Unknown',
-        'Trustworthy number': 'Other', //  Could be mapped to something more specific if you have a "safe" category.
-        'Sweepstakes, lottery': 'Spam Likely', //  Or 'Fraud Scam Likely', depending on context
-        'Debt collection company': 'Debt Collection',
-        'Aggressive advertising': 'Telemarketing', // Or 'Spam Likely'
-        'Survey': 'Survey',
-        'Harassment calls': 'Spam Likely',  // Or 'Fraud Scam Likely', if threats are involved
-        'Cost trap': 'Fraud Scam Likely',
-        'Telemarketer': 'Telemarketing',
-        'Ping Call': 'Spam Likely', // Often associated with scams
-        'SMS spam': 'Spam Likely',
-        'Spam Call': 'Spam Likely', // Added, map label extracted "spam call" to predefined "Spam Likely"
-    };
+    '中介': 'Agent',             // 含义较广，包括房产中介等
+    '房产中介': 'Agent',         // 细化为房地产经纪人
+    '违规催收': 'Debt Collection',
+    '快递物流': 'Delivery',
+    '快递': 'Delivery',
+    '教育培训': 'Education',
+    '金融': 'Financial',
+    '股票证券': 'Financial',   // 统一为金融
+    '保险理财': 'Financial',   // 统一为金融
+    '涉诈电话': 'Fraud Scam Likely',
+    '诈骗': 'Fraud Scam Likely',
+    '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+    '猎头': 'Headhunter',
+    '猎头招聘': 'Headhunter',
+    '招聘猎头': 'Headhunter',
+    '保险': 'Insurance',
+    '保险推销': 'Insurance',
+    '贷款理财': 'Loan',   
+    '医疗卫生': 'Medical',  
+    '其他': 'Other',
+    '送餐外卖': 'Takeaway',
+    '美团': 'Takeaway',
+    '饿了么': 'Takeaway',
+    '外卖': 'Takeaway',  
+    '滴滴/优步': 'Ridesharing',
+    '出租车': 'Ridesharing',
+    '网约车': 'Ridesharing',
+    '违法': 'Risk',
+    '淫秽色情': 'Risk',
+    '反动谣言': 'Risk', 
+    '发票办证': 'Risk',
+    '客服热线': 'Customer Service',
+    '非应邀商业电话': 'Spam Likely',
+    '广告': 'Spam Likely',
+    '骚扰': 'Spam Likely', 
+    '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+    '广告营销': 'Telemarketing',
+    '广告推销': 'Telemarketing',
+    '旅游推广': 'Telemarketing',
+    '食药推销': 'Telemarketing',      
+    '推销': 'Telemarketing',
+};
     // sendRequest 函数 (负责发送请求信息)
     function sendRequest(url, method, headers, body, requestId) {
         const requestData = {
@@ -150,118 +178,76 @@
         return extractDataFromDOM(doc, phoneNumber);
     }
 
-    function extractDataFromDOM(doc, phoneNumber) {
-        // ... (与之前相同, 不需要修改)
-        const jsonObject = {
-            count: 0,
-            sourceLabel: "",
-            province: "",
-            city: "",
-            carrier: "",
-            phoneNumber: phoneNumber,
-            name: "unknown",
-            rate: 0
-        };
+ function extractDataFromDOM(doc, phoneNumber) {
+  const jsonObject = {
+    count: 0,
+    sourceLabel: "",
+    province: "",
+    city: "",
+    carrier: "unknown", // 默认为 unknown
+    phoneNumber: phoneNumber
+  };
 
-        try {
-            // console.log('Document Object:', doc); // 这行可能导致问题，因为 doc 现在是字符串
+  try {
+    console.log('Document Object:', doc);
 
-            const bodyElement = doc.body;
-            // console.log('Body Element:', bodyElement);  // 这行可能导致问题
-            if (!bodyElement) {
-                console.error('Error: Could not find body element.');
-                return jsonObject;
-            }
+    const bodyElement = doc.body;
+    console.log('Body Element:', bodyElement);
+    if (!bodyElement) {
+      console.error('Error: Could not find body element.');
+      return jsonObject;
+    }
 
-            // --- Helper Function to find element by text ---
-            function findElementByText(selector, text) {
-                const elements = doc.querySelectorAll(selector);
-                for (const element of elements) {
-                    if (element.textContent.includes(text)) {
-                        return element;
-                    }
-                }
-                return null;
-            }
+    // 提取 sourceLabel 和 count
+    const infoRightElement = doc.querySelector('.info-right');
+    console.log('infoRightElement:', infoRightElement);
 
-            // 1. Extract Label (Priority 1: Types of call)
-            const typesOfCallElement = findElementByText('b', "Types of call:"); // Find <b> containing the text
-            if (typesOfCallElement) {
-                const nextSibling = typesOfCallElement.nextSibling;
-                if (nextSibling && nextSibling.nodeType === Node.TEXT_NODE) {
-                    let labelText = nextSibling.textContent.trim();
-                    if (labelText) {
-                        jsonObject.sourceLabel = labelText;
-                    }
-                }
-            }
+    if (infoRightElement) {
+      const reportWrapper = infoRightElement.querySelector('.report-wrapper');
+      console.log('reportWrapper:', reportWrapper);
 
-            // 2. Extract Label (Priority 2: Score Image) - Only if sourceLabel is empty
-            if (!jsonObject.sourceLabel) {
-                const scoreImage = doc.querySelector('a[href*="tellows_score"] img.scoreimage');
-                if (scoreImage) {
-                    const altText = scoreImage.alt;
-                    const scoreMatch = altText.match(/Score\s([789])/); //checks for 7, 8, or 9
-                    if (scoreMatch) {
-                        jsonObject.sourceLabel = "Spam Call";
-                    }
-                }
-            }
-
-            // 3. Extract Name (Caller ID) - ROBUST METHOD
-            // 3. Extract Name (Caller ID) - Corrected: Directly select the span.callerId
-            const callerIdElement = doc.querySelector('span.callerId');
-            if (callerIdElement) {
-                jsonObject.name = callerIdElement.textContent.trim();
-            }
-
-
-            // 4. Extract Rate and Count (using Ratings)
-            // const ratingsElement = doc.querySelector('a[href="#complaint_list"] strong span'); // Original selector
-            const ratingsElement = findElementByText('strong', "Ratings:"); // More robust way to locate
-
-            if (ratingsElement) {
-                const spanElement = ratingsElement.querySelector('span');
-                if (spanElement) {
-                    const rateValue = parseInt(spanElement.textContent.trim(), 10) || 0;
-                    jsonObject.rate = rateValue;
-                    jsonObject.count = rateValue;
-                }
-            }
-            // 5. Extract City and Province - CORRECTED LOGIC
-            const cityElement = findElementByText('strong', "City:");
-            if (cityElement) {
-                let nextSibling = cityElement.nextSibling;
-                while (nextSibling) {
-                    if (nextSibling.nodeType === Node.TEXT_NODE) {
-                        let cityText = nextSibling.textContent.trim();
-
-                        // Split by " - " to get "City" and "Country" parts
-                        const parts = cityText.split('-');
-                        if (parts.length > 0) {
-                            jsonObject.city = parts[0].trim(); // The FIRST part is the city
-
-                            // If there's a second part (countries), handle it
-                            if (parts.length > 1) {
-                                const countries = parts[1].trim().split(',').map(c => c.trim());
-                                jsonObject.province = countries.join(", "); // Join with ", " for multiple countries
-                            }
-                        }
-                        break; // Exit the loop once we've found the city text.
-                    }
-                    nextSibling = nextSibling.nextSibling;
-                }
-            }
-
-
-        } catch (error) {
-            console.error('Error extracting data:', error);
+      if (reportWrapper) {
+        const reportNameElement = reportWrapper.querySelector('.report-name');
+        console.log('reportNameElement:', reportNameElement);
+        if (reportNameElement) {
+          jsonObject.sourceLabel = reportNameElement.textContent.trim();
+          console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
         }
 
-        console.log('Final jsonObject:', jsonObject);
-        console.log('Final jsonObject type:', typeof jsonObject);
-        return jsonObject;
+        const reportTypeElement = reportWrapper.querySelector('.report-type');
+        console.log('reportTypeElement:', reportTypeElement);
+        if (reportTypeElement && reportTypeElement.textContent.trim() === '用户标记') {
+          jsonObject.count = 1;
+          console.log('jsonObject.count:', jsonObject.count);
+        }
+      }
+
+      // 提取 province 和 city
+      const locationElement = infoRightElement.querySelector('.location');
+      console.log('locationElement:', locationElement);
+      if (locationElement) {
+        const locationText = locationElement.textContent.trim();
+        console.log('locationText:', locationText);
+        const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
+        if (match) {
+          jsonObject.province = match[1] || '';
+          jsonObject.city = match[2] || '';
+        }
+        console.log('jsonObject.province:', jsonObject.province);
+        console.log('jsonObject.city:', jsonObject.city);
+      }
     }
+
+
+  } catch (error) {
+    console.error('Error extracting data:', error);
+  }
+
+  console.log('Final jsonObject:', jsonObject);
+  console.log('Final jsonObject type:', typeof jsonObject);
+  return jsonObject;
+}
+
 
     // generateOutput 函数 (修改)
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
@@ -280,15 +266,15 @@
         // sendRequest(url, method, headers, body, externalRequestId);
         // 处理多个号码 (phoneNumber, nationalNumber, e164Number)
         if (phoneNumber) {
-            const url = `https://www.tellows.com/num/${phoneNumber}`;
+            const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
             sendRequest(url, method, headers, body, externalRequestId);
         }
         if (nationalNumber) {
-             const url = `https://www.tellows.com/num/${nationalNumber}`;
+             const url = `https://haoma.baidu.com/phoneSearch?search=${nationalNumber}&srcid=8757`;
             sendRequest(url, method, headers, body, externalRequestId);
         }
         if (e164Number) {
-            const url = `https://www.tellows.com/num/${e164Number}`;
+            const url = `https://haoma.baidu.com/phoneSearch?search=${e164Number}&srcid=8757`;
             sendRequest(url, method, headers, body, externalRequestId);
         }
 
