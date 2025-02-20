@@ -5,19 +5,18 @@
     // Plugin ID, each plugin must be unique
     const pluginId = 'tellowsPlugin';
 
-    // Plugin information
+    // Plugin information (可以根据需要添加更多信息)
     const pluginInfo = {
         // Plugin information
         info: {
             id: 'tellowsPlugin', // Plugin ID, must be unique
             name: 'Tellows', // Plugin name
-            version: '1.2.0', // Plugin version
+            version: '1.332.0', // Plugin version
             description: 'This plugin retrieves information about phone numbers from tellows.com.', // Plugin description
             author: 'Your Name', // Plugin author
         },
     };
-
-    // Predefined label list (you can adjust this list based on your needs)
+    // 插件可以定义它支持的预定义标签
     const predefinedLabels = [
         { 'label': 'Fraud Scam Likely' },
         { 'label': 'Spam Likely' },
@@ -45,10 +44,9 @@
         { 'label': 'Recruiter' },
         { 'label': 'Headhunter' },
         { 'label': 'Silent Call(Voice Clone?)' },
-
     ];
 
-    // Manual mapping table to map source labels to predefined labels (updated based on shouldianswer.com labels)
+    // 手动映射表，用于将提取的标签映射到预定义标签
     const manualMapping = {
         'Unknown': 'Unknown',
         'Trustworthy number': 'Other', //  Could be mapped to something more specific if you have a "safe" category.
@@ -63,40 +61,45 @@
         'SMS spam': 'Spam Likely',
         'Spam Call': 'Spam Likely', // Added, map label extracted "spam call" to predefined "Spam Likely"
     };
+    // fetchData 函数 (由插件定义)
+    function fetchData(phoneNumber, requestId) {
+      // 插件 *自由地* 构造 URL
+      const url = `https://www.tellows.com/num/${phoneNumber}`;
+      // const url = 'https://www.example.com/api/data'; // 可以是任何 URL
+      // const url = `https://www.anysite.com/search?q=${phoneNumber}`;
 
-    // Function to query phone number information (Modified)
-    function queryPhoneInfo(phoneNumber, requestId) {
-        console.log('queryPhoneInfo called with phoneNumber:', phoneNumber, 'and requestId:', requestId);
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 告诉 Flutter 拦截
+        // 可以根据需要添加任何头部
+        // xhr.setRequestHeader('Authorization', 'Bearer mytoken');
+        // xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.timeout = 5000;
 
-        return new Promise((resolve, reject) => {
-            const url = `https://www.tellows.com/num/${phoneNumber}`;
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', url);
-            xhr.setRequestHeader('X-Flutter-Intercept', 'true'); // 告诉 Flutter 拦截请求
-            // 不需要 X-Request-ID，因为 Flutter 会处理所有事情
-            xhr.timeout = 5000;
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(xhr.responseText);
+          } else {
+            reject(new Error(`HTTP error! status: ${xhr.status}`));
+          }
+        };
 
-            xhr.onload = () => {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    resolve(xhr.responseText); // 直接 resolve responseText, 因为Flutter已经处理了请求
-                } else {
-                    reject(new Error(`HTTP error! status: ${xhr.status}`));
-                }
-            };
-
-            xhr.onerror = () => {
-                reject(new Error('Network error'));
-            };
-
-            xhr.ontimeout = () => {
-                reject(new Error('Request timed out'));
-              }
-
-            xhr.send(); //  GET 请求不需要 body
-        });
+        xhr.onerror = () => reject(new Error('Network error'));
+        xhr.ontimeout = () => reject(new Error('Request timed out'));
+        xhr.send();
+      });
     }
 
-     function extractDataFromDOM(doc, phoneNumber) {
+    // parseResponse 函数 (由插件定义)
+    function parseResponse(responseText,phoneNumber) {
+      // 在这里解析响应 (例如，解析 HTML)
+      // ... (您的 HTML 解析逻辑) ...
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(responseText, 'text/html');
+        return extractDataFromDOM(doc, phoneNumber); // 调用您已有的 extractDataFromDOM
+    }
+        function extractDataFromDOM(doc, phoneNumber) {
         // ... (与之前相同, 不需要修改)
         const jsonObject = {
             count: 0,
@@ -110,10 +113,10 @@
         };
 
         try {
-            console.log('Document Object:', doc);
+            // console.log('Document Object:', doc); // 这行可能导致问题，因为 doc 现在是字符串
 
             const bodyElement = doc.body;
-            console.log('Body Element:', bodyElement);
+            // console.log('Body Element:', bodyElement);  // 这行可能导致问题
             if (!bodyElement) {
                 console.error('Error: Could not find body element.');
                 return jsonObject;
@@ -208,21 +211,15 @@
         console.log('Final jsonObject type:', typeof jsonObject);
         return jsonObject;
     }
-
-    // Function to generate output information (Modified: Uses Promise and then/catch)
+    // 新增：generateOutput 函数
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
-        console.log('generateOutput called with:', phoneNumber, nationalNumber, e164Number, externalRequestId);
+        console.log('generateOutput called with:', phoneNumber, externalRequestId);
 
-        // Helper function to send result or error to Flutter
+      // 辅助函数：向 Flutter 发送结果或错误
         function sendResultToFlutter(type, data) {
-            const message = {
-                type: type,
-                pluginId: pluginId,
-                requestId: externalRequestId, // 使用传入的 externalRequestId
-                data: data,
-            };
+            const message = { type, pluginId, requestId: externalRequestId, data };
             const messageString = JSON.stringify(message);
-            console.log('Sending message to Flutter:', messageString);
+             console.log('Sending message to Flutter:', messageString);
             if (window.flutter_inappwebview) {
                 window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
             } else {
@@ -230,55 +227,19 @@
             }
         }
 
-        // Process each number sequentially, use whichever returns a valid result first
         try {
-            let result;
+             // 1. 调用 fetchData 获取响应文本
+            const responseText = await fetchData(phoneNumber, externalRequestId);
 
-            if (phoneNumber && !result) {
-                try {
-                    // 直接使用 await queryPhoneInfo，无需再解析 HTML
-                    const responseText = await queryPhoneInfo(phoneNumber, externalRequestId);
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(responseText, 'text/html');
-                    result = extractDataFromDOM(doc, phoneNumber);
-                    console.log('Query result for phoneNumber:', result);
-                } catch (error) {
-                    console.error('Error querying phoneNumber:', error);
-                }
-            }
-
-            if (nationalNumber && !result) {
-                try {
-                    // 直接使用 await queryPhoneInfo，无需再解析 HTML
-                    const responseText = await queryPhoneInfo(nationalNumber, externalRequestId);
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(responseText, 'text/html');
-                    result = extractDataFromDOM(doc, nationalNumber);
-                    console.log('Query result for nationalNumber:', result);
-                } catch (error) {
-                    console.error('Error querying nationalNumber:', error);
-                }
-            }
-
-            if (e164Number && !result) {
-                try {
-                    // 直接使用 await queryPhoneInfo，无需再解析 HTML
-                    const responseText = await queryPhoneInfo(e164Number, externalRequestId);
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(responseText, 'text/html');
-                    result = extractDataFromDOM(doc, e164Number);
-                    console.log('Query result for e164Number:', result);
-                } catch (error) {
-                    console.error('Error querying e164Number:', error);
-                }
-            }
+            // 2. 调用 parseResponse 解析响应文本
+            let result = parseResponse(responseText, phoneNumber);
 
             console.log('First successful query completed:', result);
 
             // Ensure result is not null or undefined
             if (result === null || result === undefined) {
-                sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' });
-                return;
+              sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' });
+              return;
             }
 
             // Find a matching predefined label using the found sourceLabel
@@ -306,7 +267,7 @@
                 source: pluginInfo.info.name,
             };
 
-            // Send the result via FlutterChannel
+            // 3. 通过 PluginResultChannel 将结果发送回 Flutter
             sendResultToFlutter('pluginResult', finalResult);
 
         } catch (error) {
@@ -322,8 +283,9 @@
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
-            queryPhoneInfo: queryPhoneInfo,
-            generateOutput: generateOutput,
+            generateOutput: generateOutput, // 现在 generateOutput 是入口
+            fetchData: fetchData,          // 添加 fetchData
+            parseResponse: parseResponse,  // 添加 parseResponse
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
@@ -333,7 +295,7 @@
         window.plugin[pluginId] = thisPlugin;
 
         if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-            window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
+             window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
                 type: 'pluginLoaded',
                 pluginId: pluginId,
             }));
@@ -345,7 +307,7 @@
             }));
             console.log('Notified Flutter that plugin is ready');
         } else {
-            console.error('TestPageChannel (flutter_inappwebview) is not defined');
+            console.error('flutter_inappwebview is not defined');
         }
     }
 
