@@ -96,6 +96,12 @@
         const method = 'GET';
         const headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', // Example User-Agent
+                'Referer': 'https://www.baidu.com/',  // 设置为百度首页，或者搜索页，根据实际情况
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8', // 根据你的用户语言设置
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Connection': 'keep-alive',
+    // 'Cookie': '...'  // 不要在这里手动设置 Cookie！让 Flutter 自动处理
         };
         const body = null;
 
