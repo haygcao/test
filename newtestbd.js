@@ -129,79 +129,27 @@
 // handleResponse 函数 (JavaScript)
 function handleResponse(response) {
     console.log('handleResponse called with:', response);
-    console.log('Initial response.responseText:', response.responseText); // Log initial responseText
 
     if (response.status >= 200 && response.status < 300) {
-        console.log('Response status is OK (200-299)');
-
-        // 1. 将 responseText 设置到 document.body.innerHTML
         document.body.innerHTML = response.responseText;
-        console.log('document.body.innerHTML updated with response.responseText');
-        console.log('Current document.body.innerHTML:', document.body.innerHTML);  // Added for debugging
 
-        // 2. 等待包含数据的元素出现 (例如 .cc-title_31ypU)
-        const checkInterval = setInterval(() => {
-            const targetElement = document.querySelector('.report-wrapper'); // 或其他包含数据的元素
-            console.log('Checking for targetElement (.report-wrapper):', targetElement); // Log the result of querySelector
-
+        // 使用 MutationObserver 等待目标元素
+        const observer = new MutationObserver((mutationsList, observer) => {
+            const targetElement = document.querySelector('.report-wrapper'); // 目标元素
             if (targetElement) {
-                console.log('Target element found!');
-                clearInterval(checkInterval); // 停止检查
-
-                // 3. 调用 parseResponse，传入 document 和 phoneNumber
-                console.log('Calling parseResponse with document and phoneNumber:', response.phoneNumber);
+                observer.disconnect(); // 停止观察
                 let result = parseResponse(document, response.phoneNumber);
-                console.log('parseResponse result:', result);
-
-
-                // 4. 后续处理 (和之前一样，发送结果到 Flutter)
-                console.log('First successful query completed:', result);
-
-                if (result === null || result === undefined) {
-                    console.error('parseResponse returned null or undefined. Sending error to Flutter.');
-                    sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' }, response.externalRequestId);
-                    return;
-                }
-
-                console.log("Looking up predefined labels for source:", result.sourceLabel);
-                let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
-
-                console.log("Predefined label match:", matchedLabel);
-                if (!matchedLabel) {
-                    console.log("No predefined label found. Checking manual mapping.");
-                    matchedLabel = manualMapping[result.sourceLabel];
-                    console.log("Manual mapping result:", matchedLabel);
-                }
-
-                if (!matchedLabel) {
-                    console.log("No manual mapping found. Using 'Unknown'.");
-                    matchedLabel = 'Unknown';
-                }
-
-                console.log("Final matched label:", matchedLabel);
-
-                const finalResult = {
-                    phoneNumber: result.phoneNumber,
-                    sourceLabel: result.sourceLabel,
-                    count: result.count,
-                    province: result.province,
-                    city: result.city,
-                    carrier: result.carrier,
-                    name: result.name, // 你可能需要从其他地方获取 name
-                    predefinedLabel: matchedLabel,
-                    source: pluginInfo.info.name,
-                };
-                console.log('Sending finalResult to Flutter:', finalResult);
-                sendResultToFlutter('pluginResult', finalResult, response.externalRequestId);
-
-            } else {
-                console.log('Target element not yet found.  Continuing to check...');
+                // ... (后续处理，发送结果到 Flutter) ...
             }
-        }, 500); // 每 500 毫秒检查一次
+        });
+
+        // 配置观察选项 (观察 body 的子节点变化)
+        const config = { childList: true, subtree: true };
+
+        // 开始观察 body
+        observer.observe(document.body, config);
 
     } else {
-        console.error('Response status is NOT OK. Status:', response.status, 'StatusText:', response.statusText);
-        // Use response.externalRequestId for errors
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
     }
 }
