@@ -126,74 +126,66 @@
         }
     }
 
-    // handleResponse function (now receives both request IDs)
-    function handleResponse(response) {
+// handleResponse 函数 (JavaScript)
+function handleResponse(response) {
     console.log('handleResponse called with:', response);
 
     if (response.status >= 200 && response.status < 300) {
-        // Use response.phoneNumber, which should be passed from Flutter
-        let result = parseResponse(response.responseText, response.phoneNumber);
+        // 1. 将 responseText 设置到 document.body.innerHTML
+        document.body.innerHTML = response.responseText;
 
-        console.log('First successful query completed:', result);
+        // 2. 等待包含数据的元素出现 (例如 .cc-title_31ypU)
+        const checkInterval = setInterval(() => {
+            const targetElement = document.querySelector('.cc-title_31ypU'); // 或其他包含数据的元素
+            if (targetElement) {
+                clearInterval(checkInterval); // 停止检查
 
-        if (result === null || result === undefined) {
-            // Use response.externalRequestId for errors
-            sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' }, response.externalRequestId);
-            return;
-        }
+                // 3. 调用 parseResponse，传入 document 和 phoneNumber
+                let result = parseResponse(document, response.phoneNumber);
 
-        let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
-        if (!matchedLabel) {
-            matchedLabel = manualMapping[result.sourceLabel];
-        }
-        if (!matchedLabel) {
-            matchedLabel = 'Unknown';
-        }
+                // 4. 后续处理 (和之前一样，发送结果到 Flutter)
+                console.log('First successful query completed:', result);
 
-        const finalResult = {
-            phoneNumber: result.phoneNumber,
-            sourceLabel: result.sourceLabel,
-            count: result.count,
-            province: result.province,
-            city: result.city,
-            carrier: result.carrier,
-            name: result.name,
-            predefinedLabel: matchedLabel,
-            source: pluginInfo.info.name,
-        };
+                if (result === null || result === undefined) {
+                    sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' }, response.externalRequestId);
+                    return;
+                }
 
-        // Use response.externalRequestId for the result
-        sendResultToFlutter('pluginResult', finalResult, response.externalRequestId);
+                let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+                if (!matchedLabel) {
+                    matchedLabel = manualMapping[result.sourceLabel];
+                }
+                if (!matchedLabel) {
+                    matchedLabel = 'Unknown';
+                }
+
+                const finalResult = {
+                    phoneNumber: result.phoneNumber,
+                    sourceLabel: result.sourceLabel,
+                    count: result.count,
+                    province: result.province,
+                    city: result.city,
+                    carrier: result.carrier,
+                    name: result.name, // 你可能需要从其他地方获取 name
+                    predefinedLabel: matchedLabel,
+                    source: pluginInfo.info.name,
+                };
+                sendResultToFlutter('pluginResult', finalResult, response.externalRequestId);
+            }
+        }, 500); // 每 500 毫秒检查一次
+
     } else {
         // Use response.externalRequestId for errors
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
     }
 }
-    // Helper function: send result or error to Flutter (uses externalRequestId)
-    function sendResultToFlutter(type, data, externalRequestId) {
-        const message = {
-            type: type,
-            pluginId: pluginId,
-            requestId: externalRequestId, // Correct: Use externalRequestId here
-            data: data,
-        };
-        const messageString = JSON.stringify(message);
-        console.log('Sending message to Flutter:', messageString);
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
-        } else {
-            console.error("flutter_inappwebview is undefined");
-        }
-    }
 
 
-    // parseResponse function (defined by the plugin)
-    function parseResponse(responseText, phoneNumber) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(responseText, 'text/html');
-        return extractDataFromDOM(doc, phoneNumber);
-    }
-
+// parseResponse 函数 (JavaScript)
+function parseResponse(doc, phoneNumber) {
+    // 不需要再创建 DOMParser 了，直接使用传入的 doc (document)
+    return extractDataFromDOM(doc, phoneNumber);
+}
 function extractDataFromDOM(doc, phoneNumber) {
     const jsonObject = {
         count: 0,
