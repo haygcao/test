@@ -92,7 +92,7 @@
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
 
-        const url = `https://www.baidu.com/s?wd=${phoneNumber}`;
+        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
         const method = 'GET';
         const headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', // Example User-Agent
@@ -197,38 +197,69 @@ function extractDataFromDOM(doc, phoneNumber) {
     };
 
     try {
-        // 1. 提取 sourceLabel (始终从 titleDiv)
-        const titleDiv = doc.querySelector('.cc-title_31ypU');
-        if (titleDiv) {
-            let titleText = decodeQuotedPrintable(titleDiv.textContent.trim());
-            titleText = titleText.replace(/用户标记$/, "").trim(); // 移除 "用户标记"
-            jsonObject.sourceLabel = titleText;
+        console.log('Document Object:', doc);
+
+        const bodyElement = doc.body;
+        console.log('Body Element:', bodyElement);
+        if (!bodyElement) {
+            console.error('Error: Could not find body element.');
+            return jsonObject;
         }
 
-        // 2. 检查是否有用户标记 (用于 count)
-        const markerSpan = doc.querySelector('.cc-title_31ypU span.marker-color_3IDoi');
-        if (markerSpan) {
-            jsonObject.count = 1;
-        }
+        // --- 按照原逻辑，并添加解码 ---
+        const infoRightElement = doc.querySelector('.info-right'); // info-right 还在
+        console.log('infoRightElement:', infoRightElement);
 
-        // 3. 提取地区
-        const locationDiv = doc.querySelector('.cc-row_dDm_G');
-        if (locationDiv) {
-            const locationText = decodeQuotedPrintable(locationDiv.textContent.trim());
-            const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
-            if (match) {
-                jsonObject.province = match[1] || '';
-                jsonObject.city = match[2] || '';
+        if (infoRightElement) {
+            const reportWrapper = infoRightElement.querySelector('.report-wrapper'); // report-wrapper 还在
+            console.log('reportWrapper:', reportWrapper);
+
+            if (reportWrapper) {
+                // 主要从 report-name 获取 sourceLabel，并解码
+                const reportNameElement = reportWrapper.querySelector('.report-name');
+                console.log('reportNameElement:', reportNameElement);
+                if (reportNameElement) {
+                    jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim()); // 解码
+                    console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
+                }
+
+                // 只有 report-type 为 "用户标记" 时，count 才为 1
+                const reportTypeElement = reportWrapper.querySelector('.report-type');
+                console.log('reportTypeElement:', reportTypeElement);
+                if (reportTypeElement) {
+                    const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim()); // 解码
+                    if (reportTypeText === '用户标记') {
+                        jsonObject.count = 1;
+                        console.log('jsonObject.count:', jsonObject.count);
+                    }
+                }
+            }
+
+            // 提取 province 和 city，并解码
+            const locationElement = infoRightElement.querySelector('.location');
+            console.log('locationElement:', locationElement);
+            if (locationElement) {
+                const locationText = decodeQuotedPrintable(locationElement.textContent.trim()); // 解码
+                console.log('locationText:', locationText);
+                const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
+                if (match) {
+                    jsonObject.province = match[1] || '';
+                    jsonObject.city = match[2] || '';
+                }
+                console.log('jsonObject.province:', jsonObject.province);
+                console.log('jsonObject.city:', jsonObject.city);
             }
         }
+        // --- 原逻辑和解码结束 ---
 
     } catch (error) {
         console.error('Error extracting data:', error);
     }
 
+    console.log('Final jsonObject:', jsonObject);
+    console.log('Final jsonObject type:', typeof jsonObject);
     return jsonObject;
 }
-
 // Quoted-Printable 解码函数 (保持不变)
 function decodeQuotedPrintable(str) {
     str = str.replace(/=3D/g, "=");
