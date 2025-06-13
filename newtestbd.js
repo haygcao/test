@@ -7,40 +7,11 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.53.0',
+            version: '1.55.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
     };
-
-    const predefinedLabels = [
-        { label: 'Fraud Scam Likely' },
-        { label: 'Spam Likely' },
-        { label: 'Telemarketing' },
-        { label: 'Robocall' },
-        { label: 'Delivery' },
-        { label: 'Takeaway' },
-        { label: 'Ridesharing' },
-        { label: 'Insurance' },
-        { label: 'Loan' },
-        { label: 'Customer Service' },
-        { label: 'Unknown' },
-        { label: 'Financial' },
-        { label: 'Bank' },
-        { label: 'Education' },
-        { label: 'Medical' },
-        { label: 'Charity' },
-        { label: 'Other' },
-        { label: 'Debt Collection' },
-        { label: 'Survey' },
-        { label: 'Political' },
-        { label: 'Ecommerce' },
-        { label: 'Risk' },
-        { label: 'Agent' },
-        { label: 'Recruiter' },
-        { label: 'Headhunter' },
-        { label: 'Silent Call(Voice Clone?)' },
-    ];
 
     const manualMapping = {
         '中介': 'Agent',
@@ -86,83 +57,64 @@
         '推销': 'Telemarketing',
     };
 
+    // 存储待处理的请求
+    let pendingRequests = new Map();
+
+    // 直接导航到百度页面
     function queryPhoneInfo(phoneNumber, externalRequestId) {
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
 
-        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
-        const method = 'GET';
-        const headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-            'Referer': 'https://www.baidu.com/',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-            'Connection': 'keep-alive',
-        };
-        const body = null;
-
-        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
-    }
-
-    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
-        const requestData = {
-            url: url,
-            method: method,
-            headers: headers,
-            body: body,
+        // 存储请求信息，用于页面加载完成后处理
+        pendingRequests.set(phoneRequestId, {
+            phoneNumber: phoneNumber,
             externalRequestId: externalRequestId,
+            phoneRequestId: phoneRequestId
+        });
+
+        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
+        
+        // 通知 Flutter 导航到百度页面
+        const navigationData = {
+            action: 'navigate',
+            url: url,
             phoneRequestId: phoneRequestId,
             pluginId: pluginId,
         };
 
         if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
+            window.flutter_inappwebview.callHandler('NavigationChannel', JSON.stringify(navigationData));
         } else {
             console.error("flutter_inappwebview is undefined");
         }
     }
 
-    // 修改的 handleResponse 函数 - 替换整个document
-    function handleResponse(response) {
-        console.log('handleResponse called with:', response);
-
-        if (response.status >= 200 && response.status < 300) {
-            // 保存当前的插件状态和函数
-            const currentPlugin = window.plugin;
-            const currentFlutterBridge = window.flutter_inappwebview;
-            
-            // 替换整个document内容（包括head）
-            document.open();
-            document.write(response.responseText);
-            document.close();
-            
-            // 恢复插件状态和Flutter桥接
-            window.plugin = currentPlugin;
-            window.flutter_inappwebview = currentFlutterBridge;
-
-            // 等待页面JavaScript执行完成后解析数据
-            setTimeout(() => {
-                try {
-                    let result = parseResponse(response.phoneNumber);
-                    sendResultToFlutter('pluginResult', result, response.externalRequestId);
-                } catch (error) {
-                    console.error('Error parsing response:', error);
-                    sendResultToFlutter('pluginError', { error: error.message }, response.externalRequestId);
-                }
-            }, 3000); // 等待3秒让页面完全加载
-
-        } else {
-            sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
+    // 页面加载完成后的处理函数
+    function handlePageLoaded(phoneRequestId) {
+        console.log('handlePageLoaded called with phoneRequestId:', phoneRequestId);
+        
+        const requestInfo = pendingRequests.get(phoneRequestId);
+        if (!requestInfo) {
+            console.error('Request info not found for phoneRequestId:', phoneRequestId);
+            return;
         }
+
+        // 等待页面完全加载和JavaScript执行
+        setTimeout(() => {
+            try {
+                const result = extractDataFromCurrentPage(requestInfo.phoneNumber);
+                sendResultToFlutter('pluginResult', result, requestInfo.externalRequestId);
+                pendingRequests.delete(phoneRequestId);
+            } catch (error) {
+                console.error('Error extracting data:', error);
+                sendResultToFlutter('pluginError', { error: error.message }, requestInfo.externalRequestId);
+                pendingRequests.delete(phoneRequestId);
+            }
+        }, 3000); // 等待3秒让页面完全加载
     }
 
-    // parseResponse 函数
-    function parseResponse(phoneNumber) {
-        return extractDataFromDOM(phoneNumber);
-    }
-
-    // 从DOM中提取数据
-    function extractDataFromDOM(phoneNumber) {
+    // 从当前页面提取数据（这时我们已经在百度的真实页面上了）
+    function extractDataFromCurrentPage(phoneNumber) {
         const jsonObject = {
             count: 0,
             sourceLabel: "",
@@ -181,6 +133,7 @@
                 const shadowHost = document.querySelector('#__hcfy__');
                 if (shadowHost && shadowHost.shadowRoot) {
                     reportWrapper = shadowHost.shadowRoot.querySelector('.report-wrapper');
+                    console.log('Found reportWrapper in shadow DOM');
                 }
             }
 
@@ -188,6 +141,7 @@
                 const reportNameElement = reportWrapper.querySelector('.report-name');
                 if (reportNameElement) {
                     jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
+                    console.log('Found sourceLabel:', jsonObject.sourceLabel);
                 }
 
                 const reportTypeElement = reportWrapper.querySelector('.report-type');
@@ -196,6 +150,7 @@
                     if (reportTypeText === '用户标记') {
                         jsonObject.count = 1;
                     }
+                    console.log('Found reportType:', reportTypeText);
                 }
             }
 
@@ -214,6 +169,7 @@
                 if (match) {
                     jsonObject.province = match[1] || '';
                     jsonObject.city = match[2] || '';
+                    console.log('Found location:', jsonObject.province, jsonObject.city);
                 }
             }
 
@@ -225,7 +181,7 @@
             }
 
         } catch (error) {
-            console.error('Error extracting data:', error);
+            console.error('Error extracting data from current page:', error);
         }
 
         console.log('Extracted data:', jsonObject);
@@ -281,7 +237,8 @@
             pluginId: pluginId,
             version: pluginInfo.info.version,
             generateOutput: generateOutput,
-            handleResponse: handleResponse,
+            handlePageLoaded: handlePageLoaded, // 新增的函数
+            extractDataFromCurrentPage: extractDataFromCurrentPage, // 导出供外部调用
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
