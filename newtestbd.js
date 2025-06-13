@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.43.0',
+            version: '1.2.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -339,14 +339,13 @@
                 }
                 pendingRequests.delete(phoneRequestId);
             } else {
-                setTimeout(checkAndProcess, delay);
+                setTimeout(checkAndProcess, interval); // CORRECTED: Use 'interval' here
             }
         }
 
         const observerTarget = document.documentElement || document.body;
         if (observerTarget) {
             observer = new MutationObserver((mutationsList, observer) => {
-                // Perform check and process scripts after each DOM change
                 checkAndProcess();
             });
 
@@ -355,7 +354,6 @@
 
             console.log('Started observing for content and scripts...');
 
-            // Initial check in case content is already present or scripts are already in DOM
             checkAndProcess();
         } else {
             console.error('MutationObserver target (documentElement or body) not found.');
@@ -365,6 +363,7 @@
             pendingRequests.delete(phoneRequestId);
         }
     }
+
 
     // 改进的解析函数 (接收文档对象作为参数)
     function parseResponse(doc, phoneNumber) {
