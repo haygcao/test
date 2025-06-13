@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.32.0',
+            version: '1.42.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -89,6 +89,8 @@
 
     // 存储待处理的请求
     const pendingRequests = new Map();
+    const executedScripts = new Set(); // To keep track of executed inline scripts by content
+    const loadedScripts = new Set(); // To keep track of loaded external scripts by src
 
     function queryPhoneInfo(phoneNumber, externalRequestId) {
         const phoneRequestId = Math.random().toString(36).substring(2);
@@ -133,17 +135,16 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript) - 按顺序加载脚本
+    // handleResponse 函数 (JavaScript) - 设置 HTML 并观察新添加的脚本并尝试执行
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
         
         const requestInfo = pendingRequests.get(response.phoneRequestId);
         if (!requestInfo) {
             console.error('No pending request found for phoneRequestId:', response.phoneRequestId);
-            // Optionally send an error back to Flutter for this case
             sendResultToFlutter('pluginError', { 
                  error: 'Internal JS error: No pending request info' 
-            }, response.externalRequestId, response.phoneRequestId); // Use both IDs here
+            }, response.externalRequestId, response.phoneRequestId); 
             return;
         }
 
@@ -156,226 +157,200 @@
             const htmlContent = response.responseText;
 
             // Clear current page content
-            document.documentElement.innerHTML = ''; // Clear everything to start fresh
-            console.log('Cleared document.documentElement.innerHTML'); // Debugging
+            document.documentElement.innerHTML = ''; 
+            console.log('Cleared document.documentElement.innerHTML');
+
+             // Set the HTML content directly. This should include the head and body structure.
+             // This is the crucial step to get the browser to parse the HTML and potentially start loading resources.
+             document.documentElement.innerHTML = htmlContent;
+             console.log('Set document.documentElement.innerHTML'); // Debugging
+
+            // Reset executed scripts and loaded scripts sets for this new page load
+            executedScripts.clear();
+            loadedScripts.clear();
 
 
-            // Use DOMParser to get a temporary document to extract scripts
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            const scriptElements = Array.from(doc.querySelectorAll('script')); // Get all script elements in order
-
-
-            // Now, add the received HTML content to the document
-             // Recreate head and body elements to ensure a clean structure
-             const newHead = document.createElement('head');
-             const newBody = document.createElement('body');
-
-             // Try to populate head and body from the parsed doc (excluding scripts for now)
-             Array.from(doc.head.children).forEach(element => {
-                 if (element.tagName !== 'SCRIPT') {
-                     newHead.appendChild(element.cloneNode(true));
-                 }
-             });
-             Array.from(doc.body.children).forEach(element => {
-                  if (element.tagName !== 'SCRIPT') { // Avoid adding body scripts twice if we re-add them manually
-                     newBody.appendChild(element.cloneNode(true));
-                 }
-             });
-
-             // Replace existing head and body
-             const oldHead = document.head;
-             if (oldHead) oldHead.remove();
-             const oldBody = document.body;
-             if (oldBody) oldBody.remove();
-
-             document.documentElement.appendChild(newHead);
-             document.documentElement.appendChild(newBody);
-
-             console.log('Recreated head and body, added non-script content.'); // Debugging
-
-
-            // Load and execute scripts sequentially
-            loadScriptsSequentially(scriptElements, () => {
-                 console.log('All scripts loaded and executed (potentially).'); // Debugging
-                 // Once scripts are likely executed, start waiting for content
-                 waitForContentToLoad(phoneNumber, externalRequestId, phoneRequestId);
-            });
+            // Start observing for content and dynamically added scripts
+            // Pass the request IDs to the observer's check function
+            observeForContentAndScripts(phoneNumber, externalRequestId, phoneRequestId);
 
 
         } else {
             console.error('HTTP Error:', response.status, response.statusText);
             sendResultToFlutter('pluginError', { 
                 error: `HTTP ${response.status}: ${response.statusText}` 
-            }, externalRequestId, phoneRequestId); // Use phoneRequestId for error
+            }, externalRequestId, phoneRequestId);
             pendingRequests.delete(phoneRequestId);
         }
     }
 
 
-    // 新增：按顺序加载并执行脚本的函数
-    function loadScriptsSequentially(scripts, callback) {
-        let i = 0;
-        function loadNextScript() {
-            if (i < scripts.length) {
-                const scriptElement = scripts[i];
-                const newScript = document.createElement('script');
+    // 新增：观察并尝试执行新添加的脚本和等待内容加载
+    function observeForContentAndScripts(phoneNumber, externalRequestId, phoneRequestId) {
+        const timeout = 40000; // Increased timeout further (40 seconds)
+        const interval = 200; // Check interval
+        const startTime = Date.now();
+        let observer = null; 
 
-                if (scriptElement.src) {
-                    // External script
-                    newScript.src = scriptElement.src;
-                     // Use onload and onerror to load the next script after current one finishes
-                    newScript.onload = () => {
-                         console.log('Script loaded successfully:', newScript.src); // Debugging
-                        i++;
-                        loadNextScript();
-                    };
-                    newScript.onerror = () => {
-                         console.error('Error loading script:', newScript.src); // Debugging
-                        i++;
-                        loadNextScript(); // Continue with the next script even if one fails
-                    };
-                    // Don't set async to false, let them load asynchronously but execute in order
-                    // newScript.async = false; // This might not work as expected for script execution order
+        function checkAndProcess() {
+             console.log(`Attempt to find content and process scripts...`);
 
-                    document.head.appendChild(newScript) || document.body.appendChild(newScript);
-                    console.log('Loading external script sequentially:', newScript.src); // Debugging
+             // --- 检查新添加的脚本并尝试执行 ---
+             // Observe the entire document to catch scripts added anywhere
+             const newScripts = document.querySelectorAll('script:not([data-processed])'); // Find scripts not marked as processed
+             newScripts.forEach(script => {
+                  // Mark script as processed to avoid reprocessing
+                  script.setAttribute('data-processed', 'true'); 
+                  console.log('Observed new script:', script); // Debugging: Log the script element
 
-                } else {
-                    // Inline script
-                    newScript.textContent = scriptElement.textContent;
-                     try {
-                         // Append inline script to head or body and execute immediately
-                         document.head.appendChild(newScript) || document.body.appendChild(newScript);
-                         console.log('Executing inline script sequentially (partial):', newScript.textContent.substring(0, 100) + '...'); // Debugging
-                     } catch (e) {
-                         console.error('Error executing inline script:', e); // Debugging
-                     }
-                    i++;
-                    loadNextScript(); // Move to the next script immediately after executing inline
-                }
-            } else {
-                // All scripts loaded
-                if (callback) callback();
-            }
-        }
+                  if (script.src) {
+                       // External script
+                       const scriptSrc = script.src;
+                       if (!loadedScripts.has(scriptSrc)) {
+                           console.log('Observed new external script, attempting to load:', scriptSrc); // Debugging
+                            // We assume the browser loads it when added to DOM, but we can add listeners
+                           script.onerror = () => { 
+                                console.error('Error loading observed external script:', scriptSrc); 
+                                // Add to loadedScripts even on error to avoid reprocessing
+                                loadedScripts.add(scriptSrc); 
+                           };
+                           script.onload = () => { 
+                                console.log('Observed external script loaded successfully:', scriptSrc); 
+                                loadedScripts.add(scriptSrc); 
+                           };
+                           // No need to manually create/append again, it's already in DOM,
+                           // just adding listeners and marking as processed.
+                           loadedScripts.add(scriptSrc); // Mark as loaded immediately, relies on onerror/onload for actual status
+                       } else {
+                            console.log('Observed external script already processed:', scriptSrc); // Debugging
+                       }
 
-        loadNextScript(); // Start loading the first script
-    }
+                  } else if (script.textContent.trim()) {
+                       // Inline script
+                       const scriptContent = script.textContent;
+                       const scriptContentHash = scriptContent.length + ':' + scriptContent.substring(0, 50); // Simple hash
+                       if (!executedScripts.has(scriptContentHash)) {
+                           console.log('Observed new inline script, attempting to execute (partial):', scriptContent.substring(0, 100) + '...'); // Debugging
+                            try {
+                                // Use a function wrapper to avoid polluting the global scope
+                                eval('(function() {' + scriptContent + '})();'); 
+                                executedScripts.add(scriptContentHash); // Mark as executed
+                                console.log('Executed inline script.'); // Debugging
+                            } catch (e) {
+                                console.error('Error executing observed inline script:', e); // Debugging
+                            }
+                       } else {
+                            console.log('Observed inline script already executed.'); // Debugging
+                       }
+                  }
+             });
+             // --- 结束检查和执行脚本 ---
 
 
+             // --- 检查内容是否加载 ---
+             let foundContent = false;
 
-    // 等待内容加载的函数 - 增加尝试次数和 Shadow DOM 宿主查找，增加日志
-    function waitForContentToLoad(phoneNumber, externalRequestId, phoneRequestId, attempt = 0) { // Added phoneRequestId
-        const maxAttempts = 150; // Increase max attempts further (150 * 200ms = 30 seconds)
-        const delay = 200; 
+             try {
+                 // Prioritize checking Shadow DOM host and its content
+                 const shadowHost = document.querySelector('#__hcfy__'); 
+                 if (shadowHost && shadowHost.shadowRoot) {
+                     console.log('Found Shadow DOM host and shadowRoot.');
+                     
+                     const shadowReportWrapper = shadowHost.shadowRoot.querySelector('.report-wrapper');
+                     const shadowLocation = shadowHost.shadowRoot.querySelector('.location');
 
-        console.log(`Attempt ${attempt + 1}/${maxAttempts} to find content...`);
-
-        let foundContent = false;
-
-        try {
-            // Prioritize checking Shadow DOM host and its content
-            const shadowHost = document.querySelector('#__hcfy__'); 
-            if (shadowHost && shadowHost.shadowRoot) {
-                console.log('Found Shadow DOM host and shadowRoot.');
-                
-                const shadowReportWrapper = shadowHost.shadowRoot.querySelector('.report-wrapper');
-                const shadowLocation = shadowHost.shadowRoot.querySelector('.location');
-
-                if (shadowReportWrapper && shadowReportWrapper.textContent.trim() !== "" || (shadowLocation && shadowLocation.textContent.trim() !== "")) {
-                    console.log('Found content in Shadow DOM.');
-                    const result = parseResponse(shadowHost.shadowRoot, phoneNumber); 
-                    sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId); 
-                    pendingRequests.delete(phoneRequestId);
-                    foundContent = true;
-                    return;
-                } else {
-                    console.log('Shadow DOM report wrapper or location not found or empty.');
-                     if (shadowHost.shadowRoot) console.log('ShadowRoot innerHTML (partial):', shadowHost.shadowRoot.innerHTML ? shadowHost.shadowRoot.innerHTML.substring(0, 500) + '...' : 'null'); // Add null check
-                }
-            } else {
-                 console.log('Shadow DOM host #__hcfy__ not found or shadowRoot not available.');
-            }
-
-            // If not found in Shadow DOM, check the main document
-            if (!foundContent) {
-                 const selectors = [
-                     '.report-wrapper .report-name',
-                     '.comp-report .report-name', 
-                     '.tel-info .report-name',
-                     '[class*="report-name"]',
-                     '.report-wrapper',
-                     '.comp-report',
-                     '.location', 
-                     '[class*="location"]',
-                     '#__next' // Add React root element selector
-                 ];
-
-                 let foundElement = null;
-                 let targetText = '';
-
-                 for (const selector of selectors) {
-                     const elements = document.querySelectorAll(selector);
-                     for (const element of elements) {
-                         const text = element.textContent.trim();
-                         
-                         if (text && text !== '' && !text.includes('loading') && !text.includes('加载')) {
-                             // Exclude script elements from potentially being the target element
-                             if (element.tagName !== 'SCRIPT') {
-                                 foundElement = element;
-                                 targetText = text;
-                                 console.log(`Found content in main document with selector "${selector}": "${text}"`);
-                                 break;
-                             }
-                         }
-                     }
-                     if (foundElement) break;
-                 }
-
-                 if (foundElement && targetText) {
-                     console.log('Content found in main document, parsing...');
-                     setTimeout(() => {
-                         const result = parseResponse(document, phoneNumber); // Pass the main document
-                         sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId);
+                     if (shadowReportWrapper && shadowReportWrapper.textContent.trim() !== "" || (shadowLocation && shadowLocation.textContent.trim() !== "")) {
+                         console.log('Found content in Shadow DOM.');
+                         const result = parseResponse(shadowHost.shadowRoot, phoneNumber); 
+                         sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId); 
                          pendingRequests.delete(phoneRequestId);
-                     }, 100); 
-                     foundContent = true;
+                         foundContent = true;
+                         // Stop observing after finding content
+                         if (observer) observer.disconnect(); 
+                         return;
+                     } else {
+                         console.log('Shadow DOM report wrapper or location not found or empty.');
+                         if (shadowHost.shadowRoot) console.log('ShadowRoot innerHTML (partial):', shadowHost.shadowRoot.innerHTML ? shadowHost.shadowRoot.innerHTML.substring(0, 500) + '...' : 'null'); 
+                     }
                  } else {
-                     // Log content of potential root elements even if not found
-                      const rootElement = document.querySelector('#root');
-                      if (rootElement) console.log('#root innerHTML length (during wait):', rootElement.innerHTML.length);
-                       const nextElement = document.querySelector('#__next');
-                       if (nextElement) console.log('#__next innerHTML length (during wait):', nextElement.innerHTML.length);
-
+                      console.log('Shadow DOM host #__hcfy__ not found or shadowRoot not available.');
                  }
-            }
 
-        } catch (e) {
-             console.error('Error during content waiting or parsing:', e);
-             // Continue waiting or send error? Let's log and continue waiting for now.
-        }
+                 // If not found in Shadow DOM, check the main document
+                 if (!foundContent) {
+                      const selectors = [
+                          '.report-wrapper .report-name',
+                          '.comp-report .report-name', 
+                          '.tel-info .report-name',
+                          '[class*="report-name"]',
+                          '.report-wrapper',
+                          '.comp-report',
+                          '.location', 
+                          '[class*="location"]',
+                          '#__next', 
+                          '#root' 
+                      ];
+
+                      let foundElement = null;
+                      let targetText = '';
+
+                      for (const selector of selectors) {
+                          const elements = document.querySelectorAll(selector);
+                          for (const element of elements) {
+                              const text = element.textContent.trim();
+                              
+                              if (text && text !== '' && !text.includes('loading') && !text.includes('加载')) {
+                                  if (element.tagName !== 'SCRIPT') {
+                                      foundElement = element;
+                                      targetText = text;
+                                      console.log(`Found content in main document with selector "${selector}": "${text}"`);
+                                      break;
+                                  }
+                              }
+                          }
+                          if (foundElement) break;
+                      }
+
+                      if (foundElement && targetText) {
+                          console.log('Content found in main document, parsing...');
+                          setTimeout(() => {
+                              const result = parseResponse(document, phoneNumber); 
+                              sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId);
+                              pendingRequests.delete(phoneRequestId);
+                          }, 100); 
+                          foundContent = true;
+                          if (observer) observer.disconnect(); 
+                          return;
+                      } else {
+                           const rootElement = document.querySelector('#root');
+                           if (rootElement) console.log('#root innerHTML length (during wait):', rootElement.innerHTML ? rootElement.innerHTML.length : 'null');
+                            const nextElement = document.querySelector('#__next');
+                            if (nextElement) console.log('#__next innerHTML length (during wait):', nextElement.innerHTML ? nextElement.innerHTML.length : 'null');
+                             const bodyInnerHtmlLength = document.body.innerHTML ? document.body.innerHTML.length : 'null';
+                             console.log('document.body innerHTML length (during wait):', bodyInnerHtmlLength);
 
 
-        if (!foundContent) {
-            if (attempt < maxAttempts - 1) {
-                setTimeout(() => {
-                    waitForContentToLoad(phoneNumber, externalRequestId, phoneRequestId, attempt + 1);
-                }, delay);
-            } else {
-                // Timeout, attempt to parse existing content or return error
+                      }
+                 }
+
+             } catch (e) {
+                  console.error('Error during content waiting or parsing:', e);
+                  // Continue observing even if there's an error during checks
+             }
+
+            // Check for timeout
+            if (Date.now() - startTime >= timeout) {
                 console.log('Timeout waiting for content, attempting to parse existing DOM (final attempt)...');
+                if (observer) observer.disconnect(); 
                 
                 let finalResult = {};
                 try {
-                   // Try parsing from Shadow DOM first if host is found
                    const shadowHost = document.querySelector('#__hcfy__');
                    if (shadowHost && shadowHost.shadowRoot) {
                         finalResult = parseResponse(shadowHost.shadowRoot, phoneNumber);
                          console.log('Final parse attempt from Shadow DOM:', finalResult);
                    }
                    
-                   // If no meaningful result from Shadow DOM, try main document
                    if (!finalResult.sourceLabel && finalResult.count === 0 && finalResult.province === "" && finalResult.city === "") {
                         finalResult = parseResponse(document, phoneNumber);
                         console.log('Final parse attempt from main document:', finalResult);
@@ -386,7 +361,7 @@
                 }
 
 
-                if (finalResult.sourceLabel || finalResult.count > 0 || finalResult.province || finalResult.city) { // Check for any meaningful data
+                if (finalResult.sourceLabel || finalResult.count > 0 || finalResult.province || finalResult.city) { 
                     sendResultToFlutter('pluginResult', finalResult, externalRequestId, phoneRequestId); 
                 } else {
                     console.log('No meaningful content found after timeout');
@@ -395,9 +370,42 @@
                     }, externalRequestId, phoneRequestId); 
                 }
                 pendingRequests.delete(phoneRequestId);
+            } else {
+                // If not timed out, continue observing and checking
+                 setTimeout(checkAndProcess, delay);
             }
         }
+
+        // Use MutationObserver to listen for changes in the document
+        // This helps in detecting when new elements, including scripts, are added or modified
+        // Observe childList changes in the entire document element and its subtree
+        const observerTarget = document.documentElement || document.body; // Observe documentElement or body
+        if (observerTarget) {
+             observer = new MutationObserver((mutationsList, observer) => {
+                  // Perform check and process scripts after each DOM change
+                  checkAndProcess(); 
+             });
+
+             // Configure the observer to watch for changes in child nodes and their subtrees
+             const config = { childList: true, subtree: true }; // Observe child additions/removals and changes in their subtrees
+             // Start observing from the specified target
+             observer.observe(observerTarget, config); 
+
+             console.log('Started observing for content and scripts...');
+
+             // Initial check in case content is already present or scripts are already in DOM
+             checkAndProcess(); 
+        } else {
+             console.error('MutationObserver target (documentElement or body) not found.');
+             // If we can't even find a target to observe, something is fundamentally wrong.
+             // Send an error.
+             sendResultToFlutter('pluginError', { 
+                  error: 'Internal JS error: Cannot find observer target' 
+             }, externalRequestId, phoneRequestId); 
+             pendingRequests.delete(phoneRequestId);
+        }
     }
+
 
     // 改进的解析函数
     function parseResponse(doc, phoneNumber) {
@@ -420,7 +428,6 @@
         try {
             console.log('Starting DOM extraction from provided context...');
             
-            // Try multiple selectors for the report wrapper within the context
             let reportWrapper = doc.querySelector('.report-wrapper');
             if (!reportWrapper) {
                 reportWrapper = doc.querySelector('.comp-report');
@@ -430,7 +437,6 @@
             if (reportWrapper) {
                 console.log('Found report wrapper in context');
                 
-                // Extract report name
                 const reportNameSelectors = ['.report-name', '[class*="report-name"]'];
                 for (const selector of reportNameSelectors) {
                     const reportNameElement = reportWrapper.querySelector(selector);
@@ -438,14 +444,12 @@
                         const sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
                         jsonObject.sourceLabel = sourceLabel;
                         
-                        // Map to predefined label
                         jsonObject.predefinedLabel = manualMapping[sourceLabel] || sourceLabel;
                         console.log(`Found source label in context: ${sourceLabel} -> ${jsonObject.predefinedLabel}`);
                         break;
                     }
                 }
 
-                // Extract report type
                 const reportTypeSelectors = ['.report-type', '[class*="report-type"]'];
                 for (const selector of reportTypeSelectors) {
                     const reportTypeElement = reportWrapper.querySelector(selector);
@@ -462,7 +466,6 @@
                 console.log('Report wrapper not found in context.');
             }
 
-            // Extract location information within the context
             const locationSelectors = ['.location', '[class*="location"]'];
             for (const selector of locationSelectors) {
                  const locationElement = doc.querySelector(selector);
@@ -478,7 +481,6 @@
                  }
             }
 
-            // If no report info found, try alternative search in the main document
             if (!jsonObject.sourceLabel && jsonObject.count === 0 && jsonObject.province === "" && jsonObject.city === "") {
                  console.log('No report info found in context, trying alternative search in main document...');
                  const mainDoc = document; 
@@ -515,12 +517,10 @@
         if (!str) return str;
         
         try {
-            // Handle URL encoded characters
             str = str.replace(/%([0-9A-Fa-f]{2})/g, function(match, p1) {
                 return String.fromCharCode(parseInt(p1, 16));
             });
             
-            // Handle Quoted-Printable encoding
             str = str.replace(/=([0-9A-Fa-f]{2})/g, function(match, p1) {
                 return String.fromCharCode(parseInt(p1, 16));
             });
@@ -557,10 +557,9 @@
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
         console.log('generateOutput called with:', phoneNumber, externalRequestId);
 
-        // 清理超时的请求
         const now = Date.now();
         for (const [key, value] of pendingRequests.entries()) {
-            if (now - value.timestamp > 30000) { 
+            if (now - value.timestamp > 40000) { 
                 console.log('Pending request timed out:', key);
                 sendResultToFlutter('pluginError', { 
                      error: 'Internal JS timeout' 
@@ -569,7 +568,6 @@
             }
         }
 
-        // 按优先级查询电话号码
         const currentPhoneRequestId = Math.random().toString(36).substring(2);
          console.log('Generated new phoneRequestId for generateOutput:', currentPhoneRequestId);
 
@@ -627,7 +625,7 @@
      }
 
 
-    // handleResponse now uses phoneRequestId to retrieve pending request info, and loads scripts sequentially
+    // handleResponse now uses phoneRequestId to retrieve pending request info, sets HTML and observes for scripts and content
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
@@ -652,45 +650,17 @@
             document.documentElement.innerHTML = ''; 
             console.log('Cleared document.documentElement.innerHTML');
 
-            // Use DOMParser to get a temporary document to extract scripts and body content
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            
-            const scriptElements = Array.from(doc.querySelectorAll('script')); 
-            console.log('Extracted script elements:', scriptElements.length);
+            // Set the HTML content directly. This should include the head and body structure.
+             document.documentElement.innerHTML = htmlContent;
+             console.log('Set document.documentElement.innerHTML'); // Debugging
 
-             // Extract non-script content from original head and body
-             const newHead = document.createElement('head');
-             const newBody = document.createElement('body');
+            // Reset executed scripts and loaded scripts sets for this new page load
+            executedScripts.clear();
+            loadedScripts.clear();
 
-             Array.from(doc.head.children).forEach(element => {
-                 if (element.tagName !== 'SCRIPT') {
-                     newHead.appendChild(element.cloneNode(true));
-                 }
-             });
-             Array.from(doc.body.children).forEach(element => {
-                  if (element.tagName !== 'SCRIPT') { 
-                     newBody.appendChild(element.cloneNode(true));
-                 }
-             });
-
-             // Replace existing head and body
-             const oldHead = document.head;
-             if (oldHead) oldHead.remove();
-             const oldBody = document.body;
-             if (oldBody) oldBody.remove();
-
-             document.documentElement.appendChild(newHead);
-             document.documentElement.appendChild(newBody);
-
-             console.log('Recreated head and body, added non-script content.');
-
-
-            // Load and execute scripts sequentially
-            loadScriptsSequentially(scriptElements, () => {
-                 console.log('All scripts loaded and executed (potentially).'); 
-                 waitForContentToLoad(phoneNumber, externalRequestId, phoneRequestId);
-            });
+            // Start observing for content and dynamically added scripts
+            // Pass the request IDs to the observer's check function
+            observeForContentAndScripts(phoneNumber, externalRequestId, phoneRequestId);
 
 
         } else {
@@ -702,65 +672,387 @@
         }
     }
 
-    // 新增：按顺序加载并执行脚本的函数
-    function loadScriptsSequentially(scripts, callback) {
-        let i = 0;
-        function loadNextScript() {
-            if (i < scripts.length) {
-                const scriptElement = scripts[i];
-                const newScript = document.createElement('script');
+// 新增：观察并尝试执行新添加的脚本和等待内容加载
+function observeForContentAndScripts(phoneNumber, externalRequestId, phoneRequestId) {
+    const timeout = 40000; 
+    const interval = 200; 
+    const startTime = Date.now();
+    let observer = null; 
 
-                if (scriptElement.src) {
-                    // External script
-                    newScript.src = scriptElement.src;
-                    newScript.onload = () => {
-                         console.log('Script loaded successfully:', newScript.src); 
-                        i++;
-                        loadNextScript();
-                    };
-                    newScript.onerror = () => {
-                         console.error('Error loading script:', newScript.src); 
-                        i++;
-                        loadNextScript(); 
-                    };
-                    // Try setting async to false for potentially better order control
-                    newScript.async = false; 
+    function checkAndProcess() {
+         console.log(`Attempt to find content and process scripts...`);
 
-                    document.head.appendChild(newScript) || document.body.appendChild(newScript);
-                    console.log('Loading external script sequentially:', newScript.src);
+         // --- 检查新添加的脚本并尝试执行 ---
+         // Observe the entire document to catch scripts added anywhere
+         const newScripts = document.querySelectorAll('script:not([data-processed])'); 
+         newScripts.forEach(script => {
+              // Mark script as processed to avoid reprocessing
+              script.setAttribute('data-processed', 'true'); 
+              console.log('Observed new script:', script); 
 
-                } else {
-                    // Inline script
-                    newScript.textContent = scriptElement.textContent;
-                     try {
-                         // Append inline script to head or body and execute immediately
-                         document.head.appendChild(newScript) || document.body.appendChild(newScript);
-                         console.log('Executing inline script sequentially (partial):', newScript.textContent.substring(0, 100) + '...'); 
-                     } catch (e) {
-                         console.error('Error executing inline script:', e); 
-                     }
-                    i++;
-                    loadNextScript(); 
-                }
+              if (script.src) {
+                   const scriptSrc = script.src;
+                   if (!loadedScripts.has(scriptSrc)) {
+                       console.log('Observed new external script, attempting to load:', scriptSrc); 
+                       script.onerror = () => { 
+                            console.error('Error loading observed external script:', scriptSrc); 
+                            loadedScripts.add(scriptSrc); 
+                       };
+                       script.onload = () => { 
+                            console.log('Observed external script loaded successfully:', scriptSrc); 
+                            loadedScripts.add(scriptSrc); 
+                       };
+                       // We rely on the browser to load scripts when added to the DOM.
+                       // No need to create/append again if it's already there.
+                       loadedScripts.add(scriptSrc); 
+                   } else {
+                        console.log('Observed external script already processed:', scriptSrc); 
+                   }
+
+              } else if (script.textContent.trim()) {
+                   const scriptContent = script.textContent;
+                   const scriptContentHash = scriptContent.length + ':' + scriptContent.substring(0, 50); 
+                   if (!executedScripts.has(scriptContentHash)) {
+                       console.log('Observed new inline script, attempting to execute (partial):', scriptContent.substring(0, 100) + '...'); 
+                        try {
+                            eval('(function() {' + scriptContent + '})();'); 
+                            executedScripts.add(scriptContentHash); 
+                            console.log('Executed inline script.'); 
+                        } catch (e) {
+                            console.error('Error executing observed inline script:', e); 
+                        }
+                   } else {
+                        console.log('Observed inline script already executed.'); 
+                   }
+              }
+         });
+         // --- 结束检查和执行脚本 ---
+
+
+         // --- 检查内容是否加载 ---
+         let foundContent = false;
+
+         try {
+             const shadowHost = document.querySelector('#__hcfy__'); 
+             if (shadowHost && shadowHost.shadowRoot) {
+                 console.log('Found Shadow DOM host and shadowRoot.');
+                 
+                 const shadowReportWrapper = shadowHost.shadowRoot.querySelector('.report-wrapper');
+                 const shadowLocation = shadowHost.shadowRoot.querySelector('.location');
+
+                 if (shadowReportWrapper && shadowReportWrapper.textContent.trim() !== "" || (shadowLocation && shadowLocation.textContent.trim() !== "")) {
+                     console.log('Found content in Shadow DOM.');
+                     const result = parseResponse(shadowHost.shadowRoot, phoneNumber); 
+                     sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId); 
+                     pendingRequests.delete(phoneRequestId);
+                     foundContent = true;
+                     if (observer) observer.disconnect(); 
+                     return;
+                 } else {
+                     console.log('Shadow DOM report wrapper or location not found or empty.');
+                     if (shadowHost.shadowRoot) console.log('ShadowRoot innerHTML (partial):', shadowHost.shadowRoot.innerHTML ? shadowHost.shadowRoot.innerHTML.substring(0, 500) + '...' : 'null'); 
+                 }
+             } else {
+                  console.log('Shadow DOM host #__hcfy__ not found or shadowRoot not available.');
+             }
+
+             if (!foundContent) {
+                  const selectors = [
+                      '.report-wrapper .report-name',
+                      '.comp-report .report-name', 
+                      '.tel-info .report-name',
+                      '[class*="report-name"]',
+                      '.report-wrapper',
+                      '.comp-report',
+                      '.location', 
+                      '[class*="location"]',
+                      '#__next', 
+                      '#root' 
+                  ];
+
+                  let foundElement = null;
+                  let targetText = '';
+
+                  for (const selector of selectors) {
+                      const elements = document.querySelectorAll(selector);
+                      for (const element of elements) {
+                          const text = element.textContent.trim();
+                          
+                          if (text && text !== '' && !text.includes('loading') && !text.includes('加载')) {
+                              if (element.tagName !== 'SCRIPT') {
+                                  foundElement = element;
+                                  targetText = text;
+                                  console.log(`Found content in main document with selector "${selector}": "${text}"`);
+                                  break;
+                              }
+                          }
+                      }
+                      if (foundElement) break;
+                  }
+
+                  if (foundElement && targetText) {
+                      console.log('Content found in main document, parsing...');
+                      setTimeout(() => {
+                          const result = parseResponse(document, phoneNumber); 
+                          sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId);
+                          pendingRequests.delete(phoneRequestId);
+                      }, 100); 
+                      foundContent = true;
+                      if (observer) observer.disconnect(); 
+                      return;
+                  } else {
+                       const rootElement = document.querySelector('#root');
+                       if (rootElement) console.log('#root innerHTML length (during wait):', rootElement.innerHTML ? rootElement.innerHTML.length : 'null');
+                        const nextElement = document.querySelector('#__next');
+                        if (nextElement) console.log('#__next innerHTML length (during wait):', nextElement.innerHTML ? nextElement.innerHTML.length : 'null');
+                         const bodyInnerHtmlLength = document.body.innerHTML ? document.body.innerHTML.length : 'null';
+                         console.log('document.body innerHTML length (during wait):', bodyInnerHtmlLength);
+
+
+                  }
+             }
+
+         } catch (e) {
+              console.error('Error during content waiting or parsing:', e);
+              // Continue observing even if there's an error during checks
+         }
+
+        // Check for timeout
+        if (Date.now() - startTime >= timeout) {
+            console.log('Timeout waiting for content, attempting to parse existing DOM (final attempt)...');
+            if (observer) observer.disconnect(); 
+            
+            let finalResult = {};
+            try {
+               const shadowHost = document.querySelector('#__hcfy__');
+               if (shadowHost && shadowHost.shadowRoot) {
+                    finalResult = parseResponse(shadowHost.shadowRoot, phoneNumber);
+                     console.log('Final parse attempt from Shadow DOM:', finalResult);
+               }
+               
+               if (!finalResult.sourceLabel && finalResult.count === 0 && finalResult.province === "" && finalResult.city === "") {
+                    finalResult = parseResponse(document, phoneNumber);
+                    console.log('Final parse attempt from main document:', finalResult);
+               }
+
+            } catch (e) {
+               console.error('Error in final parsing attempt:', e);
+            }
+
+
+            if (finalResult.sourceLabel || finalResult.count > 0 || finalResult.province || finalResult.city) { 
+                sendResultToFlutter('pluginResult', finalResult, externalRequestId, phoneRequestId); 
             } else {
-                // All scripts loaded
-                if (callback) callback();
+                console.log('No meaningful content found after timeout');
+                sendResultToFlutter('pluginError', { 
+                    error: 'Timeout: Unable to load dynamic content' 
+                }, externalRequestId, phoneRequestId); 
+            }
+            pendingRequests.delete(phoneRequestId);
+        } else {
+            // If not timed out, continue observing and checking
+             setTimeout(checkAndProcess, delay);
+        }
+    }
+
+    // Use MutationObserver to listen for changes in the document
+    // This helps in detecting when new elements, including scripts, are added or modified
+    // Observe childList changes in the entire document element and its subtree
+    const observerTarget = document.documentElement || document.body; // Observe documentElement or body
+    if (observerTarget) {
+         observer = new MutationObserver((mutationsList, observer) => {
+              // Perform check and process scripts after each DOM change
+              checkAndProcess(); 
+         });
+
+         // Configure the observer to watch for changes in child nodes and their subtrees
+         const config = { childList: true, subtree: true }; // Observe child additions/removals and changes in their subtrees
+         // Start observing from the specified target
+         observer.observe(observerTarget, config); 
+
+         console.log('Started observing for content and scripts...');
+
+         // Initial check in case content is already present or scripts are already in DOM
+         checkAndProcess(); 
+    } else {
+         console.error('MutationObserver target (documentElement or body) not found.');
+         // If we can't even find a target to observe, something is fundamentally wrong.
+         // Send an error.
+         sendResultToFlutter('pluginError', { 
+              error: 'Internal JS error: Cannot find observer target' 
+         }, externalRequestId, phoneRequestId); 
+         pendingRequests.delete(phoneRequestId);
+    }
+}
+  // Helper function: send result or error to Flutter (uses externalRequestId)
+  function sendResultToFlutter(type, data, externalRequestId) {
+    const message = {
+        type: type,
+        pluginId: pluginId,
+        requestId: externalRequestId, // Correct: Use externalRequestId here
+        data: data,
+    };
+    const messageString = JSON.stringify(message);
+    console.log('Sending message to Flutter:', messageString);
+    if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
+    } else {
+        console.error("flutter_inappwebview is undefined");
+    }
+}
+
+
+// parseResponse function (defined by the plugin)
+function parseResponse(responseText, phoneNumber) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(responseText, 'text/html');
+    return extractDataFromDOM(doc, phoneNumber);
+}
+
+function extractDataFromDOM(doc, phoneNumber) {
+    const jsonObject = {
+        count: 0,
+        sourceLabel: "",
+        province: "",
+        city: "",
+        carrier: "",
+        phoneNumber: phoneNumber,
+        name: "unknown",
+        rate: 0
+    };
+
+    try {
+        const bodyElement = doc.body;
+        if (!bodyElement) {
+            console.error('Error: Could not find body element.');
+            return jsonObject;
+        }
+
+        function findElementByText(selector, text) {
+            const elements = doc.querySelectorAll(selector);
+            for (const element of elements) {
+                if (element.textContent.includes(text)) {
+                    return element;
+                }
+            }
+            return null;
+        }
+
+        const typesOfCallElement = findElementByText('b', "Types of call:");
+        if (typesOfCallElement) {
+            const nextSibling = typesOfCallElement.nextSibling;
+            if (nextSibling && nextSibling.nodeType === Node.TEXT_NODE) {
+                let labelText = nextSibling.textContent.trim();
+                if (labelText) {
+                    jsonObject.sourceLabel = labelText;
+                }
             }
         }
 
-        // Small delay before starting script loading to allow DOM a moment to settle
-         setTimeout(loadNextScript, 50); 
+        if (!jsonObject.sourceLabel) {
+            const scoreImage = doc.querySelector('a[href*="tellows_score"] img.scoreimage');
+            if (scoreImage) {
+                const altText = scoreImage.alt;
+                const scoreMatch = altText.match(/Score\s([789])/);
+                if (scoreMatch) {
+                    jsonObject.sourceLabel = "Spam Call";
+                }
+            }
+        }
+
+        const callerIdElement = doc.querySelector('span.callerId');
+        if (callerIdElement) {
+            jsonObject.name = callerIdElement.textContent.trim();
+        }
+
+
+        const ratingsElement = findElementByText('strong', "Ratings:");
+
+        if (ratingsElement) {
+            const spanElement = ratingsElement.querySelector('span');
+            if (spanElement) {
+                const rateValue = parseInt(spanElement.textContent.trim(), 10) || 0;
+                jsonObject.rate = rateValue;
+                jsonObject.count = rateValue;
+            }
+        }
+
+        const cityElement = findElementByText('strong', "City:");
+        if (cityElement) {
+            let nextSibling = cityElement.nextSibling;
+            while (nextSibling) {
+                if (nextSibling.nodeType === Node.TEXT_NODE) {
+                    let cityText = nextSibling.textContent.trim();
+
+                    const parts = cityText.split('-');
+                    if (parts.length > 0) {
+                        jsonObject.city = parts[0].trim();
+
+                        if (parts.length > 1) {
+                            const countries = parts[1].trim().split(',').map(c => c.trim());
+                            jsonObject.province = countries.join(", ");
+                        }
+                    }
+                    break;
+                }
+                nextSibling = nextSibling.nextSibling;
+            }
+        }
+
+
+    } catch (error) {
+        console.error('Error extracting data:', error);
     }
 
+    console.log('Final jsonObject:', jsonObject);
+    console.log('Final jsonObject type:', typeof jsonObject);
+    return jsonObject;
+}
 
+// generateOutput function (modified)
+async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
+    console.log('generateOutput called with:', phoneNumber, externalRequestId);
 
-    // 等待内容加载的函数 - 增加尝试次数和 Shadow DOM 宿主查找，增加日志
-    function waitForContentToLoad(phoneNumber, externalRequestId, phoneRequestId, attempt = 0) { 
-        const maxAttempts = 200; // Increase max attempts further (200 * 200ms = 40 seconds)
-        const delay = 200; 
+    // Call queryPhoneInfo for each number format, passing the externalRequestId
+    if (phoneNumber) {
+        queryPhoneInfo(phoneNumber, externalRequestId);
+    }
+    if (nationalNumber) {
+        queryPhoneInfo(nationalNumber, externalRequestId);
+    }
+    if (e164Number) {
+        queryPhoneInfo(e164Number, externalRequestId);
+    }
+}
 
-        console.log(`Attempt ${attempt + 1}/${maxAttempts} to find content...`);
+  // Initialize plugin
+async function initializePlugin() {
+    window.plugin = {};
+    const thisPlugin = {
+        id: pluginInfo.info.id,
+        pluginId: pluginId,
+        version: pluginInfo.info.version,
+        generateOutput: generateOutput,
+        handleResponse: handleResponse,
+        test: function () {
+            console.log('Plugin test function called');
+            return 'Plugin is working';
+        }
+    };
 
-        let foundContent = false;
+    window.plugin[pluginId] = thisPlugin;
 
-        try {
+    if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
+        window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
+            type: 'pluginLoaded',
+            pluginId: pluginId,
+        }));
+        console.log('Notified Flutter that plugin is loaded');
+    } else {
+        console.error('flutter_inappwebview is not defined');
+    }
+}
+
+// Initialize plugin
+initializePlugin();
+})();
