@@ -1,13 +1,13 @@
-(function () {
+(function () { 
     if (window.plugin) return;
 
-    const pluginId = 'tellowsPlugin'; // Ensure pluginId matches Flutter
+    const pluginId = 'tellowsPlugin';
 
     const pluginInfo = {
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.29.0',
+            version: '1.30.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -60,38 +60,46 @@
         '招聘猎头': 'Headhunter',
         '保险': 'Insurance',
         '保险推销': 'Insurance',
-        '贷款理财': 'Loan',
-        '医疗卫生': 'Medical',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
         '其他': 'Other',
         '送餐外卖': 'Takeaway',
         '美团': 'Takeaway',
         '饿了么': 'Takeaway',
-        '外卖': 'Takeaway',
+        '外卖': 'Takeaway',  
         '滴滴/优步': 'Ridesharing',
         '出租车': 'Ridesharing',
         '网约车': 'Ridesharing',
         '违法': 'Risk',
         '淫秽色情': 'Risk',
-        '反动谣言': 'Risk',
+        '反动谣言': 'Risk', 
         '发票办证': 'Risk',
         '客服热线': 'Customer Service',
         '非应邀商业电话': 'Spam Likely',
         '广告': 'Spam Likely',
-        '骚扰': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
         '骚扰电话': 'Spam Likely',
         '广告营销': 'Telemarketing',
         '广告推销': 'Telemarketing',
         '旅游推广': 'Telemarketing',
-        '食药推销': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
         '推销': 'Telemarketing',
+        '商业营销': 'Telemarketing', // 添加从示例中看到的标签
     };
 
-    // Retain generateOutput, queryPhoneInfo, sendRequest, sendResultToFlutter, initializePlugin
-    // as in your original code.
+    // 存储待处理的请求
+    const pendingRequests = new Map();
 
     function queryPhoneInfo(phoneNumber, externalRequestId) {
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
+
+        // 存储请求信息，用于后续处理响应
+        pendingRequests.set(phoneRequestId, {
+            phoneNumber: phoneNumber,
+            externalRequestId: externalRequestId,
+            timestamp: Date.now()
+        });
 
         const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
         const method = 'GET';
@@ -125,207 +133,211 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript) - 设置 HTML 并手动加载脚本
+    // 改进的响应处理函数
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
+        
+        const requestInfo = pendingRequests.get(response.phoneRequestId);
+        if (!requestInfo) {
+            console.error('No pending request found for phoneRequestId:', response.phoneRequestId);
+            return;
+        }
+
+        const phoneNumber = requestInfo.phoneNumber;
+        const externalRequestId = requestInfo.externalRequestId;
 
         if (response.status >= 200 && response.status < 300) {
-            const htmlContent = response.responseText; // Get the HTML content
-
-            // --- 新增：解析 HTML 提取脚本 URL ---
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            const scriptUrls = [];
-            const scripts = doc.head.querySelectorAll('script[src]');
-            scripts.forEach(script => {
-                scriptUrls.push(script.src);
-            });
-            console.log('Extracted script URLs:', scriptUrls); // Debugging
-            // --- 结束新增 ---
-
-
-            // Set the received HTML content to the document body
-            document.body.innerHTML = htmlContent;
-            console.log('HTML content set to document.body.innerHTML'); // Debugging
-
-            // --- 新增：手动加载并执行脚本 ---
-            scriptUrls.forEach(url => {
-                const script = document.createElement('script');
-                script.src = url;
-                 script.async = true; // Load asynchronously to avoid blocking rendering
-                 // Append script to head or body
-                 document.head.appendChild(script) || document.body.appendChild(script);
-                 console.log('Manually adding script:', url); // Debugging
-            });
-            // --- 结束新增 ---
-
-
-            // Wait for the DOM to be ready and content to be loaded in the *current* document
-            waitForContentAndParse(response.phoneNumber, response.externalRequestId, response.phoneRequestId);
-
-
+            // 清空当前页面内容并插入新的HTML
+            document.documentElement.innerHTML = response.responseText;
+            
+            console.log('HTML content loaded, waiting for dynamic content...');
+            
+            // 使用更强大的等待策略
+            waitForContentToLoad(phoneNumber, externalRequestId, response.phoneRequestId);
+            
         } else {
-            // Handle non-successful status codes
-            sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId, response.phoneRequestId);
+            console.error('HTTP Error:', response.status, response.statusText);
+            sendResultToFlutter('pluginError', { 
+                error: `HTTP ${response.status}: ${response.statusText}` 
+            }, externalRequestId);
+            pendingRequests.delete(response.phoneRequestId);
         }
     }
 
+    // 等待内容加载的函数
+    function waitForContentToLoad(phoneNumber, externalRequestId, phoneRequestId, attempt = 0) {
+        const maxAttempts = 50; // 最多等待10秒 (50 * 200ms)
+        const delay = 200; // 每次检查间隔200ms
 
-    // 新增：等待内容加载并解析的函数 - 增加等待时间和鲁棒性
-    function waitForContentAndParse(phoneNumber, externalRequestId, phoneRequestId) {
-        const timeout = 30000; // Increased timeout to 30 seconds
-        const interval = 500; // Check interval
-        const startTime = Date.now();
-        let observer = null; // Store MutationObserver instance
+        console.log(`Attempt ${attempt + 1}/${maxAttempts} to find content...`);
 
-        function checkAndParse() {
-             // Find #root element in the current document
-             const rootElement = document.querySelector('#root');
-             console.log('Checking for #root element in current document...');
+        // 尝试多种选择器来查找内容
+        const selectors = [
+            '.report-wrapper .report-name',
+            '.comp-report .report-name', 
+            '.tel-info .report-name',
+            '[class*="report-name"]',
+            '.report-wrapper',
+            '.comp-report'
+        ];
 
-             if (rootElement) {
-                  console.log('#root element found!'); // Debugging
-                  console.log('#root innerHTML length:', rootElement.innerHTML.length); // Debugging: Print innerHTML length
+        let foundElement = null;
+        let targetText = '';
 
-                  // Check for target elements within #root
-                  const compReportElement = rootElement.querySelector('.comp-report');
-                  const locationElement = rootElement.querySelector('.tel-info .location');
-
-                 // Check if both elements exist and have some text content
-                 if (compReportElement && locationElement && compReportElement.textContent.trim() !== "" && locationElement.textContent.trim() !== "") {
-                       // Target elements found and content is not empty
-                       if (observer) observer.disconnect(); // Stop observing
-                       console.log('Target elements found and content loaded in current document. Parsing...');
-
-                       try {
-                           // Use the root element as context to extract data
-                           const result = extractDataFromDOM(rootElement, phoneNumber); // Pass the root element
-                           sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId); // Use correct request IDs
-                       } catch (e) {
-                           console.error('Error parsing content in waitForContentAndParse:', e);
-                           sendResultToFlutter('pluginError', { error: `Error parsing content: ${e.message}` }, externalRequestId, phoneRequestId); // Use correct request IDs
-                       }
-                       return; // Stop checking
-                 } else {
-                    // If elements are found but content is empty, print partial outerHTML for debugging
-                     if (rootElement) console.log('#root innerHTML (partial):', rootElement.innerHTML.substring(0, 500) + '...');
-                     if (compReportElement) console.log('.comp-report textContent:', compReportElement ? compReportElement.textContent.trim() : 'null');
-                     if (locationElement) console.log('.location textContent:', locationElement ? locationElement.textContent.trim() : 'null');
-
-                 }
-             } else {
-                 console.log('#root element not found yet in current document.'); // Debugging if #root is not found
-             }
-
-            // Check for timeout
-            if (Date.now() - startTime >= timeout) {
-                if (observer) observer.disconnect(); // Stop observing
-                console.error('Timeout waiting for content in current document.');
-                sendResultToFlutter('pluginError', { error: 'Timeout waiting for content in current document' }, externalRequestId, phoneRequestId); // Use correct request IDs
-            } else {
-                // If not timed out, continue checking using setTimeout
-                 setTimeout(checkAndParse, interval);
+        for (const selector of selectors) {
+            const elements = document.querySelectorAll(selector);
+            for (const element of elements) {
+                const text = element.textContent.trim();
+                if (text && text !== '' && !text.includes('loading') && !text.includes('加载')) {
+                    foundElement = element;
+                    targetText = text;
+                    console.log(`Found content with selector "${selector}": "${text}"`);
+                    break;
+                }
             }
+            if (foundElement) break;
         }
 
-        // Use MutationObserver to listen for changes in the document body
-        // This helps in detecting when #root and its content are added or modified
-        observer = new MutationObserver((mutationsList, observer) => {
-             checkAndParse(); // Perform check after each DOM change
-        });
-
-        // Configure the observer to watch for changes in the subtree of the body
-        const config = { childList: true, subtree: true, characterData: true, attributes: true }; // Also observe characterData for text changes
-        observer.observe(document.body, config);
-
-        console.log('Started waiting for content in current document...');
-
-        // Initial check in case content is already present when handleResponse finishes
-        checkAndParse();
+        if (foundElement && targetText) {
+            // 找到内容，开始解析
+            console.log('Content found, parsing...');
+            setTimeout(() => {
+                const result = parseResponse(document, phoneNumber);
+                sendResultToFlutter('pluginResult', result, externalRequestId);
+                pendingRequests.delete(phoneRequestId);
+            }, 100); // 稍微延迟确保所有内容都加载完成
+            
+        } else if (attempt < maxAttempts - 1) {
+            // 继续等待
+            setTimeout(() => {
+                waitForContentToLoad(phoneNumber, externalRequestId, phoneRequestId, attempt + 1);
+            }, delay);
+            
+        } else {
+            // 超时，尝试解析现有内容或返回错误
+            console.log('Timeout waiting for content, attempting to parse existing DOM...');
+            const result = parseResponse(document, phoneNumber);
+            
+            if (result.sourceLabel || result.count > 0) {
+                sendResultToFlutter('pluginResult', result, externalRequestId);
+            } else {
+                console.log('No meaningful content found after timeout');
+                sendResultToFlutter('pluginError', { 
+                    error: 'Timeout: Unable to load dynamic content' 
+                }, externalRequestId);
+            }
+            pendingRequests.delete(phoneRequestId);
+        }
     }
 
+    // 改进的解析函数
+    function parseResponse(doc, phoneNumber) {
+        return extractDataFromDOM(doc, phoneNumber);
+    }
 
-    // extractDataFromDOM function (extracts data from a given context element)
-    function extractDataFromDOM(contextElement, phoneNumber) {
+    // 改进的数据提取函数
+    function extractDataFromDOM(doc, phoneNumber) {
         const jsonObject = {
             count: 0,
             sourceLabel: "",
+            predefinedLabel: "",
             province: "",
             city: "",
             carrier: "unknown",
             phoneNumber: phoneNumber,
-            predefinedLabel: ""
+            name: ""
         };
 
         try {
-            // Find elements within the context element
-            const reportWrapper = contextElement.querySelector('.comp-report');
-            console.log('Checking for .comp-report element in context:', reportWrapper); // Debugging
-
-            if (reportWrapper) {
-                console.log('.comp-report element found!'); // Debugging
-                console.log('.comp-report element className:', reportWrapper.className); // Debugging
-                console.log('.comp-report element outerHTML (partial):', reportWrapper.outerHTML ? reportWrapper.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
-
-
-                const reportNameElement = reportWrapper.querySelector('.report-name');
-                 console.log('Checking for .report-name element in context:', reportNameElement); // Debugging
-                if (reportNameElement) {
-                    console.log('.report-name element found!'); // Debugging
-                    console.log('.report-name element className:', reportNameElement.className); // Debugging
-                    console.log('.reportNameElement outerHTML (partial):', reportNameElement.outerHTML ? reportNameElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
-
-
-                    // Use textContent directly
-                    jsonObject.sourceLabel = reportNameElement.textContent.trim();
-                     console.log('Extracted sourceLabel:', jsonObject.sourceLabel); // Debugging
-                }
-
-                const reportTypeElement = reportWrapper.querySelector('.report-type');
-                 console.log('Checking for .report-type element in context:', reportTypeElement); // Debugging
-                if (reportTypeElement) {
-                    console.log('.report-type element found!'); // Debugging
-                     console.log('.report-type element className:', reportTypeElement.className); // Debugging
-                    console.log('.reportTypeElement outerHTML (partial):', reportTypeElement.outerHTML ? reportTypeElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
-
-
-                     // Use textContent directly
-                    const reportTypeText = reportTypeElement.textContent.trim();
-                    console.log('Extracted reportTypeText:', reportTypeText); // Debugging
-                    if (reportTypeText === '用户标记') {
-                        jsonObject.count = 1;
-                         console.log('Set count to 1'); // Debugging
+            console.log('Starting DOM extraction...');
+            
+            // 尝试多种方式查找报告包装器
+            let reportWrapper = doc.querySelector('.report-wrapper');
+            if (!reportWrapper) {
+                reportWrapper = doc.querySelector('.comp-report');
+            }
+            if (!reportWrapper) {
+                // 尝试更宽泛的查找
+                const reportElements = doc.querySelectorAll('[class*="report"]');
+                for (const element of reportElements) {
+                    if (element.textContent.trim()) {
+                        reportWrapper = element;
+                        break;
                     }
                 }
             }
-            // Find .tel-info .location within the context element
-            const locationElement = contextElement.querySelector('.tel-info .location');
-            console.log('Checking for .tel-info .location element in context:', locationElement); // Debugging
-            if (locationElement) {
-                console.log('.tel-info .location element found!'); // Debugging
-                console.log('.tel-info .location element className:', locationElement.className); // Debugging
-                console.log('.locationElement outerHTML (partial):', locationElement.outerHTML ? locationElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
+            if (reportWrapper) {
+                console.log('Found report wrapper');
+                
+                // 提取报告名称
+                const reportNameSelectors = ['.report-name', '[class*="report-name"]'];
+                for (const selector of reportNameSelectors) {
+                    const reportNameElement = reportWrapper.querySelector(selector);
+                    if (reportNameElement && reportNameElement.textContent.trim()) {
+                        const sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
+                        jsonObject.sourceLabel = sourceLabel;
+                        
+                        // 映射到预定义标签
+                        jsonObject.predefinedLabel = manualMapping[sourceLabel] || sourceLabel;
+                        console.log(`Found source label: ${sourceLabel} -> ${jsonObject.predefinedLabel}`);
+                        break;
+                    }
+                }
 
-                 // Use textContent directly
-                const locationText = locationElement.textContent.trim();
-                 console.log('Extracted locationText:', locationText); // Debugging
-                const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
-                if (match) {
-                    jsonObject.province = match[1] || '';
-                    jsonObject.city = match[2] || '';
-                     console.log('Extracted province:', jsonObject.province); // Debugging
-                     console.log('Extracted city:', jsonObject.city); // Debugging
+                // 提取报告类型
+                const reportTypeSelectors = ['.report-type', '[class*="report-type"]'];
+                for (const selector of reportTypeSelectors) {
+                    const reportTypeElement = reportWrapper.querySelector(selector);
+                    if (reportTypeElement && reportTypeElement.textContent.trim()) {
+                        const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
+                        console.log(`Found report type: ${reportTypeText}`);
+                        if (reportTypeText === '用户标记' || reportTypeText.includes('标记')) {
+                            jsonObject.count = 1;
+                        }
+                        break;
+                    }
+                }
+            } else {
+                console.log('Report wrapper not found, trying alternative methods...');
+                
+                // 尝试直接搜索关键文本
+                const allElements = doc.querySelectorAll('*');
+                for (const element of allElements) {
+                    const text = element.textContent.trim();
+                    if (text && Object.keys(manualMapping).some(key => text.includes(key))) {
+                        console.log(`Found potential label in element: ${text}`);
+                        for (const [chinese, english] of Object.entries(manualMapping)) {
+                            if (text.includes(chinese)) {
+                                jsonObject.sourceLabel = chinese;
+                                jsonObject.predefinedLabel = english;
+                                jsonObject.count = 1;
+                                break;
+                            }
+                        }
+                        break;
+                    }
                 }
             }
 
-            if (jsonObject.sourceLabel && manualMapping[jsonObject.sourceLabel]) {
-                jsonObject.predefinedLabel = manualMapping[jsonObject.sourceLabel];
-            } else {
-                jsonObject.predefinedLabel = 'Unknown';
+            // 提取位置信息
+            const locationSelectors = ['.location', '[class*="location"]'];
+            for (const selector of locationSelectors) {
+                const locationElement = doc.querySelector(selector);
+                if (locationElement && locationElement.textContent.trim()) {
+                    const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
+                    console.log(`Found location: ${locationText}`);
+                    const match = locationText.match(/([\u4e00-\u9fa5]+)[\s]+([\u4e00-\u9fa5]+)?/);
+                    if (match) {
+                        jsonObject.province = match[1] || '';
+                        jsonObject.city = match[2] || '';
+                    }
+                    break;
+                }
             }
-             console.log('Set predefinedLabel:', jsonObject.predefinedLabel); // Debugging
 
+            console.log('Extraction completed:', jsonObject);
+            
         } catch (error) {
             console.error('Error extracting data:', error);
         }
@@ -333,39 +345,82 @@
         return jsonObject;
     }
 
-    // Removed decodeQuotedPrintable function
-
-
-    function sendResultToFlutter(type, data, externalRequestId, phoneRequestId) {
-        const resultMessage = {
-            type: type,
-            pluginId: pluginId,
-            requestId: phoneRequestId,
-            data: data,
-            externalRequestId: externalRequestId,
-        };
-        console.log('Sending result to Flutter:', resultMessage);
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(resultMessage));
-        } else {
-            console.error("flutter_inappwebview is undefined");
+    // Quoted-Printable 解码函数
+    function decodeQuotedPrintable(str) {
+        if (!str) return str;
+        
+        try {
+            // 处理URL编码的中文字符
+            str = str.replace(/%([0-9A-Fa-f]{2})/g, function(match, p1) {
+                return String.fromCharCode(parseInt(p1, 16));
+            });
+            
+            // 处理Quoted-Printable编码
+            str = str.replace(/=([0-9A-Fa-f]{2})/g, function(match, p1) {
+                return String.fromCharCode(parseInt(p1, 16));
+            });
+            
+            str = str.replace(/=\r?\n/g, '');
+            str = str.replace(/=3D/g, "=");
+            
+            return str;
+        } catch (e) {
+            console.error('Error decoding:', e);
+            return str;
         }
     }
 
+    // 发送结果到Flutter
+    function sendResultToFlutter(type, data, externalRequestId) {
+        const message = {
+            type: type,
+            pluginId: pluginId,
+            requestId: externalRequestId,
+            data: data
+        };
+
+        console.log('Sending result to Flutter:', message);
+
+        if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
+            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(message));
+        } else {
+            console.error('flutter_inappwebview is not available');
+        }
+    }
+
+    // generateOutput 函数
+    async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
+        console.log('generateOutput called with:', phoneNumber, externalRequestId);
+
+        // 清理超时的请求
+        const now = Date.now();
+        for (const [key, value] of pendingRequests.entries()) {
+            if (now - value.timestamp > 30000) { // 30秒超时
+                pendingRequests.delete(key);
+            }
+        }
+
+        // 按优先级查询电话号码
+        if (phoneNumber) {
+            queryPhoneInfo(phoneNumber, externalRequestId);
+        } else if (nationalNumber) {
+            queryPhoneInfo(nationalNumber, externalRequestId);
+        } else if (e164Number) {
+            queryPhoneInfo(e164Number, externalRequestId);
+        }
+    }
+
+    // 初始化插件
     async function initializePlugin() {
-        window.plugin = {};
+        console.log('Initializing plugin...');
+        
+        window.plugin = window.plugin || {};
         const thisPlugin = {
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
-            generateOutput: function(phoneNumber, nationalNumber, e164Number, requestId) {
-                 console.log('generateOutput called (triggering HTTP request in Flutter):', phoneNumber, requestId);
-                 // This function is called by Flutter to initiate the process.
-                 // It triggers the HTTP request in Flutter by calling queryPhoneInfo.
-                 // Flutter's RequestChannel callback will then call handleResponse in JS.
-                 queryPhoneInfo(phoneNumber, requestId);
-            },
-            handleResponse: handleResponse, // Expose handleResponse
+            generateOutput: generateOutput,
+            handleResponse: handleResponse,
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
@@ -385,5 +440,6 @@
         }
     }
 
+    // 立即初始化插件
     initializePlugin();
 })();
