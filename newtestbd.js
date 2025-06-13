@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.190.0',
+            version: '1.20.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -122,16 +122,22 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript) - 直接解析接收到的 HTML 内容
+    // handleResponse 函数 (JavaScript) - 在解析前进行 Quoted-Printable 解码
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
-            const htmlContent = response.responseText; // Get the HTML content
+            const encodedHtmlContent = response.responseText; // Get the encoded HTML content
 
-            // 使用 DOMParser 解析接收到的 HTML 内容
+            // --- 关键修改：对 HTML 内容进行 Quoted-Printable 解码 ---
+            const decodedHtmlContent = decodeQuotedPrintable(encodedHtmlContent);
+            console.log('Decoded HTML content (partial):', decodedHtmlContent.substring(0, 500) + '...'); // Debugging
+            // --- 结束关键修改 ---
+
+
+            // 使用 DOMParser 解析解码后的 HTML 内容
             const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
+            const doc = parser.parseFromString(decodedHtmlContent, 'text/html');
 
             // 在解析后的文档中查找和提取数据
             // 添加一个小的延迟，确保解析后的文档在查找元素时是稳定的
@@ -184,7 +190,7 @@
         return extractDataFromDOM(contextElement, phoneNumber);
     }
 
-    // extractDataFromDOM 函数 (在指定的上下文元素中查找元素) - 移除 Quoted-Printable 解码
+    // extractDataFromDOM 函数 (在指定的上下文元素中查找元素)
     function extractDataFromDOM(contextElement, phoneNumber) {
         const jsonObject = {
             count: 0,
@@ -214,7 +220,7 @@
                     console.log('.report-name element className:', reportNameElement.className); // Debugging
                     console.log('.report-name element outerHTML (partial):', reportNameElement.outerHTML ? reportNameElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
-                    // Directly use textContent as HTML is not Quoted-Printable encoded
+                    // Directly use textContent (assuming it's now correctly decoded HTML)
                     jsonObject.sourceLabel = reportNameElement.textContent.trim();
                      console.log('Extracted sourceLabel:', jsonObject.sourceLabel); // Debugging
                 }
@@ -269,7 +275,20 @@
         return jsonObject;
     }
 
-    // Removed decodeQuotedPrintable function
+    // Quoted-Printable 解码函数 (保留并用于解码整个 HTML 内容)
+    function decodeQuotedPrintable(str) {
+        str = str.replace(/=3D/g, "=");
+        str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
+            try {
+                 return String.fromCharCode(parseInt(p1, 16));
+            } catch (e) {
+                 console.error('Error decoding hex character:', p1, e);
+                 return match; // Return the original match if decoding fails
+            }
+        });
+        str = str.replace(/=\r?\n/g, '');
+        return str;
+    }
 
     async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
          console.log('generateOutput called with:', phoneNumber, requestId);
