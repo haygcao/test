@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.25.0',
+            version: '1.26.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -127,45 +127,41 @@
         }
     }
 
-// handleResponse 函数 (JavaScript) - 加载接收到的 HTML 内容到 WebView
+// handleResponse 函数 (JavaScript) - 使用 document.write 加载接收到的 HTML 内容
 function handleResponse(response) {
     console.log('handleResponse called with:', response);
 
     if (response.status >= 200 && response.status < 300) {
         const htmlContent = response.responseText; // Get the HTML content
 
-        // Create a Data URL from the received HTML content
-        // Specify charset=utf-8 to ensure correct decoding
-        const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
+        // Store phone number and request IDs in global variables
+        window._currentParsingPhoneNumber = response.phoneNumber; // Assuming phoneNumber is in the response object
+        window._currentParsingRequestId = response.externalRequestId;
+        window._currentParsingPhoneRequestId = response.phoneRequestId;
 
-        // Load the Data URL in the current WebView
-        // This should trigger WebView's native HTML parsing and script execution
-        window.location.href = dataUrl;
+        // Use document.open() and document.write() to load the HTML content
+        // This attempts to simulate a page load and might trigger script execution
+        document.open();
+        document.write(htmlContent);
+        document.close();
 
-        // After loading the Data URL, onLoad will be triggered (or DOMContentLoaded)
+        // After document.write and document.close, the DOMContentLoaded event
+        // should be triggered, and scripts in the HTML should execute.
         // We need to wait for the page content to be ready before parsing.
         // Use a mechanism (like MutationObserver or checking for specific elements)
         // to determine when the DOM is ready and content is loaded.
 
-        // We also need to somehow pass the phone number and request IDs to the parsing function
-        // that will run after the Data URL is loaded.
-        // We can store them in global variables before changing window.location.href
-
-        window._currentParsingPhoneNumber = response.phoneNumber;
-        window._currentParsingRequestId = response.externalRequestId; // Use externalRequestId for simplicity
-        window._currentParsingPhoneRequestId = response.phoneRequestId; // Store phoneRequestId as well
-
-
-        // The parsing logic will be in a separate function that will be called after load
-        // We don't call parseResponse directly here anymore.
+        // The parsing logic will be in parseLoadedPage, which will be called
+        // by a mechanism that detects when the page content is ready.
+        // We don't call parseLoadedPage directly here after document.close.
 
     } else {
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId, response.phoneRequestId);
     }
 }
 
-// 新增：在页面加载完成后解析当前文档的函数
-// This function will be called after the Data URL is loaded in the WebView
+// 新增：在页面内容加载完成后解析当前文档的函数
+// This function will be called by a mechanism that detects when the page is ready
 function parseLoadedPage() {
     console.log('parseLoadedPage called');
 
@@ -211,7 +207,7 @@ function waitForContentAndParse(phoneNumber, requestId, phoneRequestId) {
              // Check if both elements exist and have some text content
              if (compReportElement && locationElement && compReportElement.textContent.trim() !== "" && locationElement.textContent.trim() !== "") {
                    // 目标元素出现且内容不为空
-                   if (observer) observer.disconnect(); // 停止观察
+                   if (observer) observer.disconnect(); // Stop observing
                    console.log('Target elements found and content loaded in current document. Parsing...');
 
                    try {
@@ -359,9 +355,11 @@ function waitForContentAndParse(phoneNumber, requestId, phoneRequestId) {
             generateOutput: function(phoneNumber, nationalNumber, e164Number, requestId) {
                  console.log('generateOutput called (triggering page load):', phoneNumber, requestId);
                  // This function is called by Flutter to initiate the process.
-                 // Flutter will use this to get the phone number and requestId,
-                 // then perform the HTTP request and call handleResponse.
-                 // We don't need to do anything else here.
+                 // It should trigger the page load in Flutter.
+                 // Flutter's onLoadStop will then call parseLoadedPage in JS.
+                 // We need a mechanism to pass the phone number and requestId to onLoadStop.
+                 // Let's rely on Flutter to store these and pass them in the evaluateJavascript call in onLoadStop.
+                 // So, this function doesn't need to do anything else here.
             },
             handleResponse: handleResponse, // Expose handleResponse
             parseLoadedPage: parseLoadedPage, // Expose the parsing function to be called after load
