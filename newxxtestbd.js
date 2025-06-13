@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.10.0',
+            version: '1.12.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -86,9 +86,6 @@
         '推销': 'Telemarketing',
     };
 
-    // Retain generateOutput, queryPhoneInfo, sendRequest, sendResultToFlutter
-    // as in your original code.
-
     function queryPhoneInfo(phoneNumber, externalRequestId) {
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
@@ -125,7 +122,7 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript) - 专注于解析接收到的 HTML 内容
+    // handleResponse 函数 (JavaScript) - 真正验证元素查找
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
@@ -142,14 +139,30 @@
                  try {
                     // 在解析后的文档中查找 root 元素
                     const rootElement = doc.querySelector('#root');
-                    console.log('Found #root element in parsed document:', rootElement); // Debugging
+                    console.log('Checking for #root element in parsed document...'); // Debugging
 
                     if (rootElement) {
+                       console.log('#root element found!'); // Debugging
+                       console.log('#root element ID:', rootElement.id); // Debugging: Print ID
+                       console.log('#root element className:', rootElement.className); // Debugging: Print className
+                       console.log('#root element outerHTML (partial):', rootElement.outerHTML.substring(0, 500) + '...'); // Debugging: Print partial outerHTML
+
+                       // --- 打印 #root 内部结构的一部分 ---
+                       const rootInnerHtml = rootElement.innerHTML;
+                       const printLimit = 1000; // 打印前 1000 个字符
+                       if (rootInnerHtml.length > printLimit) {
+                           console.log('Partial #root innerHTML:', rootInnerHtml.substring(0, printLimit) + '...');
+                       } else {
+                           console.log('Full #root innerHTML:', rootInnerHtml);
+                       }
+                       // --- 结束打印 ---
+
+
                        // 在 root 元素内部查找和解析数据
                        const result = parseResponse(rootElement, response.phoneNumber); // 传入 root 元素
                        sendResultToFlutter('pluginResult', result, response.externalRequestId, response.phoneRequestId);
                     } else {
-                       console.error('Could not find #root element in parsed document.');
+                       console.error('#root element not found in parsed document.');
                         sendResultToFlutter('pluginError', { error: '#root element not found in parsed document' }, response.externalRequestId, response.phoneRequestId);
                     }
 
@@ -171,7 +184,7 @@
         return extractDataFromDOM(contextElement, phoneNumber);
     }
 
-    // extractDataFromDOM 函数 (在指定的上下文元素中查找元素)
+    // extractDataFromDOM 函数 (在指定的上下文元素中查找元素) - 改进查找和解码
     function extractDataFromDOM(contextElement, phoneNumber) {
         const jsonObject = {
             count: 0,
@@ -186,21 +199,40 @@
         try {
             // 在 contextElement (即 #root) 内部查找元素
             const reportWrapper = contextElement.querySelector('.comp-report');
-            console.log('Found .comp-report element in context:', reportWrapper); // Debugging
+            console.log('Checking for .comp-report element in context:', reportWrapper); // Debugging
 
             if (reportWrapper) {
+                console.log('.comp-report element found!'); // Debugging
+                console.log('.comp-report element className:', reportWrapper.className); // Debugging
+                console.log('.comp-report element outerHTML (partial):', reportWrapper.outerHTML.substring(0, 500) + '...'); // Debugging
+
+
                 const reportNameElement = reportWrapper.querySelector('.report-name');
-                 console.log('Found .report-name element in context:', reportNameElement); // Debugging
+                 console.log('Checking for .report-name element in context:', reportNameElement); // Debugging
                 if (reportNameElement) {
-                    jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
-                     console.log('Extracted sourceLabel:', jsonObject.sourceLabel); // Debugging
+                    console.log('.report-name element found!'); // Debugging
+                    console.log('.report-name element className:', reportNameElement.className); // Debugging
+                    console.log('.report-name element outerHTML (partial):', reportNameElement.outerHTML.substring(0, 500) + '...'); // Debugging
+
+                    // Ensure decoding is applied to textContent
+                    const sourceLabelEncoded = reportNameElement.textContent.trim();
+                    jsonObject.sourceLabel = decodeQuotedPrintable(sourceLabelEncoded);
+                     console.log('Extracted sourceLabel (encoded):', sourceLabelEncoded); // Debugging
+                     console.log('Extracted sourceLabel (decoded):', jsonObject.sourceLabel); // Debugging
                 }
 
                 const reportTypeElement = reportWrapper.querySelector('.report-type');
-                 console.log('Found .report-type element in context:', reportTypeElement); // Debugging
+                 console.log('Checking for .report-type element in context:', reportTypeElement); // Debugging
                 if (reportTypeElement) {
-                    const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
-                    console.log('Extracted reportTypeText:', reportTypeText); // Debugging
+                    console.log('.report-type element found!'); // Debugging
+                     console.log('.report-type element className:', reportTypeElement.className); // Debugging
+                    console.log('.report-type element outerHTML (partial):', reportTypeElement.outerHTML.substring(0, 500) + '...'); // Debugging
+
+                     // Ensure decoding is applied to textContent
+                    const reportTypeTextEncoded = reportTypeElement.textContent.trim();
+                    const reportTypeText = decodeQuotedPrintable(reportTypeTextEncoded);
+                    console.log('Extracted reportTypeText (encoded):', reportTypeTextEncoded); // Debugging
+                    console.log('Extracted reportTypeText (decoded):', reportTypeText); // Debugging
                     if (reportTypeText === '用户标记') {
                         jsonObject.count = 1;
                          console.log('Set count to 1'); // Debugging
@@ -209,10 +241,17 @@
             }
             // 在 contextElement (即 #root) 内部查找 .tel-info .location
             const locationElement = contextElement.querySelector('.tel-info .location');
-            console.log('Found .tel-info .location element in context:', locationElement); // Debugging
+            console.log('Checking for .tel-info .location element in context:', locationElement); // Debugging
             if (locationElement) {
-                const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
-                 console.log('Extracted locationText:', locationText); // Debugging
+                console.log('.tel-info .location element found!'); // Debugging
+                console.log('.tel-info .location element className:', locationElement.className); // Debugging
+                console.log('.tel-info .location element outerHTML (partial):', locationElement.outerHTML.substring(0, 500) + '...'); // Debugging
+
+                 // Ensure decoding is applied to textContent
+                const locationTextEncoded = locationElement.textContent.trim();
+                const locationText = decodeQuotedPrintable(locationTextEncoded);
+                 console.log('Extracted locationText (encoded):', locationTextEncoded); // Debugging
+                 console.log('Extracted locationText (decoded):', locationText); // Debugging
                 const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
                 if (match) {
                     jsonObject.province = match[1] || '';
@@ -245,16 +284,8 @@
         return str;
     }
 
-    // Retain generateOutput as in your original code
     async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
          console.log('generateOutput called with:', phoneNumber, requestId);
-         // This function is called by Flutter to initiate the process.
-         // It should trigger the HTTP request in Flutter.
-         // Flutter's RequestChannel callback will then call handleResponse in JS.
-         // So, no parsing logic is needed here.
-         // We might keep this function as a trigger for Flutter's HTTP request.
-         // Let's assume Flutter calls this and this function doesn't need to do anything else in this flow.
-         // You would typically call queryPhoneInfo here to trigger the Flutter HTTP request.
          queryPhoneInfo(phoneNumber, requestId);
     }
 
@@ -281,8 +312,8 @@
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
-            generateOutput: generateOutput, // Ensure generateOutput is included
-            handleResponse: handleResponse, // Expose handleResponse
+            generateOutput: generateOutput,
+            handleResponse: handleResponse,
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
