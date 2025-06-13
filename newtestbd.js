@@ -126,61 +126,120 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript)
-    function handleResponse(response) {
-        console.log('handleResponse called with:', response);
+// handleResponse 函数 (JavaScript)
+function handleResponse(response) {
+    console.log('handleResponse called with:', response);
 
-        if (response.status >= 200 && response.status < 300) {
-            // 清空当前的 body 内容
-            document.body.innerHTML = '';
+    if (response.status >= 200 && response.status < 300) {
+        // 清空当前的 body 内容
+        document.body.innerHTML = '';
 
-            // 使用 DOMParser 解析响应文本
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(response.responseText, 'text/html');
+        // 使用 DOMParser 解析响应文本
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(response.responseText, 'text/html');
 
-            // 将解析后的 body 内容添加到当前的 document.body 中
-            // 这会触发 MutationObserver
-            while (doc.body.firstChild) {
-                document.body.appendChild(doc.body.firstChild);
+        // 将解析后的 body 内容添加到当前的 document.body 中
+        // 这会触发 MutationObserver
+        while (doc.body.firstChild) {
+            document.body.appendChild(doc.body.firstChild);
+        }
+
+        // --- 新增：执行 body 中的 script 标签 ---
+        const scripts = doc.body.querySelectorAll('script');
+        scripts.forEach(script => {
+            if (script.src) {
+                // 如果是外部脚本，创建新的 script 标签并添加到 body
+                const newScript = document.createElement('script');
+                newScript.src = script.src;
+                // 可以选择监听 load 事件来确保脚本加载完成
+                newScript.onload = () => {
+                    console.log(`Script loaded: ${newScript.src}`);
+                    // 在脚本加载完成后再次尝试查找目标元素
+                    checkAndParseContent(response); // 传递 response 对象以便获取 requestId 等信息
+                };
+                newScript.onerror = () => {
+                     console.error(`Error loading script: ${newScript.src}`);
+                     // 处理脚本加载错误
+                     sendResultToFlutter('pluginError', { error: `Failed to load script: ${newScript.src}` }, response.externalRequestId, response.phoneRequestId);
+                };
+                document.body.appendChild(newScript);
+            } else {
+                // 如果是内联脚本，直接执行其内容
+                try {
+                    // 使用 Function 构造函数执行脚本内容，以确保在全局作用域执行
+                    (new Function(script.textContent))();
+                    console.log('Inline script executed.');
+                    // 在内联脚本执行后尝试查找目标元素
+                    checkAndParseContent(response); // 传递 response 对象
+                } catch (e) {
+                    console.error('Error executing inline script:', e);
+                    // 处理内联脚本执行错误
+                    sendResultToFlutter('pluginError', { error: `Error executing inline script: ${e.message}` }, response.externalRequestId, response.phoneRequestId);
+                }
             }
+        });
+        // --- 结束新增 ---
 
-            // 使用 MutationObserver 等待 Shadow DOM 宿主元素出现
-            const observer = new MutationObserver((mutationsList, observer) => {
-                // 1. 找到 Shadow DOM 的宿主元素 (根据你的图片，是 <div id="__hcfy__">)
-                const shadowHost = document.querySelector('#__hcfy__');
 
-                if (shadowHost) {
-                    // 2. 穿透 Shadow DOM，获取 shadowRoot
-                    if (shadowHost.shadowRoot) {
-                        // 3. 在 shadowRoot 内部查找目标元素 (例如 .report-wrapper)
-                        const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper'); // 替换为你的目标元素
+        // 使用 MutationObserver 等待 Shadow DOM 宿主元素出现
+        // 将 MutationObserver 放在这里，因为它需要观察的是执行脚本后 body 的变化
+        const observer = new MutationObserver((mutationsList, observer) => {
+            // 1. 找到 Shadow DOM 的宿主元素 (根据你的图片，是 <div id="__hcfy__">)
+            const shadowHost = document.querySelector('#__hcfy__');
 
-                        if (targetElement && targetElement.textContent.trim() !== "") {
-                            // 目标元素出现且内容不为空，说明内容已加载
-                            observer.disconnect(); // 停止观察
-                            console.log('Target element found in Shadow DOM. Parsing response...');
-                            let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber); // 传入 shadowRoot 和电话号码
-                            // 将解析结果发送回 Flutter
-                            sendResultToFlutter('pluginResult', result, response.externalRequestId, response.phoneRequestId);
-                            return;
-                        }
+            if (shadowHost) {
+                // 2. 穿透 Shadow DOM，获取 shadowRoot
+                if (shadowHost.shadowRoot) {
+                    // 3. 在 shadowRoot 内部查找目标元素 (例如 .report-wrapper)
+                    const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper'); // 替换为你的目标元素
+
+                    if (targetElement && targetElement.textContent.trim() !== "") {
+                        // 目标元素出现且内容不为空，说明内容已加载
+                        observer.disconnect(); // 停止观察
+                        console.log('Target element found in Shadow DOM after scripts execution. Parsing response...');
+                        let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber); // 传入 shadowRoot 和电话号码
+                        // 将解析结果发送回 Flutter
+                        sendResultToFlutter('pluginResult', result, response.externalRequestId, response.phoneRequestId);
+                        return;
                     }
                 }
+            }
 
-                // 你可以添加一个超时机制，避免无限等待
-                // 例如，设置一个定时器在一定时间后停止观察并报告错误
-                // ...
-            });
+            // 你可以添加一个超时机制，避免无限等待
+            // 例如，设置一个定时器在一定时间后停止观察并报告错误
+            // ...
+        });
 
-            // 配置观察器，观察子节点、子树、文本内容和属性的变化
-            const config = { childList: true, subtree: true, characterData: true, attributes: true };
-            observer.observe(document.body, config);
+        // 配置观察器，观察子节点、子树、文本内容和属性的变化
+        const config = { childList: true, subtree: true, characterData: true, attributes: true };
+        observer.observe(document.body, config);
 
-        } else {
-            // 处理非成功状态码
-            sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId, response.phoneRequestId);
-        }
+    } else {
+        // 处理非成功状态码
+        sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId, response.phoneRequestId);
     }
+}
+
+// 新增：一个函数用于在脚本加载/执行后检查并解析内容
+function checkAndParseContent(response) {
+     // 1. 找到 Shadow DOM 的宿主元素
+     const shadowHost = document.querySelector('#__hcfy__');
+
+     if (shadowHost && shadowHost.shadowRoot) {
+         // 2. 在 shadowRoot 内部查找目标元素
+         const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper'); // 替换为你的目标元素
+
+         if (targetElement && targetElement.textContent.trim() !== "") {
+             // 目标元素出现且内容不为空，说明内容已加载
+             console.log('Target element found in Shadow DOM after scripts execution (checkAndParseContent). Parsing response...');
+             let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber); // 传入 shadowRoot 和电话号码
+             // 将解析结果发送回 Flutter
+             sendResultToFlutter('pluginResult', result, response.externalRequestId, response.phoneRequestId);
+             return true; // 表示成功解析
+         }
+     }
+     return false; // 表示未找到目标元素
+}
 
     // parseResponse 函数 (修改：接收 shadowRoot)
     function parseResponse(shadowRoot, phoneNumber) {
