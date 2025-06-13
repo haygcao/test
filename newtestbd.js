@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.20.0',
+            version: '1.21.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -86,112 +86,91 @@
         '推销': 'Telemarketing',
     };
 
-    function queryPhoneInfo(phoneNumber, externalRequestId) {
-        const phoneRequestId = Math.random().toString(36).substring(2);
-        console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
+    // Removed generateOutput, queryPhoneInfo, sendRequest, handleResponse
+    // The parsing logic will now be in a new function called by Flutter onLoadStop
 
-        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
-        const method = 'GET';
-        const headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-            'Referer': 'https://www.baidu.com/',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-            'Connection': 'keep-alive',
-        };
-        const body = null;
+    // 新增：在页面加载完成后解析当前文档的函数
+    function parseLoadedPage(phoneNumber, requestId) {
+        console.log('parseLoadedPage called with:', phoneNumber, requestId);
 
-        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
+        // Wait for the DOM to be ready and content to be loaded in the *current* document
+        waitForContentAndParse(phoneNumber, requestId);
     }
 
-    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
-        const requestData = {
-            url: url,
-            method: method,
-            headers: headers,
-            body: body,
-            externalRequestId: externalRequestId,
-            phoneRequestId: phoneRequestId,
-            pluginId: pluginId,
-        };
 
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
-        } else {
-            console.error("flutter_inappwebview is undefined");
-        }
-    }
+    // 新增：等待内容加载并解析的函数
+    function waitForContentAndParse(phoneNumber, requestId) {
+        const timeout = 20000; // 增加超时时间
+        const interval = 500; // 检查间隔
+        const startTime = Date.now();
+        let observer = null; // 存储 MutationObserver 实例
 
-    // handleResponse 函数 (JavaScript) - 在解析前进行 Quoted-Printable 解码
-    function handleResponse(response) {
-        console.log('handleResponse called with:', response);
+        function checkAndParse() {
+             // 在当前文档中查找 root 元素
+             const rootElement = document.querySelector('#root');
+             console.log('Checking for #root element in current document...');
 
-        if (response.status >= 200 && response.status < 300) {
-            const encodedHtmlContent = response.responseText; // Get the encoded HTML content
+             if (rootElement) {
+                  // 找到 #root 元素后，检查其内部内容是否加载
+                  const compReportElement = rootElement.querySelector('.comp-report');
+                  const locationElement = rootElement.querySelector('.tel-info .location');
 
-            // --- 关键修改：对 HTML 内容进行 Quoted-Printable 解码 ---
-            const decodedHtmlContent = decodeQuotedPrintable(encodedHtmlContent);
-            console.log('Decoded HTML content (partial):', decodedHtmlContent.substring(0, 500) + '...'); // Debugging
-            // --- 结束关键修改 ---
+                 // Check if both elements exist and have some text content
+                 if (compReportElement && locationElement && compReportElement.textContent.trim() !== "" && locationElement.textContent.trim() !== "") {
+                       // 目标元素出现且内容不为空
+                       if (observer) observer.disconnect(); // 停止观察
+                       console.log('Target elements found and content loaded in current document. Parsing...');
 
-
-            // 使用 DOMParser 解析解码后的 HTML 内容
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(decodedHtmlContent, 'text/html');
-
-            // 在解析后的文档中查找和提取数据
-            // 添加一个小的延迟，确保解析后的文档在查找元素时是稳定的
-            setTimeout(() => {
-                 try {
-                    // 在解析后的文档中查找 root 元素
-                    const rootElement = doc.querySelector('#root');
-                    console.log('Checking for #root element in parsed document...'); // Debugging
-
-                    if (rootElement) {
-                       console.log('#root element found!'); // Debugging
-                       console.log('#root element ID:', rootElement.id); // Debugging: Print ID
-                       console.log('#root element className:', rootElement.className); // Debugging: Print className
-                       console.log('#root element outerHTML (partial):', rootElement.outerHTML ? rootElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging: Print partial outerHTML
-
-                       // --- 打印 #root 内部结构的一部分 ---
-                       const rootInnerHtml = rootElement.innerHTML;
-                       const printLimit = 1000; // 打印前 1000 个字符
-                       if (rootInnerHtml.length > printLimit) {
-                           console.log('Partial #root innerHTML:', rootInnerHtml.substring(0, printLimit) + '...');
-                       } else {
-                           console.log('Full #root innerHTML:', rootInnerHtml);
+                       try {
+                           // Use the current document to extract data
+                           const result = extractDataFromDOM(document, phoneNumber); // Pass the entire document
+                           sendResultToFlutter('pluginResult', result, requestId, requestId);
+                       } catch (e) {
+                           console.error('Error parsing content in waitForContentAndParse:', e);
+                           sendResultToFlutter('pluginError', { error: `Error parsing content: ${e.message}` }, requestId, requestId);
                        }
-                       // --- 结束打印 ---
+                       return; // Stop checking
+                 } else {
+                    // If elements are found but content is empty, print partial outerHTML for debugging
+                     if (rootElement) console.log('#root innerHTML (partial):', rootElement.innerHTML.substring(0, 500) + '...');
+                     if (compReportElement) console.log('.comp-report textContent:', compReportElement.textContent.trim());
+                     if (locationElement) console.log('.location textContent:', locationElement.textContent.trim());
 
-
-                       // 在 root 元素内部查找和解析数据
-                       const result = parseResponse(rootElement, response.phoneNumber); // 传入 root 元素
-                       sendResultToFlutter('pluginResult', result, response.externalRequestId, response.phoneRequestId);
-                    } else {
-                       console.error('#root element not found in parsed document.');
-                        sendResultToFlutter('pluginError', { error: '#root element not found in parsed document' }, response.externalRequestId, response.phoneRequestId);
-                    }
-
-                 } catch (e) {
-                     console.error('Error parsing HTML content in handleResponse:', e);
-                     sendResultToFlutter('pluginError', { error: `Error parsing HTML content: ${e.message}` }, response.externalRequestId, response.phoneRequestId);
                  }
-            }, 50); // 延迟 50 毫秒
+             } else {
+                 console.log('#root element not found yet in current document.'); // Debugging if #root is not found
+             }
 
-        } else {
-            // 处理非成功状态码
-            sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId, response.phoneRequestId);
+            // Check for timeout
+            if (Date.now() - startTime >= timeout) {
+                if (observer) observer.disconnect(); // Stop observing
+                console.error('Timeout waiting for content in current document.');
+                sendResultToFlutter('pluginError', { error: 'Timeout waiting for content in current document' }, requestId, requestId);
+            } else {
+                // If not timed out, continue checking using setTimeout
+                 setTimeout(checkAndParse, interval);
+            }
         }
+
+        // Use MutationObserver to listen for changes in the document body
+        // This helps in detecting when #root and its content are added or modified
+        observer = new MutationObserver((mutationsList, observer) => {
+             checkAndParse(); // Perform check after each DOM change
+        });
+
+        // Configure the observer to watch for changes in the subtree of the body
+        const config = { childList: true, subtree: true, characterData: true }; // Also observe characterData for text changes
+        observer.observe(document.body, config);
+
+        console.log('Started waiting for content in current document...');
+
+        // Initial check in case content is already present when parseLoadedPage is called
+        checkAndParse();
     }
 
 
-    // parseResponse 函数 (接收要解析的元素作为上下文)
-    function parseResponse(contextElement, phoneNumber) {
-        return extractDataFromDOM(contextElement, phoneNumber);
-    }
-
-    // extractDataFromDOM 函数 (在指定的上下文元素中查找元素)
-    function extractDataFromDOM(contextElement, phoneNumber) {
+    // extractDataFromDOM function (extracts data from the entire document)
+    function extractDataFromDOM(document, phoneNumber) {
         const jsonObject = {
             count: 0,
             sourceLabel: "",
@@ -203,9 +182,9 @@
         };
 
         try {
-            // 在 contextElement (即 #root) 内部查找元素
-            const reportWrapper = contextElement.querySelector('.comp-report');
-            console.log('Checking for .comp-report element in context:', reportWrapper); // Debugging
+            // Find elements in the entire document
+            const reportWrapper = document.querySelector('.comp-report');
+            console.log('Checking for .comp-report element in document:', reportWrapper); // Debugging
 
             if (reportWrapper) {
                 console.log('.comp-report element found!'); // Debugging
@@ -214,25 +193,25 @@
 
 
                 const reportNameElement = reportWrapper.querySelector('.report-name');
-                 console.log('Checking for .report-name element in context:', reportNameElement); // Debugging
+                 console.log('Checking for .report-name element in document:', reportNameElement); // Debugging
                 if (reportNameElement) {
                     console.log('.report-name element found!'); // Debugging
                     console.log('.report-name element className:', reportNameElement.className); // Debugging
                     console.log('.report-name element outerHTML (partial):', reportNameElement.outerHTML ? reportNameElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
-                    // Directly use textContent (assuming it's now correctly decoded HTML)
+                    // Use textContent directly
                     jsonObject.sourceLabel = reportNameElement.textContent.trim();
                      console.log('Extracted sourceLabel:', jsonObject.sourceLabel); // Debugging
                 }
 
                 const reportTypeElement = reportWrapper.querySelector('.report-type');
-                 console.log('Checking for .report-type element in context:', reportTypeElement); // Debugging
+                 console.log('Checking for .report-type element in document:', reportTypeElement); // Debugging
                 if (reportTypeElement) {
                     console.log('.report-type element found!'); // Debugging
                      console.log('.report-type element className:', reportTypeElement.className); // Debugging
                     console.log('.report-type element outerHTML (partial):', reportTypeElement.outerHTML ? reportTypeElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
-                     // Directly use textContent
+                     // Use textContent directly
                     const reportTypeText = reportTypeElement.textContent.trim();
                     console.log('Extracted reportTypeText:', reportTypeText); // Debugging
                     if (reportTypeText === '用户标记') {
@@ -241,15 +220,15 @@
                     }
                 }
             }
-            // 在 contextElement (即 #root) 内部查找 .tel-info .location
-            const locationElement = contextElement.querySelector('.tel-info .location');
-            console.log('Checking for .tel-info .location element in context:', locationElement); // Debugging
+            // Find .tel-info .location in the document
+            const locationElement = document.querySelector('.tel-info .location');
+            console.log('Checking for .tel-info .location element in document:', locationElement); // Debugging
             if (locationElement) {
                 console.log('.tel-info .location element found!'); // Debugging
                 console.log('.tel-info .location element className:', locationElement.className); // Debugging
                 console.log('.tel-info .location element outerHTML (partial):', locationElement.outerHTML ? locationElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
-                 // Directly use textContent
+                 // Use textContent directly
                 const locationText = locationElement.textContent.trim();
                  console.log('Extracted locationText:', locationText); // Debugging
                 const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
@@ -275,26 +254,6 @@
         return jsonObject;
     }
 
-    // Quoted-Printable 解码函数 (保留并用于解码整个 HTML 内容)
-    function decodeQuotedPrintable(str) {
-        str = str.replace(/=3D/g, "=");
-        str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
-            try {
-                 return String.fromCharCode(parseInt(p1, 16));
-            } catch (e) {
-                 console.error('Error decoding hex character:', p1, e);
-                 return match; // Return the original match if decoding fails
-            }
-        });
-        str = str.replace(/=\r?\n/g, '');
-        return str;
-    }
-
-    async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
-         console.log('generateOutput called with:', phoneNumber, requestId);
-         queryPhoneInfo(phoneNumber, requestId);
-    }
-
 
     function sendResultToFlutter(type, data, externalRequestId, phoneRequestId) {
         const resultMessage = {
@@ -318,8 +277,16 @@
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
-            generateOutput: generateOutput,
-            handleResponse: handleResponse,
+            generateOutput: function(phoneNumber, nationalNumber, e164Number, requestId) {
+                 console.log('generateOutput called (triggering page load):', phoneNumber, requestId);
+                 // This function is called by Flutter to initiate the process.
+                 // It should trigger the page load in Flutter.
+                 // Flutter's onLoadStop will then call parseLoadedPage in JS.
+                 // We need a mechanism to pass the phone number and requestId to onLoadStop.
+                 // Let's rely on Flutter to store these and pass them in the evaluateJavascript call in onLoadStop.
+                 // So, this function doesn't need to do anything else here.
+            },
+            parseLoadedPage: parseLoadedPage, // Expose the parsing function
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
