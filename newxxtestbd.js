@@ -145,11 +145,11 @@
                        console.log('#root element found!'); // Debugging
                        console.log('#root element ID:', rootElement.id); // Debugging: Print ID
                        console.log('#root element className:', rootElement.className); // Debugging: Print className
-                       console.log('#root element outerHTML (partial):', rootElement.outerHTML.substring(0, 500) + '...'); // Debugging: Print partial outerHTML
+                       console.log('#root element outerHTML (partial):', rootElement.outerHTML.substring(0, 500000) + '...'); // Debugging: Print partial outerHTML
 
                        // --- 打印 #root 内部结构的一部分 ---
                        const rootInnerHtml = rootElement.innerHTML;
-                       const printLimit = 1000; // 打印前 1000 个字符
+                       const printLimit = 1000000; // 打印前 1000 个字符
                        if (rootInnerHtml.length > printLimit) {
                            console.log('Partial #root innerHTML:', rootInnerHtml.substring(0, printLimit) + '...');
                        } else {
