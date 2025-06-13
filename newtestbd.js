@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.51.0',
+            version: '1.52.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -122,59 +122,67 @@
         }
     }
 
-    // 修改的 handleResponse 函数 - 完整加载HTML
+    // 修改的 handleResponse 函数 - 正确处理完整HTML
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
-            // 创建一个新的iframe来完整加载HTML
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            document.body.appendChild(iframe);
+            // 直接替换整个document内容，包括head和body
+            document.open();
+            document.write(response.responseText);
+            document.close();
 
-            // 等待iframe加载完成
-            iframe.onload = function() {
-                try {
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    
-                    // 等待页面JavaScript执行完成
-                    setTimeout(() => {
-                        let result = parseResponseFromIframe(iframeDoc, response.phoneNumber);
+            // 使用 MutationObserver 等待页面内容加载完成
+            const observer = new MutationObserver((mutationsList, observer) => {
+                // 检查是否有Shadow DOM宿主元素
+                const shadowHost = document.querySelector('#__hcfy__');
+                
+                if (shadowHost) {
+                    // 检查Shadow DOM是否已加载
+                    if (shadowHost.shadowRoot) {
+                        const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper');
                         
-                        // 清理iframe
-                        document.body.removeChild(iframe);
-                        
-                        // 发送结果
+                        if (targetElement && targetElement.textContent.trim() !== "") {
+                            observer.disconnect();
+                            let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber);
+                            sendResultToFlutter('pluginResult', result, response.externalRequestId);
+                            return;
+                        }
+                    }
+                } else {
+                    // 检查普通DOM元素
+                    const reportWrapper = document.querySelector('.report-wrapper');
+                    if (reportWrapper && reportWrapper.textContent.trim() !== "") {
+                        observer.disconnect();
+                        let result = parseResponse(document, response.phoneNumber);
                         sendResultToFlutter('pluginResult', result, response.externalRequestId);
-                    }, 3000); // 等待3秒让JS执行完成
-                    
-                } catch (error) {
-                    console.error('Error accessing iframe content:', error);
-                    document.body.removeChild(iframe);
-                    sendResultToFlutter('pluginError', { error: error.message }, response.externalRequestId);
+                        return;
+                    }
                 }
-            };
+            });
 
-            // 设置完整的HTML内容到iframe
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframeDoc.open();
-            iframeDoc.write(response.responseText);
-            iframeDoc.close();
+            const config = { childList: true, subtree: true, characterData: true, attributes: true };
+            observer.observe(document.body, config);
+
+            // 设置超时，防止无限等待
+            setTimeout(() => {
+                observer.disconnect();
+                let result = parseResponse(document, response.phoneNumber);
+                sendResultToFlutter('pluginResult', result, response.externalRequestId);
+            }, 10000); // 10秒超时
 
         } else {
             sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
         }
     }
 
-    // 新的解析函数 - 从iframe中解析
-    function parseResponseFromIframe(iframeDoc, phoneNumber) {
-        return extractDataFromIframeDOM(iframeDoc, phoneNumber);
+    // parseResponse 函数 - 支持Shadow DOM和普通DOM
+    function parseResponse(documentOrShadowRoot, phoneNumber) {
+        return extractDataFromDOM(documentOrShadowRoot, phoneNumber);
     }
 
-    // 修改的数据提取函数 - 从iframe文档中提取
-    function extractDataFromIframeDOM(iframeDoc, phoneNumber) {
+    // extractDataFromDOM 函数 - 统一的数据提取逻辑
+    function extractDataFromDOM(documentOrShadowRoot, phoneNumber) {
         const jsonObject = {
             count: 0,
             sourceLabel: "",
@@ -185,16 +193,8 @@
         };
 
         try {
-            // 首先尝试从普通DOM中查找
-            let reportWrapper = iframeDoc.querySelector('.report-wrapper');
-            
-            // 如果普通DOM中找不到，尝试查找Shadow DOM
-            if (!reportWrapper) {
-                const shadowHost = iframeDoc.querySelector('#__hcfy__');
-                if (shadowHost && shadowHost.shadowRoot) {
-                    reportWrapper = shadowHost.shadowRoot.querySelector('.report-wrapper');
-                }
-            }
+            // 查找报告包装器
+            const reportWrapper = documentOrShadowRoot.querySelector('.report-wrapper');
 
             if (reportWrapper) {
                 const reportNameElement = reportWrapper.querySelector('.report-name');
@@ -211,15 +211,8 @@
                 }
             }
 
-            // 查找位置信息
-            let locationElement = iframeDoc.querySelector('.location');
-            if (!locationElement) {
-                const shadowHost = iframeDoc.querySelector('#__hcfy__');
-                if (shadowHost && shadowHost.shadowRoot) {
-                    locationElement = shadowHost.shadowRoot.querySelector('.location');
-                }
-            }
-
+            // 查找位置元素
+            const locationElement = documentOrShadowRoot.querySelector('.location');
             if (locationElement) {
                 const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
                 const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
@@ -237,7 +230,7 @@
             }
 
         } catch (error) {
-            console.error('Error extracting data from iframe:', error);
+            console.error('Error extracting data:', error);
         }
 
         console.log('Extracted data:', jsonObject);
