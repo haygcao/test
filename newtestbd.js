@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.2.0',
+            version: '1.10.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
