@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.12.0',
+            version: '1.13.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -122,16 +122,22 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript) - 真正验证元素查找
+    // handleResponse 函数 (JavaScript) - 增加 Quoted-Printable 解码
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
-            const htmlContent = response.responseText; // Get the HTML content
+            const encodedHtmlContent = response.responseText; // Get the encoded HTML content
 
-            // 使用 DOMParser 解析接收到的 HTML 内容
+            // --- 新增：对 HTML 内容进行 Quoted-Printable 解码 ---
+            const decodedHtmlContent = decodeQuotedPrintable(encodedHtmlContent);
+            console.log('Decoded HTML content (partial):', decodedHtmlContent.substring(0, 500) + '...'); // Debugging
+            // --- 结束新增 ---
+
+
+            // 使用 DOMParser 解析解码后的 HTML 内容
             const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
+            const doc = parser.parseFromString(decodedHtmlContent, 'text/html');
 
             // 在解析后的文档中查找和提取数据
             // 添加一个小的延迟，确保解析后的文档在查找元素时是稳定的
@@ -145,11 +151,11 @@
                        console.log('#root element found!'); // Debugging
                        console.log('#root element ID:', rootElement.id); // Debugging: Print ID
                        console.log('#root element className:', rootElement.className); // Debugging: Print className
-                       console.log('#root element outerHTML (partial):', rootElement.outerHTML.substring(0, 500000) + '...'); // Debugging: Print partial outerHTML
+                       console.log('#root element outerHTML (partial):', rootElement.outerHTML.substring(0, 500) + '...'); // Debugging: Print partial outerHTML
 
                        // --- 打印 #root 内部结构的一部分 ---
                        const rootInnerHtml = rootElement.innerHTML;
-                       const printLimit = 1000000; // 打印前 1000 个字符
+                       const printLimit = 1000; // 打印前 1000 个字符
                        if (rootInnerHtml.length > printLimit) {
                            console.log('Partial #root innerHTML:', rootInnerHtml.substring(0, printLimit) + '...');
                        } else {
@@ -275,10 +281,17 @@
         return jsonObject;
     }
 
+    // Quoted-Printable 解码函数
     function decodeQuotedPrintable(str) {
+        // The decode logic here might need to be verified
         str = str.replace(/=3D/g, "=");
         str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
-            return String.fromCharCode(parseInt(p1, 16));
+            try {
+                 return String.fromCharCode(parseInt(p1, 16));
+            } catch (e) {
+                 console.error('Error decoding hex character:', p1, e);
+                 return match; // Return the original match if decoding fails
+            }
         });
         str = str.replace(/=\r?\n/g, '');
         return str;
