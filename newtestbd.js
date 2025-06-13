@@ -1,4 +1,4 @@
-(function () {
+(function () { 
     if (window.plugin) return;
 
     const pluginId = 'tellowsPlugin';
@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.44.0',
+            version: '1.51.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -84,22 +84,11 @@
         '旅游推广': 'Telemarketing',
         '食药推销': 'Telemarketing',
         '推销': 'Telemarketing',
-        '商业营销': 'Telemarketing',
     };
-
-    const pendingRequests = new Map();
-    const executedScripts = new Set();
-    const loadedScripts = new Set();
 
     function queryPhoneInfo(phoneNumber, externalRequestId) {
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
-
-        pendingRequests.set(phoneRequestId, {
-            phoneNumber: phoneNumber,
-            externalRequestId: externalRequestId,
-            timestamp: Date.now()
-        });
 
         const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
         const method = 'GET';
@@ -133,392 +122,151 @@
         }
     }
 
+    // 修改的 handleResponse 函数 - 完整加载HTML
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
-        const requestInfo = pendingRequests.get(response.phoneRequestId);
-        if (!requestInfo) {
-            console.error('No pending request found for phoneRequestId:', response.phoneRequestId);
-            sendResultToFlutter('pluginError', {
-                error: 'Internal JS error: No pending request info'
-            }, response.externalRequestId, response.phoneRequestId);
-            return;
-        }
-
-        const phoneNumber = requestInfo.phoneNumber;
-        const externalRequestId = requestInfo.externalRequestId;
-        const phoneRequestId = response.phoneRequestId;
-
-
         if (response.status >= 200 && response.status < 300) {
-            const htmlContent = response.responseText;
+            // 创建一个新的iframe来完整加载HTML
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            document.body.appendChild(iframe);
 
-            document.documentElement.innerHTML = '';
-            console.log('Cleared document.documentElement.innerHTML');
-
-            document.documentElement.innerHTML = htmlContent;
-            console.log('Set document.documentElement.innerHTML');
-
-            executedScripts.clear();
-            loadedScripts.clear();
-
-            observeForContentAndScripts(phoneNumber, externalRequestId, phoneRequestId);
-
-
-        } else {
-            console.error('HTTP Error:', response.status, response.statusText);
-            sendResultToFlutter('pluginError', {
-                error: `HTTP ${response.status}: ${response.statusText}`
-            }, externalRequestId, phoneRequestId);
-            pendingRequests.delete(phoneRequestId);
-        }
-    }
-
-    function observeForContentAndScripts(phoneNumber, externalRequestId, phoneRequestId) {
-        const timeout = 40000;
-        const interval = 200;
-        const startTime = Date.now();
-        let observer = null;
-
-        function checkAndProcess() {
-            console.log(`Attempt to find content and process scripts...`);
-
-            const newScripts = document.querySelectorAll('script:not([data-processed])');
-            newScripts.forEach(script => {
-                script.setAttribute('data-processed', 'true');
-                console.log('Observed new script:', script);
-
-                if (script.src) {
-                    const scriptSrc = script.src;
-                    if (!loadedScripts.has(scriptSrc)) {
-                        console.log('Observed new external script, attempting to load:', scriptSrc);
-                        script.onerror = () => {
-                            console.error('Error loading observed external script:', scriptSrc);
-                            loadedScripts.add(scriptSrc);
-                        };
-                        script.onload = () => {
-                            console.log('Observed external script loaded successfully:', scriptSrc);
-                            loadedScripts.add(scriptSrc);
-                        };
-                        loadedScripts.add(scriptSrc);
-                    } else {
-                        console.log('Observed external script already processed:', scriptSrc);
-                    }
-
-                } else if (script.textContent.trim()) {
-                    const scriptContent = script.textContent;
-                    const scriptContentHash = scriptContent.length + ':' + scriptContent.substring(0, 50);
-                    if (!executedScripts.has(scriptContentHash)) {
-                        console.log('Observed new inline script, attempting to execute (partial):', scriptContent.substring(0, 100) + '...');
-                        try {
-                            eval('(function() {' + scriptContent + '})();');
-                            executedScripts.add(scriptContentHash);
-                            console.log('Executed inline script.');
-                        } catch (e) {
-                            console.error('Error executing observed inline script:', e);
-                        }
-                    } else {
-                        console.log('Observed inline script already executed.');
-                    }
-                }
-            });
-
-            let foundContent = false;
-
-            try {
-                const shadowHost = document.querySelector('#__hcfy__');
-                if (shadowHost && shadowHost.shadowRoot) {
-                    console.log('Found Shadow DOM host and shadowRoot.');
-
-                    const shadowReportWrapper = shadowHost.shadowRoot.querySelector('.report-wrapper');
-                    const shadowLocation = shadowHost.shadowRoot.querySelector('.location');
-
-                    if (shadowReportWrapper && shadowReportWrapper.textContent.trim() !== "" || (shadowLocation && shadowLocation.textContent.trim() !== "")) {
-                        console.log('Found content in Shadow DOM.');
-                        const result = parseResponse(shadowHost.shadowRoot, phoneNumber);
-                        sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId);
-                        pendingRequests.delete(phoneRequestId);
-                        foundContent = true;
-                        if (observer) observer.disconnect();
-                        return;
-                    } else {
-                        console.log('Shadow DOM report wrapper or location not found or empty.');
-                        if (shadowHost.shadowRoot) console.log('ShadowRoot innerHTML (partial):', shadowHost.shadowRoot.innerHTML ? shadowHost.shadowRoot.innerHTML.substring(0, 500) + '...' : 'null');
-                    }
-                } else {
-                    console.log('Shadow DOM host #__hcfy__ not found or shadowRoot not available.');
-                }
-
-                if (!foundContent) {
-                    const selectors = [
-                        '.report-wrapper .report-name',
-                        '.comp-report .report-name',
-                        '.tel-info .report-name',
-                        '[class*="report-name"]',
-                        '.report-wrapper',
-                        '.comp-report',
-                        '.location',
-                        '[class*="location"]',
-                        '#__next',
-                        '#root'
-                    ];
-
-                    let foundElement = null;
-                    let targetText = '';
-
-                    for (const selector of selectors) {
-                        const elements = document.querySelectorAll(selector);
-                        for (const element of elements) {
-                            const text = element.textContent.trim();
-
-                            if (text && text !== '' && !text.includes('loading') && !text.includes('加载')) {
-                                if (element.tagName !== 'SCRIPT') {
-                                    foundElement = element;
-                                    targetText = text;
-                                    console.log(`Found content in main document with selector "${selector}": "${text}"`);
-                                    break;
-                                }
-                            }
-                        }
-                        if (foundElement) break;
-                    }
-
-                    if (foundElement && targetText) {
-                        console.log('Content found in main document, parsing...');
-                        setTimeout(() => {
-                            const result = parseResponse(document, phoneNumber);
-                            sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId);
-                            pendingRequests.delete(phoneRequestId);
-                        }, 100);
-                        foundContent = true;
-                        if (observer) observer.disconnect();
-                        return;
-                    } else {
-                        const rootElement = document.querySelector('#root');
-                        if (rootElement) console.log('#root innerHTML length (during wait):', rootElement.innerHTML ? rootElement.innerHTML.length : 'null');
-                        const nextElement = document.querySelector('#__next');
-                        if (nextElement) console.log('#__next innerHTML length (during wait):', nextElement.innerHTML ? nextElement.innerHTML.length : 'null');
-                        const bodyInnerHtmlLength = document.body.innerHTML ? document.body.innerHTML.length : 'null';
-                        console.log('document.body innerHTML length (during wait):', bodyInnerHtmlLength);
-                    }
-                }
-
-            } catch (e) {
-                console.error('Error during content waiting or parsing:', e);
-            }
-
-            if (Date.now() - startTime >= timeout) {
-                console.log('Timeout waiting for content, attempting to parse existing DOM (final attempt)...');
-                if (observer) observer.disconnect();
-
-                let finalResult = {};
+            // 等待iframe加载完成
+            iframe.onload = function() {
                 try {
-                    const shadowHost = document.querySelector('#__hcfy__');
-                    if (shadowHost && shadowHost.shadowRoot) {
-                        finalResult = parseResponse(shadowHost.shadowRoot, phoneNumber);
-                        console.log('Final parse attempt from Shadow DOM:', finalResult);
-                    }
-
-                    if (!finalResult.sourceLabel && finalResult.count === 0 && finalResult.province === "" && finalResult.city === "") {
-                        finalResult = parseResponse(document, phoneNumber);
-                        console.log('Final parse attempt from main document:', finalResult);
-                    }
-
-                } catch (e) {
-                    console.error('Error in final parsing attempt:', e);
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // 等待页面JavaScript执行完成
+                    setTimeout(() => {
+                        let result = parseResponseFromIframe(iframeDoc, response.phoneNumber);
+                        
+                        // 清理iframe
+                        document.body.removeChild(iframe);
+                        
+                        // 发送结果
+                        sendResultToFlutter('pluginResult', result, response.externalRequestId);
+                    }, 3000); // 等待3秒让JS执行完成
+                    
+                } catch (error) {
+                    console.error('Error accessing iframe content:', error);
+                    document.body.removeChild(iframe);
+                    sendResultToFlutter('pluginError', { error: error.message }, response.externalRequestId);
                 }
+            };
 
+            // 设置完整的HTML内容到iframe
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(response.responseText);
+            iframeDoc.close();
 
-                if (finalResult.sourceLabel || finalResult.count > 0 || finalResult.province || finalResult.city) {
-                    sendResultToFlutter('pluginResult', finalResult, externalRequestId, phoneRequestId);
-                } else {
-                    console.log('No meaningful content found after timeout');
-                    sendResultToFlutter('pluginError', {
-                        error: 'Timeout: Unable to load dynamic content'
-                    }, externalRequestId, phoneRequestId);
-                }
-                pendingRequests.delete(phoneRequestId);
-            } else {
-                setTimeout(checkAndProcess, interval); // CORRECTED: Use 'interval' here
-            }
-        }
-
-        const observerTarget = document.documentElement || document.body;
-        if (observerTarget) {
-            observer = new MutationObserver((mutationsList, observer) => {
-                checkAndProcess();
-            });
-
-            const config = { childList: true, subtree: true };
-            observer.observe(observerTarget, config);
-
-            console.log('Started observing for content and scripts...');
-
-            checkAndProcess();
         } else {
-            console.error('MutationObserver target (documentElement or body) not found.');
-            sendResultToFlutter('pluginError', {
-                error: 'Internal JS error: Cannot find observer target'
-            }, externalRequestId, phoneRequestId);
-            pendingRequests.delete(phoneRequestId);
+            sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
         }
     }
 
-
-    // 改进的解析函数 (接收文档对象作为参数)
-    function parseResponse(doc, phoneNumber) {
-        console.log('parseResponse called with document object.');
-        return extractDataFromDOM(doc, phoneNumber);
+    // 新的解析函数 - 从iframe中解析
+    function parseResponseFromIframe(iframeDoc, phoneNumber) {
+        return extractDataFromIframeDOM(iframeDoc, phoneNumber);
     }
 
-    // 改进的数据提取函数 (从给定的文档对象中提取)
-    function extractDataFromDOM(doc, phoneNumber) {
+    // 修改的数据提取函数 - 从iframe文档中提取
+    function extractDataFromIframeDOM(iframeDoc, phoneNumber) {
         const jsonObject = {
             count: 0,
             sourceLabel: "",
-            predefinedLabel: "",
             province: "",
             city: "",
             carrier: "unknown",
-            phoneNumber: phoneNumber,
-            name: ""
+            phoneNumber: phoneNumber
         };
 
         try {
-            console.log('Starting DOM extraction from provided context...');
-
-            // Try multiple selectors for the report wrapper within the context
-            let reportWrapper = doc.querySelector('.report-wrapper');
+            // 首先尝试从普通DOM中查找
+            let reportWrapper = iframeDoc.querySelector('.report-wrapper');
+            
+            // 如果普通DOM中找不到，尝试查找Shadow DOM
             if (!reportWrapper) {
-                reportWrapper = doc.querySelector('.comp-report');
+                const shadowHost = iframeDoc.querySelector('#__hcfy__');
+                if (shadowHost && shadowHost.shadowRoot) {
+                    reportWrapper = shadowHost.shadowRoot.querySelector('.report-wrapper');
+                }
             }
-            // Consider adding more selectors based on observing the actual rendered HTML structure
-
 
             if (reportWrapper) {
-                console.log('Found report wrapper in context');
-
-                // Extract report name
-                const reportNameSelectors = ['.report-name', '[class*="report-name"]'];
-                for (const selector of reportNameSelectors) {
-                    const reportNameElement = reportWrapper.querySelector(selector);
-                    if (reportNameElement && reportNameElement.textContent.trim()) {
-                        const sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
-                        jsonObject.sourceLabel = sourceLabel;
-
-                        // Map to predefined label
-                        jsonObject.predefinedLabel = manualMapping[sourceLabel] || sourceLabel;
-                        console.log(`Found source label in context: ${sourceLabel} -> ${jsonObject.predefinedLabel}`);
-                        break;
-                    }
+                const reportNameElement = reportWrapper.querySelector('.report-name');
+                if (reportNameElement) {
+                    jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
                 }
 
-                // Extract report type
-                const reportTypeSelectors = ['.report-type', '[class*="report-type"]'];
-                for (const selector of reportTypeSelectors) {
-                    const reportTypeElement = reportWrapper.querySelector(selector);
-                    if (reportTypeElement && reportTypeElement.textContent.trim()) {
-                        const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
-                        console.log(`Found report type in context: ${reportTypeText}`);
-                        if (reportTypeText === '用户标记' || reportTypeText.includes('标记')) {
-                            jsonObject.count = 1;
-                        }
-                        break;
+                const reportTypeElement = reportWrapper.querySelector('.report-type');
+                if (reportTypeElement) {
+                    const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
+                    if (reportTypeText === '用户标记') {
+                        jsonObject.count = 1;
                     }
                 }
+            }
+
+            // 查找位置信息
+            let locationElement = iframeDoc.querySelector('.location');
+            if (!locationElement) {
+                const shadowHost = iframeDoc.querySelector('#__hcfy__');
+                if (shadowHost && shadowHost.shadowRoot) {
+                    locationElement = shadowHost.shadowRoot.querySelector('.location');
+                }
+            }
+
+            if (locationElement) {
+                const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
+                const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
+                if (match) {
+                    jsonObject.province = match[1] || '';
+                    jsonObject.city = match[2] || '';
+                }
+            }
+
+            // 映射标签
+            if (jsonObject.sourceLabel && manualMapping[jsonObject.sourceLabel]) {
+                jsonObject.predefinedLabel = manualMapping[jsonObject.sourceLabel];
             } else {
-                console.log('Report wrapper not found in context.');
+                jsonObject.predefinedLabel = 'Unknown';
             }
-
-            // Extract location information within the context
-            const locationSelectors = ['.location', '[class*="location"]'];
-            for (const selector of locationSelectors) {
-                const locationElement = doc.querySelector(selector);
-                if (locationElement && locationElement.textContent.trim()) {
-                    const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
-                    console.log(`Found location in context: ${locationText}`);
-                    const match = locationText.match(/([\u4e00-\u9fa5]+)[\s]+([\u4e00-\u9fa5]+)?/);
-                    if (match) {
-                        jsonObject.province = match[1] || '';
-                        jsonObject.city = match[2] || '';
-                    }
-                    break;
-                }
-            }
-
-            // If no report info found, try alternative search in the main document
-            // This part should always search the main document if the initial context (doc) is not the main document.
-            // However, given the observer strategy, doc will likely be the main document or shadowRoot.
-            // Let's keep this as a fallback just in case, ensuring it searches the main document.
-            if (!jsonObject.sourceLabel && jsonObject.count === 0 && jsonObject.province === "" && jsonObject.city === "") {
-                console.log('No report info found in context, trying alternative search in main document...');
-                const mainDoc = document; // Explicitly reference the main document
-                const allElements = mainDoc.querySelectorAll('*');
-                for (const element of allElements) {
-                    const text = element.textContent.trim();
-                    if (text && Object.keys(manualMapping).some(key => text.includes(key))) {
-                        console.log(`Found potential label in main document element: ${text}`);
-                        for (const [chinese, english] of Object.entries(manualMapping)) {
-                            if (text.includes(chinese)) {
-                                jsonObject.sourceLabel = chinese;
-                                jsonObject.predefinedLabel = english;
-                                jsonObject.count = 1;
-                                break;
-                            }
-                        }
-                        if (jsonObject.sourceLabel) break;
-                    }
-                }
-            }
-
-
-            console.log('Extraction completed:', jsonObject);
 
         } catch (error) {
-            console.error('Error extracting data:', error);
+            console.error('Error extracting data from iframe:', error);
         }
 
+        console.log('Extracted data:', jsonObject);
         return jsonObject;
     }
 
     // Quoted-Printable 解码函数
     function decodeQuotedPrintable(str) {
-        if (!str) return str;
-
-        try {
-            str = str.replace(/%([0-9A-Fa-f]{2})/g, function (match, p1) {
-                return String.fromCharCode(parseInt(p1, 16));
-            });
-
-            str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
-                return String.fromCharCode(parseInt(p1, 16));
-            });
-
-            str = str.replace(/=\r?\n/g, '');
-            str = str.replace(/=3D/g, "=");
-
-            return str;
-        } catch (e) {
-            console.error('Error decoding:', e);
-            return str;
-        }
+        str = str.replace(/=3D/g, "=");
+        str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
+            return String.fromCharCode(parseInt(p1, 16));
+        });
+        str = str.replace(/=\r?\n/g, '');
+        return str;
     }
 
     // 发送结果到Flutter
-    function sendResultToFlutter(type, data, externalRequestId, phoneRequestId) {
-        const resultMessage = {
+    function sendResultToFlutter(type, data, externalRequestId) {
+        const message = {
             type: type,
             pluginId: pluginId,
             requestId: externalRequestId,
             data: data
         };
 
-        console.log('Sending result to Flutter:', resultMessage);
-
-        if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(resultMessage));
+        if (window.flutter_inappwebview) {
+            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(message));
         } else {
-            console.error('flutter_inappwebview is not available');
+            console.error("flutter_inappwebview is undefined");
         }
     }
 
@@ -526,133 +274,26 @@
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
         console.log('generateOutput called with:', phoneNumber, externalRequestId);
 
-        const now = Date.now();
-        for (const [key, value] of pendingRequests.entries()) {
-            if (now - value.timestamp > 40000) {
-                console.log('Pending request timed out:', key);
-                sendResultToFlutter('pluginError', {
-                    error: 'Internal JS timeout'
-                }, value.externalRequestId, key);
-                pendingRequests.delete(key);
-            }
-        }
-
-        const currentPhoneRequestId = Math.random().toString(36).substring(2);
-        console.log('Generated new phoneRequestId for generateOutput:', currentPhoneRequestId);
-
-        pendingRequests.set(currentPhoneRequestId, {
-            phoneNumber: phoneNumber,
-            externalRequestId: externalRequestId,
-            timestamp: Date.now()
-        });
-
-
         if (phoneNumber) {
-            queryPhoneInfo(phoneNumber, externalRequestId, currentPhoneRequestId);
-        } else if (nationalNumber) {
-            queryPhoneInfo(nationalNumber, externalRequestId, currentPhoneRequestId);
-        } else if (e164Number) {
-            queryPhoneInfo(e164Number, externalRequestId, currentPhoneRequestId);
+            queryPhoneInfo(phoneNumber, externalRequestId);
         }
-    }
-
-    // queryPhoneInfo now accepts phoneRequestId
-    function queryPhoneInfo(phoneNumber, externalRequestId, phoneRequestId) {
-        console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
-
-        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
-        const method = 'GET';
-        const headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-            'Referer': 'https://www.baidu.com/',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-            'Connection': 'keep-alive',
-        };
-        const body = null;
-
-        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
-    }
-
-    // sendRequest now accepts phoneRequestId
-    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
-        const requestData = {
-            url: url,
-            method: method,
-            headers: headers,
-            body: body,
-            externalRequestId: externalRequestId,
-            phoneRequestId: phoneRequestId,
-            pluginId: pluginId,
-        };
-
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
-        } else {
-            console.error("flutter_inappwebview is undefined");
+        if (nationalNumber) {
+            queryPhoneInfo(nationalNumber, externalRequestId);
         }
-    }
-
-
-    // handleResponse now uses phoneRequestId to retrieve pending request info, sets HTML and observes for scripts and content
-    function handleResponse(response) {
-        console.log('handleResponse called with:', response);
-
-        const requestInfo = pendingRequests.get(response.phoneRequestId);
-        if (!requestInfo) {
-            console.error('No pending request found for phoneRequestId:', response.phoneRequestId);
-            sendResultToFlutter('pluginError', {
-                error: 'Internal JS error: No pending request info'
-            }, response.externalRequestId, response.phoneRequestId);
-            return;
-        }
-
-        const phoneNumber = requestInfo.phoneNumber;
-        const externalRequestId = requestInfo.externalRequestId;
-        const phoneRequestId = response.phoneRequestId;
-
-
-        if (response.status >= 200 && response.status < 300) {
-            const htmlContent = response.responseText;
-
-            // Clear current page content
-            document.documentElement.innerHTML = '';
-            console.log('Cleared document.documentElement.innerHTML');
-
-            // Set the HTML content directly. This should include the head and body structure.
-            // This is the crucial step to get the browser to parse the HTML and potentially start loading resources.
-            document.documentElement.innerHTML = htmlContent;
-            console.log('Set document.documentElement.innerHTML'); // Debugging
-
-            // Reset executed scripts and loaded scripts sets for this new page load
-            executedScripts.clear();
-            loadedScripts.clear();
-
-            // Start observing for content and dynamically added scripts
-            // Pass the request IDs to the observer's check function
-            observeForContentAndScripts(phoneNumber, externalRequestId, phoneRequestId);
-
-
-        } else {
-            console.error('HTTP Error:', response.status, response.statusText);
-            sendResultToFlutter('pluginError', {
-                error: `HTTP ${response.status}: ${response.statusText}`
-            }, externalRequestId, phoneRequestId);
-            pendingRequests.delete(phoneRequestId);
+        if (e164Number) {
+            queryPhoneInfo(e164Number, externalRequestId);
         }
     }
 
     // Initialize plugin
     async function initializePlugin() {
-        console.log('Initializing plugin...');
-
-        window.plugin = window.plugin || {};
+        window.plugin = {};
         const thisPlugin = {
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
             generateOutput: generateOutput,
-            handleResponse: handleResponse, // Expose handleResponse to Flutter
+            handleResponse: handleResponse,
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
@@ -672,6 +313,6 @@
         }
     }
 
-    // Immediately initialize the plugin
+    // Initialize plugin
     initializePlugin();
 })();
