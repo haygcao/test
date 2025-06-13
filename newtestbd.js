@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.21.0',
+            version: '1.25.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -86,86 +86,163 @@
         '推销': 'Telemarketing',
     };
 
-    // Removed generateOutput, queryPhoneInfo, sendRequest, handleResponse
-    // The parsing logic will now be in a new function called by Flutter onLoadStop
+    // Retain generateOutput, queryPhoneInfo, sendRequest, sendResultToFlutter, initializePlugin
+    // as in your original code.
 
-    // 新增：在页面加载完成后解析当前文档的函数
-    function parseLoadedPage(phoneNumber, requestId) {
-        console.log('parseLoadedPage called with:', phoneNumber, requestId);
+    function queryPhoneInfo(phoneNumber, externalRequestId) {
+        const phoneRequestId = Math.random().toString(36).substring(2);
+        console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
 
-        // Wait for the DOM to be ready and content to be loaded in the *current* document
-        waitForContentAndParse(phoneNumber, requestId);
+        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
+        const method = 'GET';
+        const headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', // Example User-Agent
+    'Referer': 'https://www.baidu.com/', // 或搜索结果页 URL
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+    'Connection': 'keep-alive',
+        };
+        const body = null;
+
+        // Pass BOTH the externalRequestId AND the internal phoneRequestId
+        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
     }
 
+    // sendRequest function (now accepts both request IDs)
+    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
+        const requestData = {
+            url: url,
+            method: method,
+            headers: headers,
+            body: body,
+            externalRequestId: externalRequestId, // Include externalRequestId
+            phoneRequestId: phoneRequestId,     // Include phoneRequestId
+            pluginId: pluginId,
+        };
 
-    // 新增：等待内容加载并解析的函数
-    function waitForContentAndParse(phoneNumber, requestId) {
-        const timeout = 20000; // 增加超时时间
-        const interval = 500; // 检查间隔
-        const startTime = Date.now();
-        let observer = null; // 存储 MutationObserver 实例
-
-        function checkAndParse() {
-             // 在当前文档中查找 root 元素
-             const rootElement = document.querySelector('#root');
-             console.log('Checking for #root element in current document...');
-
-             if (rootElement) {
-                  // 找到 #root 元素后，检查其内部内容是否加载
-                  const compReportElement = rootElement.querySelector('.comp-report');
-                  const locationElement = rootElement.querySelector('.tel-info .location');
-
-                 // Check if both elements exist and have some text content
-                 if (compReportElement && locationElement && compReportElement.textContent.trim() !== "" && locationElement.textContent.trim() !== "") {
-                       // 目标元素出现且内容不为空
-                       if (observer) observer.disconnect(); // 停止观察
-                       console.log('Target elements found and content loaded in current document. Parsing...');
-
-                       try {
-                           // Use the current document to extract data
-                           const result = extractDataFromDOM(document, phoneNumber); // Pass the entire document
-                           sendResultToFlutter('pluginResult', result, requestId, requestId);
-                       } catch (e) {
-                           console.error('Error parsing content in waitForContentAndParse:', e);
-                           sendResultToFlutter('pluginError', { error: `Error parsing content: ${e.message}` }, requestId, requestId);
-                       }
-                       return; // Stop checking
-                 } else {
-                    // If elements are found but content is empty, print partial outerHTML for debugging
-                     if (rootElement) console.log('#root innerHTML (partial):', rootElement.innerHTML.substring(0, 500) + '...');
-                     if (compReportElement) console.log('.comp-report textContent:', compReportElement.textContent.trim());
-                     if (locationElement) console.log('.location textContent:', locationElement.textContent.trim());
-
-                 }
-             } else {
-                 console.log('#root element not found yet in current document.'); // Debugging if #root is not found
-             }
-
-            // Check for timeout
-            if (Date.now() - startTime >= timeout) {
-                if (observer) observer.disconnect(); // Stop observing
-                console.error('Timeout waiting for content in current document.');
-                sendResultToFlutter('pluginError', { error: 'Timeout waiting for content in current document' }, requestId, requestId);
-            } else {
-                // If not timed out, continue checking using setTimeout
-                 setTimeout(checkAndParse, interval);
-            }
+        if (window.flutter_inappwebview) {
+            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
+        } else {
+            console.error("flutter_inappwebview is undefined");
         }
+    }
 
-        // Use MutationObserver to listen for changes in the document body
-        // This helps in detecting when #root and its content are added or modified
-        observer = new MutationObserver((mutationsList, observer) => {
-             checkAndParse(); // Perform check after each DOM change
-        });
+// handleResponse 函数 (JavaScript) - 加载接收到的 HTML 内容到 WebView
+function handleResponse(response) {
+    console.log('handleResponse called with:', response);
 
-        // Configure the observer to watch for changes in the subtree of the body
-        const config = { childList: true, subtree: true, characterData: true }; // Also observe characterData for text changes
-        observer.observe(document.body, config);
+    if (response.status >= 200 && response.status < 300) {
+        const htmlContent = response.responseText; // Get the HTML content
 
-        console.log('Started waiting for content in current document...');
+        // Create a Data URL from the received HTML content
+        // Specify charset=utf-8 to ensure correct decoding
+        const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
 
-        // Initial check in case content is already present when parseLoadedPage is called
-        checkAndParse();
+        // Load the Data URL in the current WebView
+        // This should trigger WebView's native HTML parsing and script execution
+        window.location.href = dataUrl;
+
+        // After loading the Data URL, onLoad will be triggered (or DOMContentLoaded)
+        // We need to wait for the page content to be ready before parsing.
+        // Use a mechanism (like MutationObserver or checking for specific elements)
+        // to determine when the DOM is ready and content is loaded.
+
+        // We also need to somehow pass the phone number and request IDs to the parsing function
+        // that will run after the Data URL is loaded.
+        // We can store them in global variables before changing window.location.href
+
+        window._currentParsingPhoneNumber = response.phoneNumber;
+        window._currentParsingRequestId = response.externalRequestId; // Use externalRequestId for simplicity
+        window._currentParsingPhoneRequestId = response.phoneRequestId; // Store phoneRequestId as well
+
+
+        // The parsing logic will be in a separate function that will be called after load
+        // We don't call parseResponse directly here anymore.
+
+    } else {
+        sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId, response.phoneRequestId);
+    }
+}
+
+// 新增：在页面加载完成后解析当前文档的函数
+// This function will be called after the Data URL is loaded in the WebView
+function parseLoadedPage() {
+    console.log('parseLoadedPage called');
+
+    // Retrieve the stored phone number and request IDs
+    const phoneNumber = window._currentParsingPhoneNumber;
+    const requestId = window._currentParsingRequestId;
+    const phoneRequestId = window._currentParsingPhoneRequestId;
+
+    if (!phoneNumber || !requestId || !phoneRequestId) {
+         console.error('Parsing context missing in parseLoadedPage.');
+         // Send an error back to Flutter
+         sendResultToFlutter('pluginError', { error: 'Parsing context missing' }, requestId, phoneRequestId);
+         return;
+    }
+
+    // Wait for the DOM to be ready and content to be loaded in the *current* document
+    waitForContentAndParse(phoneNumber, requestId, phoneRequestId);
+
+    // Clean up the stored global variables
+    delete window._currentParsingPhoneNumber;
+    delete window._currentParsingRequestId;
+    delete window._currentParsingPhoneRequestId;
+}
+
+
+// 新增：等待内容加载并解析的函数
+function waitForContentAndParse(phoneNumber, requestId, phoneRequestId) {
+    const timeout = 20000; // 增加超时时间
+    const interval = 500; // 检查间隔
+    const startTime = Date.now();
+    let observer = null; // 存储 MutationObserver 实例
+
+    function checkAndParse() {
+         // 在当前文档中查找 root 元素
+         const rootElement = document.querySelector('#root');
+         console.log('Checking for #root element in current document...');
+
+         if (rootElement) {
+              // 找到 #root 元素后，检查其内部内容是否加载
+              const compReportElement = rootElement.querySelector('.comp-report');
+              const locationElement = rootElement.querySelector('.tel-info .location');
+
+             // Check if both elements exist and have some text content
+             if (compReportElement && locationElement && compReportElement.textContent.trim() !== "" && locationElement.textContent.trim() !== "") {
+                   // 目标元素出现且内容不为空
+                   if (observer) observer.disconnect(); // 停止观察
+                   console.log('Target elements found and content loaded in current document. Parsing...');
+
+                   try {
+                       // Use the current document to extract data
+                       const result = extractDataFromDOM(document, phoneNumber); // Pass the entire document
+                       sendResultToFlutter('pluginResult', result, requestId, phoneRequestId);
+                   } catch (e) {
+                       console.error('Error parsing content in waitForContentAndParse:', e);
+                       sendResultToFlutter('pluginError', { error: `Error parsing content: ${e.message}` }, requestId, phoneRequestId);
+                   }
+                   return; // Stop checking
+             } else {
+                // If elements are found but content is empty, print partial outerHTML for debugging
+                 if (rootElement) console.log('#root innerHTML (partial):', rootElement.innerHTML.substring(0, 500) + '...');
+                 if (compReportElement) console.log('.comp-report textContent:', compReportElement.textContent.trim());
+                 if (locationElement) console.log('.location textContent:', locationElement.textContent.trim());
+
+             }
+         } else {
+             console.log('#root element not found yet in current document.'); // Debugging if #root is not found
+         }
+
+        // Check for timeout
+        if (Date.now() - startTime >= timeout) {
+            if (observer) observer.disconnect(); // Stop observing
+            console.error('Timeout waiting for content in current document.');
+            sendResultToFlutter('pluginError', { error: 'Timeout waiting for content in current document' }, requestId, phoneRequestId);
+        } else {
+            // If not timed out, continue checking using setTimeout
+             setTimeout(checkAndParse, interval);
+        }
     }
 
 
@@ -209,7 +286,8 @@
                 if (reportTypeElement) {
                     console.log('.report-type element found!'); // Debugging
                      console.log('.report-type element className:', reportTypeElement.className); // Debugging
-                    console.log('.report-type element outerHTML (partial):', reportTypeElement.outerHTML ? reportTypeElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+                    console.log('.reportTypeElement outerHTML (partial):', reportTypeElement.outerHTML ? reportTypeElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+
 
                      // Use textContent directly
                     const reportTypeText = reportTypeElement.textContent.trim();
@@ -226,7 +304,8 @@
             if (locationElement) {
                 console.log('.tel-info .location element found!'); // Debugging
                 console.log('.tel-info .location element className:', locationElement.className); // Debugging
-                console.log('.tel-info .location element outerHTML (partial):', locationElement.outerHTML ? locationElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+                console.log('.locationElement outerHTML (partial):', locationElement.outerHTML ? locationElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+
 
                  // Use textContent directly
                 const locationText = locationElement.textContent.trim();
@@ -280,13 +359,12 @@
             generateOutput: function(phoneNumber, nationalNumber, e164Number, requestId) {
                  console.log('generateOutput called (triggering page load):', phoneNumber, requestId);
                  // This function is called by Flutter to initiate the process.
-                 // It should trigger the page load in Flutter.
-                 // Flutter's onLoadStop will then call parseLoadedPage in JS.
-                 // We need a mechanism to pass the phone number and requestId to onLoadStop.
-                 // Let's rely on Flutter to store these and pass them in the evaluateJavascript call in onLoadStop.
-                 // So, this function doesn't need to do anything else here.
+                 // Flutter will use this to get the phone number and requestId,
+                 // then perform the HTTP request and call handleResponse.
+                 // We don't need to do anything else here.
             },
-            parseLoadedPage: parseLoadedPage, // Expose the parsing function
+            handleResponse: handleResponse, // Expose handleResponse
+            parseLoadedPage: parseLoadedPage, // Expose the parsing function to be called after load
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
