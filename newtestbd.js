@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.27.0',
+            version: '1.29.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -125,16 +125,40 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript) - 设置 HTML 并等待解析
+    // handleResponse 函数 (JavaScript) - 设置 HTML 并手动加载脚本
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
             const htmlContent = response.responseText; // Get the HTML content
 
+            // --- 新增：解析 HTML 提取脚本 URL ---
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+            const scriptUrls = [];
+            const scripts = doc.head.querySelectorAll('script[src]');
+            scripts.forEach(script => {
+                scriptUrls.push(script.src);
+            });
+            console.log('Extracted script URLs:', scriptUrls); // Debugging
+            // --- 结束新增 ---
+
+
             // Set the received HTML content to the document body
             document.body.innerHTML = htmlContent;
             console.log('HTML content set to document.body.innerHTML'); // Debugging
+
+            // --- 新增：手动加载并执行脚本 ---
+            scriptUrls.forEach(url => {
+                const script = document.createElement('script');
+                script.src = url;
+                 script.async = true; // Load asynchronously to avoid blocking rendering
+                 // Append script to head or body
+                 document.head.appendChild(script) || document.body.appendChild(script);
+                 console.log('Manually adding script:', url); // Debugging
+            });
+            // --- 结束新增 ---
+
 
             // Wait for the DOM to be ready and content to be loaded in the *current* document
             waitForContentAndParse(response.phoneNumber, response.externalRequestId, response.phoneRequestId);
@@ -147,9 +171,9 @@
     }
 
 
-    // 新增：等待内容加载并解析的函数
+    // 新增：等待内容加载并解析的函数 - 增加等待时间和鲁棒性
     function waitForContentAndParse(phoneNumber, externalRequestId, phoneRequestId) {
-        const timeout = 20000; // Increase timeout
+        const timeout = 30000; // Increased timeout to 30 seconds
         const interval = 500; // Check interval
         const startTime = Date.now();
         let observer = null; // Store MutationObserver instance
@@ -160,7 +184,10 @@
              console.log('Checking for #root element in current document...');
 
              if (rootElement) {
-                  // If #root element is found, check if its content is loaded
+                  console.log('#root element found!'); // Debugging
+                  console.log('#root innerHTML length:', rootElement.innerHTML.length); // Debugging: Print innerHTML length
+
+                  // Check for target elements within #root
                   const compReportElement = rootElement.querySelector('.comp-report');
                   const locationElement = rootElement.querySelector('.tel-info .location');
 
@@ -171,8 +198,8 @@
                        console.log('Target elements found and content loaded in current document. Parsing...');
 
                        try {
-                           // Use the current document to extract data
-                           const result = extractDataFromDOM(document, phoneNumber); // Pass the entire document
+                           // Use the root element as context to extract data
+                           const result = extractDataFromDOM(rootElement, phoneNumber); // Pass the root element
                            sendResultToFlutter('pluginResult', result, externalRequestId, phoneRequestId); // Use correct request IDs
                        } catch (e) {
                            console.error('Error parsing content in waitForContentAndParse:', e);
@@ -182,8 +209,8 @@
                  } else {
                     // If elements are found but content is empty, print partial outerHTML for debugging
                      if (rootElement) console.log('#root innerHTML (partial):', rootElement.innerHTML.substring(0, 500) + '...');
-                     if (compReportElement) console.log('.comp-report textContent:', compReportElement.textContent.trim());
-                     if (locationElement) console.log('.location textContent:', locationElement.textContent.trim());
+                     if (compReportElement) console.log('.comp-report textContent:', compReportElement ? compReportElement.textContent.trim() : 'null');
+                     if (locationElement) console.log('.location textContent:', locationElement ? locationElement.textContent.trim() : 'null');
 
                  }
              } else {
@@ -218,8 +245,8 @@
     }
 
 
-    // extractDataFromDOM function (extracts data from the entire document)
-    function extractDataFromDOM(document, phoneNumber) {
+    // extractDataFromDOM function (extracts data from a given context element)
+    function extractDataFromDOM(contextElement, phoneNumber) {
         const jsonObject = {
             count: 0,
             sourceLabel: "",
@@ -231,9 +258,9 @@
         };
 
         try {
-            // Find elements in the entire document
-            const reportWrapper = document.querySelector('.comp-report');
-            console.log('Checking for .comp-report element in document:', reportWrapper); // Debugging
+            // Find elements within the context element
+            const reportWrapper = contextElement.querySelector('.comp-report');
+            console.log('Checking for .comp-report element in context:', reportWrapper); // Debugging
 
             if (reportWrapper) {
                 console.log('.comp-report element found!'); // Debugging
@@ -242,11 +269,12 @@
 
 
                 const reportNameElement = reportWrapper.querySelector('.report-name');
-                 console.log('Checking for .report-name element in document:', reportNameElement); // Debugging
+                 console.log('Checking for .report-name element in context:', reportNameElement); // Debugging
                 if (reportNameElement) {
                     console.log('.report-name element found!'); // Debugging
                     console.log('.report-name element className:', reportNameElement.className); // Debugging
-                    console.log('.report-name element outerHTML (partial):', reportNameElement.outerHTML ? reportNameElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+                    console.log('.reportNameElement outerHTML (partial):', reportNameElement.outerHTML ? reportNameElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+
 
                     // Use textContent directly
                     jsonObject.sourceLabel = reportNameElement.textContent.trim();
@@ -254,11 +282,12 @@
                 }
 
                 const reportTypeElement = reportWrapper.querySelector('.report-type');
-                 console.log('Checking for .report-type element in document:', reportTypeElement); // Debugging
+                 console.log('Checking for .report-type element in context:', reportTypeElement); // Debugging
                 if (reportTypeElement) {
                     console.log('.report-type element found!'); // Debugging
                      console.log('.report-type element className:', reportTypeElement.className); // Debugging
-                    console.log('.report-type element outerHTML (partial):', reportTypeElement.outerHTML ? reportTypeElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+                    console.log('.reportTypeElement outerHTML (partial):', reportTypeElement.outerHTML ? reportTypeElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+
 
                      // Use textContent directly
                     const reportTypeText = reportTypeElement.textContent.trim();
@@ -269,13 +298,14 @@
                     }
                 }
             }
-            // Find .tel-info .location in the document
-            const locationElement = document.querySelector('.tel-info .location');
-            console.log('Checking for .tel-info .location element in document:', locationElement); // Debugging
+            // Find .tel-info .location within the context element
+            const locationElement = contextElement.querySelector('.tel-info .location');
+            console.log('Checking for .tel-info .location element in context:', locationElement); // Debugging
             if (locationElement) {
                 console.log('.tel-info .location element found!'); // Debugging
                 console.log('.tel-info .location element className:', locationElement.className); // Debugging
-                console.log('.tel-info .location element outerHTML (partial):', locationElement.outerHTML ? locationElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+                console.log('.locationElement outerHTML (partial):', locationElement.outerHTML ? locationElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
+
 
                  // Use textContent directly
                 const locationText = locationElement.textContent.trim();
