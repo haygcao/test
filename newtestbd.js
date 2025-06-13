@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.13.0',
+            version: '1.190.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -122,22 +122,16 @@
         }
     }
 
-    // handleResponse 函数 (JavaScript) - 增加 Quoted-Printable 解码
+    // handleResponse 函数 (JavaScript) - 直接解析接收到的 HTML 内容
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
-            const encodedHtmlContent = response.responseText; // Get the encoded HTML content
+            const htmlContent = response.responseText; // Get the HTML content
 
-            // --- 新增：对 HTML 内容进行 Quoted-Printable 解码 ---
-            const decodedHtmlContent = decodeQuotedPrintable(encodedHtmlContent);
-            console.log('Decoded HTML content (partial):', decodedHtmlContent.substring(0, 500) + '...'); // Debugging
-            // --- 结束新增 ---
-
-
-            // 使用 DOMParser 解析解码后的 HTML 内容
+            // 使用 DOMParser 解析接收到的 HTML 内容
             const parser = new DOMParser();
-            const doc = parser.parseFromString(decodedHtmlContent, 'text/html');
+            const doc = parser.parseFromString(htmlContent, 'text/html');
 
             // 在解析后的文档中查找和提取数据
             // 添加一个小的延迟，确保解析后的文档在查找元素时是稳定的
@@ -151,7 +145,7 @@
                        console.log('#root element found!'); // Debugging
                        console.log('#root element ID:', rootElement.id); // Debugging: Print ID
                        console.log('#root element className:', rootElement.className); // Debugging: Print className
-                       console.log('#root element outerHTML (partial):', rootElement.outerHTML.substring(0, 500) + '...'); // Debugging: Print partial outerHTML
+                       console.log('#root element outerHTML (partial):', rootElement.outerHTML ? rootElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging: Print partial outerHTML
 
                        // --- 打印 #root 内部结构的一部分 ---
                        const rootInnerHtml = rootElement.innerHTML;
@@ -190,7 +184,7 @@
         return extractDataFromDOM(contextElement, phoneNumber);
     }
 
-    // extractDataFromDOM 函数 (在指定的上下文元素中查找元素) - 改进查找和解码
+    // extractDataFromDOM 函数 (在指定的上下文元素中查找元素) - 移除 Quoted-Printable 解码
     function extractDataFromDOM(contextElement, phoneNumber) {
         const jsonObject = {
             count: 0,
@@ -210,7 +204,7 @@
             if (reportWrapper) {
                 console.log('.comp-report element found!'); // Debugging
                 console.log('.comp-report element className:', reportWrapper.className); // Debugging
-                console.log('.comp-report element outerHTML (partial):', reportWrapper.outerHTML.substring(0, 500) + '...'); // Debugging
+                console.log('.comp-report element outerHTML (partial):', reportWrapper.outerHTML ? reportWrapper.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
 
                 const reportNameElement = reportWrapper.querySelector('.report-name');
@@ -218,13 +212,11 @@
                 if (reportNameElement) {
                     console.log('.report-name element found!'); // Debugging
                     console.log('.report-name element className:', reportNameElement.className); // Debugging
-                    console.log('.report-name element outerHTML (partial):', reportNameElement.outerHTML.substring(0, 500) + '...'); // Debugging
+                    console.log('.report-name element outerHTML (partial):', reportNameElement.outerHTML ? reportNameElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
-                    // Ensure decoding is applied to textContent
-                    const sourceLabelEncoded = reportNameElement.textContent.trim();
-                    jsonObject.sourceLabel = decodeQuotedPrintable(sourceLabelEncoded);
-                     console.log('Extracted sourceLabel (encoded):', sourceLabelEncoded); // Debugging
-                     console.log('Extracted sourceLabel (decoded):', jsonObject.sourceLabel); // Debugging
+                    // Directly use textContent as HTML is not Quoted-Printable encoded
+                    jsonObject.sourceLabel = reportNameElement.textContent.trim();
+                     console.log('Extracted sourceLabel:', jsonObject.sourceLabel); // Debugging
                 }
 
                 const reportTypeElement = reportWrapper.querySelector('.report-type');
@@ -232,13 +224,11 @@
                 if (reportTypeElement) {
                     console.log('.report-type element found!'); // Debugging
                      console.log('.report-type element className:', reportTypeElement.className); // Debugging
-                    console.log('.report-type element outerHTML (partial):', reportTypeElement.outerHTML.substring(0, 500) + '...'); // Debugging
+                    console.log('.report-type element outerHTML (partial):', reportTypeElement.outerHTML ? reportTypeElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
-                     // Ensure decoding is applied to textContent
-                    const reportTypeTextEncoded = reportTypeElement.textContent.trim();
-                    const reportTypeText = decodeQuotedPrintable(reportTypeTextEncoded);
-                    console.log('Extracted reportTypeText (encoded):', reportTypeTextEncoded); // Debugging
-                    console.log('Extracted reportTypeText (decoded):', reportTypeText); // Debugging
+                     // Directly use textContent
+                    const reportTypeText = reportTypeElement.textContent.trim();
+                    console.log('Extracted reportTypeText:', reportTypeText); // Debugging
                     if (reportTypeText === '用户标记') {
                         jsonObject.count = 1;
                          console.log('Set count to 1'); // Debugging
@@ -251,13 +241,11 @@
             if (locationElement) {
                 console.log('.tel-info .location element found!'); // Debugging
                 console.log('.tel-info .location element className:', locationElement.className); // Debugging
-                console.log('.tel-info .location element outerHTML (partial):', locationElement.outerHTML.substring(0, 500) + '...'); // Debugging
+                console.log('.tel-info .location element outerHTML (partial):', locationElement.outerHTML ? locationElement.outerHTML.substring(0, 500) + '...' : 'null'); // Debugging
 
-                 // Ensure decoding is applied to textContent
-                const locationTextEncoded = locationElement.textContent.trim();
-                const locationText = decodeQuotedPrintable(locationTextEncoded);
-                 console.log('Extracted locationText (encoded):', locationTextEncoded); // Debugging
-                 console.log('Extracted locationText (decoded):', locationText); // Debugging
+                 // Directly use textContent
+                const locationText = locationElement.textContent.trim();
+                 console.log('Extracted locationText:', locationText); // Debugging
                 const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
                 if (match) {
                     jsonObject.province = match[1] || '';
@@ -281,21 +269,7 @@
         return jsonObject;
     }
 
-    // Quoted-Printable 解码函数
-    function decodeQuotedPrintable(str) {
-        // The decode logic here might need to be verified
-        str = str.replace(/=3D/g, "=");
-        str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
-            try {
-                 return String.fromCharCode(parseInt(p1, 16));
-            } catch (e) {
-                 console.error('Error decoding hex character:', p1, e);
-                 return match; // Return the original match if decoding fails
-            }
-        });
-        str = str.replace(/=\r?\n/g, '');
-        return str;
-    }
+    // Removed decodeQuotedPrintable function
 
     async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
          console.log('generateOutput called with:', phoneNumber, requestId);
