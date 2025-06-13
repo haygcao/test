@@ -1,13 +1,13 @@
 (function () {
     if (window.plugin) return;
 
-    const pluginId = 'bdPlugin';
+    const pluginId = 'tellowsPlugin'; // Ensure pluginId matches Flutter
 
     const pluginInfo = {
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.7.0',
+            version: '1.8.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -86,69 +86,66 @@
         '推销': 'Telemarketing',
     };
 
+    // Retain queryPhoneInfo and sendRequest for consistency, although HTTP is done in Flutter
     function queryPhoneInfo(phoneNumber, externalRequestId) {
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
 
-        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
-        const method = 'GET';
-        const headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-            'Referer': 'https://www.baidu.com/',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-            'Connection': 'keep-alive',
-        };
-        const body = null;
+        // In this revised approach, this function primarily serves to trigger the process
+        // and doesn't actually send an HTTP request from JS.
+        // The actual HTTP request is initiated from Flutter.
 
-        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
+        // We need a way to tell Flutter to initiate the HTTP request
+        // and then pass the response back to handleResponse.
+        // This requires a new mechanism or reusing an existing channel.
+        // Let's assume Flutter calls generateOutput directly with the response
+        // or calls handleResponse directly with the response.
+
+        // Based on your original code structure, Flutter calls generateOutput,
+        // which *then* calls queryPhoneInfo, which *then* calls sendRequest.
+        // sendRequest then calls the Flutter handler to *make* the HTTP request.
+        // Flutter receives the response and calls handleResponse in JS.
+        // This circular dependency seems overly complex.
+
+        // Let's simplify: Flutter makes the HTTP request directly.
+        // Flutter receives the response.
+        // Flutter then calls a JS function (e.g., handlePageHtml)
+        // in the loaded WebView, passing the HTML content.
+        // The JS function then parses this HTML content.
+
+        // So, we remove the HTTP related functions from JS and modify generateOutput.
+        // Flutter will call generateOutput with the HTML content and request details.
     }
 
-    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
-        const requestData = {
-            url: url,
-            method: method,
-            headers: headers,
-            body: body,
-            externalRequestId: externalRequestId,
-            phoneRequestId: phoneRequestId,
-            pluginId: pluginId,
-        };
+     // Removed sendRequest
 
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
-        } else {
-            console.error("flutter_inappwebview is undefined");
-        }
-    }
-
-    // handleResponse 函数 (JavaScript) - 针对实际 HTML 结构
+    // handleResponse 函数 (JavaScript) - 接收完整的响应对象，并在其中解析 HTML
+    // Flutter will call this function directly with the response data.
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
-            // 将完整的 HTML 内容设置到 WebView 的文档中
-            document.open();
-            document.write(response.responseText);
-            document.close();
+            const htmlContent = response.responseText; // Get the HTML content
 
-            // 直接解析 HTML 内容
-            // 添加一个小的延迟，确保 DOM 树完全构建
-            setTimeout(() => {
-                 try {
-                    const result = parseResponse(document, response.phoneNumber); // 直接传入 document
-                    sendResultToFlutter('pluginResult', result, response.externalRequestId, response.phoneRequestId);
-                 } catch (e) {
-                     console.error('Error parsing response in handleResponse:', e);
-                     sendResultToFlutter('pluginError', { error: `Error parsing response: ${e.message}` }, response.externalRequestId, response.phoneRequestId);
-                 }
-            }, 100); // 延迟 100 毫秒
+            // 使用 DOMParser 解析接收到的 HTML 内容
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+
+            // 在解析后的文档中查找和提取数据
+            try {
+                const result = parseResponse(doc, response.phoneNumber); // Pass the parsed document
+                sendResultToFlutter('pluginResult', result, response.externalRequestId, response.phoneRequestId);
+            } catch (e) {
+                console.error('Error parsing HTML content in handleResponse:', e);
+                sendResultToFlutter('pluginError', { error: `Error parsing HTML content: ${e.message}` }, response.externalRequestId, response.phoneRequestId);
+            }
 
         } else {
             // 处理非成功状态码
             sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId, response.phoneRequestId);
         }
     }
+
 
     // parseResponse 函数 (接收 document 对象)
     function parseResponse(document, phoneNumber) {
@@ -169,39 +166,39 @@
 
         try {
             // 直接在 document 中查找元素
-            const reportWrapper = document.querySelector('.comp-report'); // Changed selector to '.comp-report'
-            console.log('Found .comp-report element:', reportWrapper); // Debugging line
+            const reportWrapper = document.querySelector('.comp-report');
+            console.log('Found .comp-report element:', reportWrapper);
 
             if (reportWrapper) {
                 const reportNameElement = reportWrapper.querySelector('.report-name');
-                 console.log('Found .report-name element:', reportNameElement); // Debugging line
+                 console.log('Found .report-name element:', reportNameElement);
                 if (reportNameElement) {
                     jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
-                     console.log('Extracted sourceLabel:', jsonObject.sourceLabel); // Debugging line
+                     console.log('Extracted sourceLabel:', jsonObject.sourceLabel);
                 }
 
                 const reportTypeElement = reportWrapper.querySelector('.report-type');
-                 console.log('Found .report-type element:', reportTypeElement); // Debugging line
+                 console.log('Found .report-type element:', reportTypeElement);
                 if (reportTypeElement) {
                     const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
-                    console.log('Extracted reportTypeText:', reportTypeText); // Debugging line
+                    console.log('Extracted reportTypeText:', reportTypeText);
                     if (reportTypeText === '用户标记') {
                         jsonObject.count = 1;
-                         console.log('Set count to 1'); // Debugging line
+                         console.log('Set count to 1');
                     }
                 }
             }
-            const locationElement = document.querySelector('.location'); // Changed selector to '.location'
-            console.log('Found .location element:', locationElement); // Debugging line
+            const locationElement = document.querySelector('.tel-info .location'); // More specific selector
+            console.log('Found .tel-info .location element:', locationElement);
             if (locationElement) {
                 const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
-                 console.log('Extracted locationText:', locationText); // Debugging line
+                 console.log('Extracted locationText:', locationText);
                 const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
                 if (match) {
                     jsonObject.province = match[1] || '';
                     jsonObject.city = match[2] || '';
-                     console.log('Extracted province:', jsonObject.province); // Debugging line
-                     console.log('Extracted city:', jsonObject.city); // Debugging line
+                     console.log('Extracted province:', jsonObject.province);
+                     console.log('Extracted city:', jsonObject.city);
                 }
             }
 
@@ -210,7 +207,7 @@
             } else {
                 jsonObject.predefinedLabel = 'Unknown';
             }
-             console.log('Set predefinedLabel:', jsonObject.predefinedLabel); // Debugging line
+             console.log('Set predefinedLabel:', jsonObject.predefinedLabel);
 
         } catch (error) {
             console.error('Error extracting data:', error);
@@ -228,19 +225,14 @@
         return str;
     }
 
-    async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
-        console.log('generateOutput called with:', phoneNumber, externalRequestId);
-
-        if (phoneNumber) {
-            queryPhoneInfo(phoneNumber, externalRequestId);
-        }
-        if (nationalNumber) {
-            queryPhoneInfo(nationalNumber, externalRequestId);
-        }
-        if (e164Number) {
-            queryPhoneInfo(e164Number, externalRequestId);
-        }
+    // Modified generateOutput function - Flutter calls handleResponse directly with the response
+    // This generateOutput might not be directly used in the new flow, but keep for potential future use or testing
+    async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
+         console.log('generateOutput called with:', phoneNumber, requestId);
+         // This function's role is now replaced by Flutter calling handleResponse directly.
+         // You might keep it for testing purposes or a different workflow.
     }
+
 
     function sendResultToFlutter(type, data, externalRequestId, phoneRequestId) {
         const resultMessage = {
@@ -264,8 +256,8 @@
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
-            generateOutput: generateOutput,
-            handleResponse: handleResponse,
+            // generateOutput: generateOutput, // Removed from here
+            handleResponse: handleResponse, // Expose handleResponse
             test: function () {
                 console.log('Plugin test function called');
                 return 'Plugin is working';
