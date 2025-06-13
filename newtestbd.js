@@ -7,7 +7,7 @@
         info: {
     id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'bai', // 插件名称
-    version: '1.56.0', // 插件版本
+    version: '1.2.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
         },
@@ -125,130 +125,46 @@
             console.error("flutter_inappwebview is undefined");
         }
     }
-    
-    // 发送结果回Flutter的函数
-    function sendResultToFlutter(type, data, requestId) {
-        const resultData = {
-            type: type,
-            pluginId: pluginId,
-            requestId: requestId,
-            data: data
-        };
-        
-        console.log('Sending result to Flutter:', resultData);
-        
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(resultData));
-        } else {
-            console.error("flutter_inappwebview is undefined when sending result");
-        }
-    }
 
 // handleResponse 函数 (JavaScript)
 function handleResponse(response) {
     console.log('handleResponse called with:', response);
 
     if (response.status >= 200 && response.status < 300) {
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-        // 创建一个临时的DOM解析器来提取和处理HTML内容
-        const parser = new DOMParser();
-        const htmlDoc = parser.parseFromString(response.responseText, 'text/html');
-        
-        // 提取并执行head中的所有脚本
-        const scripts = htmlDoc.head.querySelectorAll('script');
-        console.log(`Found ${scripts.length} scripts in head`);
-        
-        // 先将body内容设置到document
-        document.body.innerHTML = htmlDoc.body.innerHTML;
-        
-        // 执行head中的脚本
-        scripts.forEach((script, index) => {
-            try {
-                if (script.src) {
-                    // 对于外部脚本，创建新的script元素并添加到document
-                    const newScript = document.createElement('script');
-                    newScript.src = script.src;
-                    newScript.async = false; // 保持脚本执行顺序
-                    document.head.appendChild(newScript);
-                    console.log(`Added external script ${index + 1}:`, script.src);
-                } else if (script.textContent) {
-                    // 对于内联脚本，直接执行
-                    console.log(`Executing inline script ${index + 1}`);
-                    eval(script.textContent);
-                }
-            } catch (error) {
-                console.error(`Error executing script ${index + 1}:`, error);
-            }
-        });
-
-        // 使用 MutationObserver 等待 Shadow DOM 宿主元素出现
-        const observer = new MutationObserver((mutationsList, observer) => {
-            // 1. 找到 Shadow DOM 的宿主元素 (根据你的图片，是 <div id="__hcfy__">)
-            const shadowHost = document.querySelector('#__hcfy__');
-
-            if (shadowHost) {
-                // 2. 穿透 Shadow DOM，获取 shadowRoot
-                if (shadowHost.shadowRoot) {
-                    // 3. 在 shadowRoot 内部查找目标元素 (例如 .report-wrapper)
-                    const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper'); // 替换为你的目标元素
-
-                    if (targetElement && targetElement.textContent.trim() !== "") {
-                        observer.disconnect();
-                        let result = parseResponse(shadowHost.shadowRoot, phoneNumber); // 传入 shadowRoot 和电话号码
-                        // 发送结果回Flutter
-                        sendResultToFlutter('pluginResult', result, response.externalRequestId);
-                        return;
-                    }
-                }
-            }
-
-            // 添加超时检查，避免无限等待
-            setTimeout(() => {
-                if (!observer.disconnected) {
-                    console.log('Observer timeout - disconnecting');
-                    observer.disconnect();
-                    // 即使没有找到预期元素，也尝试解析并返回可能的结果
-                    let result = {
-                        count: 0,
-                        sourceLabel: "解析超时",
-                        province: "",
-                        city: "",
-                        carrier: "unknown",
-                        phoneNumber: phoneNumber
-                    };
-                    sendResultToFlutter('pluginResult', result, response.externalRequestId);
-                }
-            }, 5000); // 5秒超时
-        });
-
-        const config = { childList: true, subtree: true, characterData: true, attributes: true };
-        observer.observe(document.body, config);
+        // 直接将 HTML 响应加载到 WebView 中
+        // 注意：Flutter 侧的 WebView 应该已经准备好接收 loadData
+        // 并且能够执行其中的 JavaScript。
+        // 在 Flutter 侧，这通常通过 `_webViewController.loadData(data: response.responseText, baseUrl: WebUri('http://localhost/'));` 实现。
+        // HTML 内容已经加载到 WebView 中，直接在当前文档中查找元素
+        extractDataFromDOM(document, response.phoneNumber); // 重新添加对 extractDataFromDOM 的调用，并传递 phoneNumber
 
     } else {
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
     }
 }
+  // 发送结果到Flutter
+  function sendResultToFlutter(type, data, externalRequestId) {
+    const message = {
+        type: type,
+        pluginId: pluginId,
+        requestId: externalRequestId,
+        data: data
+    };
+    if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(message));
+    } else {
+        console.error("flutter_inappwebview is undefined");
+    }
+}
+
 
 // parseResponse 函数 (修改：接收 shadowRoot)
 function parseResponse(shadowRoot, phoneNumber) {
   return extractDataFromDOM(shadowRoot, phoneNumber);
 }
 
-// extractDataFromDOM 函数 (修改：从 shadowRoot 查找元素)
-function extractDataFromDOM(shadowRoot, phoneNumber) {
+// extractDataFromDOM 函数 (修改：从 document 查找元素)
+function extractDataFromDOM(doc, phoneNumber) {
     const jsonObject = {
         count: 0,
         sourceLabel: "",
@@ -259,27 +175,27 @@ function extractDataFromDOM(shadowRoot, phoneNumber) {
     };
 
     try {
-        // --- 从 shadowRoot 中查找元素 ---
-        const reportWrapper = shadowRoot.querySelector('.report-wrapper'); // 在 shadowRoot 内查找
+        // --- 从 document 中查找元素 ---
+        const reportWrapper = doc.querySelector('.report-wrapper'); // 在 document 内查找
 
         if (reportWrapper) {
-            // ... (其余代码与之前类似，但都在 shadowRoot 内查找) ...
+            // ... (其余代码与之前类似，但都在 document 内查找) ...
             const reportNameElement = reportWrapper.querySelector('.report-name');
             if (reportNameElement) {
-                jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
+                jsonObject.sourceLabel = reportNameElement.textContent.trim();
             }
 
             const reportTypeElement = reportWrapper.querySelector('.report-type');
             if (reportTypeElement) {
-                const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
+                const reportTypeText = reportTypeElement.textContent.trim();
                 if (reportTypeText === '用户标记') {
                     jsonObject.count = 1;
                 }
             }
         }
-        const locationElement = shadowRoot.querySelector('.location');
+        const locationElement = doc.querySelector('.location');
         if (locationElement) {
-                const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
+                const locationText = locationElement.textContent.trim();
                 const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
                 if (match) {
                     jsonObject.province = match[1] || '';
@@ -293,14 +209,7 @@ function extractDataFromDOM(shadowRoot, phoneNumber) {
     return jsonObject;
 }
 // Quoted-Printable 解码函数 (保持不变)
-function decodeQuotedPrintable(str) {
-    str = str.replace(/=3D/g, "=");
-    str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
-        return String.fromCharCode(parseInt(p1, 16));
-    });
-    str = str.replace(/=\r?\n/g, '');
-    return str;
-}
+
 
     // generateOutput function (modified)
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
