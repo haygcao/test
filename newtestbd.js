@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin',
             name: 'bai',
-            version: '1.9.0',
+            version: '1.2.0',
             description: 'This is a plugin template.',
             author: 'Your Name',
         },
@@ -86,7 +86,7 @@
         '推销': 'Telemarketing',
     };
 
-    // Retain generateOutput, queryPhoneInfo, sendRequest, sendResultToFlutter, initializePlugin
+    // Retain generateOutput, queryPhoneInfo, sendRequest, sendResultToFlutter
     // as in your original code.
 
     function queryPhoneInfo(phoneNumber, externalRequestId) {
@@ -245,6 +245,7 @@
         return str;
     }
 
+    // Retain generateOutput as in your original code
     async function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
          console.log('generateOutput called with:', phoneNumber, requestId);
          // This function is called by Flutter to initiate the process.
@@ -253,6 +254,8 @@
          // So, no parsing logic is needed here.
          // We might keep this function as a trigger for Flutter's HTTP request.
          // Let's assume Flutter calls this and this function doesn't need to do anything else in this flow.
+         // You would typically call queryPhoneInfo here to trigger the Flutter HTTP request.
+         queryPhoneInfo(phoneNumber, requestId);
     }
 
 
@@ -278,7 +281,7 @@
             id: pluginInfo.info.id,
             pluginId: pluginId,
             version: pluginInfo.info.version,
-            generateOutput: generateOutput, // Retain generateOutput
+            generateOutput: generateOutput, // Ensure generateOutput is included
             handleResponse: handleResponse, // Expose handleResponse
             test: function () {
                 console.log('Plugin test function called');
