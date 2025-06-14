@@ -1,13 +1,13 @@
 (function () {
     if (window.plugin) return;
 
-    const pluginId = 'tellowsPlugin';
+    const pluginId = 'bd';
 
     const pluginInfo = {
         info: {
-            id: 'tellowsPlugin',
-            name: 'Tellows Plugin',
-            version: '1.6.0',
+            id: 'bdPlugin',
+            name: 'BD Plugin',
+            version: '1.4.0',
             description: 'This plugin retrieves information about phone numbers.',
         },
     };
