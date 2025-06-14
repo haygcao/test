@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.0.0',
+  version: '1.6.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -40,6 +40,17 @@ const predefinedLabels = [
   { label: 'Headhunter' },
   { label: 'Silent Call(Voice Clone?)' },
 ];
+
+
+
+// 手动映射
+const headers = {
+             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+             'Referer': ' https://www.baidu.com/ ',
+             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+             'Connection': 'keep-alive',
+         };
 
 
 
@@ -1734,7 +1745,7 @@ class BaiduPhoneSearchPlugin {
     const searchUrl = `https://haoma.baidu.com/phoneSearch?search=${encodeURIComponent(phoneNumber)}`;
     
     // 发送请求
-    this.sendRequest('GET', searchUrl, {}, requestId);
+    this.sendRequest('GET', searchUrl, headers, requestId);
   }
 
   /**
@@ -2025,24 +2036,7 @@ class BaiduPhoneSearchPlugin {
           count: jsonData.count || 0
         };
         
-        // 翻译省份和城市
-        if (extractedData.province && manualMapping[extractedData.province]) {
-          extractedData.provinceEn = manualMapping[extractedData.province];
-        }
-        
-        if (extractedData.city && manualMapping[extractedData.city]) {
-          extractedData.cityEn = manualMapping[extractedData.city];
-        }
-        
-        if (extractedData.carrier && manualMapping[extractedData.carrier]) {
-          extractedData.carrierEn = manualMapping[extractedData.carrier];
-        }
-        
-        // 翻译标签
-        if (extractedData.tag && predefinedLabels[extractedData.tag]) {
-          extractedData.tagEn = predefinedLabels[extractedData.tag];
-        }
-        
+                                                           
         // 保存提取的数据
         this.extractedData = { ...this.extractedData, ...extractedData };
       }
@@ -2124,14 +2118,14 @@ class BaiduPhoneSearchPlugin {
           result.province = locationParts[0];
           result.city = locationParts[1];
           
-          // 翻译省份和城市
-          if (result.province && manualMapping[result.province]) {
-            result.provinceEn = manualMapping[result.province];
-          }
-          
-          if (result.city && manualMapping[result.city]) {
-            result.cityEn = manualMapping[result.city];
-          }
+        
+        
+        
+        
+        
+        
+        
+        
         }
         
         // 尝试提取运营商信息
@@ -2149,10 +2143,10 @@ class BaiduPhoneSearchPlugin {
       if (tagElement) {
         result.tag = tagElement.textContent.trim();
         
-        // 翻译标签
-        if (result.tag && predefinedLabels[result.tag]) {
-          result.tagEn = predefinedLabels[result.tag];
-        }
+    
+    
+    
+    
       }
       
       if (countElement) {
