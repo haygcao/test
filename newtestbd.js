@@ -7,7 +7,7 @@
         info: {
             id: 'tellowsPlugin',
             name: 'Tellows Plugin',
-            version: '1.2.0',
+            version: '1.6.0',
             description: 'This plugin retrieves information about phone numbers.',
         },
     };
@@ -243,10 +243,12 @@
             
             // 创建一个函数来按顺序处理脚本
             let currentIndex = 0;
+            let loadedScripts = 0;
+            const totalScripts = scriptQueue.length;
             
             function processNextScript() {
                 if (currentIndex >= scriptQueue.length) {
-                    console.log('All scripts processed successfully');
+                    console.log(`All scripts processed successfully (${loadedScripts}/${totalScripts})`);
                     return;
                 }
                 
@@ -263,19 +265,21 @@
                 
                 // 处理脚本加载完成后的操作
                 const handleScriptProcessed = () => {
+                    loadedScripts++;
                     currentIndex++;
-                    setTimeout(processNextScript, 0); // 使用setTimeout确保不会堆栈溢出
+                    // 使用setTimeout确保不会堆栈溢出，并给浏览器一些时间处理当前脚本
+                    setTimeout(processNextScript, 10);
                 };
                 
                 if (scriptInfo.type === 'external') {
                     // 设置加载完成和错误处理回调
                     newScript.onload = function() {
-                        console.log(`Script loaded: ${scriptInfo.src}`);
+                        console.log(`Script loaded (${loadedScripts+1}/${totalScripts}): ${scriptInfo.src}`);
                         handleScriptProcessed();
                     };
                     
-                    newScript.onerror = function() {
-                        console.error(`Failed to load script: ${scriptInfo.src}`);
+                    newScript.onerror = function(error) {
+                        console.error(`Failed to load script (${loadedScripts+1}/${totalScripts}): ${scriptInfo.src}`, error);
                         handleScriptProcessed(); // 即使出错也继续处理下一个脚本
                     };
                     
@@ -284,6 +288,7 @@
                 } else {
                     // 设置内联脚本内容
                     newScript.textContent = scriptInfo.content;
+                    console.log(`Inline script processed (${loadedScripts+1}/${totalScripts})`);
                     // 内联脚本不需要等待加载，直接处理下一个
                     setTimeout(handleScriptProcessed, 0);
                 }
@@ -294,11 +299,6 @@
                 } else {
                     // 如果没有父节点，则添加到head或body
                     (doc.head || doc.body).appendChild(newScript);
-                }
-                
-                // 如果是内联脚本，不需要等待onload事件
-                if (scriptInfo.type === 'inline') {
-                    // 不做任何事，因为我们已经在设置textContent后安排了处理下一个脚本
                 }
             }
             
