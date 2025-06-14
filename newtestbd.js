@@ -7,7 +7,7 @@
         info: {
             id: 'tellowsPlugin',
             name: 'Tellows Plugin',
-            version: '1.0.0',
+            version: '1.2.0',
             description: 'This plugin retrieves information about phone numbers.',
         },
     };
