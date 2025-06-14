@@ -1,48 +1,51 @@
-(function () {
-    if (window.plugin) return;
+/**
+ * 百度号码查询插件 - 用于查询电话号码信息
+ * 此插件可以处理拦截到的数据并提取电话号码相关信息
+ */
 
-    const pluginId = 'bd';
+// 插件基础信息
+const pluginInfo = {
+  id: 'baidu_phone_search',
+  name: '百度号码查询',
+  version: '1.0.0',
+  description: '通过百度搜索查询电话号码信息',
+};
 
-    const pluginInfo = {
-        info: {
-            id: 'bdPlugin',
-            name: 'BD Plugin',
-            version: '1.4.0',
-            description: 'This plugin retrieves information about phone numbers.',
-        },
-    };
 
-    const predefinedLabels = [
-        { label: 'Fraud Scam Likely' },
-        { label: 'Spam Likely' },
-        { label: 'Telemarketing' },
-        { label: 'Robocall' },
-        { label: 'Delivery' },
-        { label: 'Takeaway' },
-        { label: 'Ridesharing' },
-        { label: 'Insurance' },
-        { label: 'Loan' },
-        { label: 'Customer Service' },
-        { label: 'Unknown' },
-        { label: 'Financial' },
-        { label: 'Bank' },
-        { label: 'Education' },
-        { label: 'Medical' },
-        { label: 'Charity' },
-        { label: 'Other' },
-        { label: 'Debt Collection' },
-        { label: 'Survey' },
-        { label: 'Political' },
-        { label: 'Ecommerce' },
-        { label: 'Risk' },
-        { label: 'Agent' },
-        { label: 'Recruiter' },
-        { label: 'Headhunter' },
-        { label: 'Silent Call(Voice Clone?)' },
-    ];
+const predefinedLabels = [
+  { label: 'Fraud Scam Likely' },
+  { label: 'Spam Likely' },
+  { label: 'Telemarketing' },
+  { label: 'Robocall' },
+  { label: 'Delivery' },
+  { label: 'Takeaway' },
+  { label: 'Ridesharing' },
+  { label: 'Insurance' },
+  { label: 'Loan' },
+  { label: 'Customer Service' },
+  { label: 'Unknown' },
+  { label: 'Financial' },
+  { label: 'Bank' },
+  { label: 'Education' },
+  { label: 'Medical' },
+  { label: 'Charity' },
+  { label: 'Other' },
+  { label: 'Debt Collection' },
+  { label: 'Survey' },
+  { label: 'Political' },
+  { label: 'Ecommerce' },
+  { label: 'Risk' },
+  { label: 'Agent' },
+  { label: 'Recruiter' },
+  { label: 'Headhunter' },
+  { label: 'Silent Call(Voice Clone?)' },
+];
 
-    const manualMapping = {
-        '中介': 'Agent',             // 含义较广，包括房产中介等
+
+
+// 手动映射
+const manualMapping = {
+   '中介': 'Agent',             // 含义较广，包括房产中介等
         '房产中介': 'Agent',         // 细化为房地产经纪人
         '违规催收': 'Debt Collection',
         '快递物流': 'Delivery',
@@ -83,416 +86,2286 @@
         '旅游推广': 'Telemarketing',
         '食药推销': 'Telemarketing',      
         '推销': 'Telemarketing',
-    };
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+   '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
+        '违规催收': 'Debt Collection',
+        '快递物流': 'Delivery',
+        '快递': 'Delivery',
+        '教育培训': 'Education',
+        '金融': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
+        '涉诈电话': 'Fraud Scam Likely',
+        '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+        '猎头': 'Headhunter',
+        '猎头招聘': 'Headhunter',
+        '招聘猎头': 'Headhunter',
+        '保险': 'Insurance',
+        '保险推销': 'Insurance',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
+        '其他': 'Other',
+        '送餐外卖': 'Takeaway',
+        '美团': 'Takeaway',
+        '饿了么': 'Takeaway',
+        '外卖': 'Takeaway',  
+        '滴滴/优步': 'Ridesharing',
+        '出租车': 'Ridesharing',
+        '网约车': 'Ridesharing',
+        '违法': 'Risk',
+        '淫秽色情': 'Risk',
+        '反动谣言': 'Risk', 
+        '发票办证': 'Risk',
+        '客服热线': 'Customer Service',
+        '非应邀商业电话': 'Spam Likely',
+        '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+        '广告营销': 'Telemarketing',
+        '广告推销': 'Telemarketing',
+        '旅游推广': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
+        '推销': 'Telemarketing',
+};
 
-    // --- Unified Request Function ---
+// 插件类
+class BaiduPhoneSearchPlugin {
+  constructor() {
+    this.pendingRequests = {}; // 存储待处理的请求
+    this.requestCounter = 0;   // 请求计数器
+    this.initialized = false;  // 初始化状态
+    this.debug = true;         // 调试模式
+    this.lastSearchedPhone = null; // 最后搜索的电话号码
+    this.extractedData = {};   // 存储提取的数据
+  }
 
-    function queryPhoneInfo(phoneNumber, externalRequestId) {
-        // Generate a unique ID for *this specific phone number request*
-        const phoneRequestId = Math.random().toString(36).substring(2);
-        console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
-
-        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
-        const method = 'GET';
-        const headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', // Example User-Agent
-    'Referer': 'https://www.baidu.com/', // 或搜索结果页 URL
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-    'Connection': 'keep-alive',
-        };
-        const body = null;
-
-        // Pass BOTH the externalRequestId AND the internal phoneRequestId
-        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
+  /**
+   * 初始化插件
+   */
+  initialize() {
+    if (this.initialized) {
+      return;
     }
-
-
-
-
-
-
-    // sendRequest function (now accepts both request IDs)
-    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
-        const requestData = {
-            url: url,
-            method: method,
-            headers: headers,
-            body: body,
-            externalRequestId: externalRequestId, // Include externalRequestId
-            phoneRequestId: phoneRequestId,     // Include phoneRequestId
-            pluginId: pluginId,
-        };
-
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
-        } else {
-            console.error("flutter_inappwebview is undefined");
-        }
+    
+    this.log('Plugin initializing:', pluginInfo.id);
+    
+    // 通知Flutter插件已加载
+    if (window.flutter_inappwebview) {
+      window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
+        type: 'pluginLoaded',
+        pluginId: pluginInfo.id,
+        info: pluginInfo
+      }));
     }
+    
+    this.initialized = true;
+    this.log('Plugin initialized successfully');
+  }
 
-    // handleResponse function (now receives both request IDs)
-    function handleResponse(response) {
-    console.log('handleResponse called with:', response);
+  /**
+   * 查询电话号码信息
+   * @param {string} phoneNumber - 电话号码
+   * @param {string} requestId - 请求ID
+   */
+  queryPhoneInfo(phoneNumber, requestId) {
+    this.log('Querying phone info for:', phoneNumber);
+    this.lastSearchedPhone = phoneNumber;
+    
+    // 构建百度搜索URL
+    const searchUrl = `https://haoma.baidu.com/phoneSearch?search=${encodeURIComponent(phoneNumber)}`;
+    
+    // 发送请求
+    this.sendRequest('GET', searchUrl, {}, requestId);
+  }
 
-    if (response.status >= 200 && response.status < 300) {
-        // Use response.phoneNumber, which should be passed from Flutter
-        let result = parseResponse(response.responseText, response.phoneNumber);
-
-        console.log('First successful query completed:', result);
-
-        if (result === null || result === undefined) {
-            // Use response.externalRequestId for errors
-            sendResultToFlutter('pluginError', { error: 'All attempts failed or timed out.' }, response.externalRequestId);
-            return;
-        }
-
-        let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
-        if (!matchedLabel) {
-            matchedLabel = manualMapping[result.sourceLabel];
-        }
-        if (!matchedLabel) {
-            matchedLabel = 'Unknown';
-        }
-
-        const finalResult = {
-            phoneNumber: result.phoneNumber,
-            sourceLabel: result.sourceLabel,
-            count: result.count,
-            province: result.province,
-            city: result.city,
-            carrier: result.carrier,
-            name: result.name,
-            predefinedLabel: matchedLabel,
-            source: pluginInfo.info.name,
-        };
-
-        // Use response.externalRequestId for the result
-        sendResultToFlutter('pluginResult', finalResult, response.externalRequestId);
-    } else {
-        // Use response.externalRequestId for errors
-        sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
+  /**
+   * 发送请求
+   * @param {string} method - HTTP方法
+   * @param {string} url - 请求URL
+   * @param {object} headers - 请求头
+   * @param {string} requestId - 请求ID
+   */
+  sendRequest(method, url, headers, requestId) {
+    if (!window.flutter_inappwebview) {
+      this.logError('Flutter interface not available');
+      return;
     }
+    
+    try {
+      const request = {
+        method,
+        url,
+        headers,
+        pluginId: pluginInfo.id,
+        requestId
+      };
+      
+      window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(request));
+    } catch (error) {
+      this.logError('Error sending request:', error);
+      this.sendPluginError('Failed to send request: ' + error.message, requestId);
+    }
+  }
+
+  /**
+   * 处理响应
+   * @param {string|object} jsonData - 响应数据（JSON字符串或对象）
+   */
+  handleResponse(jsonData) {
+    try {
+      const response = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
+      const requestId = response.requestId;
+      
+      this.log('Handling response for request:', requestId);
+      
+      if (response.error) {
+        this.logError('Error in response:', response.error);
+        this.sendPluginError(response.error, requestId);
+        return;
+      }
+      
+      // 处理HTML响应
+      if (response.body && response.body.includes('<html')) {
+        this.processHtml({ html: response.body, url: response.url });
+      }
+      // 处理JSON响应
+      else if (response.body && response.body.startsWith('{')) {
+        try {
+          const jsonData = JSON.parse(response.body);
+          this.processJsonResponse(response.url, jsonData, requestId);
+        } catch (e) {
+          this.logError('Error parsing JSON response:', e);
+        }
+      }
+      
+      // 如果已经提取到数据，发送结果
+      if (Object.keys(this.extractedData).length > 0) {
+        this.sendPluginResult(this.extractedData, requestId);
+        this.extractedData = {}; // 重置提取的数据
+      }
+    } catch (error) {
+      this.logError('Error handling response:', error);
+    }
+  }
+
+  /**
+   * 处理拦截到的数据
+   * @param {string|object} jsonData - 拦截到的数据（JSON字符串或对象）
+   */
+  handleInterceptedData(jsonData) {
+    try {
+      const data = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
+      const action = data.action;
+      const payload = data.data;
+      
+      this.log('Received intercepted data:', action);
+      
+      switch (action) {
+        case 'processHtml':
+          this.processHtml(payload);
+          break;
+        case 'processScript':
+          this.processScript(payload);
+          break;
+        case 'processNetworkResponse':
+          this.processNetworkResponse(payload);
+          break;
+        default:
+          this.log('Unknown action:', action);
+      }
+    } catch (error) {
+      this.logError('Error handling intercepted data:', error);
+    }
+  }
+
+  /**
+   * 处理HTML内容
+   * @param {object} data - HTML数据
+   */
+  processHtml(data) {
+    this.log('Processing HTML from:', data.url);
+    
+    try {
+      // 创建一个临时的DOM解析器
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data.html, 'text/html');
+      
+      // 处理HTML中的脚本
+      this.handleDynamicScripts(doc);
+      
+      // 提取数据
+      const extractedData = this.extractDataFromDOM(doc);
+      
+      // 如果有提取到数据，保存结果
+      if (extractedData && Object.keys(extractedData).length > 0) {
+        this.extractedData = { ...this.extractedData, ...extractedData };
+      }
+    } catch (error) {
+      this.logError('Error processing HTML:', error);
+    }
+  }
+
+  /**
+   * 处理脚本内容
+   * @param {object} data - 脚本数据
+   */
+  processScript(data) {
+    this.log('Processing script' + (data.isExternal ? ' from: ' + data.url : ' (inline)'));
+    
+    try {
+      // 分析脚本内容，查找有用的数据
+      const scriptContent = data.content;
+      
+      // 查找JSON数据
+      this.extractJsonFromScript(scriptContent);
+      
+      // 查找变量赋值
+      this.extractVariablesFromScript(scriptContent);
+    } catch (error) {
+      this.logError('Error processing script:', error);
+    }
+  }
+
+  /**
+   * 处理网络响应
+   * @param {object} data - 网络响应数据
+   */
+  processNetworkResponse(data) {
+    this.log('Processing network response from:', data.url);
+    
+    try {
+      const url = data.url;
+      const content = data.content;
+      
+      // 如果是JSON响应
+      if (data.responseType === 'json' || (content && content.trim().startsWith('{'))) {
+        try {
+          const jsonData = typeof content === 'string' ? JSON.parse(content) : content;
+          this.processJsonResponse(url, jsonData);
+        } catch (e) {
+          this.logError('Error parsing JSON response:', e);
+        }
+      }
+      // 如果是HTML响应
+      else if (data.responseType === 'text/html' || (content && content.includes('<html'))) {
+        this.processHtml({ url, html: content });
+      }
+    } catch (error) {
+      this.logError('Error processing network response:', error);
+    }
+  }
+
+  /**
+   * 处理JSON响应
+   * @param {string} url - 响应URL
+   * @param {object} jsonData - JSON数据
+   * @param {string} requestId - 请求ID
+   */
+  processJsonResponse(url, jsonData, requestId) {
+    this.log('Processing JSON response from:', url);
+    
+    try {
+      // 检查是否包含电话号码信息
+      if (jsonData.data && jsonData.data.phoneInfo) {
+        const phoneInfo = jsonData.data.phoneInfo;
+        
+        // 提取电话号码信息
+        const extractedData = {
+          phoneNumber: this.lastSearchedPhone,
+          province: phoneInfo.province || '',
+          city: phoneInfo.city || '',
+          carrier: phoneInfo.operator || '',
+          type: phoneInfo.type || '',
+          tag: phoneInfo.tag || '',
+          count: phoneInfo.count || 0
+        };
+        
+        // 翻译省份和城市
+        if (extractedData.province && manualMapping[extractedData.province]) {
+          extractedData.provinceEn = manualMapping[extractedData.province];
+        }
+        
+        if (extractedData.city && manualMapping[extractedData.city]) {
+          extractedData.cityEn = manualMapping[extractedData.city];
+        }
+        
+        if (extractedData.carrier && manualMapping[extractedData.carrier]) {
+          extractedData.carrierEn = manualMapping[extractedData.carrier];
+        }
+        
+        // 翻译标签
+        if (extractedData.tag && predefinedLabels[extractedData.tag]) {
+          extractedData.tagEn = predefinedLabels[extractedData.tag];
+        }
+        
+        // 保存提取的数据
+        this.extractedData = { ...this.extractedData, ...extractedData };
+        
+        // 如果有请求ID，直接发送结果
+        if (requestId) {
+          this.sendPluginResult(this.extractedData, requestId);
+          this.extractedData = {}; // 重置提取的数据
+        }
+      }
+    } catch (error) {
+      this.logError('Error processing JSON response:', error);
+    }
+  }
+
+  /**
+   * 从脚本中提取JSON数据
+   * @param {string} scriptContent - 脚本内容
+   */
+  extractJsonFromScript(scriptContent) {
+    try {
+      // 查找可能的JSON对象定义
+      const jsonRegex = /(?:const|let|var)\s+([\w]+)\s*=\s*(\{[\s\S]*?\});/g;
+      let match;
+      
+      while ((match = jsonRegex.exec(scriptContent)) !== null) {
+        const variableName = match[1];
+        const jsonString = match[2];
+        
+        try {
+          // 尝试解析JSON
+          const jsonData = eval('(' + jsonString + ')');
+          this.log('Found JSON data in variable:', variableName);
+          
+          // 检查是否包含电话号码信息
+          if (variableName === 'phoneInfo' || variableName.includes('phone') || variableName.includes('Phone')) {
+            this.processExtractedJson(variableName, jsonData);
+          }
+        } catch (e) {
+          // 不是有效的JSON，忽略
+        }
+      }
+    } catch (error) {
+      this.logError('Error extracting JSON from script:', error);
+    }
+  }
+
+  /**
+   * 处理从脚本中提取的JSON数据
+   * @param {string} variableName - 变量名
+   * @param {object} jsonData - JSON数据
+   */
+  processExtractedJson(variableName, jsonData) {
+    this.log('Processing extracted JSON from variable:', variableName);
+    
+    try {
+      // 检查是否包含电话号码信息
+      if (jsonData.province || jsonData.city || jsonData.operator || jsonData.type) {
+        // 提取电话号码信息
+        const extractedData = {
+          phoneNumber: this.lastSearchedPhone,
+          province: jsonData.province || '',
+          city: jsonData.city || '',
+          carrier: jsonData.operator || '',
+          type: jsonData.type || '',
+          tag: jsonData.tag || '',
+          count: jsonData.count || 0
+        };
+        
+        // 翻译省份和城市
+        if (extractedData.province && manualMapping[extractedData.province]) {
+          extractedData.provinceEn = manualMapping[extractedData.province];
+        }
+        
+        if (extractedData.city && manualMapping[extractedData.city]) {
+          extractedData.cityEn = manualMapping[extractedData.city];
+        }
+        
+        if (extractedData.carrier && manualMapping[extractedData.carrier]) {
+          extractedData.carrierEn = manualMapping[extractedData.carrier];
+        }
+        
+        // 翻译标签
+        if (extractedData.tag && predefinedLabels[extractedData.tag]) {
+          extractedData.tagEn = predefinedLabels[extractedData.tag];
+        }
+        
+        // 保存提取的数据
+        this.extractedData = { ...this.extractedData, ...extractedData };
+      }
+    } catch (error) {
+      this.logError('Error processing extracted JSON:', error);
+    }
+  }
+
+  /**
+   * 处理动态脚本
+   * @param {Document} doc - HTML文档
+   */
+  handleDynamicScripts(doc) {
+    try {
+      // 查找所有脚本元素
+      const scripts = doc.querySelectorAll('script');
+      
+      // 收集脚本内容和URL
+      for (let i = 0; i < scripts.length; i++) {
+        const script = scripts[i];
+        
+        // 外部脚本
+        if (script.src) {
+          this.fetchExternalScript(script.src);
+        }
+        // 内联脚本
+        else if (script.textContent && script.textContent.trim()) {
+          this.processScript({
+            isExternal: false,
+            content: script.textContent
+          });
+        }
+      }
+    } catch (error) {
+      this.logError('Error handling dynamic scripts:', error);
+    }
+  }
+
+  /**
+   * 获取外部脚本
+   * @param {string} url - 脚本URL
+   */
+  fetchExternalScript(url) {
+    this.log('Fetching external script:', url);
+    
+    // 创建一个请求ID
+    const requestId = this.generateRequestId();
+    
+    // 发送请求到Flutter
+    this.sendRequest('GET', url, {}, requestId);
+  }
+
+  /**
+   * 从DOM中提取数据
+   * @param {Document} doc - HTML文档
+   * @returns {object} 提取的数据
+   */
+  extractDataFromDOM(doc) {
+    try {
+      const result = {};
+      
+      // 尝试从标准元素中提取数据
+      const phoneElement = doc.querySelector('.phone-num');
+      const locationElement = doc.querySelector('.location');
+      const tagElement = doc.querySelector('.tag');
+      const countElement = doc.querySelector('.num');
+      
+      if (phoneElement) {
+        result.phoneNumber = phoneElement.textContent.trim();
+      } else {
+        result.phoneNumber = this.lastSearchedPhone;
+      }
+      
+      if (locationElement) {
+        const locationText = locationElement.textContent.trim();
+        const locationParts = locationText.split(' ');
+        
+        if (locationParts.length >= 2) {
+          result.province = locationParts[0];
+          result.city = locationParts[1];
+          
+          // 翻译省份和城市
+          if (result.province && manualMapping[result.province]) {
+            result.provinceEn = manualMapping[result.province];
+          }
+          
+          if (result.city && manualMapping[result.city]) {
+            result.cityEn = manualMapping[result.city];
+          }
+        }
+        
+        // 尝试提取运营商信息
+        const carrierMatch = locationText.match(/(移动|联通|电信|虚拟运营商)/);
+        if (carrierMatch) {
+          result.carrier = carrierMatch[1];
+          
+          // 翻译运营商
+          if (result.carrier && manualMapping[result.carrier]) {
+            result.carrierEn = manualMapping[result.carrier];
+          }
+        }
+      }
+      
+      if (tagElement) {
+        result.tag = tagElement.textContent.trim();
+        
+        // 翻译标签
+        if (result.tag && predefinedLabels[result.tag]) {
+          result.tagEn = predefinedLabels[result.tag];
+        }
+      }
+      
+      if (countElement) {
+        const countText = countElement.textContent.trim();
+        const countMatch = countText.match(/(\d+)/);
+        if (countMatch) {
+          result.count = parseInt(countMatch[1], 10);
+        }
+      }
+      
+      // 如果标准元素没有找到，尝试从其他元素中提取
+      if (!locationElement && !tagElement) {
+        const containers = doc.querySelectorAll('.c-container');
+        
+        for (let i = 0; i < containers.length; i++) {
+          const container = containers[i];
+          const text = container.textContent;
+          
+          // 尝试提取标签
+          for (const label in predefinedLabels) {
+            if (text.includes(label)) {
+              result.tag = label;
+              result.tagEn = predefinedLabels[label];
+              break;
+            }
+          }
+          
+          // 尝试提取位置信息
+          for (const location in manualMapping) {
+            if (text.includes(location) && location.length > 1) { // 避免匹配单个字符
+              if (!result.province) {
+                result.province = location;
+                result.provinceEn = manualMapping[location];
+              } else if (!result.city && location !== result.province) {
+                result.city = location;
+                result.cityEn = manualMapping[location];
+              }
+            }
+          }
+          
+          // 尝试提取运营商信息
+          const carrierMatch = text.match(/(移动|联通|电信|虚拟运营商)/);
+          if (carrierMatch && !result.carrier) {
+            result.carrier = carrierMatch[1];
+            result.carrierEn = manualMapping[carrierMatch[1]];
+          }
+          
+          // 如果已经提取到足够的信息，跳出循环
+          if (result.tag && result.province && result.city && result.carrier) {
+            break;
+          }
+        }
+      }
+      
+      return result;
+    } catch (error) {
+      this.logError('Error extracting data from DOM:', error);
+      return {};
+    }
+  }
+
+  /**
+   * 生成输出
+   * @param {string} phoneNumber - 电话号码
+   * @param {string} nationalNumber - 国内格式号码
+   * @param {string} e164Number - E164格式号码
+   * @param {string} requestId - 请求ID
+   */
+  generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
+    this.log('generateOutput called with:', phoneNumber, requestId);
+    
+    try {
+      // 清空之前的数据
+      this.extractedData = {};
+      
+      // 查询各种格式的电话号码信息
+      // Call queryPhoneInfo for each number format, passing the requestId
+      if (phoneNumber) {
+          this.queryPhoneInfo(phoneNumber, requestId);
+      }
+      if (nationalNumber) {
+          this.queryPhoneInfo(nationalNumber, requestId);
+      }
+      if (e164Number) {
+          this.queryPhoneInfo(e164Number, requestId);
+      }
+    } catch (error) {
+      this.logError('Error generating output:', error);
+      this.sendPluginError('Failed to generate output: ' + error.message, requestId);
+    }
+  }
+
+  /**
+   * 格式化电话号码
+   * @param {string} phoneNumber - 电话号码
+   * @returns {string} 格式化后的电话号码
+   */
+  formatPhoneNumber(phoneNumber) {
+    // 移除所有非数字字符
+    let cleaned = phoneNumber.replace(/\D/g, '');
+    
+    // 如果是中国手机号码（以1开头的11位数字）
+    if (/^1\d{10}$/.test(cleaned)) {
+      return cleaned;
+    }
+    
+    // 如果是中国固定电话（区号+号码，通常是10-12位）
+    if (cleaned.length >= 10 && cleaned.length <= 12) {
+      // 如果以0开头（区号通常以0开头）
+      if (cleaned.startsWith('0')) {
+        return cleaned;
+      }
+    }
+    
+    // 其他情况，直接返回清理后的号码
+    return cleaned;
+  }
+
+  /**
+   * 发送插件结果到Flutter
+   * @param {object} result - 结果数据
+   * @param {string} requestId - 请求ID
+   */
+  sendPluginResult(result, requestId) {
+    if (!window.flutter_inappwebview) {
+      this.logError('Flutter interface not available');
+      return;
+    }
+    
+    try {
+      const response = {
+        type: 'result',
+        pluginId: pluginInfo.id,
+        requestId: requestId,
+        result,
+        timestamp: Date.now()
+      };
+      
+      window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(response));
+    } catch (error) {
+      this.logError('Error sending result:', error);
+    }
+  }
+
+  /**
+   * 发送插件错误到Flutter
+   * @param {string} errorMessage - 错误消息
+   * @param {string} requestId - 请求ID
+   */
+  sendPluginError(errorMessage, requestId) {
+    if (!window.flutter_inappwebview) {
+      this.logError('Flutter interface not available');
+      return;
+    }
+    
+    try {
+      const response = {
+        type: 'error',
+        pluginId: pluginInfo.id,
+        requestId: requestId,
+        error: errorMessage,
+        timestamp: Date.now()
+      };
+      
+      window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(response));
+    } catch (error) {
+      this.logError('Error sending error:', error);
+    }
+  }
+
+  /**
+   * 生成请求ID
+   * @returns {string} 请求ID
+   */
+  generateRequestId() {
+    return pluginInfo.id + '_' + (++this.requestCounter) + '_' + Date.now();
+  }
+
+  /**
+   * 记录日志
+   * @param {...any} args - 日志参数
+   */
+  log(...args) {
+    if (this.debug) {
+      console.log(`[${pluginInfo.id}]`, ...args);
+    }
+  }
+
+  /**
+   * 记录错误
+   * @param {...any} args - 错误参数
+   */
+  logError(...args) {
+    console.error(`[${pluginInfo.id}]`, ...args);
+  }
 }
-    // Helper function: send result or error to Flutter (uses externalRequestId)
-    function sendResultToFlutter(type, data, externalRequestId) {
-        const message = {
-            type: type,
-            pluginId: pluginId,
-            requestId: externalRequestId, // Correct: Use externalRequestId here
-            data: data,
-        };
-        const messageString = JSON.stringify(message);
-        console.log('Sending message to Flutter:', messageString);
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
-        } else {
-            console.error("flutter_inappwebview is undefined");
-        }
-    }
 
+// 创建插件实例
+const pluginInstance = new BaiduPhoneSearchPlugin();
 
-    // parseResponse function (defined by the plugin)
-    function parseResponse(responseText, phoneNumber) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(responseText, 'text/html');
-        
-        // 处理动态脚本加载
-        handleDynamicScripts(doc);
-        
-        return extractDataFromDOM(doc, phoneNumber);
-    }
+// 初始化插件
+function initializePlugin() {
+  pluginInstance.initialize();
+  return pluginInstance;
+}
 
-    // 处理动态加载的脚本
-    function handleDynamicScripts(doc) {
-        try {
-            console.log('Handling dynamic scripts in document');
-            
-            // 收集所有脚本元素
-            const scripts = doc.querySelectorAll('script');
-            console.log(`Found ${scripts.length} script elements`);
-            
-            // 创建一个队列来存储所有脚本信息
-            const scriptQueue = [];
-            
-            // 首先收集所有脚本信息
-            for (let i = 0; i < scripts.length; i++) {
-                const script = scripts[i];
-                const src = script.getAttribute('src');
-                
-                if (src) {
-                    console.log(`Found external script with src: ${src}`);
-                    scriptQueue.push({
-                        type: 'external',
-                        src: src,
-                        attributes: script.attributes,
-                        element: script
-                    });
-                } else if (script.textContent) {
-                    console.log('Found inline script');
-                    scriptQueue.push({
-                        type: 'inline',
-                        content: script.textContent,
-                        attributes: script.attributes,
-                        element: script
-                    });
-                }
-            }
-            
-            console.log(`Total scripts to process: ${scriptQueue.length}`);
-            
-            // 创建一个函数来按顺序处理脚本
-            let currentIndex = 0;
-            let loadedScripts = 0;
-            const totalScripts = scriptQueue.length;
-            
-            function processNextScript() {
-                if (currentIndex >= scriptQueue.length) {
-                    console.log(`All scripts processed successfully (${loadedScripts}/${totalScripts})`);
-                    return;
-                }
-                
-                const scriptInfo = scriptQueue[currentIndex];
-                const newScript = doc.createElement('script');
-                
-                // 复制原始脚本的所有属性
-                for (let j = 0; j < scriptInfo.attributes.length; j++) {
-                    const attr = scriptInfo.attributes[j];
-                    if (attr.name !== 'src') { // src属性我们会单独处理
-                        newScript.setAttribute(attr.name, attr.value);
-                    }
-                }
-                
-                // 处理脚本加载完成后的操作
-                const handleScriptProcessed = () => {
-                    loadedScripts++;
-                    currentIndex++;
-                    // 使用setTimeout确保不会堆栈溢出，并给浏览器一些时间处理当前脚本
-                    setTimeout(processNextScript, 10);
-                };
-                
-                if (scriptInfo.type === 'external') {
-                    // 设置加载完成和错误处理回调
-                    newScript.onload = function() {
-                        console.log(`Script loaded (${loadedScripts+1}/${totalScripts}): ${scriptInfo.src}`);
-                        handleScriptProcessed();
-                    };
-                    
-                    newScript.onerror = function(error) {
-                        console.error(`Failed to load script (${loadedScripts+1}/${totalScripts}): ${scriptInfo.src}`, error);
-                        handleScriptProcessed(); // 即使出错也继续处理下一个脚本
-                    };
-                    
-                    // 最后设置src属性，这样才会开始加载
-                    newScript.src = scriptInfo.src;
-                } else {
-                    // 设置内联脚本内容
-                    newScript.textContent = scriptInfo.content;
-                    console.log(`Inline script processed (${loadedScripts+1}/${totalScripts})`);
-                    // 内联脚本不需要等待加载，直接处理下一个
-                    setTimeout(handleScriptProcessed, 0);
-                }
-                
-                // 替换原始脚本
-                if (scriptInfo.element.parentNode) {
-                    scriptInfo.element.parentNode.replaceChild(newScript, scriptInfo.element);
-                } else {
-                    // 如果没有父节点，则添加到head或body
-                    (doc.head || doc.body).appendChild(newScript);
-                }
-            }
-            
-            // 开始处理第一个脚本
-            processNextScript();
-            
-            console.log('Dynamic scripts handling initiated');
-        } catch (error) {
-            console.error('Error handling dynamic scripts:', error);
-        }
-    }
+// 将插件注册到全局对象
+if (!window.plugin) {
+  window.plugin = {};
+}
 
-    function extractDataFromDOM(doc, phoneNumber) {
-        const jsonObject = {
-            count: 0,
-            sourceLabel: "",
-            province: "",
-            city: "",
-            carrier: "unknown",
-            phoneNumber: phoneNumber,
-            name: ""
-        };
-    
-        try {
-            console.log('Document Object:', doc);
-    
-            const bodyElement = doc.body;
-            console.log('Body Element:', bodyElement);
-            if (!bodyElement) {
-                console.error('Error: Could not find body element.');
-                return jsonObject;
-            }
-    
-            // --- 按照原逻辑，并添加解码 ---
-            const infoRightElement = doc.querySelector('.info-right'); // info-right 还在
-            console.log('infoRightElement:', infoRightElement);
-    
-            if (infoRightElement) {
-                const reportWrapper = infoRightElement.querySelector('.report-wrapper'); // report-wrapper 还在
-                console.log('reportWrapper:', reportWrapper);
-    
-                if (reportWrapper) {
-                    // 主要从 report-name 获取 sourceLabel
-                    const reportNameElement = reportWrapper.querySelector('.report-name');
-                    console.log('reportNameElement:', reportNameElement);
-                    if (reportNameElement) {
-                        const reportNameText = reportNameElement.textContent.trim();
-                        jsonObject.sourceLabel = reportNameText;
-                        console.log('jsonObject.sourceLabel:', jsonObject.sourceLabel);
-                    }
-                                                                     
-    
-                    // 只有 report-type 为 "用户标记" 时，count 才为 1
-                    const reportTypeElement = reportWrapper.querySelector('.report-type');
-                    console.log('reportTypeElement:', reportTypeElement);
-                    if (reportTypeElement) {
-                        const reportTypeText = reportTypeElement.textContent.trim();
-                        if (reportTypeText === '用户标记') {
-                            jsonObject.count = 1;
-                            console.log('jsonObject.count:', jsonObject.count);
-                        }
-                    }
-                }
-    
-                // 提取 province 和 city，并解码
-                const locationElement = infoRightElement.querySelector('.location');
-                console.log('locationElement:', locationElement);
-                if (locationElement) {
-                    const locationText = locationElement.textContent.trim();
-                    console.log('locationText:', locationText);
-                  
-                    const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
-                    if (match) {
-                        jsonObject.province = match[1] || '';
-                        jsonObject.city = match[2] || '';
-                    }
-                    console.log('jsonObject.province:', jsonObject.province);
-                    console.log('jsonObject.city:', jsonObject.city);
-                }
-                
-                // 提取运营商信息
-                const carrierElement = infoRightElement.querySelector('.carrier');
-                if (carrierElement) {
-                    jsonObject.carrier = carrierElement.textContent.trim();
-                    console.log('jsonObject.carrier:', jsonObject.carrier);
-                }
-                
-                // 提取名称信息
-                const nameElement = infoRightElement.querySelector('.name');
-                if (nameElement) {
-                    jsonObject.name = nameElement.textContent.trim();
-                    console.log('jsonObject.name:', jsonObject.name);
-                }
-                
-                // 尝试从电话号码元素获取
-                const telNumElement = doc.querySelector('.tel-num');
-                if (telNumElement && (!phoneNumber || phoneNumber === '')) {
-                    jsonObject.phoneNumber = telNumElement.textContent.trim();
-                    console.log('jsonObject.phoneNumber from tel-num:', jsonObject.phoneNumber);
-                }
-            }
-            
-            // 如果没有找到标准元素，尝试其他选择器
-            if (!jsonObject.sourceLabel && !jsonObject.count) {
-                // 尝试查找其他可能包含信息的元素
-                const alternativeElements = doc.querySelectorAll('.c-container');
-                if (alternativeElements && alternativeElements.length > 0) {
-                    for (const element of alternativeElements) {
-                        const text = element.textContent.trim();
-                        if (text.includes(phoneNumber)) {
-                            // 尝试提取标签信息
-                            const labelMatch = text.match(/(骚扰|诈骗|推销|广告|快递|外卖|金融|房产|教育|招聘|医疗|政府|服务|商业|个人)/);
-                            if (labelMatch) {
-                                jsonObject.sourceLabel = labelMatch[0];
-                            }
-                            
-                            // 尝试提取位置信息
-                            const locationMatch = text.match(/([\u4e00-\u9fa5]{2,}省|[\u4e00-\u9fa5]{2,}市|[\u4e00-\u9fa5]{2,}区)/);
-                            if (locationMatch) {
-                                if (!jsonObject.province) {
-                                    jsonObject.province = locationMatch[0];
-                                } else if (!jsonObject.city) {
-                                    jsonObject.city = locationMatch[0];
-                                }
-                            }
-                            
-                            // 尝试提取运营商信息
-                            const carrierMatch = text.match(/(移动|联通|电信|虚拟运营商)/);
-                            if (carrierMatch) {
-                                jsonObject.carrier = carrierMatch[0];
-                            }
-                            
-                            break;
-                        }
-                    }
-                }
-            }
-            // --- 原逻辑和解码结束 ---
-    
-        } catch (error) {
-            console.error('Error extracting data:', error);
-        }
-    
-        console.log('Final jsonObject:', jsonObject);
-        console.log('Final jsonObject type:', typeof jsonObject);
-        return jsonObject;
-    }
+// 注册插件
+window.plugin[pluginInfo.id] = initializePlugin();
 
-    // generateOutput function (modified)
-    async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
-        console.log('generateOutput called with:', phoneNumber, externalRequestId);
-
-        // Call queryPhoneInfo for each number format, passing the externalRequestId
-        if (phoneNumber) {
-            queryPhoneInfo(phoneNumber, externalRequestId);
-        }
-        if (nationalNumber) {
-            queryPhoneInfo(nationalNumber, externalRequestId);
-        }
-        if (e164Number) {
-            queryPhoneInfo(e164Number, externalRequestId);
-        }
-    }
-
-      // Initialize plugin
-    async function initializePlugin() {
-        window.plugin = {};
-        const thisPlugin = {
-            id: pluginInfo.info.id,
-            pluginId: pluginId,
-            version: pluginInfo.info.version,
-            generateOutput: generateOutput,
-            handleResponse: handleResponse,
-            extractDataFromDOM: extractDataFromDOM, // 添加提取数据函数，供外部调用
-            handleDynamicScripts: handleDynamicScripts, // 添加处理动态脚本函数，供外部调用
-            test: function () {
-                console.log('Plugin test function called');
-                return 'Plugin is working';
-            }
-        };
-
-        window.plugin[pluginId] = thisPlugin;
-
-        if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-            window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
-                type: 'pluginLoaded',
-                pluginId: pluginId,
-            }));
-            console.log('Notified Flutter that plugin is loaded');
-        } else {
-            console.error('flutter_inappwebview is not defined');
-        }
-    }
-
-    // Initialize plugin
-    initializePlugin();
-})();
+// 通知Flutter插件已加载
+console.log(`Plugin ${pluginInfo.id} loaded successfully`);
