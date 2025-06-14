@@ -208,63 +208,104 @@
         try {
             console.log('Handling dynamic scripts in document');
             
-            // 获取所有脚本元素
+            // 收集所有脚本元素
             const scripts = doc.querySelectorAll('script');
             console.log(`Found ${scripts.length} script elements`);
             
-            // 处理每个脚本
+            // 创建一个队列来存储所有脚本信息
+            const scriptQueue = [];
+            
+            // 首先收集所有脚本信息
             for (let i = 0; i < scripts.length; i++) {
                 const script = scripts[i];
                 const src = script.getAttribute('src');
                 
-                // 如果脚本有src属性，需要动态加载
                 if (src) {
-                    console.log(`Found script with src: ${src}`);
-                    
-                    // 创建一个新的脚本元素
-                    const newScript = doc.createElement('script');
-                    
-                    // 复制原始脚本的所有属性
-                    for (let j = 0; j < script.attributes.length; j++) {
-                        const attr = script.attributes[j];
-                        newScript.setAttribute(attr.name, attr.value);
-                    }
-                    
-                    // 设置加载完成的回调
-                    newScript.onload = function() {
-                        console.log(`Script loaded: ${src}`);
-                    };
-                    
-                    // 设置加载失败的回调
-                    newScript.onerror = function() {
-                        console.error(`Failed to load script: ${src}`);
-                    };
-                    
-                    // 替换原始脚本
-                    script.parentNode.replaceChild(newScript, script);
-                }
-                // 如果脚本有内联代码
-                else if (script.textContent) {
+                    console.log(`Found external script with src: ${src}`);
+                    scriptQueue.push({
+                        type: 'external',
+                        src: src,
+                        attributes: script.attributes,
+                        element: script
+                    });
+                } else if (script.textContent) {
                     console.log('Found inline script');
-                    
-                    // 创建一个新的脚本元素
-                    const newScript = doc.createElement('script');
-                    
-                    // 复制原始脚本的所有属性
-                    for (let j = 0; j < script.attributes.length; j++) {
-                        const attr = script.attributes[j];
-                        newScript.setAttribute(attr.name, attr.value);
-                    }
-                    
-                    // 设置脚本内容
-                    newScript.textContent = script.textContent;
-                    
-                    // 替换原始脚本
-                    script.parentNode.replaceChild(newScript, script);
+                    scriptQueue.push({
+                        type: 'inline',
+                        content: script.textContent,
+                        attributes: script.attributes,
+                        element: script
+                    });
                 }
             }
             
-            console.log('Dynamic scripts handling completed');
+            console.log(`Total scripts to process: ${scriptQueue.length}`);
+            
+            // 创建一个函数来按顺序处理脚本
+            let currentIndex = 0;
+            
+            function processNextScript() {
+                if (currentIndex >= scriptQueue.length) {
+                    console.log('All scripts processed successfully');
+                    return;
+                }
+                
+                const scriptInfo = scriptQueue[currentIndex];
+                const newScript = doc.createElement('script');
+                
+                // 复制原始脚本的所有属性
+                for (let j = 0; j < scriptInfo.attributes.length; j++) {
+                    const attr = scriptInfo.attributes[j];
+                    if (attr.name !== 'src') { // src属性我们会单独处理
+                        newScript.setAttribute(attr.name, attr.value);
+                    }
+                }
+                
+                // 处理脚本加载完成后的操作
+                const handleScriptProcessed = () => {
+                    currentIndex++;
+                    setTimeout(processNextScript, 0); // 使用setTimeout确保不会堆栈溢出
+                };
+                
+                if (scriptInfo.type === 'external') {
+                    // 设置加载完成和错误处理回调
+                    newScript.onload = function() {
+                        console.log(`Script loaded: ${scriptInfo.src}`);
+                        handleScriptProcessed();
+                    };
+                    
+                    newScript.onerror = function() {
+                        console.error(`Failed to load script: ${scriptInfo.src}`);
+                        handleScriptProcessed(); // 即使出错也继续处理下一个脚本
+                    };
+                    
+                    // 最后设置src属性，这样才会开始加载
+                    newScript.src = scriptInfo.src;
+                } else {
+                    // 设置内联脚本内容
+                    newScript.textContent = scriptInfo.content;
+                    // 内联脚本不需要等待加载，直接处理下一个
+                    setTimeout(handleScriptProcessed, 0);
+                }
+                
+                // 替换原始脚本
+                if (scriptInfo.element.parentNode) {
+                    scriptInfo.element.parentNode.replaceChild(newScript, scriptInfo.element);
+                } else {
+                    // 如果没有父节点，则添加到head或body
+                    (doc.head || doc.body).appendChild(newScript);
+                }
+                
+                // 如果是内联脚本，不需要等待onload事件
+                if (scriptInfo.type === 'inline') {
+                    // 不做任何事，因为我们已经在设置textContent后安排了处理下一个脚本
+                }
+            }
+            
+            // 开始处理第一个脚本
+            processNextScript();
+            
+            console.log('Dynamic scripts handling initiated');
         } catch (error) {
             console.error('Error handling dynamic scripts:', error);
         }
@@ -350,6 +391,13 @@
                 if (nameElement) {
                     jsonObject.name = nameElement.textContent.trim();
                     console.log('jsonObject.name:', jsonObject.name);
+                }
+                
+                // 尝试从电话号码元素获取
+                const telNumElement = doc.querySelector('.tel-num');
+                if (telNumElement && (!phoneNumber || phoneNumber === '')) {
+                    jsonObject.phoneNumber = telNumElement.textContent.trim();
+                    console.log('jsonObject.phoneNumber from tel-num:', jsonObject.phoneNumber);
                 }
             }
             
