@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.20.0',
+  version: '1.21.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -729,25 +729,7 @@ class BaiduPhoneSearchPlugin {
       }
       
       // 如果成功提取到数据
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+                                                                                                                  
         // 保存提取的数据
         this.extractedData = { ...this.extractedData, ...extractedData };
         
@@ -756,12 +738,7 @@ class BaiduPhoneSearchPlugin {
           this.sendPluginResult(this.extractedData, requestId);
           this.extractedData = {}; // 重置提取的数据
         }
- 
- 
- 
- 
- 
-    } catch (error) {
+         } catch (error) {
       this.logError('Error processing JSON response:', error);
       
       // 如果是百度API请求，尝试使用原始响应处理
@@ -1079,12 +1056,19 @@ class BaiduPhoneSearchPlugin {
       }
       
       // 尝试提取省份和城市信息
-      // 直接从响应中提取省份信息，不使用翻译映射
       const provinceRegex = /"province"\s*:\s*"([^"]+)"/i;
       const provinceMatch = responseBody.match(provinceRegex);
       if (provinceMatch && provinceMatch[1]) {
         province = provinceMatch[1];
         this.log('从响应中提取到省份:', province);
+      }
+      
+      // 尝试提取城市信息
+      const cityRegex = /"city"\s*:\s*"([^"]+)"/i;
+      const cityMatch = responseBody.match(cityRegex);
+      if (cityMatch && cityMatch[1]) {
+        city = cityMatch[1];
+        this.log('从响应中提取到城市:', city);
       }
       
       // 尝试提取运营商信息
@@ -1101,6 +1085,15 @@ class BaiduPhoneSearchPlugin {
       if (tagMatch && tagMatch[1]) {
         tags.push(tagMatch[1]);
         this.log('从响应中提取到标签:', tagMatch[1]);
+      }
+      
+      // 尝试提取更多标签信息
+      const tagsRegex = /"tags"\s*:\s*\[([^\]]+)\]/i;
+      const tagsMatch = responseBody.match(tagsRegex);
+      if (tagsMatch && tagsMatch[1]) {
+        const tagsList = tagsMatch[1].split(',').map(t => t.trim().replace(/"/g, ''));
+        tags = [...tags, ...tagsList];
+        this.log('从响应中提取到更多标签:', tagsList.join(', '));
       }
       
       // 如果找到电话号码，创建提取的数据对象
