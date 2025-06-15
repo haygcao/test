@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.28.0',
+  version: '1.29.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -284,33 +284,19 @@ class BaiduPhoneSearchPlugin {
                     body = params.toString();
                     console.log('[BaiduAPI] 将JSON请求体转换为URL编码格式:', body);
                   } catch (e) {
-                    // 如果不是有效的JSON，尝试创建一个简单的参数
-                    console.log('[BaiduAPI] 请求体不是有效的JSON，创建简单参数');
-                    // 对于特定的百度API端点，添加必要的参数
-                    if (this._baiduApiUrl.includes('miao.baidu.com/abdr')) {
-                      body = '_o=https%3A%2F%2Fhaoma.baidu.com';
-                      console.log('[BaiduAPI] 为miao.baidu.com/abdr添加默认参数:', body);
-                    } else if (this._baiduApiUrl.includes('banti.baidu.com/dr')) {
-                      body = '_o=https%3A%2F%2Fhaoma.baidu.com';
-                      console.log('[BaiduAPI] 为banti.baidu.com/dr添加默认参数:', body);
-                    }
+                    // 如果不是有效的JSON，保持原始请求体
+                    console.log('[BaiduAPI] 请求体不是有效的JSON，保持原始请求体');
+                    // 不再自动添加_o参数，因为这可能导致400错误
+                    console.log('[BaiduAPI] 使用原始请求体:', body);
                   }
                 }
               }
               
               console.log('[BaiduAPI] 处理后的请求体:', body);
             } else if (!body && this._baiduApiMethod === 'POST') {
-              // 对于POST请求，如果没有请求体，提供一个默认参数
-              if (this._baiduApiUrl.includes('miao.baidu.com/abdr')) {
-                body = '_o=https%3A%2F%2Fhaoma.baidu.com';
-                console.log('[BaiduAPI] 为miao.baidu.com/abdr添加默认参数:', body);
-              } else if (this._baiduApiUrl.includes('banti.baidu.com/dr')) {
-                body = '_o=https%3A%2F%2Fhaoma.baidu.com';
-                console.log('[BaiduAPI] 为banti.baidu.com/dr添加默认参数:', body);
-              } else {
-                body = '';
-                console.log('[BaiduAPI] 为POST请求提供空请求体');
-              }
+              // 对于POST请求，如果没有请求体，使用空请求体
+              body = '';
+              console.log('[BaiduAPI] 为POST请求使用空请求体，不添加默认参数');
             }
             
             try {
