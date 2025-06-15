@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.0.0',
+  version: '1.10.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
