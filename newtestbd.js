@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.9.0',
+  version: '1.0.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -316,8 +316,9 @@ class BaiduPhoneSearchPlugin {
     try {
       const response = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
       const requestId = response.requestId;
+      const phoneNumber = this.lastSearchedPhone; // 使用最后搜索的电话号码
       
-      this.log('Handling response for request:', requestId);
+      this.log('Handling response for request:', requestId, 'phone:', phoneNumber);
       
       if (response.error) {
         this.logError('Error in response:', response.error);
@@ -327,7 +328,36 @@ class BaiduPhoneSearchPlugin {
       
       // 处理HTML响应
       if (response.body && response.body.includes('<html')) {
-        this.processHtml({ html: response.body, url: response.url });
+        this.log('处理 HTML 响应，长度:', response.body.length);
+        const result = this.processHtml({ html: response.body, url: response.url, phoneNumber: phoneNumber });
+        
+        if (result && Object.keys(result).length > 0) {
+          // 处理标签匹配逻辑
+          let matchedLabel = predefinedLabels.find(label => label.label === result.sourceLabel)?.label;
+          if (!matchedLabel) {
+            matchedLabel = manualMapping[result.sourceLabel];
+          }
+          if (!matchedLabel) {
+            matchedLabel = 'Unknown';
+          }
+          
+          const finalResult = {
+            phoneNumber: result.phoneNumber || phoneNumber,
+            sourceLabel: result.sourceLabel || '',
+            count: result.count || 0,
+            province: result.province || '',
+            city: result.city || '',
+            carrier: result.carrier || '',
+            name: result.name || 'unknown',
+            predefinedLabel: matchedLabel,
+            source: pluginInfo.info.name,
+          };
+          
+          this.log('提取到的最终结果:', finalResult);
+          this.sendPluginResult(finalResult, requestId);
+        } else {
+          this.log('未从 HTML 中提取到有效数据');
+        }
       }
       // 处理JSON响应
       else if (response.body && response.body.startsWith('{')) {
@@ -337,12 +367,8 @@ class BaiduPhoneSearchPlugin {
         } catch (e) {
           this.logError('Error parsing JSON response:', e);
         }
-      }
-      
-      // 如果已经提取到数据，发送结果
-      if (Object.keys(this.extractedData).length > 0) {
-        this.sendPluginResult(this.extractedData, requestId);
-        this.extractedData = {}; // 重置提取的数据
+      } else {
+        this.log('响应不是 HTML 或 JSON 格式:', response.body ? response.body.substring(0, 100) + '...' : 'empty');
       }
     } catch (error) {
       this.logError('Error handling response:', error);
@@ -382,10 +408,11 @@ class BaiduPhoneSearchPlugin {
   /**
    * 处理HTML内容
    * @param {object} data - HTML数据
+   * @returns {object} 提取的数据
    */
   processHtml(data) {
     this.log('Processing HTML from:', data.url);
-    this.log('接收到 HTML 内容:', data.html); // 添加这行日志
+    this.log('接收到 HTML 内容长度:', data.html ? data.html.length : 0);
     
     try {
       // 创建一个临时的DOM解析器
@@ -396,14 +423,13 @@ class BaiduPhoneSearchPlugin {
       this.handleDynamicScripts(doc);
       
       // 提取数据
-      const extractedData = this.extractDataFromDOM(doc);
+      const extractedData = this.extractDataFromDOM(doc, data.phoneNumber);
       
-      // 如果有提取到数据，保存结果
-      if (extractedData && Object.keys(extractedData).length > 0) {
-        this.extractedData = { ...this.extractedData, ...extractedData };
-      }
+      this.log('从 HTML 中提取的数据:', extractedData);
+      return extractedData;
     } catch (error) {
       this.logError('Error processing HTML:', error);
+      return {};
     }
   }
 
@@ -635,11 +661,34 @@ class BaiduPhoneSearchPlugin {
   /**
    * 从DOM中提取数据
    * @param {Document} doc - HTML文档
+   * @param {string} phoneNumber - 电话号码
    * @returns {object} 提取的数据
    */
-  extractDataFromDOM(doc) {
+  extractDataFromDOM(doc, phoneNumber) {
     try {
-      const result = {};
+      const result = {
+        count: 0,
+        sourceLabel: "",
+        province: "",
+        city: "",
+        carrier: "",
+        phoneNumber: phoneNumber || this.lastSearchedPhone,
+        name: "unknown",
+        rate: 0
+      };
+      
+      this.log('开始从 DOM 提取数据，电话号码:', result.phoneNumber);
+      
+      // 辅助函数：根据文本查找元素
+      function findElementByText(selector, text, doc) {
+        const elements = doc.querySelectorAll(selector);
+        for (const element of elements) {
+          if (element.textContent.includes(text)) {
+            return element;
+          }
+        }
+        return null;
+      }
       
       // 尝试从标准元素中提取数据
       const phoneElement = doc.querySelector('.phone-num');
@@ -647,12 +696,12 @@ class BaiduPhoneSearchPlugin {
       const tagElement = doc.querySelector('.tag');
       const countElement = doc.querySelector('.num');
       
+      // 提取电话号码
       if (phoneElement) {
         result.phoneNumber = phoneElement.textContent.trim();
-      } else {
-        result.phoneNumber = this.lastSearchedPhone;
       }
       
+      // 提取位置信息
       if (locationElement) {
         const locationText = locationElement.textContent.trim();
         const locationParts = locationText.split(' ');
@@ -660,61 +709,112 @@ class BaiduPhoneSearchPlugin {
         if (locationParts.length >= 2) {
           result.province = locationParts[0];
           result.city = locationParts[1];
-          
-        
-        
-        
-        
-        
-        
-        
-        
-        
         }
         
         // 尝试提取运营商信息
         const carrierMatch = locationText.match(/(移动|联通|电信|虚拟运营商)/);
         if (carrierMatch) {
           result.carrier = carrierMatch[1];
-          
-          // 翻译运营商
-          if (result.carrier && manualMapping[result.carrier]) {
-            result.carrierEn = manualMapping[result.carrier];
-          }
         }
       }
       
+      // 提取标签
       if (tagElement) {
-        result.tag = tagElement.textContent.trim();
-        
-    
-    
-    
-    
+        result.sourceLabel = tagElement.textContent.trim();
       }
       
+      // 提取评分/计数
       if (countElement) {
         const countText = countElement.textContent.trim();
         const countMatch = countText.match(/(\d+)/);
         if (countMatch) {
           result.count = parseInt(countMatch[1], 10);
+          result.rate = result.count;
+        }
+      }
+      
+      // 尝试从 tellows 特定元素提取数据
+      const typesOfCallElement = findElementByText('b', "Types of call:", doc);
+      if (typesOfCallElement) {
+        const nextSibling = typesOfCallElement.nextSibling;
+        if (nextSibling && nextSibling.nodeType === Node.TEXT_NODE) {
+          let labelText = nextSibling.textContent.trim();
+          if (labelText) {
+            result.sourceLabel = labelText;
+          }
+        }
+      }
+      
+      // 尝试提取评分
+      if (!result.count) {
+        const scoreImage = doc.querySelector('a[href*="tellows_score"] img.scoreimage');
+        if (scoreImage) {
+          const altText = scoreImage.alt;
+          const scoreMatch = altText.match(/Score\s([0-9])/);
+          if (scoreMatch) {
+            result.rate = parseInt(scoreMatch[1], 10);
+            if (result.rate >= 7) {
+              if (!result.sourceLabel) {
+                result.sourceLabel = "Spam Call";
+              }
+            }
+          }
+        }
+      }
+      
+      // 尝试提取评分/计数
+      if (!result.count) {
+        const ratingsElement = findElementByText('strong', "Ratings:", doc);
+        if (ratingsElement) {
+          const spanElement = ratingsElement.querySelector('span');
+          if (spanElement) {
+            const rateValue = parseInt(spanElement.textContent.trim(), 10) || 0;
+            result.rate = rateValue;
+            result.count = rateValue;
+          }
+        }
+      }
+      
+      // 尝试提取城市/省份
+      if (!result.city || !result.province) {
+        const cityElement = findElementByText('strong', "City:", doc);
+        if (cityElement) {
+          let nextSibling = cityElement.nextSibling;
+          while (nextSibling) {
+            if (nextSibling.nodeType === Node.TEXT_NODE) {
+              let cityText = nextSibling.textContent.trim();
+              
+              const parts = cityText.split('-');
+              if (parts.length > 0) {
+                result.city = parts[0].trim();
+                
+                if (parts.length > 1) {
+                  const countries = parts[1].trim().split(',').map(c => c.trim());
+                  result.province = countries.join(", ");
+                }
+              }
+              break;
+            }
+            nextSibling = nextSibling.nextSibling;
+          }
         }
       }
       
       // 如果标准元素没有找到，尝试从其他元素中提取
-      if (!locationElement && !tagElement) {
-        const containers = doc.querySelectorAll('.c-container');
+      if (!result.sourceLabel || !result.province || !result.city || !result.carrier) {
+        const containers = doc.querySelectorAll('.c-container, .result, .content');
         
         for (let i = 0; i < containers.length; i++) {
           const container = containers[i];
           const text = container.textContent;
           
           // 尝试提取标签
-          for (const label in predefinedLabels) {
-            if (text.includes(label)) {
-              result.tag = label;
-              result.tagEn = predefinedLabels[label];
-              break;
+          if (!result.sourceLabel) {
+            for (const label of predefinedLabels) {
+              if (text.includes(label.label)) {
+                result.sourceLabel = label.label;
+                break;
+              }
             }
           }
           
@@ -723,32 +823,40 @@ class BaiduPhoneSearchPlugin {
             if (text.includes(location) && location.length > 1) { // 避免匹配单个字符
               if (!result.province) {
                 result.province = location;
-                result.provinceEn = manualMapping[location];
               } else if (!result.city && location !== result.province) {
                 result.city = location;
-                result.cityEn = manualMapping[location];
               }
             }
           }
           
           // 尝试提取运营商信息
-          const carrierMatch = text.match(/(移动|联通|电信|虚拟运营商)/);
-          if (carrierMatch && !result.carrier) {
-            result.carrier = carrierMatch[1];
-            result.carrierEn = manualMapping[carrierMatch[1]];
+          if (!result.carrier) {
+            const carrierMatch = text.match(/(移动|联通|电信|虚拟运营商)/);
+            if (carrierMatch) {
+              result.carrier = carrierMatch[1];
+            }
           }
           
           // 如果已经提取到足够的信息，跳出循环
-          if (result.tag && result.province && result.city && result.carrier) {
+          if (result.sourceLabel && result.province && result.city && result.carrier) {
             break;
           }
         }
       }
       
+      this.log('从 DOM 提取的数据:', result);
       return result;
     } catch (error) {
       this.logError('Error extracting data from DOM:', error);
-      return {};
+      return {
+        phoneNumber: phoneNumber || this.lastSearchedPhone,
+        sourceLabel: "",
+        count: 0,
+        province: "",
+        city: "",
+        carrier: "",
+        name: "unknown"
+      };
     }
   }
 
