@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.10.0',
+  version: '1.11.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -385,7 +385,6 @@ class BaiduPhoneSearchPlugin {
    */
   processHtml(data) {
     this.log('Processing HTML from:', data.url);
-    this.log('接收到 HTML 内容:', data.html); // 添加这行日志
     
     try {
       // 创建一个临时的DOM解析器
