@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.11.0',
+  version: '1.12.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -183,7 +183,14 @@ class BaiduPhoneSearchPlugin {
         
         // 重写open方法，记录URL和方法
         XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
-          this._baiduApiUrl = url;
+                    // 检查是否是本地文件路径，如果是则阻止请求
+          if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart'))) {
+            console.error('[BaiduAPI] 检测到本地文件路径请求，已阻止:', url);
+            // 将URL修改为空白页，防止错误请求
+            url = 'about:blank';
+          }
+          
+        this._baiduApiUrl = url;
           this._baiduApiMethod = method;
           return originalOpen.apply(this, [method, url, async, user, password]);
         };
@@ -284,12 +291,12 @@ class BaiduPhoneSearchPlugin {
       return;
     }
     
-   
-   
-   
-   
-   
-   
+    // 检查是否是本地文件路径，如果是则不发送请求
+    if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart'))) {
+      this.log('跳过本地文件路径请求:', url);
+      this.sendPluginError('本地文件路径请求已被跳过: ' + url, requestId);
+      return;
+    }
     
     try {
       const request = {
@@ -312,7 +319,6 @@ class BaiduPhoneSearchPlugin {
    * @param {string|object} jsonData - 响应数据（JSON字符串或对象）
    */
   handleResponse(jsonData) {
-    this.log('接收到来自 Flutter 的响应数据:', jsonData); // 添加这行日志
     try {
       const response = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
       const requestId = response.requestId;
