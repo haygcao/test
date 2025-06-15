@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.0.0',
+  version: '1.3.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -198,18 +198,13 @@ class BaiduPhoneSearchPlugin {
             console.log('[BaiduAPI] 处理百度特殊API请求:', this._baiduApiUrl);
             
             try {
-              // 为这些请求添加必要的头信息
+              // 只添加安全的请求头，避免设置不安全的头信息
               this.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
               this.setRequestHeader('Accept', '*/*');
               
-              // 注意：以下头信息在浏览器中可能被视为不安全头，
-              // 但在WebView中可能有不同的处理方式
-              try { this.setRequestHeader('Origin', 'https://haoma.baidu.com'); } catch(e) {}
-              try { this.setRequestHeader('Referer', 'https://haoma.baidu.com/'); } catch(e) {}
-              
               // 设置内容类型
               if (this._baiduApiMethod === 'POST') {
-                try { this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); } catch(e) {}
+                this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 
                 // 记录请求体，便于调试
                 if (body) {
@@ -217,7 +212,7 @@ class BaiduPhoneSearchPlugin {
                 }
               }
               
-              console.log('[BaiduAPI] 已添加特殊请求头');
+              console.log('[BaiduAPI] 已添加安全请求头');
             } catch (e) {
               console.error('[BaiduAPI] 添加请求头失败:', e);
             }
@@ -226,6 +221,27 @@ class BaiduPhoneSearchPlugin {
           // 调用原始send方法
           return originalSend.apply(this, arguments);
         };
+        
+        // 使用MutationObserver替代已弃用的DOMSubtreeModified事件
+        // 监听DOM变化，处理动态加载的内容
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList') {
+              mutation.addedNodes.forEach(function(node) {
+                // 检查是否添加了新的脚本元素
+                if (node.nodeName === 'SCRIPT') {
+                  console.log('[BaiduAPI] 检测到新脚本:', node.src || '内联脚本');
+                }
+              });
+            }
+          });
+        });
+        
+        // 配置观察选项
+        const config = { childList: true, subtree: true };
+        
+        // 开始观察文档
+        observer.observe(document, config);
         
         console.log('[BaiduAPI] 百度API请求处理已初始化');
       })();
@@ -625,6 +641,7 @@ class BaiduPhoneSearchPlugin {
           result.province = locationParts[0];
           result.city = locationParts[1];
           
+        
         
         
         
