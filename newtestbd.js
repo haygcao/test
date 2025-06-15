@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.25.0',
+  version: '1.35.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -270,16 +270,20 @@ class BaiduPhoneSearchPlugin {
               this.setRequestHeader('Pragma', 'no-cache');
               
               // 设置User-Agent，模拟浏览器
-              try {
-                this.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
-              } catch (e) {
-                // 某些浏览器不允许设置User-Agent，忽略错误
-                console.log('[BaiduAPI] 无法设置User-Agent头');
-              }
+              this.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+              console.log('[BaiduAPI] 设置User-Agent:', this.getRequestHeader('User-Agent'));
               
-              // 设置内容类型
+              // 强制设置内容类型，避免因未设置或设置错误导致400 Bad Request
               if (this._baiduApiMethod === 'POST') {
                 this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                console.log('[BaiduAPI] 设置Content-Type:', this.getRequestHeader('Content-Type'));
+              } else if (this._baiduApiMethod === 'GET') {
+                // 对于GET请求，确保没有Content-Type，或者设置为text/plain等
+                // 某些服务器对GET请求带Content-Type会报错
+                // 移除Content-Type，因为GET请求通常不应包含Content-Type
+                this.setRequestHeader('Content-Type', ''); // 设置为空字符串或不设置
+                console.log('[BaiduAPI] GET请求移除Content-Type');
+              }
                 
                 // 记录请求体，便于调试
                 if (body) {
@@ -288,6 +292,16 @@ class BaiduPhoneSearchPlugin {
               }
               
               console.log('[BaiduAPI] 已添加安全请求头');
+              // 打印所有请求头，以便调试
+              const allHeaders = {};
+              const headersToLog = ['X-Requested-With', 'Accept', 'Origin', 'Referer', 'Connection', 'Cache-Control', 'Pragma', 'User-Agent', 'Content-Type'];
+              headersToLog.forEach(headerName => {
+                const headerValue = this.getRequestHeader(headerName);
+                if (headerValue) {
+                  allHeaders[headerName] = headerValue;
+                }
+              });
+              console.log('[BaiduAPI] 所有设置的请求头:', allHeaders);
             } catch (e) {
               console.error('[BaiduAPI] 添加请求头失败:', e);
             }
