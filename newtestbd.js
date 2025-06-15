@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.3.0',
+  version: '1.9.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -185,7 +185,7 @@ class BaiduPhoneSearchPlugin {
         XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
           this._baiduApiUrl = url;
           this._baiduApiMethod = method;
-          return originalOpen.apply(this, arguments);
+          return originalOpen.apply(this, [method, url, async, user, password]);
         };
         
         // 重写send方法，为特定请求添加头信息
@@ -284,6 +284,13 @@ class BaiduPhoneSearchPlugin {
       return;
     }
     
+   
+   
+   
+   
+   
+   
+    
     try {
       const request = {
         method,
@@ -305,6 +312,7 @@ class BaiduPhoneSearchPlugin {
    * @param {string|object} jsonData - 响应数据（JSON字符串或对象）
    */
   handleResponse(jsonData) {
+    this.log('接收到来自 Flutter 的响应数据:', jsonData); // 添加这行日志
     try {
       const response = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
       const requestId = response.requestId;
@@ -377,6 +385,7 @@ class BaiduPhoneSearchPlugin {
    */
   processHtml(data) {
     this.log('Processing HTML from:', data.url);
+    this.log('接收到 HTML 内容:', data.html); // 添加这行日志
     
     try {
       // 创建一个临时的DOM解析器
@@ -583,6 +592,11 @@ class BaiduPhoneSearchPlugin {
         
         // 外部脚本
         if (script.src) {
+          // 检查是否是本地文件路径，如果是则跳过
+          if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart'))) {
+            this.log('跳过本地文件路径脚本:', script.src);
+            continue;
+          }
           this.fetchExternalScript(script.src);
         }
         // 内联脚本
@@ -603,6 +617,12 @@ class BaiduPhoneSearchPlugin {
    * @param {string} url - 脚本URL
    */
   fetchExternalScript(url) {
+    // 检查是否是本地文件路径，如果是则跳过
+    if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart'))) {
+      this.log('跳过本地文件路径脚本请求:', url);
+      return;
+    }
+    
     this.log('Fetching external script:', url);
     
     // 创建一个请求ID
