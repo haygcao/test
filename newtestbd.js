@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.30.0',
+  version: '1.31.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -245,8 +245,8 @@ class BaiduPhoneSearchPlugin {
         XMLHttpRequest.prototype.send = function(body) {
           // 检查是否是百度特定API请求
           if (this._baiduApiUrl && (
-              this._baiduApiUrl.includes('miao.baidu.com/abdr') || 
-              this._baiduApiUrl.includes('banti.baidu.com/dr'))) {
+              this._baiduApiUrl.includes('miao.baidu.com') || 
+              this._baiduApiUrl.includes('banti.baidu.com'))) {
             
             console.log('[BaiduAPI] 处理百度特殊API请求:', this._baiduApiUrl);
             
@@ -310,23 +310,7 @@ class BaiduPhoneSearchPlugin {
               if (this._baiduApiMethod === 'POST') {
                 this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 
-                // 特殊处理banti.baidu.com/dr的POST请求
-                if (this._baiduApiUrl.includes('banti.baidu.com/dr')) {
-                  console.log('[BaiduAPI] 特殊处理banti.baidu.com/dr的POST请求');
-                  // 确保有正确的Content-Type和Origin
-                  this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                  this.setRequestHeader('Origin', 'https://haoma.baidu.com');
-                  this.setRequestHeader('Referer', 'https://haoma.baidu.com/');
-                }
-                
-                // 特殊处理miao.baidu.com/abdr的POST请求
-                if (this._baiduApiUrl.includes('miao.baidu.com/abdr')) {
-                  console.log('[BaiduAPI] 特殊处理miao.baidu.com/abdr的POST请求');
-                  // 确保有正确的Content-Type和Origin
-                  this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                  this.setRequestHeader('Origin', 'https://haoma.baidu.com');
-                  this.setRequestHeader('Referer', 'https://haoma.baidu.com/');
-                }
+
                 
                 // 记录请求体，便于调试
                 if (body) {
