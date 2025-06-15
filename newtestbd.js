@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.29.0',
+  version: '1.30.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -195,29 +195,19 @@ class BaiduPhoneSearchPlugin {
             // 不修改本地文件路径请求
           } 
           // 检查是否是百度特定API请求
-          else if (url && (url.includes('miao.baidu.com/abdr') || url.includes('banti.baidu.com/dr'))) {
+          else if (url && (url.includes('miao.baidu.com') || url.includes('banti.baidu.com'))) {
             console.log('[BaiduAPI] 处理百度特定API请求:', url);
             
-            // 修复URL参数编码问题
+            // 移除URL中的_o参数，因为这可能导致400 Bad Request
             try {
-              // 解析URL
               const urlObj = new URL(url);
-              const oParam = urlObj.searchParams.get('_o');
-              
-              if (oParam) {
-                // 重新编码 _o 参数，确保它是有效的 URL 编码
-                const decodedOParam = decodeURIComponent(oParam);
-                const reEncodedOParam = encodeURIComponent(decodedOParam);
-                
-                // 更新 URL 中的参数
-                urlObj.searchParams.set('_o', reEncodedOParam);
-                
-                // 更新URL
+              if (urlObj.searchParams.has('_o')) {
+                urlObj.searchParams.delete('_o');
                 url = urlObj.toString();
-                console.log('[BaiduAPI] 修复后的 URL:', url);
+                console.log('[BaiduAPI] 已从URL中移除_o参数:', url);
               }
             } catch (e) {
-              console.error('[BaiduAPI] 修复URL编码时出错:', e);
+              console.error('[BaiduAPI] 移除_o参数时出错:', e);
             }
             
             // 设置withCredentials为false，避免CORS错误
@@ -286,7 +276,6 @@ class BaiduPhoneSearchPlugin {
                   } catch (e) {
                     // 如果不是有效的JSON，保持原始请求体
                     console.log('[BaiduAPI] 请求体不是有效的JSON，保持原始请求体');
-                    // 不再自动添加_o参数，因为这可能导致400错误
                     console.log('[BaiduAPI] 使用原始请求体:', body);
                   }
                 }
@@ -296,7 +285,7 @@ class BaiduPhoneSearchPlugin {
             } else if (!body && this._baiduApiMethod === 'POST') {
               // 对于POST请求，如果没有请求体，使用空请求体
               body = '';
-              console.log('[BaiduAPI] 为POST请求使用空请求体，不添加默认参数');
+              console.log('[BaiduAPI] 为POST请求使用空请求体');
             }
             
             try {
@@ -471,22 +460,16 @@ class BaiduPhoneSearchPlugin {
         }
       }
       
-      // 特殊处理banti.baidu.com/dr的POST请求
-      if (url.includes('banti.baidu.com/dr') && method === 'POST') {
-        this.log('特殊处理banti.baidu.com/dr的POST请求');
-        // 确保有正确的Content-Type和Origin
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        headers['Origin'] = 'https://haoma.baidu.com';
-        headers['Referer'] = 'https://haoma.baidu.com/';
-      }
-      
-      // 特殊处理miao.baidu.com/abdr的POST请求
-      if (url.includes('miao.baidu.com/abdr') && method === 'POST') {
-        this.log('特殊处理miao.baidu.com/abdr的POST请求');
-        // 确保有正确的Content-Type和Origin
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        headers['Origin'] = 'https://haoma.baidu.com';
-        headers['Referer'] = 'https://haoma.baidu.com/';
+      // 移除URL中的_o参数，因为这可能导致400 Bad Request
+      try {
+        const urlObj = new URL(url);
+        if (urlObj.searchParams.has('_o')) {
+          urlObj.searchParams.delete('_o');
+          url = urlObj.toString();
+          this.log('[BaiduAPI] 已从sendRequest的URL中移除_o参数:', url);
+        }
+      } catch (e) {
+        this.logError('[BaiduAPI] 从sendRequest的URL中移除_o参数时出错:', e);
       }
     }
     
