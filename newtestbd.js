@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.21.0',
+  version: '1.25.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -190,13 +190,33 @@ class BaiduPhoneSearchPlugin {
             url = 'about:blank';
           }
           
-          // 保存原始URL和方法，用于后续处理
-          this._baiduApiUrl = url;
-          this._baiduApiMethod = method;
-          
-          // 处理百度特定API请求的CORS问题
+          // 处理百度特定API请求的URL编码问题
           if (url && (url.includes('miao.baidu.com/abdr') || url.includes('banti.baidu.com/dr'))) {
-            console.log('[BaiduAPI] 处理百度API请求的CORS:', url);
+            console.log('[BaiduAPI] 处理百度API请求:', url);
+            
+            // 检查并修复请求参数编码问题
+            if (url.includes('_o=')) {
+              try {
+                // 确保 _o 参数正确编码
+                const urlObj = new URL(url);
+                const oParam = urlObj.searchParams.get('_o');
+                
+                if (oParam) {
+                  // 重新编码 _o 参数，确保它是有效的 URL 编码
+                  const decodedOParam = decodeURIComponent(oParam);
+                  const reEncodedOParam = encodeURIComponent(decodedOParam);
+                  
+                  // 更新 URL 中的参数
+                  urlObj.searchParams.set('_o', reEncodedOParam);
+                  
+                  // 更新URL
+                  url = urlObj.toString();
+                  console.log('[BaiduAPI] 修复后的 URL:', url);
+                }
+              } catch (e) {
+                console.error('[BaiduAPI] 修复URL编码时出错:', e);
+              }
+            }
             
             // 设置withCredentials为false，避免CORS错误
             this.withCredentials = false;
@@ -205,6 +225,10 @@ class BaiduPhoneSearchPlugin {
             console.log('[BaiduAPI] 请求方法:', method);
             console.log('[BaiduAPI] 异步模式:', async !== false);
           }
+          
+          // 保存原始URL和方法，用于后续处理
+          this._baiduApiUrl = url;
+          this._baiduApiMethod = method;
           
           // 调用原始open方法
           try {
@@ -223,6 +247,13 @@ class BaiduPhoneSearchPlugin {
               this._baiduApiUrl.includes('banti.baidu.com/dr'))) {
             
             console.log('[BaiduAPI] 处理百度特殊API请求:', this._baiduApiUrl);
+            
+            // 处理请求体，修复可能导致400 Bad Request的格式问题
+            if (body && typeof body === 'string') {
+              // 对字符串类型的body进行trim处理
+              body = body.trim();
+              console.log('[BaiduAPI] 处理后的请求体:', body);
+            }
             
             try {
               // 添加必要的请求头
@@ -387,17 +418,35 @@ class BaiduPhoneSearchPlugin {
     }
     
     try {
-      const request = {
-        method,
-        url,
-        headers,
-        pluginId: pluginInfo.id,
-        requestId,
-        isBaiduApi // 添加标记，告诉Flutter这是百度API请求
-      };
-      
-      this.log(`发送${isBaiduApi ? '百度API' : ''}请求:`, url);
-      window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(request));
+      // 如果是百度API请求，使用特殊请求通道发送请求，避免CORS问题
+      if (isBaiduApi) {
+        this.log('使用特殊请求通道发送百度API请求:', url);
+        this.sendSpecialRequest(
+          url,
+          method,
+          headers,
+          null, // 大多数百度API请求是GET请求，没有请求体
+          requestId
+        );
+        
+        // 记录这是一个百度API请求
+        this.pendingRequests[requestId] = {
+          isBaiduApi: true,
+          url: url
+        };
+      } else {
+        // 对于非百度API请求，继续使用常规请求通道
+        const request = {
+          method,
+          url,
+          headers,
+          pluginId: pluginInfo.id,
+          requestId
+        };
+        
+        this.log('发送常规请求:', url);
+        window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(request));
+      }
     } catch (error) {
       this.logError('Error sending request:', error);
       this.sendPluginError('Failed to send request: ' + error.message, requestId);
@@ -421,9 +470,25 @@ class BaiduPhoneSearchPlugin {
       this.log('Handling response for request:', requestId);
       
       // 检查是否是百度API请求
-      const isBaiduApi = response.isBaiduApi || 
-                        (response.url && (response.url.includes('miao.baidu.com') || 
-                                         response.url.includes('banti.baidu.com')));
+      let isBaiduApi = response.isBaiduApi || 
+                      (response.url && (response.url.includes('miao.baidu.com') || 
+                                       response.url.includes('banti.baidu.com')));
+      
+      // 检查是否是特殊请求的响应
+      const pendingRequest = this.pendingRequests[requestId];
+      if (pendingRequest) {
+        if (pendingRequest.isBaiduApi) {
+          isBaiduApi = true;
+        }
+        
+        // 如果是备用请求，获取电话号码
+        if (pendingRequest.isFallback && pendingRequest.phoneNumber) {
+          this.lastSearchedPhone = pendingRequest.phoneNumber;
+        }
+        
+        // 处理完成后删除挂起的请求
+        delete this.pendingRequests[requestId];
+      }
       
       if (isBaiduApi) {
         this.log('处理百度API响应:', response.url);
@@ -434,9 +499,9 @@ class BaiduPhoneSearchPlugin {
         this.sendPluginError(response.error, requestId);
         
         // 如果是百度API请求且出错，尝试使用备用方法
-        if (isBaiduApi && response.url) {
+        if (isBaiduApi && this.lastSearchedPhone) {
           this.log('百度API请求失败，尝试使用备用方法');
-          this.tryBaiduApiFallback('GET', response.url, {}, requestId);
+          this.tryBaiduApiFallback(this.lastSearchedPhone);
         }
         
         return;
@@ -969,6 +1034,53 @@ class BaiduPhoneSearchPlugin {
   }
 
   /**
+   * 发送特殊请求，用于处理可能会遇到CORS问题的请求
+   * @param {string} url - 请求URL
+   * @param {string} method - HTTP方法
+   * @param {object} headers - 请求头
+   * @param {string} body - 请求体
+   * @param {string} requestId - 请求ID
+   */
+  sendSpecialRequest(url, method, headers, body, requestId) {
+    this.log('发送特殊请求:', url);
+    
+    if (!window.flutter_inappwebview) {
+      this.logError('Flutter interface not available');
+      return;
+    }
+    
+    // 检查是否是本地文件路径，如果是则不发送请求
+    if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart') || url.includes('file://'))) {
+      this.log('跳过本地文件路径请求:', url);
+      this.sendPluginError('本地文件路径请求已被跳过: ' + url, requestId);
+      return;
+    }
+    
+    try {
+      // 如果没有提供requestId，生成一个新的
+      if (!requestId) {
+        requestId = this.generateRequestId();
+      }
+      
+      const request = {
+        method,
+        url,
+        headers,
+        body,
+        pluginId: pluginInfo.id,
+        requestId
+      };
+      
+      this.log('发送特殊请求:', url);
+      // 使用特殊通道发送请求，避免CORS问题
+      window.flutter_inappwebview.callHandler('XHRSpecialRequestChannel', JSON.stringify(request));
+    } catch (error) {
+      this.logError('Error sending special request:', error);
+      this.sendPluginError('Failed to send special request: ' + error.message, requestId);
+    }
+  }
+  
+  /**
    * 尝试使用备用方法处理百度API请求
    * @param {string} phoneNumber - 电话号码
    */
@@ -1006,22 +1118,21 @@ class BaiduPhoneSearchPlugin {
       this.log('使用备用方法发送请求:', url);
       this.log('备用请求ID:', fallbackRequestId);
       
-      // 创建请求对象
-      const request = {
-        method: 'GET',
-        url: url,
-        headers: headers,
-        requestId: fallbackRequestId,
-        isBaiduApi: true,
-        isFallback: true // 标记这是一个备用请求
-      };
+      // 使用特殊请求通道发送请求，避免CORS问题
+      this.sendSpecialRequest(
+        url,
+        'GET',
+        headers,
+        null, // GET请求没有请求体
+        fallbackRequestId
+      );
       
-      // 发送请求
-      if (window.flutter_inappwebview) {
-        window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(request));
-      } else {
-        this.logError('Flutter interface not available for fallback request');
-      }
+      // 记录这是一个备用请求
+      this.pendingRequests[fallbackRequestId] = {
+        isBaiduApi: true,
+        isFallback: true, // 标记这是一个备用请求
+        phoneNumber: phoneNumber
+      };
     } catch (error) {
       this.logError('Error in tryBaiduApiFallback:', error);
     }
