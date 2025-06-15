@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.25.0',
+  version: '1.27.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -60,7 +60,7 @@ const predefinedLabels = {
 
 // 手动映射
 const manualMapping = {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   '中介': 'Agent',             // 含义较广，包括房产中介等
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   '中介': 'Agent',             // 含义较广，包括房产中介等
   '中介': 'Agent',             // 含义较广，包括房产中介等
         '房产中介': 'Agent',         // 细化为房地产经纪人
         '违规催收': 'Debt Collection',
@@ -221,12 +221,14 @@ class BaiduPhoneSearchPlugin {
             }
             
             // 设置withCredentials为false，避免CORS错误
+            // 只对百度API请求设置此属性
             this.withCredentials = false;
             console.log('[BaiduAPI] 已设置withCredentials=false');
           }
           
           // 记录请求信息，便于调试
           console.log('[BaiduAPI] 请求方法:', method);
+          console.log('[BaiduAPI] 请求URL:', url);
           console.log('[BaiduAPI] 异步模式:', async !== false);
           
           // 保存原始URL和方法，用于后续处理
@@ -255,7 +257,35 @@ class BaiduPhoneSearchPlugin {
             if (body && typeof body === 'string') {
               // 对字符串类型的body进行trim处理
               body = body.trim();
+              
+              // 确保请求体格式正确
+              if (this._baiduApiMethod === 'POST') {
+                // 如果请求体为空，提供一个默认的空请求体
+                if (body === '') {
+                  body = '';
+                }
+                // 如果请求体不是URL编码格式，尝试转换
+                else if (!body.includes('=') && !body.includes('&')) {
+                  try {
+                    // 尝试解析为JSON并转换为URL编码格式
+                    const jsonObj = JSON.parse(body);
+                    const params = new URLSearchParams();
+                    for (const key in jsonObj) {
+                      params.append(key, jsonObj[key]);
+                    }
+                    body = params.toString();
+                  } catch (e) {
+                    // 如果不是有效的JSON，保持原样
+                    console.log('[BaiduAPI] 请求体不是有效的JSON，保持原样');
+                  }
+                }
+              }
+              
               console.log('[BaiduAPI] 处理后的请求体:', body);
+            } else if (!body && this._baiduApiMethod === 'POST') {
+              // 对于POST请求，如果没有请求体，提供一个空字符串
+              body = '';
+              console.log('[BaiduAPI] 为POST请求提供空请求体');
             }
             
             try {
@@ -283,6 +313,15 @@ class BaiduPhoneSearchPlugin {
                 // 特殊处理banti.baidu.com/dr的POST请求
                 if (this._baiduApiUrl.includes('banti.baidu.com/dr')) {
                   console.log('[BaiduAPI] 特殊处理banti.baidu.com/dr的POST请求');
+                  // 确保有正确的Content-Type和Origin
+                  this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                  this.setRequestHeader('Origin', 'https://haoma.baidu.com');
+                  this.setRequestHeader('Referer', 'https://haoma.baidu.com/');
+                }
+                
+                // 特殊处理miao.baidu.com/abdr的POST请求
+                if (this._baiduApiUrl.includes('miao.baidu.com/abdr')) {
+                  console.log('[BaiduAPI] 特殊处理miao.baidu.com/abdr的POST请求');
                   // 确保有正确的Content-Type和Origin
                   this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                   this.setRequestHeader('Origin', 'https://haoma.baidu.com');
@@ -374,8 +413,9 @@ class BaiduPhoneSearchPlugin {
    * @param {object} headers - 请求头
    * @param {string} requestId - 请求ID
    * @param {boolean} isBaiduApi - 是否是百度API请求
+   * @param {string} body - 请求体
    */
-  sendRequest(method, url, headers, requestId, isBaiduApi = false) {
+  sendRequest(method, url, headers, requestId, isBaiduApi = false, body = null) {
     if (!window.flutter_inappwebview) {
       this.logError('Flutter interface not available');
       return;
@@ -413,11 +453,25 @@ class BaiduPhoneSearchPlugin {
       // 如果是POST请求，设置Content-Type
       if (method === 'POST') {
         headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        
+        // 如果没有提供请求体，创建一个空的请求体
+        if (!body) {
+          body = '';
+        }
       }
       
       // 特殊处理banti.baidu.com/dr的POST请求
       if (url.includes('banti.baidu.com/dr') && method === 'POST') {
         this.log('特殊处理banti.baidu.com/dr的POST请求');
+        // 确保有正确的Content-Type和Origin
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+        headers['Origin'] = 'https://haoma.baidu.com';
+        headers['Referer'] = 'https://haoma.baidu.com/';
+      }
+      
+      // 特殊处理miao.baidu.com/abdr的POST请求
+      if (url.includes('miao.baidu.com/abdr') && method === 'POST') {
+        this.log('特殊处理miao.baidu.com/abdr的POST请求');
         // 确保有正确的Content-Type和Origin
         headers['Content-Type'] = 'application/x-www-form-urlencoded';
         headers['Origin'] = 'https://haoma.baidu.com';
@@ -429,11 +483,15 @@ class BaiduPhoneSearchPlugin {
       // 如果是百度API请求，使用特殊请求通道发送请求，避免CORS问题
       if (isBaiduApi) {
         this.log('使用特殊请求通道发送百度API请求:', url);
+        this.log('请求方法:', method);
+        this.log('请求头:', JSON.stringify(headers));
+        this.log('请求体:', body);
+        
         this.sendSpecialRequest(
           url,
           method,
           headers,
-          null, // 大多数百度API请求是GET请求，没有请求体
+          body, // 传递请求体，不再硬编码为null
           requestId
         );
         
@@ -451,6 +509,11 @@ class BaiduPhoneSearchPlugin {
           pluginId: pluginInfo.id,
           requestId
         };
+        
+        // 如果有请求体，添加到请求中
+        if (body) {
+          request.body = body;
+        }
         
         this.log('发送常规请求:', url);
         window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(request));
