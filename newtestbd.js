@@ -7,7 +7,7 @@
 const pluginInfo = {
     id: 'baidu_phone_search',
     name: '百度号码查询',
-    version: '1.60.0',
+    version: '1.68.0',
     description: '通过百度搜索查询电话号码信息',
   };
   
@@ -181,6 +181,14 @@ const pluginInfo = {
             'X-Requested-With': 'XMLHttpRequest'
           };
           
+          // 移动版特定请求头
+          var mobileHeaders = {
+            'Referer': 'https://m.baidu.com/',
+            'Origin': 'https://m.baidu.com',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          };
+          
           // 重写open方法，记录URL和方法
           XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
             this._baiduApiUrl = url;
@@ -218,6 +226,22 @@ const pluginInfo = {
                     this.setRequestHeader('Sec-Fetch-Site', 'same-site');
                   } catch (e) {
                     console.warn('[BaiduAPI] 无法设置特殊请求头:', e);
+                  }
+                }
+                
+                // 特殊处理移动版app.js脚本请求
+                if (this._baiduApiUrl.includes('bdhm.cdn.bcebos.com/m/js/app')) {
+                  try {
+                    // 使用移动版特定请求头
+                    for (var header in mobileHeaders) {
+                      this.setRequestHeader(header, mobileHeaders[header]);
+                    }
+                    this.setRequestHeader('Sec-Fetch-Dest', 'script');
+                    this.setRequestHeader('Sec-Fetch-Mode', 'no-cors');
+                    this.setRequestHeader('Sec-Fetch-Site', 'cross-site');
+                    this.setRequestHeader('Accept', '*/*');
+                  } catch (e) {
+                    console.warn('[BaiduAPI] 无法设置移动版特殊请求头:', e);
                   }
                 }
                 
@@ -390,7 +414,7 @@ const pluginInfo = {
         }
         
         // 处理HTML中的脚本，按照它们在HTML中的自然顺序
-        if (data.url && data.url.includes('haoma.baidu.com')) {
+        if (data.url && (data.url.includes('haoma.baidu.com') || data.url.includes('bdhm.cdn.bcebos.com'))) {
           this.log('处理百度号码查询页面的脚本');
           this.handleDynamicScripts(doc, data.url);
         }
@@ -414,6 +438,10 @@ const pluginInfo = {
         const headScripts = [];
         const bodyScripts = [];
         
+        // 检查是否有特定的移动版app.js脚本需要处理
+        const appScriptUrl = 'https://bdhm.cdn.bcebos.com/m/js/app.6664d39c.js';
+        let hasAppScript = false;
+        
         // 按照它们在HTML中出现的自然顺序分类脚本
         for (let i = 0; i < scripts.length; i++) {
           const script = scripts[i];
@@ -422,6 +450,12 @@ const pluginInfo = {
           if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart'))) {
             this.log('跳过本地文件路径脚本:', script.src);
             continue;
+          }
+          
+          // 检查是否是移动版app.js脚本
+          if (script.src && script.src.includes('bdhm.cdn.bcebos.com/m/js/app')) {
+            hasAppScript = true;
+            this.log('找到移动版app.js脚本:', script.src);
           }
           
           // 判断脚本位置
@@ -456,6 +490,12 @@ const pluginInfo = {
         // 然后处理body中的脚本
         this.log(`处理 ${bodyScripts.length} 个body中的脚本`);
         bodyScripts.forEach(fn => fn());
+        
+        // 如果没有找到移动版app.js脚本但URL包含bcebos.com，手动加载它
+        if (!hasAppScript && baseUrl && baseUrl.includes('bcebos.com')) {
+          this.log('手动加载移动版app.js脚本');
+          this.fetchExternalScript(appScriptUrl, baseUrl);
+        }
         
       } catch (error) {
         this.logError('Error handling dynamic scripts:', error);
@@ -496,6 +536,14 @@ const pluginInfo = {
         scriptHeaders['Sec-Fetch-Dest'] = 'script';
         scriptHeaders['Sec-Fetch-Mode'] = 'no-cors';
         scriptHeaders['Sec-Fetch-Site'] = 'same-site';
+        
+        // 为移动版app.js脚本添加特殊处理
+        if (url.includes('bdhm.cdn.bcebos.com/m/js/app')) {
+          scriptHeaders['Referer'] = 'https://m.baidu.com/';
+          scriptHeaders['Origin'] = 'https://m.baidu.com';
+          scriptHeaders['Cache-Control'] = 'no-cache';
+          scriptHeaders['Pragma'] = 'no-cache';
+        }
         
         // 对特定API添加额外头信息
         if (url.includes('miao.baidu.com') || url.includes('banti.baidu.com')) {
