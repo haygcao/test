@@ -7,7 +7,7 @@
 const pluginInfo = {
     id: 'baidu_phone_search',
     name: '百度号码查询',
-    version: '1.50.0',
+    version: '1.10.0',
     description: '通过百度搜索查询电话号码信息',
   };
   
@@ -169,6 +169,9 @@ const pluginInfo = {
           var originalOpen = XMLHttpRequest.prototype.open;
           var originalSend = XMLHttpRequest.prototype.send;
           
+          // 保存第一个请求的头信息，用于后续所有请求
+          var capturedHeaders = null;
+          
           // 保存原始请求头信息
           var originalHeaders = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
@@ -184,7 +187,24 @@ const pluginInfo = {
           XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
             this._baiduApiUrl = url;
             this._baiduApiMethod = method;
+            
+            // 记录所有请求的URL，便于调试
+            console.log('[BaiduAPI] 打开请求:', method, url);
+            
             return originalOpen.apply(this, [method, url, async, user, password]);
+          };
+          
+          // 重写setRequestHeader方法，捕获第一个请求的头信息
+          var originalSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
+          XMLHttpRequest.prototype.setRequestHeader = function(header, value) {
+            // 如果是第一个请求，捕获头信息
+            if (!capturedHeaders && this._baiduApiUrl && this._baiduApiUrl.includes('haoma.baidu.com')) {
+              if (!capturedHeaders) capturedHeaders = {};
+              capturedHeaders[header] = value;
+              console.log('[BaiduAPI] 捕获头信息:', header, value);
+            }
+            
+            return originalSetRequestHeader.apply(this, arguments);
           };
           
           // 重写send方法，为所有百度域名请求添加统一的头信息
@@ -197,12 +217,25 @@ const pluginInfo = {
               console.log('[BaiduAPI] 处理百度域名请求:', this._baiduApiUrl);
               
               try {
+                // 优先使用捕获的头信息
+                var headersToUse = capturedHeaders || originalHeaders;
+                
                 // 为所有百度域名请求添加统一的请求头
-                for (var header in originalHeaders) {
+                for (var header in headersToUse) {
                   try {
-                    this.setRequestHeader(header, originalHeaders[header]);
+                    this.setRequestHeader(header, headersToUse[header]);
                   } catch (e) {
                     console.warn('[BaiduAPI] 无法设置请求头:', header, e);
+                  }
+                }
+                
+                // 特殊处理miao.baidu.com和banti.baidu.com的请求
+                if (this._baiduApiUrl.includes('miao.baidu.com') || this._baiduApiUrl.includes('banti.baidu.com')) {
+                  try {
+                    this.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    this.setRequestHeader('Accept', '*/*');
+                  } catch (e) {
+                    console.warn('[BaiduAPI] 无法设置特殊请求头:', e);
                   }
                 }
                 
@@ -402,7 +435,7 @@ const pluginInfo = {
         // 然后处理HTML中的脚本，确保不影响数据提取
         if (data.url && data.url.includes('haoma.baidu.com')) {
           this.log('处理百度号码查询页面的脚本');
-          this.handleDynamicScripts(doc);
+          this.handleDynamicScripts(doc, data.url);
         }
       } catch (error) {
         this.logError('Error processing HTML:', error);
@@ -412,16 +445,20 @@ const pluginInfo = {
     /**
      * 处理动态脚本
      * @param {Document} doc - HTML文档
+     * @param {string} baseUrl - 基础URL，用于解析相对路径
      */
-    handleDynamicScripts(doc) {
+    handleDynamicScripts(doc, baseUrl) {
       try {
         // 查找所有脚本元素
         const scripts = doc.querySelectorAll('script');
         this.log(`找到 ${scripts.length} 个脚本元素`);
         
-        // 按照页面中的顺序处理脚本
-        const scriptPromises = [];
+        // 创建三个优先级队列
+        const criticalScripts = []; // 关键API脚本
+        const headScripts = [];     // head中的其他脚本
+        const bodyScripts = [];     // body中的脚本
         
+        // 分类脚本
         for (let i = 0; i < scripts.length; i++) {
           const script = scripts[i];
           
@@ -434,44 +471,49 @@ const pluginInfo = {
             continue;
           }
           
-          // 外部脚本
-          if (script.src) {
-            // 检查是否是本地文件路径，如果是则跳过
-            if (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart')) {
-              this.log('跳过本地文件路径脚本:', script.src);
-              continue;
-            }
-            
-            // 优先处理关键API脚本
-            if (script.src.includes('miao.baidu.com') || script.src.includes('banti.baidu.com')) {
-              this.log('处理关键API脚本:', script.src);
-              this.fetchExternalScript(script.src);
-            } else {
-              // 其他外部脚本放入队列
-              scriptPromises.push(() => this.fetchExternalScript(script.src));
-            }
+          // 检查是否是本地文件路径，如果是则跳过
+          if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart'))) {
+            this.log('跳过本地文件路径脚本:', script.src);
+            continue;
           }
-          // 内联脚本
-          else if (script.textContent && script.textContent.trim()) {
-            // 优先处理可能包含电话信息的脚本
-            if (script.textContent.includes('phone') || script.textContent.includes('tel') || script.textContent.includes('号码')) {
-              this.log('处理可能包含电话信息的内联脚本');
+          
+          // 判断脚本位置和类型
+          const isInHead = script.parentNode && (script.parentNode.nodeName === 'HEAD' || script.parentNode.closest('head'));
+          const isExternal = !!script.src;
+          
+          // 创建脚本处理函数
+          const processScriptFn = () => {
+            if (isExternal) {
+              this.fetchExternalScript(script.src, baseUrl);
+            } else if (script.textContent && script.textContent.trim()) {
               this.processScript({
                 isExternal: false,
-                content: script.textContent
+                content: script.textContent,
+                url: baseUrl
               });
-            } else {
-              // 其他内联脚本放入队列
-              scriptPromises.push(() => this.processScript({
-                isExternal: false,
-                content: script.textContent
-              }));
             }
+          };
+          
+          // 分类到不同的优先级队列
+          if (isExternal && (script.src.includes('miao.baidu.com') || script.src.includes('banti.baidu.com'))) {
+            criticalScripts.push(processScriptFn);
+          } else if (isInHead) {
+            headScripts.push(processScriptFn);
+          } else {
+            bodyScripts.push(processScriptFn);
           }
         }
         
-        // 处理剩余的脚本
-        scriptPromises.forEach(scriptFn => scriptFn());
+        // 按优先级顺序处理脚本
+        this.log(`处理 ${criticalScripts.length} 个关键API脚本`);
+        criticalScripts.forEach(fn => fn());
+        
+        this.log(`处理 ${headScripts.length} 个head中的脚本`);
+        headScripts.forEach(fn => fn());
+        
+        this.log(`处理 ${bodyScripts.length} 个body中的脚本`);
+        bodyScripts.forEach(fn => fn());
+        
       } catch (error) {
         this.logError('Error handling dynamic scripts:', error);
       }
@@ -480,8 +522,9 @@ const pluginInfo = {
     /**
      * 获取外部脚本
      * @param {string} url - 脚本URL
+     * @param {string} baseUrl - 基础URL，用于设置正确的Referer
      */
-    fetchExternalScript(url) {
+    fetchExternalScript(url, baseUrl) {
       // 检查是否是本地文件路径，如果是则跳过
       if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart'))) {
         this.log('跳过本地文件路径脚本请求:', url);
@@ -499,15 +542,27 @@ const pluginInfo = {
       // 为百度域名请求添加特殊处理
       if (url.includes('baidu.com') || url.includes('bcebos.com')) {
         // 设置正确的Referer和Origin
-        scriptHeaders['Referer'] = 'https://haoma.baidu.com/';
+        scriptHeaders['Referer'] = baseUrl || 'https://haoma.baidu.com/';
         scriptHeaders['Origin'] = 'https://haoma.baidu.com';
+        scriptHeaders['X-Requested-With'] = 'XMLHttpRequest';
+        scriptHeaders['Accept'] = '*/*';
         
         // 对特定API添加额外头信息
         if (url.includes('miao.baidu.com/abdr') || url.includes('banti.baidu.com/dr')) {
+          this.log('处理特殊API请求:', url);
+          // 确保这些关键请求有正确的头信息
           scriptHeaders['X-Requested-With'] = 'XMLHttpRequest';
           scriptHeaders['Accept'] = '*/*';
+          scriptHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+          
+          // 添加额外的安全头信息
+          scriptHeaders['Sec-Fetch-Dest'] = 'empty';
+          scriptHeaders['Sec-Fetch-Mode'] = 'cors';
+          scriptHeaders['Sec-Fetch-Site'] = 'same-site';
         }
       }
+      
+      this.log('使用以下请求头获取脚本:', JSON.stringify(scriptHeaders));
       
       // 发送请求到Flutter
       this.sendRequest('GET', url, scriptHeaders, requestId);
