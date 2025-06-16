@@ -7,7 +7,7 @@
 const pluginInfo = {
   id: 'baidu_phone_search',
   name: '百度号码查询',
-  version: '1.31.0',
+  version: '1.32.0',
   description: '通过百度搜索查询电话号码信息',
 };
 
@@ -183,184 +183,95 @@ class BaiduPhoneSearchPlugin {
       (function() {
         console.log('[BaiduAPI] 初始化百度API请求处理');
         
-        // 保存原始的XMLHttpRequest方法
-        var originalOpen = XMLHttpRequest.prototype.open;
-        var originalSend = XMLHttpRequest.prototype.send;
+        // 定义百度API域名列表，用于统一处理
+        const baiduApiDomains = ['miao.baidu.com', 'banti.baidu.com', 'haoma.baidu.com'];
         
-        // 重写open方法，处理本地文件路径请求和百度特定API请求
+        // 检查URL是否是百度API域名
+        function isBaiduApiDomain(url) {
+          if (!url) return false;
+          return baiduApiDomains.some(domain => url.includes(domain));
+        }
+        
+        // 百度网站通用请求头 - 确保所有百度API请求使用相同的请求头
+        const baiduHeaders = {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': '*/*',
+          'Origin': 'https://haoma.baidu.com',
+          'Referer': 'https://haoma.baidu.com/',
+          'Connection': 'keep-alive',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        };
+        
+        // 保存原始的XMLHttpRequest方法
+        const originalOpen = XMLHttpRequest.prototype.open;
+        const originalSend = XMLHttpRequest.prototype.send;
+        
+        // 重写open方法，处理百度API请求
         XMLHttpRequest.prototype.open = function(method, url, async, username, password) {
+          // 保存原始URL和方法，用于后续处理
+          this._originalUrl = url;
+          this._originalMethod = method;
+          
           // 检查是否是本地文件路径请求
           if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart') || url.includes('file://'))) {
             console.log('[BaiduAPI] 跳过本地文件路径请求:', url);
-            // 不修改本地文件路径请求
+            return originalOpen.apply(this, arguments);
           } 
-          // 检查是否是百度特定API请求
-          else if (url && (url.includes('miao.baidu.com') || url.includes('banti.baidu.com'))) {
-            console.log('[BaiduAPI] 处理百度特定API请求:', url);
+          
+          // 检查是否是百度API域名请求
+          if (url && isBaiduApiDomain(url)) {
+            console.log('[BaiduAPI] 处理百度API请求:', url);
             
-            // 移除URL中的_o参数，因为这可能导致400 Bad Request
-            try {
-              const urlObj = new URL(url);
-              if (urlObj.searchParams.has('_o')) {
+            // 完全移除_o参数，避免400错误
+            if (url.includes('_o=')) {
+              try {
+                const urlObj = new URL(url);
                 urlObj.searchParams.delete('_o');
                 url = urlObj.toString();
-                console.log('[BaiduAPI] 已从URL中移除_o参数:', url);
+                console.log('[BaiduAPI] 移除_o参数后的URL:', url);
+                
+                // 更新参数以使用修改后的URL
+                arguments[1] = url;
+              } catch (e) {
+                console.error('[BaiduAPI] 修改URL时出错:', e);
               }
-            } catch (e) {
-              console.error('[BaiduAPI] 移除_o参数时出错:', e);
             }
             
+            // 调用原始open方法
+            const result = originalOpen.apply(this, arguments);
+            
             // 设置withCredentials为false，避免CORS错误
-            // 只对百度API请求设置此属性
-            if (url.includes('miao.baidu.com') || url.includes('banti.baidu.com')) {
-              this.withCredentials = false;
-              console.log('[BaiduAPI] 已为百度API请求设置withCredentials=false');
-              
-              // 记录更多请求信息，便于调试
-              console.log('[BaiduAPI] 百度API请求详情:');
-              console.log('[BaiduAPI] - URL:', url);
-              console.log('[BaiduAPI] - 方法:', method);
-            }
+            this.withCredentials = false;
+            
+            return result;
           }
           
-          // 记录请求信息，便于调试
-          console.log('[BaiduAPI] 请求方法:', method);
-          console.log('[BaiduAPI] 请求URL:', url);
-          console.log('[BaiduAPI] 异步模式:', async !== false);
-          
-          // 保存原始URL和方法，用于后续处理
-          this._baiduApiUrl = url;
-          this._baiduApiMethod = method;
-          
-          // 调用原始open方法
-          try {
-            return originalOpen.apply(this, arguments);
-          } catch (e) {
-            console.error('[BaiduAPI] 打开请求失败:', e);
-            throw e; // 重新抛出异常，保持原有行为
-          }
+          // 对于其他请求，直接调用原始方法
+          return originalOpen.apply(this, arguments);
         };
         
         // 重写send方法，为特定请求添加头信息
         XMLHttpRequest.prototype.send = function(body) {
-          // 检查是否是百度特定API请求
-          if (this._baiduApiUrl && (
-              this._baiduApiUrl.includes('miao.baidu.com') || 
-              this._baiduApiUrl.includes('banti.baidu.com'))) {
+          // 检查是否是百度API域名请求
+          if (this._originalUrl && isBaiduApiDomain(this._originalUrl)) {
+            console.log('[BaiduAPI] 处理百度API请求发送:', this._originalUrl);
             
-            console.log('[BaiduAPI] 处理百度特殊API请求:', this._baiduApiUrl);
-            
-            // 处理请求体，修复可能导致400 Bad Request的格式问题
-            if (body && typeof body === 'string') {
-              // 对字符串类型的body进行trim处理
-              body = body.trim();
-              
-              // 确保请求体格式正确
-              if (this._baiduApiMethod === 'POST') {
-                // 如果请求体为空，提供一个默认的空请求体
-                if (body === '') {
-                  body = '';
-                  console.log('[BaiduAPI] 使用空请求体');
-                }
-                // 如果请求体不是URL编码格式，尝试转换
-                else if (!body.includes('=') && !body.includes('&')) {
-                  try {
-                    // 尝试解析为JSON并转换为URL编码格式
-                    const jsonObj = JSON.parse(body);
-                    const params = new URLSearchParams();
-                    for (const key in jsonObj) {
-                      params.append(key, jsonObj[key]);
-                    }
-                    body = params.toString();
-                    console.log('[BaiduAPI] 将JSON请求体转换为URL编码格式:', body);
-                  } catch (e) {
-                    // 如果不是有效的JSON，保持原始请求体
-                    console.log('[BaiduAPI] 请求体不是有效的JSON，保持原始请求体');
-                    console.log('[BaiduAPI] 使用原始请求体:', body);
-                  }
-                }
-              }
-              
-              console.log('[BaiduAPI] 处理后的请求体:', body);
-            } else if (!body && this._baiduApiMethod === 'POST') {
-              // 对于POST请求，如果没有请求体，使用空请求体
-              body = '';
-              console.log('[BaiduAPI] 为POST请求使用空请求体');
-            }
-            
-            try {
-              // 添加必要的请求头，确保与sendRequest方法中的请求头完全一致
-              this.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-              this.setRequestHeader('Accept', '*/*');
-              this.setRequestHeader('Origin', 'https://haoma.baidu.com');
-              this.setRequestHeader('Referer', 'https://haoma.baidu.com/');
-              this.setRequestHeader('Connection', 'keep-alive');
-              this.setRequestHeader('Cache-Control', 'no-cache');
-              this.setRequestHeader('Pragma', 'no-cache');
-              
-              // 设置User-Agent，模拟浏览器
+            // 为所有百度API请求添加统一的请求头
+            for (const [key, value] of Object.entries(baiduHeaders)) {
               try {
-                this.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+                this.setRequestHeader(key, value);
               } catch (e) {
-                // 某些浏览器不允许设置User-Agent，忽略错误
-                console.log('[BaiduAPI] 无法设置User-Agent头');
+                // 忽略重复设置请求头的错误
               }
-              
-              // 设置内容类型
-              if (this._baiduApiMethod === 'POST') {
-                this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                
-
-                
-                // 记录请求体，便于调试
-                if (body) {
-                  console.log('[BaiduAPI] 请求体:', body);
-                }
-              }
-              
-              console.log('[BaiduAPI] 已添加安全请求头');
-            } catch (e) {
-              console.error('[BaiduAPI] 添加请求头失败:', e);
             }
           }
           
-          // 调用原始send方法，使用更健壮的错误处理
-          try {
-            // 优先使用call方法，传递body参数
-            return originalSend.call(this, body);
-          } catch (e) {
-            console.error('[BaiduAPI] 使用call发送请求失败:', e);
-            
-            try {
-              // 如果call失败，尝试使用apply方法
-              return originalSend.apply(this, arguments);
-            } catch (e2) {
-              console.error('[BaiduAPI] 使用apply发送请求也失败:', e2);
-              throw e2; // 重新抛出异常，保持原有行为
-            }
-          }
+          // 调用原始send方法
+          return originalSend.call(this, body);
         };
-        
-        // 使用MutationObserver替代已弃用的DOMSubtreeModified事件
-        // 监听DOM变化，处理动态加载的内容
-        const observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-              mutation.addedNodes.forEach(function(node) {
-                // 检查是否添加了新的脚本元素
-                if (node.nodeName === 'SCRIPT') {
-                  console.log('[BaiduAPI] 检测到新脚本:', node.src || '内联脚本');
-                }
-              });
-            }
-          });
-        });
-        
-        // 配置观察选项
-        const config = { childList: true, subtree: true };
-        
-        // 开始观察文档
-        observer.observe(document, config);
         
         console.log('[BaiduAPI] 百度API请求处理已初始化');
       })();
@@ -413,18 +324,16 @@ class BaiduPhoneSearchPlugin {
     }
     
     // 检查是否是百度API请求
-    if (!isBaiduApi && (url.includes('miao.baidu.com') || url.includes('banti.baidu.com'))) {
+    if (!isBaiduApi && (url.includes('miao.baidu.com') || url.includes('banti.baidu.com') || url.includes('haoma.baidu.com'))) {
       isBaiduApi = true;
     }
     
     // 如果是百度API请求，添加特殊处理
     if (isBaiduApi) {
-      this.log('处理百度API请求:', url);
-      
       // 确保headers对象存在
       headers = headers || {};
       
-      // 添加必要的请求头
+      // 添加必要的请求头 - 确保所有百度API请求使用相同的请求头
       headers['X-Requested-With'] = 'XMLHttpRequest';
       headers['Accept'] = '*/*';
       headers['Origin'] = 'https://haoma.baidu.com';
@@ -433,43 +342,28 @@ class BaiduPhoneSearchPlugin {
       headers['Cache-Control'] = 'no-cache';
       headers['Pragma'] = 'no-cache';
       headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36';
+      headers['Content-Type'] = 'application/x-www-form-urlencoded';
       
-      // 如果是POST请求，设置Content-Type
-      if (method === 'POST') {
-        headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        
-        // 如果没有提供请求体，创建一个空的请求体
-        if (!body) {
-          body = '';
-        }
-      }
-      
-      // 移除URL中的_o参数，因为这可能导致400 Bad Request
-      try {
-        const urlObj = new URL(url);
-        if (urlObj.searchParams.has('_o')) {
+      // 完全移除URL中的_o参数，避免400 Bad Request
+      if (url.includes('_o=')) {
+        try {
+          const urlObj = new URL(url);
           urlObj.searchParams.delete('_o');
           url = urlObj.toString();
-          this.log('[BaiduAPI] 已从sendRequest的URL中移除_o参数:', url);
+        } catch (e) {
+          this.logError('移除_o参数时出错:', e);
         }
-      } catch (e) {
-        this.logError('[BaiduAPI] 从sendRequest的URL中移除_o参数时出错:', e);
       }
     }
     
     try {
       // 如果是百度API请求，使用特殊请求通道发送请求，避免CORS问题
       if (isBaiduApi) {
-        this.log('使用特殊请求通道发送百度API请求:', url);
-        this.log('请求方法:', method);
-        this.log('请求头:', JSON.stringify(headers));
-        this.log('请求体:', body);
-        
         this.sendSpecialRequest(
           url,
           method,
           headers,
-          body, // 传递请求体，不再硬编码为null
+          body,
           requestId
         );
         
@@ -493,7 +387,6 @@ class BaiduPhoneSearchPlugin {
           request.body = body;
         }
         
-        this.log('发送常规请求:', url);
         window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(request));
       }
     } catch (error) {
@@ -1091,8 +984,6 @@ class BaiduPhoneSearchPlugin {
    * @param {string} requestId - 请求ID
    */
   sendSpecialRequest(url, method, headers, body, requestId) {
-    this.log('发送特殊请求:', url);
-    
     if (!window.flutter_inappwebview) {
       this.logError('Flutter interface not available');
       return;
@@ -1105,10 +996,27 @@ class BaiduPhoneSearchPlugin {
       return;
     }
     
+    // 确保Flutter接口可用
+    if (!window.flutter_inappwebview) {
+      this.logError('Flutter interface not available');
+      return;
+    }
+    
     try {
       // 如果没有提供requestId，生成一个新的
       if (!requestId) {
         requestId = this.generateRequestId();
+      }
+      
+      // 确保URL中没有_o参数
+      if (url.includes('_o=')) {
+        try {
+          const urlObj = new URL(url);
+          urlObj.searchParams.delete('_o');
+          url = urlObj.toString();
+        } catch (e) {
+          // 忽略URL解析错误
+        }
       }
       
       const request = {
@@ -1120,7 +1028,6 @@ class BaiduPhoneSearchPlugin {
         requestId
       };
       
-      this.log('发送特殊请求:', url);
       // 使用特殊通道发送请求，避免CORS问题
       window.flutter_inappwebview.callHandler('XHRSpecialRequestChannel', JSON.stringify(request));
     } catch (error) {
