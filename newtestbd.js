@@ -7,7 +7,7 @@
 const pluginInfo = {
     id: 'baidu_phone_search',
     name: '百度号码查询',
-    version: '1.10.0',
+    version: '1.60.0',
     description: '通过百度搜索查询电话号码信息',
   };
   
@@ -168,12 +168,10 @@ const pluginInfo = {
           // 保存原始的XMLHttpRequest方法
           var originalOpen = XMLHttpRequest.prototype.open;
           var originalSend = XMLHttpRequest.prototype.send;
+          var originalSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
           
-          // 保存第一个请求的头信息，用于后续所有请求
-          var capturedHeaders = null;
-          
-          // 保存原始请求头信息
-          var originalHeaders = {
+          // 统一的请求头
+          var standardHeaders = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
             'Referer': 'https://haoma.baidu.com/',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
@@ -194,36 +192,17 @@ const pluginInfo = {
             return originalOpen.apply(this, [method, url, async, user, password]);
           };
           
-          // 重写setRequestHeader方法，捕获第一个请求的头信息
-          var originalSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
-          XMLHttpRequest.prototype.setRequestHeader = function(header, value) {
-            // 如果是第一个请求，捕获头信息
-            if (!capturedHeaders && this._baiduApiUrl && this._baiduApiUrl.includes('haoma.baidu.com')) {
-              if (!capturedHeaders) capturedHeaders = {};
-              capturedHeaders[header] = value;
-              console.log('[BaiduAPI] 捕获头信息:', header, value);
-            }
-            
-            return originalSetRequestHeader.apply(this, arguments);
-          };
-          
           // 重写send方法，为所有百度域名请求添加统一的头信息
           XMLHttpRequest.prototype.send = function(body) {
             // 检查是否是百度域名的请求
-            if (this._baiduApiUrl && (
-                this._baiduApiUrl.includes('baidu.com') || 
-                this._baiduApiUrl.includes('bcebos.com'))) {
-              
+            if (this._baiduApiUrl && (this._baiduApiUrl.includes('baidu.com') || this._baiduApiUrl.includes('bcebos.com'))) {
               console.log('[BaiduAPI] 处理百度域名请求:', this._baiduApiUrl);
               
               try {
-                // 优先使用捕获的头信息
-                var headersToUse = capturedHeaders || originalHeaders;
-                
                 // 为所有百度域名请求添加统一的请求头
-                for (var header in headersToUse) {
+                for (var header in standardHeaders) {
                   try {
-                    this.setRequestHeader(header, headersToUse[header]);
+                    this.setRequestHeader(header, standardHeaders[header]);
                   } catch (e) {
                     console.warn('[BaiduAPI] 无法设置请求头:', header, e);
                   }
@@ -232,8 +211,11 @@ const pluginInfo = {
                 // 特殊处理miao.baidu.com和banti.baidu.com的请求
                 if (this._baiduApiUrl.includes('miao.baidu.com') || this._baiduApiUrl.includes('banti.baidu.com')) {
                   try {
-                    this.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                     this.setRequestHeader('Accept', '*/*');
+                    // 添加安全相关的请求头
+                    this.setRequestHeader('Sec-Fetch-Dest', 'empty');
+                    this.setRequestHeader('Sec-Fetch-Mode', 'cors');
+                    this.setRequestHeader('Sec-Fetch-Site', 'same-site');
                   } catch (e) {
                     console.warn('[BaiduAPI] 无法设置特殊请求头:', e);
                   }
@@ -246,11 +228,6 @@ const pluginInfo = {
                   } catch (e) {
                     console.warn('[BaiduAPI] 无法设置Content-Type请求头:', e);
                   }
-                  
-                  // 记录请求体，便于调试
-                  if (body) {
-                    console.log('[BaiduAPI] 请求体:', body);
-                  }
                 }
                 
                 console.log('[BaiduAPI] 已添加统一请求头');
@@ -262,26 +239,6 @@ const pluginInfo = {
             // 调用原始send方法
             return originalSend.apply(this, arguments);
           };
-          
-          // 使用MutationObserver监听DOM变化，处理动态加载的内容
-          const observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-              if (mutation.type === 'childList') {
-                mutation.addedNodes.forEach(function(node) {
-                  // 检查是否添加了新的脚本元素
-                  if (node.nodeName === 'SCRIPT') {
-                    console.log('[BaiduAPI] 检测到新脚本:', node.src || '内联脚本');
-                  }
-                });
-              }
-            });
-          });
-          
-          // 配置观察选项
-          const config = { childList: true, subtree: true };
-          
-          // 开始观察文档
-          observer.observe(document, config);
           
           console.log('[BaiduAPI] 百度API请求处理已初始化');
         })();
@@ -432,7 +389,7 @@ const pluginInfo = {
           this.log('成功从HTML中提取数据:', this.extractedData);
         }
         
-        // 然后处理HTML中的脚本，确保不影响数据提取
+        // 处理HTML中的脚本，按照它们在HTML中的自然顺序
         if (data.url && data.url.includes('haoma.baidu.com')) {
           this.log('处理百度号码查询页面的脚本');
           this.handleDynamicScripts(doc, data.url);
@@ -453,23 +410,13 @@ const pluginInfo = {
         const scripts = doc.querySelectorAll('script');
         this.log(`找到 ${scripts.length} 个脚本元素`);
         
-        // 创建三个优先级队列
-        const criticalScripts = []; // 关键API脚本
-        const headScripts = [];     // head中的其他脚本
-        const bodyScripts = [];     // body中的脚本
+        // 创建两个队列：head中的脚本和body中的脚本
+        const headScripts = [];
+        const bodyScripts = [];
         
-        // 分类脚本
+        // 按照它们在HTML中出现的自然顺序分类脚本
         for (let i = 0; i < scripts.length; i++) {
           const script = scripts[i];
-          
-          // 跳过已知的非关键脚本
-          if (script.src && (
-              script.src.includes('hm.baidu.com/hm.js') || 
-              script.src.includes('sofire.bdstatic.com') ||
-              script.src.includes('wappass.baidu.com'))) {
-            this.log('跳过非关键脚本:', script.src);
-            continue;
-          }
           
           // 检查是否是本地文件路径，如果是则跳过
           if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart'))) {
@@ -477,7 +424,7 @@ const pluginInfo = {
             continue;
           }
           
-          // 判断脚本位置和类型
+          // 判断脚本位置
           const isInHead = script.parentNode && (script.parentNode.nodeName === 'HEAD' || script.parentNode.closest('head'));
           const isExternal = !!script.src;
           
@@ -494,23 +441,19 @@ const pluginInfo = {
             }
           };
           
-          // 分类到不同的优先级队列
-          if (isExternal && (script.src.includes('miao.baidu.com') || script.src.includes('banti.baidu.com'))) {
-            criticalScripts.push(processScriptFn);
-          } else if (isInHead) {
+          // 按照在HTML中的位置分类
+          if (isInHead) {
             headScripts.push(processScriptFn);
           } else {
             bodyScripts.push(processScriptFn);
           }
         }
         
-        // 按优先级顺序处理脚本
-        this.log(`处理 ${criticalScripts.length} 个关键API脚本`);
-        criticalScripts.forEach(fn => fn());
-        
+        // 首先处理head中的所有脚本，按照它们在HTML中出现的顺序
         this.log(`处理 ${headScripts.length} 个head中的脚本`);
         headScripts.forEach(fn => fn());
         
+        // 然后处理body中的脚本
         this.log(`处理 ${bodyScripts.length} 个body中的脚本`);
         bodyScripts.forEach(fn => fn());
         
@@ -539,26 +482,34 @@ const pluginInfo = {
       // 构建适合的请求头
       const scriptHeaders = { ...headers };
       
-      // 为百度域名请求添加特殊处理
+      // 为所有百度域名请求添加统一的请求头
       if (url.includes('baidu.com') || url.includes('bcebos.com')) {
         // 设置正确的Referer和Origin
         scriptHeaders['Referer'] = baseUrl || 'https://haoma.baidu.com/';
         scriptHeaders['Origin'] = 'https://haoma.baidu.com';
         scriptHeaders['X-Requested-With'] = 'XMLHttpRequest';
         scriptHeaders['Accept'] = '*/*';
+        scriptHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8';
+        scriptHeaders['Connection'] = 'keep-alive';
+        
+        // 添加安全相关的请求头
+        scriptHeaders['Sec-Fetch-Dest'] = 'script';
+        scriptHeaders['Sec-Fetch-Mode'] = 'no-cors';
+        scriptHeaders['Sec-Fetch-Site'] = 'same-site';
         
         // 对特定API添加额外头信息
-        if (url.includes('miao.baidu.com/abdr') || url.includes('banti.baidu.com/dr')) {
+        if (url.includes('miao.baidu.com') || url.includes('banti.baidu.com')) {
           this.log('处理特殊API请求:', url);
           // 确保这些关键请求有正确的头信息
           scriptHeaders['X-Requested-With'] = 'XMLHttpRequest';
           scriptHeaders['Accept'] = '*/*';
-          scriptHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
           
-          // 添加额外的安全头信息
-          scriptHeaders['Sec-Fetch-Dest'] = 'empty';
-          scriptHeaders['Sec-Fetch-Mode'] = 'cors';
-          scriptHeaders['Sec-Fetch-Site'] = 'same-site';
+          // 特殊处理miao.baidu.com和banti.baidu.com的请求
+          if (url.includes('miao.baidu.com/abdr') || url.includes('banti.baidu.com/dr')) {
+            scriptHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+            scriptHeaders['Sec-Fetch-Dest'] = 'empty';
+            scriptHeaders['Sec-Fetch-Mode'] = 'cors';
+          }
         }
       }
       
