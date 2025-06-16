@@ -1,379 +1,296 @@
 /**
  * 百度号码查询插件 - 用于查询电话号码信息
- * 此插件可以处理拦截到的数据并提取电话号码相关信息
+ * 此插件可以处理拦截到的数据并提取电话号码相关信息,  有插件复杂处理所有的逻辑， 插件发送请求到flutter 拦截器负责拦截并发回数据
  */
 
 // 插件基础信息
 const pluginInfo = {
-  id: 'baidu_phone_search',
-  name: '百度号码查询',
-  version: '1.32.0',
-  description: '通过百度搜索查询电话号码信息',
-};
-
-
-const predefinedLabels = {
-  '诈骗': 'Scam',
-  '骚扰': 'Harassment',
-  '广告推销': 'Telemarketing',
-  '快递送餐': 'Delivery',
-  '房产中介': 'Real Estate',
-  '招聘': 'Recruitment',
-  '金融理财': 'Finance',
-  '违法': 'Illegal',
-  '教育培训': 'Education',
-  '快递': 'Delivery',
-  '送餐': 'Food Delivery',
-  '外卖': 'Food Delivery',
-  '中介': 'Agency',
-  '房产': 'Real Estate',
-  '理财': 'Finance',
-  '贷款': 'Loan',
-  '保险': 'Insurance',
-  '催收': 'Debt Collection',
-  '销售': 'Sales',
-  '客服': 'Customer Service',
-  '商家': 'Business',
-  '公司': 'Company',
-  '银行': 'Bank',
-  '中国移动': 'China Mobile',
-  '中国联通': 'China Unicom',
-  '中国电信': 'China Telecom',
-  '移动': 'Mobile',
-  '联通': 'Unicom',
-  '电信': 'Telecom',
-  '虚拟运营商': 'MVNO',
-  '食药推销': 'Telemarketing',      
-  '推销': 'Telemarketing', 
-};
-
-
-
-
-
-
-
-
-
-
-
-
-// 手动映射
-const manualMapping = {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   '中介': 'Agent',             // 含义较广，包括房产中介等
-  '中介': 'Agent',             // 含义较广，包括房产中介等
-        '房产中介': 'Agent',         // 细化为房地产经纪人
-        '违规催收': 'Debt Collection',
-        '快递物流': 'Delivery',
-        '快递': 'Delivery',
-        '教育培训': 'Education',
-        '金融': 'Financial',
-        '股票证券': 'Financial',   // 统一为金融
-        '保险理财': 'Financial',   // 统一为金融
-        '涉诈电话': 'Fraud Scam Likely',
-        '诈骗': 'Fraud Scam Likely',
-        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
-        '猎头': 'Headhunter',
-        '猎头招聘': 'Headhunter',
-        '招聘猎头': 'Headhunter',
-        '保险': 'Insurance',
-        '保险推销': 'Insurance',
-        '贷款理财': 'Loan',   
-        '医疗卫生': 'Medical',  
-        '其他': 'Other',
-        '送餐外卖': 'Takeaway',
-        '美团': 'Takeaway',
-        '饿了么': 'Takeaway',
-        '外卖': 'Takeaway',  
-        '滴滴/优步': 'Ridesharing',
-        '出租车': 'Ridesharing',
-        '网约车': 'Ridesharing',
-        '违法': 'Risk',
-        '淫秽色情': 'Risk',
-        '反动谣言': 'Risk', 
-        '发票办证': 'Risk',
-        '客服热线': 'Customer Service',
-        '非应邀商业电话': 'Spam Likely',
-        '广告': 'Spam Likely',
-        '骚扰': 'Spam Likely', 
-        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
-        '广告营销': 'Telemarketing',
-        '广告推销': 'Telemarketing',
-        '旅游推广': 'Telemarketing',
-        '食药推销': 'Telemarketing',      
-        '推销': 'Telemarketing', 
-};
-
-// 手动映射
-const headers = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-  'Referer': ' https://www.baidu.com/ ',
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-  'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-  'Connection': 'keep-alive',
-};
-
-// 插件类
-class BaiduPhoneSearchPlugin {
-  constructor() {
-    this.pendingRequests = {}; // 存储待处理的请求
-    this.requestCounter = 0;   // 请求计数器
-    this.initialized = false;  // 初始化状态
-    this.debug = true;         // 调试模式
-    this.lastSearchedPhone = null; // 最后搜索的电话号码
-    this.extractedData = {};   // 存储提取的数据
-  }
-
-
-
+    id: 'baidu_phone_search',
+    name: '百度号码查询',
+    version: '1.50.0',
+    description: '通过百度搜索查询电话号码信息',
+  };
   
-  /**
-   * 初始化插件
-   */
-  initialize() {
-    if (this.initialized) {
-      return;
-    }
-    
-    this.log('Plugin initializing:', pluginInfo.id);
-    
-    // 通知Flutter插件已加载
-    if (window.flutter_inappwebview) {
-      window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
-        type: 'pluginLoaded',
-        pluginId: pluginInfo.id,
-        info: pluginInfo
-      }));
-    }
-    
-    // 添加百度API请求处理
-    this.setupBaiduApiRequestHandler();
-    
-    this.initialized = true;
-    this.log('Plugin initialized successfully');
-  }
   
-  /**
-   * 设置百度API请求处理器
-   * 处理特定百度API的请求，如miao.baidu.com/abdr和banti.baidu.com/dr
-   */
-  setupBaiduApiRequestHandler() {
-    this.log('Setting up Baidu API request handler');
-    
-    // 在页面加载完成后执行，确保不会干扰其他脚本
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.injectBaiduApiHandler());
-    } else {
-      // 如果页面已经加载完成，直接执行
-      this.injectBaiduApiHandler();
-    }
-  }
+  const predefinedLabels = [
+    { label: 'Fraud Scam Likely' },
+    { label: 'Spam Likely' },
+    { label: 'Telemarketing' },
+    { label: 'Robocall' },
+    { label: 'Delivery' },
+    { label: 'Takeaway' },
+    { label: 'Ridesharing' },
+    { label: 'Insurance' },
+    { label: 'Loan' },
+    { label: 'Customer Service' },
+    { label: 'Unknown' },
+    { label: 'Financial' },
+    { label: 'Bank' },
+    { label: 'Education' },
+    { label: 'Medical' },
+    { label: 'Charity' },
+    { label: 'Other' },
+    { label: 'Debt Collection' },
+    { label: 'Survey' },
+    { label: 'Political' },
+    { label: 'Ecommerce' },
+    { label: 'Risk' },
+    { label: 'Agent' },
+    { label: 'Recruiter' },
+    { label: 'Headhunter' },
+    { label: 'Silent Call(Voice Clone?)' },
+  ];
+  // 手动映射
+  const manualMapping = {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     '中介': 'Agent',             // 含义较广，包括房产中介等
+    '中介': 'Agent',             // 含义较广，包括房产中介等
+          '房产中介': 'Agent',         // 细化为房地产经纪人
+          '违规催收': 'Debt Collection',
+          '快递物流': 'Delivery',
+          '快递': 'Delivery',
+          '教育培训': 'Education',
+          '金融': 'Financial',
+          '股票证券': 'Financial',   // 统一为金融
+          '保险理财': 'Financial',   // 统一为金融
+          '涉诈电话': 'Fraud Scam Likely',
+          '诈骗': 'Fraud Scam Likely',
+          '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
+          '猎头': 'Headhunter',
+          '猎头招聘': 'Headhunter',
+          '招聘猎头': 'Headhunter',
+          '保险': 'Insurance',
+          '保险推销': 'Insurance',
+          '贷款理财': 'Loan',   
+          '医疗卫生': 'Medical',  
+          '其他': 'Other',
+          '送餐外卖': 'Takeaway',
+          '美团': 'Takeaway',
+          '饿了么': 'Takeaway',
+          '外卖': 'Takeaway',  
+          '滴滴/优步': 'Ridesharing',
+          '出租车': 'Ridesharing',
+          '网约车': 'Ridesharing',
+          '违法': 'Risk',
+          '淫秽色情': 'Risk',
+          '反动谣言': 'Risk', 
+          '发票办证': 'Risk',
+          '客服热线': 'Customer Service',
+          '非应邀商业电话': 'Spam Likely',
+          '广告': 'Spam Likely',
+          '骚扰': 'Spam Likely', 
+          '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
+          '广告营销': 'Telemarketing',
+          '广告推销': 'Telemarketing',
+          '旅游推广': 'Telemarketing',
+          '食药推销': 'Telemarketing',      
+          '推销': 'Telemarketing', 
+  };
   
-  /**
-   * 注入百度API处理脚本
-   */
-  injectBaiduApiHandler() {
-    this.log('Injecting Baidu API handler script');
+  // 手动映射
+  const headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+    'Referer': ' https://www.baidu.com/ ',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+    'Connection': 'keep-alive',
+  };
+  
+  // 插件类
+  class BaiduPhoneSearchPlugin {
+    constructor() {
+      this.pendingRequests = {}; // 存储待处理的请求
+      this.requestCounter = 0;   // 请求计数器
+      this.initialized = false;  // 初始化状态
+      this.debug = true;         // 调试模式
+      this.lastSearchedPhone = null; // 最后搜索的电话号码
+      this.extractedData = {};   // 存储提取的数据
+    }
+  
+  
+  
     
-    try {
-      // 创建并注入处理脚本
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.textContent = `
-      (function() {
-        console.log('[BaiduAPI] 初始化百度API请求处理');
-        
-        // 定义百度API域名列表，用于统一处理
-        const baiduApiDomains = ['miao.baidu.com', 'banti.baidu.com', 'haoma.baidu.com'];
-        
-        // 检查URL是否是百度API域名
-        function isBaiduApiDomain(url) {
-          if (!url) return false;
-          return baiduApiDomains.some(domain => url.includes(domain));
-        }
-        
-        // 百度网站通用请求头 - 确保所有百度API请求使用相同的请求头
-        const baiduHeaders = {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': '*/*',
-          'Origin': 'https://haoma.baidu.com',
-          'Referer': 'https://haoma.baidu.com/',
-          'Connection': 'keep-alive',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        };
-        
-        // 保存原始的XMLHttpRequest方法
-        const originalOpen = XMLHttpRequest.prototype.open;
-        const originalSend = XMLHttpRequest.prototype.send;
-        
-        // 重写open方法，处理百度API请求
-        XMLHttpRequest.prototype.open = function(method, url, async, username, password) {
-          // 保存原始URL和方法，用于后续处理
-          this._originalUrl = url;
-          this._originalMethod = method;
-          
-          // 检查是否是本地文件路径请求
-          if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart') || url.includes('file://'))) {
-            console.log('[BaiduAPI] 跳过本地文件路径请求:', url);
-            return originalOpen.apply(this, arguments);
-          } 
-          
-          // 检查是否是百度API域名请求
-          if (url && isBaiduApiDomain(url)) {
-            console.log('[BaiduAPI] 处理百度API请求:', url);
-            
-            // 完全移除_o参数，避免400错误
-            if (url.includes('_o=')) {
-              try {
-                const urlObj = new URL(url);
-                urlObj.searchParams.delete('_o');
-                url = urlObj.toString();
-                console.log('[BaiduAPI] 移除_o参数后的URL:', url);
-                
-                // 更新参数以使用修改后的URL
-                arguments[1] = url;
-              } catch (e) {
-                console.error('[BaiduAPI] 修改URL时出错:', e);
-              }
-            }
-            
-            // 调用原始open方法
-            const result = originalOpen.apply(this, arguments);
-            
-            // 设置withCredentials为false，避免CORS错误
-            this.withCredentials = false;
-            
-            return result;
-          }
-          
-          // 对于其他请求，直接调用原始方法
-          return originalOpen.apply(this, arguments);
-        };
-        
-        // 重写send方法，为特定请求添加头信息
-        XMLHttpRequest.prototype.send = function(body) {
-          // 检查是否是百度API域名请求
-          if (this._originalUrl && isBaiduApiDomain(this._originalUrl)) {
-            console.log('[BaiduAPI] 处理百度API请求发送:', this._originalUrl);
-            
-            // 为所有百度API请求添加统一的请求头
-            for (const [key, value] of Object.entries(baiduHeaders)) {
-              try {
-                this.setRequestHeader(key, value);
-              } catch (e) {
-                // 忽略重复设置请求头的错误
-              }
-            }
-          }
-          
-          // 调用原始send方法
-          return originalSend.call(this, body);
-        };
-        
-        console.log('[BaiduAPI] 百度API请求处理已初始化');
-      })();
-      `;
+    /**
+     * 初始化插件
+     */
+    initialize() {
+      if (this.initialized) {
+        return;
+      }
       
-      // 将脚本添加到文档中
-      document.head.appendChild(script);
-      this.log('Baidu API handler script injected successfully');
-    } catch (error) {
-      this.logError('Error injecting Baidu API handler script:', error);
-    }
-  }
-
-  /**
-   * 查询电话号码信息
-   * @param {string} phoneNumber - 电话号码
-   * @param {string} requestId - 请求ID
-   */
-  queryPhoneInfo(phoneNumber, requestId) {
-    this.log('Querying phone info for:', phoneNumber);
-    this.lastSearchedPhone = phoneNumber;
-    
-    // 构建百度搜索URL
-    const searchUrl = `https://haoma.baidu.com/phoneSearch?search=${encodeURIComponent(phoneNumber)}`;
-    
-    // 发送请求
-    this.sendRequest('GET', searchUrl, headers, requestId);
-  }
-
-  /**
-   * 发送请求
-   * @param {string} method - HTTP方法
-   * @param {string} url - 请求URL
-   * @param {object} headers - 请求头
-   * @param {string} requestId - 请求ID
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   * @param {string} body - 请求体
-   */
-  sendRequest(method, url, headers, requestId, isBaiduApi = false, body = null) {
-    if (!window.flutter_inappwebview) {
-      this.logError('Flutter interface not available');
-      return;
-    }
-    
-    // 检查是否是本地文件路径，如果是则不发送请求
-    if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart') || url.includes('file://'))) {
-      this.log('跳过本地文件路径请求:', url);
-      this.sendPluginError('本地文件路径请求已被跳过: ' + url, requestId);
-      return;
-    }
-    
-    // 检查是否是百度API请求
-    if (!isBaiduApi && (url.includes('miao.baidu.com') || url.includes('banti.baidu.com') || url.includes('haoma.baidu.com'))) {
-      isBaiduApi = true;
-    }
-    
-    // 如果是百度API请求，添加特殊处理
-    if (isBaiduApi) {
-      // 确保headers对象存在
-      headers = headers || {};
+      this.log('Plugin initializing:', pluginInfo.id);
       
-      // 添加必要的请求头 - 确保所有百度API请求使用相同的请求头
-      headers['X-Requested-With'] = 'XMLHttpRequest';
-      headers['Accept'] = '*/*';
-      headers['Origin'] = 'https://haoma.baidu.com';
-      headers['Referer'] = 'https://haoma.baidu.com/';
-      headers['Connection'] = 'keep-alive';
-      headers['Cache-Control'] = 'no-cache';
-      headers['Pragma'] = 'no-cache';
-      headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36';
-      headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      // 通知Flutter插件已加载
+      if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({
+          type: 'pluginLoaded',
+          pluginId: pluginInfo.id,
+          info: pluginInfo
+        }));
+      }
       
-      // 完全移除URL中的_o参数，避免400 Bad Request
-      if (url.includes('_o=')) {
-        try {
-          const urlObj = new URL(url);
-          urlObj.searchParams.delete('_o');
-          url = urlObj.toString();
-        } catch (e) {
-          this.logError('移除_o参数时出错:', e);
-        }
+      // 添加百度API请求处理
+      this.setupBaiduApiRequestHandler();
+      
+      this.initialized = true;
+      this.log('Plugin initialized successfully');
+    }
+    
+    /**
+     * 设置百度API请求处理器
+     * 处理特定百度API的请求，如miao.baidu.com/abdr和banti.baidu.com/dr
+     */
+    setupBaiduApiRequestHandler() {
+      this.log('Setting up Baidu API request handler');
+      
+      // 在页面加载完成后执行，确保不会干扰其他脚本
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => this.injectBaiduApiHandler());
+      } else {
+        // 如果页面已经加载完成，直接执行
+        this.injectBaiduApiHandler();
       }
     }
     
-    try {
-      // 如果是百度API请求，使用特殊请求通道发送请求，避免CORS问题
-      if (isBaiduApi) {
-        this.sendSpecialRequest(
-          url,
-          method,
-          headers,
-          body,
-          requestId
-        );
+    /**
+     * 注入百度API处理脚本
+     */
+    injectBaiduApiHandler() {
+      this.log('Injecting Baidu API handler script');
+      
+      try {
+        // 创建并注入处理脚本
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.textContent = `
+        (function() {
+          console.log('[BaiduAPI] 初始化百度API请求处理');
+          
+          // 保存原始的XMLHttpRequest方法
+          var originalOpen = XMLHttpRequest.prototype.open;
+          var originalSend = XMLHttpRequest.prototype.send;
+          
+          // 保存原始请求头信息
+          var originalHeaders = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+            'Referer': 'https://haoma.baidu.com/',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+            'Connection': 'keep-alive',
+            'Origin': 'https://haoma.baidu.com',
+            'X-Requested-With': 'XMLHttpRequest'
+          };
+          
+          // 重写open方法，记录URL和方法
+          XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
+            this._baiduApiUrl = url;
+            this._baiduApiMethod = method;
+            return originalOpen.apply(this, [method, url, async, user, password]);
+          };
+          
+          // 重写send方法，为所有百度域名请求添加统一的头信息
+          XMLHttpRequest.prototype.send = function(body) {
+            // 检查是否是百度域名的请求
+            if (this._baiduApiUrl && (
+                this._baiduApiUrl.includes('baidu.com') || 
+                this._baiduApiUrl.includes('bcebos.com'))) {
+              
+              console.log('[BaiduAPI] 处理百度域名请求:', this._baiduApiUrl);
+              
+              try {
+                // 为所有百度域名请求添加统一的请求头
+                for (var header in originalHeaders) {
+                  try {
+                    this.setRequestHeader(header, originalHeaders[header]);
+                  } catch (e) {
+                    console.warn('[BaiduAPI] 无法设置请求头:', header, e);
+                  }
+                }
+                
+                // 特殊处理POST请求
+                if (this._baiduApiMethod === 'POST') {
+                  try {
+                    this.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                  } catch (e) {
+                    console.warn('[BaiduAPI] 无法设置Content-Type请求头:', e);
+                  }
+                  
+                  // 记录请求体，便于调试
+                  if (body) {
+                    console.log('[BaiduAPI] 请求体:', body);
+                  }
+                }
+                
+                console.log('[BaiduAPI] 已添加统一请求头');
+              } catch (e) {
+                console.error('[BaiduAPI] 添加请求头失败:', e);
+              }
+            }
+            
+            // 调用原始send方法
+            return originalSend.apply(this, arguments);
+          };
+          
+          // 使用MutationObserver监听DOM变化，处理动态加载的内容
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.type === 'childList') {
+                mutation.addedNodes.forEach(function(node) {
+                  // 检查是否添加了新的脚本元素
+                  if (node.nodeName === 'SCRIPT') {
+                    console.log('[BaiduAPI] 检测到新脚本:', node.src || '内联脚本');
+                  }
+                });
+              }
+            });
+          });
+          
+          // 配置观察选项
+          const config = { childList: true, subtree: true };
+          
+          // 开始观察文档
+          observer.observe(document, config);
+          
+          console.log('[BaiduAPI] 百度API请求处理已初始化');
+        })();
+        `;
         
-        // 记录这是一个百度API请求
-        this.pendingRequests[requestId] = {
-          isBaiduApi: true,
-          url: url
-        };
-      } else {
-        // 对于非百度API请求，继续使用常规请求通道
+        // 将脚本添加到文档中
+        document.head.appendChild(script);
+        this.log('Baidu API handler script injected successfully');
+      } catch (error) {
+        this.logError('Error injecting Baidu API handler script:', error);
+      }
+    }
+  
+    /**
+     * 查询电话号码信息
+     * @param {string} phoneNumber - 电话号码
+     * @param {string} requestId - 请求ID
+     */
+    queryPhoneInfo(phoneNumber, requestId) {
+      this.log('Querying phone info for:', phoneNumber);
+      this.lastSearchedPhone = phoneNumber;
+      
+      // 构建百度搜索URL
+      const searchUrl = `https://haoma.baidu.com/phoneSearch?search=${encodeURIComponent(phoneNumber)}`;
+      
+      // 发送请求
+      this.sendRequest('GET', searchUrl, headers, requestId);
+    }
+  
+    /**
+     * 发送请求
+     * @param {string} method - HTTP方法
+     * @param {string} url - 请求URL
+     * @param {object} headers - 请求头
+     * @param {string} requestId - 请求ID
+     */
+    sendRequest(method, url, headers, requestId) {
+      if (!window.flutter_inappwebview) {
+        this.logError('Flutter interface not available');
+        return;
+      }
+                   try {
         const request = {
           method,
           url,
@@ -382,1209 +299,473 @@ class BaiduPhoneSearchPlugin {
           requestId
         };
         
-        // 如果有请求体，添加到请求中
-        if (body) {
-          request.body = body;
-        }
-        
         window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(request));
-      }
-    } catch (error) {
-      this.logError('Error sending request:', error);
-      this.sendPluginError('Failed to send request: ' + error.message, requestId);
-      
-      // 如果是百度API请求，尝试使用备用方法
-      if (isBaiduApi && this.lastSearchedPhone) {
-        this.tryBaiduApiFallback(this.lastSearchedPhone);
+      } catch (error) {
+        this.logError('Error sending request:', error);
+        this.sendPluginError('Failed to send request: ' + error.message, requestId);
       }
     }
-  }
-
-  /**
-   * 处理响应
-   * @param {string|object} jsonData - 响应数据（JSON字符串或对象）
-   */
-  handleResponse(jsonData) {
-    try {
-      const response = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
-      const requestId = response.requestId;
-      
-      this.log('Handling response for request:', requestId);
-      
-      // 检查是否是百度API请求
-      let isBaiduApi = response.isBaiduApi || 
-                      (response.url && (response.url.includes('miao.baidu.com') || 
-                                       response.url.includes('banti.baidu.com')));
-      
-      // 检查是否是特殊请求的响应
-      const pendingRequest = this.pendingRequests[requestId];
-      if (pendingRequest) {
-        if (pendingRequest.isBaiduApi) {
-          isBaiduApi = true;
+  
+    /**
+     * 处理响应
+     * @param {string|object} jsonData - 响应数据（JSON字符串或对象）
+     */
+    handleResponse(jsonData) {
+      this.log('接收到来自 Flutter 的响应数据:', jsonData); // 添加这行日志
+      try {
+        const response = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
+        const requestId = response.requestId;
+        
+        this.log('Handling response for request:', requestId);
+        
+        if (response.error) {
+          this.logError('Error in response:', response.error);
+          this.sendPluginError(response.error, requestId);
+          return;
         }
         
-        // 如果是备用请求，获取电话号码
-        if (pendingRequest.isFallback && pendingRequest.phoneNumber) {
-          this.lastSearchedPhone = pendingRequest.phoneNumber;
+        // 处理HTML响应
+        if (response.body && response.body.includes('<html')) {
+          this.processHtml({ html: response.body, url: response.url });
         }
-        
-        // 处理完成后删除挂起的请求
-        delete this.pendingRequests[requestId];
-      }
-      
-      if (isBaiduApi) {
-        this.log('处理百度API响应:', response.url);
-      }
-      
-      if (response.error) {
-        this.logError('Error in response:', response.error);
-        this.sendPluginError(response.error, requestId);
-        
-        // 如果是百度API请求且出错，尝试使用备用方法
-        if (isBaiduApi && this.lastSearchedPhone) {
-          this.log('百度API请求失败，尝试使用备用方法');
-          this.tryBaiduApiFallback(this.lastSearchedPhone);
-        }
-        
-        return;
-      }
-      
-      // 处理HTML响应
-      if (response.body && response.body.includes('<html')) {
-        this.processHtml({ html: response.body, url: response.url, isBaiduApi });
-      }
-      // 处理JSON响应
-      else if (response.body && (response.body.startsWith('{') || response.body.startsWith('['))) {
-        try {
-          const jsonData = JSON.parse(response.body);
-          this.processJsonResponse(response.url, jsonData, requestId, isBaiduApi);
-        } catch (e) {
-          this.logError('Error parsing JSON response:', e);
-          
-          // 如果是百度API请求且JSON解析失败，尝试特殊处理
-          if (isBaiduApi) {
-            this.log('百度API JSON解析失败，尝试特殊处理');
-            this.processBaiduApiRawResponse(response.url, response.body, requestId);
+        // 处理JSON响应
+        else if (response.body && response.body.startsWith('{')) {
+          try {
+            const jsonData = JSON.parse(response.body);
+            this.processJsonResponse(response.url, jsonData, requestId);
+          } catch (e) {
+            this.logError('Error parsing JSON response:', e);
           }
         }
-      }
-      // 处理其他类型的响应
-      else if (response.body) {
-        // 如果是百度API请求，尝试特殊处理
-        if (isBaiduApi) {
-          this.log('百度API未知格式响应，尝试特殊处理');
-          this.processBaiduApiRawResponse(response.url, response.body, requestId);
-        }
-      }
-      
-      // 如果已经提取到数据，发送结果
-      if (Object.keys(this.extractedData).length > 0) {
-        this.sendPluginResult(this.extractedData, requestId);
-        this.extractedData = {}; // 重置提取的数据
-      }
-    } catch (error) {
-      this.logError('Error handling response:', error);
-    }
-  }
-
-  /**
-   * 处理拦截到的数据
-   * @param {string|object} jsonData - 拦截到的数据（JSON字符串或对象）
-   */
-  handleInterceptedData(jsonData) {
-    try {
-      const data = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
-      const action = data.action;
-      const payload = data.data;
-      
-      this.log('Received intercepted data:', action);
-      
-      switch (action) {
-        case 'processHtml':
-          this.processHtml(payload);
-          break;
-        case 'processScript':
-          this.processScript(payload);
-          break;
-        case 'processNetworkResponse':
-          this.processNetworkResponse(payload);
-          break;
-        default:
-          this.log('Unknown action:', action);
-      }
-    } catch (error) {
-      this.logError('Error handling intercepted data:', error);
-    }
-  }
-
-  /**
-   * 处理HTML内容
-   * @param {object} data - HTML数据
-   */
-  processHtml(data) {
-    this.log(`Processing HTML from: ${data.url}${data.isBaiduApi ? ' (百度API)' : ''}`);
-    
-    try {
-      // 检查是否是百度API请求
-      const isBaiduApi = data.isBaiduApi || 
-                        (data.url && (data.url.includes('miao.baidu.com') || 
-                                     data.url.includes('banti.baidu.com')));
-      
-      if (isBaiduApi && !data.isBaiduApi) {
-        this.log('检测到百度API HTML响应');
-      }
-      
-      // 创建一个临时的DOM解析器
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data.html, 'text/html');
-      
-      // 处理HTML中的脚本
-      this.handleDynamicScripts(doc, isBaiduApi);
-      
-      // 提取数据
-      const extractedData = this.extractDataFromDOM(doc, isBaiduApi);
-      
-      // 如果有提取到数据，保存结果
-      if (extractedData && Object.keys(extractedData).length > 0) {
-        this.extractedData = { ...this.extractedData, ...extractedData };
         
-        // 如果是百度API请求且有请求ID，直接发送结果
-        if (isBaiduApi && data.requestId) {
-          this.sendPluginResult(this.extractedData, data.requestId);
-          this.extractedData = {}; // 重置提取的数据
-        }
-      } else if (isBaiduApi && data.requestId) {
-        // 如果是百度API请求但未能提取到数据，尝试使用原始响应处理
-        this.log('未能从HTML中提取到电话信息，尝试使用原始响应处理');
-        this.processBaiduApiRawResponse(data.url, data.html, data.requestId);
-      }
-    } catch (error) {
-      this.logError('Error processing HTML:', error);
-      
-      // 如果是百度API请求且出错，尝试使用原始响应处理
-      if ((data.isBaiduApi || (data.url && (data.url.includes('miao.baidu.com') || data.url.includes('banti.baidu.com')))) && data.requestId) {
-        this.log('HTML处理出错，尝试使用原始响应处理');
-        try {
-          this.processBaiduApiRawResponse(data.url, data.html, data.requestId);
-        } catch (e) {
-          this.logError('Error in fallback processing:', e);
-        }
-      }
-    }
-  }
-
-  /**
-   * 处理脚本内容
-   * @param {object} data - 脚本数据
-   */
-  processScript(data) {
-    this.log('Processing script' + (data.isExternal ? ' from: ' + data.url : ' (inline)'));
-    
-    try {
-      // 分析脚本内容，查找有用的数据
-      const scriptContent = data.content;
-      const isBaiduApi = data.isBaiduApi || false;
-      
-      // 查找JSON数据
-      this.extractJsonFromScript(scriptContent, data.url, isBaiduApi);
-      
-      // 查找变量赋值
-      this.extractVariablesFromScript(scriptContent, data.url, isBaiduApi);
-    } catch (error) {
-      this.logError('Error processing script:', error);
-      
-      // 如果是百度API脚本且出错，尝试使用备用方法
-      if (data.isBaiduApi && this.lastSearchedPhone) {
-        this.log('百度API脚本处理出错，尝试使用备用方法');
-        this.tryBaiduApiFallback(this.lastSearchedPhone);
-      }
-    }
-  }
-
-  /**
-   * 处理网络响应
-   * @param {object} data - 网络响应数据
-   */
-  processNetworkResponse(data) {
-    this.log('Processing network response from:', data.url);
-    
-    try {
-      const url = data.url;
-      const content = data.content;
-      
-      // 如果是JSON响应
-      if (data.responseType === 'json' || (content && content.trim().startsWith('{'))) {
-        try {
-          const jsonData = typeof content === 'string' ? JSON.parse(content) : content;
-          this.processJsonResponse(url, jsonData);
-        } catch (e) {
-          this.logError('Error parsing JSON response:', e);
-        }
-      }
-      // 如果是HTML响应
-      else if (data.responseType === 'text/html' || (content && content.includes('<html'))) {
-        this.processHtml({ url, html: content });
-      }
-    } catch (error) {
-      this.logError('Error processing network response:', error);
-    }
-  }
-
-  /**
-   * 处理JSON响应
-   * @param {string} url - 响应URL
-   * @param {object} jsonData - JSON数据
-   * @param {string} requestId - 请求ID
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   */
-  processJsonResponse(url, jsonData, requestId, isBaiduApi = false) {
-    this.log(`处理JSON响应${isBaiduApi ? '(百度API)' : ''}:`, url);
-    
-    try {
-      // 检查是否是百度API请求
-      if (!isBaiduApi && url && (url.includes('miao.baidu.com') || url.includes('banti.baidu.com'))) {
-        isBaiduApi = true;
-      }
-      
-      // 初始化提取的数据对象
-      let extractedData = null;
-      
-      // 检查是否包含电话号码信息
-      if (jsonData.data) {
-        // 处理标准百度API响应格式
-        if (jsonData.data.phoneInfo) {
-          const phoneInfo = jsonData.data.phoneInfo;
-          
-          // 提取电话号码信息
-          extractedData = {
-            phoneNumber: this.lastSearchedPhone,
-            province: phoneInfo.province || '',
-            city: phoneInfo.city || '',
-            carrier: phoneInfo.operator || '',
-            type: phoneInfo.type || '',
-            tag: phoneInfo.tag || '',
-            count: phoneInfo.count || 0
-          };
-        }
-        // 处理其他可能的百度API响应格式
-        else if (isBaiduApi) {
-          this.log('尝试处理非标准百度API响应格式');
-          
-          // 尝试从data字段中提取信息
-          const data = jsonData.data;
-          
-          // 检查是否有phone_info字段
-          if (data.phone_info) {
-            const phoneInfo = data.phone_info;
-            
-            // 提取电话号码信息
-            extractedData = {
-              phoneNumber: phoneInfo.phone || phoneInfo.phoneNumber || this.lastSearchedPhone,
-              province: phoneInfo.province || '',
-              city: phoneInfo.city || '',
-              carrier: phoneInfo.carrier || phoneInfo.sp || phoneInfo.operator || '',
-              type: phoneInfo.type || '',
-              tag: phoneInfo.tag || '',
-              count: phoneInfo.count || 0
-            };
-          }
-          // 检查是否有detail字段
-          else if (data.detail) {
-            const detail = data.detail;
-            
-            // 提取电话号码信息
-            extractedData = {
-              phoneNumber: detail.phone || detail.phoneNumber || detail.number || this.lastSearchedPhone,
-              province: detail.province || '',
-              city: detail.city || '',
-              carrier: detail.carrier || detail.sp || detail.operator || '',
-              type: detail.type || '',
-              tag: detail.tag || '',
-              count: detail.count || detail.markCount || 0
-            };
-          }
-        }
-      } else if (isBaiduApi) {
-        // 尝试直接从根对象提取信息
-        if (jsonData.phoneInfo || jsonData.phone_info) {
-          const phoneInfo = jsonData.phoneInfo || jsonData.phone_info;
-          
-          // 提取电话号码信息
-          extractedData = {
-            phoneNumber: phoneInfo.phone || phoneInfo.phoneNumber || this.lastSearchedPhone,
-            province: phoneInfo.province || '',
-            city: phoneInfo.city || '',
-            carrier: phoneInfo.carrier || phoneInfo.sp || phoneInfo.operator || '',
-            type: phoneInfo.type || '',
-            tag: phoneInfo.tag || '',
-            count: phoneInfo.count || 0
-          };
-        } else if (jsonData.detail) {
-          const detail = jsonData.detail;
-          
-          // 提取电话号码信息
-          extractedData = {
-            phoneNumber: detail.phone || detail.phoneNumber || detail.number || this.lastSearchedPhone,
-            province: detail.province || '',
-            city: detail.city || '',
-            carrier: detail.carrier || detail.sp || detail.operator || '',
-            type: detail.type || '',
-            tag: detail.tag || '',
-            count: detail.count || detail.markCount || 0
-          };
-        }
-      }
-      
-      // 如果成功提取到数据
-                                                                                                                  
-        // 保存提取的数据
-        this.extractedData = { ...this.extractedData, ...extractedData };
-        
-        // 如果有请求ID，直接发送结果
-        if (requestId) {
+        // 如果已经提取到数据，发送结果
+        if (Object.keys(this.extractedData).length > 0) {
           this.sendPluginResult(this.extractedData, requestId);
           this.extractedData = {}; // 重置提取的数据
         }
-         } catch (error) {
-      this.logError('Error processing JSON response:', error);
-      
-      // 如果是百度API请求，尝试使用原始响应处理
-      if (isBaiduApi && requestId) {
-        this.log('JSON处理出错，尝试使用原始响应处理');
-        try {
-          this.processBaiduApiRawResponse(url, JSON.stringify(jsonData), requestId);
-        } catch (e) {
-          this.logError('Error in fallback processing:', e);
-        }
+      } catch (error) {
+        this.logError('Error handling response:', error);
       }
     }
-  }
-
-  /**
-   * 从脚本中提取JSON数据
-   * @param {string} scriptContent - 脚本内容
-   * @param {string} url - 脚本URL
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   */
-  extractJsonFromScript(scriptContent, url = '', isBaiduApi = false) {
-    try {
-      // 查找可能的JSON对象定义
-      const jsonRegex = /(?:const|let|var)\s+([\w]+)\s*=\s*(\{[\s\S]*?\});/g;
-      let match;
-      
-      while ((match = jsonRegex.exec(scriptContent)) !== null) {
-        const variableName = match[1];
-        const jsonString = match[2];
-        
-        try {
-          // 尝试解析JSON
-          const jsonData = eval('(' + jsonString + ')');
-          this.log('Found JSON data in variable:', variableName);
-          
-          // 检查是否包含电话号码信息
-          if (variableName === 'phoneInfo' || variableName.includes('phone') || variableName.includes('Phone') || 
-              (isBaiduApi && (variableName.includes('data') || variableName.includes('result')))) {
-            this.processExtractedJson(variableName, jsonData, isBaiduApi);
-          }
-        } catch (e) {
-          // 不是有效的JSON，忽略
-          if (isBaiduApi) {
-            this.log('百度API脚本中的JSON解析失败:', e.message);
-          }
-        }
-      }
-    } catch (error) {
-      this.logError('Error extracting JSON from script:', error);
-      
-      // 如果是百度API请求且出错，尝试使用备用方法
-      if (isBaiduApi && this.lastSearchedPhone) {
-        this.log('百度API脚本JSON提取出错，尝试使用备用方法');
-        this.tryBaiduApiFallback(this.lastSearchedPhone);
-      }
-    }
-  }
-
-  /**
-   * 处理从脚本中提取的JSON数据
-   * @param {string} variableName - 变量名
-   * @param {object} jsonData - JSON数据
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   */
-  processExtractedJson(variableName, jsonData, isBaiduApi = false) {
-    this.log('Processing extracted JSON from variable:', variableName, isBaiduApi ? '(百度API)' : '');
-    
-    try {
-      // 检查是否包含电话号码信息
-      if (jsonData.province || jsonData.city || jsonData.operator || jsonData.type ||
-          (isBaiduApi && (jsonData.data || jsonData.result))) {
-        
-        // 提取电话号码信息
-        let extractedData = {
-          phoneNumber: this.lastSearchedPhone,
-          province: jsonData.province || '',
-          city: jsonData.city || '',
-          carrier: jsonData.operator || '',
-          type: jsonData.type || '',
-          tag: jsonData.tag || '',
-          count: jsonData.count || 0
-        };
-        
-        // 如果是百度API请求，尝试从特殊格式中提取数据
-        if (isBaiduApi) {
-          // 尝试从data字段中提取
-          if (jsonData.data) {
-            if (jsonData.data.phoneInfo) {
-              extractedData = {
-                ...extractedData,
-                province: jsonData.data.phoneInfo.province || extractedData.province,
-                city: jsonData.data.phoneInfo.city || extractedData.city,
-                carrier: jsonData.data.phoneInfo.operator || extractedData.carrier,
-                tag: jsonData.data.phoneInfo.tag || extractedData.tag,
-                count: jsonData.data.phoneInfo.count || extractedData.count
-              };
-            } else if (jsonData.data.phone_info) {
-              extractedData = {
-                ...extractedData,
-                province: jsonData.data.phone_info.province || extractedData.province,
-                city: jsonData.data.phone_info.city || extractedData.city,
-                carrier: jsonData.data.phone_info.operator || extractedData.carrier,
-                tag: jsonData.data.phone_info.tag || extractedData.tag,
-                count: jsonData.data.phone_info.count || extractedData.count
-              };
-            } else if (jsonData.data.detail) {
-              extractedData = {
-                ...extractedData,
-                province: jsonData.data.detail.province || extractedData.province,
-                city: jsonData.data.detail.city || extractedData.city,
-                carrier: jsonData.data.detail.operator || extractedData.carrier,
-                tag: jsonData.data.detail.tag || extractedData.tag,
-                count: jsonData.data.detail.count || extractedData.count
-              };
-            }
-          }
-        }
-        
-        // 保存提取的数据
-        this.extractedData = { ...this.extractedData, ...extractedData };
-      }
-    } catch (error) {
-      this.logError('Error processing extracted JSON:', error);
-      
-      // 如果是百度API请求且出错，尝试使用备用方法
-      if (isBaiduApi && this.lastSearchedPhone) {
-        this.log('百度API JSON处理出错，尝试使用备用方法');
-        this.tryBaiduApiFallback(this.lastSearchedPhone);
-      }
-    }
-  }
   
-  /**
-   * 从脚本中提取变量
-   * @param {string} scriptContent - 脚本内容
-   * @param {string} url - 脚本URL
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   */
-  extractVariablesFromScript(scriptContent, url = '', isBaiduApi = false) {
-    try {
-      // 查找变量赋值
-      const varRegex = /(?:const|let|var)\s+([\w]+)\s*=\s*(['"](([\s\S]*?)['"])|(\d+(\.\d+)?));/g;
-      let match;
-      
-      while ((match = varRegex.exec(scriptContent)) !== null) {
-        const variableName = match[1];
-        const value = match[3] !== undefined ? match[3] : match[4];
+    /**
+     * 处理拦截到的数据
+     * @param {string|object} jsonData - 拦截到的数据（JSON字符串或对象）
+     */
+    handleInterceptedData(jsonData) {
+      try {
+        const data = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
+        const action = data.action;
+        const payload = data.data;
         
-        // 处理提取到的变量
-        this.processExtractedVariable(variableName, value, isBaiduApi);
-      }
-      
-      // 如果是百度API请求，尝试查找特殊格式的变量
-      if (isBaiduApi) {
-        // 查找可能包含电话信息的变量
-        const phoneRegex = /([\w]+)\s*=\s*['"](1\d{10})['"]/g;
-        while ((match = phoneRegex.exec(scriptContent)) !== null) {
-          const variableName = match[1];
-          const phoneNumber = match[2];
-          
-          if (phoneNumber && phoneNumber.length === 11) {
-            this.log('Found phone number in variable:', variableName, phoneNumber);
-            this.lastSearchedPhone = phoneNumber;
-            
-            // 尝试查询该号码信息
-            this.queryPhoneInfo(phoneNumber);
-          }
+        this.log('Received intercepted data:', action);
+        
+        switch (action) {
+          case 'processHtml':
+            this.processHtml(payload);
+            break;
+          case 'processScript':
+            this.processScript(payload);
+            break;
+          case 'processNetworkResponse':
+            this.processNetworkResponse(payload);
+            break;
+          default:
+            this.log('Unknown action:', action);
         }
-      }
-    } catch (error) {
-      this.logError('Error extracting variables from script:', error);
-      
-      // 如果是百度API请求且出错，尝试使用备用方法
-      if (isBaiduApi && this.lastSearchedPhone) {
-        this.log('百度API变量提取出错，尝试使用备用方法');
-        this.tryBaiduApiFallback(this.lastSearchedPhone);
+      } catch (error) {
+        this.logError('Error handling intercepted data:', error);
       }
     }
-  }
   
-  /**
-   * 处理从脚本中提取的变量
-   * @param {string} variableName - 变量名
-   * @param {string|number} value - 变量值
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   */
-  processExtractedVariable(variableName, value, isBaiduApi = false) {
-    try {
-      // 检查变量名是否与电话信息相关
-      if (variableName.includes('phone') || variableName.includes('Phone') || 
-          variableName.includes('mobile') || variableName.includes('Mobile') ||
-          (isBaiduApi && (variableName.includes('province') || variableName.includes('city') || 
-                         variableName.includes('carrier') || variableName.includes('operator')))) {
+    /**
+     * 处理HTML内容
+     * @param {object} data - HTML数据
+     */
+    processHtml(data) {
+      this.log('Processing HTML from:', data.url);
+      
+      try {
+        // 创建一个临时的DOM解析器
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data.html, 'text/html');
         
-        this.log('Found relevant variable:', variableName, value);
+        // 首先提取数据，确保在处理脚本前获取静态内容
+        const extractedData = this.extractDataFromDOM(doc);
         
-        // 如果是电话号码
-        if (typeof value === 'string' && /^1\d{10}$/.test(value)) {
-          this.lastSearchedPhone = value;
-          this.log('Found phone number:', value);
+        // 如果有提取到数据，保存结果
+        if (extractedData && Object.keys(extractedData).length > 0) {
+          this.extractedData = { ...this.extractedData, ...extractedData };
+          this.log('成功从HTML中提取数据:', this.extractedData);
+        }
+        
+        // 然后处理HTML中的脚本，确保不影响数据提取
+        if (data.url && data.url.includes('haoma.baidu.com')) {
+          this.log('处理百度号码查询页面的脚本');
+          this.handleDynamicScripts(doc);
+        }
+      } catch (error) {
+        this.logError('Error processing HTML:', error);
+      }
+    }
+    
+    /**
+     * 处理动态脚本
+     * @param {Document} doc - HTML文档
+     */
+    handleDynamicScripts(doc) {
+      try {
+        // 查找所有脚本元素
+        const scripts = doc.querySelectorAll('script');
+        this.log(`找到 ${scripts.length} 个脚本元素`);
+        
+        // 按照页面中的顺序处理脚本
+        const scriptPromises = [];
+        
+        for (let i = 0; i < scripts.length; i++) {
+          const script = scripts[i];
           
-          // 尝试查询该号码信息
-          this.queryPhoneInfo(value);
-        }
-        
-        // 如果是省份、城市或运营商信息
-        if (isBaiduApi) {
-          let extractedData = {};
-          
-          if (variableName.includes('province')) {
-            extractedData.province = value;
-          } else if (variableName.includes('city')) {
-            extractedData.city = value;
-          } else if (variableName.includes('carrier') || variableName.includes('operator')) {
-            extractedData.carrier = value;
-          }
-          
-          // 如果提取到了数据且有电话号码，保存结果
-          if (Object.keys(extractedData).length > 0 && this.lastSearchedPhone) {
-            extractedData.phoneNumber = this.lastSearchedPhone;
-            this.extractedData = { ...this.extractedData, ...extractedData };
-          }
-        }
-      }
-    } catch (error) {
-      this.logError('Error processing extracted variable:', error);
-    }
-  }
-
-  /**
-   * 发送特殊请求，用于处理可能会遇到CORS问题的请求
-   * @param {string} url - 请求URL
-   * @param {string} method - HTTP方法
-   * @param {object} headers - 请求头
-   * @param {string} body - 请求体
-   * @param {string} requestId - 请求ID
-   */
-  sendSpecialRequest(url, method, headers, body, requestId) {
-    if (!window.flutter_inappwebview) {
-      this.logError('Flutter interface not available');
-      return;
-    }
-    
-    // 检查是否是本地文件路径，如果是则不发送请求
-    if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart') || url.includes('file://'))) {
-      this.log('跳过本地文件路径请求:', url);
-      this.sendPluginError('本地文件路径请求已被跳过: ' + url, requestId);
-      return;
-    }
-    
-    // 确保Flutter接口可用
-    if (!window.flutter_inappwebview) {
-      this.logError('Flutter interface not available');
-      return;
-    }
-    
-    try {
-      // 如果没有提供requestId，生成一个新的
-      if (!requestId) {
-        requestId = this.generateRequestId();
-      }
-      
-      // 确保URL中没有_o参数
-      if (url.includes('_o=')) {
-        try {
-          const urlObj = new URL(url);
-          urlObj.searchParams.delete('_o');
-          url = urlObj.toString();
-        } catch (e) {
-          // 忽略URL解析错误
-        }
-      }
-      
-      const request = {
-        method,
-        url,
-        headers,
-        body,
-        pluginId: pluginInfo.id,
-        requestId
-      };
-      
-      // 使用特殊通道发送请求，避免CORS问题
-      window.flutter_inappwebview.callHandler('XHRSpecialRequestChannel', JSON.stringify(request));
-    } catch (error) {
-      this.logError('Error sending special request:', error);
-      this.sendPluginError('Failed to send special request: ' + error.message, requestId);
-    }
-  }
-  
-  /**
-   * 尝试使用备用方法处理百度API请求
-   * @param {string} phoneNumber - 电话号码
-   */
-  tryBaiduApiFallback(phoneNumber) {
-    this.log('尝试使用备用方法处理百度API请求:', phoneNumber);
-    
-    try {
-      // 确保有电话号码
-      if (!phoneNumber || !/^1\d{10}$/.test(phoneNumber)) {
-        this.logError('无法使用备用方法：缺少有效的电话号码');
-        return;
-      }
-      
-      // 创建请求头 - 这些头对于百度API请求是必要的
-      const headers = {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Accept': '*/*',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'Origin': 'https://haoma.baidu.com',
-        'Referer': 'https://haoma.baidu.com/',
-        'Connection': 'keep-alive',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      };
-      
-      // 创建一个新的请求ID
-      const fallbackRequestId = this.generateRequestId();
-      
-      // 构建百度API URL
-      const url = `https://haoma.baidu.com/api/v1/search?query=${encodeURIComponent(phoneNumber)}`;
-      
-      // 记录备用请求信息
-      this.log('使用备用方法发送请求:', url);
-      this.log('备用请求ID:', fallbackRequestId);
-      
-      // 使用特殊请求通道发送请求，避免CORS问题
-      this.sendSpecialRequest(
-        url,
-        'GET',
-        headers,
-        null, // GET请求没有请求体
-        fallbackRequestId
-      );
-      
-      // 记录这是一个备用请求
-      this.pendingRequests[fallbackRequestId] = {
-        isBaiduApi: true,
-        isFallback: true, // 标记这是一个备用请求
-        phoneNumber: phoneNumber
-      };
-    } catch (error) {
-      this.logError('Error in tryBaiduApiFallback:', error);
-    }
-  }
-  
-  /**
-   * 处理百度API原始响应
-   * @param {string} url - 响应URL
-   * @param {string} responseBody - 响应体
-   * @param {string} requestId - 请求ID
-   */
-  processBaiduApiRawResponse(url, responseBody, requestId) {
-    this.log('处理百度API原始响应:', url);
-    
-    try {
-      // 尝试从响应中提取有用信息
-      let phoneNumber = this.lastSearchedPhone;
-      let province = '';
-      let city = '';
-      let carrier = '';
-      let tags = [];
-      let count = 0;
-      
-      // 尝试使用正则表达式提取电话号码
-      if (!phoneNumber) {
-        const phoneRegex = /(1[3-9]\d{9})/g;
-        const phoneMatches = responseBody.match(phoneRegex);
-        if (phoneMatches && phoneMatches.length > 0) {
-          phoneNumber = phoneMatches[0];
-          this.log('从响应中提取到电话号码:', phoneNumber);
-        }
-      }
-      
-      // 尝试提取省份和城市信息
-      const provinceRegex = /"province"\s*:\s*"([^"]+)"/i;
-      const provinceMatch = responseBody.match(provinceRegex);
-      if (provinceMatch && provinceMatch[1]) {
-        province = provinceMatch[1];
-        this.log('从响应中提取到省份:', province);
-      }
-      
-      // 尝试提取城市信息
-      const cityRegex = /"city"\s*:\s*"([^"]+)"/i;
-      const cityMatch = responseBody.match(cityRegex);
-      if (cityMatch && cityMatch[1]) {
-        city = cityMatch[1];
-        this.log('从响应中提取到城市:', city);
-      }
-      
-      // 尝试提取运营商信息
-      const carrierRegex = /(移动|联通|电信|虚拟运营商)/g;
-      const carrierMatches = responseBody.match(carrierRegex);
-      if (carrierMatches && carrierMatches.length > 0) {
-        carrier = carrierMatches[0];
-        this.log('从响应中提取到运营商:', carrier);
-      }
-      
-      // 尝试提取标签信息
-      const tagRegex = /"tag"\s*:\s*"([^"]+)"/i;
-      const tagMatch = responseBody.match(tagRegex);
-      if (tagMatch && tagMatch[1]) {
-        tags.push(tagMatch[1]);
-        this.log('从响应中提取到标签:', tagMatch[1]);
-      }
-      
-      // 尝试提取更多标签信息
-      const tagsRegex = /"tags"\s*:\s*\[([^\]]+)\]/i;
-      const tagsMatch = responseBody.match(tagsRegex);
-      if (tagsMatch && tagsMatch[1]) {
-        const tagsList = tagsMatch[1].split(',').map(t => t.trim().replace(/"/g, ''));
-        tags = [...tags, ...tagsList];
-        this.log('从响应中提取到更多标签:', tagsList.join(', '));
-      }
-      
-      // 如果找到电话号码，创建提取的数据对象
-      if (phoneNumber) {
-        const extractedData = {
-          phoneNumber,
-          province,
-          city,
-          carrier,
-          tag: tags.join(','),
-          count
-        };
-        
-        
-        
-        
-        
-      
-        
-        
-        
-      
-        
-        
-        
-      
-        // 保存提取的数据
-        this.extractedData = { ...this.extractedData, ...extractedData };
-        
-        // 发送结果
-        this.sendPluginResult(this.extractedData, requestId);
-        this.extractedData = {}; // 重置提取的数据
-      } else {
-        // 如果没有找到电话号码，尝试使用其他方法
-        this.log('无法从响应中提取到电话号码信息，尝试使用其他方法');
-        
-        // 如果有lastSearchedPhone，尝试查询信息
-        if (this.lastSearchedPhone) {
-          this.queryPhoneInfo(this.lastSearchedPhone, requestId);
-        }
-      }
-    } catch (error) {
-      this.logError('Error processing Baidu API raw response:', error);
-    }
-  }
-
-  /**
-   * 处理动态脚本
-   * @param {Document} doc - HTML文档
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   */
-  handleDynamicScripts(doc, isBaiduApi = false) {
-    try {
-      // 查找所有脚本元素
-      const scripts = doc.querySelectorAll('script');
-      this.log(`找到 ${scripts.length} 个脚本元素`);
-      
-      // 收集脚本内容和URL
-      for (let i = 0; i < scripts.length; i++) {
-        const script = scripts[i];
-        
-        // 外部脚本
-        if (script.src) {
-          // 检查是否是本地文件路径，如果是则跳过
-          if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || 
-              script.src.includes('resource_interceptor.dart') || script.src.includes('file://'))) {
-            this.log('跳过本地文件路径脚本:', script.src);
+          // 跳过已知的非关键脚本
+          if (script.src && (
+              script.src.includes('hm.baidu.com/hm.js') || 
+              script.src.includes('sofire.bdstatic.com') ||
+              script.src.includes('wappass.baidu.com'))) {
+            this.log('跳过非关键脚本:', script.src);
             continue;
           }
           
-          // 检查是否是百度API请求，如果是则特殊处理
-          const isBaiduApiScript = isBaiduApi || (script.src && (script.src.includes('miao.baidu.com/') || script.src.includes('banti.baidu.com/')));
-          if (isBaiduApiScript) {
-            this.log('检测到百度API脚本，特殊处理:', script.src);
-            // 使用增强的方法获取脚本
-            this.fetchExternalScript(script.src, true);
-          } else {
-            // 普通外部脚本
-            this.fetchExternalScript(script.src);
+          // 外部脚本
+          if (script.src) {
+            // 检查是否是本地文件路径，如果是则跳过
+            if (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart')) {
+              this.log('跳过本地文件路径脚本:', script.src);
+              continue;
+            }
+            
+            // 优先处理关键API脚本
+            if (script.src.includes('miao.baidu.com') || script.src.includes('banti.baidu.com')) {
+              this.log('处理关键API脚本:', script.src);
+              this.fetchExternalScript(script.src);
+            } else {
+              // 其他外部脚本放入队列
+              scriptPromises.push(() => this.fetchExternalScript(script.src));
+            }
+          }
+          // 内联脚本
+          else if (script.textContent && script.textContent.trim()) {
+            // 优先处理可能包含电话信息的脚本
+            if (script.textContent.includes('phone') || script.textContent.includes('tel') || script.textContent.includes('号码')) {
+              this.log('处理可能包含电话信息的内联脚本');
+              this.processScript({
+                isExternal: false,
+                content: script.textContent
+              });
+            } else {
+              // 其他内联脚本放入队列
+              scriptPromises.push(() => this.processScript({
+                isExternal: false,
+                content: script.textContent
+              }));
+            }
           }
         }
-        // 内联脚本
-        else if (script.textContent && script.textContent.trim()) {
-          // 检查内联脚本是否包含百度API相关代码
-          const content = script.textContent;
-          const isBaiduApiContent = isBaiduApi || content.includes('miao.baidu.com') || content.includes('banti.baidu.com');
-          if (isBaiduApiContent) {
-            this.log('检测到包含百度API的内联脚本，特殊处理');
-          }
-          
-          this.processScript({
-            isExternal: false,
-            content: content,
-            isBaiduApi: isBaiduApiContent
-          });
+        
+        // 处理剩余的脚本
+        scriptPromises.forEach(scriptFn => scriptFn());
+      } catch (error) {
+        this.logError('Error handling dynamic scripts:', error);
+      }
+    }
+  
+    /**
+     * 获取外部脚本
+     * @param {string} url - 脚本URL
+     */
+    fetchExternalScript(url) {
+      // 检查是否是本地文件路径，如果是则跳过
+      if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart'))) {
+        this.log('跳过本地文件路径脚本请求:', url);
+        return;
+      }
+      
+      this.log('Fetching external script:', url);
+      
+      // 创建一个请求ID
+      const requestId = this.generateRequestId();
+      
+      // 构建适合的请求头
+      const scriptHeaders = { ...headers };
+      
+      // 为百度域名请求添加特殊处理
+      if (url.includes('baidu.com') || url.includes('bcebos.com')) {
+        // 设置正确的Referer和Origin
+        scriptHeaders['Referer'] = 'https://haoma.baidu.com/';
+        scriptHeaders['Origin'] = 'https://haoma.baidu.com';
+        
+        // 对特定API添加额外头信息
+        if (url.includes('miao.baidu.com/abdr') || url.includes('banti.baidu.com/dr')) {
+          scriptHeaders['X-Requested-With'] = 'XMLHttpRequest';
+          scriptHeaders['Accept'] = '*/*';
         }
       }
-    } catch (error) {
-      this.logError('Error handling dynamic scripts:', error);
       
-      // 如果是百度API请求且出错，尝试使用备用方法
-      if (isBaiduApi && this.lastSearchedPhone) {
-        this.log('百度API脚本处理出错，尝试使用备用方法');
-        this.tryBaiduApiFallback(this.lastSearchedPhone);
-      }
+      // 发送请求到Flutter
+      this.sendRequest('GET', url, scriptHeaders, requestId);
     }
-  }
-
-  /**
-   * 获取外部脚本
-   * @param {string} url - 脚本URL
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   */
-  fetchExternalScript(url, isBaiduApi = false) {
-    // 检查是否是本地文件路径，如果是则跳过
-    if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart') || url.includes('file://'))) {
-      this.log('跳过本地文件路径脚本请求:', url);
-      return;
-    }
-    
-    // 检查是否是百度API请求
-    if (!isBaiduApi && (url.includes('miao.baidu.com') || url.includes('banti.baidu.com'))) {
-      isBaiduApi = true;
-    }
-    
-    this.log(`获取${isBaiduApi ? '百度API' : '外部'}脚本:`, url);
-    
-    // 创建一个请求ID
-    const requestId = this.generateRequestId();
-    
-    // 为百度API请求设置特殊头信息
-    let headers = {};
-    if (isBaiduApi) {
-      headers = {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Accept': '*/*',
-        'Origin': 'https://haoma.baidu.com',
-        'Referer': 'https://haoma.baidu.com/',
-        'Connection': 'keep-alive',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      };
-      
-      // 记录特殊处理信息
-      this.log('为百度API请求设置特殊头信息');
-    }
-    
-    // 发送请求到Flutter，标记是否为百度API请求
-    this.sendRequest('GET', url, headers, requestId, isBaiduApi);
-  }
-
-  /**
-   * 从DOM中提取数据
-   * @param {Document} doc - HTML文档
-   * @param {boolean} isBaiduApi - 是否是百度API请求
-   * @returns {object} 提取的数据
-   */
-  extractDataFromDOM(doc, isBaiduApi = false) {
-    try {
-      const result = {};
-      
-      // 尝试从标准元素中提取数据
-      const phoneElement = doc.querySelector('.phone-num');
-      const locationElement = doc.querySelector('.location');
-      const tagElement = doc.querySelector('.tag');
-      const countElement = doc.querySelector('.num');
-      
-      if (phoneElement) {
-        result.phoneNumber = phoneElement.textContent.trim();
-      } else {
-        result.phoneNumber = this.lastSearchedPhone;
-      }
-      
-      if (locationElement) {
-        const locationText = locationElement.textContent.trim();
-        const locationParts = locationText.split(' ');
+  
+    /**
+     * 从DOM中提取数据
+     * @param {Document} doc - HTML文档
+     * @returns {object} 提取的数据
+     */
+    extractDataFromDOM(doc) {
+      try {
+        const result = {};
         
-        if (locationParts.length >= 2) {
-          result.province = locationParts[0];
-          result.city = locationParts[1];
-          
-         
-         
-         
-         
-         
-         
-         
-         
+        // 尝试从标准元素中提取数据
+        const phoneElement = doc.querySelector('.phone-num');
+        const locationElement = doc.querySelector('.location');
+        const tagElement = doc.querySelector('.tag');
+        const countElement = doc.querySelector('.num');
+        
+        if (phoneElement) {
+          result.phoneNumber = phoneElement.textContent.trim();
+        } else {
+          result.phoneNumber = this.lastSearchedPhone;
         }
         
-        // 尝试提取运营商信息
-        const carrierMatch = locationText.match(/(移动|联通|电信|虚拟运营商)/);
-        if (carrierMatch) {
-          result.carrier = carrierMatch[1];
+        if (locationElement) {
+          const locationText = locationElement.textContent.trim();
+          const locationParts = locationText.split(' ');
           
-          // 翻译运营商
-          if (result.carrier && manualMapping[result.carrier]) {
-            result.carrierEn = manualMapping[result.carrier];
+          if (locationParts.length >= 2) {
+            result.province = locationParts[0];
+            result.city = locationParts[1];
+                                                                                                    }
+          
+          // 尝试提取运营商信息
+          const carrierMatch = locationText.match(/(移动|联通|电信|虚拟运营商)/);
+          if (carrierMatch) {
+            result.carrier = carrierMatch[1];
+                                                  }
+        }
+        
+        if (tagElement) {
+          result.tag = tagElement.textContent.trim();
+           
+        }
+        
+        if (countElement) {
+          const countText = countElement.textContent.trim();
+          const countMatch = countText.match(/(\d+)/);
+          if (countMatch) {
+            result.count = parseInt(countMatch[1], 10);
           }
         }
-      }
-      
-      if (tagElement) {
-        result.tag = tagElement.textContent.trim();
         
-    
-    
-    
-    
-      }
-      
-      if (countElement) {
-        const countText = countElement.textContent.trim();
-        const countMatch = countText.match(/(\d+)/);
-        if (countMatch) {
-          result.count = parseInt(countMatch[1], 10);
-        }
-      }
-      
-      // 如果标准元素没有找到，尝试从其他元素中提取
-      if (!locationElement && !tagElement) {
-        const containers = doc.querySelectorAll('.c-container');
-        
-        for (let i = 0; i < containers.length; i++) {
-          const container = containers[i];
-          const text = container.textContent;
+        // 如果标准元素没有找到，尝试从其他元素中提取
+        if (!locationElement && !tagElement) {
+          const containers = doc.querySelectorAll('.c-container');
           
-          // 尝试提取标签
-          for (const label in predefinedLabels) {
-            if (text.includes(label)) {
-              result.tag = label;
-              result.tagEn = predefinedLabels[label];
+          for (let i = 0; i < containers.length; i++) {
+            const container = containers[i];
+            const text = container.textContent;
+            
+            // 尝试提取标签
+            for (const label in predefinedLabels) {
+              if (text.includes(label)) {
+                result.tag = label;
+                result.tagEn = predefinedLabels[label];
+                break;
+              }
+            }
+            
+            // 尝试提取位置信息
+            for (const location in manualMapping) {
+              if (text.includes(location) && location.length > 1) { // 避免匹配单个字符
+                if (!result.province) {
+                  result.province = location;
+                  result.provinceEn = manualMapping[location];
+                } else if (!result.city && location !== result.province) {
+                  result.city = location;
+                  result.cityEn = manualMapping[location];
+                }
+              }
+            }
+            
+            // 尝试提取运营商信息
+            const carrierMatch = text.match(/(移动|联通|电信|虚拟运营商)/);
+            if (carrierMatch && !result.carrier) {
+              result.carrier = carrierMatch[1];
+              result.carrierEn = manualMapping[carrierMatch[1]];
+            }
+            
+            // 如果已经提取到足够的信息，跳出循环
+            if (result.tag && result.province && result.city && result.carrier) {
               break;
             }
           }
-          
-          // 尝试提取位置信息
-          for (const location in manualMapping) {
-            if (text.includes(location) && location.length > 1) { // 避免匹配单个字符
-              if (!result.province) {
-                result.province = location;
-                result.provinceEn = manualMapping[location];
-              } else if (!result.city && location !== result.province) {
-                result.city = location;
-                result.cityEn = manualMapping[location];
-              }
-            }
-          }
-          
-          // 尝试提取运营商信息
-          const carrierMatch = text.match(/(移动|联通|电信|虚拟运营商)/);
-          if (carrierMatch && !result.carrier) {
-            result.carrier = carrierMatch[1];
-            result.carrierEn = manualMapping[carrierMatch[1]];
-          }
-          
-          // 如果已经提取到足够的信息，跳出循环
-          if (result.tag && result.province && result.city && result.carrier) {
-            break;
-          }
+        }
+        
+        return result;
+      } catch (error) {
+        this.logError('Error extracting data from DOM:', error);
+        return {};
+      }
+    }
+  
+    /**
+     * 生成输出
+     * @param {string} phoneNumber - 电话号码
+     * @param {string} nationalNumber - 国内格式号码
+     * @param {string} e164Number - E164格式号码
+     * @param {string} requestId - 请求ID
+     */
+    generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
+      this.log('generateOutput called with:', phoneNumber, requestId);
+      
+      try {
+        // 清空之前的数据
+        this.extractedData = {};
+        
+        // 查询各种格式的电话号码信息
+        // Call queryPhoneInfo for each number format, passing the requestId
+        if (phoneNumber) {
+            this.queryPhoneInfo(phoneNumber, requestId);
+        }
+        if (nationalNumber) {
+            this.queryPhoneInfo(nationalNumber, requestId);
+        }
+        if (e164Number) {
+            this.queryPhoneInfo(e164Number, requestId);
+        }
+      } catch (error) {
+        this.logError('Error generating output:', error);
+        this.sendPluginError('Failed to generate output: ' + error.message, requestId);
+      }
+    }
+  
+    /**
+     * 格式化电话号码
+     * @param {string} phoneNumber - 电话号码
+     * @returns {string} 格式化后的电话号码
+     */
+    formatPhoneNumber(phoneNumber) {
+      // 移除所有非数字字符
+      let cleaned = phoneNumber.replace(/\D/g, '');
+      
+      // 如果是中国手机号码（以1开头的11位数字）
+      if (/^1\d{10}$/.test(cleaned)) {
+        return cleaned;
+      }
+      
+      // 如果是中国固定电话（区号+号码，通常是10-12位）
+      if (cleaned.length >= 10 && cleaned.length <= 12) {
+        // 如果以0开头（区号通常以0开头）
+        if (cleaned.startsWith('0')) {
+          return cleaned;
         }
       }
       
-      return result;
-    } catch (error) {
-      this.logError('Error extracting data from DOM:', error);
-      return {};
-    }
-  }
-
-  /**
-   * 生成输出
-   * @param {string} phoneNumber - 电话号码
-   * @param {string} nationalNumber - 国内格式号码
-   * @param {string} e164Number - E164格式号码
-   * @param {string} requestId - 请求ID
-   */
-  generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
-    this.log('generateOutput called with:', phoneNumber, requestId);
-    
-    try {
-      // 清空之前的数据
-      this.extractedData = {};
-      
-      // 查询各种格式的电话号码信息
-      // Call queryPhoneInfo for each number format, passing the requestId
-      if (phoneNumber) {
-          this.queryPhoneInfo(phoneNumber, requestId);
-      }
-      if (nationalNumber) {
-          this.queryPhoneInfo(nationalNumber, requestId);
-      }
-      if (e164Number) {
-          this.queryPhoneInfo(e164Number, requestId);
-      }
-    } catch (error) {
-      this.logError('Error generating output:', error);
-      this.sendPluginError('Failed to generate output: ' + error.message, requestId);
-    }
-  }
-
-  /**
-   * 格式化电话号码
-   * @param {string} phoneNumber - 电话号码
-   * @returns {string} 格式化后的电话号码
-   */
-  formatPhoneNumber(phoneNumber) {
-    // 移除所有非数字字符
-    let cleaned = phoneNumber.replace(/\D/g, '');
-    
-    // 如果是中国手机号码（以1开头的11位数字）
-    if (/^1\d{10}$/.test(cleaned)) {
+      // 其他情况，直接返回清理后的号码
       return cleaned;
     }
-    
-    // 如果是中国固定电话（区号+号码，通常是10-12位）
-    if (cleaned.length >= 10 && cleaned.length <= 12) {
-      // 如果以0开头（区号通常以0开头）
-      if (cleaned.startsWith('0')) {
-        return cleaned;
+  
+    /**
+     * 发送插件结果到Flutter
+     * @param {object} result - 结果数据
+     * @param {string} requestId - 请求ID
+     */
+    sendPluginResult(result, requestId) {
+      if (!window.flutter_inappwebview) {
+        this.logError('Flutter interface not available');
+        return;
+      }
+      
+      try {
+        const response = {
+          type: 'result',
+          pluginId: pluginInfo.id,
+          requestId: requestId,
+          result,
+          timestamp: Date.now()
+        };
+        
+        window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(response));
+      } catch (error) {
+        this.logError('Error sending result:', error);
       }
     }
-    
-    // 其他情况，直接返回清理后的号码
-    return cleaned;
-  }
-
-  /**
-   * 发送插件结果到Flutter
-   * @param {object} result - 结果数据
-   * @param {string} requestId - 请求ID
-   */
-  sendPluginResult(result, requestId) {
-    if (!window.flutter_inappwebview) {
-      this.logError('Flutter interface not available');
-      return;
-    }
-    
-    try {
-      const response = {
-        type: 'result',
-        pluginId: pluginInfo.id,
-        requestId: requestId,
-        result,
-        timestamp: Date.now()
-      };
+  
+    /**
+     * 发送插件错误到Flutter
+     * @param {string} errorMessage - 错误消息
+     * @param {string} requestId - 请求ID
+     */
+    sendPluginError(errorMessage, requestId) {
+      if (!window.flutter_inappwebview) {
+        this.logError('Flutter interface not available');
+        return;
+      }
       
-      window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(response));
-    } catch (error) {
-      this.logError('Error sending result:', error);
+      try {
+        const response = {
+          type: 'error',
+          pluginId: pluginInfo.id,
+          requestId: requestId,
+          error: errorMessage,
+          timestamp: Date.now()
+        };
+        
+        window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(response));
+      } catch (error) {
+        this.logError('Error sending error:', error);
+      }
+    }
+  
+    /**
+     * 生成请求ID
+     * @returns {string} 请求ID
+     */
+    generateRequestId() {
+      return pluginInfo.id + '_' + (++this.requestCounter) + '_' + Date.now();
+    }
+  
+    /**
+     * 记录日志
+     * @param {...any} args - 日志参数
+     */
+    log(...args) {
+      if (this.debug) {
+        console.log(`[${pluginInfo.id}]`, ...args);
+      }
+    }
+  
+    /**
+     * 记录错误
+     * @param {...any} args - 错误参数
+     */
+    logError(...args) {
+      console.error(`[${pluginInfo.id}]`, ...args);
     }
   }
-
-  /**
-   * 发送插件错误到Flutter
-   * @param {string} errorMessage - 错误消息
-   * @param {string} requestId - 请求ID
-   */
-  sendPluginError(errorMessage, requestId) {
-    if (!window.flutter_inappwebview) {
-      this.logError('Flutter interface not available');
-      return;
-    }
-    
-    try {
-      const response = {
-        type: 'error',
-        pluginId: pluginInfo.id,
-        requestId: requestId,
-        error: errorMessage,
-        timestamp: Date.now()
-      };
-      
-      window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(response));
-    } catch (error) {
-      this.logError('Error sending error:', error);
-    }
+  
+  // 创建插件实例
+  const pluginInstance = new BaiduPhoneSearchPlugin();
+  
+  // 初始化插件
+  function initializePlugin() {
+    pluginInstance.initialize();
+    return pluginInstance;
   }
-
-  /**
-   * 生成请求ID
-   * @returns {string} 请求ID
-   */
-  generateRequestId() {
-    return pluginInfo.id + '_' + (++this.requestCounter) + '_' + Date.now();
+  
+  // 将插件注册到全局对象
+  if (!window.plugin) {
+    window.plugin = {};
   }
-
-  /**
-   * 记录日志
-   * @param {...any} args - 日志参数
-   */
-  log(...args) {
-    if (this.debug) {
-      console.log(`[${pluginInfo.id}]`, ...args);
-    }
-  }
-
-  /**
-   * 记录错误
-   * @param {...any} args - 错误参数
-   */
-  logError(...args) {
-    console.error(`[${pluginInfo.id}]`, ...args);
-  }
-}
-
-// 创建插件实例
-const pluginInstance = new BaiduPhoneSearchPlugin();
-
-// 初始化插件
-function initializePlugin() {
-  pluginInstance.initialize();
-  return pluginInstance;
-}
-
-// 将插件注册到全局对象
-if (!window.plugin) {
-  window.plugin = {};
-}
-
-// 注册插件
-window.plugin[pluginInfo.id] = initializePlugin();
-
-// 通知Flutter插件已加载
-console.log(`Plugin ${pluginInfo.id} loaded successfully`);
+  
+  // 注册插件
+  window.plugin[pluginInfo.id] = initializePlugin();
+  
+  // 通知Flutter插件已加载
+  console.log(`Plugin ${pluginInfo.id} loaded successfully`);
