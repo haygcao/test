@@ -7,7 +7,7 @@
 const pluginInfo = {
     id: 'baidu_phone_search',
     name: '百度号码查询',
-    version: '1.79.0',
+    version: '1.90.0',
     description: '通过百度搜索查询电话号码信息',
   };
   
@@ -475,11 +475,164 @@ const pluginInfo = {
           this.log('成功从HTML中提取数据:', this.extractedData);
         }
         
-        // 始终处理HTML中的脚本，确保head中的所有内容都被正确加载
-        this.log('处理页面的所有脚本和资源');
-        this.handleDynamicScripts(doc, data.url);
+        // 简化处理逻辑，直接处理head和body中的所有资源
+        this.log('简化处理页面的所有资源');
+        
+        // 处理head中的所有资源
+        this.processHeadResourcesSimple(doc, data.url);
+        
+        // 处理body中的所有脚本
+        this.processBodyScriptsSimple(doc, data.url);
       } catch (error) {
         this.logError('Error processing HTML:', error);
+      }
+    }
+    
+    /**
+     * 简化处理head中的所有资源
+     * @param {Document} doc - HTML文档
+     * @param {string} baseUrl - 基础URL，用于解析相对路径
+     */
+    processHeadResourcesSimple(doc, baseUrl) {
+      try {
+        this.log('简化处理head中的所有资源');
+        
+        // 处理head中的所有link标签（CSS、预加载资源等）
+        const links = doc.head.querySelectorAll('link');
+        this.log(`找到 ${links.length} 个link元素`);
+        
+        for (let i = 0; i < links.length; i++) {
+          const link = links[i];
+          
+          // 跳过本地文件路径
+          if (link.href && (link.href.startsWith('/c:') || link.href.startsWith('c:') || link.href.includes('resource_interceptor.dart'))) {
+            this.log('跳过本地文件路径link:', link.href);
+            continue;
+          }
+          
+          // 处理CSS和其他资源
+          if (link.href) {
+            const resourceType = link.rel || '';
+            this.log(`加载外部资源: ${link.href}, 类型: ${resourceType}`);
+            
+            // 直接使用简化的方式发送请求
+            const absoluteUrl = this.resolveRelativeUrl(link.href, baseUrl);
+            const requestId = this.generateRequestId();
+            const resourceHeaders = { ...headers };
+            
+            // 设置基本请求头
+            resourceHeaders['Referer'] = baseUrl || 'https://haoma.baidu.com/';
+            resourceHeaders['Origin'] = new URL(baseUrl || 'https://haoma.baidu.com/').origin;
+            
+            // 根据资源类型设置Accept头
+            if (resourceType.includes('stylesheet')) {
+              resourceHeaders['Accept'] = 'text/css,*/*;q=0.1';
+            } else {
+              resourceHeaders['Accept'] = '*/*';
+            }
+            
+            // 发送请求
+            this.sendRequest('GET', absoluteUrl, resourceHeaders, requestId);
+          }
+        }
+        
+        // 处理head中的所有脚本
+        const scripts = doc.head.querySelectorAll('script');
+        this.log(`找到 ${scripts.length} 个head中的脚本元素`);
+        
+        for (let i = 0; i < scripts.length; i++) {
+          const script = scripts[i];
+          
+          // 跳过本地文件路径
+          if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart'))) {
+            this.log('跳过本地文件路径脚本:', script.src);
+            continue;
+          }
+          
+          // 处理外部脚本
+          if (script.src) {
+            this.log('加载外部脚本:', script.src);
+            
+            // 直接使用简化的方式发送请求
+            const absoluteUrl = this.resolveRelativeUrl(script.src, baseUrl);
+            const requestId = this.generateRequestId();
+            const scriptHeaders = { ...headers };
+            
+            // 设置基本请求头
+            scriptHeaders['Referer'] = baseUrl || 'https://haoma.baidu.com/';
+            scriptHeaders['Origin'] = new URL(baseUrl || 'https://haoma.baidu.com/').origin;
+            scriptHeaders['Accept'] = '*/*';
+            
+            // 发送请求
+            this.sendRequest('GET', absoluteUrl, scriptHeaders, requestId);
+          }
+          // 处理内联脚本
+          else if (script.textContent && script.textContent.trim()) {
+            this.log('处理内联脚本');
+            
+            // 检查是否是JSON数据
+            if (script.type === 'application/json' || script.type === 'application/ld+json') {
+              try {
+                const jsonData = JSON.parse(script.textContent);
+                this.log('处理内联JSON数据');
+                this.processJsonData(jsonData, baseUrl);
+              } catch (e) {
+                this.logError('解析JSON数据失败:', e);
+              }
+            }
+          }
+        }
+        
+        // 处理cookie
+        if (doc.cookie) {
+          this.log('处理cookie');
+          this.processCookies(doc.cookie, baseUrl);
+        }
+      } catch (error) {
+        this.logError('Error processing head resources:', error);
+      }
+    }
+    
+    /**
+     * 简化处理body中的所有脚本
+     * @param {Document} doc - HTML文档
+     * @param {string} baseUrl - 基础URL，用于解析相对路径
+     */
+    processBodyScriptsSimple(doc, baseUrl) {
+      try {
+        // 查找body中的所有脚本元素
+        const scripts = doc.body.querySelectorAll('script');
+        this.log(`找到 ${scripts.length} 个body中的脚本元素`);
+        
+        for (let i = 0; i < scripts.length; i++) {
+          const script = scripts[i];
+          
+          // 跳过本地文件路径
+          if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart'))) {
+            this.log('跳过本地文件路径脚本:', script.src);
+            continue;
+          }
+          
+          // 处理外部脚本
+          if (script.src) {
+            this.log('加载外部脚本:', script.src);
+            
+            // 直接使用简化的方式发送请求
+            const absoluteUrl = this.resolveRelativeUrl(script.src, baseUrl);
+            const requestId = this.generateRequestId();
+            const scriptHeaders = { ...headers };
+            
+            // 设置基本请求头
+            scriptHeaders['Referer'] = baseUrl || 'https://haoma.baidu.com/';
+            scriptHeaders['Origin'] = new URL(baseUrl || 'https://haoma.baidu.com/').origin;
+            scriptHeaders['Accept'] = '*/*';
+            
+            // 发送请求
+            this.sendRequest('GET', absoluteUrl, scriptHeaders, requestId);
+          }
+        }
+      } catch (error) {
+        this.logError('Error processing body scripts:', error);
       }
     }
     
@@ -490,69 +643,25 @@ const pluginInfo = {
      */
     handleDynamicScripts(doc, baseUrl) {
       try {
-        // 处理head中的所有资源
-        this.processHeadResources(doc, baseUrl);
-        
-        // 查找所有脚本元素
-        const scripts = doc.querySelectorAll('script');
-        this.log(`找到 ${scripts.length} 个脚本元素`);
-        
-        // 创建两个队列：head中的脚本和body中的脚本
-        const headScripts = [];
-        const bodyScripts = [];
+        // 使用简化的方法处理head和body中的资源
+        this.log('使用简化方法处理页面资源');
+        this.processHeadResourcesSimple(doc, baseUrl);
+        this.processBodyScriptsSimple(doc, baseUrl);
         
         // 检查是否有特定的移动版app.js脚本需要处理
         const appScriptUrl = 'https://bdhm.cdn.bcebos.com/m/js/app.6664d39c.js';
         let hasAppScript = false;
         
-        // 按照它们在HTML中出现的自然顺序分类脚本
+        // 查找所有脚本元素，检查是否有移动版app.js脚本
+        const scripts = doc.querySelectorAll('script');
         for (let i = 0; i < scripts.length; i++) {
           const script = scripts[i];
-          
-          // 检查是否是本地文件路径，如果是则跳过
-          if (script.src && (script.src.startsWith('/c:') || script.src.startsWith('c:') || script.src.includes('resource_interceptor.dart'))) {
-            this.log('跳过本地文件路径脚本:', script.src);
-            continue;
-          }
-          
-          // 检查是否是移动版app.js脚本
           if (script.src && script.src.includes('bdhm.cdn.bcebos.com/m/js/app')) {
             hasAppScript = true;
             this.log('找到移动版app.js脚本:', script.src);
-          }
-          
-          // 判断脚本位置
-          const isInHead = script.parentNode && (script.parentNode.nodeName === 'HEAD' || script.parentNode.closest('head'));
-          const isExternal = !!script.src;
-          
-          // 创建脚本处理函数
-          const processScriptFn = () => {
-            if (isExternal) {
-              this.fetchExternalScript(script.src, baseUrl);
-            } else if (script.textContent && script.textContent.trim()) {
-              this.processScript({
-                isExternal: false,
-                content: script.textContent,
-                url: baseUrl
-              });
-            }
-          };
-          
-          // 按照在HTML中的位置分类
-          if (isInHead) {
-            headScripts.push(processScriptFn);
-          } else {
-            bodyScripts.push(processScriptFn);
+            break;
           }
         }
-        
-        // 首先处理head中的所有脚本，按照它们在HTML中出现的顺序
-        this.log(`处理 ${headScripts.length} 个head中的脚本`);
-        headScripts.forEach(fn => fn());
-        
-        // 然后处理body中的脚本
-        this.log(`处理 ${bodyScripts.length} 个body中的脚本`);
-        bodyScripts.forEach(fn => fn());
         
         // 如果没有找到移动版app.js脚本但URL包含bcebos.com，手动加载它
         if (!hasAppScript && baseUrl && baseUrl.includes('bcebos.com')) {
