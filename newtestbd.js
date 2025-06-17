@@ -7,7 +7,7 @@
 const pluginInfo = {
     id: 'baidu_phone_search',
     name: '百度号码查询',
-    version: '1.68.0',
+    version: '1.70.0',
     description: '通过百度搜索查询电话号码信息',
   };
   
@@ -343,13 +343,32 @@ const pluginInfo = {
           this.processHtml({ html: response.body, url: response.url });
         }
         // 处理JSON响应
-        else if (response.body && response.body.startsWith('{')) {
+        else if (response.body && (response.body.startsWith('{') || response.body.startsWith('['))) {
           try {
             const jsonData = JSON.parse(response.body);
             this.processJsonResponse(response.url, jsonData, requestId);
           } catch (e) {
             this.logError('Error parsing JSON response:', e);
           }
+        }
+        // 处理CSS响应
+        else if (response.url && response.url.endsWith('.css')) {
+          this.log('处理CSS响应');
+          this.processCssResponse(response.url, response.body, requestId);
+        }
+        // 处理JavaScript响应
+        else if (response.url && (response.url.endsWith('.js') || response.headers && response.headers['Content-Type'] && response.headers['Content-Type'].includes('javascript'))) {
+          this.log('处理JavaScript响应');
+          this.processScript({
+            isExternal: true,
+            content: response.body,
+            url: response.url
+          });
+        }
+        // 处理其他类型的响应
+        else {
+          this.log('处理其他类型的响应:', response.url);
+          // 可以根据Content-Type或URL后缀进一步处理不同类型的响应
         }
         
         // 如果已经提取到数据，发送结果
@@ -413,11 +432,9 @@ const pluginInfo = {
           this.log('成功从HTML中提取数据:', this.extractedData);
         }
         
-        // 处理HTML中的脚本，按照它们在HTML中的自然顺序
-        if (data.url && (data.url.includes('haoma.baidu.com') || data.url.includes('bdhm.cdn.bcebos.com'))) {
-          this.log('处理百度号码查询页面的脚本');
-          this.handleDynamicScripts(doc, data.url);
-        }
+        // 始终处理HTML中的脚本，确保head中的所有内容都被正确加载
+        this.log('处理页面的所有脚本和资源');
+        this.handleDynamicScripts(doc, data.url);
       } catch (error) {
         this.logError('Error processing HTML:', error);
       }
@@ -430,6 +447,9 @@ const pluginInfo = {
      */
     handleDynamicScripts(doc, baseUrl) {
       try {
+        // 处理head中的所有资源
+        this.processHeadResources(doc, baseUrl);
+        
         // 查找所有脚本元素
         const scripts = doc.querySelectorAll('script');
         this.log(`找到 ${scripts.length} 个脚本元素`);
@@ -499,6 +519,323 @@ const pluginInfo = {
         
       } catch (error) {
         this.logError('Error handling dynamic scripts:', error);
+      }
+    }
+    
+    /**
+     * 处理head中的所有资源
+     * @param {Document} doc - HTML文档
+     * @param {string} baseUrl - 基础URL，用于解析相对路径
+     */
+    processHeadResources(doc, baseUrl) {
+      try {
+        this.log('处理head中的所有资源');
+        
+        // 处理head中的所有link标签（CSS、预加载资源等）
+        const links = doc.head.querySelectorAll('link');
+        this.log(`找到 ${links.length} 个link元素`);
+        
+        for (let i = 0; i < links.length; i++) {
+          const link = links[i];
+          
+          // 跳过本地文件路径
+          if (link.href && (link.href.startsWith('/c:') || link.href.startsWith('c:') || link.href.includes('resource_interceptor.dart'))) {
+            this.log('跳过本地文件路径link:', link.href);
+            continue;
+          }
+          
+          // 处理CSS和其他资源
+          if (link.href) {
+            this.log('加载外部资源:', link.href);
+            this.fetchExternalResource(link.href, link.rel, baseUrl);
+          }
+        }
+        
+        // 处理head中的meta标签
+        const metas = doc.head.querySelectorAll('meta');
+        this.log(`找到 ${metas.length} 个meta元素`);
+        
+        // 处理head中的内联JSON数据
+        const jsonScripts = doc.head.querySelectorAll('script[type="application/json"], script[type="application/ld+json"]');
+        this.log(`找到 ${jsonScripts.length} 个JSON脚本元素`);
+        
+        for (let i = 0; i < jsonScripts.length; i++) {
+          const script = jsonScripts[i];
+          if (script.textContent && script.textContent.trim()) {
+            this.log('处理内联JSON数据');
+            try {
+              const jsonData = JSON.parse(script.textContent);
+              this.processJsonData(jsonData, baseUrl);
+            } catch (e) {
+              this.logError('解析JSON数据失败:', e);
+            }
+          }
+        }
+        
+        // 处理cookie
+        if (doc.cookie) {
+          this.log('处理cookie');
+          this.processCookies(doc.cookie, baseUrl);
+        }
+      } catch (error) {
+        this.logError('Error processing head resources:', error);
+      }
+    }
+    
+    /**
+     * 获取外部资源
+     * @param {string} url - 资源URL
+     * @param {string} resourceType - 资源类型（如'stylesheet'）
+     * @param {string} baseUrl - 基础URL，用于设置正确的Referer
+     */
+    fetchExternalResource(url, resourceType, baseUrl) {
+      // 检查是否是本地文件路径，如果是则跳过
+      if (url && (url.startsWith('/c:') || url.startsWith('c:') || url.includes('resource_interceptor.dart'))) {
+        this.log('跳过本地文件路径资源请求:', url);
+        return;
+      }
+      
+      this.log('Fetching external resource:', url, 'type:', resourceType);
+      
+      // 创建一个请求ID
+      const requestId = this.generateRequestId();
+      
+      // 构建适合的请求头
+      const resourceHeaders = { ...headers };
+      
+      // 为所有百度域名请求添加统一的请求头
+      if (url.includes('baidu.com') || url.includes('bcebos.com')) {
+        // 设置正确的Referer和Origin
+        resourceHeaders['Referer'] = baseUrl || 'https://haoma.baidu.com/';
+        resourceHeaders['Origin'] = 'https://haoma.baidu.com';
+        
+        // 根据资源类型设置Accept头
+        if (resourceType === 'stylesheet') {
+          resourceHeaders['Accept'] = 'text/css,*/*;q=0.1';
+          resourceHeaders['Sec-Fetch-Dest'] = 'style';
+        } else {
+          resourceHeaders['Accept'] = '*/*';
+          resourceHeaders['Sec-Fetch-Dest'] = 'empty';
+        }
+        
+        resourceHeaders['Accept-Language'] = 'zh-CN,zh;q=0.9,en;q=0.8';
+        resourceHeaders['Connection'] = 'keep-alive';
+        
+        // 添加安全相关的请求头
+        resourceHeaders['Sec-Fetch-Mode'] = 'no-cors';
+        resourceHeaders['Sec-Fetch-Site'] = 'same-site';
+      }
+      
+      this.log('使用以下请求头获取资源:', JSON.stringify(resourceHeaders));
+      
+      // 发送请求到Flutter
+      this.sendRequest('GET', url, resourceHeaders, requestId);
+    }
+    
+    /**
+     * 处理JSON数据
+     * @param {object} jsonData - JSON数据
+     * @param {string} baseUrl - 基础URL
+     */
+    processJsonData(jsonData, baseUrl) {
+      this.log('处理JSON数据');
+      // 这里可以添加特定的JSON数据处理逻辑
+    }
+    
+    /**
+     * 处理CSS响应
+     * @param {string} url - CSS资源URL
+     * @param {string} cssContent - CSS内容
+     * @param {string} requestId - 请求ID
+     */
+    processCssResponse(url, cssContent, requestId) {
+      this.log('处理CSS响应:', url);
+      
+      try {
+        // 解析CSS中的@import和url()引用
+        this.processCssImportsAndUrls(cssContent, url);
+      } catch (error) {
+        this.logError('Error processing CSS response:', error);
+      }
+    }
+    
+    /**
+     * 处理CSS中的@import和url()引用
+     * @param {string} cssContent - CSS内容
+     * @param {string} baseUrl - 基础URL，用于解析相对路径
+     */
+    processCssImportsAndUrls(cssContent, baseUrl) {
+      try {
+        // 提取@import规则
+        const importRegex = /@import\s+(?:url\(\s*)?['"]?([^'"\)\s]+)['"]?\s*\)?\s*;/g;
+        let importMatch;
+        
+        while ((importMatch = importRegex.exec(cssContent)) !== null) {
+          const importUrl = importMatch[1];
+          if (importUrl) {
+            // 解析相对URL
+            const absoluteUrl = this.resolveRelativeUrl(importUrl, baseUrl);
+            this.log('加载CSS @import:', absoluteUrl);
+            this.fetchExternalResource(absoluteUrl, 'stylesheet', baseUrl);
+          }
+        }
+        
+        // 提取url()引用
+        const urlRegex = /url\(\s*['"]?([^'"\)\s]+)['"]?\s*\)/g;
+        let urlMatch;
+        
+        while ((urlMatch = urlRegex.exec(cssContent)) !== null) {
+          const resourceUrl = urlMatch[1];
+          if (resourceUrl && !resourceUrl.startsWith('data:')) {
+            // 解析相对URL
+            const absoluteUrl = this.resolveRelativeUrl(resourceUrl, baseUrl);
+            this.log('加载CSS url()资源:', absoluteUrl);
+            this.fetchExternalResource(absoluteUrl, '', baseUrl);
+          }
+        }
+      } catch (error) {
+        this.logError('Error processing CSS imports and URLs:', error);
+      }
+    }
+    
+    /**
+     * 解析相对URL
+     * @param {string} relativeUrl - 相对URL
+     * @param {string} baseUrl - 基础URL
+     * @returns {string} 绝对URL
+     */
+    resolveRelativeUrl(relativeUrl, baseUrl) {
+      try {
+        // 如果已经是绝对URL，直接返回
+        if (relativeUrl.match(/^(https?:|data:|\/\/)/) || !baseUrl) {
+          return relativeUrl;
+        }
+        
+        // 创建URL对象来解析相对路径
+        return new URL(relativeUrl, baseUrl).href;
+      } catch (error) {
+        this.logError('Error resolving relative URL:', error);
+        return relativeUrl; // 出错时返回原始URL
+      }
+    }
+    
+    /**
+     * 处理cookies
+     * @param {string} cookies - cookie字符串
+     * @param {string} baseUrl - 基础URL
+     */
+    processCookies(cookies, baseUrl) {
+      this.log('处理cookies');
+      // 这里可以添加特定的cookie处理逻辑
+    }
+    
+    /**
+     * 处理脚本内容
+     * @param {object} data - 脚本数据
+     * @param {boolean} data.isExternal - 是否是外部脚本
+     * @param {string} data.content - 脚本内容
+     * @param {string} data.url - 脚本URL或基础URL
+     */
+    processScript(data) {
+      try {
+        this.log(`处理${data.isExternal ? '外部' : '内联'}脚本:`, data.url);
+        
+        const scriptContent = data.content;
+        if (!scriptContent || scriptContent.trim() === '') {
+          this.log('脚本内容为空，跳过处理');
+          return;
+        }
+        
+        // 检查脚本是否包含关键的API或函数
+        const containsKeyAPI = (
+          scriptContent.includes('XMLHttpRequest') ||
+          scriptContent.includes('fetch(') ||
+          scriptContent.includes('$.ajax') ||
+          scriptContent.includes('axios')
+        );
+        
+        // 检查脚本是否包含关键的DOM操作
+        const containsDOMManipulation = (
+          scriptContent.includes('document.getElementById') ||
+          scriptContent.includes('document.querySelector') ||
+          scriptContent.includes('document.getElementsBy') ||
+          scriptContent.includes('innerHTML') ||
+          scriptContent.includes('appendChild') ||
+          scriptContent.includes('removeChild')
+        );
+        
+        // 检查脚本是否包含事件监听器
+        const containsEventListeners = (
+          scriptContent.includes('addEventListener') ||
+          scriptContent.includes('onclick') ||
+          scriptContent.includes('onload') ||
+          scriptContent.includes('DOMContentLoaded')
+        );
+        
+        // 检查脚本是否包含JSON处理
+        const containsJSONProcessing = (
+          scriptContent.includes('JSON.parse') ||
+          scriptContent.includes('JSON.stringify')
+        );
+        
+        // 记录脚本特征
+        if (containsKeyAPI) this.log('脚本包含网络请求API');
+        if (containsDOMManipulation) this.log('脚本包含DOM操作');
+        if (containsEventListeners) this.log('脚本包含事件监听器');
+        if (containsJSONProcessing) this.log('脚本包含JSON处理');
+        
+        // 检查脚本是否包含百度特定的API或函数
+        const containsBaiduAPI = (
+          scriptContent.includes('baiduboxapp') ||
+          scriptContent.includes('swan.') ||
+          scriptContent.includes('_hmt') ||
+          scriptContent.includes('hm.baidu.com') ||
+          scriptContent.includes('passport.baidu') ||
+          scriptContent.includes('bdstatic')
+        );
+        
+        if (containsBaiduAPI) {
+          this.log('脚本包含百度特定API');
+        }
+        
+        // 如果脚本包含关键功能，可以考虑执行它
+        if (containsKeyAPI || containsDOMManipulation || containsEventListeners || containsJSONProcessing || containsBaiduAPI) {
+          this.log('脚本包含关键功能，尝试执行');
+          // 这里可以添加执行脚本的逻辑，但需要注意安全性
+        }
+      } catch (error) {
+        this.logError('Error processing script:', error);
+      }
+    }
+    
+    /**
+     * 处理JSON响应
+     * @param {string} url - 响应URL
+     * @param {object} jsonData - JSON数据
+     * @param {string} requestId - 请求ID
+     */
+    processJsonResponse(url, jsonData, requestId) {
+      try {
+        this.log('处理JSON响应:', url);
+        
+        // 检查是否包含电话号码相关信息
+        if (jsonData.data && jsonData.data.phoneNumber) {
+          this.log('从JSON响应中提取电话号码信息');
+          this.extractedData = { ...this.extractedData, ...jsonData.data };
+        }
+        
+        // 检查是否包含错误信息
+        if (jsonData.error) {
+          this.logError('JSON响应包含错误:', jsonData.error);
+        }
+        
+        // 处理特定的百度API响应
+        if (url.includes('miao.baidu.com') || url.includes('banti.baidu.com')) {
+          this.log('处理百度特定API响应');
+          // 这里可以添加特定的百度API响应处理逻辑
+        }
+      } catch (error) {
+        this.logError('Error processing JSON response:', error);
       }
     }
   
