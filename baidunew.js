@@ -1,7 +1,7 @@
 (function () {
     if (window.plugin) return;
 
-    const pluginId = 'tellowsPlugin';
+    const pluginId = 'baiPlugin';
 
     const pluginInfo = {
         info: {
@@ -88,42 +88,54 @@
 
     // 查询电话号码信息
     function queryPhoneInfo(phoneNumber, externalRequestId) {
-        // Generate a unique ID for *this specific phone number request*
-        const phoneRequestId = Math.random().toString(36).substring(2);
-        console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
-
+        console.log('queryPhoneInfo called with:', phoneNumber, externalRequestId);
+        
+        // 构建查询URL
         const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
-        const method = 'GET';
-        const headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', // Example User-Agent
-    'Referer': 'https://www.baidu.com/', // 或搜索结果页 URL
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-    'Connection': 'keep-alive',
-        };
-        const body = null;
-
-        // Pass BOTH the externalRequestId AND the internal phoneRequestId
-        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
+        
+        // 发送请求
+        sendRequest(url, phoneNumber, externalRequestId);
     }
 
-    // sendRequest function (now accepts both request IDs)
-    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
-        const requestData = {
-            url: url,
-            method: method,
-            headers: headers,
-            body: body,
-            externalRequestId: externalRequestId, // Include externalRequestId
-            phoneRequestId: phoneRequestId,     // Include phoneRequestId
-            pluginId: pluginId,
+    // 发送请求
+    function sendRequest(url, phoneNumber, externalRequestId) {
+        console.log('sendRequest called with:', url, phoneNumber, externalRequestId);
+        
+        // 创建一个新的XMLHttpRequest对象
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        
+        // 设置响应类型
+        xhr.responseType = 'text';
+        
+        // 设置请求头
+        xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+        
+        // 处理响应
+        xhr.onload = function() {
+            // 创建一个临时的DOM解析器
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(xhr.responseText, 'text/html');
+            
+            const response = {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                document: doc,
+                phoneNumber: phoneNumber,
+                url: url
+            };
+            
+            handleResponse(response, externalRequestId);
         };
-
-        if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
-        } else {
-            console.error("flutter_inappwebview is undefined");
-        }
+        
+        // 处理错误
+        xhr.onerror = function() {
+            console.error('Request failed');
+            sendResultToFlutter('pluginError', { error: 'Request failed' }, externalRequestId);
+        };
+        
+        // 发送请求
+        xhr.send();
     }
 
 // 等待元素出现的函数
