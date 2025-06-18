@@ -1,7 +1,7 @@
 (function () {
     if (window.plugin) return;
 
-    const pluginId = 'tellowsPlugin';
+    const pluginId = 'baiduPlugin';
 
     const pluginInfo = {
         info: {
