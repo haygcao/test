@@ -1,7 +1,7 @@
 (function () {
     if (window.plugin) return;
 
-    const pluginId = 'baiPlugin';
+    const pluginId = 'tellowsPlugin';
 
     const pluginInfo = {
         info: {
@@ -91,7 +91,7 @@
         console.log('queryPhoneInfo called with:', phoneNumber, externalRequestId);
         
         // 构建查询URL
-        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
+        const url = `https://www.baidu.com/s?wd=${encodeURIComponent(phoneNumber)}`;
         
         // 发送请求
         sendRequest(url, phoneNumber, externalRequestId);
@@ -137,6 +137,24 @@
         // 发送请求
         xhr.send();
     }
+
+// 发送结果到Flutter
+function sendResultToFlutter(type, data, externalRequestId) {
+    console.log(`sendResultToFlutter: type=${type}, data=`, data, `, externalRequestId=${externalRequestId}`);
+    
+    if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
+        const message = {
+            type: type,
+            data: data,
+            externalRequestId: externalRequestId,
+            pluginId: pluginId
+        };
+        
+        window.flutter_inappwebview.callHandler('ResultChannel', JSON.stringify(message));
+    } else {
+        console.error('flutter_inappwebview is not defined');
+    }
+}
 
 // 等待元素出现的函数
 function waitForElement(parent, selector, timeout) {
