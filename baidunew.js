@@ -7,7 +7,7 @@
         info: {
     id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'bai', // 插件名称
-    version: '1.92.0', // 插件版本
+    version: '1.29.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
         },
@@ -150,24 +150,42 @@ function handleResponse(response) {
     console.log('handleResponse called with:', response);
 
     if (response.status >= 200 && response.status < 300) {
-        // 创建一个临时的DOM解析器来正确处理HTML结构
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(response.responseText, 'text/html');
-        
-        // 正确处理head内容
-        const headElements = doc.head.children;
-        for (let i = 0; i < headElements.length; i++) {
-            const element = headElements[i].cloneNode(true);
-            document.head.appendChild(element);
+        try {
+            // 清空当前文档的head和body内容，以便重新填充
+            // 保留原始的head和body引用
+            const originalHead = document.head;
+            const originalBody = document.body;
+            
+            // 创建一个临时的DOM解析器来正确处理HTML结构
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(response.responseText, 'text/html');
+            
+            // 清空当前head内容
+            while (originalHead.firstChild) {
+                originalHead.removeChild(originalHead.firstChild);
+            }
+            
+            // 正确处理head内容 - 将所有head元素复制到当前文档
+            const headElements = doc.head.children;
+            for (let i = 0; i < headElements.length; i++) {
+                const element = headElements[i].cloneNode(true);
+                originalHead.appendChild(element);
+            }
+            
+            // 设置body内容
+            originalBody.innerHTML = doc.body.innerHTML;
+            
+            console.log('HTML structure correctly processed');
+            
+            // 创建一个计时器变量，用于超时检测
+            let timeoutTimer = null;
+            let maxWaitTime = 10000; // 最大等待时间10秒
+            let startTime = Date.now();
+        } catch (error) {
+            console.error('Error processing HTML structure:', error);
+            sendResultToFlutter('pluginError', { error: 'Error processing HTML structure' }, response.externalRequestId);
+            return;
         }
-        
-        // 设置body内容
-        document.body.innerHTML = doc.body.innerHTML;
-        
-        // 创建一个计时器变量，用于超时检测
-        let timeoutTimer = null;
-        let maxWaitTime = 10000; // 最大等待时间10秒
-        let startTime = Date.now();
         
         // 使用 MutationObserver 等待 Shadow DOM 宿主元素出现
         const observer = new MutationObserver((mutationsList, observer) => {
@@ -253,62 +271,6 @@ function processAndSendResult(result, externalRequestId) {
     
     console.log('Sending result to Flutter:', finalResult);
     sendResultToFlutter('pluginResult', finalResult, externalRequestId);
-}
-
-// 从普通DOM中提取数据
-function extractDataFromRegularDOM(document, phoneNumber) {
-    console.log('extractDataFromRegularDOM called with document:', document);
-    
-    // 创建一个结果对象
-    let result = {
-        phoneNumber: phoneNumber,
-        sourceLabel: '',
-        count: 0,
-        province: '',
-        city: '',
-        carrier: '',
-        name: '',
-        rate: 0,
-        predefinedLabel: '',
-        pluginId: pluginId
-    };
-
-    try {
-        // 在普通DOM中查找并提取数据
-        const reportWrapper = document.querySelector('.report-wrapper');
-        if (reportWrapper) {
-            // 提取标签信息
-            const reportNameElement = reportWrapper.querySelector('.report-name');
-            if (reportNameElement) {
-                result.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
-            }
-
-            // 提取评分数量
-            const reportTypeElement = reportWrapper.querySelector('.report-type');
-            if (reportTypeElement) {
-                const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
-                if (reportTypeText === '用户标记') {
-                    result.count = 1;
-                }
-            }
-        }
-        
-        // 提取省份和城市
-        const locationElement = document.querySelector('.location');
-        if (locationElement) {
-            const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
-            const match = locationText.match(/([一-龥]+)[\s ]*([一-龥]+)?/);
-            if (match) {
-                result.province = match[1] || '';
-                result.city = match[2] || '';
-            }
-        }
-    } catch (error) {
-        console.error('Error extracting data from regular DOM:', error);
-    }
-
-    console.log('Extracted result from regular DOM:', result);
-    return result;
 }
 
 // parseResponse 函数 (保持函数命名一致性)
