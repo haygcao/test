@@ -7,7 +7,7 @@
         info: {
     id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'bai', // 插件名称
-    version: '1.25.0', // 插件版本
+    version: '1.3.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
         },
@@ -149,31 +149,137 @@
 function handleResponse(response) {
     console.log('handleResponse called with:', response);
 
-    // 定义全局变量，避免未定义错误
+    // 定义在函数顶部，确保所有代码块都能访问
     let timeoutTimer = null;
     const maxWaitTime = 10000; // 最大等待时间10秒
     let startTime = Date.now();
 
     if (response.status >= 200 && response.status < 300) {
         try {
-            // 创建一个临时的DOM解析器来正确处理HTML结构
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(response.responseText, 'text/html');
+            // 创建一个临时的iframe来加载响应内容，避免覆盖当前页面
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none'; // 隐藏iframe
+            document.body.appendChild(iframe);
             
-            // 处理文档内容 - 不直接操作DOM，而是提取数据
-            console.log('HTML parsed, extracting data');
+            // 设置iframe内容
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(response.responseText);
+            iframeDoc.close();
             
-            // 直接从解析后的文档中提取数据
-            const result = extractDataFromRegularDOM(doc, response.phoneNumber);
-            processAndSendResult(result, response.externalRequestId);
-            return;
+            // 将iframe中的head元素复制到主文档
+            const headElements = iframeDoc.head.children;
+            for (let i = 0; i < headElements.length; i++) {
+                try {
+                    // 只复制样式和脚本，避免复制meta标签导致的编码问题
+                    const element = headElements[i];
+                    if (element.tagName === 'STYLE' || element.tagName === 'SCRIPT' || element.tagName === 'LINK') {
+                        const clone = element.cloneNode(true);
+                        document.head.appendChild(clone);
+                    }
+                } catch (e) {
+                    console.error('Error copying head element:', e);
+                }
+            }
+            
+            // 将iframe中的body内容复制到主文档的一个容器div中
+            const contentDiv = document.createElement('div');
+            contentDiv.id = 'baidu-content-container';
+            contentDiv.innerHTML = iframeDoc.body.innerHTML;
+            document.body.appendChild(contentDiv);
+            
+            console.log('HTML structure processed via iframe');
+            
+            // 设置响应数据到window对象，以便后续处理
+            window.baiduResponseData = {
+                phoneNumber: response.phoneNumber,
+                contentDiv: contentDiv
+            };
+            
+            // 移除iframe
+            document.body.removeChild(iframe);
         } catch (error) {
             console.error('Error processing HTML structure:', error);
+            // 清除计时器，避免内存泄漏
+            if (timeoutTimer) {
+                clearTimeout(timeoutTimer);
+                timeoutTimer = null;
+            }
             sendResultToFlutter('pluginError', { error: 'Error processing HTML structure' }, response.externalRequestId);
             return;
         }
+        
+        // 重置开始时间
+        startTime = Date.now();
+        
+        // 使用 setTimeout 给页面一些时间加载和渲染
+        timeoutTimer = setTimeout(() => {
+            try {
+                // 从我们创建的contentDiv中提取数据，而不是从整个document中提取
+                if (window.baiduResponseData && window.baiduResponseData.contentDiv) {
+                    const contentDiv = window.baiduResponseData.contentDiv;
+                    const phoneNumber = window.baiduResponseData.phoneNumber;
+                    
+                    // 1. 尝试找到 Shadow DOM 的宿主元素
+                    const shadowHost = contentDiv.querySelector('#__hcfy__');
+                    
+                    // 2. 如果找不到Shadow DOM宿主，尝试直接从contentDiv中查找元素
+                    if (!shadowHost) {
+                        const reportWrapper = contentDiv.querySelector('.report-wrapper');
+                        if (reportWrapper && reportWrapper.textContent.trim() !== "") {
+                            // 从普通DOM中解析数据
+                            let result = extractDataFromRegularDOM(contentDiv, phoneNumber);
+                            processAndSendResult(result, response.externalRequestId);
+                            return;
+                        }
+                    } else {
+                        // 3. 如果找到Shadow DOM宿主，尝试穿透Shadow DOM
+                        if (shadowHost.shadowRoot) {
+                            const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper');
+                            
+                            if (targetElement && targetElement.textContent.trim() !== "") {
+                                // 从Shadow DOM中解析数据
+                                let result = parseResponse(phoneNumber, shadowHost.shadowRoot);
+                                processAndSendResult(result, response.externalRequestId);
+                                return;
+                            }
+                        }
+                    }
+                }
+                
+                // 如果没有找到数据，尝试再次解析
+                console.log('No data found in initial check, trying direct DOM extraction');
+                let result = extractDataFromRegularDOM(document, response.phoneNumber);
+                processAndSendResult(result, response.externalRequestId);
+            } catch (error) {
+                console.error('Error extracting data:', error);
+                sendResultToFlutter('pluginError', { error: 'Error extracting data from page' }, response.externalRequestId);
+            } finally {
+                // 清除计时器，避免内存泄漏
+                if (timeoutTimer) {
+                    clearTimeout(timeoutTimer);
+                    timeoutTimer = null;
+                }
+            }
+        }, 2000); // 给页面2秒时间加载
+        
+        // 添加超时检查，确保在maxWaitTime时间内完成数据提取
+        setTimeout(() => {
+            // 如果timeoutTimer仍然存在，说明数据提取尚未完成
+            if (timeoutTimer) {
+                clearTimeout(timeoutTimer);
+                timeoutTimer = null;
+                console.error('Data extraction timed out after', maxWaitTime, 'ms');
+                sendResultToFlutter('pluginError', { error: 'Data extraction timed out' }, response.externalRequestId);
+            }
+        }, maxWaitTime);
 
     } else {
+        // 清除计时器，避免内存泄漏
+        if (timeoutTimer) {
+            clearTimeout(timeoutTimer);
+            timeoutTimer = null;
+        }
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
     }
 }
@@ -206,13 +312,13 @@ function processAndSendResult(result, externalRequestId) {
 }
 
 // parseResponse 函数 (保持函数命名一致性)
-function parseResponse(shadowRoot, phoneNumber) {
-  return extractDataFromRegularDOM(shadowRoot, phoneNumber);
+function parseResponse(phoneNumber, container = document) {
+  return extractDataFromRegularDOM(container, phoneNumber);
 }
 
 // 统一使用extractDataFromRegularDOM函数处理DOM数据提取
 function extractDataFromRegularDOM(document, phoneNumber) {
-    console.log('extractDataFromRegularDOM called with document');
+    console.log('extractDataFromRegularDOM called with document:', document);
     
     // 创建一个结果对象
     let result = {
@@ -229,54 +335,34 @@ function extractDataFromRegularDOM(document, phoneNumber) {
     };
 
     try {
-        // 记录文档结构，帮助调试
-        console.log('Document title:', document.title);
-        console.log('Document body children count:', document.body ? document.body.children.length : 'No body');
-        
-        // 尝试查找主要内容容器
-        const rootElement = document.getElementById('root');
-        if (rootElement) {
-            console.log('Found root element');
-        }
-        
         // 在DOM中查找并提取数据
         const reportWrapper = document.querySelector('.report-wrapper');
         if (reportWrapper) {
-            console.log('Found report-wrapper element');
-            
             // 提取标签信息
             const reportNameElement = reportWrapper.querySelector('.report-name');
             if (reportNameElement) {
                 result.sourceLabel = reportNameElement.textContent.trim();
-                console.log('Found source label:', result.sourceLabel);
             }
 
             // 提取评分数量
             const reportTypeElement = reportWrapper.querySelector('.report-type');
             if (reportTypeElement) {
                 const reportTypeText = reportTypeElement.textContent.trim();
-                console.log('Found report type:', reportTypeText);
                 if (reportTypeText === '用户标记') {
                     result.count = 1;
                 }
             }
-        } else {
-            console.log('No report-wrapper element found');
         }
         
         // 提取省份和城市
         const locationElement = document.querySelector('.location');
         if (locationElement) {
             const locationText = locationElement.textContent.trim();
-            console.log('Found location text:', locationText);
             const match = locationText.match(/([一-龥]+)[\s ]*([一-龥]+)?/);
             if (match) {
                 result.province = match[1] || '';
                 result.city = match[2] || '';
-                console.log('Extracted province:', result.province, 'city:', result.city);
             }
-        } else {
-            console.log('No location element found');
         }
     } catch (error) {
         console.error('Error extracting data from DOM:', error);
