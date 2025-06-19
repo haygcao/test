@@ -1,13 +1,13 @@
 (function () {
     if (window.plugin) return;
 
-    const pluginId = 'baiduPlugin';
+    const pluginId = 'tellowsPlugin';
 
     const pluginInfo = {
         info: {
     id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'bai', // 插件名称
-    version: '1.2.0', // 插件版本
+    version: '1.82.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
         },
@@ -123,6 +123,25 @@
             window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
         } else {
             console.error("flutter_inappwebview is undefined");
+        }
+    }
+    
+    // 发送结果到Flutter
+    function sendResultToFlutter(channel, data, externalRequestId) {
+        const resultData = {
+            ...data,
+            externalRequestId: externalRequestId,
+            pluginId: pluginId,
+        };
+
+        if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
+            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify({
+                type: channel,
+                data: resultData,
+            }));
+            console.log(`Sent ${channel} to Flutter:`, resultData);
+        } else {
+            console.error('flutter_inappwebview is not defined');
         }
     }
 
