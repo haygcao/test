@@ -7,7 +7,7 @@
         info: {
     id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'bai', // 插件名称
-    version: '1.82.0', // 插件版本
+    version: '1.92.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
         },
@@ -150,7 +150,19 @@ function handleResponse(response) {
     console.log('handleResponse called with:', response);
 
     if (response.status >= 200 && response.status < 300) {
-        document.body.innerHTML = response.responseText;
+        // 创建一个临时的DOM解析器来正确处理HTML结构
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(response.responseText, 'text/html');
+        
+        // 正确处理head内容
+        const headElements = doc.head.children;
+        for (let i = 0; i < headElements.length; i++) {
+            const element = headElements[i].cloneNode(true);
+            document.head.appendChild(element);
+        }
+        
+        // 设置body内容
+        document.body.innerHTML = doc.body.innerHTML;
         
         // 创建一个计时器变量，用于超时检测
         let timeoutTimer = null;
@@ -179,7 +191,7 @@ function handleResponse(response) {
                     if (timeoutTimer) clearTimeout(timeoutTimer);
                     
                     // 从普通DOM中解析数据
-                    let result = extractDataFromRegularDOM(document, response.phoneNumber || extractPhoneNumberFromUrl(response.url));
+                    let result = extractDataFromRegularDOM(document, response.phoneNumber);
                     processAndSendResult(result, response.externalRequestId);
                     return;
                 }
@@ -193,7 +205,7 @@ function handleResponse(response) {
                         if (timeoutTimer) clearTimeout(timeoutTimer);
                         
                         // 从Shadow DOM中解析数据
-                        let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber || extractPhoneNumberFromUrl(response.url));
+                        let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber);
                         processAndSendResult(result, response.externalRequestId);
                         return;
                     }
@@ -216,18 +228,7 @@ function handleResponse(response) {
     }
 }
 
-// 从URL中提取电话号码
-function extractPhoneNumberFromUrl(url) {
-    if (!url) return '';
-    
-    // 尝试从URL中提取电话号码
-    const phoneMatch = url.match(/search=([0-9]+)/);
-    if (phoneMatch && phoneMatch[1]) {
-        return phoneMatch[1];
-    }
-    
-    return '';
-}
+// 电话号码直接从参数获取，不需要从URL提取
 
 // 处理结果并发送到Flutter
 function processAndSendResult(result, externalRequestId) {
@@ -310,64 +311,65 @@ function extractDataFromRegularDOM(document, phoneNumber) {
     return result;
 }
 
-// parseResponse 函数 (修改：接收 shadowRoot)
+// parseResponse 函数 (保持函数命名一致性)
 function parseResponse(shadowRoot, phoneNumber) {
-  return extractDataFromDOM(shadowRoot, phoneNumber);
+  return extractDataFromRegularDOM(shadowRoot, phoneNumber);
 }
 
-// extractDataFromDOM 函数 (修改：从 shadowRoot 查找元素)
-function extractDataFromDOM(shadowRoot, phoneNumber) {
-    const jsonObject = {
+// 统一使用extractDataFromRegularDOM函数处理DOM数据提取
+function extractDataFromRegularDOM(document, phoneNumber) {
+    console.log('extractDataFromRegularDOM called with document:', document);
+    
+    // 创建一个结果对象
+    let result = {
+        phoneNumber: phoneNumber,
+        sourceLabel: '',
         count: 0,
-        sourceLabel: "",
-        province: "",
-        city: "",
-        carrier: "unknown",
-        phoneNumber: phoneNumber
+        province: '',
+        city: '',
+        carrier: '',
+        name: '',
+        rate: 0,
+        predefinedLabel: '',
+        pluginId: pluginId
     };
 
     try {
-        // --- 从 shadowRoot 中查找元素 ---
-        const reportWrapper = shadowRoot.querySelector('.report-wrapper'); // 在 shadowRoot 内查找
-
+        // 在DOM中查找并提取数据
+        const reportWrapper = document.querySelector('.report-wrapper');
         if (reportWrapper) {
-            // ... (其余代码与之前类似，但都在 shadowRoot 内查找) ...
+            // 提取标签信息
             const reportNameElement = reportWrapper.querySelector('.report-name');
             if (reportNameElement) {
-                jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
+                result.sourceLabel = reportNameElement.textContent.trim();
             }
 
+            // 提取评分数量
             const reportTypeElement = reportWrapper.querySelector('.report-type');
             if (reportTypeElement) {
-                const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
+                const reportTypeText = reportTypeElement.textContent.trim();
                 if (reportTypeText === '用户标记') {
-                    jsonObject.count = 1;
+                    result.count = 1;
                 }
             }
         }
-        const locationElement = shadowRoot.querySelector('.location');
+        
+        // 提取省份和城市
+        const locationElement = document.querySelector('.location');
         if (locationElement) {
-                const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
-                const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
-                if (match) {
-                    jsonObject.province = match[1] || '';
-                    jsonObject.city = match[2] || '';
-                }
+            const locationText = locationElement.textContent.trim();
+            const match = locationText.match(/([一-龥]+)[\s ]*([一-龥]+)?/);
+            if (match) {
+                result.province = match[1] || '';
+                result.city = match[2] || '';
             }
+        }
     } catch (error) {
-        console.error('Error extracting data:', error);
+        console.error('Error extracting data from DOM:', error);
     }
 
-    return jsonObject;
-}
-// Quoted-Printable 解码函数 (保持不变)
-function decodeQuotedPrintable(str) {
-    str = str.replace(/=3D/g, "=");
-    str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
-        return String.fromCharCode(parseInt(p1, 16));
-    });
-    str = str.replace(/=\r?\n/g, '');
-    return str;
+    console.log('Extracted result from DOM:', result);
+    return result;
 }
 
     // generateOutput function (modified)
