@@ -86,155 +86,265 @@
     '推销': 'Telemarketing',
 };
 
-    // 查询电话号码信息
+    // --- Unified Request Function ---
     function queryPhoneInfo(phoneNumber, externalRequestId) {
-        console.log('queryPhoneInfo called with:', phoneNumber, externalRequestId);
-        
-        // 构建查询URL
-        const url = `https://www.baidu.com/s?wd=${encodeURIComponent(phoneNumber)}`;
-        
-        // 发送请求
-        sendRequest(url, phoneNumber, externalRequestId);
+        // Generate a unique ID for *this specific phone number request*
+        const phoneRequestId = Math.random().toString(36).substring(2);
+        console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
+
+        const url = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
+        const method = 'GET';
+        const headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+            'Referer': 'https://www.baidu.com/',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Upgrade-Insecure-Requests': '1',
+            'Connection': 'keep-alive',
+            'X-Requested-With': 'XMLHttpRequest'
+        };
+        const body = null;
+
+        // Pass BOTH the externalRequestId AND the internal phoneRequestId
+        sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
     }
 
-    // 发送请求
-    function sendRequest(url, phoneNumber, externalRequestId) {
-        console.log('sendRequest called with:', url, phoneNumber, externalRequestId);
-        
-        // 创建一个新的XMLHttpRequest对象
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        
-        // 设置响应类型
-        xhr.responseType = 'text';
-        
-        // 设置请求头
-        xhr.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
-        
-        // 处理响应
-        xhr.onload = function() {
-            // 创建一个临时的DOM解析器
+    // sendRequest function (now accepts both request IDs)
+    function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
+        const requestData = {
+            url: url,
+            method: method,
+            headers: headers,
+            body: body,
+            externalRequestId: externalRequestId, // Include externalRequestId
+            phoneRequestId: phoneRequestId,     // Include phoneRequestId
+            pluginId: pluginId,
+        };
+
+        if (window.flutter_inappwebview) {
+            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(requestData));
+        } else {
+            console.error("flutter_inappwebview is undefined");
+        }
+    }
+
+// handleResponse 函数 (JavaScript)
+function handleResponse(response) {
+    console.log('handleResponse called with:', response);
+
+    if (response.status >= 200 && response.status < 300) {
+        // 首先尝试直接解析响应文本，不依赖DOM渲染
+        try {
+            console.log('Attempting to parse response directly');
             const parser = new DOMParser();
-            const doc = parser.parseFromString(xhr.responseText, 'text/html');
+            const doc = parser.parseFromString(response.responseText, 'text/html');
             
-            const response = {
-                status: xhr.status,
-                statusText: xhr.statusText,
-                document: doc,
-                phoneNumber: phoneNumber,
-                url: url
-            };
-            
-            handleResponse(response, externalRequestId);
-        };
-        
-        // 处理错误
-        xhr.onerror = function() {
-            console.error('Request failed');
-            sendResultToFlutter('pluginError', { error: 'Request failed' }, externalRequestId);
-        };
-        
-        // 发送请求
-        xhr.send();
-    }
-
-// 发送结果到Flutter
-function sendResultToFlutter(type, data, externalRequestId) {
-    console.log(`sendResultToFlutter: type=${type}, data=`, data, `, externalRequestId=${externalRequestId}`);
-    
-    if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-        const message = {
-            type: type,
-            data: data,
-            externalRequestId: externalRequestId,
-            pluginId: pluginId
-        };
-        
-        window.flutter_inappwebview.callHandler('ResultChannel', JSON.stringify(message));
-    } else {
-        console.error('flutter_inappwebview is not defined');
-    }
-}
-
-// 等待元素出现的函数
-function waitForElement(parent, selector, timeout) {
-    return new Promise((resolve, reject) => {
-        // 首先检查元素是否已经存在
-        const element = parent.querySelector(selector);
-        if (element) {
-            resolve(element);
-            return;
+            // 检查是否能直接从解析的文档中提取数据
+            const directResult = parseResponse(doc, response.phoneNumber);
+            if (directResult && (directResult.sourceLabel || directResult.province)) {
+                console.log('Successfully parsed data directly from response');
+                processAndSendResult(directResult, response.externalRequestId);
+                return;
+            } else {
+                console.log('Direct parsing did not yield sufficient results, falling back to DOM rendering');
+            }
+        } catch (error) {
+            console.error('Error during direct parsing:', error);
+            console.log('Falling back to DOM rendering method');
         }
         
-        // 设置超时
-        const timeoutId = setTimeout(() => {
-            observer.disconnect();
-            reject(new Error(`Timeout waiting for ${selector}`));
-        }, timeout);
-        
-        // 创建一个观察器来监视DOM变化
-        const observer = new MutationObserver((mutations) => {
-            const element = parent.querySelector(selector);
-            if (element) {
-                observer.disconnect();
-                clearTimeout(timeoutId);
-                resolve(element);
+        // 创建一个iframe来加载响应内容，这样可以确保head和body内容正确分离
+        try {
+            console.log('Attempting to parse response with DOMParser');
+            // 使用DOMParser解析响应文本
+            const parser = new DOMParser();
+            const parsedDoc = parser.parseFromString(response.responseText, 'text/html');
+            
+            // 清空当前文档的head和body
+            document.head.innerHTML = '';
+            document.body.innerHTML = '';
+            
+            // 复制解析后文档的head内容到当前文档的head
+            console.log('Copying head content');
+            const headContent = parsedDoc.head.innerHTML;
+            document.head.innerHTML = headContent;
+            
+            // 复制解析后文档的body内容到当前文档的body
+            console.log('Copying body content');
+            const bodyContent = parsedDoc.body.innerHTML;
+            document.body.innerHTML = bodyContent;
+            
+            // 执行所有脚本，确保JavaScript正确加载
+            console.log('Executing scripts');
+            const scripts = document.querySelectorAll('script');
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                Array.from(oldScript.attributes).forEach(attr => {
+                    newScript.setAttribute(attr.name, attr.value);
+                });
+                newScript.textContent = oldScript.textContent;
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+            
+            // 立即尝试解析
+            console.log('Attempting to parse after DOM setup');
+            const directResult = parseResponse(document, response.phoneNumber);
+            if (directResult && (directResult.sourceLabel || directResult.province)) {
+                console.log('Successfully parsed data after DOM setup');
+                processAndSendResult(directResult, response.externalRequestId);
+                return;
             }
-        });
+            
+            // 如果立即解析失败，设置MutationObserver继续尝试
+            console.log('Immediate parsing did not yield results, setting up observer');
+            setupObserverAndTimeout();
+      
+        } catch (error) {
+            console.error('Error during DOMParser rendering:', error);
+            // 如果DOMParser方法失败，回退到简单的innerHTML方法
+            document.body.innerHTML = response.responseText;
+            console.log('Fallback to simple innerHTML method');
+            
+            // 在DOMParser方法失败后，设置MutationObserver继续尝试
+            setupObserverAndTimeout();
+        }
         
-        // 开始观察
-        observer.observe(parent, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            characterData: true
-        });
-    });
+        // 创建一个函数来设置MutationObserver和超时处理
+        function setupObserverAndTimeout() {
+            // 创建一个计时器变量，用于超时检测
+            let timeoutTimer = null;
+            let maxWaitTime = 10000; // 最大等待时间10秒
+            let startTime = Date.now();
+            
+            // 立即尝试解析一次，不等待DOM变化
+            console.log('Attempting immediate parse after rendering');
+            let immediateResult = parseResponse(document, response.phoneNumber);
+            if (immediateResult && (immediateResult.sourceLabel || immediateResult.province)) {
+                console.log('Successfully parsed data immediately after DOM rendering');
+                processAndSendResult(immediateResult, response.externalRequestId);
+                return;
+            }
+            
+            // 使用 MutationObserver 等待 DOM 元素出现
+            const observer = new MutationObserver((mutationsList, observer) => {
+                // 检查是否超时
+                if (Date.now() - startTime > maxWaitTime) {
+                    observer.disconnect();
+                    if (timeoutTimer) clearTimeout(timeoutTimer);
+                    console.log('Observation timed out after', maxWaitTime, 'ms');
+                    sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+                    return;
+                }
+                
+                // 1. 尝试找到 Shadow DOM 的宿主元素
+                const shadowHost = document.querySelector('#__hcfy__');
+                
+                // 2. 如果找不到Shadow DOM宿主，尝试直接从document中查找元素
+                if (!shadowHost) {
+                    // 使用增强的查找方法
+                    let found = false;
+                    const allElements = document.querySelectorAll('*');
+                    for (let i = 0; i < allElements.length; i++) {
+                        if (allElements[i].className && 
+                            (allElements[i].className.includes('report-wrapper') || 
+                             allElements[i].className.includes('location'))) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    
+                    if (found) {
+                        observer.disconnect();
+                        if (timeoutTimer) clearTimeout(timeoutTimer);
+                        
+                        // 从普通DOM中解析数据
+                        console.log('Found relevant elements in document');
+                        let result = parseResponse(document, response.phoneNumber);
+                        processAndSendResult(result, response.externalRequestId);
+                        return;
+                    }
+                } else {
+                    // 3. 如果找到Shadow DOM宿主，尝试穿透Shadow DOM
+                    if (shadowHost.shadowRoot) {
+                        // 使用增强的查找方法
+                        let found = false;
+                        const allElements = shadowHost.shadowRoot.querySelectorAll('*');
+                        for (let i = 0; i < allElements.length; i++) {
+                            if (allElements[i].className && 
+                                (allElements[i].className.includes('report-wrapper') || 
+                                 allElements[i].className.includes('location'))) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        
+                        if (found) {
+                            observer.disconnect();
+                            if (timeoutTimer) clearTimeout(timeoutTimer);
+                            
+                            // 从Shadow DOM中解析数据
+                            console.log('Found relevant elements in shadowRoot');
+                            let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber);
+                            processAndSendResult(result, response.externalRequestId);
+                            return;
+                        }
+                    }
+                }
+            });
+
+            const config = { childList: true, subtree: true, characterData: true, attributes: true };
+            observer.observe(document.body, config);
+            
+            // 设置超时处理
+            timeoutTimer = setTimeout(() => {
+                observer.disconnect();
+                console.log('Timeout reached after', maxWaitTime, 'ms');
+                
+                // 超时时，尝试最后一次解析
+                console.log('Attempting final parse before timeout');
+                let finalResult = parseResponse(document, response.phoneNumber);
+                if (finalResult && (finalResult.sourceLabel || finalResult.province)) {
+                    console.log('Successfully parsed data in final attempt');
+                    processAndSendResult(finalResult, response.externalRequestId);
+                } else {
+                    sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+                }
+            }, maxWaitTime);
+        }
+        
+        // 在iframe方法中，我们已经设置了setTimeout，所以这里不需要立即调用setupObserverAndTimeout
+        // 如果使用了iframe方法，那么在iframe加载完成后会尝试解析
+        // 如果没有使用iframe方法或iframe方法失败，则立即设置MutationObserver
+        if (!document.querySelector('iframe')) {
+            setupObserverAndTimeout();
+        }
+
+    } else {
+        sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
+    }
 }
 
-// 处理响应
-function handleResponse(response, externalRequestId) {
-    console.log('handleResponse called with response:', response);
-    
-    // 如果响应为空或无效，返回空结果
-    if (!response || !response.document) {
-        console.error('Invalid response or missing document');
-        processAndSendResult({ phoneNumber: response.phoneNumber }, externalRequestId);
-        return;
-    }
-    
-    // 使用传入的电话号码
-    let phoneNumber = response.phoneNumber;
-    
-    // 如果无法获取电话号码，返回空结果
-    if (!phoneNumber) {
-        console.error('No phone number provided');
-        processAndSendResult({ phoneNumber: '' }, externalRequestId);
-        return;
-    }
-    
-    // 检查是否存在Shadow DOM
-    const shadowHost = response.document.querySelector('#content_left');
-    if (shadowHost && shadowHost.shadowRoot) {
-        console.log('Shadow DOM found, using shadowRoot for data extraction');
-        // 等待DOM元素出现
-        waitForElement(shadowHost.shadowRoot, '.report-wrapper', 5000)
-            .then(() => {
-                // 使用parseResponse提取数据
-                const result = parseResponse(shadowHost.shadowRoot, phoneNumber);
-                processAndSendResult(result, externalRequestId);
-            })
-            .catch(error => {
-                console.error('Error waiting for Shadow DOM element:', error);
-                // 尝试从普通DOM提取数据
-                const result = parseResponse(response.document, phoneNumber);
-                processAndSendResult(result, externalRequestId);
-            });
+// Helper function: send result or error to Flutter (uses externalRequestId)
+function sendResultToFlutter(type, data, externalRequestId) {
+    const message = {
+        type: type,
+        pluginId: pluginId,
+        requestId: externalRequestId, // Correct: Use externalRequestId here
+        data: data,
+    };
+    const messageString = JSON.stringify(message);
+    console.log('Sending message to Flutter:', messageString);
+    if (window.flutter_inappwebview) {
+        window.flutter_inappwebview.callHandler('PluginResultChannel', messageString);
     } else {
-        console.log('No Shadow DOM found, using regular DOM for data extraction');
-        // 使用parseResponse提取数据
-        const result = parseResponse(response.document, phoneNumber);
-        processAndSendResult(result, externalRequestId);
+        console.error("flutter_inappwebview is undefined");
     }
 }
 
@@ -251,7 +361,7 @@ function processAndSendResult(result, externalRequestId) {
         name: result.name || '',
         rate: result.rate || 0,
         predefinedLabel: '',
-        source: pluginInfo.info.name
+        pluginId: pluginId
     };
     
     // 尝试根据sourceLabel映射到预定义标签
@@ -263,60 +373,115 @@ function processAndSendResult(result, externalRequestId) {
     sendResultToFlutter('pluginResult', finalResult, externalRequestId);
 }
 
-// parseResponse function (defined by the plugin)
-function parseResponse(doc, phoneNumber) {
-    return extractDataFromDOM(doc, phoneNumber);
+
+
+// parseResponse 函数 (定义：接收 document 或 shadowRoot 或 HTML字符串)
+function parseResponse(docOrShadowRootOrHtml, phoneNumber) {
+    console.log('parseResponse called with type:', typeof docOrShadowRootOrHtml);
+    
+    // 如果输入是字符串（HTML文本），先解析成DOM
+    if (typeof docOrShadowRootOrHtml === 'string') {
+        console.log('Input is HTML string, parsing to DOM');
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(docOrShadowRootOrHtml, 'text/html');
+        return extractDataFromDOM(doc, phoneNumber);
+    }
+    
+    // 否则直接使用输入的DOM对象
+    return extractDataFromDOM(docOrShadowRootOrHtml, phoneNumber);
 }
 
-function extractDataFromDOM(doc, phoneNumber) {
-    const jsonObject = {
-        count: 0,
-        sourceLabel: "",
-        province: "",
-        city: "",
-        carrier: "unknown",
+// extractDataFromDOM 函数 (从 document 或 shadowRoot 查找元素)
+function extractDataFromDOM(docOrShadowRoot, phoneNumber) {
+    console.log('extractDataFromDOM called with phoneNumber:', phoneNumber);
+    
+    // 创建一个结果对象
+    let result = {
         phoneNumber: phoneNumber,
-        name: "unknown",
-        rate: 0
+        sourceLabel: '',
+        count: 0,
+        province: '',
+        city: '',
+        carrier: '',
+        name: '',
+        rate: 0,
+        predefinedLabel: '',
+        pluginId: pluginId
     };
 
     try {
-        // 在DOM中查找并提取数据
-        const reportWrapper = doc.querySelector('.report-wrapper');
+        // 在DOM中查找并提取数据 - 增强查找逻辑以适应不同的DOM结构
+        // 首先尝试直接查找元素
+        let reportWrapper = docOrShadowRoot.querySelector('.report-wrapper');
+        
+        // 如果找不到，尝试在整个文档中查找
+        if (!reportWrapper && docOrShadowRoot.querySelectorAll) {
+            console.log('Trying to find elements in the entire document');
+            // 尝试查找所有可能的元素
+            const allElements = docOrShadowRoot.querySelectorAll('*');
+            for (let i = 0; i < allElements.length; i++) {
+                if (allElements[i].className && allElements[i].className.includes('report-wrapper')) {
+                    reportWrapper = allElements[i];
+                    break;
+                }
+            }
+        }
+        
         if (reportWrapper) {
+            console.log('Found report-wrapper:', reportWrapper);
             // 提取标签信息
             const reportNameElement = reportWrapper.querySelector('.report-name');
             if (reportNameElement) {
-                jsonObject.sourceLabel = reportNameElement.textContent.trim();
+                result.sourceLabel = reportNameElement.textContent.trim();
+                console.log('Found sourceLabel:', result.sourceLabel);
             }
 
             // 提取评分数量
             const reportTypeElement = reportWrapper.querySelector('.report-type');
             if (reportTypeElement) {
                 const reportTypeText = reportTypeElement.textContent.trim();
+                console.log('Found reportType:', reportTypeText);
                 if (reportTypeText === '用户标记') {
-                    jsonObject.count = 1;
+                    result.count = 1;
+                }
+            }
+        } else {
+            console.log('Could not find report-wrapper element');
+        }
+        
+        // 提取省份和城市
+        let locationElement = docOrShadowRoot.querySelector('.location');
+        
+        // 如果找不到，尝试在整个文档中查找
+        if (!locationElement && docOrShadowRoot.querySelectorAll) {
+            const allElements = docOrShadowRoot.querySelectorAll('*');
+            for (let i = 0; i < allElements.length; i++) {
+                if (allElements[i].className && allElements[i].className.includes('location')) {
+                    locationElement = allElements[i];
+                    break;
                 }
             }
         }
         
-        // 提取省份和城市
-        const locationElement = doc.querySelector('.location');
         if (locationElement) {
+            console.log('Found location element:', locationElement);
             const locationText = locationElement.textContent.trim();
-            const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
+            console.log('Location text:', locationText);
+            const match = locationText.match(/([一-龥]+)[\s ]*([一-龥]+)?/);
             if (match) {
-                jsonObject.province = match[1] || '';
-                jsonObject.city = match[2] || '';
+                result.province = match[1] || '';
+                result.city = match[2] || '';
+                console.log('Extracted province:', result.province, 'city:', result.city);
             }
+        } else {
+            console.log('Could not find location element');
         }
     } catch (error) {
         console.error('Error extracting data:', error);
     }
 
-    console.log('Final jsonObject:', jsonObject);
-    console.log('Final jsonObject type:', typeof jsonObject);
-    return jsonObject;
+    console.log('Extracted result:', result);
+    return result;
 }
 
     // generateOutput function (modified)
