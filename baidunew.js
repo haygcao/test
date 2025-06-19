@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.72.0', // 插件版本
+            version: '1.62.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -145,110 +145,44 @@
         }
     }
 
-    // 解析HTML并正确处理head和body
-    function parseAndInjectHTML(htmlString) {
-        // 创建一个临时的DOM解析器
-        const parser = new DOMParser();
-        const parsedDoc = parser.parseFromString(htmlString, 'text/html');
-        
-        // 获取解析后的head和body内容
-        const newHead = parsedDoc.head;
-        const newBody = parsedDoc.body;
-        
-        // 处理head中的元素
-        if (newHead) {
-            // 获取所有head中的元素
-            const headElements = Array.from(newHead.children);
+    // 完整替换整个HTML文档
+    function replaceEntireDocument(htmlString) {
+        try {
+            // 解析HTML字符串
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(htmlString, 'text/html');
             
-            headElements.forEach(element => {
-                // 检查是否已经存在相同的元素，避免重复
-                const existing = document.head.querySelector(element.tagName.toLowerCase() + 
-                    (element.src ? `[src="${element.src}"]` : '') +
-                    (element.href ? `[href="${element.href}"]` : ''));
-                
-                if (!existing) {
-                    // 克隆元素并添加到当前文档的head中
-                    const clonedElement = element.cloneNode(true);
-                    document.head.appendChild(clonedElement);
-                    
-                    // 为script和link元素添加加载监听
-                    if (element.tagName.toLowerCase() === 'script' || element.tagName.toLowerCase() === 'link') {
-                        clonedElement.onload = function() {
-                            console.log(`Loaded: ${element.tagName} - ${element.src || element.href}`);
-                        };
-                        clonedElement.onerror = function() {
-                            console.error(`Failed to load: ${element.tagName} - ${element.src || element.href}`);
-                        };
-                    }
+            // 完整替换head内容 - 保持100%一致
+            const newHead = newDoc.head;
+            if (newHead) {
+                // 完全清空当前head并替换为新的head内容
+                document.head.innerHTML = '';
+                // 逐个添加所有head子节点，保持完整性
+                while (newHead.firstChild) {
+                    document.head.appendChild(newHead.firstChild);
                 }
-            });
-        }
-        
-        // 处理body内容
-        if (newBody) {
-            // 等待head中的关键资源加载完成后再处理body
-            waitForCriticalResources().then(() => {
-                // 清空当前body并添加新内容
+                console.log('Head replaced completely');
+            }
+            
+            // 完整替换body内容 - 保持100%一致
+            const newBody = newDoc.body;
+            if (newBody) {
+                // 完全清空当前body并替换为新的body内容
                 document.body.innerHTML = '';
-                
-                // 将新body的所有子节点移动到当前body
+                // 逐个添加所有body子节点，保持完整性
                 while (newBody.firstChild) {
                     document.body.appendChild(newBody.firstChild);
                 }
-                
-                console.log('Body content injected successfully');
-            });
+                console.log('Body replaced completely');
+            }
+            
+            console.log('Document replacement completed');
+            
+        } catch (error) {
+            console.error('Error in replaceEntireDocument:', error);
+            // 如果解析失败，直接替换innerHTML作为备用方案
+            document.documentElement.innerHTML = htmlString.replace(/<\/?html[^>]*>/gi, '');
         }
-    }
-    
-    // 等待关键资源加载完成
-    function waitForCriticalResources() {
-        return new Promise((resolve) => {
-            // 检查所有stylesheet是否加载完成
-            const stylesheets = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
-            const scripts = Array.from(document.querySelectorAll('script[src]'));
-            
-            let loadedCount = 0;
-            const totalCount = stylesheets.length + scripts.length;
-            
-            if (totalCount === 0) {
-                resolve();
-                return;
-            }
-            
-            function checkLoaded() {
-                loadedCount++;
-                if (loadedCount >= totalCount) {
-                    resolve();
-                }
-            }
-            
-            // 监听stylesheet加载
-            stylesheets.forEach(link => {
-                if (link.sheet) {
-                    checkLoaded();
-                } else {
-                    link.addEventListener('load', checkLoaded);
-                    link.addEventListener('error', checkLoaded);
-                }
-            });
-            
-            // 监听script加载
-            scripts.forEach(script => {
-                if (script.readyState === 'complete') {
-                    checkLoaded();
-                } else {
-                    script.addEventListener('load', checkLoaded);
-                    script.addEventListener('error', checkLoaded);
-                }
-            });
-            
-            // 设置超时，避免无限等待
-            setTimeout(() => {
-                console.log('Timeout waiting for resources, proceeding anyway');
-                resolve();
-            }, 5000);
-        });
     }
 
     // handleResponse 函数 (修改后)
@@ -256,12 +190,12 @@
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
-            // 使用新的HTML解析和注入方法
-            parseAndInjectHTML(response.responseText);
+            // 使用完整文档替换方法
+            replaceEntireDocument(response.responseText);
             
             // 创建一个计时器变量，用于超时检测
             let timeoutTimer = null;
-            let maxWaitTime = 15000; // 增加等待时间到15秒，因为需要等待资源加载
+            let maxWaitTime = 15000; // 等待时间15秒
             let startTime = Date.now();
             
             // 使用 MutationObserver 等待内容加载完成
