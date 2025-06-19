@@ -7,7 +7,7 @@
         info: {
     id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'bai', // 插件名称
-    version: '1.02.0', // 插件版本
+    version: '1.20.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
         },
@@ -135,201 +135,174 @@
         }
     }
 
-// handleResponse 函数 (JavaScript)
+// 处理响应的函数
 function handleResponse(response) {
-    console.log('handleResponse called with:', response);
+    console.log('Handling response');
+    if (!response || !response.responseText) {
+        console.error('Invalid response received');
+        sendResultToFlutter('pluginError', { error: 'Invalid response received' }, response.externalRequestId);
+        return;
+    }
 
-    if (response.status >= 200 && response.status < 300) {
-        // 首先尝试直接解析响应文本，不依赖DOM渲染
-        try {
-            console.log('Attempting to parse response directly');
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(response.responseText, 'text/html');
-            
-            // 检查是否能直接从解析的文档中提取数据
-            const directResult = parseResponse(doc, response.phoneNumber);
-            if (directResult && (directResult.sourceLabel || directResult.province)) {
-                console.log('Successfully parsed data directly from response');
-                processAndSendResult(directResult, response.externalRequestId);
-                return;
-            } else {
-                console.log('Direct parsing did not yield sufficient results, falling back to DOM rendering');
-            }
-        } catch (error) {
-            console.error('Error during direct parsing:', error);
-            console.log('Falling back to DOM rendering method');
-        }
+    try {
+        // 创建一个隐藏的iframe来加载响应内容
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none'; // 隐藏iframe
+        document.body.appendChild(iframe);
         
-        // 创建一个iframe来加载响应内容，这样可以确保head和body内容正确分离
+        // 获取iframe的document对象
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        
+        // 清空iframe文档
+        iframeDoc.open();
+        
+        // 写入完整的HTML响应，这样head会自然加载到head，body会自然加载到body
+        iframeDoc.write(response.responseText);
+        iframeDoc.close();
+        
+        console.log('Response loaded into iframe');
+        
+        // 立即尝试解析
         try {
-            console.log('Attempting to parse response with DOMParser');
-            // 使用DOMParser解析响应文本
-            const parser = new DOMParser();
-            const parsedDoc = parser.parseFromString(response.responseText, 'text/html');
-            
-            // 清空当前文档的head和body
-            document.head.innerHTML = '';
-            document.body.innerHTML = '';
-            
-            // 复制解析后文档的head内容到当前文档的head
-            console.log('Copying head content');
-            const headContent = parsedDoc.head.innerHTML;
-            document.head.innerHTML = headContent;
-            
-            // 复制解析后文档的body内容到当前文档的body
-            console.log('Copying body content');
-            const bodyContent = parsedDoc.body.innerHTML;
-            document.body.innerHTML = bodyContent;
-            
-            // 执行所有脚本，确保JavaScript正确加载
-            console.log('Executing scripts');
-            const scripts = document.querySelectorAll('script');
-            scripts.forEach(oldScript => {
-                const newScript = document.createElement('script');
-                Array.from(oldScript.attributes).forEach(attr => {
-                    newScript.setAttribute(attr.name, attr.value);
-                });
-                newScript.textContent = oldScript.textContent;
-                oldScript.parentNode.replaceChild(newScript, oldScript);
-            });
+            console.log('Attempting immediate parse from iframe');
+            let result = parseResponse(iframeDoc, response.phoneNumber);
+            processAndSendResult(result, response.externalRequestId);
+        } catch (error) {
+            console.log('Immediate parse failed, setting up observer on iframe', error);
+            // 如果立即解析失败，设置MutationObserver和超时处理，传入iframe文档
+            setupObserverAndTimeout(response, iframeDoc);
+        }
+    } catch (error) {
+        console.error('Error handling response with iframe:', error);
+        
+        // 如果iframe方法失败，回退到div容器方法
+        try {
+            console.log('Falling back to div container method');
+            const container = document.createElement('div');
+            container.innerHTML = response.responseText;
+            document.body.appendChild(container);
             
             // 立即尝试解析
-            console.log('Attempting to parse after DOM setup');
-            const directResult = parseResponse(document, response.phoneNumber);
-            if (directResult && (directResult.sourceLabel || directResult.province)) {
-                console.log('Successfully parsed data after DOM setup');
-                processAndSendResult(directResult, response.externalRequestId);
-                return;
+            try {
+                console.log('Attempting immediate parse with div container');
+                let result = parseResponse(document, response.phoneNumber);
+                processAndSendResult(result, response.externalRequestId);
+            } catch (parseError) {
+                console.log('Immediate parse failed with div container, setting up observer', parseError);
+                // 如果立即解析失败，设置MutationObserver和超时处理
+                setupObserverAndTimeout(response);
             }
-            
-            // 如果立即解析失败，设置MutationObserver继续尝试
-            console.log('Immediate parsing did not yield results, setting up observer');
-            setupObserverAndTimeout();
-      
-        } catch (error) {
-            console.error('Error during DOMParser rendering:', error);
-            // 如果DOMParser方法失败，回退到简单的innerHTML方法
-            document.body.innerHTML = response.responseText;
-            console.log('Fallback to simple innerHTML method');
-            
-            // 在DOMParser方法失败后，设置MutationObserver继续尝试
-            setupObserverAndTimeout();
+        } catch (fallbackError) {
+            console.error('Both methods failed:', fallbackError);
+            sendResultToFlutter('pluginError', { error: fallbackError.toString() }, response.externalRequestId);
         }
-        
-        // 创建一个函数来设置MutationObserver和超时处理
-        function setupObserverAndTimeout() {
-            // 创建一个计时器变量，用于超时检测
-            let timeoutTimer = null;
-            let maxWaitTime = 10000; // 最大等待时间10秒
-            let startTime = Date.now();
-            
-            // 立即尝试解析一次，不等待DOM变化
-            console.log('Attempting immediate parse after rendering');
-            let immediateResult = parseResponse(document, response.phoneNumber);
-            if (immediateResult && (immediateResult.sourceLabel || immediateResult.province)) {
-                console.log('Successfully parsed data immediately after DOM rendering');
-                processAndSendResult(immediateResult, response.externalRequestId);
-                return;
-            }
-            
-            // 使用 MutationObserver 等待 DOM 元素出现
-            const observer = new MutationObserver((mutationsList, observer) => {
-                // 检查是否超时
-                if (Date.now() - startTime > maxWaitTime) {
-                    observer.disconnect();
-                    if (timeoutTimer) clearTimeout(timeoutTimer);
-                    console.log('Observation timed out after', maxWaitTime, 'ms');
-                    sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
-                    return;
-                }
-                
-                // 1. 尝试找到 Shadow DOM 的宿主元素
-                const shadowHost = document.querySelector('#__hcfy__');
-                
-                // 2. 如果找不到Shadow DOM宿主，尝试直接从document中查找元素
-                if (!shadowHost) {
-                    // 使用增强的查找方法
-                    let found = false;
-                    const allElements = document.querySelectorAll('*');
-                    for (let i = 0; i < allElements.length; i++) {
-                        if (allElements[i].className && 
-                            (allElements[i].className.includes('report-wrapper') || 
-                             allElements[i].className.includes('location'))) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    
-                    if (found) {
-                        observer.disconnect();
-                        if (timeoutTimer) clearTimeout(timeoutTimer);
-                        
-                        // 从普通DOM中解析数据
-                        console.log('Found relevant elements in document');
-                        let result = parseResponse(document, response.phoneNumber);
-                        processAndSendResult(result, response.externalRequestId);
-                        return;
-                    }
-                } else {
-                    // 3. 如果找到Shadow DOM宿主，尝试穿透Shadow DOM
-                    if (shadowHost.shadowRoot) {
-                        // 使用增强的查找方法
-                        let found = false;
-                        const allElements = shadowHost.shadowRoot.querySelectorAll('*');
-                        for (let i = 0; i < allElements.length; i++) {
-                            if (allElements[i].className && 
-                                (allElements[i].className.includes('report-wrapper') || 
-                                 allElements[i].className.includes('location'))) {
-                                found = true;
-                                break;
-                            }
-                        }
-                        
-                        if (found) {
-                            observer.disconnect();
-                            if (timeoutTimer) clearTimeout(timeoutTimer);
-                            
-                            // 从Shadow DOM中解析数据
-                            console.log('Found relevant elements in shadowRoot');
-                            let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber);
-                            processAndSendResult(result, response.externalRequestId);
-                            return;
-                        }
-                    }
-                }
-            });
-
-            const config = { childList: true, subtree: true, characterData: true, attributes: true };
-            observer.observe(document.body, config);
-            
-            // 设置超时处理
-            timeoutTimer = setTimeout(() => {
-                observer.disconnect();
-                console.log('Timeout reached after', maxWaitTime, 'ms');
-                
-                // 超时时，尝试最后一次解析
-                console.log('Attempting final parse before timeout');
-                let finalResult = parseResponse(document, response.phoneNumber);
-                if (finalResult && (finalResult.sourceLabel || finalResult.province)) {
-                    console.log('Successfully parsed data in final attempt');
-                    processAndSendResult(finalResult, response.externalRequestId);
-                } else {
-                    sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
-                }
-            }, maxWaitTime);
-        }
-        
-        // 在iframe方法中，我们已经设置了setTimeout，所以这里不需要立即调用setupObserverAndTimeout
-        // 如果使用了iframe方法，那么在iframe加载完成后会尝试解析
-        // 如果没有使用iframe方法或iframe方法失败，则立即设置MutationObserver
-        if (!document.querySelector('iframe')) {
-            setupObserverAndTimeout();
-        }
-
-    } else {
-        sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
     }
 }
+
+// 设置MutationObserver和超时处理的函数
+function setupObserverAndTimeout(response, docToObserve) {
+    console.log('Setting up MutationObserver and timeout');
+    const maxWaitTime = 10000; // 10秒超时
+    const startTime = Date.now();
+    let timeoutTimer;
+    
+    // 确定要观察的文档对象
+    const targetDoc = docToObserve || document;
+    const targetBody = targetDoc.body || targetDoc.documentElement;
+    
+    console.log('Observing document:', targetDoc === document ? 'main document' : 'iframe document');
+    
+    // 使用 MutationObserver 等待 DOM 元素出现
+    const observer = new MutationObserver((mutationsList, observer) => {
+        // 检查是否超时
+        if (Date.now() - startTime > maxWaitTime) {
+            observer.disconnect();
+            if (timeoutTimer) clearTimeout(timeoutTimer);
+            console.log('Observation timed out after', maxWaitTime, 'ms');
+            sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+            return;
+        }
+        
+        // 1. 尝试找到 Shadow DOM 的宿主元素
+        const shadowHost = targetDoc.querySelector('#__hcfy__');
+        
+        // 2. 如果找不到Shadow DOM宿主，尝试直接从targetDoc中查找元素
+        if (!shadowHost) {
+            // 使用增强的查找方法
+            let found = false;
+            const allElements = targetDoc.querySelectorAll('*');
+            for (let i = 0; i < allElements.length; i++) {
+                if (allElements[i].className && 
+                    (allElements[i].className.includes('report-wrapper') || 
+                     allElements[i].className.includes('location'))) {
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (found) {
+                observer.disconnect();
+                if (timeoutTimer) clearTimeout(timeoutTimer);
+                
+                // 从普通DOM中解析数据
+                console.log('Found relevant elements in document');
+                let result = parseResponse(targetDoc, response.phoneNumber);
+                processAndSendResult(result, response.externalRequestId);
+                return;
+            }
+        } else {
+            // 3. 如果找到Shadow DOM宿主，尝试穿透Shadow DOM
+            if (shadowHost.shadowRoot) {
+                // 使用增强的查找方法
+                let found = false;
+                const allElements = shadowHost.shadowRoot.querySelectorAll('*');
+                for (let i = 0; i < allElements.length; i++) {
+                    if (allElements[i].className && 
+                        (allElements[i].className.includes('report-wrapper') || 
+                         allElements[i].className.includes('location'))) {
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (found) {
+                    observer.disconnect();
+                    if (timeoutTimer) clearTimeout(timeoutTimer);
+                    
+                    // 从Shadow DOM中解析数据
+                    console.log('Found relevant elements in shadowRoot');
+                    let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber);
+                    processAndSendResult(result, response.externalRequestId);
+                    return;
+                }
+            }
+        }
+    });
+
+    const config = { childList: true, subtree: true, characterData: true, attributes: true };
+    observer.observe(document.body, config);
+    
+    // 设置超时处理
+    timeoutTimer = setTimeout(() => {
+        observer.disconnect();
+        console.log('Timeout reached after', maxWaitTime, 'ms');
+        
+        // 超时时，尝试最后一次解析
+        console.log('Attempting final parse before timeout');
+        let finalResult = parseResponse(document, response.phoneNumber);
+        if (finalResult && (finalResult.sourceLabel || finalResult.province)) {
+            console.log('Successfully parsed data in final attempt');
+            processAndSendResult(finalResult, response.externalRequestId);
+        } else {
+            sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+        }
+    }, maxWaitTime);
+        }
+
+   
+   
+   
+
 
 // Helper function: send result or error to Flutter (uses externalRequestId)
 function sendResultToFlutter(type, data, externalRequestId) {
@@ -387,6 +360,15 @@ function parseResponse(docOrShadowRootOrHtml, phoneNumber) {
         return extractDataFromDOM(doc, phoneNumber);
     }
     
+    // 确保docOrShadowRootOrHtml是有效的对象
+    if (!docOrShadowRootOrHtml || !docOrShadowRootOrHtml.querySelector) {
+        console.error('Invalid document object provided to parseResponse');
+        throw new Error('Invalid document object');
+    }
+    
+    console.log('Document object type:', docOrShadowRootOrHtml.constructor.name);
+    console.log('Document has body:', !!docOrShadowRootOrHtml.body);
+    
     // 否则直接使用输入的DOM对象
     return extractDataFromDOM(docOrShadowRootOrHtml, phoneNumber);
 }
@@ -394,6 +376,17 @@ function parseResponse(docOrShadowRootOrHtml, phoneNumber) {
 // extractDataFromDOM 函数 (从 document 或 shadowRoot 查找元素)
 function extractDataFromDOM(docOrShadowRoot, phoneNumber) {
     console.log('extractDataFromDOM called with phoneNumber:', phoneNumber);
+    
+    // 确保docOrShadowRoot是有效的Document或Element对象
+    if (!docOrShadowRoot || (!docOrShadowRoot.querySelector && !docOrShadowRoot.querySelectorAll)) {
+        console.error('Invalid document object provided to extractDataFromDOM');
+        throw new Error('Invalid document object for data extraction');
+    }
+    
+    // 记录文档信息，帮助调试
+    console.log('Document in extractDataFromDOM:', 
+        docOrShadowRoot === document ? 'main document' : 
+        (docOrShadowRoot.nodeName === '#document' ? 'iframe document' : 'other DOM element'));
     
     // 创建一个结果对象
     let result = {
@@ -475,6 +468,21 @@ function extractDataFromDOM(docOrShadowRoot, phoneNumber) {
             }
         } else {
             console.log('Could not find location element');
+            
+            // 如果没有找到任何元素，记录所有可用的类名以帮助调试
+            if (!result.sourceLabel && !result.province) {
+                console.log('No data extracted, logging all available class names for debugging');
+                const allElements = docOrShadowRoot.querySelectorAll('*');
+                const classNames = new Set();
+                for (let i = 0; i < allElements.length; i++) {
+                    if (allElements[i].className) {
+                        allElements[i].className.split(' ').forEach(cls => {
+                            if (cls) classNames.add(cls);
+                        });
+                    }
+                }
+                console.log('Available class names:', Array.from(classNames).join(', '));
+            }
         }
     } catch (error) {
         console.error('Error extracting data:', error);
