@@ -5,11 +5,11 @@
 
     const pluginInfo = {
         info: {
-            id: 'baiPhoneNumberPlugin',
-            name: 'bai',
-            version: '1.29.0',
-            description: 'This is a plugin template.',
-            author: 'Your Name',
+            id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
+            name: 'bai', // 插件名称
+            version: '1.72.0', // 插件版本
+            description: 'This is a plugin template.', // 插件描述
+            author: 'Your Name', // 插件作者
         },
     };
 
@@ -43,50 +43,52 @@
     ];
 
     const manualMapping = {
-        '中介': 'Agent',
-        '房产中介': 'Agent',
+        '中介': 'Agent',             // 含义较广，包括房产中介等
+        '房产中介': 'Agent',         // 细化为房地产经纪人
         '违规催收': 'Debt Collection',
         '快递物流': 'Delivery',
         '快递': 'Delivery',
         '教育培训': 'Education',
         '金融': 'Financial',
-        '股票证券': 'Financial',
-        '保险理财': 'Financial',
+        '股票证券': 'Financial',   // 统一为金融
+        '保险理财': 'Financial',   // 统一为金融
         '涉诈电话': 'Fraud Scam Likely',
         '诈骗': 'Fraud Scam Likely',
-        '招聘': 'Recruiter',
+        '招聘': 'Recruiter',    // 招聘和猎头很多时候可以合并
         '猎头': 'Headhunter',
         '猎头招聘': 'Headhunter',
         '招聘猎头': 'Headhunter',
         '保险': 'Insurance',
         '保险推销': 'Insurance',
-        '贷款理财': 'Loan',
-        '医疗卫生': 'Medical',
+        '贷款理财': 'Loan',   
+        '医疗卫生': 'Medical',  
         '其他': 'Other',
         '送餐外卖': 'Takeaway',
         '美团': 'Takeaway',
         '饿了么': 'Takeaway',
-        '外卖': 'Takeaway',
+        '外卖': 'Takeaway',  
         '滴滴/优步': 'Ridesharing',
         '出租车': 'Ridesharing',
         '网约车': 'Ridesharing',
         '违法': 'Risk',
         '淫秽色情': 'Risk',
-        '反动谣言': 'Risk',
+        '反动谣言': 'Risk', 
         '发票办证': 'Risk',
         '客服热线': 'Customer Service',
         '非应邀商业电话': 'Spam Likely',
         '广告': 'Spam Likely',
-        '骚扰': 'Spam Likely',
-        '骚扰电话': 'Spam Likely',
+        '骚扰': 'Spam Likely', 
+        '骚扰电话': 'Spam Likely', // 骚扰电话很多是诈骗    
         '广告营销': 'Telemarketing',
         '广告推销': 'Telemarketing',
         '旅游推广': 'Telemarketing',
-        '食药推销': 'Telemarketing',
+        '食药推销': 'Telemarketing',      
         '推销': 'Telemarketing',
     };
 
+    // --- Unified Request Function ---
     function queryPhoneInfo(phoneNumber, externalRequestId) {
+        // Generate a unique ID for *this specific phone number request*
         const phoneRequestId = Math.random().toString(36).substring(2);
         console.log(`queryPhoneInfo: phone=${phoneNumber}, externalRequestId=${externalRequestId}, phoneRequestId=${phoneRequestId}`);
 
@@ -101,17 +103,19 @@
         };
         const body = null;
 
+        // Pass BOTH the externalRequestId AND the internal phoneRequestId
         sendRequest(url, method, headers, body, externalRequestId, phoneRequestId);
     }
 
+    // sendRequest function (now accepts both request IDs)
     function sendRequest(url, method, headers, body, externalRequestId, phoneRequestId) {
         const requestData = {
             url: url,
             method: method,
             headers: headers,
             body: body,
-            externalRequestId: externalRequestId,
-            phoneRequestId: phoneRequestId,
+            externalRequestId: externalRequestId, // Include externalRequestId
+            phoneRequestId: phoneRequestId,     // Include phoneRequestId
             pluginId: pluginId,
         };
 
@@ -121,7 +125,8 @@
             console.error("flutter_inappwebview is undefined");
         }
     }
-
+    
+    // 发送结果到Flutter
     function sendResultToFlutter(channel, data, externalRequestId) {
         const resultData = {
             ...data,
@@ -140,311 +145,187 @@
         }
     }
 
-    // 安全地加载CSS资源
-    function loadCSSFromHTML(htmlContent) {
+    // 解析HTML并正确处理head和body
+    function parseAndInjectHTML(htmlString) {
+        // 创建一个临时的DOM解析器
         const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlContent, 'text/html');
-        const head = doc.head;
+        const parsedDoc = parser.parseFromString(htmlString, 'text/html');
         
-        if (!head) return;
+        // 获取解析后的head和body内容
+        const newHead = parsedDoc.head;
+        const newBody = parsedDoc.body;
         
-        // 只加载CSS文件，避免加载可能导致CORS问题的脚本
-        const cssLinks = head.querySelectorAll('link[rel="stylesheet"]');
-        const styleElements = head.querySelectorAll('style');
-        
-        cssLinks.forEach(link => {
-            // 检查是否已存在相同的CSS链接
-            const existing = document.querySelector(`link[href="${link.href}"]`);
-            if (!existing && link.href && !link.href.includes('miao.baidu.com')) {
-                try {
-                    const newLink = document.createElement('link');
-                    newLink.rel = 'stylesheet';
-                    newLink.type = 'text/css';
-                    newLink.href = link.href;
-                    newLink.onerror = () => console.warn('Failed to load CSS:', link.href);
-                    document.head.appendChild(newLink);
-                    console.log('Loaded CSS:', link.href);
-                } catch (error) {
-                    console.warn('Error loading CSS:', error);
-                }
-            }
-        });
-        
-        // 添加内联样式
-        styleElements.forEach(style => {
-            try {
-                const newStyle = document.createElement('style');
-                newStyle.textContent = style.textContent;
-                document.head.appendChild(newStyle);
-                console.log('Added inline CSS');
-            } catch (error) {
-                console.warn('Error adding inline CSS:', error);
-            }
-        });
-    }
-
-    // 安全地处理HTML内容，只提取DOM结构，不执行脚本
-    function processHTMLSafely(htmlContent) {
-        try {
-            // 首先尝试加载CSS资源
-            loadCSSFromHTML(htmlContent);
+        // 处理head中的元素
+        if (newHead) {
+            // 获取所有head中的元素
+            const headElements = Array.from(newHead.children);
             
-            // 移除所有可能导致问题的脚本标签和特定属性
-            let cleanHTML = htmlContent
-                // 移除script标签
-                .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-                // 移除inline事件处理器
-                .replace(/\s*on\w+\s*=\s*["'][^"']*["']/gi, '')
-                // 移除可能导致CORS问题的特定域名请求
-                .replace(/https?:\/\/miao\.baidu\.com[^"'\s>]*/gi, '')
-                // 移除document.write相关内容
-                .replace(/document\.write[^;]*;?/gi, '');
-            
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(cleanHTML, 'text/html');
-            const body = doc.body;
-            
-            if (!body) {
-                console.error('Failed to parse HTML body');
-                return false;
-            }
-            
-            // 清空当前body并添加新内容
-            document.body.innerHTML = '';
-            
-            // 复制body属性
-            Array.from(body.attributes).forEach(attr => {
-                try {
-                    document.body.setAttribute(attr.name, attr.value);
-                } catch (error) {
-                    console.warn('Error setting body attribute:', error);
-                }
-            });
-            
-            // 复制body内容
-            Array.from(body.children).forEach(element => {
-                try {
+            headElements.forEach(element => {
+                // 检查是否已经存在相同的元素，避免重复
+                const existing = document.head.querySelector(element.tagName.toLowerCase() + 
+                    (element.src ? `[src="${element.src}"]` : '') +
+                    (element.href ? `[href="${element.href}"]` : ''));
+                
+                if (!existing) {
+                    // 克隆元素并添加到当前文档的head中
                     const clonedElement = element.cloneNode(true);
-                    // 确保克隆的元素不包含事件处理器
-                    removeEventHandlers(clonedElement);
-                    document.body.appendChild(clonedElement);
-                } catch (error) {
-                    console.warn('Error adding body element:', error);
+                    document.head.appendChild(clonedElement);
+                    
+                    // 为script和link元素添加加载监听
+                    if (element.tagName.toLowerCase() === 'script' || element.tagName.toLowerCase() === 'link') {
+                        clonedElement.onload = function() {
+                            console.log(`Loaded: ${element.tagName} - ${element.src || element.href}`);
+                        };
+                        clonedElement.onerror = function() {
+                            console.error(`Failed to load: ${element.tagName} - ${element.src || element.href}`);
+                        };
+                    }
+                }
+            });
+        }
+        
+        // 处理body内容
+        if (newBody) {
+            // 等待head中的关键资源加载完成后再处理body
+            waitForCriticalResources().then(() => {
+                // 清空当前body并添加新内容
+                document.body.innerHTML = '';
+                
+                // 将新body的所有子节点移动到当前body
+                while (newBody.firstChild) {
+                    document.body.appendChild(newBody.firstChild);
+                }
+                
+                console.log('Body content injected successfully');
+            });
+        }
+    }
+    
+    // 等待关键资源加载完成
+    function waitForCriticalResources() {
+        return new Promise((resolve) => {
+            // 检查所有stylesheet是否加载完成
+            const stylesheets = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+            const scripts = Array.from(document.querySelectorAll('script[src]'));
+            
+            let loadedCount = 0;
+            const totalCount = stylesheets.length + scripts.length;
+            
+            if (totalCount === 0) {
+                resolve();
+                return;
+            }
+            
+            function checkLoaded() {
+                loadedCount++;
+                if (loadedCount >= totalCount) {
+                    resolve();
+                }
+            }
+            
+            // 监听stylesheet加载
+            stylesheets.forEach(link => {
+                if (link.sheet) {
+                    checkLoaded();
+                } else {
+                    link.addEventListener('load', checkLoaded);
+                    link.addEventListener('error', checkLoaded);
                 }
             });
             
-            console.log('HTML content processed safely');
-            return true;
-            
-        } catch (error) {
-            console.error('Error processing HTML:', error);
-            return false;
-        }
-    }
-
-    // 递归移除元素及其子元素的事件处理器
-    function removeEventHandlers(element) {
-        if (!element || !element.attributes) return;
-        
-        // 移除所有on*属性
-        const attributes = Array.from(element.attributes);
-        attributes.forEach(attr => {
-            if (attr.name.toLowerCase().startsWith('on')) {
-                element.removeAttribute(attr.name);
-            }
-        });
-        
-        // 递归处理子元素
-        if (element.children) {
-            Array.from(element.children).forEach(child => {
-                removeEventHandlers(child);
+            // 监听script加载
+            scripts.forEach(script => {
+                if (script.readyState === 'complete') {
+                    checkLoaded();
+                } else {
+                    script.addEventListener('load', checkLoaded);
+                    script.addEventListener('error', checkLoaded);
+                }
             });
-        }
+            
+            // 设置超时，避免无限等待
+            setTimeout(() => {
+                console.log('Timeout waiting for resources, proceeding anyway');
+                resolve();
+            }, 5000);
+        });
     }
 
-    // 等待DOM内容稳定
-    function waitForContentStable(callback, maxWait = 8000) {
-        let timeoutTimer = null;
-        let stableTimer = null;
-        let lastChangeTime = Date.now();
-        const startTime = Date.now();
-        
-        const observer = new MutationObserver(() => {
-            lastChangeTime = Date.now();
-            
-            // 清除之前的稳定计时器
-            if (stableTimer) {
-                clearTimeout(stableTimer);
-            }
-            
-            // 设置新的稳定计时器
-            stableTimer = setTimeout(() => {
-                observer.disconnect();
-                if (timeoutTimer) clearTimeout(timeoutTimer);
-                callback(true);
-            }, 2000); // 2秒内无变化则认为稳定
-        });
-        
-        // 开始观察
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-            characterData: true,
-            attributes: true
-        });
-        
-        // 设置总超时
-        timeoutTimer = setTimeout(() => {
-            observer.disconnect();
-            if (stableTimer) clearTimeout(stableTimer);
-            console.log('Content stability check timed out');
-            callback(false);
-        }, maxWait);
-        
-        // 如果页面已经有内容，立即检查
-        setTimeout(() => {
-            const hasContent = document.body.children.length > 0;
-            if (hasContent) {
-                // 等待一小段时间看是否还有变化
-                setTimeout(() => {
-                    const currentTime = Date.now();
-                    if (currentTime - lastChangeTime > 1000) {
-                        observer.disconnect();
-                        if (timeoutTimer) clearTimeout(timeoutTimer);
-                        if (stableTimer) clearTimeout(stableTimer);
-                        callback(true);
-                    }
-                }, 1500);
-            }
-        }, 500);
-    }
-
-    // 修改后的handleResponse函数
+    // handleResponse 函数 (修改后)
     function handleResponse(response) {
         console.log('handleResponse called with:', response);
 
         if (response.status >= 200 && response.status < 300) {
-            // 安全地处理HTML内容
-            const success = processHTMLSafely(response.responseText);
+            // 使用新的HTML解析和注入方法
+            parseAndInjectHTML(response.responseText);
             
-            if (!success) {
-                sendResultToFlutter('pluginError', { error: 'Failed to process HTML content safely' }, response.externalRequestId);
-                return;
-            }
+            // 创建一个计时器变量，用于超时检测
+            let timeoutTimer = null;
+            let maxWaitTime = 15000; // 增加等待时间到15秒，因为需要等待资源加载
+            let startTime = Date.now();
             
-            // 等待内容稳定后开始数据提取
-            waitForContentStable((stable) => {
-                if (!stable) {
-                    console.warn('Content may not be fully stable, proceeding anyway');
+            // 使用 MutationObserver 等待内容加载完成
+            const observer = new MutationObserver((mutationsList, observer) => {
+                // 检查是否超时
+                if (Date.now() - startTime > maxWaitTime) {
+                    observer.disconnect();
+                    if (timeoutTimer) clearTimeout(timeoutTimer);
+                    console.log('Observation timed out after', maxWaitTime, 'ms');
+                    sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+                    return;
                 }
                 
-                // 开始数据提取
-                startDataExtraction(response.phoneNumber, response.externalRequestId);
+                // 1. 尝试找到 Shadow DOM 的宿主元素
+                const shadowHost = document.querySelector('#__hcfy__');
+                
+                // 2. 如果找不到Shadow DOM宿主，尝试直接从document中查找元素
+                if (!shadowHost) {
+                    const reportWrapper = document.querySelector('.report-wrapper');
+                    if (reportWrapper && reportWrapper.textContent.trim() !== "") {
+                        observer.disconnect();
+                        if (timeoutTimer) clearTimeout(timeoutTimer);
+                        
+                        // 从普通DOM中解析数据
+                        let result = extractDataFromRegularDOM(document, response.phoneNumber);
+                        processAndSendResult(result, response.externalRequestId);
+                        return;
+                    }
+                } else {
+                    // 3. 如果找到Shadow DOM宿主，尝试穿透Shadow DOM
+                    if (shadowHost.shadowRoot) {
+                        const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper');
+                        
+                        if (targetElement && targetElement.textContent.trim() !== "") {
+                            observer.disconnect();
+                            if (timeoutTimer) clearTimeout(timeoutTimer);
+                            
+                            // 从Shadow DOM中解析数据
+                            let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber);
+                            processAndSendResult(result, response.externalRequestId);
+                            return;
+                        }
+                    }
+                }
             });
+
+            const config = { childList: true, subtree: true, characterData: true, attributes: true };
+            observer.observe(document.body, config);
             
+            // 设置超时处理
+            timeoutTimer = setTimeout(() => {
+                observer.disconnect();
+                console.log('Timeout reached after', maxWaitTime, 'ms');
+                sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+            }, maxWaitTime);
+
         } else {
             sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
         }
     }
 
-    // 数据提取逻辑
-    function startDataExtraction(phoneNumber, externalRequestId) {
-        console.log('Starting data extraction for phone:', phoneNumber);
-        
-        // 给DOM一些时间来完成渲染
-        setTimeout(() => {
-            try {
-                // 首先尝试直接从DOM提取数据
-                let result = extractDataFromRegularDOM(document, phoneNumber);
-                
-                // 如果没有找到数据，尝试查找Shadow DOM
-                if (!result.sourceLabel && !result.province) {
-                    const shadowHost = document.querySelector('#__hcfy__');
-                    if (shadowHost && shadowHost.shadowRoot) {
-                        result = extractDataFromRegularDOM(shadowHost.shadowRoot, phoneNumber);
-                    }
-                }
-                
-                // 如果仍然没有数据，尝试其他常见的选择器
-                if (!result.sourceLabel && !result.province) {
-                    result = tryAlternativeSelectors(document, phoneNumber);
-                }
-                
-                processAndSendResult(result, externalRequestId);
-                
-            } catch (error) {
-                console.error('Error in data extraction:', error);
-                sendResultToFlutter('pluginError', { error: 'Data extraction failed: ' + error.message }, externalRequestId);
-            }
-        }, 1000);
-    }
-
-    // 尝试其他可能的选择器
-    function tryAlternativeSelectors(doc, phoneNumber) {
-        const result = {
-            phoneNumber: phoneNumber,
-            sourceLabel: '',
-            count: 0,
-            province: '',
-            city: '',
-            carrier: '',
-            name: '',
-            rate: 0,
-            predefinedLabel: '',
-            pluginId: pluginId
-        };
-        
-        try {
-            // 尝试更多可能的选择器
-            const possibleSelectors = [
-                '.report-wrapper .report-name',
-                '.phone-info .label',
-                '.tag-content',
-                '.phone-tag',
-                '[class*="report"]',
-                '[class*="tag"]',
-                '[class*="label"]'
-            ];
-            
-            for (const selector of possibleSelectors) {
-                const element = doc.querySelector(selector);
-                if (element && element.textContent.trim()) {
-                    result.sourceLabel = element.textContent.trim();
-                    result.count = 1;
-                    break;
-                }
-            }
-            
-            // 尝试提取地理位置信息
-            const locationSelectors = [
-                '.location',
-                '.phone-location',
-                '.area-info',
-                '[class*="location"]',
-                '[class*="area"]'
-            ];
-            
-            for (const selector of locationSelectors) {
-                const element = doc.querySelector(selector);
-                if (element && element.textContent.trim()) {
-                    const locationText = element.textContent.trim();
-                    const match = locationText.match(/([一-龥]+)[\s ]*([一-龥]+)?/);
-                    if (match) {
-                        result.province = match[1] || '';
-                        result.city = match[2] || '';
-                        break;
-                    }
-                }
-            }
-            
-        } catch (error) {
-            console.error('Error in alternative selector extraction:', error);
-        }
-        
-        return result;
-    }
-
+    // 处理结果并发送到Flutter
     function processAndSendResult(result, externalRequestId) {
+        // 确保结果对象包含所有必要字段
         const finalResult = {
             phoneNumber: result.phoneNumber || '',
             sourceLabel: result.sourceLabel || '',
@@ -458,6 +339,7 @@
             pluginId: pluginId
         };
         
+        // 尝试根据sourceLabel映射到预定义标签
         if (finalResult.sourceLabel && manualMapping[finalResult.sourceLabel]) {
             finalResult.predefinedLabel = manualMapping[finalResult.sourceLabel];
         }
@@ -466,13 +348,16 @@
         sendResultToFlutter('pluginResult', finalResult, externalRequestId);
     }
 
+    // parseResponse 函数 (保持函数命名一致性)
     function parseResponse(shadowRoot, phoneNumber) {
         return extractDataFromRegularDOM(shadowRoot, phoneNumber);
     }
 
+    // 统一使用extractDataFromRegularDOM函数处理DOM数据提取
     function extractDataFromRegularDOM(document, phoneNumber) {
         console.log('extractDataFromRegularDOM called with document:', document);
         
+        // 创建一个结果对象
         let result = {
             phoneNumber: phoneNumber,
             sourceLabel: '',
@@ -487,13 +372,16 @@
         };
 
         try {
+            // 在DOM中查找并提取数据
             const reportWrapper = document.querySelector('.report-wrapper');
             if (reportWrapper) {
+                // 提取标签信息
                 const reportNameElement = reportWrapper.querySelector('.report-name');
                 if (reportNameElement) {
                     result.sourceLabel = reportNameElement.textContent.trim();
                 }
 
+                // 提取评分数量
                 const reportTypeElement = reportWrapper.querySelector('.report-type');
                 if (reportTypeElement) {
                     const reportTypeText = reportTypeElement.textContent.trim();
@@ -503,6 +391,7 @@
                 }
             }
             
+            // 提取省份和城市
             const locationElement = document.querySelector('.location');
             if (locationElement) {
                 const locationText = locationElement.textContent.trim();
@@ -520,9 +409,11 @@
         return result;
     }
 
+    // generateOutput function (modified)
     async function generateOutput(phoneNumber, nationalNumber, e164Number, externalRequestId) {
         console.log('generateOutput called with:', phoneNumber, externalRequestId);
 
+        // Call queryPhoneInfo for each number format, passing the externalRequestId
         if (phoneNumber) {
             queryPhoneInfo(phoneNumber, externalRequestId);
         }
@@ -534,6 +425,7 @@
         }
     }
 
+    // Initialize plugin
     async function initializePlugin() {
         window.plugin = {};
         const thisPlugin = {
@@ -561,5 +453,6 @@
         }
     }
 
+    // Initialize plugin
     initializePlugin();
 })();
