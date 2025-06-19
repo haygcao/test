@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.62.0', // 插件版本
+            version: '1.29.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -148,40 +148,117 @@
     // 完整替换整个HTML文档
     function replaceEntireDocument(htmlString) {
         try {
-            // 解析HTML字符串
-            const parser = new DOMParser();
-            const newDoc = parser.parseFromString(htmlString, 'text/html');
+            console.log('Starting document replacement...');
+            console.log('Original HTML length:', htmlString.length);
             
-            // 完整替换head内容 - 保持100%一致
-            const newHead = newDoc.head;
-            if (newHead) {
-                // 完全清空当前head并替换为新的head内容
-                document.head.innerHTML = '';
-                // 逐个添加所有head子节点，保持完整性
-                while (newHead.firstChild) {
-                    document.head.appendChild(newHead.firstChild);
+            // 预处理HTML字符串，确保正确的结构
+            let processedHtml = htmlString.trim();
+            
+            // 使用正则表达式提取head和body内容
+            const headMatch = processedHtml.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
+            const bodyMatch = processedHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+            
+            console.log('Head match found:', !!headMatch);
+            console.log('Body match found:', !!bodyMatch);
+            
+            // 清空当前文档内容
+            document.head.innerHTML = '';
+            document.body.innerHTML = '';
+            
+            // 处理head内容
+            if (headMatch && headMatch[1]) {
+                const headContent = headMatch[1].trim();
+                console.log('Processing head content, length:', headContent.length);
+                
+                try {
+                    // 创建临时容器来解析head内容
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = headContent;
+                    
+                    // 将解析后的元素逐个添加到head中
+                    Array.from(tempDiv.children).forEach(child => {
+                        try {
+                            // 克隆节点以避免移动问题
+                            const clonedChild = child.cloneNode(true);
+                            document.head.appendChild(clonedChild);
+                        } catch (e) {
+                            console.warn('Failed to append head element:', e, child);
+                        }
+                    });
+                    
+                    // 处理文本节点和其他非元素节点
+                    Array.from(tempDiv.childNodes).forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            document.head.appendChild(node.cloneNode(true));
+                        }
+                    });
+                    
+                    console.log('Head elements added:', document.head.children.length);
+                } catch (headError) {
+                    console.error('Error processing head content:', headError);
+                    // 备用方案：直接设置innerHTML
+                    document.head.innerHTML = headContent;
                 }
-                console.log('Head replaced completely');
             }
             
-            // 完整替换body内容 - 保持100%一致
-            const newBody = newDoc.body;
-            if (newBody) {
-                // 完全清空当前body并替换为新的body内容
-                document.body.innerHTML = '';
-                // 逐个添加所有body子节点，保持完整性
-                while (newBody.firstChild) {
-                    document.body.appendChild(newBody.firstChild);
+            // 处理body内容
+            if (bodyMatch && bodyMatch[1]) {
+                const bodyContent = bodyMatch[1].trim();
+                console.log('Processing body content, length:', bodyContent.length);
+                
+                try {
+                    // 直接设置body的innerHTML
+                    document.body.innerHTML = bodyContent;
+                    console.log('Body elements added:', document.body.children.length);
+                } catch (bodyError) {
+                    console.error('Error processing body content:', bodyError);
                 }
-                console.log('Body replaced completely');
+            } else {
+                // 如果没有找到body标签，尝试其他方法
+                console.log('No body tag found, trying alternative parsing...');
+                
+                // 移除head内容后，剩余的作为body内容
+                let remainingContent = processedHtml;
+                if (headMatch) {
+                    remainingContent = remainingContent.replace(/<head[^>]*>[\s\S]*?<\/head>/i, '');
+                }
+                
+                // 清理HTML标签
+                remainingContent = remainingContent.replace(/<\/?html[^>]*>/gi, '');
+                remainingContent = remainingContent.replace(/<\/?body[^>]*>/gi, '');
+                remainingContent = remainingContent.trim();
+                
+                if (remainingContent) {
+                    document.body.innerHTML = remainingContent;
+                    console.log('Alternative body content set, length:', remainingContent.length);
+                }
             }
             
-            console.log('Document replacement completed');
+            console.log('Document replacement completed successfully');
+            console.log('Final head children count:', document.head.children.length);
+            console.log('Final body children count:', document.body.children.length);
             
         } catch (error) {
-            console.error('Error in replaceEntireDocument:', error);
-            // 如果解析失败，直接替换innerHTML作为备用方案
-            document.documentElement.innerHTML = htmlString.replace(/<\/?html[^>]*>/gi, '');
+            console.error('Critical error in replaceEntireDocument:', error);
+            
+            // 最后的备用方案：使用DOMParser
+            try {
+                console.log('Attempting DOMParser fallback...');
+                const parser = new DOMParser();
+                const newDoc = parser.parseFromString(htmlString, 'text/html');
+                
+                if (newDoc.head) {
+                    document.head.innerHTML = newDoc.head.innerHTML;
+                }
+                if (newDoc.body) {
+                    document.body.innerHTML = newDoc.body.innerHTML;
+                }
+                console.log('DOMParser fallback completed');
+            } catch (fallbackError) {
+                console.error('All parsing methods failed:', fallbackError);
+                // 最终备用方案
+                document.body.innerHTML = htmlString;
+            }
         }
     }
 
