@@ -7,7 +7,7 @@
         info: {
     id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
     name: 'bai', // 插件名称
-    version: '1.29.0', // 插件版本
+    version: '1.25.0', // 插件版本
     description: 'This is a plugin template.', // 插件描述
     author: 'Your Name', // 插件作者
         },
@@ -149,97 +149,29 @@
 function handleResponse(response) {
     console.log('handleResponse called with:', response);
 
+    // 定义全局变量，避免未定义错误
+    let timeoutTimer = null;
+    const maxWaitTime = 10000; // 最大等待时间10秒
+    let startTime = Date.now();
+
     if (response.status >= 200 && response.status < 300) {
         try {
-            // 清空当前文档的head和body内容，以便重新填充
-            // 保留原始的head和body引用
-            const originalHead = document.head;
-            const originalBody = document.body;
-            
             // 创建一个临时的DOM解析器来正确处理HTML结构
             const parser = new DOMParser();
             const doc = parser.parseFromString(response.responseText, 'text/html');
             
-            // 清空当前head内容
-            while (originalHead.firstChild) {
-                originalHead.removeChild(originalHead.firstChild);
-            }
+            // 处理文档内容 - 不直接操作DOM，而是提取数据
+            console.log('HTML parsed, extracting data');
             
-            // 正确处理head内容 - 将所有head元素复制到当前文档
-            const headElements = doc.head.children;
-            for (let i = 0; i < headElements.length; i++) {
-                const element = headElements[i].cloneNode(true);
-                originalHead.appendChild(element);
-            }
-            
-            // 设置body内容
-            originalBody.innerHTML = doc.body.innerHTML;
-            
-            console.log('HTML structure correctly processed');
-            
-            // 创建一个计时器变量，用于超时检测
-            let timeoutTimer = null;
-            let maxWaitTime = 10000; // 最大等待时间10秒
-            let startTime = Date.now();
+            // 直接从解析后的文档中提取数据
+            const result = extractDataFromRegularDOM(doc, response.phoneNumber);
+            processAndSendResult(result, response.externalRequestId);
+            return;
         } catch (error) {
             console.error('Error processing HTML structure:', error);
             sendResultToFlutter('pluginError', { error: 'Error processing HTML structure' }, response.externalRequestId);
             return;
         }
-        
-        // 使用 MutationObserver 等待 Shadow DOM 宿主元素出现
-        const observer = new MutationObserver((mutationsList, observer) => {
-            // 检查是否超时
-            if (Date.now() - startTime > maxWaitTime) {
-                observer.disconnect();
-                if (timeoutTimer) clearTimeout(timeoutTimer);
-                console.log('Observation timed out after', maxWaitTime, 'ms');
-                sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
-                return;
-            }
-            
-            // 1. 尝试找到 Shadow DOM 的宿主元素
-            const shadowHost = document.querySelector('#__hcfy__');
-            
-            // 2. 如果找不到Shadow DOM宿主，尝试直接从document中查找元素
-            if (!shadowHost) {
-                const reportWrapper = document.querySelector('.report-wrapper');
-                if (reportWrapper && reportWrapper.textContent.trim() !== "") {
-                    observer.disconnect();
-                    if (timeoutTimer) clearTimeout(timeoutTimer);
-                    
-                    // 从普通DOM中解析数据
-                    let result = extractDataFromRegularDOM(document, response.phoneNumber);
-                    processAndSendResult(result, response.externalRequestId);
-                    return;
-                }
-            } else {
-                // 3. 如果找到Shadow DOM宿主，尝试穿透Shadow DOM
-                if (shadowHost.shadowRoot) {
-                    const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper');
-                    
-                    if (targetElement && targetElement.textContent.trim() !== "") {
-                        observer.disconnect();
-                        if (timeoutTimer) clearTimeout(timeoutTimer);
-                        
-                        // 从Shadow DOM中解析数据
-                        let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber);
-                        processAndSendResult(result, response.externalRequestId);
-                        return;
-                    }
-                }
-            }
-        });
-
-        const config = { childList: true, subtree: true, characterData: true, attributes: true };
-        observer.observe(document.body, config);
-        
-        // 设置超时处理
-        timeoutTimer = setTimeout(() => {
-            observer.disconnect();
-            console.log('Timeout reached after', maxWaitTime, 'ms');
-            sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
-        }, maxWaitTime);
 
     } else {
         sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
@@ -280,7 +212,7 @@ function parseResponse(shadowRoot, phoneNumber) {
 
 // 统一使用extractDataFromRegularDOM函数处理DOM数据提取
 function extractDataFromRegularDOM(document, phoneNumber) {
-    console.log('extractDataFromRegularDOM called with document:', document);
+    console.log('extractDataFromRegularDOM called with document');
     
     // 创建一个结果对象
     let result = {
@@ -297,34 +229,54 @@ function extractDataFromRegularDOM(document, phoneNumber) {
     };
 
     try {
+        // 记录文档结构，帮助调试
+        console.log('Document title:', document.title);
+        console.log('Document body children count:', document.body ? document.body.children.length : 'No body');
+        
+        // 尝试查找主要内容容器
+        const rootElement = document.getElementById('root');
+        if (rootElement) {
+            console.log('Found root element');
+        }
+        
         // 在DOM中查找并提取数据
         const reportWrapper = document.querySelector('.report-wrapper');
         if (reportWrapper) {
+            console.log('Found report-wrapper element');
+            
             // 提取标签信息
             const reportNameElement = reportWrapper.querySelector('.report-name');
             if (reportNameElement) {
                 result.sourceLabel = reportNameElement.textContent.trim();
+                console.log('Found source label:', result.sourceLabel);
             }
 
             // 提取评分数量
             const reportTypeElement = reportWrapper.querySelector('.report-type');
             if (reportTypeElement) {
                 const reportTypeText = reportTypeElement.textContent.trim();
+                console.log('Found report type:', reportTypeText);
                 if (reportTypeText === '用户标记') {
                     result.count = 1;
                 }
             }
+        } else {
+            console.log('No report-wrapper element found');
         }
         
         // 提取省份和城市
         const locationElement = document.querySelector('.location');
         if (locationElement) {
             const locationText = locationElement.textContent.trim();
+            console.log('Found location text:', locationText);
             const match = locationText.match(/([一-龥]+)[\s ]*([一-龥]+)?/);
             if (match) {
                 result.province = match[1] || '';
                 result.city = match[2] || '';
+                console.log('Extracted province:', result.province, 'city:', result.city);
             }
+        } else {
+            console.log('No location element found');
         }
     } catch (error) {
         console.error('Error extracting data from DOM:', error);
