@@ -1,7 +1,7 @@
 (function () {
     if (window.plugin) return;
 
-    const pluginId = 'bdPlugin';
+    const pluginId = 'tellowsPlugin';
 
     const pluginInfo = {
         info: {
@@ -86,7 +86,7 @@
     '推销': 'Telemarketing',
 };
 
-    // 查询电话号码信息
+    // --- Unified Request Function ---
     function queryPhoneInfo(phoneNumber, externalRequestId) {
         // Generate a unique ID for *this specific phone number request*
         const phoneRequestId = Math.random().toString(36).substring(2);
@@ -126,86 +126,88 @@
         }
     }
 
-// 等待元素出现的函数
-function waitForElement(parent, selector, timeout) {
-    return new Promise((resolve, reject) => {
-        // 首先检查元素是否已经存在
-        const element = parent.querySelector(selector);
-        if (element) {
-            resolve(element);
-            return;
-        }
+// handleResponse 函数 (JavaScript)
+function handleResponse(response) {
+    console.log('handleResponse called with:', response);
+
+    if (response.status >= 200 && response.status < 300) {
+        document.body.innerHTML = response.responseText;
         
-        // 设置超时
-        const timeoutId = setTimeout(() => {
-            observer.disconnect();
-            reject(new Error(`Timeout waiting for ${selector}`));
-        }, timeout);
+        // 创建一个计时器变量，用于超时检测
+        let timeoutTimer = null;
+        let maxWaitTime = 10000; // 最大等待时间10秒
+        let startTime = Date.now();
         
-        // 创建一个观察器来监视DOM变化
-        const observer = new MutationObserver((mutations) => {
-            const element = parent.querySelector(selector);
-            if (element) {
+        // 使用 MutationObserver 等待 Shadow DOM 宿主元素出现
+        const observer = new MutationObserver((mutationsList, observer) => {
+            // 检查是否超时
+            if (Date.now() - startTime > maxWaitTime) {
                 observer.disconnect();
-                clearTimeout(timeoutId);
-                resolve(element);
+                if (timeoutTimer) clearTimeout(timeoutTimer);
+                console.log('Observation timed out after', maxWaitTime, 'ms');
+                sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+                return;
+            }
+            
+            // 1. 尝试找到 Shadow DOM 的宿主元素
+            const shadowHost = document.querySelector('#__hcfy__');
+            
+            // 2. 如果找不到Shadow DOM宿主，尝试直接从document中查找元素
+            if (!shadowHost) {
+                const reportWrapper = document.querySelector('.report-wrapper');
+                if (reportWrapper && reportWrapper.textContent.trim() !== "") {
+                    observer.disconnect();
+                    if (timeoutTimer) clearTimeout(timeoutTimer);
+                    
+                    // 从普通DOM中解析数据
+                    let result = extractDataFromRegularDOM(document, response.phoneNumber || extractPhoneNumberFromUrl(response.url));
+                    processAndSendResult(result, response.externalRequestId);
+                    return;
+                }
+            } else {
+                // 3. 如果找到Shadow DOM宿主，尝试穿透Shadow DOM
+                if (shadowHost.shadowRoot) {
+                    const targetElement = shadowHost.shadowRoot.querySelector('.report-wrapper');
+                    
+                    if (targetElement && targetElement.textContent.trim() !== "") {
+                        observer.disconnect();
+                        if (timeoutTimer) clearTimeout(timeoutTimer);
+                        
+                        // 从Shadow DOM中解析数据
+                        let result = parseResponse(shadowHost.shadowRoot, response.phoneNumber || extractPhoneNumberFromUrl(response.url));
+                        processAndSendResult(result, response.externalRequestId);
+                        return;
+                    }
+                }
             }
         });
+
+        const config = { childList: true, subtree: true, characterData: true, attributes: true };
+        observer.observe(document.body, config);
         
-        // 开始观察
-        observer.observe(parent, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            characterData: true
-        });
-    });
+        // 设置超时处理
+        timeoutTimer = setTimeout(() => {
+            observer.disconnect();
+            console.log('Timeout reached after', maxWaitTime, 'ms');
+            sendResultToFlutter('pluginError', { error: 'Timeout waiting for content to load' }, response.externalRequestId);
+        }, maxWaitTime);
+
+    } else {
+        sendResultToFlutter('pluginError', { error: response.statusText }, response.externalRequestId);
+    }
 }
 
-// 处理响应
-function handleResponse(response, externalRequestId) {
-    console.log('handleResponse called with response:', response);
+// 从URL中提取电话号码
+function extractPhoneNumberFromUrl(url) {
+    if (!url) return '';
     
-    // 如果响应为空或无效，返回空结果
-    if (!response || !response.document) {
-        console.error('Invalid response or missing document');
-        processAndSendResult({ phoneNumber: response.phoneNumber }, externalRequestId);
-        return;
+    // 尝试从URL中提取电话号码
+    const phoneMatch = url.match(/search=([0-9]+)/);
+    if (phoneMatch && phoneMatch[1]) {
+        return phoneMatch[1];
     }
     
-    // 使用传入的电话号码
-    let phoneNumber = response.phoneNumber;
-    
-    // 如果无法获取电话号码，返回空结果
-    if (!phoneNumber) {
-        console.error('No phone number provided');
-        processAndSendResult({ phoneNumber: '' }, externalRequestId);
-        return;
-    }
-    
-    // 检查是否存在Shadow DOM
-    const shadowHost = response.document.querySelector('#content_left');
-    if (shadowHost && shadowHost.shadowRoot) {
-        console.log('Shadow DOM found, using shadowRoot for data extraction');
-        // 等待DOM元素出现
-        waitForElement(shadowHost.shadowRoot, '.report-wrapper', 5000)
-            .then(() => {
-                // 使用parseResponse提取数据
-                const result = parseResponse(shadowHost.shadowRoot, phoneNumber);
-                processAndSendResult(result, externalRequestId);
-            })
-            .catch(error => {
-                console.error('Error waiting for Shadow DOM element:', error);
-                // 尝试从普通DOM提取数据
-                const result = parseResponse(response.document, phoneNumber);
-                processAndSendResult(result, externalRequestId);
-            });
-    } else {
-        console.log('No Shadow DOM found, using regular DOM for data extraction');
-        // 使用parseResponse提取数据
-        const result = parseResponse(response.document, phoneNumber);
-        processAndSendResult(result, externalRequestId);
-    }
+    return '';
 }
 
 // 处理结果并发送到Flutter
@@ -221,7 +223,7 @@ function processAndSendResult(result, externalRequestId) {
         name: result.name || '',
         rate: result.rate || 0,
         predefinedLabel: '',
-        source: pluginInfo.info.name
+        pluginId: pluginId
     };
     
     // 尝试根据sourceLabel映射到预定义标签
@@ -233,60 +235,120 @@ function processAndSendResult(result, externalRequestId) {
     sendResultToFlutter('pluginResult', finalResult, externalRequestId);
 }
 
-// parseResponse function (defined by the plugin)
-function parseResponse(doc, phoneNumber) {
-    return extractDataFromDOM(doc, phoneNumber);
+// 从普通DOM中提取数据
+function extractDataFromRegularDOM(document, phoneNumber) {
+    console.log('extractDataFromRegularDOM called with document:', document);
+    
+    // 创建一个结果对象
+    let result = {
+        phoneNumber: phoneNumber,
+        sourceLabel: '',
+        count: 0,
+        province: '',
+        city: '',
+        carrier: '',
+        name: '',
+        rate: 0,
+        predefinedLabel: '',
+        pluginId: pluginId
+    };
+
+    try {
+        // 在普通DOM中查找并提取数据
+        const reportWrapper = document.querySelector('.report-wrapper');
+        if (reportWrapper) {
+            // 提取标签信息
+            const reportNameElement = reportWrapper.querySelector('.report-name');
+            if (reportNameElement) {
+                result.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
+            }
+
+            // 提取评分数量
+            const reportTypeElement = reportWrapper.querySelector('.report-type');
+            if (reportTypeElement) {
+                const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
+                if (reportTypeText === '用户标记') {
+                    result.count = 1;
+                }
+            }
+        }
+        
+        // 提取省份和城市
+        const locationElement = document.querySelector('.location');
+        if (locationElement) {
+            const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
+            const match = locationText.match(/([一-龥]+)[\s ]*([一-龥]+)?/);
+            if (match) {
+                result.province = match[1] || '';
+                result.city = match[2] || '';
+            }
+        }
+    } catch (error) {
+        console.error('Error extracting data from regular DOM:', error);
+    }
+
+    console.log('Extracted result from regular DOM:', result);
+    return result;
 }
 
-function extractDataFromDOM(doc, phoneNumber) {
+// parseResponse 函数 (修改：接收 shadowRoot)
+function parseResponse(shadowRoot, phoneNumber) {
+  return extractDataFromDOM(shadowRoot, phoneNumber);
+}
+
+// extractDataFromDOM 函数 (修改：从 shadowRoot 查找元素)
+function extractDataFromDOM(shadowRoot, phoneNumber) {
     const jsonObject = {
         count: 0,
         sourceLabel: "",
         province: "",
         city: "",
         carrier: "unknown",
-        phoneNumber: phoneNumber,
-        name: "unknown",
-        rate: 0
+        phoneNumber: phoneNumber
     };
 
     try {
-        // 在DOM中查找并提取数据
-        const reportWrapper = doc.querySelector('.report-wrapper');
+        // --- 从 shadowRoot 中查找元素 ---
+        const reportWrapper = shadowRoot.querySelector('.report-wrapper'); // 在 shadowRoot 内查找
+
         if (reportWrapper) {
-            // 提取标签信息
+            // ... (其余代码与之前类似，但都在 shadowRoot 内查找) ...
             const reportNameElement = reportWrapper.querySelector('.report-name');
             if (reportNameElement) {
-                jsonObject.sourceLabel = reportNameElement.textContent.trim();
+                jsonObject.sourceLabel = decodeQuotedPrintable(reportNameElement.textContent.trim());
             }
 
-            // 提取评分数量
             const reportTypeElement = reportWrapper.querySelector('.report-type');
             if (reportTypeElement) {
-                const reportTypeText = reportTypeElement.textContent.trim();
+                const reportTypeText = decodeQuotedPrintable(reportTypeElement.textContent.trim());
                 if (reportTypeText === '用户标记') {
                     jsonObject.count = 1;
                 }
             }
         }
-        
-        // 提取省份和城市
-        const locationElement = doc.querySelector('.location');
+        const locationElement = shadowRoot.querySelector('.location');
         if (locationElement) {
-            const locationText = locationElement.textContent.trim();
-            const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
-            if (match) {
-                jsonObject.province = match[1] || '';
-                jsonObject.city = match[2] || '';
+                const locationText = decodeQuotedPrintable(locationElement.textContent.trim());
+                const match = locationText.match(/([\u4e00-\u9fa5]+)[\s ]*([\u4e00-\u9fa5]+)?/);
+                if (match) {
+                    jsonObject.province = match[1] || '';
+                    jsonObject.city = match[2] || '';
+                }
             }
-        }
     } catch (error) {
         console.error('Error extracting data:', error);
     }
 
-    console.log('Final jsonObject:', jsonObject);
-    console.log('Final jsonObject type:', typeof jsonObject);
     return jsonObject;
+}
+// Quoted-Printable 解码函数 (保持不变)
+function decodeQuotedPrintable(str) {
+    str = str.replace(/=3D/g, "=");
+    str = str.replace(/=([0-9A-Fa-f]{2})/g, function (match, p1) {
+        return String.fromCharCode(parseInt(p1, 16));
+    });
+    str = str.replace(/=\r?\n/g, '');
+    return str;
 }
 
     // generateOutput function (modified)
