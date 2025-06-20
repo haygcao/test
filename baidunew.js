@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.2.09', // 插件版本
+            version: '1.2.70', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -149,11 +149,52 @@
     function replaceEntireDocument(htmlString) {
         console.log('Replacing entire document with new HTML - natural loading');
         
-        // 完全移除人为控制，让网页自然加载
-        // 使用最简单直接的方法，不进行任何try-catch控制
-        document.open();
-        document.write(htmlString);
-        document.close();
+        // 移除document.write方法，改用DOM操作避免CORS和安全错误
+        // 直接替换整个文档内容
+        try {
+            // 使用location.replace加载完整HTML
+            const blob = new Blob([htmlString], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            // 直接跳转到新的HTML内容
+            window.location.replace(url);
+        } catch (error) {
+            console.log('Blob method failed, using innerHTML fallback:', error);
+            
+            // 备用方案：解析HTML并重建DOM
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+            
+            // 清空并重建head
+            document.head.innerHTML = '';
+            Array.from(doc.head.children).forEach(element => {
+                const newElement = document.createElement(element.tagName);
+                Array.from(element.attributes).forEach(attr => {
+                    newElement.setAttribute(attr.name, attr.value);
+                });
+                if (element.innerHTML) {
+                    newElement.innerHTML = element.innerHTML;
+                }
+                document.head.appendChild(newElement);
+            });
+            
+            // 清空并重建body
+            document.body.innerHTML = '';
+            Array.from(doc.body.children).forEach(element => {
+                document.body.appendChild(element.cloneNode(true));
+            });
+            
+            // 手动执行脚本
+            const scripts = document.querySelectorAll('script[src]');
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                newScript.src = script.src;
+                if (script.type) newScript.type = script.type;
+                if (script.charset) newScript.charset = script.charset;
+                if (script.async !== undefined) newScript.async = script.async;
+                document.head.appendChild(newScript);
+            });
+        }
     }
 
     // handleResponse 函数 (优化版)
