@@ -171,27 +171,49 @@
                 console.log('Processing head content, length:', headContent.length);
                 
                 try {
-                    // 创建临时容器来解析head内容
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = headContent;
+                    // 使用DOMParser来正确解析HTML内容，包括script标签
+                    const parser = new DOMParser();
+                    const tempDoc = parser.parseFromString(`<html><head>${headContent}</head></html>`, 'text/html');
+                    const tempHead = tempDoc.head;
                     
-                    // 将解析后的元素逐个添加到head中
-                    Array.from(tempDiv.children).forEach(child => {
-                        try {
-                            // 克隆节点以避免移动问题
-                            const clonedChild = child.cloneNode(true);
-                            document.head.appendChild(clonedChild);
-                        } catch (e) {
-                            console.warn('Failed to append head element:', e, child);
-                        }
-                    });
-                    
-                    // 处理文本节点和其他非元素节点
-                    Array.from(tempDiv.childNodes).forEach(node => {
-                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-                            document.head.appendChild(node.cloneNode(true));
-                        }
-                    });
+                    if (tempHead) {
+                        // 将解析后的元素逐个添加到head中
+                        Array.from(tempHead.children).forEach(child => {
+                            try {
+                                // 对于script标签，需要特殊处理以确保执行
+                                if (child.tagName.toLowerCase() === 'script') {
+                                    const newScript = document.createElement('script');
+                                    
+                                    // 复制所有属性
+                                    Array.from(child.attributes).forEach(attr => {
+                                        newScript.setAttribute(attr.name, attr.value);
+                                    });
+                                    
+                                    // 复制脚本内容
+                                    if (child.textContent) {
+                                        newScript.textContent = child.textContent;
+                                    }
+                                    
+                                    document.head.appendChild(newScript);
+                                    console.log('Added script element:', newScript.src || 'inline script');
+                                } else {
+                                    // 对于其他元素，直接克隆
+                                    const clonedChild = child.cloneNode(true);
+                                    document.head.appendChild(clonedChild);
+                                    console.log('Added head element:', child.tagName);
+                                }
+                            } catch (e) {
+                                console.warn('Failed to append head element:', e, child);
+                            }
+                        });
+                        
+                        // 处理文本节点
+                        Array.from(tempHead.childNodes).forEach(node => {
+                            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                                document.head.appendChild(node.cloneNode(true));
+                            }
+                        });
+                    }
                     
                     console.log('Head elements added:', document.head.children.length);
                 } catch (headError) {
