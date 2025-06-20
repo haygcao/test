@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.2.70', // 插件版本
+            version: '1.2.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -147,53 +147,86 @@
 
     // 自然加载HTML文档
     function replaceEntireDocument(htmlString) {
-        console.log('Replacing entire document with new HTML - natural loading');
+        console.log('Replacing entire document with new HTML - safe DOM manipulation');
         
-        // 移除document.write方法，改用DOM操作避免CORS和安全错误
-        // 直接替换整个文档内容
         try {
-            // 使用location.replace加载完整HTML
-            const blob = new Blob([htmlString], { type: 'text/html;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            
-            // 直接跳转到新的HTML内容
-            window.location.replace(url);
-        } catch (error) {
-            console.log('Blob method failed, using innerHTML fallback:', error);
-            
-            // 备用方案：解析HTML并重建DOM
+            // 使用DOMParser解析HTML
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlString, 'text/html');
             
-            // 清空并重建head
+            // 保存当前插件脚本，避免被清除
+            const currentScript = document.currentScript;
+            const pluginScripts = document.querySelectorAll('script[data-plugin="baidu"]');
+            
+            // 清空并重建head，保留必要的meta标签
+            const currentCharset = document.querySelector('meta[charset]');
             document.head.innerHTML = '';
+            
+            // 首先添加charset meta标签
+            if (doc.querySelector('meta[charset]')) {
+                const charsetMeta = document.createElement('meta');
+                charsetMeta.setAttribute('charset', doc.querySelector('meta[charset]').getAttribute('charset'));
+                document.head.appendChild(charsetMeta);
+            } else if (currentCharset) {
+                document.head.appendChild(currentCharset.cloneNode(true));
+            }
+            
+            // 添加其他head元素
             Array.from(doc.head.children).forEach(element => {
-                const newElement = document.createElement(element.tagName);
-                Array.from(element.attributes).forEach(attr => {
-                    newElement.setAttribute(attr.name, attr.value);
-                });
-                if (element.innerHTML) {
-                    newElement.innerHTML = element.innerHTML;
+                if (element.tagName.toLowerCase() === 'script') {
+                    // 对于script标签，需要重新创建以确保执行
+                    const newScript = document.createElement('script');
+                    Array.from(element.attributes).forEach(attr => {
+                        newScript.setAttribute(attr.name, attr.value);
+                    });
+                    if (element.textContent) {
+                        newScript.textContent = element.textContent;
+                    }
+                    document.head.appendChild(newScript);
+                } else if (element.tagName.toLowerCase() !== 'meta' || !element.hasAttribute('charset')) {
+                    // 跳过charset meta标签（已经添加）
+                    const newElement = element.cloneNode(true);
+                    document.head.appendChild(newElement);
                 }
-                document.head.appendChild(newElement);
             });
             
             // 清空并重建body
             document.body.innerHTML = '';
             Array.from(doc.body.children).forEach(element => {
-                document.body.appendChild(element.cloneNode(true));
+                const clonedElement = element.cloneNode(true);
+                document.body.appendChild(clonedElement);
             });
             
-            // 手动执行脚本
-            const scripts = document.querySelectorAll('script[src]');
-            scripts.forEach(script => {
+            // 重新添加body中的script标签以确保执行
+            const bodyScripts = document.body.querySelectorAll('script');
+            bodyScripts.forEach(script => {
                 const newScript = document.createElement('script');
-                newScript.src = script.src;
-                if (script.type) newScript.type = script.type;
-                if (script.charset) newScript.charset = script.charset;
-                if (script.async !== undefined) newScript.async = script.async;
-                document.head.appendChild(newScript);
+                Array.from(script.attributes).forEach(attr => {
+                    newScript.setAttribute(attr.name, attr.value);
+                });
+                if (script.textContent) {
+                    newScript.textContent = script.textContent;
+                }
+                script.parentNode.replaceChild(newScript, script);
             });
+            
+            // 恢复插件脚本
+            pluginScripts.forEach(script => {
+                if (!document.querySelector(`script[src="${script.src}"]`)) {
+                    document.head.appendChild(script.cloneNode(true));
+                }
+            });
+            
+            console.log('Document replacement completed successfully');
+            
+        } catch (error) {
+            console.error('Error in replaceEntireDocument:', error);
+            // 最后的备用方案：直接设置innerHTML
+            try {
+                document.documentElement.innerHTML = htmlString.replace(/<\/?html[^>]*>/gi, '');
+            } catch (fallbackError) {
+                console.error('Fallback method also failed:', fallbackError);
+            }
         }
     }
 
