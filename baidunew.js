@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.02.0', // 插件版本
+            version: '1.28.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -145,152 +145,46 @@
         }
     }
 
-    // 完整替换整个HTML文档
+    // 自然加载HTML文档，避免CORS问题
     function replaceEntireDocument(htmlString) {
         try {
-            console.log('Starting document replacement...');
+            console.log('Starting natural document replacement...');
             console.log('Original HTML length:', htmlString.length);
             
-            // 使用DOMParser解析HTML
-            const parser = new DOMParser();
-            const newDoc = parser.parseFromString(htmlString, 'text/html');
+            // 直接替换整个文档内容，让浏览器自然解析
+            document.open();
+            document.write(htmlString);
+            document.close();
             
-            // 清空当前文档
-            document.head.innerHTML = '';
-            document.body.innerHTML = '';
-            
-            // 处理head内容
-            if (newDoc.head) {
-                console.log('Processing head content...');
-                
-                // 创建一个文档片段来一次性添加所有元素
-                const headFragment = document.createDocumentFragment();
-                
-                // 处理所有head元素
-                Array.from(newDoc.head.children).forEach(child => {
-                    try {
-                        // 特殊处理script元素
-                        if (child.tagName.toLowerCase() === 'script') {
-                            const newScript = document.createElement('script');
-                            
-                            // 复制所有属性
-                            Array.from(child.attributes).forEach(attr => {
-                                newScript.setAttribute(attr.name, attr.value);
-                            });
-                            
-                            // 复制内联脚本内容
-                            if (child.textContent) {
-                                newScript.textContent = child.textContent;
-                            }
-                            
-                            // 记录script添加
-                            console.log('Adding script to head:', newScript.src || 'inline script');
-                            headFragment.appendChild(newScript);
-                        } else {
-                            // 对于非script元素，直接克隆
-                            const cloned = document.importNode(child, true);
-                            headFragment.appendChild(cloned);
-                        }
-                    } catch (e) {
-                        console.warn('Failed to append head element:', e, child);
-                    }
-                });
-                
-                // 一次性添加所有head元素
-                document.head.appendChild(headFragment);
-                console.log('Head elements added:', document.head.children.length);
-            }
-            
-            // 处理body内容
-            if (newDoc.body) {
-                console.log('Processing body content...');
-                document.body.innerHTML = newDoc.body.innerHTML;
-                console.log('Body content set, elements:', document.body.children.length);
-            }
-            
-            console.log('Document replacement completed successfully');
+            console.log('Document replacement completed naturally');
             
         } catch (error) {
-            console.error('Error in replaceEntireDocument:', error);
+            console.error('Error in natural document replacement:', error);
             
+            // 备用方案：使用location.replace重新加载页面
             try {
-                // 备用方案：使用正则表达式提取head和body
-                console.log('Attempting regex fallback...');
+                console.log('Attempting location replacement...');
                 
-                // 提取head内容
-                const headMatch = htmlString.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
-                if (headMatch && headMatch[1]) {
-                    const headContent = headMatch[1].trim();
-                    
-                    // 创建临时容器
-                    const tempContainer = document.createElement('div');
-                    tempContainer.innerHTML = '<head>' + headContent + '</head>';
-                    
-                    // 清空当前head
-                    document.head.innerHTML = '';
-                    
-                    // 处理head中的每个元素
-                    const tempHead = tempContainer.querySelector('head');
-                    if (tempHead) {
-                        Array.from(tempHead.children).forEach(child => {
-                            try {
-                                if (child.tagName.toLowerCase() === 'script') {
-                                    const newScript = document.createElement('script');
-                                    
-                                    // 复制所有属性
-                                    Array.from(child.attributes).forEach(attr => {
-                                        newScript.setAttribute(attr.name, attr.value);
-                                    });
-                                    
-                                    // 复制内联脚本内容
-                                    if (child.textContent) {
-                                        newScript.textContent = child.textContent;
-                                    }
-                                    
-                                    document.head.appendChild(newScript);
-                                } else {
-                                    const cloned = child.cloneNode(true);
-                                    document.head.appendChild(cloned);
-                                }
-                            } catch (e) {
-                                console.warn('Failed to append head element in fallback:', e);
-                            }
-                        });
-                    }
-                }
+                // 创建一个blob URL来加载HTML
+                const blob = new Blob([htmlString], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
                 
-                // 提取body内容
-                const bodyMatch = htmlString.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-                if (bodyMatch && bodyMatch[1]) {
-                    document.body.innerHTML = bodyMatch[1].trim();
-                }
+                // 使用location.replace来自然加载
+                window.location.replace(url);
                 
-                console.log('Regex fallback completed');
+            } catch (locationError) {
+                console.error('Location replacement failed:', locationError);
                 
-            } catch (fallbackError) {
-                console.error('All parsing methods failed:', fallbackError);
-                
-                // 最终备用方案 - 尝试直接设置HTML
+                // 最终备用方案：直接设置innerHTML（可能有限制）
                 try {
-                    const htmlMatch = htmlString.match(/<html[^>]*>([\s\S]*?)<\/html>/i);
+                    const htmlMatch = htmlString.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
                     if (htmlMatch && htmlMatch[1]) {
-                        const htmlContent = htmlMatch[1].trim();
-                        const tempContainer = document.createElement('div');
-                        tempContainer.innerHTML = htmlContent;
-                        
-                        // 提取并设置head和body
-                        const tempHead = tempContainer.querySelector('head');
-                        const tempBody = tempContainer.querySelector('body');
-                        
-                        if (tempHead) document.head.innerHTML = tempHead.innerHTML;
-                        if (tempBody) document.body.innerHTML = tempBody.innerHTML;
+                        document.body.innerHTML = htmlMatch[1].trim();
                     } else {
-                        // 如果无法提取html标签，直接设置body
                         document.body.innerHTML = htmlString;
                     }
                 } catch (finalError) {
-                    console.error('Final fallback failed:', finalError);
-                    document.body.innerHTML = htmlString;
+                    console.error('All replacement methods failed:', finalError);
                 }
             }
         }
