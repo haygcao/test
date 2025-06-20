@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.29.0', // 插件版本
+            version: '1.2.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -155,8 +155,8 @@
             let processedHtml = htmlString.trim();
             
             // 使用正则表达式提取head和body内容
-            const headMatch = processedHtml.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
-            const bodyMatch = processedHtml.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+            const headMatch = processedHtml.match(/<head[^>]*>(([\s\S](?!<\/head>))*[\s\S]*?)<\/head>/i);
+            const bodyMatch = processedHtml.match(/<body[^>]*>(([\s\S](?!<\/body>))*[\s\S]*?)<\/body>/i);
             
             console.log('Head match found:', !!headMatch);
             console.log('Body match found:', !!bodyMatch);
@@ -165,55 +165,69 @@
             document.head.innerHTML = '';
             document.body.innerHTML = '';
             
-            // 处理head内容
+            // 处理head内容 - 特别关注百度域名的script标签
             if (headMatch && headMatch[1]) {
                 const headContent = headMatch[1].trim();
                 console.log('Processing head content, length:', headContent.length);
                 
                 try {
-                    // 使用DOMParser来正确解析HTML内容，包括script标签
-                    const parser = new DOMParser();
-                    const tempDoc = parser.parseFromString(`<html><head>${headContent}</head></html>`, 'text/html');
-                    const tempHead = tempDoc.head;
+                    // 创建临时容器来解析head内容
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = headContent;
                     
-                    if (tempHead) {
-                        // 将解析后的元素逐个添加到head中
-                        Array.from(tempHead.children).forEach(child => {
-                            try {
-                                // 对于script标签，需要特殊处理以确保执行
-                                if (child.tagName.toLowerCase() === 'script') {
-                                    const newScript = document.createElement('script');
-                                    
-                                    // 复制所有属性
-                                    Array.from(child.attributes).forEach(attr => {
-                                        newScript.setAttribute(attr.name, attr.value);
-                                    });
-                                    
-                                    // 复制脚本内容
-                                    if (child.textContent) {
-                                        newScript.textContent = child.textContent;
-                                    }
-                                    
-                                    document.head.appendChild(newScript);
-                                    console.log('Added script element:', newScript.src || 'inline script');
-                                } else {
-                                    // 对于其他元素，直接克隆
-                                    const clonedChild = child.cloneNode(true);
-                                    document.head.appendChild(clonedChild);
-                                    console.log('Added head element:', child.tagName);
-                                }
-                            } catch (e) {
-                                console.warn('Failed to append head element:', e, child);
+                    // 收集所有script标签，特别是百度域名的
+                    const scripts = [];
+                    const nonScriptElements = [];
+                    
+                    // 分离script和非script元素
+                    Array.from(tempDiv.children).forEach(child => {
+                        if (child.tagName.toLowerCase() === 'script') {
+                            scripts.push(child);
+                        } else {
+                            nonScriptElements.push(child);
+                        }
+                    });
+                    
+                    // 先添加非script元素
+                    nonScriptElements.forEach(child => {
+                        try {
+                            const clonedChild = child.cloneNode(true);
+                            document.head.appendChild(clonedChild);
+                        } catch (e) {
+                            console.warn('Failed to append head element:', e, child);
+                        }
+                    });
+                    
+                    // 然后添加script元素，确保它们按顺序加载
+                    scripts.forEach(script => {
+                        try {
+                            // 对于百度域名的script，确保正确加载
+                            const newScript = document.createElement('script');
+                            
+                            // 复制所有属性
+                            Array.from(script.attributes).forEach(attr => {
+                                newScript.setAttribute(attr.name, attr.value);
+                            });
+                            
+                            // 复制内联脚本内容
+                            if (script.textContent) {
+                                newScript.textContent = script.textContent;
                             }
-                        });
-                        
-                        // 处理文本节点
-                        Array.from(tempHead.childNodes).forEach(node => {
-                            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-                                document.head.appendChild(node.cloneNode(true));
-                            }
-                        });
-                    }
+                            
+                            // 记录script添加
+                            console.log('Adding script to head:', newScript.src || 'inline script');
+                            document.head.appendChild(newScript);
+                        } catch (e) {
+                            console.warn('Failed to append script element:', e, script);
+                        }
+                    });
+                    
+                    // 处理文本节点和其他非元素节点
+                    Array.from(tempDiv.childNodes).forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            document.head.appendChild(node.cloneNode(true));
+                        }
+                    });
                     
                     console.log('Head elements added:', document.head.children.length);
                 } catch (headError) {
@@ -270,7 +284,12 @@
                 const newDoc = parser.parseFromString(htmlString, 'text/html');
                 
                 if (newDoc.head) {
-                    document.head.innerHTML = newDoc.head.innerHTML;
+                    // 使用更可靠的方法处理head内容
+                    document.head.innerHTML = '';
+                    Array.from(newDoc.head.children).forEach(child => {
+                        const cloned = document.importNode(child, true);
+                        document.head.appendChild(cloned);
+                    });
                 }
                 if (newDoc.body) {
                     document.body.innerHTML = newDoc.body.innerHTML;
