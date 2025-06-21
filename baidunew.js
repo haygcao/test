@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.2.60', // 插件版本
+            version: '1.72.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -150,9 +150,9 @@
         }
     }
 
-    // 安全地替换HTML文档内容 - 完全重写版本
+    // 完全重写的文档替换函数 - 解决所有已知问题
     function replaceEntireDocument(htmlString) {
-        console.log('Replacing entire document with complete DOM reconstruction');
+        console.log('Replacing entire document with improved method');
         
         try {
             // 保存当前插件脚本引用
@@ -168,15 +168,8 @@
                 throw new Error('Failed to parse HTML string');
             }
             
-            // 设置正确的document origin和base URI
-            try {
-                // 尝试设置document.domain以解决CORS问题
-                if (document.domain !== 'haoma.baidu.com') {
-                    document.domain = 'baidu.com';
-                }
-            } catch (e) {
-                console.warn('Cannot set document.domain:', e);
-            }
+            // 不设置document.domain，避免SecurityError
+            // 通过其他方式处理CORS问题
             
             // 完全替换HTML结构
             const newHtml = newDoc.documentElement;
@@ -201,11 +194,39 @@
             baseTag.href = 'https://haoma.baidu.com/';
             currentHead.appendChild(baseTag);
             
-            // 逐个添加head中的元素，确保正确的加载顺序
+            // 手动添加缺失的关键脚本（按正确顺序）
+            const criticalScripts = [
+                {
+                    src: 'https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js',
+                    charset: 'utf-8'
+                },
+                {
+                    src: 'https://sofire.bdstatic.com/js/dfxaf3.js'
+                }
+            ];
+            
+            // 首先添加关键脚本
+            criticalScripts.forEach(scriptInfo => {
+                const script = document.createElement('script');
+                if (scriptInfo.charset) {
+                    script.charset = scriptInfo.charset;
+                }
+                script.src = scriptInfo.src;
+                script.async = false;
+                script.defer = false;
+                currentHead.appendChild(script);
+            });
+            
+            // 然后按顺序添加原始head中的其他元素
             Array.from(newHead.children).forEach((element, index) => {
                 const tagName = element.tagName.toLowerCase();
                 
                 if (tagName === 'script') {
+                    // 跳过已经添加的关键脚本
+                    if (element.src && (element.src.includes('UrlChangeTracker.js') || element.src.includes('dfxaf3.js'))) {
+                        return;
+                    }
+                    
                     // 创建新的script元素确保执行
                     const newScript = document.createElement('script');
                     
@@ -219,13 +240,12 @@
                         newScript.textContent = element.textContent;
                     }
                     
-                    // 确保关键脚本优先加载
-                    if (element.src && element.src.includes('dfxaf3.js')) {
-                        newScript.async = false;
-                        newScript.defer = false;
-                    }
-                    
                     currentHead.appendChild(newScript);
+                } else if (tagName === 'meta' && element.getAttribute('charset')) {
+                    // 确保charset meta标签在最前面
+                    const charsetMeta = document.createElement('meta');
+                    charsetMeta.setAttribute('charset', 'utf-8');
+                    currentHead.insertBefore(charsetMeta, currentHead.firstChild.nextSibling);
                 } else {
                     // 直接克隆其他元素
                     const clonedElement = element.cloneNode(true);
@@ -286,19 +306,37 @@
         } catch (error) {
             console.error('Error in replaceEntireDocument:', error);
             
-            // 备用方案：仅替换body内容
+            // 备用方案：使用innerHTML替换，但保持脚本执行
             try {
                 const parser = new DOMParser();
                 const newDoc = parser.parseFromString(htmlString, 'text/html');
                 
                 if (newDoc && newDoc.body) {
+                    // 先添加缺失的关键脚本到head
+                    const criticalScripts = [
+                        'https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js',
+                        'https://sofire.bdstatic.com/js/dfxaf3.js'
+                    ];
+                    
+                    criticalScripts.forEach(src => {
+                        if (!document.querySelector(`script[src="${src}"]`)) {
+                            const script = document.createElement('script');
+                            script.src = src;
+                            if (src.includes('UrlChangeTracker.js')) {
+                                script.charset = 'utf-8';
+                            }
+                            document.head.appendChild(script);
+                        }
+                    });
+                    
+                    // 然后替换body内容
                     document.body.innerHTML = newDoc.body.innerHTML;
                     
                     Array.from(newDoc.body.attributes).forEach(attr => {
                         document.body.setAttribute(attr.name, attr.value);
                     });
                     
-                    console.log('Fallback: body content replaced successfully');
+                    console.log('Fallback: body content replaced with critical scripts added');
                 }
             } catch (fallbackError) {
                 console.error('Fallback method also failed:', fallbackError);
