@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.2.0', // 插件版本
+            version: '1.2.90', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -147,77 +147,73 @@
 
     // 自然加载HTML文档
     function replaceEntireDocument(htmlString) {
-        console.log('Replacing entire document with new HTML - safe DOM manipulation');
+        console.log('Replacing entire document with new HTML - iframe method');
         
         try {
-            // 使用DOMParser解析HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlString, 'text/html');
+            // 创建一个隐藏的iframe来安全地解析HTML
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
             
-            // 保存当前插件脚本，避免被清除
-            const currentScript = document.currentScript;
-            const pluginScripts = document.querySelectorAll('script[data-plugin="baidu"]');
+            // 在iframe中写入HTML内容
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlString);
+            iframeDoc.close();
             
-            // 清空并重建head，保留必要的meta标签
-            const currentCharset = document.querySelector('meta[charset]');
-            document.head.innerHTML = '';
-            
-            // 首先添加charset meta标签
-            if (doc.querySelector('meta[charset]')) {
-                const charsetMeta = document.createElement('meta');
-                charsetMeta.setAttribute('charset', doc.querySelector('meta[charset]').getAttribute('charset'));
-                document.head.appendChild(charsetMeta);
-            } else if (currentCharset) {
-                document.head.appendChild(currentCharset.cloneNode(true));
-            }
-            
-            // 添加其他head元素
-            Array.from(doc.head.children).forEach(element => {
-                if (element.tagName.toLowerCase() === 'script') {
-                    // 对于script标签，需要重新创建以确保执行
-                    const newScript = document.createElement('script');
-                    Array.from(element.attributes).forEach(attr => {
-                        newScript.setAttribute(attr.name, attr.value);
+            // 等待iframe加载完成
+            iframe.onload = function() {
+                try {
+                    // 保存当前插件脚本
+                    const pluginScripts = document.querySelectorAll('script[data-plugin="baidu"]');
+                    
+                    // 完全替换当前文档的HTML
+                    document.documentElement.innerHTML = iframeDoc.documentElement.innerHTML;
+                    
+                    // 重新执行所有script标签
+                    const scripts = document.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        if (script.src) {
+                            // 外部脚本
+                            const newScript = document.createElement('script');
+                            Array.from(script.attributes).forEach(attr => {
+                                newScript.setAttribute(attr.name, attr.value);
+                            });
+                            script.parentNode.replaceChild(newScript, script);
+                        } else if (script.textContent.trim()) {
+                            // 内联脚本
+                            try {
+                                eval(script.textContent);
+                            } catch (e) {
+                                console.warn('Script execution error:', e);
+                            }
+                        }
                     });
-                    if (element.textContent) {
-                        newScript.textContent = element.textContent;
+                    
+                    // 恢复插件脚本
+                    pluginScripts.forEach(script => {
+                        if (!document.querySelector(`script[src="${script.src}"]`)) {
+                            document.head.appendChild(script.cloneNode(true));
+                        }
+                    });
+                    
+                    console.log('Document replacement completed successfully');
+                } catch (error) {
+                    console.error('Error in iframe onload:', error);
+                } finally {
+                    // 清理iframe
+                    if (iframe.parentNode) {
+                        iframe.parentNode.removeChild(iframe);
                     }
-                    document.head.appendChild(newScript);
-                } else if (element.tagName.toLowerCase() !== 'meta' || !element.hasAttribute('charset')) {
-                    // 跳过charset meta标签（已经添加）
-                    const newElement = element.cloneNode(true);
-                    document.head.appendChild(newElement);
                 }
-            });
+            };
             
-            // 清空并重建body
-            document.body.innerHTML = '';
-            Array.from(doc.body.children).forEach(element => {
-                const clonedElement = element.cloneNode(true);
-                document.body.appendChild(clonedElement);
-            });
-            
-            // 重新添加body中的script标签以确保执行
-            const bodyScripts = document.body.querySelectorAll('script');
-            bodyScripts.forEach(script => {
-                const newScript = document.createElement('script');
-                Array.from(script.attributes).forEach(attr => {
-                    newScript.setAttribute(attr.name, attr.value);
-                });
-                if (script.textContent) {
-                    newScript.textContent = script.textContent;
+            // 设置超时清理
+            setTimeout(() => {
+                if (iframe.parentNode) {
+                    iframe.parentNode.removeChild(iframe);
                 }
-                script.parentNode.replaceChild(newScript, script);
-            });
-            
-            // 恢复插件脚本
-            pluginScripts.forEach(script => {
-                if (!document.querySelector(`script[src="${script.src}"]`)) {
-                    document.head.appendChild(script.cloneNode(true));
-                }
-            });
-            
-            console.log('Document replacement completed successfully');
+            }, 5000);
             
         } catch (error) {
             console.error('Error in replaceEntireDocument:', error);
