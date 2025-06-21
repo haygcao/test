@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.2.90', // 插件版本
+            version: '1.2.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -145,81 +145,137 @@
         }
     }
 
-    // 自然加载HTML文档
+    // 安全地替换HTML文档内容
     function replaceEntireDocument(htmlString) {
-        console.log('Replacing entire document with new HTML - iframe method');
+        console.log('Replacing entire document with safe DOM manipulation');
         
         try {
-            // 创建一个隐藏的iframe来安全地解析HTML
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
+            // 保存当前插件脚本引用
+            const currentScript = document.currentScript;
+            const pluginScripts = Array.from(document.querySelectorAll('script')).filter(script => 
+                script.textContent.includes('tellowsPlugin') || script.textContent.includes('baiPhoneNumberPlugin')
+            );
             
-            // 在iframe中写入HTML内容
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframeDoc.open();
-            iframeDoc.write(htmlString);
-            iframeDoc.close();
+            // 使用DOMParser安全解析HTML
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(htmlString, 'text/html');
             
-            // 等待iframe加载完成
-            iframe.onload = function() {
-                try {
-                    // 保存当前插件脚本
-                    const pluginScripts = document.querySelectorAll('script[data-plugin="baidu"]');
+            if (!newDoc || !newDoc.documentElement) {
+                throw new Error('Failed to parse HTML string');
+            }
+            
+            // 保存原始的base URI
+            const originalBaseURI = document.baseURI;
+            
+            // 清空并重建head
+            const newHead = newDoc.head;
+            const currentHead = document.head;
+            
+            // 清空当前head内容
+            while (currentHead.firstChild) {
+                currentHead.removeChild(currentHead.firstChild);
+            }
+            
+            // 添加base标签确保正确的资源加载路径
+            const baseTag = document.createElement('base');
+            baseTag.href = 'https://haoma.baidu.com/';
+            currentHead.appendChild(baseTag);
+            
+            // 复制新head的所有子元素
+            Array.from(newHead.children).forEach(element => {
+                const clonedElement = element.cloneNode(true);
+                
+                // 处理script标签
+                if (clonedElement.tagName === 'SCRIPT') {
+                    const newScript = document.createElement('script');
                     
-                    // 完全替换当前文档的HTML
-                    document.documentElement.innerHTML = iframeDoc.documentElement.innerHTML;
-                    
-                    // 重新执行所有script标签
-                    const scripts = document.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        if (script.src) {
-                            // 外部脚本
-                            const newScript = document.createElement('script');
-                            Array.from(script.attributes).forEach(attr => {
-                                newScript.setAttribute(attr.name, attr.value);
-                            });
-                            script.parentNode.replaceChild(newScript, script);
-                        } else if (script.textContent.trim()) {
-                            // 内联脚本
-                            try {
-                                eval(script.textContent);
-                            } catch (e) {
-                                console.warn('Script execution error:', e);
-                            }
-                        }
+                    // 复制所有属性
+                    Array.from(clonedElement.attributes).forEach(attr => {
+                        newScript.setAttribute(attr.name, attr.value);
                     });
                     
-                    // 恢复插件脚本
-                    pluginScripts.forEach(script => {
-                        if (!document.querySelector(`script[src="${script.src}"]`)) {
-                            document.head.appendChild(script.cloneNode(true));
-                        }
-                    });
-                    
-                    console.log('Document replacement completed successfully');
-                } catch (error) {
-                    console.error('Error in iframe onload:', error);
-                } finally {
-                    // 清理iframe
-                    if (iframe.parentNode) {
-                        iframe.parentNode.removeChild(iframe);
+                    // 如果是内联脚本，复制内容
+                    if (clonedElement.textContent && !clonedElement.src) {
+                        newScript.textContent = clonedElement.textContent;
                     }
+                    
+                    currentHead.appendChild(newScript);
+                } else {
+                    currentHead.appendChild(clonedElement);
                 }
-            };
+            });
             
-            // 设置超时清理
-            setTimeout(() => {
-                if (iframe.parentNode) {
-                    iframe.parentNode.removeChild(iframe);
+            // 清空并重建body
+            const newBody = newDoc.body;
+            const currentBody = document.body;
+            
+            // 清空当前body内容
+            while (currentBody.firstChild) {
+                currentBody.removeChild(currentBody.firstChild);
+            }
+            
+            // 复制新body的所有属性
+            Array.from(newBody.attributes).forEach(attr => {
+                currentBody.setAttribute(attr.name, attr.value);
+            });
+            
+            // 复制新body的所有子元素
+            Array.from(newBody.children).forEach(element => {
+                const clonedElement = element.cloneNode(true);
+                
+                // 处理script标签
+                if (clonedElement.tagName === 'SCRIPT') {
+                    const newScript = document.createElement('script');
+                    
+                    // 复制所有属性
+                    Array.from(clonedElement.attributes).forEach(attr => {
+                        newScript.setAttribute(attr.name, attr.value);
+                    });
+                    
+                    // 如果是内联脚本，复制内容
+                    if (clonedElement.textContent && !clonedElement.src) {
+                        newScript.textContent = clonedElement.textContent;
+                    }
+                    
+                    currentBody.appendChild(newScript);
+                } else {
+                    currentBody.appendChild(clonedElement);
                 }
-            }, 5000);
+            });
+            
+            // 恢复插件脚本
+            setTimeout(() => {
+                pluginScripts.forEach(script => {
+                    if (script.parentNode && !document.querySelector(`script[data-plugin="baidu"]`)) {
+                        const restoredScript = document.createElement('script');
+                        restoredScript.textContent = script.textContent;
+                        restoredScript.setAttribute('data-plugin', 'baidu');
+                        document.head.appendChild(restoredScript);
+                    }
+                });
+            }, 100);
+            
+            console.log('Document replacement completed successfully with safe DOM manipulation');
             
         } catch (error) {
             console.error('Error in replaceEntireDocument:', error);
-            // 最后的备用方案：直接设置innerHTML
+            
+            // 简化的备用方案：仅替换body内容
             try {
-                document.documentElement.innerHTML = htmlString.replace(/<\/?html[^>]*>/gi, '');
+                const parser = new DOMParser();
+                const newDoc = parser.parseFromString(htmlString, 'text/html');
+                
+                if (newDoc && newDoc.body) {
+                    // 只替换body内容，保持head不变
+                    document.body.innerHTML = newDoc.body.innerHTML;
+                    
+                    // 复制body属性
+                    Array.from(newDoc.body.attributes).forEach(attr => {
+                        document.body.setAttribute(attr.name, attr.value);
+                    });
+                    
+                    console.log('Fallback: body content replaced successfully');
+                }
             } catch (fallbackError) {
                 console.error('Fallback method also failed:', fallbackError);
             }
