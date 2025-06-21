@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.2.0', // 插件版本
+            version: '1.2.60', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -96,10 +96,15 @@
         const method = 'GET';
         const headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-            'Referer': 'https://www.baidu.com/',
+            'Referer': 'https://haoma.baidu.com/',
+            'Origin': 'https://haoma.baidu.com',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
             'Connection': 'keep-alive',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'same-origin',
+            'Cache-Control': 'max-age=0'
         };
         const body = null;
 
@@ -145,13 +150,12 @@
         }
     }
 
-    // 安全地替换HTML文档内容
+    // 安全地替换HTML文档内容 - 完全重写版本
     function replaceEntireDocument(htmlString) {
-        console.log('Replacing entire document with safe DOM manipulation');
+        console.log('Replacing entire document with complete DOM reconstruction');
         
         try {
             // 保存当前插件脚本引用
-            const currentScript = document.currentScript;
             const pluginScripts = Array.from(document.querySelectorAll('script')).filter(script => 
                 script.textContent.includes('tellowsPlugin') || script.textContent.includes('baiPhoneNumberPlugin')
             );
@@ -164,112 +168,132 @@
                 throw new Error('Failed to parse HTML string');
             }
             
-            // 保存原始的base URI
-            const originalBaseURI = document.baseURI;
+            // 设置正确的document origin和base URI
+            try {
+                // 尝试设置document.domain以解决CORS问题
+                if (document.domain !== 'haoma.baidu.com') {
+                    document.domain = 'baidu.com';
+                }
+            } catch (e) {
+                console.warn('Cannot set document.domain:', e);
+            }
             
-            // 清空并重建head
+            // 完全替换HTML结构
+            const newHtml = newDoc.documentElement;
+            const currentHtml = document.documentElement;
+            
+            // 保存html标签的属性
+            Array.from(newHtml.attributes).forEach(attr => {
+                currentHtml.setAttribute(attr.name, attr.value);
+            });
+            
+            // 完全重建head - 确保所有资源正确加载
             const newHead = newDoc.head;
             const currentHead = document.head;
             
-            // 清空当前head内容
+            // 清空当前head
             while (currentHead.firstChild) {
                 currentHead.removeChild(currentHead.firstChild);
             }
             
-            // 添加base标签确保正确的资源加载路径
+            // 添加base标签确保正确的资源路径
             const baseTag = document.createElement('base');
             baseTag.href = 'https://haoma.baidu.com/';
             currentHead.appendChild(baseTag);
             
-            // 复制新head的所有子元素
-            Array.from(newHead.children).forEach(element => {
-                const clonedElement = element.cloneNode(true);
+            // 逐个添加head中的元素，确保正确的加载顺序
+            Array.from(newHead.children).forEach((element, index) => {
+                const tagName = element.tagName.toLowerCase();
                 
-                // 处理script标签
-                if (clonedElement.tagName === 'SCRIPT') {
+                if (tagName === 'script') {
+                    // 创建新的script元素确保执行
                     const newScript = document.createElement('script');
                     
                     // 复制所有属性
-                    Array.from(clonedElement.attributes).forEach(attr => {
+                    Array.from(element.attributes).forEach(attr => {
                         newScript.setAttribute(attr.name, attr.value);
                     });
                     
-                    // 如果是内联脚本，复制内容
-                    if (clonedElement.textContent && !clonedElement.src) {
-                        newScript.textContent = clonedElement.textContent;
+                    // 处理内联脚本
+                    if (element.textContent && !element.src) {
+                        newScript.textContent = element.textContent;
+                    }
+                    
+                    // 确保关键脚本优先加载
+                    if (element.src && element.src.includes('dfxaf3.js')) {
+                        newScript.async = false;
+                        newScript.defer = false;
                     }
                     
                     currentHead.appendChild(newScript);
                 } else {
+                    // 直接克隆其他元素
+                    const clonedElement = element.cloneNode(true);
                     currentHead.appendChild(clonedElement);
                 }
             });
             
-            // 清空并重建body
+            // 完全重建body
             const newBody = newDoc.body;
             const currentBody = document.body;
             
-            // 清空当前body内容
+            // 清空当前body
             while (currentBody.firstChild) {
                 currentBody.removeChild(currentBody.firstChild);
             }
             
-            // 复制新body的所有属性
+            // 复制body属性
             Array.from(newBody.attributes).forEach(attr => {
                 currentBody.setAttribute(attr.name, attr.value);
             });
             
-            // 复制新body的所有子元素
+            // 添加body内容，确保script标签能正确执行
             Array.from(newBody.children).forEach(element => {
-                const clonedElement = element.cloneNode(true);
-                
-                // 处理script标签
-                if (clonedElement.tagName === 'SCRIPT') {
+                if (element.tagName === 'SCRIPT') {
+                    // 重新创建script标签确保执行
                     const newScript = document.createElement('script');
                     
-                    // 复制所有属性
-                    Array.from(clonedElement.attributes).forEach(attr => {
+                    Array.from(element.attributes).forEach(attr => {
                         newScript.setAttribute(attr.name, attr.value);
                     });
                     
-                    // 如果是内联脚本，复制内容
-                    if (clonedElement.textContent && !clonedElement.src) {
-                        newScript.textContent = clonedElement.textContent;
+                    if (element.textContent && !element.src) {
+                        newScript.textContent = element.textContent;
                     }
                     
                     currentBody.appendChild(newScript);
                 } else {
+                    // 深度克隆其他元素
+                    const clonedElement = element.cloneNode(true);
                     currentBody.appendChild(clonedElement);
                 }
             });
             
-            // 恢复插件脚本
+            // 延迟恢复插件脚本
             setTimeout(() => {
                 pluginScripts.forEach(script => {
-                    if (script.parentNode && !document.querySelector(`script[data-plugin="baidu"]`)) {
+                    if (!document.querySelector(`script[data-plugin="baidu"]`)) {
                         const restoredScript = document.createElement('script');
                         restoredScript.textContent = script.textContent;
                         restoredScript.setAttribute('data-plugin', 'baidu');
                         document.head.appendChild(restoredScript);
                     }
                 });
-            }, 100);
+            }, 200);
             
-            console.log('Document replacement completed successfully with safe DOM manipulation');
+            console.log('Document replacement completed successfully');
             
         } catch (error) {
             console.error('Error in replaceEntireDocument:', error);
             
-            // 简化的备用方案：仅替换body内容
+            // 备用方案：仅替换body内容
             try {
                 const parser = new DOMParser();
                 const newDoc = parser.parseFromString(htmlString, 'text/html');
                 
                 if (newDoc && newDoc.body) {
-                    // 只替换body内容，保持head不变
                     document.body.innerHTML = newDoc.body.innerHTML;
                     
-                    // 复制body属性
                     Array.from(newDoc.body.attributes).forEach(attr => {
                         document.body.setAttribute(attr.name, attr.value);
                     });
