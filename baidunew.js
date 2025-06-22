@@ -7,7 +7,7 @@
         info: {
             id: 'baiPhoneNumberPlugin', // 插件ID,必须唯一
             name: 'bai', // 插件名称
-            version: '1.72.0', // 插件版本
+            version: '1.2.0', // 插件版本
             description: 'This is a plugin template.', // 插件描述
             author: 'Your Name', // 插件作者
         },
@@ -150,9 +150,9 @@
         }
     }
 
-    // 完全重写的文档替换函数 - 解决所有已知问题
+    // 完全重写的文档替换函数 - 专门解决React应用加载问题
     function replaceEntireDocument(htmlString) {
-        console.log('Replacing entire document with improved method');
+        console.log('Replacing entire document with React-optimized method');
         
         try {
             // 保存当前插件脚本引用
@@ -169,7 +169,30 @@
             }
             
             // 不设置document.domain，避免SecurityError
-            // 通过其他方式处理CORS问题
+            // 使用document.open()和document.write()的替代方案
+            
+            // 保存当前的XMLHttpRequest原型，避免被覆盖
+            const originalXHROpen = XMLHttpRequest.prototype.open;
+            const originalXHRSend = XMLHttpRequest.prototype.send;
+            
+            // 重写XMLHttpRequest以统一处理百度域名请求
+            XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
+                // 检查是否是百度域名的请求
+                if (url && (url.includes('baidu.com') || url.includes('bcebos.com'))) {
+                    // 为百度域名请求设置withCredentials为false，避免CORS错误
+                    this.withCredentials = false;
+                }
+                return originalXHROpen.call(this, method, url, async, user, password);
+            };
+            
+            XMLHttpRequest.prototype.send = function(data) {
+                // 为百度域名请求设置统一的请求头
+                if (this._url && (this._url.includes('baidu.com') || this._url.includes('bcebos.com'))) {
+                    this.setRequestHeader('Origin', 'https://haoma.baidu.com');
+                    this.setRequestHeader('Referer', 'https://haoma.baidu.com/');
+                }
+                return originalXHRSend.call(this, data);
+            };
             
             // 完全替换HTML结构
             const newHtml = newDoc.documentElement;
@@ -189,44 +212,21 @@
                 currentHead.removeChild(currentHead.firstChild);
             }
             
+            // 首先添加charset meta标签
+            const charsetMeta = document.createElement('meta');
+            charsetMeta.setAttribute('charset', 'utf-8');
+            currentHead.appendChild(charsetMeta);
+            
             // 添加base标签确保正确的资源路径
             const baseTag = document.createElement('base');
             baseTag.href = 'https://haoma.baidu.com/';
             currentHead.appendChild(baseTag);
             
-            // 手动添加缺失的关键脚本（按正确顺序）
-            const criticalScripts = [
-                {
-                    src: 'https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js',
-                    charset: 'utf-8'
-                },
-                {
-                    src: 'https://sofire.bdstatic.com/js/dfxaf3.js'
-                }
-            ];
-            
-            // 首先添加关键脚本
-            criticalScripts.forEach(scriptInfo => {
-                const script = document.createElement('script');
-                if (scriptInfo.charset) {
-                    script.charset = scriptInfo.charset;
-                }
-                script.src = scriptInfo.src;
-                script.async = false;
-                script.defer = false;
-                currentHead.appendChild(script);
-            });
-            
-            // 然后按顺序添加原始head中的其他元素
+            // 按照原始HTML的确切顺序添加所有head元素
             Array.from(newHead.children).forEach((element, index) => {
                 const tagName = element.tagName.toLowerCase();
                 
                 if (tagName === 'script') {
-                    // 跳过已经添加的关键脚本
-                    if (element.src && (element.src.includes('UrlChangeTracker.js') || element.src.includes('dfxaf3.js'))) {
-                        return;
-                    }
-                    
                     // 创建新的script元素确保执行
                     const newScript = document.createElement('script');
                     
@@ -240,12 +240,16 @@
                         newScript.textContent = element.textContent;
                     }
                     
+                    // 确保脚本按顺序同步加载
+                    if (element.src) {
+                        newScript.async = false;
+                        newScript.defer = false;
+                    }
+                    
                     currentHead.appendChild(newScript);
                 } else if (tagName === 'meta' && element.getAttribute('charset')) {
-                    // 确保charset meta标签在最前面
-                    const charsetMeta = document.createElement('meta');
-                    charsetMeta.setAttribute('charset', 'utf-8');
-                    currentHead.insertBefore(charsetMeta, currentHead.firstChild.nextSibling);
+                    // 跳过charset meta标签，因为已经添加了
+                    return;
                 } else {
                     // 直接克隆其他元素
                     const clonedElement = element.cloneNode(true);
@@ -267,7 +271,7 @@
                 currentBody.setAttribute(attr.name, attr.value);
             });
             
-            // 添加body内容，确保script标签能正确执行
+            // 添加body内容，确保React应用能正确初始化
             Array.from(newBody.children).forEach(element => {
                 if (element.tagName === 'SCRIPT') {
                     // 重新创建script标签确保执行
@@ -281,6 +285,12 @@
                         newScript.textContent = element.textContent;
                     }
                     
+                    // 确保React相关脚本能正确执行
+                    if (element.src) {
+                        newScript.async = false;
+                        newScript.defer = false;
+                    }
+                    
                     currentBody.appendChild(newScript);
                 } else {
                     // 深度克隆其他元素
@@ -289,60 +299,92 @@
                 }
             });
             
-            // 延迟恢复插件脚本
-            setTimeout(() => {
-                pluginScripts.forEach(script => {
-                    if (!document.querySelector(`script[data-plugin="baidu"]`)) {
-                        const restoredScript = document.createElement('script');
-                        restoredScript.textContent = script.textContent;
-                        restoredScript.setAttribute('data-plugin', 'baidu');
-                        document.head.appendChild(restoredScript);
-                    }
-                });
-            }, 200);
+            // 等待React应用初始化完成
+            let reactCheckCount = 0;
+            const maxReactChecks = 50; // 最多检查5秒
+            
+            const checkReactApp = () => {
+                reactCheckCount++;
+                const rootElement = document.getElementById('root');
+                
+                if (rootElement && rootElement.children.length > 0) {
+                    console.log('React app loaded successfully');
+                    // React应用已加载，恢复插件脚本
+                    setTimeout(() => {
+                        pluginScripts.forEach(script => {
+                            if (!document.querySelector(`script[data-plugin="baidu"]`)) {
+                                const restoredScript = document.createElement('script');
+                                restoredScript.textContent = script.textContent;
+                                restoredScript.setAttribute('data-plugin', 'baidu');
+                                document.head.appendChild(restoredScript);
+                            }
+                        });
+                    }, 100);
+                } else if (reactCheckCount < maxReactChecks) {
+                    // 继续等待React应用加载
+                    setTimeout(checkReactApp, 100);
+                } else {
+                    console.warn('React app failed to load within timeout');
+                    // 即使React应用没有加载，也恢复插件脚本
+                    pluginScripts.forEach(script => {
+                        if (!document.querySelector(`script[data-plugin="baidu"]`)) {
+                            const restoredScript = document.createElement('script');
+                            restoredScript.textContent = script.textContent;
+                            restoredScript.setAttribute('data-plugin', 'baidu');
+                            document.head.appendChild(restoredScript);
+                        }
+                    });
+                }
+            };
+            
+            // 开始检查React应用
+            setTimeout(checkReactApp, 500);
             
             console.log('Document replacement completed successfully');
             
         } catch (error) {
             console.error('Error in replaceEntireDocument:', error);
             
-            // 备用方案：使用innerHTML替换，但保持脚本执行
+            // 备用方案：使用更简单的方法
             try {
                 const parser = new DOMParser();
                 const newDoc = parser.parseFromString(htmlString, 'text/html');
                 
                 if (newDoc && newDoc.body) {
-                    // 先添加缺失的关键脚本到head
-                    const criticalScripts = [
-                        'https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js',
-                        'https://sofire.bdstatic.com/js/dfxaf3.js'
-                    ];
+                    // 直接替换整个文档内容
+                    document.open();
+                    document.write(htmlString);
+                    document.close();
                     
-                    criticalScripts.forEach(src => {
-                        if (!document.querySelector(`script[src="${src}"]`)) {
-                            const script = document.createElement('script');
-                            script.src = src;
-                            if (src.includes('UrlChangeTracker.js')) {
-                                script.charset = 'utf-8';
-                            }
-                            document.head.appendChild(script);
-                        }
-                    });
-                    
-                    // 然后替换body内容
-                    document.body.innerHTML = newDoc.body.innerHTML;
-                    
-                    Array.from(newDoc.body.attributes).forEach(attr => {
-                        document.body.setAttribute(attr.name, attr.value);
-                    });
-                    
-                    console.log('Fallback: body content replaced with critical scripts added');
+                    console.log('Fallback: document.write method used');
+                } else {
+                    throw new Error('Fallback method also failed');
                 }
             } catch (fallbackError) {
-                console.error('Fallback method also failed:', fallbackError);
-            }
-        }
-    }
+                console.error('All methods failed:', fallbackError);
+                
+                // 最后的备用方案：仅替换body内容
+                 try {
+                     const parser = new DOMParser();
+                     const newDoc = parser.parseFromString(htmlString, 'text/html');
+                     
+                     if (newDoc && newDoc.body) {
+                         // 简单替换body内容
+                         document.body.innerHTML = newDoc.body.innerHTML;
+                         
+                         // 复制body属性
+                         Array.from(newDoc.body.attributes).forEach(attr => {
+                             document.body.setAttribute(attr.name, attr.value);
+                         });
+                         
+                         console.log('Final fallback: body content replaced');
+                     }
+                 } catch (finalError) {
+                     console.error('Final fallback also failed:', finalError);
+                 }
+             }
+         }
+     }
 
     // handleResponse 函数 (优化版)
     function handleResponse(response) {
