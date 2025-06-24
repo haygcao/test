@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.1.0',
+        version: '4.71.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -142,8 +142,11 @@
         log(`Initiating query for '${phoneNumber}' with requestId: ${requestId}`);
 
         try {
-            const baiduSearchUrl = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
-            const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(baiduSearchUrl)}`;
+            const baiduSearchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(phoneNumber)}&ie=utf-8`;
+            const headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
+            };
+            const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(baiduSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
             log(`Using proxy URL: ${proxyUrl}`);
 
             const iframe = document.createElement('iframe');
