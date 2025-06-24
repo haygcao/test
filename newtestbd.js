@@ -142,7 +142,7 @@
         log(`Initiating query for '${phoneNumber}' with requestId: ${requestId}`);
 
         try {
-            const baiduSearchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(phoneNumber)}&ie=utf-8`;
+            const baiduSearchUrl = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
             const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(baiduSearchUrl)}`;
             log(`Using proxy URL: ${proxyUrl}`);
 
