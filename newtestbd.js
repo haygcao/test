@@ -152,15 +152,17 @@
             activeIFrames.set(requestId, iframe);
 
             iframe.onload = function() {
-                log(`Iframe loaded for requestId: ${requestId}`);
+                log(`Iframe loaded for requestId: ${requestId}. Posting script for execution.`);
                 try {
-                    const script = iframe.contentDocument.createElement('script');
-                    script.textContent = getParsingScript();
-                    iframe.contentDocument.body.appendChild(script);
-                    log(`Parsing script injected for requestId: ${requestId}`);
+                    // 使用 postMessage 发送要执行的脚本
+                    iframe.contentWindow.postMessage({
+                        type: 'executeScript',
+                        script: getParsingScript()
+                    }, '*'); // 在生产环境中，应指定确切的目标源
+                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
                 } catch (e) {
-                    logError(`Error injecting script for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `Script injection failed: ${e.message}` });
+                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
+                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
                     cleanupIframe(requestId);
                 }
             };
