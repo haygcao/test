@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.81.0',
+        version: '4.19.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -133,12 +133,15 @@
     }
 
     // --- Parsing Logic (to be injected into the iframe) ---
-    function getParsingScript() {
+    function getParsingScript(pluginId, phoneNumberToQuery) {
         return `
             (function() {
+                const PLUGIN_ID = '${pluginId}';
+                const PHONE_NUMBER = '${phoneNumberToQuery}';
+
                 function parseBaiduPage() {
                     const result = {
-                        phoneNumber: '',
+                        phoneNumber: PHONE_NUMBER, // Use the number passed into the script
                         sourceLabel: '',
                         count: 0,
                         province: '',
@@ -146,111 +149,77 @@
                         carrier: '',
                         name: '',
                         predefinedLabel: '',
-                        source: 'baidu',
-                        numbers: [], // To store multiple numbers if found
+                        source: PLUGIN_ID,
+                        numbers: [],
                         success: false,
                         error: ''
                     };
 
-
                     try {
-                        // --- Strategy 1: Look for JSON data in s-data attribute (more reliable) ---
+                        // Universal container for both official and marked numbers
+                        const container = document.querySelector('.result-op.c-container.new-pmd, .c-container[mu]');
 
-                        // Case A: Harassment/Marked numbers
-                        const generalContainer = document.querySelector('.c-container[mu]');
-                        if (generalContainer && generalContainer.dataset.sData) {
-                            const data = JSON.parse(generalContainer.dataset.sData);
-                            result.phoneNumber = data.phoneno || '';
-                            result.sourceLabel = data.tag || data.text || '';
-                            if (result.sourceLabel.includes('商业营销') || result.sourceLabel.includes('骚扰')) {
-                                result.count = 1;
-                            }
-                            result.province = data.prov || '';
-                            result.city = data.city || '';
-                            result.success = true;
-                            console.log('Parsed from general s-data JSON.');
-                            return result;
-                        }
-
-                        // Case B: Company/Official numbers
-                        const companyContainer = document.querySelector('.ms_company_number_2oq_O');
-                        if (companyContainer && companyContainer.dataset.sData) {
-                            const data = JSON.parse(companyContainer.dataset.sData);
-                            result.name = data.showtitle || data.title || '';
-                            if (data.tellist && data.tellist.tel) {
-                                result.numbers = data.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
-                                if(result.numbers.length > 0) {
-                                    result.phoneNumber = result.numbers[0].number; // Use first number as primary
+                        if (!container) {
+                            console.log('No primary result container found. Parsing might fail.');
+                            // Even if no container, we might have a simple page, so don't exit yet.
+                        } else {
+                             // --- Strategy 1: Try to parse as a marked/harassment number ---
+                            if (container.querySelector('.op_mobilephone_container') || container.getAttribute('mu').includes('op_mobilephone')) {
+                                console.log('Parsing as Marked/Harassment Number Page.');
+                                if (container.dataset.sData) {
+                                    const data = JSON.parse(container.dataset.sData);
+                                    result.sourceLabel = data.tag || data.text || '';
+                                    result.province = data.prov || '';
+                                    result.city = data.city || '';
+                                    result.carrier = data.carrier || '';
+                                    result.success = true;
+                                } else {
+                                    const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU');
+                                    if (labelEl) result.sourceLabel = labelEl.textContent.replace('标记：', '').trim().split(/\s+/)[0];
+                                    const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
+                                    if (locationEl) {
+                                        const locText = locationEl.textContent.replace('归属地：', '').trim();
+                                        const parts = locText.split(/\s+/);
+                                        result.province = parts[0] || '';
+                                        result.city = parts[1] || '';
+                                        result.carrier = parts[2] || '';
+                                    }
+                                    result.success = !!(result.sourceLabel || result.province);
                                 }
                             }
-                            result.success = true;
-                            console.log('Parsed from company s-data JSON.');
-                            return result;
-                        }
 
-                        // --- Strategy 2: Fallback to HTML parsing if JSON fails ---
-                        console.log('s-data JSON not found, falling back to HTML parsing.');
-
-                        // Case A: Harassment/Marked numbers (HTML)
-                        if (generalContainer) {
-                            const phoneText = generalContainer.querySelector('h3 > a')?.textContent || '';
-                            const phoneMatch = phoneText.match(/[0-9\-]+/);
-                            if(phoneMatch) result.phoneNumber = phoneMatch[0];
-
-                            // Legacy layout
-                            const opContainer = generalContainer.querySelector('.op_mobilephone_container');
-                            if (opContainer) {
-                                const locText = opContainer.querySelector('.op_mobilephone_location')?.textContent.replace('归属地：', '').trim() || '';
-                                const parts = locText.split(/\s+/);
-                                result.province = parts[0] || '';
-                                result.city = parts[1] || '';
-                                result.carrier = parts[2] || '';
-                                result.sourceLabel = opContainer.querySelector('.op_mobilephone_label')?.textContent.replace('标记：', '').trim() || '';
-                                result.success = true;
-                                console.log('Parsed from legacy HTML structure.');
-                                return result;
-                            }
-
-                            // Newer layout
-                            const labelEl = generalContainer.querySelector('.cc-title_31ypU');
-                            if (labelEl) {
-                                result.sourceLabel = labelEl.textContent.trim().split(/\s+/)[0]; // Get '商业营销'
-                                if (result.sourceLabel.includes('商业营销') || result.sourceLabel.includes('骚扰')) {
-                                    result.count = 1;
+                            // --- Strategy 2: Try to parse as an official/company number ---
+                            else if (container.querySelector('.ms_company_number_2oq_O') || container.getAttribute('mu').includes('ms_company_number')) {
+                                console.log('Parsing as Official/Company Number Page.');
+                                if (container.dataset.sData) {
+                                    const data = JSON.parse(container.dataset.sData);
+                                    result.name = data.showtitle || data.title || '';
+                                    if (data.tellist && data.tellist.tel) {
+                                        result.numbers = data.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
+                                    }
+                                    result.success = true;
+                                } else {
+                                    result.name = container.querySelector('h3 a')?.textContent.trim() || '';
+                                    const numberNodes = container.querySelectorAll('.tell-list_2FE1Z, .c-row');
+                                    numberNodes.forEach(node => {
+                                        const numberEl = node.querySelector('.list-num_3MoU1, .list-num');
+                                        const nameEl = node.querySelector('.list-title_22Pkn, .list-title');
+                                        if (numberEl && nameEl) {
+                                            const number = numberEl.textContent.trim();
+                                            const name = nameEl.textContent.trim();
+                                            if (number) result.numbers.push({ number, name });
+                                        }
+                                    });
+                                    result.success = result.numbers.length > 0;
                                 }
-                            }
-                            const locationEl = generalContainer.querySelector('.cc-row_dDm_G');
-                            if (locationEl) {
-                                const locText = locationEl.textContent.trim();
-                                const parts = locText.split(/\s+/);
-                                result.province = parts[0] || '';
-                                result.city = parts[1] || '';
-                                result.carrier = parts[2] || '';
-                            }
-                            if (result.sourceLabel || result.province) {
-                                result.success = true;
-                                console.log('Parsed from newer HTML structure.');
-                                return result;
                             }
                         }
 
-                        // Case B: Company/Official numbers (HTML)
-                        if (companyContainer) {
-                            result.name = companyContainer.querySelector('h3 a')?.textContent.trim() || '';
-                            const numberNodes = companyContainer.querySelectorAll('.tell-list_2FE1Z');
-                            numberNodes.forEach(node => {
-                                const number = node.querySelector('.list-num_3MoU1')?.textContent.trim();
-                                const name = node.querySelector('.list-title_22Pkn')?.textContent.trim();
-                                if (number) {
-                                    result.numbers.push({ number, name });
-                                }
-                            });
-                            if (result.numbers.length > 0) {
-                                result.phoneNumber = result.numbers[0].number;
-                                result.success = true;
-                            }
-                            console.log('Parsed from company HTML structure.');
-                            return result;
+                        // If after all strategies, we have no specific data, it's a failure for this parser.
+                        if (!result.success) {
+                            console.log('All parsing strategies failed for the container.');
+                            // We don't set success to true here, let the observer decide if it's a final failure.
+                            return null; // Return null to indicate parsing was inconclusive
                         }
                         
                         console.log('No parsable content found.');
@@ -329,11 +298,11 @@
         log(`Initiating query for '${phoneNumber}' with requestId: ${requestId}`);
 
         try {
-            const baiduSearchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(phoneNumber)}&ie=utf-8`;
+            const targetSearchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(phoneNumber)}&ie=utf-8`;
             const headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
             };
-            const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(baiduSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
+            const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(targetSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
             log(`Using proxy URL: ${proxyUrl}`);
 
             const iframe = document.createElement('iframe');
@@ -347,7 +316,7 @@
                     // 使用 postMessage 发送要执行的脚本
                     iframe.contentWindow.postMessage({
                         type: 'executeScript',
-                        script: getParsingScript()
+                        script: getParsingScript(PLUGIN_CONFIG.id, phoneNumber)
                     }, '*'); // 在生产环境中，应指定确切的目标源
                     log(`Parsing script posted to iframe for requestId: ${requestId}`);
                 } catch (e) {
@@ -423,7 +392,7 @@
 
     // --- Plugin Initialization ---
     function initialize() {
-        if (window.baiduPhoneNumberPlugin) {
+        if (window.plugin && window.plugin[PLUGIN_CONFIG.id]) {
             log('Plugin already initialized.');
             return;
         }
