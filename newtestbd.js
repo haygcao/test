@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.71.0',
+        version: '4.72.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
