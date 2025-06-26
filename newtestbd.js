@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (Direct Injection)',
-        version: '5.0.0',
+        version: '5.20.0',
         description: 'Queries Baidu by directly injecting a parsing script into a proxied iframe.'
     };
 
