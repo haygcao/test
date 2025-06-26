@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.19.0',
+        version: '4.81.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -141,7 +141,7 @@
 
                 function parseBaiduPage() {
                     const result = {
-                        phoneNumber: PHONE_NUMBER, // Use the number passed into the script
+                        phoneNumber: PHONE_NUMBER,
                         sourceLabel: '',
                         count: 0,
                         province: '',
@@ -156,76 +156,93 @@
                     };
 
                     try {
-                        // Universal container for both official and marked numbers
                         const container = document.querySelector('.result-op.c-container.new-pmd, .c-container[mu]');
-
                         if (!container) {
-                            console.log('No primary result container found. Parsing might fail.');
-                            // Even if no container, we might have a simple page, so don't exit yet.
-                        } else {
-                             // --- Strategy 1: Try to parse as a marked/harassment number ---
-                            if (container.querySelector('.op_mobilephone_container') || container.getAttribute('mu').includes('op_mobilephone')) {
-                                console.log('Parsing as Marked/Harassment Number Page.');
-                                if (container.dataset.sData) {
-                                    const data = JSON.parse(container.dataset.sData);
-                                    result.sourceLabel = data.tag || data.text || '';
-                                    result.province = data.prov || '';
-                                    result.city = data.city || '';
-                                    result.carrier = data.carrier || '';
-                                    result.success = true;
-                                } else {
-                                    const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU');
-                                    if (labelEl) result.sourceLabel = labelEl.textContent.replace('标记：', '').trim().split(/\s+/)[0];
-                                    const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
-                                    if (locationEl) {
-                                        const locText = locationEl.textContent.replace('归属地：', '').trim();
-                                        const parts = locText.split(/\s+/);
-                                        result.province = parts[0] || '';
-                                        result.city = parts[1] || '';
-                                        result.carrier = parts[2] || '';
-                                    }
-                                    result.success = !!(result.sourceLabel || result.province);
-                                }
-                            }
+                            console.log('No result container found.');
+                            return null; // Wait for mutation
+                        }
 
-                            // --- Strategy 2: Try to parse as an official/company number ---
-                            else if (container.querySelector('.ms_company_number_2oq_O') || container.getAttribute('mu').includes('ms_company_number')) {
-                                console.log('Parsing as Official/Company Number Page.');
-                                if (container.dataset.sData) {
-                                    const data = JSON.parse(container.dataset.sData);
-                                    result.name = data.showtitle || data.title || '';
-                                    if (data.tellist && data.tellist.tel) {
-                                        result.numbers = data.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
-                                    }
-                                    result.success = true;
-                                } else {
-                                    result.name = container.querySelector('h3 a')?.textContent.trim() || '';
-                                    const numberNodes = container.querySelectorAll('.tell-list_2FE1Z, .c-row');
-                                    numberNodes.forEach(node => {
-                                        const numberEl = node.querySelector('.list-num_3MoU1, .list-num');
-                                        const nameEl = node.querySelector('.list-title_22Pkn, .list-title');
-                                        if (numberEl && nameEl) {
-                                            const number = numberEl.textContent.trim();
-                                            const name = nameEl.textContent.trim();
-                                            if (number) result.numbers.push({ number, name });
-                                        }
-                                    });
-                                    result.success = result.numbers.length > 0;
-                                }
+                        let data = null;
+                        if (container.dataset.sData) {
+                            try {
+                                data = JSON.parse(container.dataset.sData);
+                                console.log('Successfully parsed s-data JSON.');
+                            } catch (e) {
+                                console.error('Failed to parse s-data JSON:', e);
                             }
                         }
 
-                        // If after all strategies, we have no specific data, it's a failure for this parser.
+                        // Strategy 1: Marked/Harassment Number (JSON or HTML)
+                        if (data && (data.tag || data.text)) { // JSON path for marked numbers
+                            console.log('Parsing as Marked Number from s-data.');
+                            result.sourceLabel = data.tag || data.text.replace('被用户标记为', '') || '';
+                            result.province = data.prov || '';
+                            result.city = data.city || '';
+                            result.carrier = data.carrier || '';
+                            result.success = true;
+                        } else if (container.querySelector('.op_mobilephone_label, .cc-title_31ypU')) { // HTML path for marked numbers
+                            console.log('Parsing as Marked Number from HTML.');
+                            const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU');
+                            if (labelEl) result.sourceLabel = labelEl.textContent.replace('标记：', '').trim().split(/\s+/)[0];
+                            const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
+                            if (locationEl) {
+                                const locText = locationEl.textContent.replace('归属地：', '').trim();
+                                const parts = locText.split(/\s+/);
+                                result.province = parts[0] || '';
+                                result.city = parts[1] || '';
+                                result.carrier = parts[2] || '';
+                            }
+                            result.success = !!(result.sourceLabel || result.province);
+                        }
+
+                        // Strategy 2: Official/Company Number (JSON or HTML)
+                        else if (data && data.tellist) { // JSON path for official numbers
+                            console.log('Parsing as Official Number from s-data.');
+                            result.name = data.showtitle || data.title || '';
+                            if (data.tellist.tel) {
+                                result.numbers = data.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
+                            }
+                            // Official numbers might also have a tag
+                            if (data.tagValue && data.tagValue.value) {
+                                result.sourceLabel = data.tagValue.value;
+                            }
+                            result.success = true;
+                        } else if (container.querySelector('.ms_company_number_2oq_O, .tell-list_2FE1Z')) { // HTML path for official numbers
+                            console.log('Parsing as Official Number from HTML.');
+                            result.name = container.querySelector('h3 a')?.textContent.trim() || '';
+                            const officialTag = container.querySelector('.blue-tag_3ZUpP');
+                            if(officialTag) result.sourceLabel = officialTag.textContent.trim();
+
+                            const numberNodes = container.querySelectorAll('.tell-list_2FE1Z .c-row, .tell-list_2FE1Z > div');
+                            if(numberNodes.length > 0){
+                                numberNodes.forEach(node => {
+                                    const numberEl = node.querySelector('.list-num_3MoU1, .list-num');
+                                    const nameEl = node.querySelector('.list-title_22Pkn, .list-title');
+                                    if (numberEl) { // Name is optional
+                                        const number = numberEl.textContent.trim();
+                                        const name = nameEl ? nameEl.textContent.trim() : '';
+                                        if (number) result.numbers.push({ number, name });
+                                    }
+                                });
+                            } else {
+                                // Fallback for single number display
+                                const singleNumEl = container.querySelector('.list-num_3MoU1, .list-num');
+                                if(singleNumEl){
+                                     const number = singleNumEl.textContent.trim();
+                                     if (number) result.numbers.push({ number, name: result.name });
+                                }
+                            }
+                            result.success = result.numbers.length > 0 || !!result.name;
+                        }
+
                         if (!result.success) {
-                            console.log('All parsing strategies failed for the container.');
-                            // We don't set success to true here, let the observer decide if it's a final failure.
-                            return null; // Return null to indicate parsing was inconclusive
+                            console.log('All parsing strategies failed.');
+                            return null; // Indicate parsing was inconclusive, let observer try again.
                         }
-                        
-                        console.log('No parsable content found.');
 
-                        // Use the global manualMapping to set predefinedLabel from sourceLabel
+                        // Map sourceLabel to predefinedLabel
                         if (result.sourceLabel) {
+                            result.count = result.sourceLabel.includes('营销') || result.sourceLabel.includes('骚扰') ? 1 : 0;
                             for (const key in manualMapping) {
                                 if (result.sourceLabel.includes(key)) {
                                     result.predefinedLabel = manualMapping[key];
@@ -233,32 +250,13 @@
                                 }
                             }
                         }
-
-                        if (result.numbers.length > 0 || result.phoneNumber) {
-                            result.success = true;
-                        } else {
-                            // If we are here and have no number, it means parsing failed.
-                            // Returning null is better to let the observer know to keep trying.
-                            return null;
+                        
+                        // If no numbers were parsed but we have a main number, add it.
+                        if (result.numbers.length === 0 && result.phoneNumber) {
+                           result.numbers.push({ number: result.phoneNumber, name: result.name || result.sourceLabel });
                         }
 
-                        // Final cleanup of the returned object to match user request
-                        const finalResult = {
-                            phoneNumber: result.phoneNumber,
-                            sourceLabel: result.sourceLabel,
-                            count: result.count,
-                            province: result.province,
-                            city: result.city,
-                            carrier: result.carrier,
-                            name: result.name,
-                            predefinedLabel: result.predefinedLabel,
-                            source: result.source,
-                            numbers: result.numbers,
-                            success: result.success,
-                            error: result.error
-                        };
-
-                        return finalResult;
+                        return result;
 
                     } catch (e) {
                         console.error('Error parsing Baidu page:', e);
