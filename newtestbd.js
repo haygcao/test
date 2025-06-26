@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.91.0',
+        version: '4.71.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -139,8 +139,11 @@
                 const PLUGIN_ID = '${pluginId}';
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
                 const manualMapping = ${JSON.stringify(manualMapping)};
+                let parsingCompleted = false;
 
                 function parseBaiduPage() {
+                    if (parsingCompleted) return null;
+
                     const result = {
                         phoneNumber: PHONE_NUMBER,
                         sourceLabel: '',
@@ -157,341 +160,131 @@
                     };
 
                     try {
-                        // 查找主容器 - 扩展选择器以包含更多可能的容器类型
-                        const container = document.querySelector('.result-op.c-container.new-pmd, .c-container[mu], .new-pmd, div.new-pmd, .ms_company_number_2oq_O');
+                        // --- Strategy 0: Find the correct document to parse (handle nested iframes) ---
+                        let docToParse = document;
+                        const nestedIframe = document.querySelector('iframe');
+                        if (nestedIframe) {
+                            try {
+                                const innerDoc = nestedIframe.contentDocument || nestedIframe.contentWindow.document;
+                                if (innerDoc.readyState !== 'uninitialized') {
+                                    console.log('Found nested iframe. Switching context to its document.');
+                                    docToParse = innerDoc;
+                                } else {
+                                     console.log('Nested iframe found, but its document is not ready yet.');
+                                }
+                            } catch (e) {
+                                console.warn('Could not access nested iframe, likely cross-origin. Parsing main document.', e);
+                            }
+                        }
+
+                        // --- Strategy 1: Find the main container in the target document ---
+                        const container = docToParse.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
                         if (!container) {
-                            console.log('Primary result container not found.');
+                            console.log('Primary result container not found in the target document.');
                             return null; // Wait for mutation observer
                         }
 
-                        // 尝试解析s-data属性 - 增强提取逻辑
+                        // --- Strategy 2: Parse s-data from attribute or HTML comment ---
                         let sData = null;
                         try {
-                            // 首先尝试从HTML注释中提取s-data
-                            const htmlContent = container.innerHTML;
-                            const sDataMatch = htmlContent.match(/<!--s-data:(.*?)-->/s);
-                            if (sDataMatch && sDataMatch[1]) {
-                                try {
-                                    sData = JSON.parse(sDataMatch[1]);
-                                    console.log('Successfully parsed s-data from HTML comment');
-                                } catch (e) {
-                                    console.log('Failed to parse s-data from HTML comment:', e);
-                                }
-                            }
-                            
-                            // 如果从注释中提取失败，尝试从元素属性中提取
-                            if (!sData) {
-                                // 查找包含s-data的元素 - 扩展选择器
-                                const sDataElements = document.querySelectorAll('div[data-s-data], div[data-sdata], .new-pmd, [data-s-data], [data-sdata], div.new-pmd, div[s-data], .ms_company_number_2oq_O');
-                                
-                                for (let i = 0; i < sDataElements.length && !sData; i++) {
-                                    const element = sDataElements[i];
-                                    // 尝试多种可能的属性名
-                                    const sDataStr = element.getAttribute('data-s-data') || 
-                                                    element.getAttribute('data-sdata') || 
-                                                    element.getAttribute('s-data');
-                                    
-                                    if (sDataStr) {
-                                        try {
-                                            sData = JSON.parse(sDataStr);
-                                            console.log('Successfully parsed s-data from element attribute');
-                                            break;
-                                        } catch (e) {
-                                            console.log('Failed to parse s-data from element attribute:', e);
-                                        }
-                                    }
-                                }
-                            }
-                            
-                            // 如果仍然没有找到s-data，尝试从整个文档中查找注释
-                            if (!sData) {
-                                const docHtml = document.documentElement.innerHTML;
-                                const allComments = docHtml.match(/<!--s-data:(.*?)-->/gs);
-                                if (allComments && allComments.length > 0) {
-                                    for (const comment of allComments) {
-                                        const dataMatch = comment.match(/<!--s-data:(.*?)-->/s);
-                                        if (dataMatch && dataMatch[1]) {
-                                            try {
-                                                sData = JSON.parse(dataMatch[1]);
-                                                console.log('Successfully parsed s-data from document comment');
-                                                break;
-                                            } catch (e) {
-                                                console.log('Failed to parse s-data from document comment:', e);
-                                            }
-                                        }
+                            const sDataContainer = container.querySelector('[data-s-data], [data-sdata]');
+                            const sDataString = sDataContainer ? (sDataContainer.dataset.sData || sDataContainer.dataset.sdata) : null;
+                            if (sDataString) {
+                                sData = JSON.parse(sDataString);
+                                console.log('Parsed s-data from data attribute.');
+                            } else {
+                                const commentNodes = Array.from(docToParse.evaluate("//comment()", docToParse, null, XPathResult.ANY_TYPE, null));
+                                for (const comment of commentNodes) {
+                                    const match = comment.textContent.match(/s-data:\s*({.*})/);
+                                    if (match && match[1]) {
+                                        sData = JSON.parse(match[1]);
+                                        console.log('Parsed s-data from HTML comment.');
+                                        break;
                                     }
                                 }
                             }
                         } catch (e) {
-                            console.log('Failed to parse s-data attribute:', e);
+                            console.log('Failed to find or parse s-data:', e);
                         }
 
-                        // 策略1: 从s-data解析官方号码信息 - 增强判断逻辑
-                        if (sData && (sData.showtitle || sData.title || (sData.tellist && sData.tellist.tel))) {
-                            console.log('Parsing as Official Number via s-data.');
-                            result.name = sData.showtitle || sData.title || '官方电话';
-                            if (sData.tellist && sData.tellist.tel) {
-                                result.numbers = sData.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
+                        if (sData) {
+                            if (sData.tellist || sData.showtitle || sData.officialUrl || (sData.disp_data && sData.disp_data.length > 0 && sData.disp_data[0].p_tel)) {
+                                console.log('Parsing as Official Number via s-data.');
+                                result.name = sData.showtitle || sData.title || (sData.disp_data && sData.disp_data[0].p_name) || container.querySelector('h3')?.textContent.trim() || '';
+                                if (sData.tellist && sData.tellist.tel) {
+                                    result.numbers = sData.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
+                                } else if (sData.disp_data && sData.disp_data[0].p_tel) {
+                                    result.numbers.push({ number: sData.disp_data[0].p_tel, name: '官方号码' });
+                                }
+                                result.predefinedLabel = 'Customer Service';
+                                result.success = true;
+                            } else if (sData.tag || sData.markerTitle) {
+                                console.log('Parsing as Marked Number via s-data.');
+                                result.sourceLabel = sData.tag || sData.markerTitle.replace(/标记为：/, '') || '';
+                                result.count = parseInt(sData.count, 10) || 0;
+                                result.province = sData.prov || '';
+                                result.city = sData.city || '';
+                                result.carrier = sData.carrier || '';
+                                result.success = true;
                             }
-                            result.success = true;
-                        } 
-                        // 策略2: 从s-data解析标记号码信息 - 增强判断逻辑
-                        else if (sData && (sData.tag || sData.text || sData.markerTitle || sData.markerLabel)) {
-                            console.log('Parsing as Marked Number via s-data.');
-                            result.sourceLabel = sData.tag || sData.text || sData.markerTitle || sData.markerLabel || '商业营销';
-                            result.province = sData.prov || '';
-                            result.city = sData.city || '';
-                            result.carrier = sData.carrier || '';
-                            result.success = true;
-                        } 
-                        // 策略3: 从HTML解析官方号码信息
-                        else {
-                            console.log('s-data parsing failed or not applicable, falling back to HTML scraping.');
-                            
-                            // 检查是否是官方页面 - 增强判断逻辑
-                            let isOfficialPage = false;
-                            let officialName = '';
-                            
-                            // 尝试从h3标题中提取官方号码信息 - 扩展选择器
-                            const officialTitleEl = container.querySelector('.c-title h3, h3 a, h3, .c-title a, .c-title');
-                            if (officialTitleEl) {
-                                const titleText = officialTitleEl.textContent.trim();
-                                if (titleText.includes('客服') || titleText.includes('官方') || 
-                                    titleText.includes('热线') || titleText.includes('服务') ||
-                                    titleText.includes('电话')) {
-                                    isOfficialPage = true;
-                                    officialName = titleText;
-                                    console.log('Detected official page from title:', officialName);
-                                }
-                            }
-                            
-                            // 检查是否有电话号码列表元素，这也是官方页面的特征 - 扩展选择器
-                            const tellListElements = container.querySelectorAll('.tell-list_2FE1Z, .list-num_3MoU1, .ms_company_number_2oq_O');
-                            if (tellListElements && tellListElements.length > 0) {
-                                isOfficialPage = true;
-                                console.log('Detected official page from tell-list elements');
-                            }
-                            
-                            // 如果是官方页面
-                            if (isOfficialPage) {
-                                console.log('Parsing as Official Number via HTML title.');
-                                result.name = officialName || '官方电话';
-                                
-                                // 尝试提取电话号码列表 - 方法1：使用特定类选择器
-                                const numberContainers = container.querySelectorAll('.tell-list_2FE1Z');
-                                if (numberContainers && numberContainers.length > 0) {
-                                    numberContainers.forEach(container => {
-                                        const numberEl = container.querySelector('.list-num_3MoU1');
-                                        const nameEl = container.querySelector('.list-title_22Pkn');
-                                        if (numberEl && nameEl) {
-                                            const number = numberEl.textContent.trim();
-                                            const name = nameEl.textContent.trim();
-                                            if (number) result.numbers.push({ number, name });
-                                        }
-                                    });
-                                }
-                                
-                                // 方法2：如果方法1没有找到号码，尝试其他选择器
-                                if (result.numbers.length === 0) {
-                                    const numberEls = container.querySelectorAll('.list-num_3MoU1');
-                                    const nameEls = container.querySelectorAll('.list-title_22Pkn');
-                                    
-                                    if (numberEls.length === nameEls.length) {
-                                        for (let i = 0; i < numberEls.length; i++) {
-                                            const number = numberEls[i].textContent.trim();
-                                            const name = nameEls[i].textContent.trim();
-                                            if (number) result.numbers.push({ number, name });
-                                        }
+                        }
+
+                        // --- Strategy 3: HTML Scraping if s-data fails ---
+                        if (!result.success) {
+                            console.log('s-data parsing failed, falling back to HTML scraping.');
+                            const officialTitleEl = container.querySelector('.op-zx-title, .c-title h3, h3.t, .op_official_title');
+                            if (officialTitleEl && /官方|客服/.test(officialTitleEl.textContent)) {
+                                console.log('Parsing as Official Number via HTML scraping.');
+                                result.name = officialTitleEl.textContent.trim();
+                                const numberNodes = container.querySelectorAll('.tell-list_2FE1Z .c-row, .c-row.c-gap-top-small, .op_mobilephone_content');
+                                numberNodes.forEach(node => {
+                                    const numberEl = node.querySelector('.list-num_3MoU1, [class*="op_mobilephone_number"], .op_mobilephone_number');
+                                    const nameEl = node.querySelector('.list-title_22Pkn, .op_mobilephone_name');
+                                    if (numberEl) {
+                                        const number = numberEl.textContent.trim();
+                                        const name = nameEl ? nameEl.textContent.trim() : '号码';
+                                        if (number) result.numbers.push({ number, name });
                                     }
+                                });
+                                if(result.numbers.length > 0) {
+                                    result.predefinedLabel = 'Customer Service';
+                                    result.success = true;
                                 }
-                                
-                                // 方法3：直接查找特定的电话号码元素
-                                if (result.numbers.length === 0) {
-                                    const allNumberElements = document.querySelectorAll('.list-num_3MoU1, .tell-list_2FE1Z .list-num_3MoU1');
-                                    allNumberElements.forEach(el => {
-                                        const number = el.textContent.trim();
-                                        if (number) {
-                                            // 尝试找到相关的名称元素
-                                            let name = '客服电话';
-                                            const parentEl = el.closest('.tell-list_2FE1Z');
-                                            if (parentEl) {
-                                                const nameEl = parentEl.querySelector('.list-title_22Pkn');
-                                                if (nameEl) {
-                                                    name = nameEl.textContent.trim();
-                                                }
-                                            }
-                                            result.numbers.push({ number, name });
-                                        }
-                                    });
-                                }
-                                
-                                result.success = result.numbers.length > 0;
-                            } 
-                            // 策略4: 从HTML解析标记号码信息
-                            else {
-                                // 检查是否是标记号码页面
-                                let isMarkedPage = false;
-                                let markerLabel = '';
-                                
-                                // 尝试多种可能的标记元素选择器 - 扩展选择器
-                                const possibleLabelSelectors = [
-                                    '.cc-title_31ypU', 
-                                    '.op_mobilephone_label', 
-                                    '.marker-color_3IDoi', 
-                                    '.c-text-red-border',
-                                    '.c-row.c-gap-top-cc.cc-title_31ypU',
-                                    '.c-row .marker-color_3IDoi',
-                                    '.c-row .c-text-red-border'
-                                ];
-                                
-                                for (const selector of possibleLabelSelectors) {
-                                    const labelEl = container.querySelector(selector);
-                                    if (labelEl) {
-                                        const labelText = labelEl.textContent.replace('标记：', '').trim();
-                                        if (labelText) {
-                                            isMarkedPage = true;
-                                            markerLabel = labelText.split(/\s+/)[0];
-                                            console.log('Detected marked page with label:', markerLabel);
-                                            break;
-                                        }
+                            } else {
+                                const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU, [class*="op_mobilephone_tag"]');
+                                if (labelEl) {
+                                    console.log('Parsing as Marked Number via HTML scraping.');
+                                    result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：/, '').trim().split(/\s+/)[0];
+                                    const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G, [class*="op_mobilephone_addr"]');
+                                    if (locationEl) {
+                                        const locText = locationEl.textContent.replace(/归属地：/, '').trim();
+                                        const parts = locText.split(/\s+/);
+                                        result.province = parts[0] || '';
+                                        result.city = parts[1] || '';
+                                        result.carrier = parts[2] || '';
                                     }
-                                }
-                                
-                                // 如果没有找到标记，但有特定的标记页面结构，也认为是标记页面
-                                if (!isMarkedPage) {
-                                    const markerStructure = container.querySelector('.c-row.c-gap-top-xsmall, .mark-tip_3WkLJ');
-                                    if (markerStructure) {
-                                        isMarkedPage = true;
-                                        // 尝试从结构中提取标记文本
-                                        markerLabel = markerStructure.textContent.trim();
-                                        if (markerLabel.includes('商业营销')) {
-                                            markerLabel = '商业营销';
-                                        }
-                                        console.log('Detected marked page from structure with label:', markerLabel);
-                                    }
-                                }
-                                
-                                // 备用方案：如果仍然没有找到标记，但页面结构符合标记页面特征
-                                if (!isMarkedPage) {
-                                    // 检查是否有特定的div结构
-                                    const divRows = container.querySelectorAll('.c-row');
-                                    for (const row of divRows) {
-                                        const rowText = row.textContent.trim();
-                                        if (rowText.includes('商业营销') || rowText.includes('用户标记')) {
-                                            isMarkedPage = true;
-                                            markerLabel = '商业营销';
-                                            console.log('Detected marked page from row text:', rowText);
-                                            break;
-                                        }
-                                    }
-                                }
-                                
-                                if (isMarkedPage) {
-                                    console.log('Parsing as Marked Number via HTML label.');
-                                    result.sourceLabel = markerLabel || '商业营销'; // 默认值，如果无法提取
-                                    
-                                    // 尝试提取位置信息 - 扩展选择器
-                                    const locationSelectors = [
-                                        '.cc-row_dDm_G', 
-                                        '.op_mobilephone_location', 
-                                        '.c-row.c-gap-top.c-gap-top-cc',
-                                        '.c-row.c-gap-top-cc',
-                                        '.c-row:not(.c-gap-top-cc):not(.c-gap-top-xsmall)'
-                                    ];
-                                    
-                                    for (const selector of locationSelectors) {
-                                        const locationEls = container.querySelectorAll(selector);
-                                        for (const locationEl of locationEls) {
-                                            const locText = locationEl.textContent.replace('归属地：', '').trim();
-                                            if (locText && !locText.includes('商业营销') && !locText.includes('用户标记')) {
-                                                const parts = locText.split(/\s+/);
-                                                result.province = parts[0] || '';
-                                                result.city = parts[1] || '';
-                                                result.carrier = parts[2] || '';
-                                                console.log('Found location info:', locText);
-                                                break;
-                                            }
-                                        }
-                                        if (result.province) break;
-                                    }
-                                    
                                     result.success = true;
                                 }
                             }
                         }
 
-                        // 根据sourceLabel设置predefinedLabel
-                        if (result.sourceLabel && manualMapping[result.sourceLabel]) {
-                            result.predefinedLabel = manualMapping[result.sourceLabel];
-                            console.log('Set predefinedLabel to:', result.predefinedLabel, 'from sourceLabel:', result.sourceLabel);
-                        }
-
-                        if (!result.success) {
-                            console.log('All parsing strategies failed.');
-                            return null;
-                        }
-                                    result.success = true;
-                                } else {
-                                    result.name = container.querySelector('h3 a')?.textContent.trim() || '';
-                                    const numberNodes = container.querySelectorAll('.tell-list_2FE1Z, .c-row');
-                                    numberNodes.forEach(node => {
-                                        const numberEl = node.querySelector('.list-num_3MoU1, .list-num');
-                                        const nameEl = node.querySelector('.list-title_22Pkn, .list-title');
-                                        if (numberEl && nameEl) {
-                                            const number = numberEl.textContent.trim();
-                                            const name = nameEl.textContent.trim();
-                                            if (number) result.numbers.push({ number, name });
-                                        }
-                                    });
-                                    result.success = result.numbers.length > 0;
+                        // --- Strategy 4: Final Mapping and Validation ---
+                        if (result.success) {
+                            if (result.sourceLabel) {
+                                for (const key in manualMapping) {
+                                    if (result.sourceLabel.includes(key)) {
+                                        result.predefinedLabel = manualMapping[key];
+                                        break;
+                                    }
                                 }
                             }
-                        }
-
-                        // If after all strategies, we have no specific data, it's a failure for this parser.
-                        if (!result.success) {
-                            console.log('All parsing strategies failed for the container.');
-                            // We don't set success to true here, let the observer decide if it's a final failure.
-                            return null; // Return null to indicate parsing was inconclusive
-                        }
-                        
-                        console.log('No parsable content found.');
-
-                        // Use the global manualMapping to set predefinedLabel from sourceLabel
-                        if (result.sourceLabel) {
-                            for (const key in manualMapping) {
-                                if (result.sourceLabel.includes(key)) {
-                                    result.predefinedLabel = manualMapping[key];
-                                    break; // Stop after first match
-                                }
+                            if (result.numbers.length === 0 && result.predefinedLabel === 'Customer Service') {
+                                result.numbers.push({ number: PHONE_NUMBER, name: '主号码' });
                             }
+                            return result;
                         }
 
-                        if (result.numbers.length > 0 || result.phoneNumber) {
-                            result.success = true;
-                        } else {
-                            // If we are here and have no number, it means parsing failed.
-                            // Returning null is better to let the observer know to keep trying.
-                            return null;
-                        }
-
-                        // Final cleanup of the returned object to match user request
-                        const finalResult = {
-                            phoneNumber: result.phoneNumber,
-                            sourceLabel: result.sourceLabel,
-                            count: result.count,
-                            province: result.province,
-                            city: result.city,
-                            carrier: result.carrier,
-                            name: result.name,
-                            predefinedLabel: result.predefinedLabel,
-                            source: result.source,
-                            numbers: result.numbers,
-                            success: result.success,
-                            error: result.error
-                        };
-
-                        return finalResult;
+                        return null; // Indicate parsing was inconclusive
 
                     } catch (e) {
                         console.error('Error parsing Baidu page:', e);
@@ -501,27 +294,24 @@
                     }
                 }
 
-                const observer = new MutationObserver((mutations, obs) => {
+                function attemptParseAndFinish(observer) {
                     const result = parseBaiduPage();
                     if (result) {
-                        // Only send message if parsing was successful or resulted in an error
-                        if (result.success || result.error) {
-                             window.parent.postMessage({ type: 'phoneQueryResult', data: result }, '*');
-                             obs.disconnect();
-                        }
-                    }
-                });
-
-                observer.observe(document.body, { childList: true, subtree: true });
-
-                // Also try parsing immediately in case content is already there
-                const initialResult = parseBaiduPage();
-                if (initialResult) {
-                    if (initialResult.success || initialResult.error) {
-                        window.parent.postMessage({ type: 'phoneQueryResult', data: initialResult }, '*');
-                        observer.disconnect();
+                        parsingCompleted = true;
+                        window.parent.postMessage({ type: 'phoneQueryResult', data: result }, '*');
+                        if (observer) observer.disconnect();
+                        console.log('Parsing complete. Observer disconnected.');
                     }
                 }
+
+                const observer = new MutationObserver(() => attemptParseAndFinish(observer));
+                observer.observe(document.body, { childList: true, subtree: true });
+                console.log('MutationObserver started on main document body.');
+
+                // Also try parsing immediately and after a short delay
+                setTimeout(() => attemptParseAndFinish(observer), 100); 
+                setTimeout(() => attemptParseAndFinish(observer), 500); 
+                setTimeout(() => attemptParseAndFinish(observer), 1500); // A final attempt
             })();
         `;
     }
