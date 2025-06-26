@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.71.0',
+        version: '4.81.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -315,19 +315,22 @@
             activeIFrames.set(requestId, iframe);
 
             iframe.onload = function() {
-                log(`Iframe loaded for requestId: ${requestId}. Posting script for execution.`);
-                try {
-                    // 使用 postMessage 发送要执行的脚本
-                    iframe.contentWindow.postMessage({
-                        type: 'executeScript',
-                        script: getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping)
-                    }, '*'); // 在生产环境中，应指定确切的目标源
-                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
-                } catch (e) {
-                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
-                    cleanupIframe(requestId);
-                }
+                log(`Iframe loaded for requestId: ${requestId}. Will post script shortly.`);
+                // 短暂延时以确保 iframe 内的 message listener 已经准备好
+                setTimeout(() => {
+                    try {
+                        log(`Posting script to iframe for requestId: ${requestId}`);
+                        iframe.contentWindow.postMessage({
+                            type: 'executeScript',
+                            script: getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping)
+                        }, '*'); // 在生产环境中，应指定确切的目标源
+                        log(`Script posted successfully for requestId: ${requestId}`);
+                    } catch (e) {
+                        logError(`Error posting script to iframe for requestId ${requestId}:`, e);
+                        sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
+                        cleanupIframe(requestId);
+                    }
+                }, 100); // 100ms delay
             };
 
             iframe.onerror = function(error) {
