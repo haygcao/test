@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.71.0',
+        version: '4.91.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -140,76 +140,38 @@
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
                 const manualMapping = ${JSON.stringify(manualMapping)};
                 let parsingCompleted = false;
+                let observer = null;
+                let internalTimeout = null;
 
-                function parseBaiduPage() {
-                    if (parsingCompleted) return null;
+                function finish(result) {
+                    if (parsingCompleted) return;
+                    parsingCompleted = true;
+                    console.log('Parsing finished. Sending result:', result);
+                    window.parent.postMessage({ type: 'phoneQueryResult', data: result }, '*');
+                    if (observer) observer.disconnect();
+                    if (internalTimeout) clearTimeout(internalTimeout);
+                }
 
+                function parseSingleDocument(doc) {
+                    // This is the core parsing logic for a given document (the same as before)
                     const result = {
-                        phoneNumber: PHONE_NUMBER,
-                        sourceLabel: '',
-                        count: 0,
-                        province: '',
-                        city: '',
-                        carrier: '',
-                        name: '',
-                        predefinedLabel: '',
-                        source: PLUGIN_ID,
-                        numbers: [],
-                        success: false,
-                        error: ''
+                        phoneNumber: PHONE_NUMBER, sourceLabel: '', count: 0, province: '', city: '', carrier: '',
+                        name: '', predefinedLabel: '', source: PLUGIN_ID, numbers: [], success: false, error: ''
                     };
 
                     try {
-                        // --- Strategy 0: Find the correct document to parse (handle nested iframes) ---
-                        let docToParse = document;
-                        const nestedIframe = document.querySelector('iframe');
-                        if (nestedIframe) {
-                            try {
-                                const innerDoc = nestedIframe.contentDocument || nestedIframe.contentWindow.document;
-                                if (innerDoc.readyState !== 'uninitialized') {
-                                    console.log('Found nested iframe. Switching context to its document.');
-                                    docToParse = innerDoc;
-                                } else {
-                                     console.log('Nested iframe found, but its document is not ready yet.');
-                                }
-                            } catch (e) {
-                                console.warn('Could not access nested iframe, likely cross-origin. Parsing main document.', e);
-                            }
-                        }
+                        const container = doc.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
+                        if (!container) return null; // Not the right document
 
-                        // --- Strategy 1: Find the main container in the target document ---
-                        const container = docToParse.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
-                        if (!container) {
-                            console.log('Primary result container not found in the target document.');
-                            return null; // Wait for mutation observer
-                        }
-
-                        // --- Strategy 2: Parse s-data from attribute or HTML comment ---
                         let sData = null;
                         try {
                             const sDataContainer = container.querySelector('[data-s-data], [data-sdata]');
                             const sDataString = sDataContainer ? (sDataContainer.dataset.sData || sDataContainer.dataset.sdata) : null;
-                            if (sDataString) {
-                                sData = JSON.parse(sDataString);
-                                console.log('Parsed s-data from data attribute.');
-                            } else {
-                                const commentNodes = Array.from(docToParse.evaluate("//comment()", docToParse, null, XPathResult.ANY_TYPE, null));
-                                for (const comment of commentNodes) {
-                                    const match = comment.textContent.match(/s-data:\s*({.*})/);
-                                    if (match && match[1]) {
-                                        sData = JSON.parse(match[1]);
-                                        console.log('Parsed s-data from HTML comment.');
-                                        break;
-                                    }
-                                }
-                            }
-                        } catch (e) {
-                            console.log('Failed to find or parse s-data:', e);
-                        }
+                            if (sDataString) sData = JSON.parse(sDataString);
+                        } catch (e) { /* ignore */ }
 
                         if (sData) {
-                            if (sData.tellist || sData.showtitle || sData.officialUrl || (sData.disp_data && sData.disp_data.length > 0 && sData.disp_data[0].p_tel)) {
-                                console.log('Parsing as Official Number via s-data.');
+                            if (sData.tellist || sData.showtitle || sData.officialUrl || (sData.disp_data && sData.disp_data[0].p_tel)) {
                                 result.name = sData.showtitle || sData.title || (sData.disp_data && sData.disp_data[0].p_name) || container.querySelector('h3')?.textContent.trim() || '';
                                 if (sData.tellist && sData.tellist.tel) {
                                     result.numbers = sData.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
@@ -219,7 +181,6 @@
                                 result.predefinedLabel = 'Customer Service';
                                 result.success = true;
                             } else if (sData.tag || sData.markerTitle) {
-                                console.log('Parsing as Marked Number via s-data.');
                                 result.sourceLabel = sData.tag || sData.markerTitle.replace(/标记为：/, '') || '';
                                 result.count = parseInt(sData.count, 10) || 0;
                                 result.province = sData.prov || '';
@@ -229,12 +190,9 @@
                             }
                         }
 
-                        // --- Strategy 3: HTML Scraping if s-data fails ---
                         if (!result.success) {
-                            console.log('s-data parsing failed, falling back to HTML scraping.');
                             const officialTitleEl = container.querySelector('.op-zx-title, .c-title h3, h3.t, .op_official_title');
                             if (officialTitleEl && /官方|客服/.test(officialTitleEl.textContent)) {
-                                console.log('Parsing as Official Number via HTML scraping.');
                                 result.name = officialTitleEl.textContent.trim();
                                 const numberNodes = container.querySelectorAll('.tell-list_2FE1Z .c-row, .c-row.c-gap-top-small, .op_mobilephone_content');
                                 numberNodes.forEach(node => {
@@ -246,14 +204,13 @@
                                         if (number) result.numbers.push({ number, name });
                                     }
                                 });
-                                if(result.numbers.length > 0) {
+                                if (result.numbers.length > 0) {
                                     result.predefinedLabel = 'Customer Service';
                                     result.success = true;
                                 }
                             } else {
                                 const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU, [class*="op_mobilephone_tag"]');
                                 if (labelEl) {
-                                    console.log('Parsing as Marked Number via HTML scraping.');
                                     result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：/, '').trim().split(/\s+/)[0];
                                     const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G, [class*="op_mobilephone_addr"]');
                                     if (locationEl) {
@@ -268,7 +225,6 @@
                             }
                         }
 
-                        // --- Strategy 4: Final Mapping and Validation ---
                         if (result.success) {
                             if (result.sourceLabel) {
                                 for (const key in manualMapping) {
@@ -283,35 +239,57 @@
                             }
                             return result;
                         }
-
-                        return null; // Indicate parsing was inconclusive
-
+                        return null;
                     } catch (e) {
-                        console.error('Error parsing Baidu page:', e);
+                        console.error('Error in parseSingleDocument:', e);
                         result.error = e.toString();
                         result.success = false;
                         return result;
                     }
                 }
 
-                function attemptParseAndFinish(observer) {
-                    const result = parseBaiduPage();
+                function findAndParseRecursive(doc) {
+                    if (parsingCompleted) return;
+                    console.log('Recursively parsing document:', doc.location.href);
+
+                    const result = parseSingleDocument(doc);
                     if (result) {
-                        parsingCompleted = true;
-                        window.parent.postMessage({ type: 'phoneQueryResult', data: result }, '*');
-                        if (observer) observer.disconnect();
-                        console.log('Parsing complete. Observer disconnected.');
+                        finish(result);
+                        return;
+                    }
+
+                    // If not found, search in iframes
+                    const iframes = doc.getElementsByTagName('iframe');
+                    for (let i = 0; i < iframes.length; i++) {
+                        try {
+                            const innerDoc = iframes[i].contentDocument || iframes[i].contentWindow.document;
+                            if (innerDoc) {
+                                findAndParseRecursive(innerDoc);
+                            }
+                        } catch (e) {
+                            console.warn('Could not access iframe content:', e.message);
+                        }
                     }
                 }
 
-                const observer = new MutationObserver(() => attemptParseAndFinish(observer));
-                observer.observe(document.body, { childList: true, subtree: true });
-                console.log('MutationObserver started on main document body.');
+                // --- Main Execution Logic ---
+                console.log('Starting Baidu parser...');
+                observer = new MutationObserver(() => {
+                    if (parsingCompleted) return;
+                    console.log('DOM changed, re-running parser.');
+                    findAndParseRecursive(document);
+                });
 
-                // Also try parsing immediately and after a short delay
-                setTimeout(() => attemptParseAndFinish(observer), 100); 
-                setTimeout(() => attemptParseAndFinish(observer), 500); 
-                setTimeout(() => attemptParseAndFinish(observer), 1500); // A final attempt
+                observer.observe(document.body, { childList: true, subtree: true });
+
+                // Set an internal timeout to prevent getting stuck forever
+                internalTimeout = setTimeout(() => {
+                    const failureResult = { success: false, error: 'Internal script timeout after 25 seconds.', source: PLUGIN_ID, phoneNumber: PHONE_NUMBER };
+                    finish(failureResult);
+                }, 25000);
+
+                // Initial attempt
+                findAndParseRecursive(document);
             })();
         `;
     }
