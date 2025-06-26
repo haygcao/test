@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (Direct Injection)',
-        version: '5.20.0',
+        version: '5.0.0',
         description: 'Queries Baidu by directly injecting a parsing script into a proxied iframe.'
     };
 
@@ -302,49 +302,52 @@
             const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(targetSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
             log(`Using proxy URL: ${proxyUrl}`);
 
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.sandbox = 'allow-scripts allow-same-origin';
-            
             const timeoutId = setTimeout(() => {
                 logError(`Query timeout for requestId: ${requestId}`);
-                sendPluginResult({ requestId, success: false, error: 'Query timed out after 30 seconds' });
-                cleanupIframe(requestId);
-            }, 30000);
-            
-            activeIFrames.set(requestId, { iframe, timeoutId });
-
-            iframe.onload = function() {
-                log(`Iframe loaded for requestId: ${requestId}. Attempting direct script injection.`);
-                try {
-                    if (!iframe.contentWindow || !iframe.contentWindow.document) {
-                         throw new Error("Iframe contentWindow is not accessible.");
-                    }
-                    
-                    const doc = iframe.contentWindow.document;
-                    const scriptEl = doc.createElement('script');
-                    scriptEl.type = 'text/javascript';
-                    scriptEl.textContent = getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping, requestId);
-
-                    (doc.head || doc.body).appendChild(scriptEl);
-
-                    log(`Successfully injected parsing script into iframe for requestId: ${requestId}`);
-
-                } catch (e) {
-                    logError(`Error injecting script into iframe for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `Script injection failed: ${e.message}` });
+                if (activeIFrames.has(requestId)) {
+                    sendPluginResult({ requestId, success: false, error: 'Query timed out after 30 seconds' });
                     cleanupIframe(requestId);
                 }
-            };
+            }, 30000);
 
-            iframe.onerror = function(error) {
-                logError(`Iframe loading error for requestId ${requestId}:`, error);
-                sendPluginResult({ requestId, success: false, error: `Iframe loading failed.` });
-                cleanupIframe(requestId);
-            };
+            // Use fetch and srcdoc to bypass cross-origin issues
+            fetch(proxyUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Proxy fetch failed with status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    log(`Successfully fetched HTML from proxy for requestId: ${requestId}`);
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.sandbox = 'allow-scripts allow-same-origin'; // allow-same-origin is key for srcdoc
 
-            document.body.appendChild(iframe);
-            iframe.src = proxyUrl;
+                    activeIFrames.set(requestId, { iframe, timeoutId });
+
+                    const scriptToInject = getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping, requestId);
+                    
+                    // Inject the script into the head or body of the fetched HTML
+                    let finalHtml;
+                    const scriptTag = `<script type="text/javascript">${scriptToInject}<\/script>`;
+                    if (html.includes('</head>')) {
+                        finalHtml = html.replace('</head>', `${scriptTag}</head>`);
+                    } else if (html.includes('</body>')) {
+                        finalHtml = html.replace('</body>', `${scriptTag}</body>`);
+                    } else {
+                        finalHtml = html + scriptTag;
+                    }
+
+                    document.body.appendChild(iframe);
+                    iframe.srcdoc = finalHtml;
+                    log(`Iframe with srcdoc created and appended for requestId: ${requestId}`);
+                })
+                .catch(error => {
+                    logError(`Error fetching proxy content for requestId ${requestId}:`, error);
+                    sendPluginResult({ requestId, success: false, error: `Proxy fetch failed: ${error.message}` });
+                    clearTimeout(timeoutId); // Clean up timeout as the query failed
+                });
 
         } catch (error) {
             logError(`Error initiating query for requestId ${requestId}:`, error);
