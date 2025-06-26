@@ -1,11 +1,11 @@
-// Baidu Phone Query Plugin - Iframe Proxy Solution
+// Baidu Phone Query Plugin - Direct Injection Solution
 (function() {
     // --- Plugin Configuration ---
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
-        name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.71.0',
-        description: 'Queries Baidu for phone number information using an iframe proxy.'
+        name: 'Baidu Phone Lookup (Direct Injection)',
+        version: '5.0.0',
+        description: 'Queries Baidu by directly injecting a parsing script into a proxied iframe.'
     };
 
     const predefinedLabels = [
@@ -133,21 +133,22 @@
     }
 
     // --- Parsing Logic (to be injected into the iframe) ---
-    function getParsingScript(pluginId, phoneNumberToQuery, manualMapping) {
-        return `
+    // This function returns the parsing script as a string to be injected.
+    function getParsingScript(pluginId, phoneNumberToQuery, manualMapping, requestId) {
+        const script = `
             (function() {
                 const PLUGIN_ID = '${pluginId}';
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
+                const REQUEST_ID = '${requestId}';
                 const manualMapping = ${JSON.stringify(manualMapping)};
-                let parsingCompleted = false;
-                let attempts = 0;
-                const MAX_ATTEMPTS = 10; // 10 * 500ms = 5 seconds search
 
-                function sendResult(result) {
-                    if (parsingCompleted) return;
-                    parsingCompleted = true;
-                    console.log('Sending result to parent:', result);
-                    window.parent.postMessage({ type: 'phoneQueryResult', data: result }, '*');
+                function sendResultToParent(result) {
+                    console.log('[PARSER] Sending result to parent for requestId: ' + REQUEST_ID);
+                    if (window.parent && window.parent.handleIframeResult) {
+                        window.parent.handleIframeResult(REQUEST_ID, result);
+                    } else {
+                        console.error('[PARSER] Could not find window.parent.handleIframeResult function!');
+                    }
                 }
 
                 function parseContent(doc) {
@@ -244,32 +245,50 @@
                     }
                 }
 
+                let parsingCompleted = false;
+                let attempts = 0;
+                const MAX_ATTEMPTS = 15; // 7.5 seconds search
+
                 function findAndParse() {
                     if (parsingCompleted) return;
                     attempts++;
-                    console.log('[PARSER] Attempting to parse document. Attempt #' + attempts);
+                    console.log('[PARSER] Attempt #' + attempts + ' to find and parse content.');
 
-                    // The script is already in the right document, no need to search frames.
-                    const finalResult = parseContent(document);
+                    let finalResult = null;
+                    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                       finalResult = parseContent(document);
+                    }
 
                     if (finalResult) {
-                        console.log('[PARSER] Parsing successful.');
-                        sendResult(finalResult);
+                        parsingCompleted = true;
+                        sendResultToParent(finalResult);
                     } else if (attempts < MAX_ATTEMPTS) {
-                        console.log('[PARSER] Parsing failed, content might not be ready. Retrying in 500ms...');
                         setTimeout(findAndParse, 500);
                     } else {
-                        console.error('[PARSER] Parsing failed after all attempts.');
-                        sendResult({ success: false, error: 'Could not parse content after multiple attempts.' });
+                        parsingCompleted = true;
+                        console.error('[PARSER] Failed to find parsable content after all attempts.');
+                        console.log('[PARSER] Final document outerHTML (first 2000 chars):', document.documentElement.outerHTML.substring(0, 2000));
+                        sendResultToParent({ success: false, error: 'Timeout: Could not find parsable phone data in the iframe.' });
                     }
                 }
 
-                // Start the process
-                // Use a small delay to ensure the DOM is fully constructed after script injection.
-                setTimeout(findAndParse, 100);
+                findAndParse();
             })();
         `;
+        return script;
     }
+
+    // This function is exposed on the window so the iframe can call it.
+    window.handleIframeResult = function(requestId, result) {
+        log(`Received result from iframe for requestId: ${requestId}`);
+        if (activeIFrames.has(requestId)) {
+            const finalResult = { requestId, ...result };
+            sendPluginResult(finalResult);
+            cleanupIframe(requestId);
+        } else {
+            logError(`Received result for an unknown or timed-out requestId: ${requestId}`);
+        }
+    };
 
     // --- Main Query Function ---
     function initiateQuery(phoneNumber, requestId) {
@@ -285,42 +304,47 @@
 
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-            iframe.sandbox = 'allow-scripts allow-same-origin'; // Necessary for script injection and postMessage
-            activeIFrames.set(requestId, iframe);
+            iframe.sandbox = 'allow-scripts allow-same-origin';
+            
+            const timeoutId = setTimeout(() => {
+                logError(`Query timeout for requestId: ${requestId}`);
+                sendPluginResult({ requestId, success: false, error: 'Query timed out after 30 seconds' });
+                cleanupIframe(requestId);
+            }, 30000);
+            
+            activeIFrames.set(requestId, { iframe, timeoutId });
 
             iframe.onload = function() {
-                log(`Iframe loaded for requestId: ${requestId}. Posting script for execution.`);
+                log(`Iframe loaded for requestId: ${requestId}. Attempting direct script injection.`);
                 try {
-                    // 使用 postMessage 发送要执行的脚本
-                    iframe.contentWindow.postMessage({
-                        type: 'executeScript',
-                        script: getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping)
-                    }, '*'); // 在生产环境中，应指定确切的目标源
-                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
+                    if (!iframe.contentWindow || !iframe.contentWindow.document) {
+                         throw new Error("Iframe contentWindow is not accessible.");
+                    }
+                    
+                    const doc = iframe.contentWindow.document;
+                    const scriptEl = doc.createElement('script');
+                    scriptEl.type = 'text/javascript';
+                    scriptEl.textContent = getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping, requestId);
+
+                    (doc.head || doc.body).appendChild(scriptEl);
+
+                    log(`Successfully injected parsing script into iframe for requestId: ${requestId}`);
+
                 } catch (e) {
-                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
+                    logError(`Error injecting script into iframe for requestId ${requestId}:`, e);
+                    sendPluginResult({ requestId, success: false, error: `Script injection failed: ${e.message}` });
                     cleanupIframe(requestId);
                 }
             };
 
             iframe.onerror = function(error) {
-                logError(`Iframe error for requestId ${requestId}:`, error);
-                sendPluginResult({ requestId, success: false, error: `Iframe loading failed: ${error}` });
+                logError(`Iframe loading error for requestId ${requestId}:`, error);
+                sendPluginResult({ requestId, success: false, error: `Iframe loading failed.` });
                 cleanupIframe(requestId);
             };
 
             document.body.appendChild(iframe);
             iframe.src = proxyUrl;
-
-            // Timeout for the whole operation
-            setTimeout(() => {
-                if (activeIFrames.has(requestId)) {
-                    logError(`Query timeout for requestId: ${requestId}`);
-                    sendPluginResult({ requestId, success: false, error: 'Query timed out after 30 seconds' });
-                    cleanupIframe(requestId);
-                }
-            }, 30000);
 
         } catch (error) {
             logError(`Error initiating query for requestId ${requestId}:`, error);
@@ -345,28 +369,7 @@
         }
     }
 
-    // --- Event Listener for iframe results ---
-    window.addEventListener('message', function(event) {
-        if (event.data && event.data.type === 'phoneQueryResult') {
-            let requestId = null;
-            // Find which iframe sent this message
-            for (const [id, iframe] of activeIFrames.entries()) {
-                if (iframe.contentWindow === event.source) {
-                    requestId = id;
-                    break;
-                }
-            }
-
-            if (requestId) {
-                log(`Received result via postMessage for requestId: ${requestId}`);
-                const result = { requestId, ...event.data.data };
-                sendPluginResult(result);
-                cleanupIframe(requestId);
-            } else {
-                logWarn('Received postMessage result from an unknown iframe.');
-            }
-        }
-    });
+    // Event listener for postMessage is no longer needed with the direct injection method.
 
     // --- Plugin Initialization ---
     function initialize() {
