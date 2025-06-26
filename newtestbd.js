@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.91.0',
+        version: '4.71.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -140,20 +140,18 @@
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
                 const manualMapping = ${JSON.stringify(manualMapping)};
                 let parsingCompleted = false;
-                let observer = null;
-                let internalTimeout = null;
+                let attempts = 0;
+                const MAX_ATTEMPTS = 10; // 10 * 500ms = 5 seconds search
 
-                function finish(result) {
+                function sendResult(result) {
                     if (parsingCompleted) return;
                     parsingCompleted = true;
-                    console.log('Parsing finished. Sending result:', result);
+                    console.log('Sending result to parent:', result);
                     window.parent.postMessage({ type: 'phoneQueryResult', data: result }, '*');
-                    if (observer) observer.disconnect();
-                    if (internalTimeout) clearTimeout(internalTimeout);
                 }
 
-                function parseSingleDocument(doc) {
-                    // This is the core parsing logic for a given document (the same as before)
+                function parseContent(doc) {
+                    console.log('Attempting to parse content in document with title:', doc.title);
                     const result = {
                         phoneNumber: PHONE_NUMBER, sourceLabel: '', count: 0, province: '', city: '', carrier: '',
                         name: '', predefinedLabel: '', source: PLUGIN_ID, numbers: [], success: false, error: ''
@@ -161,27 +159,34 @@
 
                     try {
                         const container = doc.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
-                        if (!container) return null; // Not the right document
+                        if (!container) {
+                            console.log('Could not find primary result container in this document.');
+                            return null; // Indicate parsing failed in this doc
+                        }
 
+                        console.log('Found result container. Now parsing for data...');
+                        
+                        // --- STRATEGY 1: s-data (preferred) ---
                         let sData = null;
                         try {
                             const sDataContainer = container.querySelector('[data-s-data], [data-sdata]');
                             const sDataString = sDataContainer ? (sDataContainer.dataset.sData || sDataContainer.dataset.sdata) : null;
                             if (sDataString) sData = JSON.parse(sDataString);
-                        } catch (e) { /* ignore */ }
+                        } catch (e) { console.log('Could not parse s-data attribute', e); }
 
                         if (sData) {
-                            if (sData.tellist || sData.showtitle || sData.officialUrl || (sData.disp_data && sData.disp_data[0].p_tel)) {
-                                result.name = sData.showtitle || sData.title || (sData.disp_data && sData.disp_data[0].p_name) || container.querySelector('h3')?.textContent.trim() || '';
+                            console.log('Successfully parsed s-data object.');
+                            if (sData.tellist || sData.showtitle || (sData.disp_data && sData.disp_data[0].p_tel)) {
+                                result.name = sData.showtitle || sData.title || (sData.disp_data && sData.disp_data[0].p_name) || '';
                                 if (sData.tellist && sData.tellist.tel) {
                                     result.numbers = sData.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
                                 } else if (sData.disp_data && sData.disp_data[0].p_tel) {
-                                    result.numbers.push({ number: sData.disp_data[0].p_tel, name: '官方号码' });
+                                    result.numbers.push({ number: sData.disp_data[0].p_tel, name: 'Official' });
                                 }
                                 result.predefinedLabel = 'Customer Service';
                                 result.success = true;
-                            } else if (sData.tag || sData.markerTitle) {
-                                result.sourceLabel = sData.tag || sData.markerTitle.replace(/标记为：/, '') || '';
+                            } else if (sData.tag) {
+                                result.sourceLabel = sData.tag || '';
                                 result.count = parseInt(sData.count, 10) || 0;
                                 result.province = sData.prov || '';
                                 result.city = sData.city || '';
@@ -190,35 +195,30 @@
                             }
                         }
 
+                        // --- STRATEGY 2: HTML Scraping (fallback) ---
                         if (!result.success) {
-                            const officialTitleEl = container.querySelector('.op-zx-title, .c-title h3, h3.t, .op_official_title');
+                            console.log('s-data failed, falling back to HTML scraping.');
+                            const officialTitleEl = container.querySelector('.op-zx-title, h3.t, .op_official_title');
                             if (officialTitleEl && /官方|客服/.test(officialTitleEl.textContent)) {
                                 result.name = officialTitleEl.textContent.trim();
-                                const numberNodes = container.querySelectorAll('.tell-list_2FE1Z .c-row, .c-row.c-gap-top-small, .op_mobilephone_content');
-                                numberNodes.forEach(node => {
-                                    const numberEl = node.querySelector('.list-num_3MoU1, [class*="op_mobilephone_number"], .op_mobilephone_number');
+                                container.querySelectorAll('.tell-list_2FE1Z .c-row, .op_mobilephone_content').forEach(node => {
+                                    const numberEl = node.querySelector('.list-num_3MoU1, .op_mobilephone_number');
                                     const nameEl = node.querySelector('.list-title_22Pkn, .op_mobilephone_name');
-                                    if (numberEl) {
-                                        const number = numberEl.textContent.trim();
-                                        const name = nameEl ? nameEl.textContent.trim() : '号码';
-                                        if (number) result.numbers.push({ number, name });
-                                    }
+                                    if (numberEl) result.numbers.push({ number: numberEl.textContent.trim(), name: nameEl ? nameEl.textContent.trim() : 'Number' });
                                 });
                                 if (result.numbers.length > 0) {
                                     result.predefinedLabel = 'Customer Service';
                                     result.success = true;
                                 }
                             } else {
-                                const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU, [class*="op_mobilephone_tag"]');
+                                const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU');
                                 if (labelEl) {
                                     result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：/, '').trim().split(/\s+/)[0];
-                                    const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G, [class*="op_mobilephone_addr"]');
+                                    const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
                                     if (locationEl) {
                                         const locText = locationEl.textContent.replace(/归属地：/, '').trim();
-                                        const parts = locText.split(/\s+/);
-                                        result.province = parts[0] || '';
-                                        result.city = parts[1] || '';
-                                        result.carrier = parts[2] || '';
+                                        const [province, city, carrier] = locText.split(/\s+/);
+                                        result.province = province || ''; result.city = city || ''; result.carrier = carrier || '';
                                     }
                                     result.success = true;
                                 }
@@ -228,68 +228,72 @@
                         if (result.success) {
                             if (result.sourceLabel) {
                                 for (const key in manualMapping) {
-                                    if (result.sourceLabel.includes(key)) {
-                                        result.predefinedLabel = manualMapping[key];
-                                        break;
-                                    }
+                                    if (result.sourceLabel.includes(key)) { result.predefinedLabel = manualMapping[key]; break; }
                                 }
                             }
                             if (result.numbers.length === 0 && result.predefinedLabel === 'Customer Service') {
-                                result.numbers.push({ number: PHONE_NUMBER, name: '主号码' });
+                                result.numbers.push({ number: PHONE_NUMBER, name: 'Main' });
                             }
                             return result;
                         }
-                        return null;
+                        return null; // Parsing in this doc failed
                     } catch (e) {
-                        console.error('Error in parseSingleDocument:', e);
+                        console.error('Error during parsing:', e);
                         result.error = e.toString();
-                        result.success = false;
                         return result;
                     }
                 }
 
-                function findAndParseRecursive(doc) {
+                function findAndParse() {
                     if (parsingCompleted) return;
-                    console.log('Recursively parsing document:', doc.location.href);
+                    attempts++;
+                console.log('Starting search for correct document, attempt #' + attempts);
 
-                    const result = parseSingleDocument(doc);
-                    if (result) {
-                        finish(result);
-                        return;
-                    }
-
-                    // If not found, search in iframes
-                    const iframes = doc.getElementsByTagName('iframe');
-                    for (let i = 0; i < iframes.length; i++) {
+                    let foundDoc = null;
+                    function searchFrames(win) {
+                        if (foundDoc) return; // Stop searching if found
                         try {
-                            const innerDoc = iframes[i].contentDocument || iframes[i].contentWindow.document;
-                            if (innerDoc) {
-                                findAndParseRecursive(innerDoc);
+                            // Check current window's document
+                            const currentDoc = win.document;
+                            if (currentDoc && currentDoc.readyState === 'complete' && currentDoc.querySelector('#content_left')) {
+                                console.log('SUCCESS: Found target document with #content_left at', win.location.href);
+                                console.log('--- DOCUMENT HTML ---');
+                                console.log(currentDoc.documentElement.outerHTML.substring(0, 2000)); // Log first 2k chars for debugging
+                                console.log('--- END DOCUMENT HTML ---');
+                                foundDoc = currentDoc;
+                                return;
+                            }
+
+                            // Search in frames
+                            for (let i = 0; i < win.frames.length; i++) {
+                                searchFrames(win.frames[i]);
                             }
                         } catch (e) {
-                            console.warn('Could not access iframe content:', e.message);
+                            // console.warn('Could not access a frame, likely cross-origin:', e);
                         }
+                    }
+
+                    searchFrames(window.top);
+
+                    if (foundDoc) {
+                        const finalResult = parseContent(foundDoc);
+                        if (finalResult) {
+                            sendResult(finalResult);
+                        } else {
+                           console.log('Found document but parsing failed. Will not retry.');
+                           sendResult({ success: false, error: 'Found correct document, but failed to parse content.' });
+                        }
+                    } else if (attempts < MAX_ATTEMPTS) {
+                        console.log('Target document not found yet. Retrying in 500ms...');
+                        setTimeout(findAndParse, 500);
+                    } else {
+                        console.error('Failed to find target document after all attempts.');
+                        sendResult({ success: false, error: 'Could not find the correct content document within the iframe structure.' });
                     }
                 }
 
-                // --- Main Execution Logic ---
-                console.log('Starting Baidu parser...');
-                observer = new MutationObserver(() => {
-                    if (parsingCompleted) return;
-                    console.log('DOM changed, re-running parser.');
-                    findAndParseRecursive(document);
-                });
-
-                observer.observe(document.body, { childList: true, subtree: true });
-
-                // Set an internal timeout to prevent getting stuck forever
-                internalTimeout = setTimeout(() => {
-                    const failureResult = { success: false, error: 'Internal script timeout after 25 seconds.', source: PLUGIN_ID, phoneNumber: PHONE_NUMBER };
-                    finish(failureResult);
-                }, 25000);
-
-                // Initial attempt
-                findAndParseRecursive(document);
+                // Start the process
+                findAndParse();
             })();
         `;
     }
