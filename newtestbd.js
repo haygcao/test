@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.71.0',
+        version: '4.79.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -86,7 +86,7 @@
     const PROXY_PATH_FETCH = "/fetch";
 
     // --- State ---
-    const activeIFrames = new Map();
+    const activeQueries = new Map(); // requestId -> { iframe, phoneNumber, manualMapping, isReady: false }
 
     // --- Logging ---
     function log(message) {
@@ -122,12 +122,12 @@
 
     // --- Iframe Management ---
     function cleanupIframe(requestId) {
-        const iframe = activeIFrames.get(requestId);
-        if (iframe) {
-            if (iframe.parentNode) {
-                iframe.parentNode.removeChild(iframe);
+        const query = activeQueries.get(requestId);
+        if (query && query.iframe) {
+            if (query.iframe.parentNode) {
+                query.iframe.parentNode.removeChild(query.iframe);
             }
-            activeIFrames.delete(requestId);
+            activeQueries.delete(requestId);
             log(`Cleaned up iframe for requestId: ${requestId}`);
         }
     }
@@ -136,6 +136,10 @@
     function getParsingScript(pluginId, phoneNumberToQuery, manualMapping) {
         return `
             (function() {
+                // --- VERY IMPORTANT LOG ---
+                console.log('[PROXY SCRIPT] Execution started inside iframe for ${phoneNumberToQuery}.');
+                // --- END OF LOG ---
+
                 const PLUGIN_ID = '${pluginId}';
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
                 const manualMapping = ${JSON.stringify(manualMapping)};
@@ -312,23 +316,19 @@
 
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-            iframe.sandbox = 'allow-scripts allow-same-origin'; // Necessary for script injection and postMessage
-            activeIFrames.set(requestId, iframe);
+            iframe.sandbox = 'allow-scripts allow-same-origin';
+
+            // Store query details before setting src
+            activeQueries.set(requestId, {
+                iframe,
+                phoneNumber,
+                manualMapping,
+                isReady: false
+            });
 
             iframe.onload = function() {
-                log(`Iframe loaded for requestId: ${requestId}. Posting script for execution.`);
-                try {
-                    // 使用 postMessage 发送要执行的脚本
-                    iframe.contentWindow.postMessage({
-                        type: 'executeScript',
-                        script: getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping)
-                    }, '*'); // 在生产环境中，应指定确切的目标源
-                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
-                } catch (e) {
-                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
-                    cleanupIframe(requestId);
-                }
+                log(`Iframe loaded for requestId: ${requestId}. Waiting for 'ready' signal from iframe.`);
+                // Do not post script here. We wait for the handshake message.
             };
 
             iframe.onerror = function(error) {
@@ -342,7 +342,7 @@
 
             // Timeout for the whole operation
             setTimeout(() => {
-                if (activeIFrames.has(requestId)) {
+                if (activeQueries.has(requestId)) {
                     logError(`Query timeout for requestId: ${requestId}`);
                     sendPluginResult({ requestId, success: false, error: 'Query timed out after 30 seconds' });
                     cleanupIframe(requestId);
@@ -372,26 +372,52 @@
         }
     }
 
-    // --- Event Listener for iframe results ---
+    // --- Event Listener for iframe communication ---
     window.addEventListener('message', function(event) {
-        if (event.data && event.data.type === 'phoneQueryResult') {
-            let requestId = null;
-            // Find which iframe sent this message
-            for (const [id, iframe] of activeIFrames.entries()) {
-                if (iframe.contentWindow === event.source) {
-                    requestId = id;
-                    break;
-                }
-            }
+        let requestId = null;
+        let query = null;
 
-            if (requestId) {
+        // Find which query this message is for by matching the source window
+        for (const [id, q] of activeQueries.entries()) {
+            if (q.iframe && q.iframe.contentWindow === event.source) {
+                requestId = id;
+                query = q;
+                break;
+            }
+        }
+
+        if (!requestId || !query) {
+            return; // Message from an unknown source
+        }
+
+        const message = event.data;
+        if (!message || !message.type) return;
+
+        switch (message.type) {
+            case 'iframeReady':
+                if (query.isReady) return; // Avoid duplicate script injection
+                log(`Received 'iframeReady' signal for requestId: ${requestId}. Sending script.`);
+                query.isReady = true;
+                try {
+                    const script = getParsingScript(PLUGIN_CONFIG.id, query.phoneNumber, query.manualMapping);
+                    query.iframe.contentWindow.postMessage({
+                        type: 'executeScript',
+                        script: script
+                    }, '*');
+                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
+                } catch (e) {
+                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
+                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
+                    cleanupIframe(requestId);
+                }
+                break;
+
+            case 'phoneQueryResult':
                 log(`Received result via postMessage for requestId: ${requestId}`);
-                const result = { requestId, ...event.data.data };
+                const result = { requestId, ...message.data };
                 sendPluginResult(result);
                 cleanupIframe(requestId);
-            } else {
-                logWarn('Received postMessage result from an unknown iframe.');
-            }
+                break;
         }
     });
 
