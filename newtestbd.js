@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '4.79.0',
+        version: '4.71.0',
         description: 'Queries Baidu for phone number information using an iframe proxy.'
     };
 
@@ -86,7 +86,7 @@
     const PROXY_PATH_FETCH = "/fetch";
 
     // --- State ---
-    const activeQueries = new Map(); // requestId -> { iframe, phoneNumber, manualMapping, isReady: false }
+    const activeIFrames = new Map();
 
     // --- Logging ---
     function log(message) {
@@ -122,24 +122,23 @@
 
     // --- Iframe Management ---
     function cleanupIframe(requestId) {
-        const query = activeQueries.get(requestId);
-        if (query && query.iframe) {
-            if (query.iframe.parentNode) {
-                query.iframe.parentNode.removeChild(query.iframe);
+        const iframe = activeIFrames.get(requestId);
+        if (iframe) {
+            if (iframe.parentNode) {
+                iframe.parentNode.removeChild(iframe);
             }
-            activeQueries.delete(requestId);
+            activeIFrames.delete(requestId);
             log(`Cleaned up iframe for requestId: ${requestId}`);
         }
     }
 
     // --- Parsing Logic (to be injected into the iframe) ---
     function getParsingScript(pluginId, phoneNumberToQuery, manualMapping) {
-        return `
+        // IMPORTANT: This function returns a string that will be executed inside the sandboxed iframe.
+        // All functions and variables must be self-contained.
+        const script = `
             (function() {
-                // --- VERY IMPORTANT LOG ---
-                console.log('[PROXY SCRIPT] Execution started inside iframe for ${phoneNumberToQuery}.');
-                // --- END OF LOG ---
-
+                console.log('[PARSER] Executing parsing script...');
                 const PLUGIN_ID = '${pluginId}';
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
                 const manualMapping = ${JSON.stringify(manualMapping)};
@@ -150,12 +149,12 @@
                 function sendResult(result) {
                     if (parsingCompleted) return;
                     parsingCompleted = true;
-                    console.log('Sending result to parent:', result);
+                    console.log('[PARSER] Sending result to parent:', result);
                     window.parent.postMessage({ type: 'phoneQueryResult', data: result }, '*');
                 }
 
                 function parseContent(doc) {
-                    console.log('Attempting to parse content in document with title:', doc.title);
+                    console.log('[PARSER] Attempting to parse content in document with title:', doc.title);
                     const result = {
                         phoneNumber: PHONE_NUMBER, sourceLabel: '', count: 0, province: '', city: '', carrier: '',
                         name: '', predefinedLabel: '', source: PLUGIN_ID, numbers: [], success: false, error: ''
@@ -164,22 +163,21 @@
                     try {
                         const container = doc.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
                         if (!container) {
-                            console.log('Could not find primary result container in this document.');
+                            console.log('[PARSER] Could not find primary result container in this document.');
                             return null; // Indicate parsing failed in this doc
                         }
 
-                        console.log('Found result container. Now parsing for data...');
+                        console.log('[PARSER] Found result container. Now parsing for data...');
                         
-                        // --- STRATEGY 1: s-data (preferred) ---
                         let sData = null;
                         try {
                             const sDataContainer = container.querySelector('[data-s-data], [data-sdata]');
                             const sDataString = sDataContainer ? (sDataContainer.dataset.sData || sDataContainer.dataset.sdata) : null;
                             if (sDataString) sData = JSON.parse(sDataString);
-                        } catch (e) { console.log('Could not parse s-data attribute', e); }
+                        } catch (e) { console.log('[PARSER] Could not parse s-data attribute', e); }
 
                         if (sData) {
-                            console.log('Successfully parsed s-data object.');
+                            console.log('[PARSER] Successfully parsed s-data object.');
                             if (sData.tellist || sData.showtitle || (sData.disp_data && sData.disp_data[0].p_tel)) {
                                 result.name = sData.showtitle || sData.title || (sData.disp_data && sData.disp_data[0].p_name) || '';
                                 if (sData.tellist && sData.tellist.tel) {
@@ -199,9 +197,8 @@
                             }
                         }
 
-                        // --- STRATEGY 2: HTML Scraping (fallback) ---
                         if (!result.success) {
-                            console.log('s-data failed, falling back to HTML scraping.');
+                            console.log('[PARSER] s-data failed, falling back to HTML scraping.');
                             const officialTitleEl = container.querySelector('.op-zx-title, h3.t, .op_official_title');
                             if (officialTitleEl && /官方|客服/.test(officialTitleEl.textContent)) {
                                 result.name = officialTitleEl.textContent.trim();
@@ -240,9 +237,9 @@
                             }
                             return result;
                         }
-                        return null; // Parsing in this doc failed
+                        return null;
                     } catch (e) {
-                        console.error('Error during parsing:', e);
+                        console.error('[PARSER] Error during parsing:', e);
                         result.error = e.toString();
                         return result;
                     }
@@ -251,55 +248,53 @@
                 function findAndParse() {
                     if (parsingCompleted) return;
                     attempts++;
-                console.log('Starting search for correct document, attempt #' + attempts);
+                    console.log('[PARSER] Attempt #' + attempts + ' to find and parse content.');
 
-                    let foundDoc = null;
-                    function searchFrames(win) {
-                        if (foundDoc) return; // Stop searching if found
-                        try {
-                            // Check current window's document
-                            const currentDoc = win.document;
-                            if (currentDoc && currentDoc.readyState === 'complete' && currentDoc.querySelector('#content_left')) {
-                                console.log('SUCCESS: Found target document with #content_left at', win.location.href);
-                                console.log('--- DOCUMENT HTML ---');
-                                console.log(currentDoc.documentElement.outerHTML.substring(0, 2000)); // Log first 2k chars for debugging
-                                console.log('--- END DOCUMENT HTML ---');
-                                foundDoc = currentDoc;
-                                return;
-                            }
+                    let targetDoc = null;
 
-                            // Search in frames
-                            for (let i = 0; i < win.frames.length; i++) {
-                                searchFrames(win.frames[i]);
+                    if (document.readyState === 'complete' && document.querySelector('#content_left')) {
+                        console.log('[PARSER] Found #content_left in the main document.');
+                        targetDoc = document;
+                    } else {
+                        const frames = document.querySelectorAll('iframe');
+                        console.log('[PARSER] Main document not ready or no content, found ' + frames.length + ' iframe(s).');
+                        for (let i = 0; i < frames.length; i++) {
+                            try {
+                                const frameDoc = frames[i].contentDocument;
+                                if (frameDoc && frameDoc.readyState === 'complete' && frameDoc.querySelector('#content_left')) {
+                                    console.log('[PARSER] Found #content_left in a nested iframe.');
+                                    targetDoc = frameDoc;
+                                    break;
+                                }
+                            } catch (e) {
+                                console.warn('[PARSER] Could not access an iframe document, likely cross-origin.');
                             }
-                        } catch (e) {
-                            // console.warn('Could not access a frame, likely cross-origin:', e);
                         }
                     }
 
-                    searchFrames(window.top);
-
-                    if (foundDoc) {
-                        const finalResult = parseContent(foundDoc);
+                    if (targetDoc) {
+                        console.log('[PARSER] Found target document. Parsing...');
+                        const finalResult = parseContent(targetDoc);
                         if (finalResult) {
                             sendResult(finalResult);
                         } else {
-                           console.log('Found document but parsing failed. Will not retry.');
-                           sendResult({ success: false, error: 'Found correct document, but failed to parse content.' });
+                           console.log('[PARSER] Found document but parsing returned null. This might be a page without results.');
+                           sendResult({ success: false, error: 'Found Baidu page, but no parsable phone data was found.' });
                         }
                     } else if (attempts < MAX_ATTEMPTS) {
-                        console.log('Target document not found yet. Retrying in 500ms...');
+                        console.log('[PARSER] Target content not found yet. Retrying in 500ms...');
                         setTimeout(findAndParse, 500);
                     } else {
-                        console.error('Failed to find target document after all attempts.');
-                        sendResult({ success: false, error: 'Could not find the correct content document within the iframe structure.' });
+                        console.error('[PARSER] Failed to find target content after all attempts.');
+                        console.log('[PARSER] Final document outerHTML:', document.documentElement.outerHTML.substring(0, 3000));
+                        sendResult({ success: false, error: 'Could not find the Baidu content within the iframe structure.' });
                     }
                 }
 
-                // Start the process
                 findAndParse();
             })();
         `;
+        return script;
     }
 
     // --- Main Query Function ---
@@ -316,19 +311,23 @@
 
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-            iframe.sandbox = 'allow-scripts allow-same-origin';
-
-            // Store query details before setting src
-            activeQueries.set(requestId, {
-                iframe,
-                phoneNumber,
-                manualMapping,
-                isReady: false
-            });
+            iframe.sandbox = 'allow-scripts allow-same-origin'; // Necessary for script injection and postMessage
+            activeIFrames.set(requestId, iframe);
 
             iframe.onload = function() {
-                log(`Iframe loaded for requestId: ${requestId}. Waiting for 'ready' signal from iframe.`);
-                // Do not post script here. We wait for the handshake message.
+                log(`Iframe loaded for requestId: ${requestId}. Posting script for execution.`);
+                try {
+                    // 使用 postMessage 发送要执行的脚本
+                    iframe.contentWindow.postMessage({
+                        type: 'executeScript',
+                        script: getParsingScript(PLUGIN_CONFIG.id, phoneNumber, manualMapping)
+                    }, '*'); // 在生产环境中，应指定确切的目标源
+                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
+                } catch (e) {
+                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
+                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
+                    cleanupIframe(requestId);
+                }
             };
 
             iframe.onerror = function(error) {
@@ -342,7 +341,7 @@
 
             // Timeout for the whole operation
             setTimeout(() => {
-                if (activeQueries.has(requestId)) {
+                if (activeIFrames.has(requestId)) {
                     logError(`Query timeout for requestId: ${requestId}`);
                     sendPluginResult({ requestId, success: false, error: 'Query timed out after 30 seconds' });
                     cleanupIframe(requestId);
@@ -372,52 +371,26 @@
         }
     }
 
-    // --- Event Listener for iframe communication ---
+    // --- Event Listener for iframe results ---
     window.addEventListener('message', function(event) {
-        let requestId = null;
-        let query = null;
-
-        // Find which query this message is for by matching the source window
-        for (const [id, q] of activeQueries.entries()) {
-            if (q.iframe && q.iframe.contentWindow === event.source) {
-                requestId = id;
-                query = q;
-                break;
-            }
-        }
-
-        if (!requestId || !query) {
-            return; // Message from an unknown source
-        }
-
-        const message = event.data;
-        if (!message || !message.type) return;
-
-        switch (message.type) {
-            case 'iframeReady':
-                if (query.isReady) return; // Avoid duplicate script injection
-                log(`Received 'iframeReady' signal for requestId: ${requestId}. Sending script.`);
-                query.isReady = true;
-                try {
-                    const script = getParsingScript(PLUGIN_CONFIG.id, query.phoneNumber, query.manualMapping);
-                    query.iframe.contentWindow.postMessage({
-                        type: 'executeScript',
-                        script: script
-                    }, '*');
-                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
-                } catch (e) {
-                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
-                    cleanupIframe(requestId);
+        if (event.data && event.data.type === 'phoneQueryResult') {
+            let requestId = null;
+            // Find which iframe sent this message
+            for (const [id, iframe] of activeIFrames.entries()) {
+                if (iframe.contentWindow === event.source) {
+                    requestId = id;
+                    break;
                 }
-                break;
+            }
 
-            case 'phoneQueryResult':
+            if (requestId) {
                 log(`Received result via postMessage for requestId: ${requestId}`);
-                const result = { requestId, ...message.data };
+                const result = { requestId, ...event.data.data };
                 sendPluginResult(result);
                 cleanupIframe(requestId);
-                break;
+            } else {
+                logWarn('Received postMessage result from an unknown iframe.');
+            }
         }
     });
 
