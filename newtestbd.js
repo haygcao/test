@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (Direct Injection)',
-        version: '5.10.0',
+        version: '5.0.0',
         description: 'Queries Baidu by directly injecting a parsing script into a proxied iframe.'
     };
 
@@ -291,7 +291,7 @@
     };
 
     // --- Main Query Function ---
-    async function initiateQuery(phoneNumber, requestId) {
+    function initiateQuery(phoneNumber, requestId) {
         log(`Initiating query for '${phoneNumber}' with requestId: ${requestId}`);
 
         try {
@@ -300,36 +300,27 @@
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
             };
             const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(targetSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
-            log(`Fetching HTML via proxy URL: ${proxyUrl}`);
-
-            // Fetch the HTML content first using the proxy
-            const response = await fetch(proxyUrl);
-            if (!response.ok) {
-                throw new Error(`Proxy fetch failed with status: ${response.status}`);
-            }
-            const htmlContent = await response.text();
-            log('Successfully fetched HTML content via proxy.');
+            log(`Using proxy URL: ${proxyUrl}`);
 
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-            iframe.sandbox = 'allow-scripts allow-same-origin'; // Necessary for data: URI to execute scripts
-
+            iframe.sandbox = 'allow-scripts allow-same-origin';
+            
             const timeoutId = setTimeout(() => {
                 logError(`Query timeout for requestId: ${requestId}`);
                 sendPluginResult({ requestId, success: false, error: 'Query timed out after 30 seconds' });
                 cleanupIframe(requestId);
             }, 30000);
-
+            
             activeIFrames.set(requestId, { iframe, timeoutId });
 
             iframe.onload = function() {
-                log(`Iframe loaded from data: URI for requestId: ${requestId}. Attempting script injection.`);
+                log(`Iframe loaded for requestId: ${requestId}. Attempting direct script injection.`);
                 try {
-                    // This should now work because the data: URI inherits the parent's origin
                     if (!iframe.contentWindow || !iframe.contentWindow.document) {
-                        throw new Error("Iframe contentWindow is not accessible.");
+                         throw new Error("Iframe contentWindow is not accessible.");
                     }
-
+                    
                     const doc = iframe.contentWindow.document;
                     const scriptEl = doc.createElement('script');
                     scriptEl.type = 'text/javascript';
@@ -337,25 +328,23 @@
 
                     (doc.head || doc.body).appendChild(scriptEl);
 
-                    log(`Successfully injected parsing script into data: URI iframe for requestId: ${requestId}`);
+                    log(`Successfully injected parsing script into iframe for requestId: ${requestId}`);
 
                 } catch (e) {
-                    logError(`Error injecting script into data: URI iframe for requestId ${requestId}:`, e);
+                    logError(`Error injecting script into iframe for requestId ${requestId}:`, e);
                     sendPluginResult({ requestId, success: false, error: `Script injection failed: ${e.message}` });
                     cleanupIframe(requestId);
                 }
             };
 
             iframe.onerror = function(error) {
-                logError(`Iframe (data: URI) loading error for requestId ${requestId}:`, error);
-                sendPluginResult({ requestId, success: false, error: `Iframe loading from data: URI failed.` });
+                logError(`Iframe loading error for requestId ${requestId}:`, error);
+                sendPluginResult({ requestId, success: false, error: `Iframe loading failed.` });
                 cleanupIframe(requestId);
             };
 
             document.body.appendChild(iframe);
-            // Set src to the data URI containing the fetched HTML
-            iframe.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
-            log(`Iframe src set to data: URI for requestId: ${requestId}`);
+            iframe.src = proxyUrl;
 
         } catch (error) {
             logError(`Error initiating query for requestId ${requestId}:`, error);
