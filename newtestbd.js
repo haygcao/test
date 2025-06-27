@@ -4,8 +4,8 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '5.4.0', // Version updated with refined logic
-        description: 'Queries Baidu for phone number information using an iframe proxy and postMessage. Handles multiple result structures intelligently.'
+        version: '5.5.0', // Final version with intelligent name selection
+        description: 'Queries Baidu for phone number information using an iframe proxy. Intelligently selects the best name from multiple sources.'
     };
 
     const predefinedLabels = [
@@ -35,24 +35,15 @@
         '推销': 'Telemarketing',
     };
 
-    // --- Constants ---
+    // --- Constants, State, Logging, and Communication functions remain the same ---
     const PROXY_SCHEME = "https";
     const PROXY_HOST = "flutter-webview-proxy.internal";
     const PROXY_PATH_FETCH = "/fetch";
-
-    // --- State ---
     const activeIFrames = new Map();
 
-    // --- Logging ---
-    function log(message) {
-        console.log(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`);
-    }
+    function log(message) { console.log(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`); }
+    function logError(message, error) { console.error(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`, error); }
 
-    function logError(message, error) {
-        console.error(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`, error);
-    }
-
-    // --- Communication with Flutter ---
     function sendToFlutter(channel, data) {
         if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
             window.flutter_inappwebview.callHandler(channel, JSON.stringify(data));
@@ -68,28 +59,21 @@
 
     function sendPluginLoaded() {
         log('Plugin loaded, notifying Flutter.');
-        sendToFlutter('TestPageChannel', {
-            type: 'pluginLoaded',
-            pluginId: PLUGIN_CONFIG.id,
-            version: PLUGIN_CONFIG.version
-        });
+        sendToFlutter('TestPageChannel', { type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version });
     }
 
-    // --- Iframe Management ---
     function cleanupIframe(requestId) {
         const iframe = activeIFrames.get(requestId);
         if (iframe) {
-            if (iframe.parentNode) {
-                iframe.parentNode.removeChild(iframe);
-            }
+            if (iframe.parentNode) { iframe.parentNode.removeChild(iframe); }
             activeIFrames.delete(requestId);
             log(`Cleaned up iframe for requestId: ${requestId}`);
         }
     }
 
     /**
-     * 【V5.4.0 逻辑升级】
-     * This script now handles all three specified HTML structures with refined logic.
+     * 【V5.5.0 逻辑升级】
+     * Implements intelligent name selection based on data-tools and element text content.
      */
     function getParsingScript(pluginId, phoneNumberToQuery) {
         return `
@@ -122,6 +106,21 @@
                         
                         console.log('[Iframe-Parser] Found result container. Now parsing for data...');
 
+                        // --- NEW: Extract potential name from data-tools attribute first ---
+                        let dataToolsName = '';
+                        const dataToolsEl = mainContainer.querySelector('.c-tools[data-tools]');
+                        if (dataToolsEl) {
+                            try {
+                                const dataToolsObj = JSON.parse(dataToolsEl.dataset.tools);
+                                if (dataToolsObj && dataToolsObj.title) {
+                                    dataToolsName = dataToolsObj.title.split(',')[0].trim();
+                                    console.log('[Iframe-Parser] Found alternative name in data-tools:', dataToolsName);
+                                }
+                            } catch (e) {
+                                console.log('[Iframe-Parser] Could not parse data-tools attribute.');
+                            }
+                        }
+
                         // --- STRATEGY 1: Official/Company Number Card ---
                         const companyCardMulti = mainContainer.querySelector('div.ms_company_number_2oq_O');
                         const companyCardSingle = mainContainer.querySelector('div.title-top_2-DW0');
@@ -130,42 +129,40 @@
                             console.log('[Iframe-Parser] Found multi-number company card (e.g., Pinduoduo).');
                             const officialTitle = companyCardMulti.querySelector('h3.c-title a');
                             if (officialTitle) {
-                                result.sourceLabel = officialTitle.textContent.trim(); // e.g., "拼多多客服电话"
+                                result.sourceLabel = officialTitle.textContent.trim();
                             }
-
                             const phoneEntries = companyCardMulti.querySelectorAll('div.tell-list_2FE1Z');
                             phoneEntries.forEach(entry => {
                                 const numberEl = entry.querySelector('.list-num_3MoU1');
                                 const nameEl = entry.querySelector('.list-title_22Pkn');
                                 if (numberEl && nameEl) {
-                                    const numberText = numberEl.textContent.replace(/\\D/g, ''); // Keep only digits
+                                    const numberText = numberEl.textContent.replace(/\\D/g, '');
                                     if (numberText === PHONE_NUMBER) {
-                                        result.name = nameEl.textContent.trim(); // e.g., "消费者热线"
+                                        result.name = nameEl.textContent.trim();
+                                        result.success = true;
                                     }
                                     result.numbers.push({ number: numberEl.textContent.trim(), name: nameEl.textContent.trim() });
                                 }
                             });
-
-                            if(result.name || result.sourceLabel) {
-                                result.success = true;
-                            }
-                            
                         } else if (companyCardSingle) {
                              const titleEl = companyCardSingle.querySelector('.cc-title_31ypU');
                              if(titleEl) {
                                 console.log('[Iframe-Parser] Found single-number company/official card (e.g., Taobao).');
-                                result.name = titleEl.textContent.trim().split(/\\s+/)[0]; // "淘宝网 网络收录仅供参考" -> "淘宝网"
+                                result.name = titleEl.textContent.trim().split(/\\s+/)[0];
                                 result.numbers.push({ number: PHONE_NUMBER, name: 'Main' });
                                 result.success = true;
                              }
                         }
 
-                        // 【新逻辑】If it's a company card, check for "客服" to set the label.
-                        if (result.success && (companyCardMulti || companyCardSingle)) {
-                            const nameToCheck = result.name || result.sourceLabel || '';
-                            if (nameToCheck.includes('客服')) {
-                                result.predefinedLabel = 'Customer Service';
-                            }
+                        // 【NEW LOGIC】 Compare and choose the longer name if dataToolsName exists
+                        if (result.success && dataToolsName && dataToolsName.length > result.name.length) {
+                            console.log('[Iframe-Parser] Overwriting name "' + result.name + '" with longer one from data-tools: "' + dataToolsName + '"');
+                            result.name = dataToolsName;
+                        }
+
+                        // Set predefinedLabel based on the final name
+                        if (result.success && (result.name.includes('客服') || (result.sourceLabel && result.sourceLabel.includes('客服')))) {
+                           result.predefinedLabel = 'Customer Service';
                         }
                         
                         // --- STRATEGY 2: Marked Number Card (Spam/Telemarketing etc.) ---
@@ -174,19 +171,14 @@
                             const labelEl = mainContainer.querySelector('.op_mobilephone_label, .cc-title_31ypU');
                             if (labelEl) {
                                 result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：|网络收录仅供参考/, '').trim().split(/\\s+/)[0];
-                                
                                 if (result.sourceLabel) {
                                     console.log('[Iframe-Parser] Found marked number card with label:', result.sourceLabel);
-                                    // *** As per your request, set count to 1 if a label is found ***
                                     result.count = 1; 
-
                                     const locationEl = mainContainer.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
                                     if (locationEl) {
                                         const locText = locationEl.textContent.replace(/归属地：/, '').trim();
                                         const [province, city, carrier] = locText.split(/\\s+/);
-                                        result.province = province || ''; 
-                                        result.city = city || ''; 
-                                        result.carrier = carrier || '';
+                                        result.province = province || ''; result.city = city || ''; result.carrier = carrier || '';
                                     }
                                     result.success = true;
                                 }
@@ -207,8 +199,8 @@
                             return result;
                         }
                         
-                        console.log('[Iframe-Parser] No specific card structure matched. Final fallback.');
-                        return null; // All structured parsing failed
+                        console.log('[Iframe-Parser] No specific card structure matched.');
+                        return null;
 
                     } catch (e) {
                         console.error('[Iframe-Parser] Error during parsing:', e);
@@ -220,9 +212,7 @@
                 function findAndParse() {
                     if (parsingCompleted) return;
                     console.log('[Iframe-Parser] Starting parse attempt...');
-                    
                     const finalResult = parseContent(window.document);
-                    
                     if (finalResult) {
                         sendResult(finalResult);
                     } else {
@@ -236,7 +226,7 @@
             })();
         `;
     }
-
+    
     function initiateQuery(phoneNumber, requestId) {
         log(`Initiating query for '${phoneNumber}' (requestId: ${requestId})`);
         try {
