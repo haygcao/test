@@ -4,80 +4,34 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '5.3.0', // Version updated for clarity
-        description: 'Queries Baidu for phone number information using an iframe proxy and a direct postMessage approach.'
+        version: '5.4.0', // Version updated with refined logic
+        description: 'Queries Baidu for phone number information using an iframe proxy and postMessage. Handles multiple result structures intelligently.'
     };
 
     const predefinedLabels = [
-        { label: 'Fraud Scam Likely' },
-        { label: 'Spam Likely' },
-        { label: 'Telemarketing' },
-        { label: 'Robocall' },
-        { label: 'Delivery' },
-        { label: 'Takeaway' },
-        { label: 'Ridesharing' },
-        { label: 'Insurance' },
-        { label: 'Loan' },
-        { label: 'Customer Service' },
-        { label: 'Unknown' },
-        { label: 'Financial' },
-        { label: 'Bank' },
-        { label: 'Education' },
-        { label: 'Medical' },
-        { label: 'Charity' },
-        { label: 'Other' },
-        { label: 'Debt Collection' },
-        { label: 'Survey' },
-        { label: 'Political' },
-        { label: 'Ecommerce' },
-        { label: 'Risk' },
-        { label: 'Agent' },
-        { label: 'Recruiter' },
-        { label: 'Headhunter' },
-        { label: 'Silent Call(Voice Clone?)' },
+        { label: 'Fraud Scam Likely' }, { label: 'Spam Likely' }, { label: 'Telemarketing' },
+        { label: 'Robocall' }, { label: 'Delivery' }, { label: 'Takeaway' },
+        { label: 'Ridesharing' }, { label: 'Insurance' }, { label: 'Loan' },
+        { label: 'Customer Service' }, { label: 'Unknown' }, { label: 'Financial' },
+        { label: 'Bank' }, { label: 'Education' }, { label: 'Medical' },
+        { label: 'Charity' }, { label: 'Other' }, { label: 'Debt Collection' },
+        { label: 'Survey' }, { label: 'Political' }, { label: 'Ecommerce' },
+        { label: 'Risk' }, { label: 'Agent' }, { label: 'Recruiter' },
+        { label: 'Headhunter' }, { label: 'Silent Call(Voice Clone?)' },
     ];
 
     const manualMapping = {
-        '中介': 'Agent',
-        '房产中介': 'Agent',
-        '违规催收': 'Debt Collection',
-        '快递物流': 'Delivery',
-        '快递': 'Delivery',
-        '教育培训': 'Education',
-        '金融': 'Financial',
-        '股票证券': 'Financial',
-        '保险理财': 'Financial',
-        '涉诈电话': 'Fraud Scam Likely',
-        '诈骗': 'Fraud Scam Likely',
-        '招聘': 'Recruiter',
-        '猎头': 'Headhunter',
-        '猎头招聘': 'Headhunter',
-        '招聘猎头': 'Headhunter',
-        '保险': 'Insurance',
-        '保险推销': 'Insurance',
-        '贷款理财': 'Loan',
-        '医疗卫生': 'Medical',
-        '其他': 'Other',
-        '送餐外卖': 'Takeaway',
-        '美团': 'Takeaway',
-        '饿了么': 'Takeaway',
-        '外卖': 'Takeaway',
-        '滴滴/优步': 'Ridesharing',
-        '出租车': 'Ridesharing',
-        '网约车': 'Ridesharing',
-        '违法': 'Risk',
-        '淫秽色情': 'Risk',
-        '反动谣言': 'Risk',
-        '发票办证': 'Risk',
-        '客服热线': 'Customer Service',
-        '非应邀商业电话': 'Spam Likely',
-        '广告': 'Spam Likely',
-        '骚扰': 'Spam Likely',
-        '骚扰电话': 'Spam Likely',
-        '商业营销': 'Telemarketing',
-        '广告推销': 'Telemarketing',
-        '旅游推广': 'Telemarketing',
-        '食药推销': 'Telemarketing',
+        '中介': 'Agent', '房产中介': 'Agent', '违规催收': 'Debt Collection', '快递物流': 'Delivery',
+        '快递': 'Delivery', '教育培训': 'Education', '金融': 'Financial', '股票证券': 'Financial',
+        '保险理财': 'Financial', '涉诈电话': 'Fraud Scam Likely', '诈骗': 'Fraud Scam Likely',
+        '招聘': 'Recruiter', '猎头': 'Headhunter', '猎头招聘': 'Headhunter', '招聘猎头': 'Headhunter',
+        '保险': 'Insurance', '保险推销': 'Insurance', '贷款理财': 'Loan', '医疗卫生': 'Medical',
+        '其他': 'Other', '送餐外卖': 'Takeaway', '美团': 'Takeaway', '饿了么': 'Takeaway',
+        '外卖': 'Takeaway', '滴滴/优步': 'Ridesharing', '出租车': 'Ridesharing', '网约车': 'Ridesharing',
+        '违法': 'Risk', '淫秽色情': 'Risk', '反动谣言': 'Risk', '发票办证': 'Risk',
+        '客服热线': 'Customer Service', '非应邀商业电话': 'Spam Likely', '广告': 'Spam Likely',
+        '骚扰': 'Spam Likely', '骚扰电话': 'Spam Likely', '商业营销': 'Telemarketing',
+        '广告推销': 'Telemarketing', '旅游推广': 'Telemarketing', '食药推销': 'Telemarketing',
         '推销': 'Telemarketing',
     };
 
@@ -134,25 +88,21 @@
     }
 
     /**
-     * Creates the script that will be executed *inside* the Baidu iframe.
-     * This script performs the actual data parsing.
+     * 【V5.4.0 逻辑升级】
+     * This script now handles all three specified HTML structures with refined logic.
      */
     function getParsingScript(pluginId, phoneNumberToQuery) {
-        // This function now contains the full, unabridged parsing logic.
         return `
             (function() {
                 const PLUGIN_ID = '${pluginId}';
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
                 const manualMapping = ${JSON.stringify(manualMapping)};
                 let parsingCompleted = false;
-                let attempts = 0;
-                const MAX_ATTEMPTS = 10; // 10 * 500ms = 5 seconds search
 
                 function sendResult(result) {
                     if (parsingCompleted) return;
                     parsingCompleted = true;
                     console.log('[Iframe-Parser] Sending result back to parent:', result);
-                    // Add the pluginId to the result data for routing in the parent.
                     window.parent.postMessage({ type: 'phoneQueryResult', data: { pluginId: PLUGIN_ID, ...result } }, '*');
                 }
 
@@ -164,85 +114,102 @@
                     };
 
                     try {
-                        const container = doc.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
-                        if (!container) {
+                        const mainContainer = doc.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
+                        if (!mainContainer) {
                             console.log('[Iframe-Parser] Could not find primary result container in this document.');
-                            return null; // Indicate parsing failed in this doc
+                            return null;
                         }
-
+                        
                         console.log('[Iframe-Parser] Found result container. Now parsing for data...');
 
-                        // --- STRATEGY 1: s-data (preferred) ---
-                        let sData = null;
-                        try {
-                            const sDataContainer = container.querySelector('[data-s-data], [data-sdata]');
-                            const sDataString = sDataContainer ? (sDataContainer.dataset.sData || sDataContainer.dataset.sdata) : null;
-                            if (sDataString) sData = JSON.parse(sDataString);
-                        } catch (e) { console.log('[Iframe-Parser] Could not parse s-data attribute', e); }
+                        // --- STRATEGY 1: Official/Company Number Card ---
+                        const companyCardMulti = mainContainer.querySelector('div.ms_company_number_2oq_O');
+                        const companyCardSingle = mainContainer.querySelector('div.title-top_2-DW0');
+                        
+                        if (companyCardMulti) {
+                            console.log('[Iframe-Parser] Found multi-number company card (e.g., Pinduoduo).');
+                            const officialTitle = companyCardMulti.querySelector('h3.c-title a');
+                            if (officialTitle) {
+                                result.sourceLabel = officialTitle.textContent.trim(); // e.g., "拼多多客服电话"
+                            }
 
-                        if (sData) {
-                            console.log('[Iframe-Parser] Successfully parsed s-data object.');
-                            if (sData.tellist || sData.showtitle || (sData.disp_data && sData.disp_data[0].p_tel)) {
-                                result.name = sData.showtitle || sData.title || (sData.disp_data && sData.disp_data[0].p_name) || '';
-                                if (sData.tellist && sData.tellist.tel) {
-                                    result.numbers = sData.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
-                                } else if (sData.disp_data && sData.disp_data[0].p_tel) {
-                                    result.numbers.push({ number: sData.disp_data[0].p_tel, name: 'Official' });
+                            const phoneEntries = companyCardMulti.querySelectorAll('div.tell-list_2FE1Z');
+                            phoneEntries.forEach(entry => {
+                                const numberEl = entry.querySelector('.list-num_3MoU1');
+                                const nameEl = entry.querySelector('.list-title_22Pkn');
+                                if (numberEl && nameEl) {
+                                    const numberText = numberEl.textContent.replace(/\\D/g, ''); // Keep only digits
+                                    if (numberText === PHONE_NUMBER) {
+                                        result.name = nameEl.textContent.trim(); // e.g., "消费者热线"
+                                    }
+                                    result.numbers.push({ number: numberEl.textContent.trim(), name: nameEl.textContent.trim() });
                                 }
-                                result.predefinedLabel = 'Customer Service';
-                                result.success = true;
-                            } else if (sData.tag) {
-                                result.sourceLabel = sData.tag || '';
-                                result.count = parseInt(sData.count, 10) || 0;
-                                result.province = sData.prov || '';
-                                result.city = sData.city || '';
-                                result.carrier = sData.carrier || '';
+                            });
+
+                            if(result.name || result.sourceLabel) {
                                 result.success = true;
                             }
+                            
+                        } else if (companyCardSingle) {
+                             const titleEl = companyCardSingle.querySelector('.cc-title_31ypU');
+                             if(titleEl) {
+                                console.log('[Iframe-Parser] Found single-number company/official card (e.g., Taobao).');
+                                result.name = titleEl.textContent.trim().split(/\\s+/)[0]; // "淘宝网 网络收录仅供参考" -> "淘宝网"
+                                result.numbers.push({ number: PHONE_NUMBER, name: 'Main' });
+                                result.success = true;
+                             }
                         }
 
-                        // --- STRATEGY 2: HTML Scraping (fallback) ---
+                        // 【新逻辑】If it's a company card, check for "客服" to set the label.
+                        if (result.success && (companyCardMulti || companyCardSingle)) {
+                            const nameToCheck = result.name || result.sourceLabel || '';
+                            if (nameToCheck.includes('客服')) {
+                                result.predefinedLabel = 'Customer Service';
+                            }
+                        }
+                        
+                        // --- STRATEGY 2: Marked Number Card (Spam/Telemarketing etc.) ---
                         if (!result.success) {
-                            console.log('[Iframe-Parser] s-data failed, falling back to HTML scraping.');
-                            const officialTitleEl = container.querySelector('.op-zx-title, h3.t, .op_official_title');
-                            if (officialTitleEl && /官方|客服/.test(officialTitleEl.textContent)) {
-                                result.name = officialTitleEl.textContent.trim();
-                                container.querySelectorAll('.tell-list_2FE1Z .c-row, .op_mobilephone_content').forEach(node => {
-                                    const numberEl = node.querySelector('.list-num_3MoU1, .op_mobilephone_number');
-                                    const nameEl = node.querySelector('.list-title_22Pkn, .op_mobilephone_name');
-                                    if (numberEl) result.numbers.push({ number: numberEl.textContent.trim(), name: nameEl ? nameEl.textContent.trim() : 'Number' });
-                                });
-                                if (result.numbers.length > 0) {
-                                    result.predefinedLabel = 'Customer Service';
-                                    result.success = true;
-                                }
-                            } else {
-                                const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU');
-                                if (labelEl) {
-                                    result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：/, '').trim().split(/\\s+/)[0];
-                                    const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
+                            console.log('[Iframe-Parser] No official card found, checking for marked number card.');
+                            const labelEl = mainContainer.querySelector('.op_mobilephone_label, .cc-title_31ypU');
+                            if (labelEl) {
+                                result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：|网络收录仅供参考/, '').trim().split(/\\s+/)[0];
+                                
+                                if (result.sourceLabel) {
+                                    console.log('[Iframe-Parser] Found marked number card with label:', result.sourceLabel);
+                                    // *** As per your request, set count to 1 if a label is found ***
+                                    result.count = 1; 
+
+                                    const locationEl = mainContainer.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
                                     if (locationEl) {
                                         const locText = locationEl.textContent.replace(/归属地：/, '').trim();
                                         const [province, city, carrier] = locText.split(/\\s+/);
-                                        result.province = province || ''; result.city = city || ''; result.carrier = carrier || '';
+                                        result.province = province || ''; 
+                                        result.city = city || ''; 
+                                        result.carrier = carrier || '';
                                     }
                                     result.success = true;
                                 }
                             }
                         }
 
-                        if (result.success) {
-                            if (result.sourceLabel) {
-                                for (const key in manualMapping) {
-                                    if (result.sourceLabel.includes(key)) { result.predefinedLabel = manualMapping[key]; break; }
+                        // --- FINAL LABEL MAPPING (applies to marked numbers) ---
+                        if (result.success && !result.predefinedLabel && result.sourceLabel) {
+                            for (const key in manualMapping) {
+                                if (result.sourceLabel.includes(key)) { 
+                                    result.predefinedLabel = manualMapping[key]; 
+                                    break; 
                                 }
                             }
-                            if (result.numbers.length === 0 && result.predefinedLabel === 'Customer Service') {
-                                result.numbers.push({ number: PHONE_NUMBER, name: 'Main' });
-                            }
+                        }
+
+                        if(result.success) {
                             return result;
                         }
-                        return null; // Parsing in this doc failed
+                        
+                        console.log('[Iframe-Parser] No specific card structure matched. Final fallback.');
+                        return null; // All structured parsing failed
+
                     } catch (e) {
                         console.error('[Iframe-Parser] Error during parsing:', e);
                         result.error = e.toString();
@@ -252,59 +219,44 @@
 
                 function findAndParse() {
                     if (parsingCompleted) return;
-                    attempts++;
-                    console.log('[Iframe-Parser] Starting parse attempt #' + attempts);
-
-                    // Since this script is executed inside the iframe content, we can directly access the document.
+                    console.log('[Iframe-Parser] Starting parse attempt...');
+                    
                     const finalResult = parseContent(window.document);
-
+                    
                     if (finalResult) {
                         sendResult(finalResult);
-                    } else if (attempts < MAX_ATTEMPTS) {
-                        console.log('[Iframe-Parser] Parsing failed on this attempt. Retrying in 500ms...');
-                        setTimeout(findAndParse, 500);
                     } else {
-                        console.error('[Iframe-Parser] Failed to parse content after all attempts.');
-                        sendResult({ success: false, error: 'Could not parse content after multiple attempts.' });
+                        console.error('[Iframe-Parser] Failed to parse content from any known structure.');
+                        sendResult({ success: false, error: 'Could not parse content from the page.' });
                     }
                 }
 
-                console.log('[Iframe-Parser] Parsing script has started execution inside the iframe for phone: ' + PHONE_NUMBER);
-                // Wait for a brief moment for the page to potentially finish rendering dynamic content.
-                setTimeout(findAndParse, 200);
+                console.log('[Iframe-Parser] Parsing script has started execution for phone: ' + PHONE_NUMBER);
+                setTimeout(findAndParse, 300);
             })();
         `;
     }
 
-
-    /**
-     * Initiates the phone number query by creating and managing an iframe.
-     */
     function initiateQuery(phoneNumber, requestId) {
         log(`Initiating query for '${phoneNumber}' (requestId: ${requestId})`);
-
         try {
-            const targetSearchUrl = `https://haoma.baidu.com/phoneSearch?search=${phoneNumber}&srcid=8757`;
+            const targetSearchUrl = `https://www.baidu.com/s?wd=${encodeURIComponent(phoneNumber)}&ie=utf-8`;
             const headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36' };
             const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(targetSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
             log(`Iframe proxy URL: ${proxyUrl}`);
-
             const iframe = document.createElement('iframe');
             iframe.id = `query-iframe-${requestId}`;
             iframe.style.display = 'none';
             iframe.sandbox = 'allow-scripts allow-same-origin';
             activeIFrames.set(requestId, iframe);
-
             iframe.onload = function() {
                 log(`Iframe loaded for requestId ${requestId}. Posting parsing script directly.`);
                 try {
                     const parsingScript = getParsingScript(PLUGIN_CONFIG.id, phoneNumber);
-
                     iframe.contentWindow.postMessage({
                         type: 'executeScript',
                         script: parsingScript
                     }, '*');
-                    
                     log(`Parsing script posted to iframe for requestId: ${requestId}`);
                 } catch (e) {
                     logError(`Error posting script to iframe for requestId ${requestId}:`, e);
@@ -312,16 +264,13 @@
                     cleanupIframe(requestId);
                 }
             };
-
             iframe.onerror = function() {
                 logError(`Iframe error for requestId ${requestId}`);
                 sendPluginResult({ requestId, success: false, error: 'Iframe loading failed.' });
                 cleanupIframe(requestId);
             };
-
             document.body.appendChild(iframe);
             iframe.src = proxyUrl;
-
             setTimeout(() => {
                 if (activeIFrames.has(requestId)) {
                     logError(`Query timeout for requestId: ${requestId}`);
@@ -329,16 +278,12 @@
                     cleanupIframe(requestId);
                 }
             }, 30000);
-
         } catch (error) {
             logError(`Error in initiateQuery for requestId ${requestId}:`, error);
             sendPluginResult({ requestId, success: false, error: `Query initiation failed: ${error.message}` });
         }
     }
 
-    /**
-     * Main entry point called by the application.
-     */
     function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
         log(`generateOutput called for requestId: ${requestId}`);
         const numberToQuery = phoneNumber || nationalNumber || e164Number;
@@ -349,16 +294,13 @@
         }
     }
 
-    // --- Event Listener for iframe results ---
     window.addEventListener('message', function(event) {
         if (!event.data || event.data.type !== 'phoneQueryResult' || !event.data.data) {
             return;
         }
-
         if (event.data.data.pluginId !== PLUGIN_CONFIG.id) {
             return;
         }
-
         let requestId = null;
         for (const [id, iframe] of activeIFrames.entries()) {
             if (iframe.contentWindow === event.source) {
@@ -366,11 +308,10 @@
                 break;
             }
         }
-
         if (requestId) {
             log(`Received result via postMessage for requestId: ${requestId}`);
             const result = { requestId, ...event.data.data };
-            delete result.pluginId; // Not needed in the final Flutter result
+            delete result.pluginId;
             sendPluginResult(result);
             cleanupIframe(requestId);
         } else {
@@ -378,22 +319,18 @@
         }
     });
 
-    // --- Plugin Initialization ---
     function initialize() {
         if (window.plugin && window.plugin[PLUGIN_CONFIG.id]) {
             log('Plugin already initialized.');
             return;
         }
-
         if (!window.plugin) {
             window.plugin = {};
         }
-
         window.plugin[PLUGIN_CONFIG.id] = {
             info: PLUGIN_CONFIG,
             generateOutput: generateOutput
         };
-
         log(`Plugin registered: window.plugin.${PLUGIN_CONFIG.id}`);
         sendPluginLoaded();
     }
