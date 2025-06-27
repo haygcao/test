@@ -4,8 +4,8 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '5.0.0',
-        description: 'Queries Baidu for phone number information using an iframe proxy and postMessage.'
+        version: '5.2.0', // Version updated for clarity
+        description: 'Queries Baidu for phone number information using an iframe proxy and a direct postMessage approach.'
     };
 
     const predefinedLabels = [
@@ -108,7 +108,7 @@
     }
 
     function sendPluginResult(result) {
-        log(`Sending result to Flutter: ${JSON.stringify(result)}`);
+        log(`Sending final result to Flutter: ${JSON.stringify(result)}`);
         sendToFlutter('PluginResultChannel', result);
     }
 
@@ -133,76 +133,149 @@
         }
     }
 
-    // --- Core Logic: Script Generation and Query Initiation ---
-
     /**
-     * Creates the script that will be executed inside the Baidu iframe.
+     * Creates the script that will be executed *inside* the Baidu iframe.
      * This script performs the actual data parsing.
      */
-    function getActualParsingLogic(pluginId, phoneNumberToQuery) {
+    function getParsingScript(pluginId, phoneNumberToQuery) {
+        // This function now contains the full, unabridged parsing logic.
         return `
             (function() {
-                console.log('[Baidu-Parser] Executing inside iframe for: ${phoneNumberToQuery}');
-                let results = [];
-                let found = false;
-                try {
-                    const containers = document.querySelectorAll('#content_left > div.c-container');
-                    console.log(\"[Baidu-Parser] Found \${containers.length} result containers.\");
+                const PLUGIN_ID = '${pluginId}';
+                const PHONE_NUMBER = '${phoneNumberToQuery}';
+                const manualMapping = ${JSON.stringify(manualMapping)};
+                let parsingCompleted = false;
+                let attempts = 0;
+                const MAX_ATTEMPTS = 10; // 10 * 500ms = 5 seconds search
 
-                    containers.forEach((container, index) => {
-                        const titleElement = container.querySelector('h3 a');
-                        const snippetElement = container.querySelector('.c-abstract, .c-span-last');
-                        if (titleElement) {
-                            const title = titleElement.innerText.trim();
-                            const url = titleElement.href;
-                            const snippet = snippetElement ? snippetElement.innerText.trim() : '';
-                            if (title.includes('${phoneNumberToQuery}') || snippet.includes('${phoneNumberToQuery}')) {
-                                console.log(\"[Baidu-Parser] Match in container #\${index + 1}: \${title}\");
-                                results.push({ title, url, snippet });
-                                found = true;
-                            }
-                        }
-                    });
-
-                    if (!found && document.body.innerText.includes('${phoneNumberToQuery}')) {
-                        console.log('[Baidu-Parser] Phone number found in raw page content.');
-                        found = true;
-                    }
-                } catch (e) {
-                    console.error('[Baidu-Parser] Parsing error:', e);
-                    window.parent.postMessage({ type: 'phoneQueryResult', data: { pluginId: '${pluginId}', success: false, error: 'Parsing script failed: ' + e.toString(), phoneNumber: '${phoneNumberToQuery}' }}, '*');
-                    return;
+                function sendResult(result) {
+                    if (parsingCompleted) return;
+                    parsingCompleted = true;
+                    console.log('[Iframe-Parser] Sending result back to parent:', result);
+                    // Add the pluginId to the result data for routing in the parent.
+                    window.parent.postMessage({ type: 'phoneQueryResult', data: { pluginId: PLUGIN_ID, ...result } }, '*');
                 }
 
-                console.log(\"[Baidu-Parser] Parsing complete. Found: \${found}. Sending results.\");
-                window.parent.postMessage({ type: 'phoneQueryResult', data: { pluginId: '${pluginId}', success: true, found, results, phoneNumber: '${phoneNumberToQuery}', source: 'Baidu Search' }}, '*');
+                function parseContent(doc) {
+                    console.log('[Iframe-Parser] Attempting to parse content in document with title:', doc.title);
+                    const result = {
+                        phoneNumber: PHONE_NUMBER, sourceLabel: '', count: 0, province: '', city: '', carrier: '',
+                        name: '', predefinedLabel: '', source: PLUGIN_ID, numbers: [], success: false, error: ''
+                    };
+
+                    try {
+                        const container = doc.querySelector('.result-op.c-container.new-pmd, .c-container[mu], #results, #content_left');
+                        if (!container) {
+                            console.log('[Iframe-Parser] Could not find primary result container in this document.');
+                            return null; // Indicate parsing failed in this doc
+                        }
+
+                        console.log('[Iframe-Parser] Found result container. Now parsing for data...');
+
+                        // --- STRATEGY 1: s-data (preferred) ---
+                        let sData = null;
+                        try {
+                            const sDataContainer = container.querySelector('[data-s-data], [data-sdata]');
+                            const sDataString = sDataContainer ? (sDataContainer.dataset.sData || sDataContainer.dataset.sdata) : null;
+                            if (sDataString) sData = JSON.parse(sDataString);
+                        } catch (e) { console.log('[Iframe-Parser] Could not parse s-data attribute', e); }
+
+                        if (sData) {
+                            console.log('[Iframe-Parser] Successfully parsed s-data object.');
+                            if (sData.tellist || sData.showtitle || (sData.disp_data && sData.disp_data[0].p_tel)) {
+                                result.name = sData.showtitle || sData.title || (sData.disp_data && sData.disp_data[0].p_name) || '';
+                                if (sData.tellist && sData.tellist.tel) {
+                                    result.numbers = sData.tellist.tel.map(t => ({ number: t.hot, name: t.name }));
+                                } else if (sData.disp_data && sData.disp_data[0].p_tel) {
+                                    result.numbers.push({ number: sData.disp_data[0].p_tel, name: 'Official' });
+                                }
+                                result.predefinedLabel = 'Customer Service';
+                                result.success = true;
+                            } else if (sData.tag) {
+                                result.sourceLabel = sData.tag || '';
+                                result.count = parseInt(sData.count, 10) || 0;
+                                result.province = sData.prov || '';
+                                result.city = sData.city || '';
+                                result.carrier = sData.carrier || '';
+                                result.success = true;
+                            }
+                        }
+
+                        // --- STRATEGY 2: HTML Scraping (fallback) ---
+                        if (!result.success) {
+                            console.log('[Iframe-Parser] s-data failed, falling back to HTML scraping.');
+                            const officialTitleEl = container.querySelector('.op-zx-title, h3.t, .op_official_title');
+                            if (officialTitleEl && /官方|客服/.test(officialTitleEl.textContent)) {
+                                result.name = officialTitleEl.textContent.trim();
+                                container.querySelectorAll('.tell-list_2FE1Z .c-row, .op_mobilephone_content').forEach(node => {
+                                    const numberEl = node.querySelector('.list-num_3MoU1, .op_mobilephone_number');
+                                    const nameEl = node.querySelector('.list-title_22Pkn, .op_mobilephone_name');
+                                    if (numberEl) result.numbers.push({ number: numberEl.textContent.trim(), name: nameEl ? nameEl.textContent.trim() : 'Number' });
+                                });
+                                if (result.numbers.length > 0) {
+                                    result.predefinedLabel = 'Customer Service';
+                                    result.success = true;
+                                }
+                            } else {
+                                const labelEl = container.querySelector('.op_mobilephone_label, .cc-title_31ypU');
+                                if (labelEl) {
+                                    result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：/, '').trim().split(/\\s+/)[0];
+                                    const locationEl = container.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
+                                    if (locationEl) {
+                                        const locText = locationEl.textContent.replace(/归属地：/, '').trim();
+                                        const [province, city, carrier] = locText.split(/\\s+/);
+                                        result.province = province || ''; result.city = city || ''; result.carrier = carrier || '';
+                                    }
+                                    result.success = true;
+                                }
+                            }
+                        }
+
+                        if (result.success) {
+                            if (result.sourceLabel) {
+                                for (const key in manualMapping) {
+                                    if (result.sourceLabel.includes(key)) { result.predefinedLabel = manualMapping[key]; break; }
+                                }
+                            }
+                            if (result.numbers.length === 0 && result.predefinedLabel === 'Customer Service') {
+                                result.numbers.push({ number: PHONE_NUMBER, name: 'Main' });
+                            }
+                            return result;
+                        }
+                        return null; // Parsing in this doc failed
+                    } catch (e) {
+                        console.error('[Iframe-Parser] Error during parsing:', e);
+                        result.error = e.toString();
+                        return result;
+                    }
+                }
+
+                function findAndParse() {
+                    if (parsingCompleted) return;
+                    attempts++;
+                    console.log('[Iframe-Parser] Starting parse attempt #' + attempts);
+
+                    // Since this script is executed inside the iframe content, we can directly access the document.
+                    const finalResult = parseContent(window.document);
+
+                    if (finalResult) {
+                        sendResult(finalResult);
+                    } else if (attempts < MAX_ATTEMPTS) {
+                        console.log('[Iframe-Parser] Parsing failed on this attempt. Retrying in 500ms...');
+                        setTimeout(findAndParse, 500);
+                    } else {
+                        console.error('[Iframe-Parser] Failed to parse content after all attempts.');
+                        sendResult({ success: false, error: 'Could not parse content after multiple attempts.' });
+                    }
+                }
+
+                console.log('[Iframe-Parser] Parsing script has started execution inside the iframe for phone: ' + PHONE_NUMBER);
+                // Wait for a brief moment for the page to potentially finish rendering dynamic content.
+                setTimeout(findAndParse, 200);
             })();
         `;
     }
 
-    /**
-     * Creates the loader script that runs in the main plugin document.
-     * Its only job is to post the actual parsing script into the iframe.
-     */
-    function getLoaderScript(pluginId, phoneNumberToQuery) {
-        const actualParsingLogic = getActualParsingLogic(pluginId, phoneNumberToQuery);
-        return `
-          (function() {
-            console.log('[Baidu-Loader] Attempting to post parsing script to iframe...');
-            const iframe = document.querySelector('iframe');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage({ 
-                    type: 'executeScript', 
-                    script: \`${actualParsingLogic.replace(/`/g, '\\`')}\`
-                }, '*');
-                console.log('[Baidu-Loader] Script posted to iframe.');
-            } else {
-                console.error('[Baidu-Loader] Could not find iframe.');
-                window.flutter_inappwebview.callHandler('phoneQueryResult', { pluginId: '${pluginId}', success: false, error: 'Could not find iframe element.', phoneNumber: '${phoneNumberToQuery}' });
-            }
-          })();
-        `;
-    }
 
     /**
      * Initiates the phone number query by creating and managing an iframe.
@@ -223,13 +296,19 @@
             activeIFrames.set(requestId, iframe);
 
             iframe.onload = function() {
-                log(`Iframe loaded for requestId ${requestId}.`);
-                const loaderScript = getLoaderScript(PLUGIN_CONFIG.id, phoneNumber);
+                log(`Iframe loaded for requestId ${requestId}. Posting parsing script directly.`);
                 try {
-                    eval(loaderScript);
+                    const parsingScript = getParsingScript(PLUGIN_CONFIG.id, phoneNumber);
+
+                    iframe.contentWindow.postMessage({
+                        type: 'executeScript',
+                        script: parsingScript
+                    }, '*');
+                    
+                    log(`Parsing script posted to iframe for requestId: ${requestId}`);
                 } catch (e) {
-                    logError(`Error evaluating loader script for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `Failed to eval loader script: ${e.message}` });
+                    logError(`Error posting script to iframe for requestId ${requestId}:`, e);
+                    sendPluginResult({ requestId, success: false, error: `postMessage failed: ${e.message}` });
                     cleanupIframe(requestId);
                 }
             };
@@ -272,12 +351,10 @@
 
     // --- Event Listener for iframe results ---
     window.addEventListener('message', function(event) {
-        // Basic validation of the message
-        if (!event.data || event.data.type !== 'phoneQueryResult' || !event.data.data || !event.data.data.pluginId) {
+        if (!event.data || event.data.type !== 'phoneQueryResult' || !event.data.data) {
             return;
         }
 
-        // Ensure the message is from our plugin
         if (event.data.data.pluginId !== PLUGIN_CONFIG.id) {
             return;
         }
@@ -293,6 +370,7 @@
         if (requestId) {
             log(`Received result via postMessage for requestId: ${requestId}`);
             const result = { requestId, ...event.data.data };
+            delete result.pluginId; // Not needed in the final Flutter result
             sendPluginResult(result);
             cleanupIframe(requestId);
         } else {
