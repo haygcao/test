@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (iframe Proxy)',
-        version: '5.5.0', // Final version with intelligent name selection
+        version: '5.6.0', // Final version with intelligent name selection
         description: 'Queries Baidu for phone number information using an iframe proxy. Intelligently selects the best name from multiple sources.'
     };
   
@@ -191,25 +191,25 @@
                            result.predefinedLabel = 'Customer Service';
                         }
                         
-                        // --- STRATEGY 2: Marked Number Card (Spam/Telemarketing etc.) ---
-                        if (!result.success) {
-                            console.log('[Iframe-Parser] No official card found, checking for marked number card.');
-                            const labelEl = mainContainer.querySelector('.op_mobilephone_label, .cc-title_31ypU');
-                            if (labelEl) {
-                                result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：|网络收录仅供参考/, '').trim().split(/s+/)[0];
-                                if (result.sourceLabel) {
-                                    console.log('[Iframe-Parser] Found marked number card with label:', result.sourceLabel);
-                                    result.count = 1; 
-                                    const locationEl = mainContainer.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
-                                    if (locationEl) {
-                                        const locText = locationEl.textContent.replace(/归属地：/, '').trim();
-                                        const [province, city, carrier] = locText.split(/s+/);
-                                        result.province = province || ''; result.city = city || ''; result.carrier = carrier || '';
-                                    }
-                                    result.success = true;
-                                }
-                            }
-                        }
+                      // --- STRATEGY 2: Marked Number Card (Spam/Telemarketing etc.) ---
+                      if (!result.success) {
+                          console.log('[Iframe-Parser] No official card found, checking for marked number card.');
+                          const labelEl = mainContainer.querySelector('.op_mobilephone_label, .cc-title_31ypU');
+                          if (labelEl) {
+                              result.sourceLabel = labelEl.textContent.replace(/标记：|标记为：|网络收录仅供参考/, '').trim().split(/\\s+/)[0];
+                              if (result.sourceLabel) {
+                                  console.log('[Iframe-Parser] Found marked number card with label:', result.sourceLabel);
+                                  result.count = 1; 
+                                  const locationEl = mainContainer.querySelector('.op_mobilephone_location, .cc-row_dDm_G');
+                                  if (locationEl) {
+                                      const locText = locationEl.textContent.replace(/归属地：/, '').trim();
+                                      const [province, city, carrier] = locText.split(/\\s+/);
+                                      result.province = province || ''; result.city = city || ''; result.carrier = carrier || '';
+                                  }
+                                  result.success = true;
+                              }
+                          }
+                      }
   
                         // --- FINAL LABEL MAPPING (applies to marked numbers) ---
                         if (result.success && !result.predefinedLabel && result.sourceLabel) {
