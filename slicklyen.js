@@ -393,14 +393,7 @@
         // Format the number for Slick.ly (usually just the digits)
         const formattedNumber = numberToQuery.replace(/[^0-9]/g, ''); // Remove non-digits
 
-        // Proceed with the query only if a country code was successfully extracted
-        if (countryCode) {
-             initiateQuery(formattedNumber, requestId, countryCode);
-        } else {
-             // This case should ideally be handled by the country code extraction logic above
-             logError('Country code is missing after extraction attempt.');
-             sendPluginResult({ requestId, success: false, error: 'Country code could not be determined.' });
-        }
+       
     }
 
     // --- Message Listener (similar to bd.js) ---
