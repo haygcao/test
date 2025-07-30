@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyPhoneNumberPlugin', // Unique ID for this plugin
         name: 'Slick.ly Phone Lookup (iframe Proxy)',
-        version: '1.0.5', // Updated version for country code extraction from e164Number
+        version: '1.0.8', // Updated version for country code extraction from e164Number
         description: 'Queries Slick.ly for phone number information and maps to fixed predefined labels, extracting country code from e164Number.'
     };
 
@@ -388,56 +388,7 @@
             return;
         }
 
-         // Extract country code from e164Number if available
-         // This is a basic implementation and might need refinement
-         let countryCode = null;
-         if (e164Number && e164Number.startsWith('+')) {
-             // Attempt to extract country code (basic: assumes 1-3 digits after +)
-             const match = e164Number.match(/^\\+(\\d{1,3})/);
-             if (match && match[1]) {
-                 // Map the country code digits to a Slick.ly country identifier (e.g., 1 -> us)
-                 // This requires a mapping from country calling code to Slick.ly country short code.
-                 // For simplicity here, I'll just log the extracted digits.
-                 // You will need a proper mapping mechanism here.
-                 const extractedCountryCodeDigits = match[1];
-                  console.log('[Slickly Plugin] Extracted country code digits from e164Number:', extractedCountryCodeDigits);
-                  // *** IMPORTANT: Implement mapping from extractedCountryCodeDigits to Slick.ly country short code (e.g., 'us', 'gb', 'au', 'my') ***
-                  // For now, I'll use a placeholder or a simple hardcoded example if applicable to your testing.
-                  // Replace the following line with your actual mapping logic.
-                  // Example placeholder mapping (replace with your actual mapping):
-                  const countryCodeMap = {
-                      '1': 'us',  // United States
-                      '44': 'gb', // United Kingdom
-                      '61': 'au', // Australia
-                      '60': 'my',  // Malaysia
-                      '65': 'sg',  // Singapore
-                      '64': 'nz',  // New Zealand
-                      '234': 'ng'  // Nigeria
-                      // Add more mappings as needed
-                  };
-                  countryCode = countryCodeMap[extractedCountryCodeDigits];
-                   if (!countryCode) {
-                       logError(`Could not map country code digits "${extractedCountryCodeDigits}" to a Slick.ly country.`);
-                       // You might still proceed with a default or return an error
-                       // For now, I'll proceed without a country code, which will likely fail the Slick.ly query
-                       sendPluginResult({ requestId, success: false, error: `Unsupported country code: ${extractedCountryCodeDigits}` });
-                       return; // Exit if country code is required and not found
-                   }
-                    console.log('[Slickly Plugin] Mapped country code digits to Slick.ly country code:', countryCode);
-
-             } else {
-                 logError('Could not extract country code digits from e164Number:', e164Number);
-                 // You might proceed without a country code or return an error
-                  sendPluginResult({ requestId, success: false, error: `Could not extract country code from e164Number: ${e164Number}` });
-                 return;
-             }
-         } else {
-             logError('e164Number is not available or does not start with "+". Cannot extract country code.');
-             // You might proceed without a country code or return an error
-              sendPluginResult({ requestId, success: false, error: 'e164Number is required to extract country code.' });
-             return;
-         }
-
+    
 
         // Format the number for Slick.ly (usually just the digits)
         const formattedNumber = numberToQuery.replace(/[^0-9]/g, ''); // Remove non-digits
