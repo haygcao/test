@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyPhoneNumberPlugin', // Unique ID for this plugin
         name: 'Slick.ly Phone Lookup (iframe Proxy)',
-        version: '1.0.8', // Updated version for country code extraction from e164Number
+        version: '1.0.9', // Updated version for country code extraction from e164Number
         description: 'Queries Slick.ly for phone number information and maps to fixed predefined labels, extracting country code from e164Number.'
     };
 
