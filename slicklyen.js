@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyPhoneNumberPlugin', // Unique ID for this plugin
         name: 'Slick.ly Phone Lookup (iframe Proxy)',
-        version: '1.0.8', // Updated version for improved province/city parsing
+        version: '1.0.9', // Updated version for improved province/city parsing
         description: 'Queries Slick.ly for phone number information and maps to fixed predefined labels, extracting country code from e164Number, and determines an action.'
     };
 
@@ -532,9 +532,9 @@
                  // This requires a mapping from country calling code to Slick.ly country short code.
                  // For simplicity here, I'll just log the extracted digits.
                  // You will need a proper mapping mechanism here.
-                 const extractedCountryCodeDigits = match[1];
+                 let extractedCountryCodeDigits = match[1];
                   console.log('[Slickly Plugin] Extracted country code digits from e164Number:', extractedCountryCodeDigits);
-                  // *** IMPORTANT: Implement mapping from extractedCountryCodeDigits to Slick.ly country short code (e.g., 'us', 'gb', 'au', 'my') ***
+                  // *** IMPORTANT: Implement mapping from extractedCountryCodeDigits to Slick.ly country short code (e.g., 'us', 'gb', 'au', 'ng') ***
                   // For now, I'll use a placeholder or a simple hardcoded example if applicable to your testing.
                   // Replace the following line with your actual mapping logic.
                   // Example placeholder mapping (replace with your actual mapping):
@@ -547,14 +547,28 @@
                       '234': 'ng'  // Nigeria
                       // Add more mappings as needed
                   };
-                  countryCode = countryCodeMap[extractedCountryCodeDigits];
+                  // --- START: LOGIC CORRECTION ---
+                  // The original regex can be "greedy" and match too many digits (e.g., '184' from '+1844...').
+                  // This loop will try the longest possible match first, and if it's not a valid code,
+                  // it will shorten the string by one digit and try again, until a match is found in the countryCodeMap.
+                  while (extractedCountryCodeDigits.length > 0) {
+                      if (countryCodeMap[extractedCountryCodeDigits]) {
+                          countryCode = countryCodeMap[extractedCountryCodeDigits];
+                          break; // Found a match, exit the loop
+                      }
+                      // If no match, shorten the code by removing the last digit and retry
+                      extractedCountryCodeDigits = extractedCountryCodeDigits.slice(0, -1);
+                  }
+                  // --- END: LOGIC CORRECTION ---
+
+                   // After correction, if countryCode is still null, it means it's genuinely an unsupported country code.
                    if (!countryCode) {
-                       logError(`Could not map country code digits "${extractedCountryCodeDigits}" to a Slick.ly country.`);
-                       // You might still proceed with a default or return an error
-                       // For now, I'll proceed without a country code, which will likely fail the Slick.ly query
-                       sendPluginResult({ requestId, success: false, error: `Unsupported country code: ${extractedCountryCodeDigits}` });
+                       logError(`Could not map country code digits "${match[1]}" to a Slick.ly country.`); // Log the original matched value
+                       sendPluginResult({ requestId, success: false, error: `Unsupported country code: ${match[1]}` });
                        return; // Exit if country code is required and not found
                    }
+                   
+                    console.log('[Slickly Plugin] Extracted country code digits from e164Number:', extractedCountryCodeDigits); // Log the final, correct country code digits
                     console.log('[Slickly Plugin] Mapped country code digits to Slick.ly country code:', countryCode);
 
              } else {
