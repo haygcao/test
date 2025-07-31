@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyPhoneNumberPlugin', // Unique ID for this plugin
         name: 'Slick.ly Phone Lookup (iframe Proxy)',
-        version: '1.0.7', // Updated version for improved province/city parsing
+        version: '1.0.8', // Updated version for improved province/city parsing
         description: 'Queries Slick.ly for phone number information and maps to fixed predefined labels, extracting country code from e164Number, and determines an action.'
     };
 
@@ -526,7 +526,7 @@
          if (e164Number && e164Number.startsWith('+')) {
              console.log('当前的 e164Number 值是:', e164Number);
              // Attempt to extract country code (basic: assumes 1-3 digits after +)
-             const match = e164Number.match(/^\\+(\\d{1,3})/);
+             const match = e164Number.match(/^\+(\d{1,3})/);
              if (match && match[1]) {
                  // Map the country code digits to a Slick.ly country identifier (e.g., 1 -> us)
                  // This requires a mapping from country calling code to Slick.ly country short code.
