@@ -4,8 +4,8 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyPhoneNumberPlugin', // Unique ID for this plugin
         name: 'Slick.ly Phone Lookup (iframe Proxy)',
-        version: '1.0.9', // Updated version for country code extraction from e164Number
-        description: 'Queries Slick.ly for phone number information and maps to fixed predefined labels, extracting country code from e164Number.'
+        version: '1.0.7', // Updated version for improved province/city parsing
+        description: 'Queries Slick.ly for phone number information and maps to fixed predefined labels, extracting country code from e164Number, and determines an action.'
     };
 
     // --- Our application's FIXED predefined labels (provided by the user) ---
@@ -56,7 +56,7 @@
         'Political', 'Ecommerce', 'Risk', 'Agent', 'Recruiter',
         'Headhunter', 'Silent Call Voice Clone', 'Internet',
         'Travel & Ticketing', 'Application Software', 'Entertainment',
-        'Government', 'Local Services', 'Automotive Industry','scandals','Fake',
+        'Government', 'Local Services', 'Automotive Industry','scandals','Fake','Pretending',
         'Car Rental', 'Telecommunication', 'Nuisance'
     ];
 
@@ -73,6 +73,7 @@
          'Fraud': 'Fraud Scam Likely',
          'Scam': 'Fraud Scam Likely',
          'Fake': 'Fraud Scam Likely',
+         'Pretending': 'Fraud Scam Likely',
          'Spam': 'Spam Likely',
          'Harassment': 'Spam Likely', // Or Risk
          'Telemarketing': 'Telemarketing',
@@ -111,10 +112,10 @@
          'Nuisance': 'Spam Likely', // Example mapping
          'Scandals': 'Spam Likely', // Example mapping
          // Add other specific phrases from comments if needed and map them
-         // 'Random person': 'Other', // Example
-         // 'wanting to ask questions': 'Spam Likely', // Example
-         // 'Disturbing': 'Risk', // Example
-         // 'looking around her property': 'Risk' // Example
+         'Random person': 'Other', // Example
+         'wanting to ask questions': 'Spam Likely', // Example
+         'Disturbing': 'Risk', // Example
+         'looking around her property': 'Risk' // Example
     };
 
 
@@ -164,7 +165,7 @@
                 const PHONE_NUMBER = '${phoneNumberToQuery}';
                 const manualMapping = ${JSON.stringify(manualMapping)}; // Use the corrected mapping
                 const predefinedLabels = ${JSON.stringify(predefinedLabels)}; // Make predefinedLabels available in iframe for validation
-                 const slicklyKeywords = ${JSON.stringify(slicklyKeywords)}; // Make keywords available
+                const slicklyKeywords = ${JSON.stringify(slicklyKeywords)}; // Make keywords available
 
                 let parsingCompleted = false;
 
@@ -197,7 +198,7 @@
                     console.log('[Iframe-Parser] Attempting to parse content in document with title:', doc.title);
                     const result = {
                         phoneNumber: PHONE_NUMBER, sourceLabel: '', count: 0, province: '', city: '', carrier: '',
-                        name: '', predefinedLabel: '', source: PLUGIN_CONFIG.id, numbers: [], success: false, error: ''
+                        name: '', predefinedLabel: '', source: PLUGIN_CONFIG.id, numbers: [], success: false, error: '', action: 'none' // Added action field
                     };
 
                     try {
@@ -213,11 +214,11 @@
 
 
                         // --- Extract Summary Label and set initial sourceLabel ---
-                        const summaryLabelElement = doc.querySelector('.summary-keywords .summary span');
+                        const summaryLabelElement = doc.querySelector('.summary-keywords .summary span.summary-result'); // Target the span with result class
                         let initialSourceLabel = '';
                         if (summaryLabelElement) {
                             const summaryLabelText = summaryLabelElement.textContent.trim();
-                            if (summaryLabelText.toLowerCase() === 'suspicious' || summaryLabelText.toLowerCase() === 'dangerous') {
+                            if (summaryLabelText.toLowerCase() === 'suspicious' || summaryLabelText.toLowerCase() === 'dangerous' || summaryLabelText.toLowerCase() === 'safe') {
                                  initialSourceLabel = summaryLabelText; // Set initial sourceLabel
                                  result.sourceLabel = initialSourceLabel; // Also set sourceLabel for display
                                  console.log('[Iframe-Parser] Found Summary label (initial sourceLabel):', initialSourceLabel);
@@ -230,10 +231,17 @@
                         if (keywordsElement) {
                              const keywordsText = keywordsElement.textContent.trim();
                              console.log('[Iframe-Parser] Keywords text:', keywordsText);
-                             const matchingKeyword = findMatchingKeyword(keywordsText);
-                             if (matchingKeyword) {
-                                  specificSourceLabel = matchingKeyword; // Override sourceLabel with the matched keyword
-                                  console.log('[Iframe-Parser] Found matching keyword in Keywords (setting specificSourceLabel):', specificSourceLabel);
+                             // Directly check if the Keywords text is an exact match for a manualMapping key
+                             if (manualMapping.hasOwnProperty(keywordsText)) {
+                                  specificSourceLabel = keywordsText;
+                                  console.log('[Iframe-Parser] Found exact manual mapping key in Keywords (setting specificSourceLabel):', specificSourceLabel);
+                             } else {
+                                  // If not an exact manual mapping key, check for matching keywords from the list
+                                   const matchingKeyword = findMatchingKeyword(keywordsText);
+                                   if (matchingKeyword) {
+                                        specificSourceLabel = matchingKeyword; // Override sourceLabel with the matched keyword
+                                        console.log('[Iframe-Parser] Found matching keyword in Keywords (setting specificSourceLabel):', specificSourceLabel);
+                                   }
                              }
                         }
 
@@ -243,12 +251,20 @@
                              for (const commentElement of commentContentElements) {
                                   const commentText = commentElement.textContent.trim();
                                    console.log('[Iframe-Parser] Checking comment text for keywords:', commentText);
-                                  const matchingKeyword = findMatchingKeyword(commentText);
-                                  if (matchingKeyword) {
-                                       specificSourceLabel = matchingKeyword; // Override sourceLabel with the matched keyword from comments
-                                      console.log('[Iframe-Parser] Found matching keyword in Comments (setting specificSourceLabel):', specificSourceLabel);
-                                      break; // Stop checking comments after the first match
-                                  }
+                                  // Directly check if the Comment text is an exact match for a manualMapping key
+                                   if (manualMapping.hasOwnProperty(commentText)) {
+                                        specificSourceLabel = commentText;
+                                        console.log('[Iframe-Parser] Found exact manual mapping key in Comment (setting specificSourceLabel):', specificSourceLabel);
+                                        break; // Stop checking comments after the first match
+                                   } else {
+                                        // If not an exact manual mapping key, check for matching keywords from the list
+                                        const matchingKeyword = findMatchingKeyword(commentText);
+                                        if (matchingKeyword) {
+                                            specificSourceLabel = matchingKeyword; // Override sourceLabel with the matched keyword from comments
+                                            console.log('[Iframe-Parser] Found matching keyword in Comments (setting specificSourceLabel):', specificSourceLabel);
+                                            break; // Stop checking comments after the first match
+                                        }
+                                   }
                              }
                         }
 
@@ -280,6 +296,122 @@
                         // Set the final predefinedLabel
                         result.predefinedLabel = foundPredefinedLabel || 'Unknown'; // Default to 'Unknown' if no valid mapping found
 
+                        // --- Extract Province and City ---
+                        const basicInfoElement = doc.querySelector('.basic span');
+                        if (basicInfoElement) {
+                            const basicInfoText = basicInfoElement.textContent.trim();
+                            console.log('[Iframe-Parser] Basic Info text:', basicInfoText);
+                            
+                            // Extract the part before "· Fixed Line or Mobile" or similar service info
+                            const serviceInfoIndex = basicInfoText.indexOf(' · ');
+                            let locationInfo = basicInfoText;
+                            if (serviceInfoIndex !== -1) {
+                                locationInfo = basicInfoText.substring(0, serviceInfoIndex).trim();
+                            }
+
+                            console.log('[Iframe-Parser] Extracted locationInfo for parsing:', locationInfo);
+
+                            // Regex to capture "City, State (Country)" or "State (Country)" or "City (Country)"
+                            // This regex aims to extract the main location part and the country in parentheses.
+                            const locationMatch = locationInfo.match(/^(.+?)\\s*\\((.+?)\\)$/);
+
+                            if (locationMatch && locationMatch[1]) {
+                                const mainLocationPart = locationMatch[1].trim(); // e.g., "Iowa" or "New York City, NY" or "London"
+                                const countryPart = locationMatch[2].trim(); // e.g., "United States" or "United Kingdom"
+                                console.log('[Iframe-Parser] mainLocationPart:', mainLocationPart, ', countryPart:', countryPart);
+
+                                if (mainLocationPart.includes(',')) {
+                                    // Likely "City, State" format
+                                    const parts = mainLocationPart.split(',').map(p => p.trim());
+                                    if (parts.length >= 2) {
+                                        result.city = parts[0];
+                                        result.province = parts[1];
+                                        console.log('[Iframe-Parser] Split into City:', result.city, ', Province (State):', result.province);
+                                    } else {
+                                        // Fallback if comma exists but split is unexpected
+                                        result.city = mainLocationPart;
+                                        console.log('[Iframe-Parser] Treated as City only (comma present):', result.city);
+                                    }
+                                } else {
+                                    // Assume it's either a State or a City.
+                                    // For simplicity, we can assign it to province for states or city for cities,
+                                    // or just set one if the distinction is not critical.
+                                    // Aligning with CN's fallback, if no clear split, treat as city.
+                                    result.city = mainLocationPart;
+                                    console.log('[Iframe-Parser] Treated as City only (no comma):', result.city);
+                                }
+
+                            } else {
+                                 console.log('[Iframe-Parser] Could not parse location info with (Country) format. Storing raw text to city:', locationInfo);
+                                 result.city = locationInfo; // Store the whole thing in city if format is unexpected
+                            }
+                        } else {
+                             console.log('[Iframe-Parser] Basic info element not found.');
+                        }
+
+
+                        // --- Determine Action based on combined logic ---
+                        let action = 'none';
+
+                        // 1. Prioritize action based on Keywords (existing logic)
+                        if (result.sourceLabel) {
+                        
+                // Define block and allow keywords for action determination
+                const blockKeywords = [
+                    'Fraud', 'Scam', 'Spam', 'Harassment', 'Telemarketing', 'Robocall',
+                    'Loan', 'Risk', 'Fake', 'Pretending', 'Nuisance', 'Scandals', 'call',
+                    'Debt Collection', 'Silent Call Voice Clone'
+                ];
+                const allowKeywords = [
+                    'Delivery', 'Takeaway', 'Ridesharing', 'Customer Service', 'Insurance',
+                    'Bank', 'Education', 'Medical', 'Charity', 'Government',
+                    'Local Services', 'Automotive Industry', 'Car Rental', 'Telecommunication'
+                ];
+
+                            for (const keyword of blockKeywords) {
+                                if (result.sourceLabel.toLowerCase().includes(keyword.toLowerCase())) {
+                                    action = 'block';
+                                    break;
+                                }
+                            }
+                            if (action === 'none') { // Only check allow if not already blocked
+                                for (const keyword of allowKeywords) {
+                                    if (result.sourceLabel.toLowerCase().includes(keyword.toLowerCase())) {
+                                        action = 'allow';
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        // 2. If no action determined by keywords, check Summary Label
+                        if (action === 'none' && initialSourceLabel) {
+                             if (initialSourceLabel.toLowerCase() === 'suspicious' || initialSourceLabel.toLowerCase() === 'dangerous') {
+                                 action = 'block';
+                             } else if (initialSourceLabel.toLowerCase() === 'safe') {
+                                 action = 'allow';
+                             }
+                        }
+
+                        // 3. If no action determined by keywords or summary, check Votes
+                        if (action === 'none') {
+                             const negativeVotesElement = doc.querySelector('.vote .negative-count');
+                             const positiveVotesElement = doc.querySelector('.vote .positive-count');
+
+                             if (negativeVotesElement && positiveVotesElement) {
+                                  const negativeVotes = parseInt(negativeVotesElement.textContent.trim(), 10) || 0;
+                                  const positiveVotes = parseInt(positiveVotesElement.textContent.trim(), 10) || 0;
+                                   console.log('[Iframe-Parser] Negative votes:', negativeVotes, ', Positive votes:', positiveVotes);
+
+                                 if (negativeVotes > positiveVotes) {
+                                     action = 'block';
+                                 } else if (positiveVotes > negativeVotes) {
+                                     action = 'allow';
+                                 }
+                             }
+                        }
+
+                        result.action = action; // Set the determined action
 
                         // --- Set success to true if we found at least a count or a sourceLabel ---
                         if (result.count > 0 || result.sourceLabel) {
@@ -293,7 +425,7 @@
 
                         console.log('[Iframe-Parser] Could not extract required information from the page.');
                          // Return a basic result even if parsing failed to indicate the process finished
-                         return { phoneNumber: PHONE_NUMBER, success: false, error: 'Could not parse content from the page.' };
+                         return { phoneNumber: PHONE_NUMBER, success: false, error: 'Could not parse content from the page.', action: 'none' };
 
 
                     } catch (e) {
@@ -309,7 +441,7 @@
                     console.log('[Iframe-Parser] Starting parse attempt...');
                     const finalResult = parseContent(window.document);
                      // Ensure sendResult is called even if parsing fails
-                    sendResult(finalResult || { phoneNumber: PHONE_NUMBER, success: false, error: 'Parsing logic returned null.' });
+                    sendResult(finalResult || { phoneNumber: PHONE_NUMBER, success: false, error: 'Parsing logic returned null.', action: 'none' });
                 }
 
                 console.log('[Iframe-Parser] Parsing script has started execution for phone: ' + PHONE_NUMBER);
@@ -324,7 +456,7 @@
          log(`Initiating query for '${phoneNumber}' (requestId: ${requestId}, countryCode: ${countryCode})`);
          try {
              // Construct Slick.ly search URL based on country code
-             const baseUrl = `https://slick.ly/us/`;
+             const baseUrl = `https://slick.ly/${countryCode.toLowerCase()}/`;
              const targetSearchUrl = `${baseUrl}${encodeURIComponent(phoneNumber)}`;
              const headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36' }; // Using a common user agent
              const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?targetUrl=${encodeURIComponent(targetSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
@@ -388,12 +520,68 @@
             return;
         }
 
-    
+         // Extract country code from e164Number if available
+         // This is a basic implementation and might need refinement
+         let countryCode = null;
+         if (e164Number && e164Number.startsWith('+')) {
+             console.log('当前的 e164Number 值是:', e164Number);
+             // Attempt to extract country code (basic: assumes 1-3 digits after +)
+             const match = e164Number.match(/^\\+(\\d{1,3})/);
+             if (match && match[1]) {
+                 // Map the country code digits to a Slick.ly country identifier (e.g., 1 -> us)
+                 // This requires a mapping from country calling code to Slick.ly country short code.
+                 // For simplicity here, I'll just log the extracted digits.
+                 // You will need a proper mapping mechanism here.
+                 const extractedCountryCodeDigits = match[1];
+                  console.log('[Slickly Plugin] Extracted country code digits from e164Number:', extractedCountryCodeDigits);
+                  // *** IMPORTANT: Implement mapping from extractedCountryCodeDigits to Slick.ly country short code (e.g., 'us', 'gb', 'au', 'my') ***
+                  // For now, I'll use a placeholder or a simple hardcoded example if applicable to your testing.
+                  // Replace the following line with your actual mapping logic.
+                  // Example placeholder mapping (replace with your actual mapping):
+                  const countryCodeMap = {
+                      '1': 'us',  // United States
+                      '44': 'gb', // United Kingdom
+                      '61': 'au', // Australia
+                      '65': 'sg',  // Singapore
+                      '64': 'nz',  // New Zealand
+                      '234': 'ng'  // Nigeria
+                      // Add more mappings as needed
+                  };
+                  countryCode = countryCodeMap[extractedCountryCodeDigits];
+                   if (!countryCode) {
+                       logError(`Could not map country code digits "${extractedCountryCodeDigits}" to a Slick.ly country.`);
+                       // You might still proceed with a default or return an error
+                       // For now, I'll proceed without a country code, which will likely fail the Slick.ly query
+                       sendPluginResult({ requestId, success: false, error: `Unsupported country code: ${extractedCountryCodeDigits}` });
+                       return; // Exit if country code is required and not found
+                   }
+                    console.log('[Slickly Plugin] Mapped country code digits to Slick.ly country code:', countryCode);
+
+             } else {
+                 logError('Could not extract country code digits from e164Number:', e164Number);
+                 // You might proceed without a country code or return an error
+                  sendPluginResult({ requestId, success: false, error: `Could not extract country code from e164Number: ${e164Number}` });
+                 return;
+             }
+         } else {
+             logError('e164Number is not available or does not start with "+". Cannot extract country code.');
+             // You might proceed without a country code or return an error
+              sendPluginResult({ requestId, success: false, error: 'e164Number is required to extract country code.' });
+             return;
+         }
+
 
         // Format the number for Slick.ly (usually just the digits)
         const formattedNumber = numberToQuery.replace(/[^0-9]/g, ''); // Remove non-digits
 
-       
+        // Proceed with the query only if a country code was successfully extracted
+        if (countryCode) {
+             initiateQuery(formattedNumber, requestId, countryCode);
+        } else {
+             // This case should ideally be handled by the country code extraction logic above
+             logError('Country code is missing after extraction attempt.');
+             sendPluginResult({ requestId, success: false, error: 'Country code could not be determined.' });
+        }
     }
 
     // --- Message Listener (similar to bd.js) ---
