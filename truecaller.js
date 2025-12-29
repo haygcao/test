@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'truecallerPluginchannel', // Must match the ID expected by Dart's handleResponse fallback
         name: 'Truecaller API Lookup',
-        version: '1.0.11',
+        version: '1.0.12',
         description: 'Queries Truecaller API for caller ID and spam detection using native HTTP channel.',
         author: 'Converted from Python / Scheme A',
         settings: [
@@ -101,11 +101,11 @@
         const targetUrl = `https://${host}/v2/search?q=${encodeURIComponent(queryNumber)}&countryCode=${encodeURIComponent(countryCode)}&type=4&locAddr=&placement=SEARCHRESULTS,HISTORY,DETAILS&adId=&encoding=json`;
 
         const headers = {
-            "User-Agent": "Truecaller/15.32.6 (Android;14)",
+            "User-Agent": "Truecaller/9.00.3 (Android;10)", // Strictly match Kotlin Version
             "Accept": "application/json",
             "Authorization": `Bearer ${authToken}`,
-            // "Host": host, // Let Dart http client set this automatically
-            // "Connection": "Keep-Alive"
+            "Host": host, // Kotlin version explicitly sets Host
+            "Connection": "Keep-Alive" // Kotlin version explicitly sets Connection
         };
 
         log(`Requesting Native HTTP GET: ${targetUrl}`);
