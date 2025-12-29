@@ -26,7 +26,7 @@
     const PLUGIN_CONFIG = {
         id: 'truecallerApi', // 插件的唯一ID，使用驼峰命名法
         name: 'Truecaller (API)', // 插件的可读名称
-        version: '1.0.3', // 插件版本号
+        version: '1.0.5', // 插件版本号
         description: 'Query phone info via Truecaller API.', // 插件功能描述
         // [新增] 配置项定义
         settings: [
@@ -123,8 +123,8 @@
         return '';
     }
     
-    async function performApiQuery(phoneNumber, requestId) {
-        log(`Starting API query for ${phoneNumber}`);
+    async function initiateQuery(phoneNumber, requestId) {
+        log(`Initiating query for ${phoneNumber}`);
         
         // 1. 获取配置
         const config = window.plugin[PLUGIN_CONFIG.id].config || {};
@@ -137,22 +137,37 @@
         }
 
         // 2. 构建请求
-        const apiUrl = `https://search5-noneu.truecaller.com/v2/search?q=${encodeURIComponent(phoneNumber)}&countryCode=${encodeURIComponent(countryCode)}&type=4&locAddr=&placement=SEARCH_RESULTS,HISTORY,DETAILS&encoding=json`;
+        // Kotlin Reference:
+        // .addQueryParameter("q", number)
+        // .addQueryParameter("countryCode", countryCode)
+        // .addQueryParameter("type", "4")
+        // .addQueryParameter("locAddr", "")
+        // .addQueryParameter("placement", "SEARCHRESULTS,HISTORY,DETAILS")
+        // .addQueryParameter("adId", "")
+        // .addQueryParameter("encoding", "json")
+        
+        // 注意: Kotlin 代码中 placement 是 "SEARCHRESULTS" (无下划线)，而之前JS中用了 "SEARCH_RESULTS"。
+        // 必须严格匹配 Kotlin 代码。
+        const host = "search5-noneu.truecaller.com"; // 暂时固定为 non-eu，逻辑上应该根据 countryCode 判断，但这里先保持简单或让用户配置 Host? 
+        // 实际上 Kotlin 代码根据 EU_COUNTRIES 列表决定 host。这里我们先默认 non-eu，大部分情况适用。
+        
+        const apiUrl = `https://${host}/v2/search?q=${encodeURIComponent(phoneNumber)}&countryCode=${encodeURIComponent(countryCode)}&type=4&locAddr=&placement=SEARCHRESULTS,HISTORY,DETAILS&adId=&encoding=json`;
         
         const fetchOptions = {
             method: 'GET',
             headers: {
-                "User-Agent": "Truecaller/15.32.6 (Android;14)",
+                // Kotlin: "User-Agent", "Truecaller/9.00.3 (Android;10)"
+                "User-Agent": "Truecaller/15.32.6 (Android;14)", // 保持较新的 UA
                 "Accept": "application/json",
-                // "Accept-Encoding": "gzip", // 浏览器/Webview 通常会自动处理 gzip，显式添加可能导致解码问题如果 webview 不自动解压
-                "Authorization": `Bearer ${authToken}`
+                "Authorization": `Bearer ${authToken}`,
+                "Host": host, // 添加 Host 头
+                "Connection": "Keep-Alive"
             }
         };
 
         try {
             // 3. 发起请求
             // 使用 App 提供的内部代理来绕过 CORS 限制。
-            // 这一点与 iframe 版本 ("Chinese.js") 的工作原理类似，都是通过 flutter-webview-proxy.internal 中转。
             const headers = fetchOptions.headers || {};
             const originalOrigin = new URL(apiUrl).origin;
             const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?requestId=${encodeURIComponent(requestId)}&originalOrigin=${encodeURIComponent(originalOrigin)}&targetUrl=${encodeURIComponent(apiUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
@@ -162,7 +177,7 @@
             
             if (!response.ok) {
                 if (response.status === 401 || response.status === 403) {
-                     throw new Error(`Auth failed: ${response.status}`);
+                     throw new Error(`Auth failed: ${response.status} (Check your Auth Token)`);
                 }
                 throw new Error(`API response error: ${response.status} ${response.statusText}`);
             }
@@ -171,20 +186,8 @@
             log(`API response received.`);
 
             // 4. 解析结果
-            // python: info = data.get("data", [{}])[0]
             const dataList = resData.data || [{}];
             const info = dataList[0] || {};
-
-            // python:
-            // "name": info.get("name"),
-            // "phone": safe_first(info.get("phones"), "e164Format"),
-            // "carrier": safe_first(info.get("phones"), "carrier"),
-            // "email": safe_first(info.get("internetAddresses"), "id"),
-            // "gender": info.get("gender"),
-            // "city": safe_first(info.get("addresses"), "city"),
-            // "country": safe_first(info.get("addresses"), "countryCode"),
-            // "image": info.get("image"),
-            // "isFraud": info.get("isFraud", False)
 
             const name = info.name || '';
             const phone = safeFirst(info.phones, 'e164Format');
@@ -196,44 +199,45 @@
             const image = info.image || '';
             const isFraud = info.isFraud === true;
             
-            // 为了兼容插件标准字段
             let sourceLabel = 'Normal';
             let predefinedLabel = 'Unknown';
             let action = 'none';
 
-            // 逻辑: 如果 isFraud 为 true，则是骚扰
-            if (isFraud) {
-                sourceLabel = 'Spam/Fraud';
-                predefinedLabel = 'Fraud Scam Likely';
-                action = 'block';
+            // Kotlin Logic Override:
+            // val spamInfo = firstEntry.optJSONObject("spamInfo")
+            // val spamType = spamInfo?.optString("spamType")
+            // val spamScore = spamInfo?.optInt("spamScore", 0) ?: 0
+            // !spamType.isNullOrBlank() && spamScore > 1
+            
+            const spamInfo = info.spamInfo || {};
+            const spamType = spamInfo.spamType;
+            const spamScore = spamInfo.spamScore || 0;
+
+            // 如果 isFraud 或者 (spamType 存在且 spamScore > 1) -> 视为 Spam
+            if (isFraud || (spamType && spamScore > 1)) {
+                 sourceLabel = spamType || 'Spam';
+                 // 映射 predefinedLabel
+                 if (manualMapping[sourceLabel.toLowerCase()]) {
+                     predefinedLabel = manualMapping[sourceLabel.toLowerCase()];
+                 } else {
+                     predefinedLabel = isFraud ? 'Fraud Scam Likely' : 'Spam Likely';
+                 }
+                 
+                 // 如果确认为 spam (score > 1 且有类型)，或者 isFraud，则屏蔽
+                 action = 'block';
             }
             
-            // spamScore 也可以保留作为补充
-            const spamScore = info.spamScore || 0;
-             if (spamScore > 0 && !isFraud) {
-                sourceLabel = info.spamType || 'Spam';
-                // 尝试映射
-                if (manualMapping[sourceLabel.toLowerCase()]) {
-                    predefinedLabel = manualMapping[sourceLabel.toLowerCase()];
-                }
-                if (spamScore > 50) {
-                     action = 'block'; // 或者 alert
-                     if(predefinedLabel === 'Unknown') predefinedLabel = 'Spam Likely';
-                }
-            }
-
-
             const result = {
                 requestId,
                 phoneNumber: phone || phoneNumber,
                 sourceLabel,
                 predefinedLabel,
                 action,
-                province: country, // 映射 country 到 province 位置，或者 city
+                province: country,
                 city: city,
                 carrier: carrier,
                 name: name,
-                image: image, // 额外字段 plugin 可以传回
+                image: image,
                 gender: gender,
                 email: email,
                 count: spamScore, 
@@ -253,13 +257,14 @@
     // --- 区域 5: 插件公共接口 ---
     function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
         log(`generateOutput called for requestId: ${requestId}`);
-        // 优先使用 e164Number 对于 API 通常更好，去掉了格式符号
+            // 优先使用 e164Number 对于 API 通常更好，去掉了格式符号
         const numberToQuery = e164Number || phoneNumber || nationalNumber;
         
         if (numberToQuery) {
             // Truecaller 搜索时要把 + 去掉? 视具体 API 而定，这里假设不去掉或者由 API 处理
             // 很多时候 e164 格式 (+123456789) 是最标准的
-            performApiQuery(numberToQuery.replace('+', ''), requestId); // 尝试去掉 + 号
+            // 根据 Kotlin 代码，它是直接用的 number。
+            initiateQuery(numberToQuery.replace('+', ''), requestId); // 尝试去掉 + 号
         } else {
             sendPluginResult({ requestId, success: false, error: 'No valid phone number provided.' });
         }
