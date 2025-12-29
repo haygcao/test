@@ -4,15 +4,31 @@
     const PLUGIN_CONFIG = {
         id: 'unknownPhonePlugin',
         name: 'UnknownPhone Test',
-        version: '1.0.0',
+        version: '1.0.2',
         description: 'Comparative test plugin using UnknownPhone API via RequestChannel.',
         author: 'Test',
-        settings: []
+        settings: [
+            {
+                key: 'api_key',
+                label: 'API Key',
+                type: 'text',
+                hint: '请输入 UnknownPhone API Key',
+                required: true
+            },
+            {
+                key: 'lang',
+                label: '语言代码',
+                type: 'text',
+                hint: '例如: es, en (默认 en)',
+                required: false
+            }
+        ]
     };
 
     // --- Constants ---
     const API_URL = "https://secure.unknownphone.com/api2/";
-    const API_KEY = "d7e07fec659645b12df76c94e378d47a";
+    // Default key from Kotlin source, used if not provided in settings
+    const DEFAULT_API_KEY = "d7e07fec659645b12df76c94e378d47a";
 
     function log(message) { 
         console.log(`[${PLUGIN_CONFIG.id}] ${message}`); 
@@ -46,6 +62,11 @@
     function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
         log(`Initiating query for requestId: ${requestId}`);
         
+        // Settings
+        const config = window.plugin[PLUGIN_CONFIG.id].config || {};
+        const apiKey = config.api_key || DEFAULT_API_KEY;
+        const lang = config.lang || 'en';
+
         const queryNumber = e164Number || phoneNumber;
         
         if (!queryNumber) {
@@ -54,12 +75,10 @@
         }
 
         // Construct Form Body (x-www-form-urlencoded)
-        // Kotlin: user_type=free, api_key=..., phone=..., _action=_get_info_for_phone, lang=es (defaulting to es for now or take from setting)
-        const lang = 'es'; 
         const bodyParams = new URLSearchParams();
         bodyParams.append('user_type', 'free');
-        bodyParams.append('api_key', API_KEY);
-        bodyParams.append('phone', queryNumber);
+        bodyParams.append('api_key', apiKey);
+        bodyParams.append('phone', queryNumber); // Critical: 'phone' parameter as per Kotlin
         bodyParams.append('_action', '_get_info_for_phone');
         bodyParams.append('lang', lang);
         
@@ -69,7 +88,7 @@
             "Connection": "Keep-Alive",
             "Content-Type": "application/x-www-form-urlencoded",
             "Host": "secure.unknownphone.com",
-            "User-Agent": "okhttp/3.14.9" // Matching Kotlin
+            "User-Agent": "okhttp/3.14.9" // Matching Kotlin User-Agent
         };
 
         log(`Requesting Native HTTP POST: ${API_URL}`);
@@ -114,32 +133,28 @@
         try {
             const data = JSON.parse(responseText);
             
-            // Logic based on Kotlin checkListaSpamApi:
-            // avg_ratings: < 3 means bad/dangerous.
-            // 5 - safe, 4 - good, 3 - neutral, 2 - bad, 1 - dangerous
-            
+            // Logic based on Kotlin checkListaSpamApi
             const avgRatingsStr = data.avg_ratings || "3";
             const avgRating = parseFloat(avgRatingsStr);
-            const isSpam = avgRating < 3;
+            const isSpam = avgRating < 3; // < 3 is bad/dangerous
 
-            // Extract other info if available (the kotlin code only checks rating, but let's see what we can get)
-            // UnknownPhone API usually returns minimal info on free tier.
-            
             let predefinedLabel = isSpam ? 'Spam Likely' : 'Normal';
             let action = isSpam ? 'block' : 'none';
 
-            // Construct Result
+            // Construct Result with available info
             const pluginResult = {
                 requestId: requestId,
                 success: true,
                 source: PLUGIN_CONFIG.name,
                 name: isSpam ? "Flagged Number" : "Unknown",
-                phoneNumber: data.number || '', // if returned
+                phoneNumber: data.number || '', 
                 rating: avgRating,
-                count: data.comments_count || 0, // checking if this field exists
+                count: data.comments_count || 0,
                 sourceLabel: isSpam ? `Rating: ${avgRating}` : 'Safe',
                 predefinedLabel: predefinedLabel,
                 action: action,
+                // Passing back raw data for debugging
+                raw: data 
             };
 
             sendPluginResult(pluginResult);
