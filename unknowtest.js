@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'unknownPhonePlugin',
         name: 'UnknownPhone Test',
-        version: '1.0.2',
+        version: '1.0.3',
         description: 'Comparative test plugin using UnknownPhone API via RequestChannel.',
         author: 'Test',
         settings: [
