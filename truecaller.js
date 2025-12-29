@@ -26,7 +26,7 @@
     const PLUGIN_CONFIG = {
         id: 'truecallerApi', // 插件的唯一ID，使用驼峰命名法
         name: 'Truecaller (API)', // 插件的可读名称
-        version: '1.0.2', // 插件版本号
+        version: '1.0.3', // 插件版本号
         description: 'Query phone info via Truecaller API.', // 插件功能描述
         // [新增] 配置项定义
         settings: [
@@ -154,7 +154,8 @@
             // 使用 App 提供的内部代理来绕过 CORS 限制。
             // 这一点与 iframe 版本 ("Chinese.js") 的工作原理类似，都是通过 flutter-webview-proxy.internal 中转。
             const headers = fetchOptions.headers || {};
-            const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?requestId=${encodeURIComponent(requestId)}&targetUrl=${encodeURIComponent(apiUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
+            const originalOrigin = new URL(apiUrl).origin;
+            const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?requestId=${encodeURIComponent(requestId)}&originalOrigin=${encodeURIComponent(originalOrigin)}&targetUrl=${encodeURIComponent(apiUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
             
             log(`Fetching via proxy: ${proxyUrl}`);
             const response = await fetch(proxyUrl);
