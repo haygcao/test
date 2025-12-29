@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'truecallerPluginchannel', // Must match the ID expected by Dart's handleResponse fallback
         name: 'Truecaller API Lookup',
-        version: '1.0.10',
+        version: '1.0.11',
         description: 'Queries Truecaller API for caller ID and spam detection using native HTTP channel.',
         author: 'Converted from Python / Scheme A',
         settings: [
@@ -103,10 +103,9 @@
         const headers = {
             "User-Agent": "Truecaller/15.32.6 (Android;14)",
             "Accept": "application/json",
-            // "Accept-Encoding": "gzip", // Dart 端会自动处理，方案A中说移除我们就不手动加了
             "Authorization": `Bearer ${authToken}`,
-            "Host": host,
-            "Connection": "Keep-Alive"
+            // "Host": host, // Let Dart http client set this automatically
+            // "Connection": "Keep-Alive"
         };
 
         log(`Requesting Native HTTP GET: ${targetUrl}`);
