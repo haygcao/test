@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'truecallerPluginchannel', // Must match the ID expected by Dart's handleResponse fallback
         name: 'Truecaller API Lookup',
-        version: '1.0.13',
+        version: '1.0.14',
         description: 'Queries Truecaller API for caller ID and spam detection using native HTTP channel.',
         author: 'Converted from Python / Scheme A',
         settings: [
@@ -101,7 +101,7 @@
         const targetUrl = `https://${host}/v2/search?q=${encodeURIComponent(queryNumber)}&countryCode=${encodeURIComponent(countryCode)}&type=4&locAddr=&placement=SEARCHRESULTS,HISTORY,DETAILS&adId=&encoding=json`;
 
         const headers = {
-            "User-Agent": "Truecaller/9.00.3 (Android;10)", // Strictly match Kotlin Version
+            "User-Agent": "Mozilla/5.0 (Linux; arm_64; Android 14; SM-S711B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 YaBrowser/24.12.4.199.00 SA/3 Mobile Safari/537.36", // Strictly match Kotlin Version
             "Accept": "application/json",
             "Authorization": `Bearer ${authToken}`,
             // "Host": host, // Let Dart/OS handle Host to avoid 451 errors from malformed/duplicate headers
