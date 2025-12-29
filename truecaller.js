@@ -1,20 +1,19 @@
-// Truecaller API Plugin - Iframe Proxy Solution
-// Based on bd action copy.js template logic and format
-
+// Truecaller Query Plugin - Native Request Solution (Scheme A)
 (function() {
     // --- Plugin Configuration ---
     const PLUGIN_CONFIG = {
-        id: 'truecallerApi',
-        name: 'Truecaller API (Iframe Proxy)',
-        version: '1.0.9',
-        description: 'Queries Truecaller API for phone number information using an iframe proxy.',
+        id: 'truecallerPluginchannel', // Must match the ID expected by Dart's handleResponse fallback
+        name: 'Truecaller API Lookup',
+        version: '1.0.10',
+        description: 'Queries Truecaller API for caller ID and spam detection using native HTTP channel.',
+        author: 'Converted from Python / Scheme A',
         settings: [
             {
-                key: 'auth_token',    // 配置项的键名
-                label: 'Auth Token',  // UI显示的标签
-                type: 'text',         // 输入框类型
-                hint: '请输入 Truecaller Auth Token (Bearer)', // 输入提示
-                required: true        // 是否必填
+                key: 'auth_token',
+                label: 'Auth Token',
+                type: 'text',
+                hint: '请输入 Truecaller Auth Token (Bearer)',
+                required: true
             },
             {
                 key: 'country_code',
@@ -26,73 +25,32 @@
         ]
     };
 
-    // Standard Label Mapping
-    const predefinedLabels = [
-          { 'label': 'Fraud Scam Likely' },
-          { 'label': 'Spam Likely' },
-          { 'label': 'Telemarketing' },
-          { 'label': 'Robocall' },
-          { 'label': 'Delivery' },
-          { 'label': 'Takeaway' },
-          { 'label': 'Ridesharing' },
-          { 'label': 'Insurance' },
-          { 'label': 'Loan' },
-          { 'label': 'Customer Service' },
-          { 'label': 'Unknown' },
-          { 'label': 'Financial' },
-          { 'label': 'Bank' },
-          { 'label': 'Education' },
-          { 'label': 'Medical' },
-          { 'label': 'Charity' },
-          { 'label': 'Other' },
-          { 'label': 'Debt Collection' },
-          { 'label': 'Survey' },
-          { 'label': 'Political' },
-          { 'label': 'Ecommerce' },
-          { 'label': 'Risk' },
-          { 'label': 'Agent' },
-          { 'label': 'Recruiter' },
-          { 'label': 'Headhunter' },
-          { 'label': 'Silent Call Voice Clone' },
-          { 'label': 'Internet' },
-          { 'label': 'Travel Ticketing' },
-          { 'label': 'Application Software' },
-          { 'label': 'Entertainment' },
-          { 'label': 'Government' },
-          { 'label': 'Local Services' },
-          { 'label': 'Automotive Industry' },
-          { 'label': 'Car Rental' },
-          { 'label': 'Telecommunication' },
-    ];
+    // --- Constants ---
+    const defaultToken = "a1i1V--ua298eldF0hb0rL520GjDz7bzVAdt63J2nzZBnWlEKNCJUeln_7kWj4Ir"; 
 
-    const manualMapping = {
-        'spam': 'Spam Likely',
-        'fraud': 'Fraud Scam Likely',
-        'scam': 'Fraud Scam Likely',
+    // 映射 Truecaller 的垃圾分类到插件的标准标签
+    const spamMapping = {
         'sales': 'Telemarketing',
-        'marketing': 'Telemarketing',
-        'collection': 'Debt Collection',
-        'agent': 'Agent',
-        'delivery': 'Delivery',
-        'service': 'Customer Service',
-        'survey': 'Survey',
+        'spam': 'Spam Likely',
+        'scam': 'Fraud Scam Likely',
+        'fraud': 'Fraud Scam Likely',
+        'nuisance': 'Spam Likely',
         'political': 'Political',
-        'charity': 'Charity',
-        'health': 'Medical',
-        'medical': 'Medical',
-        'bank': 'Bank',
+        'survey': 'Survey',
+        'robocall': 'Robocall',
+        'agent': 'Agent',
+        'collection': 'Debt Collection',
         'finance': 'Financial',
-        'insurance': 'Insurance'
+        'charity': 'Charity',
     };
 
-    // --- Constants, State, Logging ---
-    const PROXY_SCHEME = "https";
-    const PROXY_HOST = "flutter-webview-proxy.internal";
-    const PROXY_PATH_FETCH = "/fetch";
-    const activeIFrames = new Map();
+    function log(message) { 
+        console.log(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`); 
+    }
 
-    function log(message) { console.log(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`); }
-    function logError(message, error) { console.error(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`, error); }
+    function logError(message, error) { 
+        console.error(`[${PLUGIN_CONFIG.id} v${PLUGIN_CONFIG.version}] ${message}`, error); 
+    }
 
     function sendToFlutter(channel, data) {
         if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
@@ -102,255 +60,200 @@
         }
     }
 
-    function sendPluginResult(result) {
-        log(`Sending final result to Flutter: ${JSON.stringify(result)}`);
-        sendToFlutter('PluginResultChannel', result);
-    }
-
     function sendPluginLoaded() {
         log('Plugin loaded, notifying Flutter.');
         sendToFlutter('TestPageChannel', { type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version });
     }
 
-    function cleanupIframe(requestId) {
-        const iframe = activeIFrames.get(requestId);
-        if (iframe) {
-            if (iframe.parentNode) { iframe.parentNode.removeChild(iframe); }
-            activeIFrames.delete(requestId);
-            log(`Cleaned up iframe for requestId: ${requestId}`);
-        }
+    function sendPluginResult(result) {
+        log(`Sending result to Flutter for req ${result.requestId}: ${JSON.stringify(result)}`);
+        sendToFlutter('PluginResultChannel', result);
     }
 
-    // --- Parsing Logic (to be executed in context or directly) ---
-    function parseTruecallerJson(bodyText, phoneNumber, pluginId) {
-        console.log('[Parser] Parsing JSON content...');
-        const result = {
-            phoneNumber: phoneNumber, sourceLabel: 'Normal', count: 0, province: '', city: '', carrier: '',
-            name: '', predefinedLabel: 'Unknown', source: pluginId, numbers: [], success: false, error: '', action: 'none',
-            image: '', gender: '', email: ''
-        };
-
-        try {
-            if (!bodyText) throw new Error("Empty body");
-            
-            // Check for common error responses in text
-            if (bodyText.includes('401 Authorization Required') || bodyText.includes('Unauthorized')) {
-                result.error = 'Auth Token Invalid (401)';
-                return result;
-            }
-
-            const resData = JSON.parse(bodyText);
-            const dataList = resData.data || [{}];
-            const info = dataList[0] || {};
-            
-            // Basic fields mapping
-            result.name = info.name || '';
-            result.image = info.image || '';
-            result.gender = info.gender || '';
-            
-            // Helper to get first item from list safely
-            const safeFirst = (arr, k) => (arr && arr.length > 0 ? (k ? arr[0][k] : arr[0]) : null);
-
-            result.email = safeFirst(info.internetAddresses, 'id');
-            result.carrier = safeFirst(info.phones, 'carrier');
-            result.city = safeFirst(info.addresses, 'city');
-            result.province = safeFirst(info.addresses, 'countryCode');
-
-            const phoneE164 = safeFirst(info.phones, 'e164Format');
-            if (phoneE164) {
-                 result.numbers.push({ number: phoneE164, name: result.name || 'Main' });
-            }
-
-            // Spam Logic from Kotlin
-            const spamInfo = info.spamInfo || {};
-            const spamType = spamInfo.spamType; // String
-            const spamScore = spamInfo.spamScore || 0; // Int
-            const isFraud = info.isFraud === true;
-
-            result.count = spamScore;
-
-            if (isFraud || (spamType && spamScore > 1)) {
-                 result.sourceLabel = spamType || (isFraud ? 'Fraud' : 'Spam');
-                 
-                 // Apply Manual Mapping
-                 let mapped = null;
-                 if (result.sourceLabel) {
-                     const lowerLabel = result.sourceLabel.toLowerCase();
-                     for (const key in manualMapping) {
-                         if (lowerLabel.includes(key)) {
-                             mapped = manualMapping[key];
-                             break;
-                         }
-                     }
-                 }
-                 result.predefinedLabel = mapped || (isFraud ? 'Fraud Scam Likely' : 'Spam Likely');
-                 result.action = 'block';
-            }
-
-            if (result.name || result.sourceLabel !== 'Normal') {
-                result.success = true;
-            }
-
-        } catch (e) {
-            console.error('[Parser] JSON Parse Error:', e);
-            result.error = e.message;
-        }
-        return result;
-    }
-
-    function initiateQuery(phoneNumber, requestId) {
-        log(`Initiating query for '${phoneNumber}' (requestId: ${requestId})`);
+    /**
+     * 入口函数：Flutter 调用此函数开始查询
+     */
+    function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
+        log(`Initiating query for requestId: ${requestId}`);
         
-        // 1. Get Config
+        // 获取配置
         const config = window.plugin[PLUGIN_CONFIG.id].config || {};
-        // Default Token from Kotlin Source
-        const defaultToken = "a1i1V--ua298eldF0hb0rL520GjDz7bzVAdt63J2nzZBnWlEKNCJUeln_7kWj4Ir"; 
         const authToken = config.auth_token || defaultToken;
+        // 优先使用 countryCode 配置，没有则默认为 US (Scheme A 原文是 IN，但之前我们改成 US 了，这里用 config 决定)
         const countryCode = config.country_code || 'US'; 
+
+        // 优先使用 e164 格式 (带+号)，如果没有则使用 raw phoneNumber
+        const queryNumber = e164Number || phoneNumber;
+
+        if (!queryNumber) {
+            sendPluginResult({ requestId, success: false, error: 'No valid phone number provided.' });
+            return;
+        }
 
         if (!authToken) {
             sendPluginResult({ requestId, success: false, error: 'Auth Token not configured.' });
             return;
         }
 
-        try {
-            // 2. Build URL & Headers (Strictly Matching Kotlin)
-            const host = "search5-noneu.truecaller.com";
-            const targetSearchUrl = `https://${host}/v2/search?q=${encodeURIComponent(phoneNumber)}&countryCode=${encodeURIComponent(countryCode)}&type=4&locAddr=&placement=SEARCHRESULTS,HISTORY,DETAILS&adId=&encoding=json`;
-            
-            const headers = {
-                "User-Agent": "Truecaller/15.32.6 (Android;14)",
-                "Accept": "application/json",
-                "Authorization": `Bearer ${authToken}`,
-                "Host": host,
-                "Connection": "Keep-Alive"
-            };
+        // 构造 URL
+        // 之前版本: https://${host}/v2/search?q=...&countryCode=...&type=4&locAddr=&placement=SEARCHRESULTS,HISTORY,DETAILS&adId=&encoding=json
+        const host = "search5-noneu.truecaller.com";
+        const targetUrl = `https://${host}/v2/search?q=${encodeURIComponent(queryNumber)}&countryCode=${encodeURIComponent(countryCode)}&type=4&locAddr=&placement=SEARCHRESULTS,HISTORY,DETAILS&adId=&encoding=json`;
 
-            // 3. Build Proxy URL
-            // Using Iframe + Proxy (Same Origin) strategy
-            const originalOrigin = new URL(targetSearchUrl).origin;
-            const proxyUrl = `${PROXY_SCHEME}://${PROXY_HOST}${PROXY_PATH_FETCH}?requestId=${encodeURIComponent(requestId)}&originalOrigin=${encodeURIComponent(originalOrigin)}&targetUrl=${encodeURIComponent(targetSearchUrl)}&headers=${encodeURIComponent(JSON.stringify(headers))}`;
-            
-            log(`Iframe proxy URL: ${proxyUrl}`);
+        const headers = {
+            "User-Agent": "Truecaller/15.32.6 (Android;14)",
+            "Accept": "application/json",
+            // "Accept-Encoding": "gzip", // Dart 端会自动处理，方案A中说移除我们就不手动加了
+            "Authorization": `Bearer ${authToken}`,
+            "Host": host,
+            "Connection": "Keep-Alive"
+        };
 
-            const iframe = document.createElement('iframe');
-            iframe.id = `query-iframe-${requestId}`;
-            iframe.style.display = 'none';
-            // Allow same-origin to access content
-            iframe.sandbox = 'allow-scripts allow-same-origin';
-            activeIFrames.set(requestId, iframe);
+        log(`Requesting Native HTTP GET: ${targetUrl}`);
 
-            iframe.onload = function() {
-                log(`Iframe loaded for requestId ${requestId}. Reading content...`);
-                try {
-                    const doc = iframe.contentDocument || iframe.contentWindow.document;
-                    if (!doc) throw new Error("Cannot access iframe document");
+        // 使用 RequestChannel 请求 Flutter 原生层发起 HTTP 请求
+        const payload = {
+            method: 'GET',
+            url: targetUrl,
+            headers: headers,
+            body: null,
+            phoneRequestId: requestId,
+            externalRequestId: requestId // 用于回调匹配
+        };
 
-                    // 增强调试：尝试读取完整 HTML
-                    const rawHtml = doc.documentElement ? doc.documentElement.outerHTML : '';
-                    log(`[Debug] Iframe HTML content length: ${rawHtml.length}`);
-                    if (rawHtml.length < 500) {
-                        log(`[Debug] Iframe HTML content: ${rawHtml}`);
-                    }
-
-                    const bodyText = doc.body ? (doc.body.innerText || doc.body.textContent) : '';
-                    
-                    if (!bodyText || bodyText.trim().length === 0) {
-                         // 如果 Body 为空，记录更多信息
-                         logError(`[Debug] Body is empty. ReadyState: ${doc.readyState}, URL: ${doc.location.href}`);
-                         throw new Error("Empty body");
-                    }
-
-                    const finalResult = parseTruecallerJson(bodyText, phoneNumber, PLUGIN_CONFIG.id);
-                    finalResult.requestId = requestId;
-                    
-                    sendPluginResult(finalResult);
-                    cleanupIframe(requestId);
-
-                } catch (e) {
-                    logError(`Error accessing/parsing iframe content for requestId ${requestId}:`, e);
-                    sendPluginResult({ requestId, success: false, error: `Parse failed: ${e.message}` });
-                    cleanupIframe(requestId);
-                }
-            };
-
-            iframe.onerror = function() {
-                logError(`Iframe error for requestId ${requestId}`);
-                sendPluginResult({ requestId, success: false, error: 'Iframe loading failed.' });
-                cleanupIframe(requestId);
-            };
-
-            document.body.appendChild(iframe);
-            iframe.src = proxyUrl;
-
-            // Timeout
-            setTimeout(() => {
-                if (activeIFrames.has(requestId)) {
-                    logError(`Query timeout for requestId: ${requestId}`);
-                    sendPluginResult({ requestId, success: false, error: 'Timeout' });
-                    cleanupIframe(requestId);
-                }
-            }, 30000);
-
-        } catch (error) {
-            logError(`Error in initiateQuery for requestId ${requestId}:`, error);
-            sendPluginResult({ requestId, success: false, error: `Query initiation failed: ${error.message}` });
-        }
-    }
-
-    function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
-        log(`generateOutput called for requestId: ${requestId}`);
-        const numberToQuery = e164Number || phoneNumber || nationalNumber;
-        if (numberToQuery) {
-            // Remove '+' if present, as per common API usage, or keep if needed.
-            // Kotlin example: .addQueryParameter("q", number).
-            // We'll pass the number as is, but typically APIs handle clean numbers better.
-            // Let's rely on e164 format but stripped of '+'.
-            const cleanNumber = numberToQuery.replace('+', '');
-            initiateQuery(cleanNumber, requestId);
+        if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
+            window.flutter_inappwebview.callHandler('RequestChannel', JSON.stringify(payload));
         } else {
-            sendPluginResult({ requestId, success: false, error: 'No valid phone number provided.' });
+            sendPluginResult({ requestId, success: false, error: 'Flutter RequestChannel not available.' });
         }
     }
 
-    // --- Message Listener ---
-    window.addEventListener('message', function(event) {
-        if (!event.data || event.data.type !== 'phoneQueryResult' || !event.data.data) {
-            return;
-        }
-        if (event.data.data.pluginId !== PLUGIN_CONFIG.id) {
-            return;
-        }
-        let requestId = null;
-        for (const [id, iframe] of activeIFrames.entries()) {
-            if (iframe.contentWindow === event.source) {
-                requestId = id;
-                break;
+    /**
+     * 回调函数：处理 Native HTTP 请求的响应
+     * 对应 Dart 中的 window.plugin.truecallerPluginchannel.handleResponse(...)
+     */
+    function handleResponse(response) {
+        log('Received response from Native layer');
+        
+        // 这里的 response 结构由 PluginWebViewService.dart 定义
+        const requestId = response.phoneRequestId;
+        const statusCode = response.status;
+        const responseText = response.responseText;
+
+        if (statusCode !== 200) {
+            let errorMsg = `HTTP Error ${statusCode}: ${response.statusText}`;
+            if (statusCode === 401) {
+                errorMsg = "Truecaller Token Expired (401). Please update bearer token in settings.";
+            } else if (statusCode === 0) {
+                errorMsg = "Network Error/Timeout. Check internet connection.";
             }
-        }
-        if (requestId) {
-            log(`Received result via postMessage for requestId: ${requestId}`);
-            const result = { requestId, ...event.data.data };
-            delete result.pluginId;
-            sendPluginResult(result);
-            cleanupIframe(requestId);
-        } else {
-            logError('Received postMessage from an untracked iframe.', event.data);
-        }
-    });
 
-    function initialize() {
-        if (window.plugin && window.plugin[PLUGIN_CONFIG.id]) {
-            log('Plugin already initialized.');
+            logError(errorMsg);
+            sendPluginResult({ 
+                requestId, 
+                success: false, 
+                error: errorMsg
+            });
             return;
         }
+
+        try {
+            const data = JSON.parse(responseText);
+            
+            // 解析逻辑
+            const info = (data.data && data.data.length > 0) ? data.data[0] : null;
+
+            if (!info) {
+                // 没有数据
+                sendPluginResult({ 
+                    requestId, 
+                    success: false, 
+                    error: 'No data found in Truecaller response (empty list)' 
+                });
+                return;
+            }
+
+            // 提取字段
+            const phones = info.phones || [];
+            const phoneObj = phones.length > 0 ? phones[0] : {};
+            const addresses = info.addresses || [];
+            const addrObj = addresses.length > 0 ? addresses[0] : {};
+
+            const name = info.name || '';
+            const carrier = phoneObj.carrier || '';
+            const city = addrObj.city || '';
+            const province = addrObj.countryCode || ''; // countryCode often holds standard region code
+            
+            const isFraud = info.isFraud === true;
+            const spamInfo = info.spamInfo || {};
+            const spamScore = spamInfo.spamScore || 0;
+            const spamType = spamInfo.spamType || '';
+
+            let predefinedLabel = '';
+            let action = 'none';
+
+            // 智能标签判断
+            if (isFraud) {
+                predefinedLabel = 'Fraud Scam Likely';
+                action = 'block';
+            } else if (spamScore > 0) {
+                // 尝试映射 spamType
+                if (spamType && spamMapping[spamType.toLowerCase()]) {
+                    predefinedLabel = spamMapping[spamType.toLowerCase()];
+                } else {
+                    predefinedLabel = 'Spam Likely';
+                }
+                action = 'block'; 
+            } else if (name.toLowerCase().includes('courier') || name.toLowerCase().includes('delivery')) {
+                predefinedLabel = 'Delivery';
+                action = 'allow';
+            } else {
+                predefinedLabel = 'Unknown';
+            }
+
+            // 构建最终结果
+            const pluginResult = {
+                requestId: requestId,
+                success: true,
+                source: PLUGIN_CONFIG.name,
+                name: name,
+                phoneNumber: phoneObj.e164Format || '',
+                carrier: carrier,
+                city: city,
+                province: province,
+                count: spamScore, // 使用垃圾评分作为 count
+                sourceLabel: spamType || (isFraud ? 'Fraud' : 'Normal'), // 原始标签
+                predefinedLabel: predefinedLabel,
+                action: action,
+                imageUrl: info.image || '',
+                email: (info.internetAddresses && info.internetAddresses.length > 0) ? info.internetAddresses[0].id : ''
+            };
+
+            sendPluginResult(pluginResult);
+
+        } catch (e) {
+            logError('Error parsing JSON response', e);
+            sendPluginResult({ 
+                requestId, 
+                success: false, 
+                error: 'JSON parsing failed: ' + e.toString() 
+            });
+        }
+    }
+
+    // --- Initialization ---
+    function initialize() {
         if (!window.plugin) {
             window.plugin = {};
         }
+        
+        // 注册插件对象，包含 generateOutput 和 handleResponse
         window.plugin[PLUGIN_CONFIG.id] = {
             info: PLUGIN_CONFIG,
-            generateOutput: generateOutput
+            generateOutput: generateOutput,
+            handleResponse: handleResponse // 必须暴露给 Dart 调用
         };
+
         log(`Plugin registered: window.plugin.${PLUGIN_CONFIG.id}`);
         sendPluginLoaded();
     }
