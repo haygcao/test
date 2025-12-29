@@ -6,8 +6,24 @@
     const PLUGIN_CONFIG = {
         id: 'truecallerApi',
         name: 'Truecaller API (Iframe Proxy)',
-        version: '1.0.7',
-        description: 'Queries Truecaller API for phone number information using an iframe proxy.'
+        version: '1.0.8',
+        description: 'Queries Truecaller API for phone number information using an iframe proxy.',
+        settings: [
+            {
+                key: 'auth_token',    // 配置项的键名
+                label: 'Auth Token',  // UI显示的标签
+                type: 'text',         // 输入框类型
+                hint: '请输入 Truecaller Auth Token (Bearer)', // 输入提示
+                required: true        // 是否必填
+            },
+            {
+                key: 'country_code',
+                label: '默认国家代码',
+                type: 'text',
+                hint: '例如: IN, US, CN (可选)',
+                required: false
+            }
+        ]
     };
 
     // Standard Label Mapping
@@ -286,7 +302,7 @@
         }
     }
 
-    // --- Message Listener (kept for compatibility or future use) ---
+    // --- Message Listener ---
     window.addEventListener('message', function(event) {
         if (!event.data || event.data.type !== 'phoneQueryResult' || !event.data.data) {
             return;
@@ -294,7 +310,22 @@
         if (event.data.data.pluginId !== PLUGIN_CONFIG.id) {
             return;
         }
-        // ... Logic for receiving postMessage results would go here if we used injection ...
+        let requestId = null;
+        for (const [id, iframe] of activeIFrames.entries()) {
+            if (iframe.contentWindow === event.source) {
+                requestId = id;
+                break;
+            }
+        }
+        if (requestId) {
+            log(`Received result via postMessage for requestId: ${requestId}`);
+            const result = { requestId, ...event.data.data };
+            delete result.pluginId;
+            sendPluginResult(result);
+            cleanupIframe(requestId);
+        } else {
+            logError('Received postMessage from an untracked iframe.', event.data);
+        }
     });
 
     function initialize() {
