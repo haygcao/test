@@ -6,7 +6,7 @@
     const PLUGIN_CONFIG = {
         id: 'truecallerApi',
         name: 'Truecaller API (Iframe Proxy)',
-        version: '1.0.8',
+        version: '1.0.9',
         description: 'Queries Truecaller API for phone number information using an iframe proxy.',
         settings: [
             {
@@ -243,13 +243,24 @@
             iframe.onload = function() {
                 log(`Iframe loaded for requestId ${requestId}. Reading content...`);
                 try {
-                    // Direct Access (Same Origin)
-                    // Note: For JSON responses, Dart interceptor might NOT inject the postMessage receiver script.
-                    // So we MUST read the DOM directly here.
                     const doc = iframe.contentDocument || iframe.contentWindow.document;
                     if (!doc) throw new Error("Cannot access iframe document");
 
-                    const bodyText = doc.body.innerText || doc.body.textContent;
+                    // 增强调试：尝试读取完整 HTML
+                    const rawHtml = doc.documentElement ? doc.documentElement.outerHTML : '';
+                    log(`[Debug] Iframe HTML content length: ${rawHtml.length}`);
+                    if (rawHtml.length < 500) {
+                        log(`[Debug] Iframe HTML content: ${rawHtml}`);
+                    }
+
+                    const bodyText = doc.body ? (doc.body.innerText || doc.body.textContent) : '';
+                    
+                    if (!bodyText || bodyText.trim().length === 0) {
+                         // 如果 Body 为空，记录更多信息
+                         logError(`[Debug] Body is empty. ReadyState: ${doc.readyState}, URL: ${doc.location.href}`);
+                         throw new Error("Empty body");
+                    }
+
                     const finalResult = parseTruecallerJson(bodyText, phoneNumber, PLUGIN_CONFIG.id);
                     finalResult.requestId = requestId;
                     
