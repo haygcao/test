@@ -4,7 +4,7 @@
     const PLUGIN_CONFIG = {
         id: 'unknownPhonePlugin',
         name: 'UnknownPhone Test',
-        version: '1.0.4',
+        version: '1.0.5',
         description: 'Comparative test plugin using UnknownPhone API via RequestChannel.',
         author: 'Test',
         settings: [
@@ -88,7 +88,7 @@
         const headers = {
             "Connection": "Keep-Alive",
             "Content-Type": "application/x-www-form-urlencoded",
-            "Host": "secure.unknownphone.com",
+           // "Host": "secure.unknownphone.com",
             "User-Agent": "okhttp/3.14.9"
         };
 
