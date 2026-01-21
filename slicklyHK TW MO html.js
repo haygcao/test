@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.1.0', 
+        version: '2.2.0', 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -60,7 +60,7 @@
 
     function sendPluginLoaded() {
         if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-            window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({ type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version }));
+            window.flutter_inappwebview.callHandler('TestPageChannel', { type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version });
         }
     }
 
@@ -71,9 +71,14 @@
         const formattedNumber = phoneNumber.replace(/[^0-9]/g, '');
         const targetSearchUrl = `https://slick.ly/${countryCode}/${formattedNumber}`;
         
+        // Agent Config Logic (from slicklyHK TW MO.js)
+        const config = window.plugin[PLUGIN_CONFIG.id].config || {};
+        const userAgent = config.userAgent || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36';
+        const headers = { 'User-Agent': userAgent };
+
         try {
             log(`Fetching HTML from: ${targetSearchUrl}`);
-            const response = await httpFetch(targetSearchUrl, { method: 'GET' });
+            const response = await httpFetch(targetSearchUrl, { method: 'GET', headers: headers });
 
             if (response.status !== 200) {
                 logError(`HTTP Error: ${response.status}`);
