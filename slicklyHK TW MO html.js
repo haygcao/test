@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.0.0', 
+        version: '2.1.0', 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -60,7 +60,7 @@
 
     function sendPluginLoaded() {
         if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-            window.flutter_inappwebview.callHandler('TestPageChannel', { type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version });
+            window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({ type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version }));
         }
     }
 
