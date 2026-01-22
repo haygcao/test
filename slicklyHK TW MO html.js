@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '3.1.0', // V3: Legacy Architecture (Fire-and-Forget) 
+        version: '3.0.0', // V3: Legacy Architecture (Fire-and-Forget) 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -101,22 +101,28 @@
         log("handleResponse called.");
         
         try {
-             // 1. Check for Buffer Side-Load (Hybrid Mode Compatibility)
-             // Even in Legacy Mode, we support the 'Buffer Side-Load' for large data if Native sends it.
-             var finalResponse = response; 
-             
-             // If response indicates a buffer is ready (optional protocol) or we just check buffer
-             var buffer = globalThis._native_buffer || (window && window._native_buffer);
-             if (buffer && typeof buffer === 'string') {
-                  log("handleResponse: Buffer detected via Side-Load.");
-                  var decoded = decodeURIComponent(escape(atob(buffer)));
-                  finalResponse = JSON.parse(decoded);
-                  
-                  // Cleanup
-                  if (globalThis._native_buffer) globalThis._native_buffer = null;
-                  if (window && window._native_buffer) window._native_buffer = null;
+             var finalResponse = null;
+
+             // [Legacy V3 Fix] Direct Object Priority
+             // If Native sends an Object, use it immediately. 
+             // Do not check buffer unless told to do so.
+             if (response && typeof response === 'object') {
+                 log("handleResponse: Received Direct Object.");
+                 finalResponse = response;
              } 
-             // If response is a string (rare in legacy map return, but possible - fallback)
+             // If Native sends a Signal String (e.g. "BUFFER")
+             else if (response === "BUFFER" || (!response && globalThis._native_buffer)) {
+                 log("handleResponse: Buffer Signal received.");
+                 var buffer = globalThis._native_buffer || (window && window._native_buffer);
+                 if (buffer && typeof buffer === 'string') {
+                      var decoded = decodeURIComponent(escape(atob(buffer)));
+                      finalResponse = JSON.parse(decoded);
+                      
+                      if (globalThis._native_buffer) globalThis._native_buffer = null;
+                      if (window && window._native_buffer) window._native_buffer = null;
+                 }
+             }
+             // Support legacy String (Base64) fallback just in case
              else if (typeof response === 'string') {
                   try {
                       var decoded = decodeURIComponent(escape(atob(response)));
@@ -129,7 +135,7 @@
              if (finalResponse) {
                 processResponse(finalResponse.requestId || finalResponse.phoneRequestId, finalResponse);
              } else {
-                logError("handleResponse: Final response is null");
+                logError("handleResponse: Final response is null or invalid type: " + typeof response);
              }
 
         } catch (e) {
