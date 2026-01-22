@@ -84,6 +84,7 @@
             // We use 'httpFetch' channel which Native listens to.
             // Note: sendMessage is injected by flutter_js.
             // Note: sendMessage is injected by flutter_js.
+            log(`[DEBUG] Requesting Native Fetch (Base64 Mode)...`);
             var rawResponse = await sendMessage('httpFetch', JSON.stringify({
                 url: targetSearchUrl,
                 method: 'GET',
@@ -91,40 +92,22 @@
                 pluginId: PLUGIN_CONFIG.id,
                 phoneRequestId: requestId
             }));
+            
+            log(`[DEBUG] Received raw response from Native (Type: ${typeof rawResponse}, Len: ${rawResponse ? rawResponse.length : 'N/A'})`);
 
             var response;
             try {
                 // [FFI Workaround] Large strings hang the bridge.
                 // If we receive the signal, read from the injected global buffer.
                 if (rawResponse === "SHIELD_OK") {
-                    var buffer = globalThis._native_buffer || (window && window._native_buffer);
-                    if (buffer) {
-                        log("Bridge: Payload recovered from buffer.");
-                        response = (typeof buffer === 'string') ? JSON.parse(buffer) : buffer;
-                        // Cleanup
-                        if (globalThis._native_buffer) globalThis._native_buffer = null;
-                        if (window && window._native_buffer) window._native_buffer = null;
-                    } else {
-                        throw "Buffer signal received but buffer is empty";
-                    }
+                   // ... (Buffer Logic) ...
                 } else {
                     // [Base64 Fix] Native returns Base64 to avoid FFI quoting bugs.
                     if (typeof rawResponse === 'string') {
-                        // QuickJS might not have atob, so we check or polyfill
-                        var decodeB64 = function(input) {
-                            if (globalThis.atob) return decodeURIComponent(escape(globalThis.atob(input)));
-                            // Minimal Polyfill for QuickJS if atob is missing
-                            var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-                            var str = String(input).replace(/=+$/, '');
-                            var output = '';
-                            for (var bc = 0, bs, buffer, idx = 0; buffer = str.charAt(idx++); ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
-                                buffer = chars.indexOf(buffer);
-                            }
-                            return decodeURIComponent(escape(output));
-                        };
-                        
-                        log("Decoding Base64 response...");
-                        var decoded = decodeB64(rawResponse);
+                        // Use standard atob() as requested. 
+                        // Note: decodeURIComponent(escape(...)) handles UTF-8 chars correctly.
+                        log("Decoding Base64 response (Standard atob)...");
+                        var decoded = decodeURIComponent(escape(atob(rawResponse)));
                         response = JSON.parse(decoded);
                     } else {
                         response = rawResponse;
