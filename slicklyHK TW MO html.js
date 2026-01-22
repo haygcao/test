@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.10.0', 
+        version: '3.0.0', // V3: Legacy Architecture (Fire-and-Forget) 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -64,14 +64,13 @@
         }
     }
 
-    // --- 区域 4: 核心查询逻辑 ---
+    // --- 区域 4: 核心查询逻辑 (Fire-and-Forget) ---
     async function initiateQuery(phoneNumber, requestId, countryCode) {
         log(`Initiating Scout query for '${phoneNumber}' [${countryCode}] (requestId: ${requestId})`);
 
         const formattedNumber = phoneNumber.replace(/[^0-9]/g, '');
         const targetSearchUrl = `https://slick.ly/${countryCode}/${formattedNumber}`;
         
-        // Agent Config Logic (from slicklyHK TW MO.js)
         const config = window.plugin[PLUGIN_CONFIG.id].config || {};
         const userAgent = config.userAgent || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36';
         const headers = { 'User-Agent': userAgent };
@@ -79,13 +78,9 @@
         try {
             log(`Fetching HTML from: ${targetSearchUrl}`);
             
-            // Direct Native Call via sendMessage
-            // The user explicitly requested to rename/fix the function call to be direct.
-            // We use 'httpFetch' channel which Native listens to.
-            // Note: sendMessage is injected by flutter_js.
-            // Note: sendMessage is injected by flutter_js.
-            log(`[DEBUG] Requesting Native Fetch (Base64 Mode)...`);
-            var rawResponse = await sendMessage('httpFetch', JSON.stringify({
+            // Fire and Forget - Legacy Style
+            // Native will call window.plugin['slicklyTwHkPhoneNumberPlugin'].handleResponse(...)
+            sendMessage('httpFetch', JSON.stringify({
                 url: targetSearchUrl,
                 method: 'GET',
                 headers: headers,
@@ -93,62 +88,58 @@
                 phoneRequestId: requestId
             }));
             
-            log(`[DEBUG] Received raw response from Native (Type: ${typeof rawResponse}, Len: ${rawResponse ? rawResponse.length : 'N/A'})`);
+            log("Legacy Request sent. Waiting for handleResponse...");
 
-            log(`[DEBUG] Received raw response from Native (Type: ${typeof rawResponse}, Len: ${rawResponse ? rawResponse.length : 'N/A'})`);
+        } catch (e) {
+            logError('Query Setup Failed', e);
+            sendPluginResult({ requestId, success: false, error: 'Setup Failed: ' + e.toString() });
+        }
+    }
 
-            var response;
-            try {
-                // [Deadlock Fix] Handle Async/Polling pattern
-                if (rawResponse === "PENDING") {
-                    log("Bridge: Native is processing async. Starting poll...");
-                    let attempts = 0;
-                    while (attempts < 200) { // 20s timeout
-                        // Check buffer
-                        let buffer = globalThis._native_buffer || (window && window._native_buffer);
-                        if (buffer) {
-                             log("Bridge: Poll success. Buffer detected!");
-                             rawResponse = "SHIELD_OK"; // Emulate signal
-                             break;
-                        }
-                        // Sleep 100ms
-                        await new Promise(r => setTimeout(r, 100));
-                        attempts++;
-                    }
-                    if (rawResponse !== "SHIELD_OK") throw "Native Poll Timeout";
-                }
+    // --- 区域 5: 响应处理逻辑 (Legacy Pattern) ---
+    function handleResponse(response) {
+        log("handleResponse called.");
+        
+        try {
+             // 1. Check for Buffer Side-Load (Hybrid Mode Compatibility)
+             // Even in Legacy Mode, we support the 'Buffer Side-Load' for large data if Native sends it.
+             var finalResponse = response; 
+             
+             // If response indicates a buffer is ready (optional protocol) or we just check buffer
+             var buffer = globalThis._native_buffer || (window && window._native_buffer);
+             if (buffer && typeof buffer === 'string') {
+                  log("handleResponse: Buffer detected via Side-Load.");
+                  var decoded = decodeURIComponent(escape(atob(buffer)));
+                  finalResponse = JSON.parse(decoded);
+                  
+                  // Cleanup
+                  if (globalThis._native_buffer) globalThis._native_buffer = null;
+                  if (window && window._native_buffer) window._native_buffer = null;
+             } 
+             // If response is a string (rare in legacy map return, but possible - fallback)
+             else if (typeof response === 'string') {
+                  try {
+                      var decoded = decodeURIComponent(escape(atob(response)));
+                      finalResponse = JSON.parse(decoded);
+                  } catch(e) {
+                      finalResponse = JSON.parse(response);
+                  }
+             }
 
-                if (rawResponse === "SHIELD_OK") {
-                    log("Bridge: SHIELD_OK signal received. Reading buffer...");
-                    var buffer = globalThis._native_buffer || (window && window._native_buffer);
-                    
-                    if (buffer && typeof buffer === 'string') {
-                         log("Bridge: Buffer read success. Decoding Base64...");
-                         var decoded = decodeURIComponent(escape(atob(buffer)));
-                         response = JSON.parse(decoded);
-                         
-                         // Cleanup
-                         if (globalThis._native_buffer) globalThis._native_buffer = null;
-                         if (window && window._native_buffer) window._native_buffer = null;
-                    } else {
-                        throw "Buffer empty or invalid type";
-                    }
-                } else if (typeof rawResponse === 'string') {
-                    // Fallback
-                    try {
-                        var decoded = decodeURIComponent(escape(atob(rawResponse)));
-                        response = JSON.parse(decoded);
-                    } catch(e) {
-                        response = JSON.parse(rawResponse);
-                    }
-                } else {
-                    response = rawResponse;
-                }
-            } catch (e) {
-                logError("Failed to parse Native response", e);
-                response = { status: 500, error: "Bridge Error: " + e };
-            }
+             if (finalResponse) {
+                processResponse(finalResponse.requestId || finalResponse.phoneRequestId, finalResponse);
+             } else {
+                logError("handleResponse: Final response is null");
+             }
 
+        } catch (e) {
+             logError("handleResponse Error", e);
+             var reqId = response ? (response.requestId || response.phoneRequestId) : 'unknown';
+             sendPluginResult({ requestId: reqId, success: false, error: "handleResponse Error: " + e });
+        }
+    }
+
+    function processResponse(requestId, response) {
             // NativeRequestChannel returns { success: bool, status: int, responseText: string, ... }
             if (!response || response.status !== 200) {
                 var err = response ? response.error || response.status : 'Unknown Native Error';
@@ -204,21 +195,16 @@
                 requestId,
                 success: (summaryLabel || keywordsText || count > 0),
                 source: PLUGIN_CONFIG.name,
-                phoneNumber: formattedNumber,
+                phoneNumber: '', // Not strictly needed for return
                 sourceLabel: sourceLabel || 'No specific label found',
                 predefinedLabel: predefinedLabel,
                 action: action,
                 name: '', 
                 count: count
             });
-
-        } catch (e) {
-            logError('Query Failed', e);
-            sendPluginResult({ requestId, success: false, error: 'Scout Execution Failed: ' + e.toString() });
-        }
     }
 
-    // --- 区域 5: 插件入口 ---
+    // --- 区域 6: 插件入口 ---
     function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
         log(`generateOutput called for requestId: ${requestId}`);
         
@@ -238,15 +224,16 @@
         }
     }
 
-    // --- 区域 6: 初始化 ---
+    // --- 区域 7: 初始化 ---
     function initialize() {
         if (!window.plugin) window.plugin = {};
         window.plugin[PLUGIN_CONFIG.id] = {
             info: PLUGIN_CONFIG,
             generateOutput: generateOutput,
+            handleResponse: handleResponse, // Legacy Registration
             config: {}
         };
-        log(`Plugin registered. Using Scout Architecture V2.`);
+        log(`Plugin registered. Using Legacy Architecture V3 (Fire-and-Forget).`);
         sendPluginLoaded();
     }
 
