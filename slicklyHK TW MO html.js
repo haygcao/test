@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.9.0', 
+        version: '2.10.0', 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -99,7 +99,25 @@
 
             var response;
             try {
-                // [FFI Fix] Standard return hangs. We use Side-Channel (Buffer) + Base64.
+                // [Deadlock Fix] Handle Async/Polling pattern
+                if (rawResponse === "PENDING") {
+                    log("Bridge: Native is processing async. Starting poll...");
+                    let attempts = 0;
+                    while (attempts < 200) { // 20s timeout
+                        // Check buffer
+                        let buffer = globalThis._native_buffer || (window && window._native_buffer);
+                        if (buffer) {
+                             log("Bridge: Poll success. Buffer detected!");
+                             rawResponse = "SHIELD_OK"; // Emulate signal
+                             break;
+                        }
+                        // Sleep 100ms
+                        await new Promise(r => setTimeout(r, 100));
+                        attempts++;
+                    }
+                    if (rawResponse !== "SHIELD_OK") throw "Native Poll Timeout";
+                }
+
                 if (rawResponse === "SHIELD_OK") {
                     log("Bridge: SHIELD_OK signal received. Reading buffer...");
                     var buffer = globalThis._native_buffer || (window && window._native_buffer);
@@ -116,15 +134,12 @@
                         throw "Buffer empty or invalid type";
                     }
                 } else if (typeof rawResponse === 'string') {
-                    // Fallback for direct return (unlikely to work for large data but kept compatibility)
-                    // ... Try decode if looks like Base64, or parse direct ...
-                    // Let's assume direct return would be Base64 if implemented.
-                    // But for now, we expect SHIELD_OK.
+                    // Fallback
                     try {
                         var decoded = decodeURIComponent(escape(atob(rawResponse)));
                         response = JSON.parse(decoded);
                     } catch(e) {
-                         response = JSON.parse(rawResponse);
+                        response = JSON.parse(rawResponse);
                     }
                 } else {
                     response = rawResponse;
