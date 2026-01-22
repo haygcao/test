@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '3.3.0', // V3: Legacy Architecture (Fire-and-Forget) 
+        version: '3.0.0', // V3: Legacy Architecture (Fire-and-Forget) 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -72,7 +72,9 @@
         const targetSearchUrl = `https://slick.ly/${countryCode}/${formattedNumber}`;
         
         const config = window.plugin[PLUGIN_CONFIG.id].config || {};
-        const userAgent = config.userAgent || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36';
+        // [User Agent Fix] Use Real Navigator UA (Mobile) instead of Fake Windows UA
+        // Cloudflare blocks "Windows UA on Android Device" (Mismatch).
+        const userAgent = config.userAgent || navigator.userAgent; 
         const headers = { 'User-Agent': userAgent };
 
         try {
@@ -246,4 +248,3 @@
     initialize();
 
 })();
-
