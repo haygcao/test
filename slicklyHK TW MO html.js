@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.3.0', 
+        version: '2.4.0', 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -78,11 +78,24 @@
 
         try {
             log(`Fetching HTML from: ${targetSearchUrl}`);
-            const response = await httpFetch(targetSearchUrl, { method: 'GET', headers: headers });
+            
+            // Direct Native Call via sendMessage
+            // The user explicitly requested to rename/fix the function call to be direct.
+            // We use 'httpFetch' channel which Native listens to.
+            // Note: sendMessage is injected by flutter_js.
+            var response = await sendMessage('httpFetch', {
+                url: targetSearchUrl,
+                method: 'GET',
+                headers: headers,
+                pluginId: PLUGIN_CONFIG.id,
+                phoneRequestId: requestId
+            });
 
-            if (response.status !== 200) {
-                logError(`HTTP Error: ${response.status}`);
-                sendPluginResult({ requestId, success: false, error: `HTTP Error ${response.status}` });
+            // NativeRequestChannel returns { success: bool, status: int, responseText: string, ... }
+            if (!response || response.status !== 200) {
+                var err = response ? response.error || response.status : 'Unknown Native Error';
+                logError(`HTTP Error: ${err}`);
+                sendPluginResult({ requestId, success: false, error: `HTTP Error: ${err}` });
                 return;
             }
 
