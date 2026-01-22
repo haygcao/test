@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.8.0', 
+        version: '2.9.0', 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -95,23 +95,39 @@
             
             log(`[DEBUG] Received raw response from Native (Type: ${typeof rawResponse}, Len: ${rawResponse ? rawResponse.length : 'N/A'})`);
 
+            log(`[DEBUG] Received raw response from Native (Type: ${typeof rawResponse}, Len: ${rawResponse ? rawResponse.length : 'N/A'})`);
+
             var response;
             try {
-                // [FFI Workaround] Large strings hang the bridge.
-                // If we receive the signal, read from the injected global buffer.
+                // [FFI Fix] Standard return hangs. We use Side-Channel (Buffer) + Base64.
                 if (rawResponse === "SHIELD_OK") {
-                   // ... (Buffer Logic) ...
-                } else {
-                    // [Base64 Fix] Native returns Base64 to avoid FFI quoting bugs.
-                    if (typeof rawResponse === 'string') {
-                        // Use standard atob() as requested. 
-                        // Note: decodeURIComponent(escape(...)) handles UTF-8 chars correctly.
-                        log("Decoding Base64 response (Standard atob)...");
+                    log("Bridge: SHIELD_OK signal received. Reading buffer...");
+                    var buffer = globalThis._native_buffer || (window && window._native_buffer);
+                    
+                    if (buffer && typeof buffer === 'string') {
+                         log("Bridge: Buffer read success. Decoding Base64...");
+                         var decoded = decodeURIComponent(escape(atob(buffer)));
+                         response = JSON.parse(decoded);
+                         
+                         // Cleanup
+                         if (globalThis._native_buffer) globalThis._native_buffer = null;
+                         if (window && window._native_buffer) window._native_buffer = null;
+                    } else {
+                        throw "Buffer empty or invalid type";
+                    }
+                } else if (typeof rawResponse === 'string') {
+                    // Fallback for direct return (unlikely to work for large data but kept compatibility)
+                    // ... Try decode if looks like Base64, or parse direct ...
+                    // Let's assume direct return would be Base64 if implemented.
+                    // But for now, we expect SHIELD_OK.
+                    try {
                         var decoded = decodeURIComponent(escape(atob(rawResponse)));
                         response = JSON.parse(decoded);
-                    } else {
-                        response = rawResponse;
+                    } catch(e) {
+                         response = JSON.parse(rawResponse);
                     }
+                } else {
+                    response = rawResponse;
                 }
             } catch (e) {
                 logError("Failed to parse Native response", e);
@@ -222,4 +238,3 @@
     initialize();
 
 })();
-
