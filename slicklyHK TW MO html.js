@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.6.0', 
+        version: '2.0.0', 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -94,11 +94,45 @@
 
             var response;
             try {
-                // Standard Native Bridge Return
-                response = (typeof rawResponse === 'string') ? JSON.parse(rawResponse) : rawResponse;
+                // [FFI Workaround] Large strings hang the bridge.
+                // If we receive the signal, read from the injected global buffer.
+                if (rawResponse === "SHIELD_OK") {
+                    var buffer = globalThis._native_buffer || (window && window._native_buffer);
+                    if (buffer) {
+                        log("Bridge: Payload recovered from buffer.");
+                        response = (typeof buffer === 'string') ? JSON.parse(buffer) : buffer;
+                        // Cleanup
+                        if (globalThis._native_buffer) globalThis._native_buffer = null;
+                        if (window && window._native_buffer) window._native_buffer = null;
+                    } else {
+                        throw "Buffer signal received but buffer is empty";
+                    }
+                } else {
+                    // [Base64 Fix] Native returns Base64 to avoid FFI quoting bugs.
+                    if (typeof rawResponse === 'string') {
+                        // QuickJS might not have atob, so we check or polyfill
+                        var decodeB64 = function(input) {
+                            if (globalThis.atob) return decodeURIComponent(escape(globalThis.atob(input)));
+                            // Minimal Polyfill for QuickJS if atob is missing
+                            var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                            var str = String(input).replace(/=+$/, '');
+                            var output = '';
+                            for (var bc = 0, bs, buffer, idx = 0; buffer = str.charAt(idx++); ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer, bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0) {
+                                buffer = chars.indexOf(buffer);
+                            }
+                            return decodeURIComponent(escape(output));
+                        };
+                        
+                        log("Decoding Base64 response...");
+                        var decoded = decodeB64(rawResponse);
+                        response = JSON.parse(decoded);
+                    } else {
+                        response = rawResponse;
+                    }
+                }
             } catch (e) {
                 logError("Failed to parse Native response", e);
-                response = { status: 500, error: "JSON Parse Error: " + e };
+                response = { status: 500, error: "Bridge Error: " + e };
             }
 
             // NativeRequestChannel returns { success: bool, status: int, responseText: string, ... }
