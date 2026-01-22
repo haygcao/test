@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '2.4.0', 
+        version: '2.5.0', 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.'
     };
 
@@ -83,13 +83,13 @@
             // The user explicitly requested to rename/fix the function call to be direct.
             // We use 'httpFetch' channel which Native listens to.
             // Note: sendMessage is injected by flutter_js.
-            var response = await sendMessage('httpFetch', {
+            var response = await sendMessage('httpFetch', JSON.stringify({
                 url: targetSearchUrl,
                 method: 'GET',
                 headers: headers,
                 pluginId: PLUGIN_CONFIG.id,
                 phoneRequestId: requestId
-            });
+            }));
 
             // NativeRequestChannel returns { success: bool, status: int, responseText: string, ... }
             if (!response || response.status !== 200) {
