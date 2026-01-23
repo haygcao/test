@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '4.0.0', // V3: Legacy Architecture (Fire-and-Forget) 
+        version: '4.1.0', // V3: Legacy Architecture (Fire-and-Forget) 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.',
         config: {
             // [Generic Shield Logic] Tell Native what to wait for.
@@ -64,6 +64,8 @@
     function sendPluginResult(result) {
         if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
             window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(result));
+        } else if (typeof sendMessage === 'function') {
+            sendMessage('PluginResultChannel', JSON.stringify(result));
         }
     }
 
@@ -291,7 +293,7 @@
             // 返回最终结果
             const resultPayload = {
                 requestId,
-                success: (parsed.summaryLabel || parsed.keywordsText || parsed.count > 0 || parsed.commentsText.length > 0 || parsed.negVotes > 0 || parsed.posVotes > 0),
+                success: !!(parsed.summaryLabel || parsed.keywordsText || parsed.count > 0 || parsed.commentsText.length > 0 || parsed.negVotes > 0 || parsed.posVotes > 0),
                 source: PLUGIN_CONFIG.name,
                 phoneNumber: phoneNumber,
                 sourceLabel: sourceLabel || 'No specific label found',
