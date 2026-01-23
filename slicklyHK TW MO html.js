@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '3.8.0', // V3: Legacy Architecture (Fire-and-Forget) 
+        version: '3.9.0', // V3: Legacy Architecture (Fire-and-Forget) 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.',
         config: {
             // [Generic Shield Logic] Tell Native what to wait for.
@@ -252,17 +252,22 @@
             }
 
             // 返回最终结果
-            sendPluginResult({
+            const resultPayload = {
                 requestId,
                 success: (parsed.summaryLabel || parsed.keywordsText || parsed.count > 0 || parsed.commentsText.length > 0),
                 source: PLUGIN_CONFIG.name,
-                phoneNumber: '', 
+                phoneNumber: formattedNumber,
                 sourceLabel: sourceLabel || 'No specific label found',
                 predefinedLabel: predefinedLabel,
                 action: action,
                 name: '', 
                 count: parsed.count
-            });
+            };
+
+            log(`Final Logic: Action=[${action}], Label=[${predefinedLabel}], Source=[${sourceLabel}]`);
+            log("Sending Result via PluginResultChannel...");
+
+            sendPluginResult(resultPayload);
     }
 
     // --- 区域 6: 插件入口 ---
