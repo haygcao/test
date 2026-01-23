@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '3.7.0', // V3: Legacy Architecture (Fire-and-Forget) 
+        version: '3.8.0', // V3: Legacy Architecture (Fire-and-Forget) 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.',
         config: {
             // [Generic Shield Logic] Tell Native what to wait for.
@@ -156,6 +156,58 @@
         }
     }
 
+    // [New] Independent Parsing Function
+    // Extracts data using robust Regex to simulate DOM selection
+    function parseHTML(html) {
+        const result = {
+            summaryLabel: '',
+            keywordsText: '',
+            count: 0,
+            commentsText: ''
+        };
+
+        if (!html) return result;
+
+        // 1. Extract Summary
+        // Matches <span class="summary-result ...">Text</span>
+        // Handles multiple classes like "summary-result suspicious"
+        const summaryRegex = /<span class=["']summary-result[^"']*["']>([^<]+)<\/span>/i;
+        const summaryMatch = html.match(summaryRegex);
+        if (summaryMatch) {
+            result.summaryLabel = summaryMatch[1].trim();
+        }
+
+        // 2. Extract Keywords
+        // Matches <div class="keywords">...<span>Text</span>...</div>
+        const keywordsRegex = /<div class=["']keywords["']>[\s\S]*?<span>([^<]+)<\/span>/i;
+        const keywordsMatch = html.match(keywordsRegex);
+        if (keywordsMatch) {
+            result.keywordsText = keywordsMatch[1].trim();
+        }
+
+        // 3. Extract Count
+        // Matches "註釋 (123)"
+        const countRegex = /註釋\s*\((\d+)\)/i;
+        const countMatch = html.match(countRegex);
+        if (countMatch) {
+            result.count = parseInt(countMatch[1], 10);
+        }
+
+        // 4. Extract Comments (Crucial for context)
+        // Matches <div class="content"><p>...</p></div> patterns
+        const commentContentRegex = /<div class=["']content["']>\s*<p>([\s\S]*?)<\/p>/gi;
+        let commentMatch;
+        let commentsList = [];
+        while ((commentMatch = commentContentRegex.exec(html)) !== null) {
+            if (commentMatch[1]) {
+                commentsList.push(commentMatch[1].trim());
+            }
+        }
+        result.commentsText = commentsList.join(' ');
+
+        return result;
+    }
+
     function processResponse(requestId, response) {
             // NativeRequestChannel returns { success: bool, status: int, responseText: string, ... }
             if (!response || response.status !== 200) {
@@ -167,31 +219,21 @@
 
             const html = response.responseText || "";
             
-            // --- 正则提取逻辑 ---
-            // 1. 提取 Summary 结果 (危险/安全)
-            let summaryLabel = '';
-            const summaryMatch = html.match(/<span class="summary-result">([^<]+)<\/span>/i);
-            if (summaryMatch) summaryLabel = summaryMatch[1].trim();
+            // --- Call Independent Parser ---
+            const parsed = parseHTML(html);
 
-            // 2. 提取 Keywords
-            let keywordsText = '';
-            const keywordsMatch = html.match(/<div class="keywords"><span>([^<]+)<\/span>/i);
-            if (keywordsMatch) keywordsText = keywordsMatch[1].trim();
-
-            // 3. 提取注释数量
-            let count = 0;
-            const countMatch = html.match(/註釋\s*\((\d+)\)/i);
-            if (countMatch) count = parseInt(countMatch[1], 10);
-
-            log(`Parsed: Summary=[${summaryLabel}], Keywords=[${keywordsText}], Count=[${count}]`);
+            log(`Parsed: Summary=[${parsed.summaryLabel}], Keywords=[${parsed.keywordsText}], Count=[${parsed.count}], CommentsFound=[${parsed.commentsText.length > 0}]`);
 
             // --- 智能分类决策 ---
-            let sourceLabel = keywordsText || summaryLabel || '';
+            let sourceLabel = parsed.keywordsText || parsed.summaryLabel || '';
             let predefinedLabel = 'Unknown';
             let action = 'none';
 
-            // 映射逻辑
-            const mappingSource = (keywordsText + " " + summaryLabel).split(/[,，\s]+/).filter(x => x);
+            // 映射逻辑 - Expanded to include comments text for better accuracy
+            // Prioritize: Keywords > Summary > Comments
+            const mappingSourceString = `${parsed.keywordsText} ${parsed.summaryLabel} ${parsed.commentsText}`;
+            const mappingSource = mappingSourceString.split(/[,，\s]+/).filter(x => x);
+
             for (let part of mappingSource) {
                 if (manualMapping[part]) {
                     predefinedLabel = manualMapping[part];
@@ -200,7 +242,9 @@
             }
 
             // 行为判断
-            const checkStr = (sourceLabel + " " + predefinedLabel).toLowerCase();
+            // Check against all extracted text
+            const checkStr = (sourceLabel + " " + predefinedLabel + " " + mappingSourceString).toLowerCase();
+            
             if (blockKeywords.some(k => checkStr.includes(k.toLowerCase()))) {
                 action = 'block';
             } else if (allowKeywords.some(k => checkStr.includes(k.toLowerCase()))) {
@@ -210,14 +254,14 @@
             // 返回最终结果
             sendPluginResult({
                 requestId,
-                success: (summaryLabel || keywordsText || count > 0),
+                success: (parsed.summaryLabel || parsed.keywordsText || parsed.count > 0 || parsed.commentsText.length > 0),
                 source: PLUGIN_CONFIG.name,
-                phoneNumber: '', // Not strictly needed for return
+                phoneNumber: '', 
                 sourceLabel: sourceLabel || 'No specific label found',
                 predefinedLabel: predefinedLabel,
                 action: action,
                 name: '', 
-                count: count
+                count: parsed.count
             });
     }
 
