@@ -12,7 +12,7 @@
     const PLUGIN_CONFIG = {
         id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
         name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '4.1.0', // V3: Legacy Architecture (Fire-and-Forget) 
+        version: '4.2.0', // V3: Legacy Architecture (Fire-and-Forget) 
         description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.',
         config: {
             // [Generic Shield Logic] Tell Native what to wait for.
@@ -315,7 +315,7 @@
         log(`generateOutput called for requestId: ${requestId}`);
         
         // 国家代码识别
-        let countryCode = 'tw'; // 默认
+        let countryCode = 'hk'; // 默认
         if (e164Number && e164Number.startsWith('+')) {
             if (e164Number.startsWith('+852')) countryCode = 'hk';
             else if (e164Number.startsWith('+853')) countryCode = 'mo';
@@ -346,3 +346,4 @@
     initialize();
 
 })();
+
