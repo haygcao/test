@@ -9,7 +9,7 @@
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (Regex)',
-        version: '6.1.0', 
+        version: '6.3.0', 
         description: 'Queries Baidu for phone number information using Regex parsing. Intelligently selects the best name.',
         settings: [
              { key: 'successMarker', label: 'Success Marker', type: 'text', hint: 'Bypass Marker', required: false }
