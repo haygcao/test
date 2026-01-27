@@ -15,7 +15,7 @@
         description: 'Modern Scout-based plugin for ListaSpam. Matches slicklyHK pattern for robust bypass support.',
         config: {
             // [Generic Shield Logic] Tell Native what to wait for.
-            successMarker: "number_data_box", 
+            successMarker: "data_extra", 
         }
     };
 
@@ -281,3 +281,4 @@
     initialize();
 
 })();
+
