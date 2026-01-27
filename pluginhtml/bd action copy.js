@@ -4,15 +4,24 @@
 // No DOM/Iframe dependencies.
 // =======================================================================================
 
-(function() {
+(function () {
     // --- Plugin Configuration ---
     const PLUGIN_CONFIG = {
         id: 'baiduPhoneNumberPlugin',
         name: 'Baidu Phone Lookup (Regex)',
-        version: '6.3.0', 
+        version: '6.3.1',
         description: 'Queries Baidu for phone number information using Regex parsing. Intelligently selects the best name.',
+        config: {
+            successMarker: "c-title",
+        },
         settings: [
-             { key: 'successMarker', label: 'Success Marker', type: 'text', hint: 'Bypass Marker', required: false }
+            {
+                key: 'successMarker',
+                label: 'Success Marker',
+                type: 'text',
+                hint: '过盾标识',
+                required: false
+            }
         ]
     };
 
@@ -73,7 +82,7 @@
     // --- Core Logic ---
     function initiateQuery(phoneNumber, requestId) {
         log(`Initiating Scout query for '${phoneNumber}'`);
-        
+
         const config = (window.plugin && window.plugin[PLUGIN_CONFIG.id].config) || {};
         const successMarker = config.successMarker || "result-op";
         const userAgent = config.userAgent || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36';
@@ -93,7 +102,7 @@
                 phoneRequestId: requestId,
                 successMarker: successMarker
             }));
-            
+
             log("Request sent. Waiting for handleResponse...");
 
         } catch (e) {
@@ -124,13 +133,13 @@
                         dataToolsName = toolsObj.title.split(',')[0].trim();
                         log(`Found data-tools name: ${dataToolsName}`);
                     }
-                } catch(e) {}
+                } catch (e) { }
             }
 
             // 2. Official Card Title
             const officialTitleRegex = /<h3[^>]*class=["'].*?c-title.*?["'][^>]*>[\s\S]*?<a[^>]*>([\s\S]*?)<\/a>/i;
             const officialMatch = html.match(officialTitleRegex);
-            
+
             // 3. Marked Card Label
             const markedLabelRegex = /class=["']op_mobilephone_label[^"']*["']>([\s\S]*?)<\/div>/i;
             const markedMatch = html.match(markedLabelRegex);
@@ -150,7 +159,7 @@
                 let label = markedMatch[1].replace(/<[^>]+>/g, '').trim();
                 label = label.replace(/标记：|标记为：|网络收录仅供参考/g, '').trim().split(/\s+/)[0];
                 result.sourceLabel = label;
-                result.count = 1; 
+                result.count = 1;
                 result.success = true;
 
                 if (locationMatch) {
@@ -190,12 +199,12 @@
 
     function handleResponse(response) {
         log("handleResponse called.");
-        
+
         let final = response;
         if (typeof response === 'string') {
-            try { final = JSON.parse(response); } catch(e) {}
+            try { final = JSON.parse(response); } catch (e) { }
         }
-        
+
         // Handle BUFFER signal (Legacy)
         if (response === "BUFFER") {
             // ... (Buffer logic if needed, skipped for simplicity as we use NativeRequestChannel direct)
@@ -210,7 +219,7 @@
 
         const html = final.responseText || "";
         // Note: phoneNumber is not part of response usually, we rely on context or pass empty for parsing
-        const parsed = parseHTML(html, ""); 
+        const parsed = parseHTML(html, "");
 
         if (parsed.success) {
             const checkStr = (parsed.sourceLabel + " " + parsed.name).toLowerCase();
