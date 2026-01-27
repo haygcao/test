@@ -17,7 +17,7 @@
         config: {
             // [Generic Shield Logic] Tell Native what to wait for.
             // If this string appears in HTML, the page is considered "Bypassed & Loaded".
-            successMarker: "summary-result", 
+            successMarker: "summary-keywords", 
         }
     };
 
@@ -346,6 +346,7 @@
     initialize();
 
 })();
+
 
 
 
