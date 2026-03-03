@@ -1,278 +1,218 @@
-// Slick.ly Phone Query Plugin - Modern Scout Regex Solution (Traditional Chinese)
+// [slicklyHK TW MO.js] - Slick.ly TW/HK/MO Plugin (Pure FlutterJS Regex V6.2)
 // =======================================================================================
-// 说明:
-// 此插件专为 Slick.ly (HK/TW/MO) 设计，采用了最新的 Scout (httpFetch) 架构。
-// 相比旧版 Iframe 方案，它更轻量、更快，且能自动利用 Scout 的过盾能力。
+// Architecture: Native Channel (httpFetch) + Regex Parsing
+// No DOM/Iframe dependencies.
 // =======================================================================================
 
-(function() {
-    // 使用 IIFE 封装
-    
-    // --- 区域 1: 插件核心配置 ---
+(function (scope) {
+    // --- Plugin Configuration ---
     const PLUGIN_CONFIG = {
-        id: 'slicklyTwHkPhoneNumberPlugin', // 保持 ID 一致以兼容现有配置
-        name: 'Slick.ly TW/HK/MO Lookup (Scout Regex)',
-        version: '4.2.0', // V3: Legacy Architecture (Fire-and-Forget) 
-        description: 'Modern Scout-based plugin for Slick.ly. Supports automatic shield handling and fast regex parsing.',
+        id: 'slicklyTwHkPhoneNumberPlugin',
+        name: 'Slick.ly TW/HK/MO Phone Lookup (Regex)',
+        version: '6.2.0',
+        description: 'Queries Slick.ly for TW/HK/MO phone number information using Regex.',
         config: {
-            // [Generic Shield Logic] Tell Native what to wait for.
-            // If this string appears in HTML, the page is considered "Bypassed & Loaded".
-            successMarker: "summary-result", 
+             successMarker: "summary-result", 
             // [Shield Config] Tell Native how to handle challenges
             shieldConfig: {
                 detectKeywords: ["challenge-platform", "cf-turnstile", "Just a moment"],
                 targetSelector: 'input[type="checkbox"]',
                 delay: [800, 1500]
             }
-        }
+        },
+        settings: [
+            { key: 'successMarker', label: 'Success Marker', type: 'text', hint: '过盾标识', required: false }
+        ]
     };
 
-    // --- 区域 2: 标签映射与关键字 (完全迁移自旧版) ---
     const predefinedLabels = [
-        { 'label': 'Fraud Scam Likely' }, { 'label': 'Spam Likely' }, { 'label': 'Telemarketing' },
-        { 'label': 'Robocall' }, { 'label': 'Delivery' }, { 'label': 'Takeaway' },
-        { 'label': 'Ridesharing' }, { 'label': 'Insurance' }, { 'label': 'Loan' },
-        { 'label': 'Customer Service' }, { 'label': 'Unknown' }, { 'label': 'Financial' },
-        { 'label': 'Bank' }, { 'label': 'Education' }, { 'label': 'Medical' },
-        { 'label': 'Charity' }, { 'label': 'Other' }, { 'label': 'Debt Collection' },
-        { 'label': 'Survey' }, { 'label': 'Political' }, { 'label': 'Ecommerce' },
-        { 'label': 'Risk' }, { 'label': 'Agent' }, { 'label': 'Recruiter' },
-        { 'label': 'Headhunter' }, { 'label': 'Silent Call Voice Clone' }, { 'label': 'Internet' },
-        { 'label': 'Travel Ticketing' }, { 'label': 'Application Software' }, { 'label': 'Entertainment' },
-        { 'label': 'Government' }, { 'label': 'Local Services' }, { 'label': 'Automotive Industry' },
-        { 'label': 'Car Rental' }, { 'label': 'Telecommunication' },
+        { label: 'Fraud Scam Likely' },
+        { label: 'Spam Likely' },
+        { label: 'Telemarketing' },
+        { label: 'Robocall' },
+        { label: 'Delivery' },
+        { label: 'Takeaway' },
+        { label: 'Ridesharing' },
+        { label: 'Insurance' },
+        { label: 'Loan' },
+        { label: 'Customer Service' },
+        { label: 'Unknown' },
+        { label: 'Financial' },
+        { label: 'Bank' },
+        { label: 'Education' },
+        { label: 'Medical' },
+        { label: 'Charity' },
+        { label: 'Other' },
+        { label: 'Debt Collection' },
+        { label: 'Survey' },
+        { label: 'Political' },
+        { label: 'Ecommerce' },
+        { label: 'Risk' },
+        { label: 'Agent' },
+        { label: 'Recruiter' },
+        { label: 'Headhunter' },
+        { label: 'Silent Call Voice Clone' },
+        { label: 'Internet' },
+        { label: 'Travel Ticketing' },
+        { label: 'Application Software' },
+        { label: 'Entertainment' },
+        { label: 'Government' },
+        { label: 'Local Services' },
+        { label: 'Automotive Industry' },
+        { label: 'Car Rental' },
+        { label: 'Telecommunication' }
     ];
 
     const manualMapping = {
-        '危險': 'Risk', '安全': 'Other', '詐騙': 'Fraud Scam Likely', '騙局': 'Fraud Scam Likely',
-        '垃圾郵件': 'Spam Likely', '騷扰': 'Spam Likely', '騷擾': 'Spam Likely', '電話行銷': 'Telemarketing',
-        '自动拨号': 'Robocall', '送貨': 'Delivery', '外卖': 'Takeaway',
-        '外賣': 'Takeaway', '保險': 'Insurance', '貸款': 'Loan', '金融': 'Financial',
-        '銀行': 'Bank', '補習': 'Education', '滋擾': 'Spam Likely', '補習班': 'Education',
-        '假扮': 'Fraud Scam Likely', '掛斷': 'Other', '無聲': 'Silent Call Voice Clone',
-        '理財': 'Financial', '融資': 'Loan', '賣飞骗子': 'Fraud Scam Likely', '騙錢勿上當': 'Fraud Scam Likely',
-        '上當': 'Fraud Scam Likely', '活性': 'Other', '待用': 'Other', '可疑': 'Spam Likely'
+        '安全': 'Other', '危險': 'Risk', '可疑': 'Spam Likely',
+        '詐騙': 'Fraud Scam Likely', '騙局': 'Fraud Scam Likely', '垃圾郵件': 'Spam Likely', '騷擾': 'Spam Likely',
+        '電話行銷': 'Telemarketing', '自動撥號': 'Robocall', '騙子': 'Fraud Scam Likely', '送貨': 'Delivery',
+        '外賣': 'Takeaway', '叫車服務': 'Ridesharing', '保險': 'Insurance', '貸款': 'Loan',
+        '客戶服務': 'Customer Service', '未知': 'Unknown', '金融': 'Financial', '銀行': 'Bank',
+        '教育': 'Education', '醫療': 'Medical', '慈善': 'Charity', '其他': 'Other',
+        '催收': 'Debt Collection', '調查': 'Survey', '政治': 'Political', '電子商務': 'Ecommerce',
+        '風險': 'Risk', '代理人': 'Agent', '招募者': 'Recruiter', '獵頭': 'Headhunter',
+        '互聯網': 'Internet', '政府': 'Government', '在地服務': 'Local Services', '電信': 'Telecommunication',
+        '補習班': 'Education', '掛斷': 'Other', '無聲': 'Silent Call Voice Clone', '推銷': 'Telemarketing'
     };
 
-    const blockKeywords = [
-        '推銷', '廣告', '違规', '詐騙', '騙子', '滋擾', '騷擾', '危險', '风险', 'Risk', 'Scam', 
-        '假扮', '賣飞', '上當', '騙钱', '贷款', '融資'
-    ];
+    const blockKeywords = ['詐騙', '騙局', '騷擾', '風險', '債務', '推銷', '欺詐', '廣告', 'Spam', 'Scam', 'Fraud'];
+    const allowKeywords = ['送貨', '外賣', '快遞', '叫車', '安全', '客服'];
 
-    const allowKeywords = [
-        '外賣', '送貨', '快遞', '叫車', '安全', 'Safe', '快件'
-    ];
+    const countryCodeMap = {
+        '886': 'tw', '852': 'hk', '853': 'mo'
+    };
 
-    // --- 区域 3: 辅助工具函数 ---
-    function log(message) {
-        if (typeof sendMessage === 'function') {
-            sendMessage('Log', `[${PLUGIN_CONFIG.id}] ${message}`);
-        } else {
-            console.log(`[${PLUGIN_CONFIG.id}] ${message}`);
-        }
-    }
-    function logError(message, error) {
-        const errMsg = error ? ` ${error}` : '';
-        if (typeof sendMessage === 'function') {
-            sendMessage('Log', `[ERROR] [${PLUGIN_CONFIG.id}] ${message}${errMsg}`);
-        } else {
-            console.error(`[${PLUGIN_CONFIG.id}] ${message}`, error);
-        }
-    }
+    // --- Helpers ---
+    function log(message) { if (typeof sendMessage === 'function') sendMessage('Log', `[${PLUGIN_CONFIG.id}] ${message}`); }
+    function logError(message, error) { if (typeof sendMessage === 'function') sendMessage('Log', `[${PLUGIN_CONFIG.id}] [ERROR] ${message} ${error ? error.toString() : ''}`); }
 
     function sendPluginResult(result) {
-        if (globalThis.flutter_inappwebview && globalThis.flutter_inappwebview.callHandler) {
-            globalThis.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(result));
-        } else if (typeof sendMessage === 'function') {
+        if (typeof sendMessage === 'function') {
             sendMessage('PluginResultChannel', JSON.stringify(result));
+        } else if (scope.flutter_inappwebview && scope.flutter_inappwebview.callHandler) {
+            scope.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(result));
         }
     }
 
     function sendPluginLoaded() {
-        if (globalThis.flutter_inappwebview && globalThis.flutter_inappwebview.callHandler) {
-            globalThis.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({ type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version }));
+        if (typeof sendMessage === 'function') {
+            sendMessage('TestPageChannel', JSON.stringify({ type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version }));
+        } else if (scope.flutter_inappwebview && scope.flutter_inappwebview.callHandler) {
+            scope.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({ type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version }));
         }
     }
 
-    // --- 区域 4: 核心查询逻辑 (Fire-and-Forget) ---
-    async function initiateQuery(phoneNumber, requestId, countryCode) {
-        log(`Initiating Scout query for '${phoneNumber}' [${countryCode}] (requestId: ${requestId})`);
-
-        const formattedNumber = phoneNumber.replace(/[^0-9]/g, '');
-        
-        // [Fix] Store number in a global map to keep it in scope for processResponse
-        if (!globalThis._active_phone_numbers) globalThis._active_phone_numbers = {};
-        globalThis._active_phone_numbers[requestId] = formattedNumber;
-        
-        const targetSearchUrl = `https://slick.ly/${countryCode}/${formattedNumber}`;
-        
-        const config = globalThis.plugin[PLUGIN_CONFIG.id].config || {};
-        // [Fix] JS Context has no 'navigator'. Use hardcoded Android UA to match WebView.
-        // This solves the "Windows vs Android" fingerprint mismatch.
-        const userAgent = config.userAgent || 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36';
+    // --- Core Logic ---
+    function initiateQuery(phoneNumber, requestId, countryCode) {
+        log(`Initiating Query: ${phoneNumber} for ${countryCode}`);
+        const config = (scope.plugin && scope.plugin[PLUGIN_CONFIG.id] && scope.plugin[PLUGIN_CONFIG.id].config) || {};
+            const successMarker = config.successMarker || PLUGIN_CONFIG.config.successMarker;
+        const shieldConfig = config.shieldConfig || PLUGIN_CONFIG.config.shieldConfig;
+        const userAgent = config.userAgent || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
         const headers = { 'User-Agent': userAgent };
         
-        // [Generic Shield Logic] Extract marker from config
-        const successMarker = config.successMarker || PLUGIN_CONFIG.config.successMarker;
-        const shieldConfig = config.shieldConfig || PLUGIN_CONFIG.config.shieldConfig;
+        const digitsOnly = phoneNumber.replace(/[^0-9]/g, '');
+        const targetUrl = `https://slick.ly/${countryCode.toLowerCase()}/${digitsOnly}`;
 
         try {
-            log(`Fetching HTML from: ${targetSearchUrl}`);
-            
-            // Fire and Forget - Legacy Style
-            // Native will call globalThis.plugin['slicklyTwHkPhoneNumberPlugin'].handleResponse(...)
             sendMessage('httpFetch', JSON.stringify({
-                url: targetSearchUrl,
+                url: targetUrl,
                 method: 'GET',
-                headers: headers,
+                headers: { 'User-Agent': userAgent },
                 pluginId: PLUGIN_CONFIG.id,
                 phoneRequestId: requestId,
                 successMarker: successMarker, // <--- PASS TO NATIVE
                 shieldConfig: shieldConfig
             }));
-            
-            log("Legacy Request sent. Waiting for handleResponse...");
-
         } catch (e) {
-            logError('Query Setup Failed', e);
-            sendPluginResult({ requestId, success: false, error: 'Setup Failed: ' + e.toString() });
+            logError("Query Setup Failed", e);
+            sendPluginResult({ requestId, success: false, error: e.message });
         }
     }
 
-    // --- 区域 5: 响应处理逻辑 (Legacy Pattern) ---
-    function handleResponse(response) {
-        log("handleResponse called.");
-        
-        try {
-             var finalResponse = null;
-
-             // [Legacy V3 Fix] Direct Object Priority
-             // If Native sends an Object, use it immediately. 
-             // Do not check buffer unless told to do so.
-             if (response && typeof response === 'object') {
-                 log("handleResponse: Received Direct Object.");
-                 finalResponse = response;
-             } 
-             // If Native sends a Signal String (e.g. "BUFFER")
-             else if (response === "BUFFER" || (!response && globalThis._native_buffer)) {
-                 log("handleResponse: Buffer Signal received.");
-                 var buffer = globalThis._native_buffer || (globalThis && globalThis._native_buffer);
-                 if (buffer && typeof buffer === 'string') {
-                      var decoded = decodeURIComponent(escape(atob(buffer)));
-                      finalResponse = JSON.parse(decoded);
-                      
-                      if (globalThis._native_buffer) globalThis._native_buffer = null;
-                      if (globalThis && globalThis._native_buffer) globalThis._native_buffer = null;
-                 }
-             }
-             // Support legacy String (Base64) fallback just in case
-             else if (typeof response === 'string') {
-                  try {
-                      var decoded = decodeURIComponent(escape(atob(response)));
-                      finalResponse = JSON.parse(decoded);
-                  } catch(e) {
-                      finalResponse = JSON.parse(response);
-                  }
-             }
-
-             if (finalResponse) {
-                processResponse(finalResponse.requestId || finalResponse.phoneRequestId, finalResponse);
-             } else {
-                logError("handleResponse: Final response is null or invalid type: " + typeof response);
-             }
-
-        } catch (e) {
-             logError("handleResponse Error", e);
-             var reqId = response ? (response.requestId || response.phoneRequestId) : 'unknown';
-             sendPluginResult({ requestId: reqId, success: false, error: "handleResponse Error: " + e });
-        }
-    }
-
-    // [New] Independent Parsing Function
-    // Ported from Legacy logic with Regex improvements
-    function parseHTML(html) {
+    function parseHTML(html, phoneNumber) {
         const result = {
-            summaryLabel: '',
-            keywordsText: '',
-            count: 0,
-            commentsText: '',
-            negVotes: 0,
-            posVotes: 0
+            summaryLabel: '', keywordsText: '', count: 0, commentsText: '',
+            negVotes: 0, posVotes: 0
         };
 
         if (!html) return result;
 
-        // 1. Extract Summary (Multiple class variants)
-        const summaryRegex = /<span class=["']summary-result[^"']*["']>([^<]+)<\/span>/i;
-        const summaryMatch = html.match(summaryRegex);
-        if (summaryMatch) {
-            result.summaryLabel = summaryMatch[1].trim();
-        } else {
-            const fallbackSummaryRegex = /摘要:\s*\s*<span[^>]*>([^<]+)<\/span>/i;
-            const fallbackMatch = html.match(fallbackSummaryRegex);
-            if (fallbackMatch) result.summaryLabel = fallbackMatch[1].trim();
-        }
+        try {
+            // 1. Extract Summary
+            const summaryRegex = /<span class=["']summary-result[^"']*["']>([^<]+)<\/span>/i;
+            const summaryMatch = html.match(summaryRegex);
+            if (summaryMatch) result.summaryLabel = summaryMatch[1].trim();
 
-        // 2. Extract Keywords
-        const keywordsRegex = /<div class=["']keywords["']>[\s\S]*?<span>([^<]+)<\/span>/i;
-        const keywordsMatch = html.match(keywordsRegex);
-        if (keywordsMatch) {
-            result.keywordsText = keywordsMatch[1].trim();
-        }
+            // 2. Extract Keywords
+            const keywordsRegex = /<div class=["']keywords["']>[\s\S]*?<span>([^<]+)<\/span>/i;
+            const keywordsMatch = html.match(keywordsRegex);
+            if (keywordsMatch) result.keywordsText = keywordsMatch[1].trim();
 
-        // 3. Extract Count
-        const countRegex = /註釋\s*\((\d+)\)/i;
-        const countMatch = html.match(countRegex);
-        if (countMatch) {
-            result.count = parseInt(countMatch[1], 10);
-        }
+            // 3. Extract Count
+            const countRegex = /(?:註釋|注释|Comments)\s*\((\d+)\)/i;
+            const countMatch = html.match(countRegex);
+            if (countMatch) result.count = parseInt(countMatch[1], 10);
 
-        // 4. Extract Votes (Legacy logic)
-        const negRegex = /<span class=["']negative-count["']>\s*(\d+)\s*<\/span>/i;
-        const posRegex = /<span class=["']positive-count["']>\s*(\d+)\s*<\/span>/i;
-        const negMatch = html.match(negRegex);
-        const posMatch = html.match(posRegex);
-        if (negMatch) result.negVotes = parseInt(negMatch[1], 10);
-        if (posMatch) result.posVotes = parseInt(posMatch[1], 10);
+            // 4. Extract Votes
+            const negRegex = /<span class=["']negative-count["']>\s*(\d+)\s*<\/span>/i;
+            const posRegex = /<span class=["']positive-count["']>\s*(\d+)\s*<\/span>/i;
+            const negMatch = html.match(negRegex);
+            const posMatch = html.match(posRegex);
+            if (negMatch) result.negVotes = parseInt(negMatch[1], 10);
+            if (posMatch) result.posVotes = parseInt(posMatch[1], 10);
 
-        // 5. Extract Comments (Crucial for context)
-        const commentContentRegex = /<div class=["']content["']>\s*<p>([\s\S]*?)<\/p>/gi;
-        let commentMatch;
-        let commentsList = [];
-        while ((commentMatch = commentContentRegex.exec(html)) !== null) {
-            if (commentMatch[1]) {
-                commentsList.push(commentMatch[1].trim());
+            // 5. Extract Comments
+            const commentContentRegex = /<div class=["']content["']>\s*<p>([\s\S]*?)<\/p>/gi;
+            let commentMatch;
+            let commentsList = [];
+            while ((commentMatch = commentContentRegex.exec(html)) !== null) {
+                if (commentMatch[1]) commentsList.push(commentMatch[1].trim());
             }
-        }
-        result.commentsText = commentsList.join(' ');
+            result.commentsText = commentsList.join(' ');
 
-        return result;
+            return result;
+        } catch (e) {
+            logError("Regex Parse Error", e);
+            return result;
+        }
     }
 
-    function processResponse(requestId, response) {
-            if (!response || response.status !== 200) {
-                var err = response ? response.error || response.status : 'Unknown Native Error';
-                logError(`HTTP Error: ${err}`);
-                sendPluginResult({ requestId, success: false, error: `HTTP Error: ${err}` });
+    function handleResponse(response) {
+        log("handleResponse called.");
+        try {
+            let finalResponse = response;
+            if (typeof response === 'string') {
+                try {
+                    const decoded = decodeURIComponent(escape(atob(response)));
+                    finalResponse = JSON.parse(decoded);
+                } catch(e) {
+                    finalResponse = JSON.parse(response);
+                }
+            } else if (response === "BUFFER" || (!response && scope._native_buffer)) {
+                var buffer = scope._native_buffer || (scope && scope._native_buffer);
+                if (buffer && typeof buffer === 'string') {
+                    var decoded = decodeURIComponent(escape(atob(buffer)));
+                    finalResponse = JSON.parse(decoded);
+                    if (scope._native_buffer) scope._native_buffer = null;
+                }
+            }
+
+            const requestId = finalResponse.requestId || finalResponse.phoneRequestId;
+            if (!finalResponse.success) {
+                sendPluginResult({ requestId, success: false, error: finalResponse.error || "HTTP Error" });
                 return;
             }
 
-            const html = response.responseText || "";
+            const html = finalResponse.responseText || "";
+            const parsed = parseHTML(html, finalResponse.phoneNumber || "");
             
-            // --- Call Independent Parser ---
-            const parsed = parseHTML(html);
-
-            log(`Parsed: Summary=[${parsed.summaryLabel}], Keywords=[${parsed.keywordsText}], Count=[${parsed.count}], Votes=[-:${parsed.negVotes}, +:${parsed.posVotes}]`);
-
-            // --- 智能分类决策 (Ported Priority from Legacy) ---
             let sourceLabel = parsed.keywordsText || parsed.summaryLabel || '';
             let predefinedLabel = 'Unknown';
             let action = 'none';
 
-            // 1. Mapping Priority: Legacy Matcher Logic
             const mappingSourceString = `${parsed.keywordsText} ${parsed.summaryLabel} ${parsed.commentsText}`;
-            
-            // Ported legacy matching logic: check each key in manualMapping against the text
             for (let key in manualMapping) {
                 if (mappingSourceString.includes(key)) {
                     predefinedLabel = manualMapping[key];
@@ -280,90 +220,76 @@
                 }
             }
 
-            // 2. Action Priority: Keywords in Label > Summary Text > Votes
             const checkStr = (sourceLabel + " " + predefinedLabel + " " + mappingSourceString).toLowerCase();
-            
             if (blockKeywords.some(k => checkStr.includes(k.toLowerCase()))) {
                 action = 'block';
             } else if (allowKeywords.some(k => checkStr.includes(k.toLowerCase()))) {
                 action = 'allow';
             }
 
-            // 3. Falling back to Summary Label Specifics
             if (action === 'none') {
-                 if (['危險', '可疑'].includes(parsed.summaryLabel)) {
-                     action = 'block';
-                 } else if (parsed.summaryLabel === '安全') {
-                     action = 'allow';
-                 }
+                if (['危險', '風險', '可疑'].includes(parsed.summaryLabel)) action = 'block';
+                else if (parsed.summaryLabel === '安全') action = 'allow';
             }
 
-            // 4. Final Fallback: Votes
             if (action === 'none' && (parsed.negVotes > 0 || parsed.posVotes > 0)) {
-                if (parsed.negVotes > parsed.posVotes) {
-                    action = 'block';
-                } else if (parsed.posVotes > parsed.negVotes) {
-                    action = 'allow';
-                }
+                if (parsed.negVotes > parsed.posVotes) action = 'block';
+                else if (parsed.posVotes > parsed.negVotes) action = 'allow';
             }
 
-            // Retrieve phone number from global map
-            const phoneNumber = globalThis._active_phone_numbers ? globalThis._active_phone_numbers[requestId] : 'unknown';
-            if (globalThis._active_phone_numbers) delete globalThis._active_phone_numbers[requestId];
-
-            // 返回最终结果
-            const resultPayload = {
+            sendPluginResult({
                 requestId,
                 success: !!(parsed.summaryLabel || parsed.keywordsText || parsed.count > 0 || parsed.commentsText.length > 0 || parsed.negVotes > 0 || parsed.posVotes > 0),
                 source: PLUGIN_CONFIG.name,
-                phoneNumber: phoneNumber,
+                phoneNumber: finalResponse.phoneNumber || "unknown",
                 sourceLabel: sourceLabel || 'No specific label found',
                 predefinedLabel: predefinedLabel,
                 action: action,
                 name: '', 
                 count: parsed.count
-            };
-
-            log(`Final Logic: Action=[${action}], Label=[${predefinedLabel}], Source=[${sourceLabel}]`);
-            log("Sending Result via PluginResultChannel...");
-
-            sendPluginResult(resultPayload);
+            });
+        } catch (e) {
+            logError("Error in handleResponse", e);
+        }
     }
 
-
-    // --- 区域 6: 插件入口 ---
     function generateOutput(phoneNumber, nationalNumber, e164Number, requestId) {
         log(`generateOutput called for requestId: ${requestId}`);
-        
-        // 国家代码识别
-        let countryCode = 'tw'; // 默认
-        if (e164Number && e164Number.startsWith('+')) {
-            if (e164Number.startsWith('+852')) countryCode = 'hk';
-            else if (e164Number.startsWith('+853')) countryCode = 'mo';
-            else if (e164Number.startsWith('+886')) countryCode = 'tw';
+        const numberToQuery = phoneNumber || nationalNumber || e164Number;
+        if (!numberToQuery) {
+            sendPluginResult({ requestId, success: false, error: "No Number" });
+            return;
         }
 
-        const numberToQuery = phoneNumber || nationalNumber;
-        if (numberToQuery) {
-            initiateQuery(numberToQuery, requestId, countryCode);
-        } else {
-            sendPluginResult({ requestId, success: false, error: 'No valid phone number.' });
+        let countryCode = "tw"; // Default
+        if (e164Number && e164Number.startsWith('+')) {
+            const match = e164Number.match(/^\+(\d{1,3})/);
+            if (match && match[1]) {
+                let extracted = match[1];
+                while (extracted.length > 0) {
+                    if (countryCodeMap[extracted]) {
+                        countryCode = countryCodeMap[extracted];
+                        break;
+                    }
+                    extracted = extracted.slice(0, -1);
+                }
+            }
         }
+
+        const digitsOnly = numberToQuery.replace(/[^0-9]/g, '');
+        initiateQuery(digitsOnly, requestId, countryCode);
     }
 
-    // --- 区域 7: 初始化 ---
     function initialize() {
-        if (!globalThis.plugin) globalThis.plugin = {};
-        globalThis.plugin[PLUGIN_CONFIG.id] = {
-            info: PLUGIN_CONFIG,
-            generateOutput: generateOutput,
-            handleResponse: handleResponse, // Legacy Registration
-            config: {}
+        if (!scope.plugin) scope.plugin = {};
+        scope.plugin[PLUGIN_CONFIG.id] = { 
+            info: PLUGIN_CONFIG, 
+            generateOutput: generateOutput, 
+            handleResponse: handleResponse, 
+            config: {} 
         };
-        log(`Plugin registered. Using Legacy Architecture V3 (Fire-and-Forget).`);
         sendPluginLoaded();
     }
 
     initialize();
-
-})();
+})(globalThis);
