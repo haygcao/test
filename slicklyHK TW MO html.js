@@ -17,7 +17,13 @@
         config: {
             // [Generic Shield Logic] Tell Native what to wait for.
             // If this string appears in HTML, the page is considered "Bypassed & Loaded".
-            successMarker: "summary-keywords", 
+            successMarker: "summary-result", 
+            // [Shield Config] Tell Native how to handle challenges
+            shieldConfig: {
+                detectKeywords: ["challenge-platform", "cf-turnstile", "Just a moment"],
+                targetSelector: 'input[type="checkbox"]',
+                delay: [800, 1500]
+            }
         }
     };
 
@@ -58,20 +64,33 @@
     ];
 
     // --- 区域 3: 辅助工具函数 ---
-    function log(message) { console.log(`[${PLUGIN_CONFIG.id}] ${message}`); }
-    function logError(message, error) { console.error(`[${PLUGIN_CONFIG.id}] ${message}`, error); }
+    function log(message) {
+        if (typeof sendMessage === 'function') {
+            sendMessage('Log', `[${PLUGIN_CONFIG.id}] ${message}`);
+        } else {
+            console.log(`[${PLUGIN_CONFIG.id}] ${message}`);
+        }
+    }
+    function logError(message, error) {
+        const errMsg = error ? ` ${error}` : '';
+        if (typeof sendMessage === 'function') {
+            sendMessage('Log', `[ERROR] [${PLUGIN_CONFIG.id}] ${message}${errMsg}`);
+        } else {
+            console.error(`[${PLUGIN_CONFIG.id}] ${message}`, error);
+        }
+    }
 
     function sendPluginResult(result) {
-        if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-            window.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(result));
+        if (globalThis.flutter_inappwebview && globalThis.flutter_inappwebview.callHandler) {
+            globalThis.flutter_inappwebview.callHandler('PluginResultChannel', JSON.stringify(result));
         } else if (typeof sendMessage === 'function') {
             sendMessage('PluginResultChannel', JSON.stringify(result));
         }
     }
 
     function sendPluginLoaded() {
-        if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
-            window.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({ type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version }));
+        if (globalThis.flutter_inappwebview && globalThis.flutter_inappwebview.callHandler) {
+            globalThis.flutter_inappwebview.callHandler('TestPageChannel', JSON.stringify({ type: 'pluginLoaded', pluginId: PLUGIN_CONFIG.id, version: PLUGIN_CONFIG.version }));
         }
     }
 
@@ -87,27 +106,29 @@
         
         const targetSearchUrl = `https://slick.ly/${countryCode}/${formattedNumber}`;
         
-        const config = window.plugin[PLUGIN_CONFIG.id].config || {};
+        const config = globalThis.plugin[PLUGIN_CONFIG.id].config || {};
         // [Fix] JS Context has no 'navigator'. Use hardcoded Android UA to match WebView.
         // This solves the "Windows vs Android" fingerprint mismatch.
-        const userAgent = config.userAgent;
+        const userAgent = config.userAgent || 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36';
         const headers = { 'User-Agent': userAgent };
         
         // [Generic Shield Logic] Extract marker from config
         const successMarker = config.successMarker || PLUGIN_CONFIG.config.successMarker;
+        const shieldConfig = config.shieldConfig || PLUGIN_CONFIG.config.shieldConfig;
 
         try {
             log(`Fetching HTML from: ${targetSearchUrl}`);
             
             // Fire and Forget - Legacy Style
-            // Native will call window.plugin['slicklyTwHkPhoneNumberPlugin'].handleResponse(...)
+            // Native will call globalThis.plugin['slicklyTwHkPhoneNumberPlugin'].handleResponse(...)
             sendMessage('httpFetch', JSON.stringify({
                 url: targetSearchUrl,
                 method: 'GET',
                 headers: headers,
                 pluginId: PLUGIN_CONFIG.id,
                 phoneRequestId: requestId,
-                successMarker: successMarker // <--- PASS TO NATIVE
+                successMarker: successMarker, // <--- PASS TO NATIVE
+                shieldConfig: shieldConfig
             }));
             
             log("Legacy Request sent. Waiting for handleResponse...");
@@ -135,13 +156,13 @@
              // If Native sends a Signal String (e.g. "BUFFER")
              else if (response === "BUFFER" || (!response && globalThis._native_buffer)) {
                  log("handleResponse: Buffer Signal received.");
-                 var buffer = globalThis._native_buffer || (window && window._native_buffer);
+                 var buffer = globalThis._native_buffer || (globalThis && globalThis._native_buffer);
                  if (buffer && typeof buffer === 'string') {
                       var decoded = decodeURIComponent(escape(atob(buffer)));
                       finalResponse = JSON.parse(decoded);
                       
                       if (globalThis._native_buffer) globalThis._native_buffer = null;
-                      if (window && window._native_buffer) window._native_buffer = null;
+                      if (globalThis && globalThis._native_buffer) globalThis._native_buffer = null;
                  }
              }
              // Support legacy String (Base64) fallback just in case
@@ -315,7 +336,7 @@
         log(`generateOutput called for requestId: ${requestId}`);
         
         // 国家代码识别
-        let countryCode = 'hk'; // 默认
+        let countryCode = 'tw'; // 默认
         if (e164Number && e164Number.startsWith('+')) {
             if (e164Number.startsWith('+852')) countryCode = 'hk';
             else if (e164Number.startsWith('+853')) countryCode = 'mo';
@@ -332,8 +353,8 @@
 
     // --- 区域 7: 初始化 ---
     function initialize() {
-        if (!window.plugin) window.plugin = {};
-        window.plugin[PLUGIN_CONFIG.id] = {
+        if (!globalThis.plugin) globalThis.plugin = {};
+        globalThis.plugin[PLUGIN_CONFIG.id] = {
             info: PLUGIN_CONFIG,
             generateOutput: generateOutput,
             handleResponse: handleResponse, // Legacy Registration
@@ -346,7 +367,3 @@
     initialize();
 
 })();
-
-
-
-
