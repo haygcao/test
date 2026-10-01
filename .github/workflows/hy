@@ -1,0 +1,43 @@
+name: Official Hunyuan Hy-MT2 1.25bit CI
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  run-official-cpp-inference:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 1. 配置标准 Linux 环境下编译 llama.cpp 所必需的工具链
+    - name: Install Base C++ Build Environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake git wget
+
+    # 2. 严格执行官方说明第一步：拉取 llama.cpp 原生代码库
+    - name: Clone Original llama.cpp
+      run: |
+        git clone https://github.com
+
+    # 3. 严格执行官方第二步与第三步：进入目录并现场以 Release 模式编译二进制
+    - name: Build Native llama.cpp Binary
+      run: |
+        cd llama.cpp
+        cmake -B build
+        cmake --build build --config Release
+
+    # 4. 从官方托管渠道极速拉取 440MB 极限压缩量化单模型文件
+    - name: Download Tencent 440MB Quantized Model
+      run: |
+        wget -O hy-mt2-1.25bit.gguf "https://huggingface.co"
+
+    # 5. 严格执行官方第四步：使用编译好的可执行程序直接驱动 440MB 模型进行极限端侧推理
+    # 说明：-ngl 0 锁死纯 CPU 模式（完美契合 GitHub Actions 免费算力），-st 则是强制激活腾讯自研算子必加的加速锁
+    - name: Run Completion Verification
+      run: |
+        ./llama.cpp/build/bin/llama-completion --model hy-mt2-1.25bit.gguf -p "Translate the following segment into Chinese, without additional explanation：Hello world" --jinja -ngl 0 -n 64 -st
