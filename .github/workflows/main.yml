@@ -3,7 +3,7 @@ name: Test Hy-MT2 Python Client
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # 支持在 GitHub 页面手动点击按钮触发
+  workflow_dispatch:
 
 jobs:
   run-python-inference:
@@ -20,20 +20,17 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          # 安装官方 ollama 库
           pip install ollama
 
       - name: Install Ollama CLI
         run: |
-          # 安装 Linux 环境下的 Ollama 服务端
+          # 修复这里：加上 /install.sh
           curl -fsSL https://ollama.com | sh
 
       - name: Start Ollama Server & Pull Model
         run: |
-          # 1. 后台静默启动纯 CPU 的 Ollama 服务
           ollama serve > ollama.log 2>&1 &
           
-          # 2. 循环检测本地端口是否准备就绪
           echo "Waiting for Ollama server to respond..."
           for i in {1..10}; do
             if curl -s http://localhost:11434 > /dev/null; then
@@ -43,13 +40,11 @@ jobs:
             sleep 2
           done
           
-          # 3. 提前拉取 1.25Bit 极端量化版模型（约 462MB）
           echo "Pulling dzgg/Hy-MT2-1.8B-GGUF:1.25Bit..."
           ollama pull dzgg/Hy-MT2-1.8B-GGUF:1.25Bit
 
       - name: Run Inline Python Script
         run: |
-          # 使用纯文本内联写入并执行您的 Python 测试代码
           python - << 'EOF'
           from ollama import chat
 
