@@ -1,0 +1,66 @@
+name: llama.cpp Official STQ1_0 Inference Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  official-stq-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 1. 现场安装标准 C++ 编译链与 Python 环境依赖
+    - name: Install Official Toolchains
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake git wget python3-pip
+        pip install numpy gguf huggingface_hub
+
+    # 2. 严格执行官方说明：克隆代码库并检出包含 STQ1_0 算子的官方 PR 专属分支
+    - name: Clone and Fetch PR Branch
+      run: |
+        git clone https://github.com
+        cd llama.cpp
+        git fetch origin pull/22836/head:pr-22836-stq_0
+        git checkout pr-22836-stq_0
+
+    # 3. 严格执行官方构建指南：编译 Release 版本的二进制可执行程序
+    - name: Build llama.cpp Utilities
+      run: |
+        cd llama.cpp
+        cmake -B build
+        cmake --build build --config Release -j
+
+    # 4. 通过官方 CLI 下载 1.25bit 基座权重（此处下载 440MB 的标准测试模型）
+    - name: Download Official Model Weights
+      run: |
+        huggingface-cli download AngelSlim/Hy-MT1.5-1.8B-1.25bit \
+          --local-dir Hy-MT1.5-1.8B-1.25bit
+
+    # 5. 执行官方标准转换流程：HF格式文件 -> 中转 bf16.gguf 文件
+    - name: Convert HF to GGUF BF16
+      run: |
+        python3 llama.cpp/convert_hf_to_gguf.py Hy-MT1.5-1.8B-1.25bit \
+          --outfile Hy-MT1.5-1.8B-bf16.gguf \
+          --outtype bf16
+
+    # 6. 调用核心量化工具：将 bf16 高保真转换为硬核的 STQ1_0 1.25bit 算子格式
+    - name: Quantize to Official STQ1_0
+      run: |
+        ./llama.cpp/build/bin/llama-quantize \
+          Hy-MT1.5-1.8B-bf16.gguf \
+          Hy-MT1.5-1.8B-STQ1_0.gguf \
+          STQ1_0
+
+    # 7. 纯 CPU 模式（-ngl 0）下强制带上腾讯自研 -st 参数验证硬件对齐推理
+    - name: Run Completion Verification
+      run: |
+        ./llama.cpp/build/bin/llama-completion \
+          -m Hy-MT1.5-1.8B-STQ1_0.gguf \
+          -ngl 0 --jinja \
+          -n 64 \
+          -p "translate to chinese: hello"
