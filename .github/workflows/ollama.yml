@@ -1,6 +1,6 @@
 name: Ollama Single Test
 
-# 彻底禁用自动触发
+# 彻底禁用 Push 触发，仅保留手动触发
 on:
   workflow_dispatch:
 
