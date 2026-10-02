@@ -1,4 +1,4 @@
-name: Test Ollama Single Prompt (Pure Template)
+name: Ollama kaelri Local Translation
 
 on:
   push:
@@ -7,13 +7,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-ollama:
+  ollama-translate:
     runs-on: ubuntu-latest
     steps:
       - name: 1. Checkout
         uses: actions/checkout@v4
 
-      - name: 2. Setup Python
+      - name: 2. Setup Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
@@ -30,16 +30,16 @@ jobs:
           echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
           ollama pull kaelri/hy-mt2:1.8b
 
-      - name: 5. 运行纯内联单句测试
+      - name: 5. 运行 Ollama 端侧翻译
         run: |
           python -c "
           from ollama import chat
 
-          print('=== 向 Ollama kaelri/hy-mt2:1.8b 发送单句翻译请求 ===')
+          print('=== 向 Ollama kaelri/hy-mt2:1.8b 发送翻译请求 ===')
           response = chat(
               model='kaelri/hy-mt2:1.8b',
               messages=[{'role': 'user', 'content': '将以下文本翻译成英语：今天天气真好。'}]
           )
-          print('=== Ollama 单句测试翻译结果 ===')
+          print('=== Ollama 端侧翻译结果 ===')
           print(response.message.content)
           "
