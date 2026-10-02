@@ -1,12 +1,16 @@
-name: AngelSlim 400MB Local Translation (Disabled Auto-Trigger)
+name: AngelSlim 400MB Local Translation
 
-# 仅保留手动触发，禁止自动 Push 触发
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   hymt2-translate:
     runs-on: ubuntu-latest
+    # 关键字精控拦截：只有当 Commit Message 包含 [run hymt2] 关键字，或者是手动点击时才真正触发运行！
+    if: contains(github.event.head_commit.message, '[run hymt2]') || github.event_name == 'workflow_dispatch'
     steps:
       - name: 1. Checkout
         uses: actions/checkout@v4

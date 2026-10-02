@@ -9,6 +9,8 @@ on:
 jobs:
   ollama-translate:
     runs-on: ubuntu-latest
+    # 关键字精控拦截：只有当 Commit Message 包含 [run ollama] 关键字，或者是手动点击时才真正触发运行！
+    if: contains(github.event.head_commit.message, '[run ollama]') || github.event_name == 'workflow_dispatch'
     steps:
       - name: 1. Checkout
         uses: actions/checkout@v4
