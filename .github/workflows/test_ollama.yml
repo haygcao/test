@@ -1,4 +1,4 @@
-name: Test Ollama Hy-MT2 Model (100% 遵照 kaelri/hy-mt2 规范)
+name: Test Ollama Single Prompt (Pure Template)
 
 on:
   push:
@@ -23,23 +23,23 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 专属适配模型
+      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 专属模型
         run: |
           ollama serve &
           sleep 5
-          echo "=== 拉取 Ollama 专属模板适配模型 kaelri/hy-mt2:1.8b ==="
+          echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
           ollama pull kaelri/hy-mt2:1.8b
 
-      - name: 5. 运行 Ollama 翻译测试
+      - name: 5. 运行纯内联单句测试
         run: |
           python -c "
           from ollama import chat
 
-          print('=== 向 Ollama kaelri/hy-mt2:1.8b 发送翻译请求 ===')
+          print('=== 向 Ollama kaelri/hy-mt2:1.8b 发送单句翻译请求 ===')
           response = chat(
               model='kaelri/hy-mt2:1.8b',
               messages=[{'role': 'user', 'content': '将以下文本翻译成英语：今天天气真好。'}]
           )
-          print('=== Ollama 翻译结果 ===')
+          print('=== Ollama 单句测试翻译结果 ===')
           print(response.message.content)
           "
