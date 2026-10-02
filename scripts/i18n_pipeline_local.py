@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 scripts/i18n_pipeline_local.py
-遵循 AngelSlim 官方规范，通过 Engine 装载 AngelSlim 内核模型，并自动保证 Flutter 本地化 base-locale 兜底文件
+全量 ARB 本地化翻译脚本 (AngelSlim 400MB 端侧模型)
 """
 
 import json
@@ -19,7 +19,7 @@ L10N_DIR = os.path.join(PROJECT_ROOT, "lib", "l10n")
 LANG_DATA_FILE = os.path.join(PROJECT_ROOT, "lib", "features", "language", "language_data.dart")
 BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 
-MODEL_PATH = "AngelSlim/HY-1.8B-2Bit"
+MODEL_PATH = "./hymt2_model"
 
 slim_engine = None
 model = None
@@ -27,18 +27,17 @@ tokenizer = None
 
 
 def log(msg: str):
-    print(f"[i18n-Local-AngelSlim] {msg}", flush=True)
+    print(f"[i18n-AngelSlim-Pipeline] {msg}", flush=True)
 
 
 def init_hymt2_model():
-    """按 AngelSlim 规范初始化 prepare_model，并提取 AngelSlim 内核修饰后的 model 与 tokenizer"""
+    """初始化 AngelSlim 400MB 端侧模型与分词器"""
     global slim_engine, model, tokenizer
-    log(f"通过 AngelSlim Engine 加载模型: {MODEL_PATH}")
+    log(f"通过 AngelSlim Engine 载入本地克隆 400MB 端侧模型: {MODEL_PATH}")
 
     slim_engine = Engine()
     slim_engine.prepare_model(model_name="HunyuanDense", model_path=MODEL_PATH)
 
-    # 从 AngelSlim SlimModel 中提取已经过量化算子修饰的底层 PyTorch 模型与分词器
     if hasattr(slim_engine, "slim_model") and slim_engine.slim_model:
         model = getattr(slim_engine.slim_model, "model", slim_engine.slim_model)
         tokenizer = getattr(slim_engine.slim_model, "tokenizer", None)
@@ -46,21 +45,31 @@ def init_hymt2_model():
     if not tokenizer:
         tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
 
-    log("✅ 腾讯混元 2Bit 模型与分词器已成功通过 AngelSlim 框架初始化就绪！")
+    log("✅ 400MB 端侧模型与分词器就绪！")
 
 
 def translate_text_with_hymt2(text: str, target_lang: str) -> str:
-    """使用 AngelSlim 算子修饰后的模型进行标准 generate 推理"""
-    prompt = f"Translate to {target_lang}: {text}"
-    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    """100% 遵照官方规范推理并自动剥离思维链标签"""
+    prompt = f"Translate the following text into {target_lang}. Note that you should only output the translated result without any additional explanation:\n\n{text}"
+    messages = [{"role": "user", "content": prompt}]
+
+    inputs = tokenizer.apply_chat_template(
+        messages,
+        add_generation_prompt=True,
+        return_tensors="pt"
+    ).to(model.device)
 
     with torch.no_grad():
         outputs = model.generate(**inputs, max_new_tokens=256, do_sample=False)
 
-    translated = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    if prompt in translated:
-        translated = translated.replace(prompt, "").strip()
-    return translated.strip()
+    raw_output = tokenizer.decode(outputs[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True)
+
+    if "<answer>" in raw_output and "</answer>" in raw_output:
+        raw_output = raw_output.split("<answer>")[-1].split("</answer>")[0].strip()
+    elif "</think>" in raw_output:
+        raw_output = raw_output.split("</think>")[-1].strip()
+
+    return raw_output.strip()
 
 
 def load_arb(path: str) -> dict:
@@ -74,15 +83,13 @@ def load_arb(path: str) -> dict:
 
 
 def save_arb_with_fallback(path: str, data: dict, target_locale: str):
-    """写回 ARB 文件，并自动处理 Flutter 要求的 base-locale 基础兜底文件 (如 app_hu_HU.arb -> app_hu.arb)"""
+    """写回 ARB 文件，并自动生成基础语言兜底文件 (如 app_hu_HU.arb -> app_hu.arb)"""
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
-    # 1. 写入目标 ARB 文件
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
-    # 2. 如果包含下划线 (如 hu_HU, zh_CN)，自动确保基础文件 app_hu.arb 存在，规避 Flutter gen-l10n 报错
     if "_" in target_locale:
         base_lang = target_locale.split("_")[0]
         base_arb_path = os.path.join(L10N_DIR, f"app_{base_lang}.arb")
@@ -92,7 +99,7 @@ def save_arb_with_fallback(path: str, data: dict, target_locale: str):
             with open(base_arb_path, "w", encoding="utf-8") as f:
                 json.dump(base_data, f, ensure_ascii=False, indent=2)
                 f.write("\n")
-            log(f"💡 自动生成 Flutter gen-l10n 所需的 Base Fallback 文件: app_{base_lang}.arb")
+            log(f"💡 自动生成 Base Fallback 文件: app_{base_lang}.arb")
 
 
 def sanitize_and_deduplicate_arb(data: dict) -> dict:
@@ -145,7 +152,7 @@ def process_language_task_local(target_locale: str, baseline_data: dict):
         log(f"✅ 语言 `{target_locale}` 数据完备。")
         return
 
-    log(f"🌐 [AngelSlim 框架推理] 语言 `{target_locale}` 开始翻译 {len(need_translation)} 个词条...")
+    log(f"🌐 [AngelSlim 推理] 语言 `{target_locale}` 开始翻译修补 {len(need_translation)} 个词条...")
 
     translated_count = 0
     for key, en_text in need_translation.items():
@@ -198,7 +205,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("==========================================")
-    log("  腾讯混元 2Bit 官方 AngelSlim 框架推理管道启动")
+    log("  AngelSlim 400MB 端侧全量 ARB 检修与翻译管道")
     log("==========================================")
 
     init_hymt2_model()
@@ -216,7 +223,7 @@ def main():
         log("⚠️ 未解析到语言配置。")
         sys.exit(0)
 
-    log(f"🚀 开始调用本地 AngelSlim 2Bit 模型处理 {len(target_locales)} 个语言...")
+    log(f"🚀 开始调用 AngelSlim 400MB 模型处理 {len(target_locales)} 个语言...")
 
     for locale in target_locales:
         if locale.startswith("en"):
@@ -224,7 +231,7 @@ def main():
         process_language_task_local(locale, baseline_data)
 
     log("==========================================")
-    log("✅ 本地 AngelSlim 智能增量翻译全套完成！")
+    log("✅ AngelSlim 全量 ARB 翻译全套完成！")
     log("==========================================")
 
 
