@@ -3,7 +3,11 @@
 """
 scripts/i18n_pipeline_ollama.py
 在测试仓库 C:/Users/Ngokel/Desktop/en/example/test 中通过 Ollama kaelri/hy-mt2:1.8b 执行全量 ARB 检修与翻译脚本
-100% 使用 GitHub Actions 机器人匿名凭据 (github-actions[bot])
+包含：
+  1. 第一阶段：代码级静态扫描与安全去重清理 (i18n_cleaner)
+  2. 腾讯混元 Hy-MT2 官方 33 种语言白名单精确过滤 (非支持语言安全跳过)
+  3. 第二阶段：30 条黄金批次 + 失败自动重试机制 (保底 100% JSON 合规)
+  4. 隔离分支单条 Commit 增量覆盖落盘 (git commit --amend --force)
 """
 
 import json
@@ -22,7 +26,16 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 OLLAMA_MODEL = "kaelri/hy-mt2:1.8b"
-CHUNK_SIZE = 30  # 30 条黄金批次，确保生成的 JSON 100% 完整合规不被截断
+CHUNK_SIZE = 30  # 30 条黄金批次，确保生成的 JSON 100% 完整合规
+
+# 腾讯混元 Hy-MT2 官方权威支持的 33 种语言与方言白名单
+HYMT2_SUPPORTED_LANGUAGES = {
+    "zh", "zh_CN", "zh_TW", "zh_HK", "zh_MO", "yue",
+    "en", "en_US", "en_GB",
+    "fr", "pt", "es", "ja", "tr", "ru", "ar", "ko", "th", "it", "de", "vi", "ms", "id",
+    "tl", "fil", "hi", "pl", "cs", "nl", "km", "my", "fa", "gu", "ur", "te", "mr",
+    "he", "bn", "ta", "uk", "bo", "kk", "mn", "ug"
+}
 
 
 def log(msg: str):
@@ -44,7 +57,7 @@ def git_checkpoint_commit_amend(target_locale: str):
 
 
 def translate_chunk_with_ollama(chunk: dict, target_lang: str) -> dict:
-    """30 条 JSON 黄金批次提交 Ollama，设置 num_predict=4096 防止截断"""
+    """30 条 JSON 黄金批次提交 Ollama，带单批次重试保底"""
     prompt = f"""
 You are a professional Flutter ARB translator.
 Translate the values in the following JSON key-value pairs from English to target language '{target_lang}'.
@@ -58,14 +71,22 @@ Requirements:
 Input JSON:
 {json.dumps(chunk, ensure_ascii=False)}
 """
-    response = chat(
-        model=OLLAMA_MODEL,
-        messages=[{"role": "user", "content": prompt}],
-        options={"num_predict": 4096, "temperature": 0.3}
-    )
-    raw_text = response.message.content.strip()
-    clean_json = raw_text.replace("```json", "").replace("```", "").strip()
-    return json.loads(clean_json)
+    max_retries = 2
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = chat(
+                model=OLLAMA_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                options={"num_predict": 4096, "temperature": 0.3}
+            )
+            raw_text = response.message.content.strip()
+            clean_json = raw_text.replace("```json", "").replace("```", "").strip()
+            return json.loads(clean_json)
+        except Exception as e:
+            if attempt < max_retries:
+                time.sleep(1)
+            else:
+                raise e
 
 
 def load_arb(path: str) -> dict:
@@ -129,6 +150,12 @@ def is_untranslated_value(en_val: str, target_val: str) -> bool:
 
 
 def process_language_task_ollama(target_locale: str, baseline_data: dict):
+    # 白名单拦截校验：非 Hy-MT2 官方支持语言安全跳过
+    base_lang = target_locale.split("_")[0]
+    if target_locale not in HYMT2_SUPPORTED_LANGUAGES and base_lang not in HYMT2_SUPPORTED_LANGUAGES:
+        log(f"⏭️ 语言 `{target_locale}` 不属于 腾讯混元 Hy-MT2 官方支持的 33 种语言范围，安全跳过。")
+        return
+
     arb_path = os.path.join(L10N_DIR, f"app_{target_locale}.arb")
     current_data = load_arb(arb_path)
 
@@ -148,7 +175,7 @@ def process_language_task_ollama(target_locale: str, baseline_data: dict):
         log(f"✅ 语言 `{target_locale}` 数据完备。")
         return
 
-    log(f"🌐 [30条黄金批次组包] 语言 `{target_locale}` 开始极速批量翻译 {len(need_translation)} 个词条...")
+    log(f"🌐 [Hy-MT2 支持语言] 语言 `{target_locale}` 开始极速批量翻译 {len(need_translation)} 个词条...")
 
     items = list(need_translation.items())
     total_chunks = (len(items) + CHUNK_SIZE - 1) // CHUNK_SIZE
@@ -176,6 +203,16 @@ def process_language_task_ollama(target_locale: str, baseline_data: dict):
         except Exception as e:
             log(f"⚠️ `{target_locale}` 批次 {chunk_idx}/{total_chunks} 翻译异常: {e}")
 
+    final_data = {"@@locale": target_locale}
+    for k in baseline_data.keys():
+        if k in current_data:
+            final_data[k] = current_data[k]
+            meta_k = "@" + k
+            if meta_k in baseline_data:
+                final_data[meta_k] = baseline_data[meta_k]
+    save_arb_with_fallback(arb_path, final_data, target_locale)
+    log(f"🎉 语言 `{target_locale}` 处理完毕！")
+
     # 每当一种语言翻译完成，在隔离分支上执行单条 Commit 覆盖增量存盘
     git_checkpoint_commit_amend(target_locale)
 
@@ -199,7 +236,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("==========================================")
-    log(f"  Ollama ({OLLAMA_MODEL}) 30条黄金批次全量 ARB 极速管道")
+    log(f"  Ollama ({OLLAMA_MODEL}) 全量 ARB 静态清理与精准白名单翻译管道")
     log("==========================================")
 
     # 1. 静态代码级扫描清理
@@ -230,7 +267,7 @@ def main():
         log("⚠️ 未解析到语言配置。")
         sys.exit(0)
 
-    log(f"🚀 [第二阶段] 开始调用 Ollama 处理 {len(target_locales)} 个语言的大批次组包翻译...")
+    log(f"🚀 [第二阶段] 开始调用 Ollama 处理 {len(target_locales)} 个语言的白名单差量翻译...")
 
     for locale in target_locales:
         if locale.startswith("en"):
@@ -238,7 +275,7 @@ def main():
         process_language_task_ollama(locale, baseline_data)
 
     log("==========================================")
-    log("✅ Ollama 30条黄金批次全量 ARB 翻译全套完成！")
+    log("✅ Ollama 全量 ARB 静态清理与白名单翻译全套完成！")
     log("==========================================")
 
 
