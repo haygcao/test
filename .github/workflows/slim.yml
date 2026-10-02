@@ -1,11 +1,11 @@
-name: AngelSlim 400MB Local Translation (Disabled)
+name: Slim Single Test
 
-# 彻底禁用 Slim 自动触发，永不触发任何 Push
+# 彻底禁用 Slim 自动触发
 on:
   workflow_dispatch:
 
 jobs:
-  hymt2-translate:
+  slim-single-test:
     runs-on: ubuntu-latest
     steps:
       - name: 1. Checkout

@@ -1,4 +1,4 @@
-name: Ollama kaelri Local Translation
+name: Ollama Single Test
 
 on:
   push:
@@ -7,9 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  ollama-translate:
+  ollama-single-test:
     runs-on: ubuntu-latest
-    # 唯一精控触发词 [run-ollama]
     if: contains(github.event.head_commit.message, '[run-ollama]') || github.event_name == 'workflow_dispatch'
     steps:
       - name: 1. Checkout
@@ -32,7 +31,7 @@ jobs:
           echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
           ollama pull kaelri/hy-mt2:1.8b
 
-      - name: 5. 运行 Ollama 端侧翻译
+      - name: 5. 运行 Ollama 端侧单句翻译测试
         run: |
           python -c "
           from ollama import chat
@@ -42,6 +41,6 @@ jobs:
               model='kaelri/hy-mt2:1.8b',
               messages=[{'role': 'user', 'content': '将以下文本翻译成英语：今天天气真好。'}]
           )
-          print('=== Ollama 端侧翻译结果 ===')
+          print('=== Ollama 单句翻译测试结果 ===')
           print(response.message.content)
           "
