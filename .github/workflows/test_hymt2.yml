@@ -1,4 +1,4 @@
-name: Test AngelSlim 400MB Model (100% 遵照 AngelSlim 400MB 规范)
+name: Test AngelSlim 400MB Full i18n Pipeline
 
 on:
   push:
@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-hymt2:
+  test-hymt2-pipeline:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Checkout
+      - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
 
       - name: 2. Setup Python
@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 3. 遵照官方 README 递归克隆 AngelSlim (--recursive 拉取包含 qat 的子模块)
+      - name: 3. 遵照官方 README 递归克隆 AngelSlim 源码与依赖
         run: |
           python -m pip install --upgrade pip
           python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
@@ -26,39 +26,6 @@ jobs:
           git clone --recursive https://github.com/Tencent/AngelSlim.git /tmp/AngelSlim
           cd /tmp/AngelSlim && python -m pip install -e .
 
-      - name: 4. 载入 AngelSlim 400MB 极轻量端侧模型 (AngelSlim/HY-1.8B-2Bit)
+      - name: 4. 执行 AngelSlim 400MB 端侧全量 ARB 检修与本地化翻译
         run: |
-          python -c "
-          import torch
-          import angelslim
-          from angelslim.engine import Engine
-          from transformers import AutoTokenizer
-
-          model_path = 'AngelSlim/HY-1.8B-2Bit'
-          print(f'=== 载入 AngelSlim 400MB 端侧模型: {model_path} ===')
-
-          slim_engine = Engine()
-          slim_engine.prepare_model(model_name='HunyuanDense', model_path=model_path)
-
-          model = slim_engine.slim_model.model
-          tokenizer = getattr(slim_engine.slim_model, 'tokenizer', None) or AutoTokenizer.from_pretrained(model_path)
-
-          prompt = '将以下文本翻译成英语,注意只需要输出翻译后的结果,不要额外解释:\n\n今天天气真好。'
-          messages = [{'role': 'user', 'content': prompt}]
-
-          inputs = tokenizer.apply_chat_template(
-              messages,
-              add_generation_prompt=True,
-              return_tensors='pt'
-          ).to(model.device)
-
-          with torch.no_grad():
-              outputs = model.generate(
-                  **inputs,
-                  max_new_tokens=256,
-              )
-
-          response = tokenizer.decode(outputs[0][inputs['input_ids'].shape[-1]:], skip_special_tokens=True)
-          print('=== AngelSlim 400MB 模型运行 翻译结果 ===')
-          print(response)
-          "
+          python scripts/i18n_pipeline_local.py
