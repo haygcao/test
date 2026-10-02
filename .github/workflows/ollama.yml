@@ -1,15 +1,12 @@
-name: Ollama Single Test
+name: Ollama Single Test (Disabled Auto Trigger)
 
+# 彻底注销自动触发，仅保留手动触发按钮
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   ollama-single-test:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, '[run-ollama]') || github.event_name == 'workflow_dispatch'
     steps:
       - name: 1. Checkout
         uses: actions/checkout@v4
