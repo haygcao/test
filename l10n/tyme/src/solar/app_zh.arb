@@ -1,0 +1,299 @@
+{
+  "@@locale": "zh",
+  "solar_day_1_ri": "1日",
+  "@solar_day_1_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_ri": "2日",
+  "@solar_day_2_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_3_ri": "3日",
+  "@solar_day_3_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_4_ri": "4日",
+  "@solar_day_4_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_5_ri": "5日",
+  "@solar_day_5_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_6_ri": "6日",
+  "@solar_day_6_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_7_ri": "7日",
+  "@solar_day_7_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_8_ri": "8日",
+  "@solar_day_8_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_9_ri": "9日",
+  "@solar_day_9_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_0_ri": "10日",
+  "@solar_day_1_0_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_1_ri": "11日",
+  "@solar_day_1_1_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_2_ri": "12日",
+  "@solar_day_1_2_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_3_ri": "13日",
+  "@solar_day_1_3_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_4_ri": "14日",
+  "@solar_day_1_4_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_5_ri": "15日",
+  "@solar_day_1_5_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_6_ri": "16日",
+  "@solar_day_1_6_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_7_ri": "17日",
+  "@solar_day_1_7_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_8_ri": "18日",
+  "@solar_day_1_8_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_1_9_ri": "19日",
+  "@solar_day_1_9_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_0_ri": "20日",
+  "@solar_day_2_0_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_1_ri": "21日",
+  "@solar_day_2_1_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_2_ri": "22日",
+  "@solar_day_2_2_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_3_ri": "23日",
+  "@solar_day_2_3_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_4_ri": "24日",
+  "@solar_day_2_4_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_5_ri": "25日",
+  "@solar_day_2_5_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_6_ri": "26日",
+  "@solar_day_2_6_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_7_ri": "27日",
+  "@solar_day_2_7_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_8_ri": "28日",
+  "@solar_day_2_8_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_2_9_ri": "29日",
+  "@solar_day_2_9_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_3_0_ri": "30日",
+  "@solar_day_3_0_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_day_3_1_ri": "31日",
+  "@solar_day_3_1_ri": {
+    "description": "Extracted from src/solar/solar_day.dart"
+  },
+  "solar_half_year_shang_c_534a_nian_yr": "上半年",
+  "@solar_half_year_shang_c_534a_nian_yr": {
+    "description": "Extracted from src/solar/solar_half_year.dart"
+  },
+  "solar_half_year_c_4e0b_c_534a_nian_yr": "下半年",
+  "@solar_half_year_c_4e0b_c_534a_nian_yr": {
+    "description": "Extracted from src/solar/solar_half_year.dart"
+  },
+  "solar_month_1_yue": "1月",
+  "@solar_month_1_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_2_yue": "2月",
+  "@solar_month_2_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_3_yue": "3月",
+  "@solar_month_3_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_4_yue": "4月",
+  "@solar_month_4_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_5_yue": "5月",
+  "@solar_month_5_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_6_yue": "6月",
+  "@solar_month_6_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_7_yue": "7月",
+  "@solar_month_7_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_8_yue": "8月",
+  "@solar_month_8_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_9_yue": "9月",
+  "@solar_month_9_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_1_0_yue": "10月",
+  "@solar_month_1_0_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_1_1_yue": "11月",
+  "@solar_month_1_1_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_month_1_2_yue": "12月",
+  "@solar_month_1_2_yue": {
+    "description": "Extracted from src/solar/solar_month.dart"
+  },
+  "solar_season_yi_1_c_5b63_c_5ea6": "一季度",
+  "@solar_season_yi_1_c_5b63_c_5ea6": {
+    "description": "Extracted from src/solar/solar_season.dart"
+  },
+  "solar_season_er_c_5b63_c_5ea6": "二季度",
+  "@solar_season_er_c_5b63_c_5ea6": {
+    "description": "Extracted from src/solar/solar_season.dart"
+  },
+  "solar_season_san_c_5b63_c_5ea6": "三季度",
+  "@solar_season_san_c_5b63_c_5ea6": {
+    "description": "Extracted from src/solar/solar_season.dart"
+  },
+  "solar_season_si_4_c_5b63_c_5ea6": "四季度",
+  "@solar_season_si_4_c_5b63_c_5ea6": {
+    "description": "Extracted from src/solar/solar_season.dart"
+  },
+  "solar_term_dong_c_81f3": "冬至",
+  "@solar_term_dong_c_81f3": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5c0f_han": "小寒",
+  "@solar_term_c_5c0f_han": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5927_han": "大寒",
+  "@solar_term_c_5927_han": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_7acb_chun": "立春",
+  "@solar_term_c_7acb_chun": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_yu_shui": "雨水",
+  "@solar_term_yu_shui": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_60ca_c_86f0": "惊蛰",
+  "@solar_term_c_60ca_c_86f0": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_chun_fen": "春分",
+  "@solar_term_chun_fen": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_qing_ming": "清明",
+  "@solar_term_qing_ming": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_8c37_yu": "谷雨",
+  "@solar_term_c_8c37_yu": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_7acb_xia": "立夏",
+  "@solar_term_c_7acb_xia": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5c0f_c_6ee1": "小满",
+  "@solar_term_c_5c0f_c_6ee1": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_8292_c_79cd": "芒种",
+  "@solar_term_c_8292_c_79cd": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_xia_c_81f3": "夏至",
+  "@solar_term_xia_c_81f3": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5c0f_shu": "小暑",
+  "@solar_term_c_5c0f_shu": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5927_shu": "大暑",
+  "@solar_term_c_5927_shu": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_7acb_qiu": "立秋",
+  "@solar_term_c_7acb_qiu": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5904_shu": "处暑",
+  "@solar_term_c_5904_shu": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_767d_lu": "白露",
+  "@solar_term_c_767d_lu": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_qiu_fen": "秋分",
+  "@solar_term_qiu_fen": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_han_lu": "寒露",
+  "@solar_term_han_lu": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_shuang_c_964d": "霜降",
+  "@solar_term_shuang_c_964d": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_7acb_dong": "立冬",
+  "@solar_term_c_7acb_dong": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5c0f_c_96ea": "小雪",
+  "@solar_term_c_5c0f_c_96ea": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_term_c_5927_c_96ea": "大雪",
+  "@solar_term_c_5927_c_96ea": {
+    "description": "Extracted from src/solar/solar_term.dart"
+  },
+  "solar_year_y_e_a_r_nian_yr": "$year年",
+  "@solar_year_y_e_a_r_nian_yr": {
+    "description": "Extracted from src/solar/solar_year.dart"
+  }
+}

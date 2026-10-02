@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh",
+  "plum_rain_c_5165_mei": "入梅",
+  "@plum_rain_c_5165_mei": {
+    "description": "Extracted from src/culture/plumrain/plum_rain.dart"
+  },
+  "plum_rain_c_51fa_mei": "出梅",
+  "@plum_rain_c_51fa_mei": {
+    "description": "Extracted from src/culture/plumrain/plum_rain.dart"
+  }
+}

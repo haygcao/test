@@ -1,0 +1,1963 @@
+{
+  "@@locale": "zh",
+  "animal_jiao": "蛟",
+  "@animal_jiao": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_long": "龙",
+  "@animal_long": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_he": "貉",
+  "@animal_he": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_tu_animal": "兔",
+  "@animal_tu_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_hu": "狐",
+  "@animal_hu": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_hu_animal": "虎",
+  "@animal_hu_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_bao": "豹",
+  "@animal_bao": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_xie": "獬",
+  "@animal_xie": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_niu": "牛",
+  "@animal_niu": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_fu_animal": "蝠",
+  "@animal_fu_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_shu_animal": "鼠",
+  "@animal_shu_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_yan": "燕",
+  "@animal_yan": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_zhu": "猪",
+  "@animal_zhu": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_xu_animal": "獝",
+  "@animal_xu_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_lang": "狼",
+  "@animal_lang": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_gou": "狗",
+  "@animal_gou": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_zhi": "彘",
+  "@animal_zhi": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_ji_animal": "鸡",
+  "@animal_ji_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_wu_bird": "乌",
+  "@animal_wu_bird": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_hou": "猴",
+  "@animal_hou": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_yuan": "猿",
+  "@animal_yuan": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_an": "犴",
+  "@animal_an": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_yang_animal": "羊",
+  "@animal_yang_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_zhang": "獐",
+  "@animal_zhang": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_ma": "马",
+  "@animal_ma": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_lu_animal": "鹿",
+  "@animal_lu_animal": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_she": "蛇",
+  "@animal_she": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "animal_yin_worm": "蚓",
+  "@animal_yin_worm": {
+    "description": "Extracted from src/culture/animal.dart"
+  },
+  "beast_c_9752_long": "青龙",
+  "@beast_c_9752_long": {
+    "description": "Extracted from src/culture/beast.dart"
+  },
+  "beast_c_7384_c_6b66": "玄武",
+  "@beast_c_7384_c_6b66": {
+    "description": "Extracted from src/culture/beast.dart"
+  },
+  "beast_c_767d_hu_animal": "白虎",
+  "@beast_c_767d_hu_animal": {
+    "description": "Extracted from src/culture/beast.dart"
+  },
+  "beast_c_6731_c_96c0": "朱雀",
+  "@beast_c_6731_c_96c0": {
+    "description": "Extracted from src/culture/beast.dart"
+  },
+  "constellation_c_767d_yang_animal": "白羊",
+  "@constellation_c_767d_yang_animal": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_jin_niu": "金牛",
+  "@constellation_jin_niu": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_53cc_zi": "双子",
+  "@constellation_c_53cc_zi": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_5de8_c_87f9": "巨蟹",
+  "@constellation_c_5de8_c_87f9": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_72ee_zi": "狮子",
+  "@constellation_c_72ee_zi": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_5904_nv": "处女",
+  "@constellation_c_5904_nv": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_5929_c_79e4": "天秤",
+  "@constellation_c_5929_c_79e4": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_5929_c_874e": "天蝎",
+  "@constellation_c_5929_c_874e": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_5c04_c_624b": "射手",
+  "@constellation_c_5c04_c_624b": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_6469_c_7faf": "摩羯",
+  "@constellation_c_6469_c_7faf": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_shui_c_74f6": "水瓶",
+  "@constellation_shui_c_74f6": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "constellation_c_53cc_c_9c7c": "双鱼",
+  "@constellation_c_53cc_c_9c7c": {
+    "description": "Extracted from src/culture/constellation.dart"
+  },
+  "direction_bei_dir": "北",
+  "@direction_bei_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_xi_dir_nan_dir": "西南",
+  "@direction_xi_dir_nan_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_dong_dir": "东",
+  "@direction_dong_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_dong_dir_nan_dir": "东南",
+  "@direction_dong_dir_nan_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_zhong": "中",
+  "@direction_zhong": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_xi_dir_bei_dir": "西北",
+  "@direction_xi_dir_bei_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_xi_dir": "西",
+  "@direction_xi_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_dong_dir_bei_dir": "东北",
+  "@direction_dong_dir_bei_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "direction_nan_dir": "南",
+  "@direction_nan_dir": {
+    "description": "Extracted from src/culture/direction.dart"
+  },
+  "duty_c_5efa": "建",
+  "@duty_c_5efa": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_chu_eve": "除",
+  "@duty_chu_eve": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_6ee1": "满",
+  "@duty_c_6ee1": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_5e73": "平",
+  "@duty_c_5e73": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_5b9a": "定",
+  "@duty_c_5b9a": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_6267": "执",
+  "@duty_c_6267": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_7834": "破",
+  "@duty_c_7834": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_5371": "危",
+  "@duty_c_5371": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_6210": "成",
+  "@duty_c_6210": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_6536": "收",
+  "@duty_c_6536": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_5f00": "开",
+  "@duty_c_5f00": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "duty_c_95ed": "闭",
+  "@duty_c_95ed": {
+    "description": "Extracted from src/culture/duty.dart"
+  },
+  "element_mu": "木",
+  "@element_mu": {
+    "description": "Extracted from src/culture/element.dart"
+  },
+  "element_huo": "火",
+  "@element_huo": {
+    "description": "Extracted from src/culture/element.dart"
+  },
+  "element_tu": "土",
+  "@element_tu": {
+    "description": "Extracted from src/culture/element.dart"
+  },
+  "element_jin": "金",
+  "@element_jin": {
+    "description": "Extracted from src/culture/element.dart"
+  },
+  "element_shui": "水",
+  "@element_shui": {
+    "description": "Extracted from src/culture/element.dart"
+  },
+  "god_c_5929_c_6069": "天恩",
+  "@god_c_5929_c_6069": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_9e23_c_5420": "鸣吠",
+  "@god_c_9e23_c_5420": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6bcd_c_4ed3": "母仓",
+  "@god_c_6bcd_c_4ed3": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_4e0d_c_5c06": "不将",
+  "@god_c_4e0d_c_5c06": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_si_4_c_76f8": "四相",
+  "@god_si_4_c_76f8": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_9e23_c_5420_c_5bf9": "鸣吠对",
+  "@god_c_9e23_c_5420_c_5bf9": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_wu_5_c_5408": "五合",
+  "@god_wu_5_c_5408": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_san_c_5408": "三合",
+  "@god_san_c_5408": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_chu_eve_shen_god": "除神",
+  "@god_chu_eve_shen_god": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_5fb7": "月德",
+  "@god_yue_c_5fb7": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_7a7a": "月空",
+  "@god_yue_c_7a7a": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_5fb7_c_5408": "月德合",
+  "@god_yue_c_5fb7_c_5408": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_6069": "月恩",
+  "@god_yue_c_6069": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_shi_hr_yin_yy": "时阴",
+  "@god_shi_hr_yin_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_wu_5_c_5bcc": "五富",
+  "@god_wu_5_c_5bcc": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_751f_qi_term": "生气",
+  "@god_c_751f_qi_term": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_jin_c_532e": "金匮",
+  "@god_jin_c_532e": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_76f8_ri": "相日",
+  "@god_c_76f8_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_c_5fb7": "阴德",
+  "@god_yin_yy_c_5fb7": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_liu_c_5408": "六合",
+  "@god_liu_c_5408": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_76ca_c_540e": "益后",
+  "@god_c_76ca_c_540e": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_9752_long": "青龙",
+  "@god_c_9752_long": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_7eed_c_4e16": "续世",
+  "@god_c_7eed_c_4e16": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_ming_c_5802": "明堂",
+  "@god_ming_c_5802": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_738b_ri": "王日",
+  "@god_c_738b_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_8981_c_5b89": "要安",
+  "@god_c_8981_c_5b89": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5b98_ri": "官日",
+  "@god_c_5b98_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_ji_luck_c_671f": "吉期",
+  "@god_ji_luck_c_671f": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_798f_c_5fb7": "福德",
+  "@god_c_798f_c_5fb7": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_liu_c_4eea": "六仪",
+  "@god_liu_c_4eea": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_jin_c_5802": "金堂",
+  "@god_jin_c_5802": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5b9d_c_5149": "宝光",
+  "@god_c_5b9d_c_5149": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6c11_ri": "民日",
+  "@god_c_6c11_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_4e34_ri": "临日",
+  "@god_c_4e34_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_ma": "天马",
+  "@god_c_5929_ma": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_656c_c_5b89": "敬安",
+  "@god_c_656c_c_5b89": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_666e_c_62a4": "普护",
+  "@god_c_666e_c_62a4": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_9a7f_ma": "驿马",
+  "@god_c_9a7f_ma": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_540e": "天后",
+  "@god_c_5929_c_540e": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yang_yy_c_5fb7": "阳德",
+  "@god_yang_yy_c_5fb7": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_559c": "天喜",
+  "@god_c_5929_c_559c": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_533b": "天医",
+  "@god_c_5929_c_533b": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_53f8_c_547d": "司命",
+  "@god_c_53f8_c_547d": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5723_c_5fc3": "圣心",
+  "@god_c_5723_c_5fc3": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_7389_c_5b87": "玉宇",
+  "@god_c_7389_c_5b87": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5b88_ri": "守日",
+  "@god_c_5b88_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_shi_hr_c_5fb7": "时德",
+  "@god_shi_hr_c_5fb7": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_89e3_shen_god": "解神",
+  "@god_c_89e3_shen_god": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_shi_hr_yang_yy": "时阳",
+  "@god_shi_hr_yang_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_4ed3": "天仓",
+  "@god_c_5929_c_4ed3": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_5deb": "天巫",
+  "@god_c_5929_c_5deb": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_7389_c_5802": "玉堂",
+  "@god_c_7389_c_5802": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_798f_c_751f": "福生",
+  "@god_c_798f_c_751f": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_5fb7": "天德",
+  "@god_c_5929_c_5fb7": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_5fb7_c_5408": "天德合",
+  "@god_c_5929_c_5fb7_c_5408": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_613f": "天愿",
+  "@god_c_5929_c_613f": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_8d66": "天赦",
+  "@god_c_5929_c_8d66": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_7b26": "天符",
+  "@god_c_5929_c_7b26": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_shen_god": "阴神",
+  "@god_yin_yy_shen_god": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_89e3_chu_eve": "解除",
+  "@god_c_89e3_chu_eve": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_wu_5_c_865a": "五虚",
+  "@god_wu_5_c_865a": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_wu_5_c_79bb": "五离",
+  "@god_wu_5_c_79bb": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_chong_ri": "重日",
+  "@god_chong_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_590d_ri": "复日",
+  "@god_c_590d_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_8840_c_652f": "血支",
+  "@god_c_8840_c_652f": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_8d3c": "天贼",
+  "@god_c_5929_c_8d3c": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_tu_c_7b26": "土符",
+  "@god_tu_c_7b26": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6e38_c_7978": "游祸",
+  "@god_c_6e38_c_7978": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_767d_hu_animal": "白虎",
+  "@god_c_767d_hu_animal": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5c0f_c_8017": "小耗",
+  "@god_c_5c0f_c_8017": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_81f4_c_6b7b": "致死",
+  "@god_c_81f4_c_6b7b": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6cb3_c_9b41": "河魁",
+  "@god_c_6cb3_c_9b41": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_52ab_sha": "劫煞",
+  "@god_c_52ab_sha": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_sha": "月煞",
+  "@god_yue_sha": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_5efa": "月建",
+  "@god_yue_c_5efa": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5f80_c_4ea1": "往亡",
+  "@god_c_5f80_c_4ea1": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5927_shi_hr": "大时",
+  "@god_c_5927_shi_hr": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5927_c_8d25": "大败",
+  "@god_c_5927_c_8d25": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_54b8_c_6c60": "咸池",
+  "@god_c_54b8_c_6c60": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_538c_c_5bf9": "厌对",
+  "@god_c_538c_c_5bf9": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_62db_c_6447": "招摇",
+  "@god_c_62db_c_6447": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_jiu_c_574e": "九坎",
+  "@god_jiu_c_574e": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_jiu_c_7126": "九焦",
+  "@god_jiu_c_7126": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_7f61": "天罡",
+  "@god_c_5929_c_7f61": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6b7b_shen_god": "死神",
+  "@god_c_6b7b_shen_god": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_5bb3": "月害",
+  "@god_yue_c_5bb3": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6b7b_qi_term": "死气",
+  "@god_c_6b7b_qi_term": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_7834": "月破",
+  "@god_yue_c_7834": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5927_c_8017": "大耗",
+  "@god_c_5927_c_8017": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_7262": "天牢",
+  "@god_c_5929_c_7262": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yuan_fest_c_6b66": "元武",
+  "@god_yuan_fest_c_6b66": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_538c": "月厌",
+  "@god_yue_c_538c": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_865a": "月虚",
+  "@god_yue_c_865a": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5f52_ji_taboo": "归忌",
+  "@god_c_5f52_ji_taboo": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5c0f_shi_hr": "小时",
+  "@god_c_5c0f_shi_hr": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_5211": "天刑",
+  "@god_c_5929_c_5211": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6731_c_96c0": "朱雀",
+  "@god_c_6731_c_96c0": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_jiu_c_7a7a": "九空",
+  "@god_jiu_c_7a7a": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_c_540f": "天吏",
+  "@god_c_5929_c_540f": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5730_huo": "地火",
+  "@god_c_5730_huo": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_si_4_c_51fb": "四击",
+  "@god_si_4_c_51fb": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5927_sha": "大煞",
+  "@god_c_5927_sha": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_52fe_c_9648": "勾陈",
+  "@god_c_52fe_c_9648": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_ba_c_4e13": "八专",
+  "@god_ba_c_4e13": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_707e_sha": "灾煞",
+  "@god_c_707e_sha": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_huo": "天火",
+  "@god_c_5929_huo": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_8840_ji_taboo": "血忌",
+  "@god_c_8840_ji_taboo": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_tu_c_5e9c": "土府",
+  "@god_tu_c_5e9c": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yue_c_5211": "月刑",
+  "@god_yue_c_5211": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_89e6_shui_long": "触水龙",
+  "@god_c_89e6_shui_long": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5730_c_56ca": "地囊",
+  "@god_c_5730_c_56ca": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_ba_feng": "八风",
+  "@god_ba_feng": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_si_4_c_5e9f": "四废",
+  "@god_si_4_c_5e9f": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_si_4_ji_taboo": "四忌",
+  "@god_si_4_ji_taboo": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_si_4_c_7a77": "四穷",
+  "@god_si_4_c_7a77": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_wu_5_c_5893": "五墓",
+  "@god_wu_5_c_5893": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_c_9519": "阴错",
+  "@god_yin_yy_c_9519": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_si_4_c_8017": "四耗",
+  "@god_si_4_c_8017": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yang_yy_c_9519": "阳错",
+  "@god_yang_yy_c_9519": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5b64_chen": "孤辰",
+  "@god_c_5b64_chen": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5c0f_c_4f1a": "小会",
+  "@god_c_5c0f_c_4f1a": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5927_c_4f1a": "大会",
+  "@god_c_5927_c_4f1a": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_ba_long": "八龙",
+  "@god_ba_long": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_qi_fest_c_9e1f": "七鸟",
+  "@god_qi_fest_c_9e1f": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_jiu_hu_animal": "九虎",
+  "@god_jiu_hu_animal": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_liu_she": "六蛇",
+  "@god_liu_she": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5929_gou": "天狗",
+  "@god_c_5929_gou": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_884c_c_72e0": "行狠",
+  "@god_c_884c_c_72e0": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_4e86_c_623e": "了戾",
+  "@god_c_4e86_c_623e": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5c81_c_8584": "岁薄",
+  "@god_c_5c81_c_8584": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_9010_c_9635": "逐阵",
+  "@god_c_9010_c_9635": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_san_c_4e27": "三丧",
+  "@god_san_c_4e27": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_san_yin_yy": "三阴",
+  "@god_san_yin_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_c_9053_c_51b2_yang_yy": "阴道冲阳",
+  "@god_yin_yy_c_9053_c_51b2_yang_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_c_4f4d": "阴位",
+  "@god_yin_yy_c_4f4d": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_yang_yy_c_4ea4_c_7834": "阴阳交破",
+  "@god_yin_yy_yang_yy_c_4ea4_c_7834": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_yang_yy_c_4ff1_c_9519": "阴阳俱错",
+  "@god_yin_yy_yang_yy_c_4ff1_c_9519": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yin_yy_yang_yy_c_51fb_c_51b2": "阴阳击冲",
+  "@god_yin_yy_yang_yy_c_51fb_c_51b2": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_9b3c_c_54ed": "鬼哭",
+  "@god_c_9b3c_c_54ed": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5355_yin_yy": "单阴",
+  "@god_c_5355_yin_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_7edd_yin_yy": "绝阴",
+  "@god_c_7edd_yin_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_7eaf_yang_yy": "纯阳",
+  "@god_c_7eaf_yang_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yang_yy_c_9519_yin_yy_c_51b2": "阳错阴冲",
+  "@god_yang_yy_c_9519_yin_yy_c_51b2": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_qi_fest_c_7b26": "七符",
+  "@god_qi_fest_c_7b26": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_6210_ri": "成日",
+  "@god_c_6210_ri": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5b64_yang_yy": "孤阳",
+  "@god_c_5b64_yang_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_7edd_yang_yy": "绝阳",
+  "@god_c_7edd_yang_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_7eaf_yin_yy": "纯阴",
+  "@god_c_7eaf_yin_yy": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_c_5927_c_9000": "大退",
+  "@god_c_5927_c_9000": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_si_4_c_79bb": "四离",
+  "@god_si_4_c_79bb": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "god_yang_yy_c_7834_yin_yy_c_51b2": "阳破阴冲",
+  "@god_yang_yy_c_7834_yin_yy_c_51b2": {
+    "description": "Extracted from src/culture/god.dart"
+  },
+  "kitchen_god_steed_yi_1": "一",
+  "@kitchen_god_steed_yi_1": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_er": "二",
+  "@kitchen_god_steed_er": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_san": "三",
+  "@kitchen_god_steed_san": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_si_4": "四",
+  "@kitchen_god_steed_si_4": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_wu_5": "五",
+  "@kitchen_god_steed_wu_5": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_liu": "六",
+  "@kitchen_god_steed_liu": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_qi_fest": "七",
+  "@kitchen_god_steed_qi_fest": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_ba": "八",
+  "@kitchen_god_steed_ba": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_jiu": "九",
+  "@kitchen_god_steed_jiu": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_shi": "十",
+  "@kitchen_god_steed_shi": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_shi_yi_1": "十一",
+  "@kitchen_god_steed_shi_yi_1": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_shi_er": "十二",
+  "@kitchen_god_steed_shi_er": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_0_shu_animal_c_5077_c_7cae": "${_byEarthBranch(0)}鼠偷粮",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_0_shu_animal_c_5077_c_7cae": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_c_8349_zi_b_y_e_a_r_t_h_b_r_a_n_c_h_0_fen": "草子${_byEarthBranch(0)}分",
+  "@kitchen_god_steed_c_8349_zi_b_y_e_a_r_t_h_b_r_a_n_c_h_0_fen": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_1_niu_c_8015_c_7530": "${_byEarthBranch(1)}牛耕田",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_1_niu_c_8015_c_7530": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_c_82b1_c_6536_b_y_e_a_r_t_h_b_r_a_n_c_h_3_fen": "花收${_byEarthBranch(3)}分",
+  "@kitchen_god_steed_c_82b1_c_6536_b_y_e_a_r_t_h_b_r_a_n_c_h_3_fen": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_4_long_c_6cbb_shui": "${_byEarthBranch(4)}龙治水",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_4_long_c_6cbb_shui": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_6_ma_c_9a6e_c_8c37": "${_byEarthBranch(6)}马驮谷",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_6_ma_c_9a6e_c_8c37": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_9_ji_animal_c_62a2_c_7c73": "${_byEarthBranch(9)}鸡抢米",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_9_ji_animal_c_62a2_c_7c73": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_9_c_59d1_c_770b_c_8695": "${_byEarthBranch(9)}姑看蚕",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_9_c_59d1_c_770b_c_8695": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_1_1_c_5c60_c_5171_zhu": "${_byEarthBranch(11)}屠共猪",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_1_1_c_5c60_c_5171_zhu": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_jia_c_7530_b_y_h_e_a_v_e_n_s_t_e_m_0_fen": "甲田${_byHeavenStem(0)}分",
+  "@kitchen_god_steed_jia_c_7530_b_y_h_e_a_v_e_n_s_t_e_m_0_fen": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_h_e_a_v_e_n_s_t_e_m_2_c_4eba_fen_c_997c": "${_byHeavenStem(2)}人分饼",
+  "@kitchen_god_steed_b_y_h_e_a_v_e_n_s_t_e_m_2_c_4eba_fen_c_997c": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_h_e_a_v_e_n_s_t_e_m_7_ri_c_5f97_jin": "${_byHeavenStem(7)}日得金",
+  "@kitchen_god_steed_b_y_h_e_a_v_e_n_s_t_e_m_7_ri_c_5f97_jin": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_2_c_4eba_b_y_h_e_a_v_e_n_s_t_e_m_2_bing": "${_byEarthBranch(2)}人${_byHeavenStem(2)}丙",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_2_c_4eba_b_y_h_e_a_v_e_n_s_t_e_m_2_bing": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_2_c_4eba_b_y_h_e_a_v_e_n_s_t_e_m_3_c_9504": "${_byEarthBranch(2)}人${_byHeavenStem(3)}锄",
+  "@kitchen_god_steed_b_y_e_a_r_t_h_b_r_a_n_c_h_2_c_4eba_b_y_h_e_a_v_e_n_s_t_e_m_3_c_9504": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "kitchen_god_steed_c_7076_ma_tou": "灶马头",
+  "@kitchen_god_steed_c_7076_ma_tou": {
+    "description": "Extracted from src/culture/kitchen_god_steed.dart"
+  },
+  "land_c_7384_c_5929": "玄天",
+  "@land_c_7384_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_c_6731_c_5929": "朱天",
+  "@land_c_6731_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_c_82cd_c_5929": "苍天",
+  "@land_c_82cd_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_yang_yy_c_5929": "阳天",
+  "@land_yang_yy_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_c_94a7_c_5929": "钧天",
+  "@land_c_94a7_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_c_5e7d_c_5929": "幽天",
+  "@land_c_5e7d_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_c_98a2_c_5929": "颢天",
+  "@land_c_98a2_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_c_53d8_c_5929": "变天",
+  "@land_c_53d8_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "land_c_708e_c_5929": "炎天",
+  "@land_c_708e_c_5929": {
+    "description": "Extracted from src/culture/land.dart"
+  },
+  "luck_ji_luck": "吉",
+  "@luck_ji_luck": {
+    "description": "Extracted from src/culture/luck.dart"
+  },
+  "luck_xiong_luck": "凶",
+  "@luck_xiong_luck": {
+    "description": "Extracted from src/culture/luck.dart"
+  },
+  "phase_c_65b0_yue": "新月",
+  "@phase_c_65b0_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "phase_c_86fe_c_7709_yue": "蛾眉月",
+  "@phase_c_86fe_c_7709_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "phase_shang_c_5f26_yue": "上弦月",
+  "@phase_shang_c_5f26_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "phase_c_76c8_c_51f8_yue": "盈凸月",
+  "@phase_c_76c8_c_51f8_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "phase_c_6ee1_yue": "满月",
+  "@phase_c_6ee1_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "phase_c_4e8f_c_51f8_yue": "亏凸月",
+  "@phase_c_4e8f_c_51f8_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "phase_c_4e0b_c_5f26_yue": "下弦月",
+  "@phase_c_4e0b_c_5f26_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "phase_c_6b8b_yue": "残月",
+  "@phase_c_6b8b_yue": {
+    "description": "Extracted from src/culture/phase.dart"
+  },
+  "sixty_shang_yuan_fest": "上元",
+  "@sixty_shang_yuan_fest": {
+    "description": "Extracted from src/culture/sixty.dart"
+  },
+  "sixty_zhong_yuan_fest": "中元",
+  "@sixty_zhong_yuan_fest": {
+    "description": "Extracted from src/culture/sixty.dart"
+  },
+  "sixty_c_4e0b_yuan_fest": "下元",
+  "@sixty_c_4e0b_yuan_fest": {
+    "description": "Extracted from src/culture/sixty.dart"
+  },
+  "sound_c_6d77_zhong_jin": "海中金",
+  "@sound_c_6d77_zhong_jin": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_7089_zhong_huo": "炉中火",
+  "@sound_c_7089_zhong_huo": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5927_c_6797_mu": "大林木",
+  "@sound_c_5927_c_6797_mu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_8def_c_65c1_tu": "路旁土",
+  "@sound_c_8def_c_65c1_tu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5251_c_950b_jin": "剑锋金",
+  "@sound_c_5251_c_950b_jin": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5c71_tou_huo": "山头火",
+  "@sound_c_5c71_tou_huo": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_6da7_c_4e0b_shui": "涧下水",
+  "@sound_c_6da7_c_4e0b_shui": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_57ce_tou_tu": "城头土",
+  "@sound_c_57ce_tou_tu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_767d_c_8721_jin": "白蜡金",
+  "@sound_c_767d_c_8721_jin": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_6768_c_67f3_mu": "杨柳木",
+  "@sound_c_6768_c_67f3_mu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_6cc9_zhong_shui": "泉中水",
+  "@sound_c_6cc9_zhong_shui": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5c4b_shang_tu": "屋上土",
+  "@sound_c_5c4b_shang_tu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_9739_c_96f3_huo": "霹雳火",
+  "@sound_c_9739_c_96f3_huo": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_677e_c_67cf_mu": "松柏木",
+  "@sound_c_677e_c_67cf_mu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_957f_c_6d41_shui": "长流水",
+  "@sound_c_957f_c_6d41_shui": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_6c99_zhong_jin": "沙中金",
+  "@sound_c_6c99_zhong_jin": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5c71_c_4e0b_huo": "山下火",
+  "@sound_c_5c71_c_4e0b_huo": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5e73_c_5730_mu": "平地木",
+  "@sound_c_5e73_c_5730_mu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_58c1_shang_tu": "壁上土",
+  "@sound_c_58c1_shang_tu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_jin_c_7b94_jin": "金箔金",
+  "@sound_jin_c_7b94_jin": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_8986_c_706f_huo": "覆灯火",
+  "@sound_c_8986_c_706f_huo": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5929_c_6cb3_shui": "天河水",
+  "@sound_c_5929_c_6cb3_shui": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5927_c_9a7f_tu": "大驿土",
+  "@sound_c_5927_c_9a7f_tu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_9497_c_948f_jin": "钗钏金",
+  "@sound_c_9497_c_948f_jin": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_6851_c_67d8_mu": "桑柘木",
+  "@sound_c_6851_c_67d8_mu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5927_c_6eaa_shui": "大溪水",
+  "@sound_c_5927_c_6eaa_shui": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_6c99_zhong_tu": "沙中土",
+  "@sound_c_6c99_zhong_tu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5929_shang_huo": "天上火",
+  "@sound_c_5929_shang_huo": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_77f3_c_69b4_mu": "石榴木",
+  "@sound_c_77f3_c_69b4_mu": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "sound_c_5927_c_6d77_shui": "大海水",
+  "@sound_c_5927_c_6d77_shui": {
+    "description": "Extracted from src/culture/sound.dart"
+  },
+  "taboo_c_796d_c_7940": "祭祀",
+  "@taboo_c_796d_c_7940": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7948_c_798f": "祈福",
+  "@taboo_c_7948_c_798f": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6c42_c_55e3": "求嗣",
+  "@taboo_c_6c42_c_55e3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_5149": "开光",
+  "@taboo_c_5f00_c_5149": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5851_c_7ed8": "塑绘",
+  "@taboo_c_5851_c_7ed8": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9f50_c_91ae": "齐醮",
+  "@taboo_c_9f50_c_91ae": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_658b_c_91ae": "斋醮",
+  "@taboo_c_658b_c_91ae": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6c90_c_6d74": "沐浴",
+  "@taboo_c_6c90_c_6d74": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_916c_shen_god": "酬神",
+  "@taboo_c_916c_shen_god": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_5e99": "造庙",
+  "@taboo_c_9020_c_5e99": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7940_c_7076": "祀灶",
+  "@taboo_c_7940_c_7076": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_711a_c_9999": "焚香",
+  "@taboo_c_711a_c_9999": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8c22_tu": "谢土",
+  "@taboo_c_8c22_tu": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_51fa_huo": "出火",
+  "@taboo_c_51fa_huo": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_96d5_ke": "雕刻",
+  "@taboo_c_96d5_ke": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5ac1_c_5a36": "嫁娶",
+  "@taboo_c_5ac1_c_5a36": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8ba2_c_5a5a": "订婚",
+  "@taboo_c_8ba2_c_5a5a": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7eb3_c_91c7": "纳采",
+  "@taboo_c_7eb3_c_91c7": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_95ee_c_540d": "问名",
+  "@taboo_c_95ee_c_540d": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7eb3_c_5a7f": "纳婿",
+  "@taboo_c_7eb3_c_5a7f": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f52_c_5b81": "归宁",
+  "@taboo_c_5f52_c_5b81": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b89_c_5e8a": "安床",
+  "@taboo_c_5b89_c_5e8a": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5408_c_5e10": "合帐",
+  "@taboo_c_5408_c_5e10": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_51a0_c_7b04": "冠笄",
+  "@taboo_c_51a0_c_7b04": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8ba2_c_76df": "订盟",
+  "@taboo_c_8ba2_c_76df": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8fdb_c_4eba_c_53e3": "进人口",
+  "@taboo_c_8fdb_c_4eba_c_53e3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_88c1_c_8863": "裁衣",
+  "@taboo_c_88c1_c_8863": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_633d_c_9762": "挽面",
+  "@taboo_c_633d_c_9762": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_5bb9": "开容",
+  "@taboo_c_5f00_c_5bb9": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4fee_c_575f": "修坟",
+  "@taboo_c_4fee_c_575f": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_542f_c_94bb": "启钻",
+  "@taboo_c_542f_c_94bb": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7834_tu": "破土",
+  "@taboo_c_7834_tu": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b89_c_846c": "安葬",
+  "@taboo_c_5b89_c_846c": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7acb_c_7891": "立碑",
+  "@taboo_c_7acb_c_7891": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6210_c_670d": "成服",
+  "@taboo_c_6210_c_670d": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_chu_eve_c_670d": "除服",
+  "@taboo_chu_eve_c_670d": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_751f_c_575f": "开生坟",
+  "@taboo_c_5f00_c_751f_c_575f": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5408_c_5bff_mu": "合寿木",
+  "@taboo_c_5408_c_5bff_mu": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5165_c_6b93": "入殓",
+  "@taboo_c_5165_c_6b93": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_79fb_c_67e9": "移柩",
+  "@taboo_c_79fb_c_67e9": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_666e_c_6e21": "普渡",
+  "@taboo_c_666e_c_6e21": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5165_c_5b85": "入宅",
+  "@taboo_c_5165_c_5b85": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b89_c_9999": "安香",
+  "@taboo_c_5b89_c_9999": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b89_c_95e8": "安门",
+  "@taboo_c_5b89_c_95e8": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4fee_c_9020": "修造",
+  "@taboo_c_4fee_c_9020": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8d77_c_57fa": "起基",
+  "@taboo_c_8d77_c_57fa": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_52a8_tu": "动土",
+  "@taboo_c_52a8_tu": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_shang_c_6881": "上梁",
+  "@taboo_shang_c_6881": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7ad6_c_67f1": "竖柱",
+  "@taboo_c_7ad6_c_67f1": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_4e95_c_5f00_c_6c60": "开井开池",
+  "@taboo_c_5f00_c_4e95_c_5f00_c_6c60": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f5c_c_9642_c_653e_shui": "作陂放水",
+  "@taboo_c_4f5c_c_9642_c_653e_shui": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_62c6_c_5378": "拆卸",
+  "@taboo_c_62c6_c_5378": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7834_c_5c4b": "破屋",
+  "@taboo_c_7834_c_5c4b": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_574f_c_57a3": "坏垣",
+  "@taboo_c_574f_c_57a3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8865_c_57a3": "补垣",
+  "@taboo_c_8865_c_57a3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f10_mu_c_505a_c_6881": "伐木做梁",
+  "@taboo_c_4f10_mu_c_505a_c_6881": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f5c_c_7076": "作灶",
+  "@taboo_c_4f5c_c_7076": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_89e3_chu_eve": "解除",
+  "@taboo_c_89e3_chu_eve": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_67f1_c_773c": "开柱眼",
+  "@taboo_c_5f00_c_67f1_c_773c": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7a7f_c_5c4f_c_6247_c_67b6": "穿屏扇架",
+  "@taboo_c_7a7f_c_5c4f_c_6247_c_67b6": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_76d6_c_5c4b_c_5408_c_810a": "盖屋合脊",
+  "@taboo_c_76d6_c_5c4b_c_5408_c_810a": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_5395": "开厕",
+  "@taboo_c_5f00_c_5395": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_4ed3": "造仓",
+  "@taboo_c_9020_c_4ed3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_585e_c_7a74": "塞穴",
+  "@taboo_c_585e_c_7a74": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5e73_c_6cbb_c_9053_c_6d82": "平治道涂",
+  "@taboo_c_5e73_c_6cbb_c_9053_c_6d82": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_6865": "造桥",
+  "@taboo_c_9020_c_6865": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f5c_c_5395": "作厕",
+  "@taboo_c_4f5c_c_5395": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7b51_c_5824": "筑堤",
+  "@taboo_c_7b51_c_5824": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_6c60": "开池",
+  "@taboo_c_5f00_c_6c60": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f10_mu": "伐木",
+  "@taboo_c_4f10_mu": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_6e20": "开渠",
+  "@taboo_c_5f00_c_6e20": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6398_c_4e95": "掘井",
+  "@taboo_c_6398_c_4e95": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_626b_c_820d": "扫舍",
+  "@taboo_c_626b_c_820d": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_653e_shui": "放水",
+  "@taboo_c_653e_shui": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_5c4b": "造屋",
+  "@taboo_c_9020_c_5c4b": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5408_c_810a": "合脊",
+  "@taboo_c_5408_c_810a": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_755c_c_7a20": "造畜稠",
+  "@taboo_c_9020_c_755c_c_7a20": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4fee_c_95e8": "修门",
+  "@taboo_c_4fee_c_95e8": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b9a_c_78c9": "定磉",
+  "@taboo_c_5b9a_c_78c9": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f5c_c_6881": "作梁",
+  "@taboo_c_4f5c_c_6881": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4fee_c_9970_c_57a3_c_5899": "修饰垣墙",
+  "@taboo_c_4fee_c_9970_c_57a3_c_5899": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_67b6_ma": "架马",
+  "@taboo_c_67b6_ma": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_5e02": "开市",
+  "@taboo_c_5f00_c_5e02": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6302_c_533e": "挂匾",
+  "@taboo_c_6302_c_533e": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7eb3_c_8d22": "纳财",
+  "@taboo_c_7eb3_c_8d22": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6c42_c_8d22": "求财",
+  "@taboo_c_6c42_c_8d22": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f00_c_4ed3": "开仓",
+  "@taboo_c_5f00_c_4ed3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4e70_c_8f66": "买车",
+  "@taboo_c_4e70_c_8f66": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7f6e_c_4ea7": "置产",
+  "@taboo_c_7f6e_c_4ea7": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_96c7_c_4f63": "雇佣",
+  "@taboo_c_96c7_c_4f63": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_51fa_c_8d27_c_8d22": "出货财",
+  "@taboo_c_51fa_c_8d27_c_8d22": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b89_c_673a_c_68b0": "安机械",
+  "@taboo_c_5b89_c_673a_c_68b0": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_8f66_c_5668": "造车器",
+  "@taboo_c_9020_c_8f66_c_5668": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7ecf_c_7edc": "经络",
+  "@taboo_c_7ecf_c_7edc": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_915d_c_917f": "酝酿",
+  "@taboo_c_915d_c_917f": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f5c_c_67d3": "作染",
+  "@taboo_c_4f5c_c_67d3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9f13_c_94f8": "鼓铸",
+  "@taboo_c_9f13_c_94f8": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_8239": "造船",
+  "@taboo_c_9020_c_8239": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5272_c_871c": "割蜜",
+  "@taboo_c_5272_c_871c": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_683d_c_79cd": "栽种",
+  "@taboo_c_683d_c_79cd": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_53d6_c_6e14": "取渔",
+  "@taboo_c_53d6_c_6e14": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7ed3_c_7f51": "结网",
+  "@taboo_c_7ed3_c_7f51": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7267_c_517b": "牧养",
+  "@taboo_c_7267_c_517b": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b89_c_7893_c_78d1": "安碓磑",
+  "@taboo_c_5b89_c_7893_c_78d1": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4e60_c_827a": "习艺",
+  "@taboo_c_4e60_c_827a": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5165_c_5b66": "入学",
+  "@taboo_c_5165_c_5b66": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7406_c_53d1": "理发",
+  "@taboo_c_7406_c_53d1": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_63a2_c_75c5": "探病",
+  "@taboo_c_63a2_c_75c5": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_89c1_c_8d35": "见贵",
+  "@taboo_c_89c1_c_8d35": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4e58_c_8239": "乘船",
+  "@taboo_c_4e58_c_8239": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6e21_shui": "渡水",
+  "@taboo_c_6e21_shui": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9488_c_7078": "针灸",
+  "@taboo_c_9488_c_7078": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_51fa_c_884c": "出行",
+  "@taboo_c_51fa_c_884c": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_79fb_c_5f99": "移徙",
+  "@taboo_c_79fb_c_5f99": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_fen_c_5c45": "分居",
+  "@taboo_fen_c_5c45": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5243_tou": "剃头",
+  "@taboo_c_5243_tou": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6574_c_624b_c_8db3_jia": "整手足甲",
+  "@taboo_c_6574_c_624b_c_8db3_jia": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7eb3_c_755c": "纳畜",
+  "@taboo_c_7eb3_c_755c": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6355_c_6349": "捕捉",
+  "@taboo_c_6355_c_6349": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_754b_c_730e": "畋猎",
+  "@taboo_c_754b_c_730e": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6559_niu_ma": "教牛马",
+  "@taboo_c_6559_niu_ma": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f1a_c_4eb2_c_53cb": "会亲友",
+  "@taboo_c_4f1a_c_4eb2_c_53cb": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8d74_c_4efb": "赴任",
+  "@taboo_c_8d74_c_4efb": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6c42_c_533b": "求医",
+  "@taboo_c_6c42_c_533b": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6cbb_c_75c5": "治病",
+  "@taboo_c_6cbb_c_75c5": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8bcd_c_8bbc": "词讼",
+  "@taboo_c_8bcd_c_8bbc": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8d77_c_57fa_c_52a8_tu": "起基动土",
+  "@taboo_c_8d77_c_57fa_c_52a8_tu": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7834_c_5c4b_c_574f_c_57a3": "破屋坏垣",
+  "@taboo_c_7834_c_5c4b_c_574f_c_57a3": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_76d6_c_5c4b": "盖屋",
+  "@taboo_c_76d6_c_5c4b": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9020_c_4ed3_c_5e93": "造仓库",
+  "@taboo_c_9020_c_4ed3_c_5e93": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4ea4_c_6613": "交易",
+  "@taboo_c_4ea4_c_6613": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_7acb_c_5238": "立券",
+  "@taboo_c_7acb_c_5238": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5b89_c_673a": "安机",
+  "@taboo_c_5b89_c_673a": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_4f1a_c_53cb": "会友",
+  "@taboo_c_4f1a_c_53cb": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_6c42_c_533b_c_7597_c_75c5": "求医疗病",
+  "@taboo_c_6c42_c_533b_c_7597_c_75c5": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_8bf8_c_4e8b_c_4e0d_yi_fit": "诸事不宜",
+  "@taboo_c_8bf8_c_4e8b_c_4e0d_yi_fit": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_9980_c_4e8b_c_52ff_c_53d6": "馀事勿取",
+  "@taboo_c_9980_c_4e8b_c_52ff_c_53d6": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_884c_c_4e27": "行丧",
+  "@taboo_c_884c_c_4e27": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_65ad_c_8681": "断蚁",
+  "@taboo_c_65ad_c_8681": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "taboo_c_5f52_c_5cab": "归岫",
+  "@taboo_c_5f52_c_5cab": {
+    "description": "Extracted from src/culture/taboo.dart"
+  },
+  "ten_jia_zi": "甲子",
+  "@ten_jia_zi": {
+    "description": "Extracted from src/culture/ten.dart"
+  },
+  "ten_jia_xu": "甲戌",
+  "@ten_jia_xu": {
+    "description": "Extracted from src/culture/ten.dart"
+  },
+  "ten_jia_shen": "甲申",
+  "@ten_jia_shen": {
+    "description": "Extracted from src/culture/ten.dart"
+  },
+  "ten_jia_wu": "甲午",
+  "@ten_jia_wu": {
+    "description": "Extracted from src/culture/ten.dart"
+  },
+  "ten_jia_chen": "甲辰",
+  "@ten_jia_chen": {
+    "description": "Extracted from src/culture/ten.dart"
+  },
+  "ten_jia_yin": "甲寅",
+  "@ten_jia_yin": {
+    "description": "Extracted from src/culture/ten.dart"
+  },
+  "terrain_c_957f_c_751f": "长生",
+  "@terrain_c_957f_c_751f": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_6c90_c_6d74": "沐浴",
+  "@terrain_c_6c90_c_6d74": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_51a0_c_5e26": "冠带",
+  "@terrain_c_51a0_c_5e26": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_4e34_c_5b98": "临官",
+  "@terrain_c_4e34_c_5b98": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_5e1d_c_65fa": "帝旺",
+  "@terrain_c_5e1d_c_65fa": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_8870": "衰",
+  "@terrain_c_8870": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_75c5": "病",
+  "@terrain_c_75c5": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_6b7b": "死",
+  "@terrain_c_6b7b": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_5893": "墓",
+  "@terrain_c_5893": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_7edd": "绝",
+  "@terrain_c_7edd": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_80ce": "胎",
+  "@terrain_c_80ce": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "terrain_c_517b": "养",
+  "@terrain_c_517b": {
+    "description": "Extracted from src/culture/terrain.dart"
+  },
+  "twenty_yi_1_c_8fd0": "一运",
+  "@twenty_yi_1_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_er_c_8fd0": "二运",
+  "@twenty_er_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_san_c_8fd0": "三运",
+  "@twenty_san_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_si_4_c_8fd0": "四运",
+  "@twenty_si_4_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_wu_5_c_8fd0": "五运",
+  "@twenty_wu_5_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_liu_c_8fd0": "六运",
+  "@twenty_liu_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_qi_fest_c_8fd0": "七运",
+  "@twenty_qi_fest_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_ba_c_8fd0": "八运",
+  "@twenty_ba_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "twenty_jiu_c_8fd0": "九运",
+  "@twenty_jiu_c_8fd0": {
+    "description": "Extracted from src/culture/twenty.dart"
+  },
+  "week_ri": "日",
+  "@week_ri": {
+    "description": "Extracted from src/culture/week.dart"
+  },
+  "week_yi_1": "一",
+  "@week_yi_1": {
+    "description": "Extracted from src/culture/week.dart"
+  },
+  "week_er": "二",
+  "@week_er": {
+    "description": "Extracted from src/culture/week.dart"
+  },
+  "week_san": "三",
+  "@week_san": {
+    "description": "Extracted from src/culture/week.dart"
+  },
+  "week_si_4": "四",
+  "@week_si_4": {
+    "description": "Extracted from src/culture/week.dart"
+  },
+  "week_wu_5": "五",
+  "@week_wu_5": {
+    "description": "Extracted from src/culture/week.dart"
+  },
+  "week_liu": "六",
+  "@week_liu": {
+    "description": "Extracted from src/culture/week.dart"
+  },
+  "zodiac_shu_animal": "鼠",
+  "@zodiac_shu_animal": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_niu": "牛",
+  "@zodiac_niu": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_hu_animal": "虎",
+  "@zodiac_hu_animal": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_tu_animal": "兔",
+  "@zodiac_tu_animal": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_long": "龙",
+  "@zodiac_long": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_she": "蛇",
+  "@zodiac_she": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_ma": "马",
+  "@zodiac_ma": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_yang_animal": "羊",
+  "@zodiac_yang_animal": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_hou": "猴",
+  "@zodiac_hou": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_ji_animal": "鸡",
+  "@zodiac_ji_animal": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_gou": "狗",
+  "@zodiac_gou": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zodiac_zhu": "猪",
+  "@zodiac_zhu": {
+    "description": "Extracted from src/culture/zodiac.dart"
+  },
+  "zone_dong_dir": "东",
+  "@zone_dong_dir": {
+    "description": "Extracted from src/culture/zone.dart"
+  },
+  "zone_bei_dir": "北",
+  "@zone_bei_dir": {
+    "description": "Extracted from src/culture/zone.dart"
+  },
+  "zone_xi_dir": "西",
+  "@zone_xi_dir": {
+    "description": "Extracted from src/culture/zone.dart"
+  },
+  "zone_nan_dir": "南",
+  "@zone_nan_dir": {
+    "description": "Extracted from src/culture/zone.dart"
+  }
+}

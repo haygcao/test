@@ -1,0 +1,39 @@
+{
+  "@@locale": "zh",
+  "legal_holiday_yuan_fest_dan": "元旦",
+  "@legal_holiday_yuan_fest_dan": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_chun_jie": "春节",
+  "@legal_holiday_chun_jie": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_qing_ming_jie": "清明节",
+  "@legal_holiday_qing_ming_jie": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_c_52b3_c_52a8_jie": "劳动节",
+  "@legal_holiday_c_52b3_c_52a8_jie": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_duan_wu_jie": "端午节",
+  "@legal_holiday_duan_wu_jie": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_zhong_qiu_jie": "中秋节",
+  "@legal_holiday_zhong_qiu_jie": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_c_56fd_c_5e86_jie": "国庆节",
+  "@legal_holiday_c_56fd_c_5e86_jie": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_c_56fd_c_5e86_zhong_qiu": "国庆中秋",
+  "@legal_holiday_c_56fd_c_5e86_zhong_qiu": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  },
+  "legal_holiday_c_6297_c_6218_c_80dc_c_5229_ri": "抗战胜利日",
+  "@legal_holiday_c_6297_c_6218_c_80dc_c_5229_ri": {
+    "description": "Extracted from src/holiday/legal_holiday.dart"
+  }
+}

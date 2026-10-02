@@ -1,0 +1,351 @@
+{
+  "@@locale": "zh",
+  "earth_branch_zi": "子",
+  "@earth_branch_zi": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_chou": "丑",
+  "@earth_branch_chou": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_yin": "寅",
+  "@earth_branch_yin": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_mao": "卯",
+  "@earth_branch_mao": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_chen": "辰",
+  "@earth_branch_chen": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_si_fest": "巳",
+  "@earth_branch_si_fest": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_wu": "午",
+  "@earth_branch_wu": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_wei": "未",
+  "@earth_branch_wei": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_shen": "申",
+  "@earth_branch_shen": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_you": "酉",
+  "@earth_branch_you": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_xu": "戌",
+  "@earth_branch_xu": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "earth_branch_hai": "亥",
+  "@earth_branch_hai": {
+    "description": "Extracted from src/sixtycycle/earth_branch.dart"
+  },
+  "heaven_stem_jia": "甲",
+  "@heaven_stem_jia": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_yi": "乙",
+  "@heaven_stem_yi": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_bing": "丙",
+  "@heaven_stem_bing": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_ding": "丁",
+  "@heaven_stem_ding": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_wu_stem": "戊",
+  "@heaven_stem_wu_stem": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_ji": "己",
+  "@heaven_stem_ji": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_geng": "庚",
+  "@heaven_stem_geng": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_xin": "辛",
+  "@heaven_stem_xin": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_ren": "壬",
+  "@heaven_stem_ren": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "heaven_stem_gui": "癸",
+  "@heaven_stem_gui": {
+    "description": "Extracted from src/sixtycycle/heaven_stem.dart"
+  },
+  "hide_heaven_stem_day_g_e_t_n_a_m_e_c_7b2c_d_a_y_i_n_d_e_x_1_c_5929": "${getName()}第${dayIndex + 1}天",
+  "@hide_heaven_stem_day_g_e_t_n_a_m_e_c_7b2c_d_a_y_i_n_d_e_x_1_c_5929": {
+    "description": "Extracted from src/sixtycycle/hide_heaven_stem_day.dart"
+  },
+  "sixty_cycle_jia_zi": "甲子",
+  "@sixty_cycle_jia_zi": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_yi_chou": "乙丑",
+  "@sixty_cycle_yi_chou": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_bing_yin": "丙寅",
+  "@sixty_cycle_bing_yin": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ding_mao": "丁卯",
+  "@sixty_cycle_ding_mao": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_wu_stem_chen": "戊辰",
+  "@sixty_cycle_wu_stem_chen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ji_si_fest": "己巳",
+  "@sixty_cycle_ji_si_fest": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_geng_wu": "庚午",
+  "@sixty_cycle_geng_wu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_xin_wei": "辛未",
+  "@sixty_cycle_xin_wei": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ren_shen": "壬申",
+  "@sixty_cycle_ren_shen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_gui_you": "癸酉",
+  "@sixty_cycle_gui_you": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_jia_xu": "甲戌",
+  "@sixty_cycle_jia_xu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_yi_hai": "乙亥",
+  "@sixty_cycle_yi_hai": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_bing_zi": "丙子",
+  "@sixty_cycle_bing_zi": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ding_chou": "丁丑",
+  "@sixty_cycle_ding_chou": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_wu_stem_yin": "戊寅",
+  "@sixty_cycle_wu_stem_yin": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ji_mao": "己卯",
+  "@sixty_cycle_ji_mao": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_geng_chen": "庚辰",
+  "@sixty_cycle_geng_chen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_xin_si_fest": "辛巳",
+  "@sixty_cycle_xin_si_fest": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ren_wu": "壬午",
+  "@sixty_cycle_ren_wu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_gui_wei": "癸未",
+  "@sixty_cycle_gui_wei": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_jia_shen": "甲申",
+  "@sixty_cycle_jia_shen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_yi_you": "乙酉",
+  "@sixty_cycle_yi_you": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_bing_xu": "丙戌",
+  "@sixty_cycle_bing_xu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ding_hai": "丁亥",
+  "@sixty_cycle_ding_hai": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_wu_stem_zi": "戊子",
+  "@sixty_cycle_wu_stem_zi": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ji_chou": "己丑",
+  "@sixty_cycle_ji_chou": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_geng_yin": "庚寅",
+  "@sixty_cycle_geng_yin": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_xin_mao": "辛卯",
+  "@sixty_cycle_xin_mao": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ren_chen": "壬辰",
+  "@sixty_cycle_ren_chen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_gui_si_fest": "癸巳",
+  "@sixty_cycle_gui_si_fest": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_jia_wu": "甲午",
+  "@sixty_cycle_jia_wu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_yi_wei": "乙未",
+  "@sixty_cycle_yi_wei": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_bing_shen": "丙申",
+  "@sixty_cycle_bing_shen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ding_you": "丁酉",
+  "@sixty_cycle_ding_you": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_wu_stem_xu": "戊戌",
+  "@sixty_cycle_wu_stem_xu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ji_hai": "己亥",
+  "@sixty_cycle_ji_hai": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_geng_zi": "庚子",
+  "@sixty_cycle_geng_zi": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_xin_chou": "辛丑",
+  "@sixty_cycle_xin_chou": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ren_yin": "壬寅",
+  "@sixty_cycle_ren_yin": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_gui_mao": "癸卯",
+  "@sixty_cycle_gui_mao": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_jia_chen": "甲辰",
+  "@sixty_cycle_jia_chen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_yi_si_fest": "乙巳",
+  "@sixty_cycle_yi_si_fest": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_bing_wu": "丙午",
+  "@sixty_cycle_bing_wu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ding_wei": "丁未",
+  "@sixty_cycle_ding_wei": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_wu_stem_shen": "戊申",
+  "@sixty_cycle_wu_stem_shen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ji_you": "己酉",
+  "@sixty_cycle_ji_you": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_geng_xu": "庚戌",
+  "@sixty_cycle_geng_xu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_xin_hai": "辛亥",
+  "@sixty_cycle_xin_hai": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ren_zi": "壬子",
+  "@sixty_cycle_ren_zi": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_gui_chou": "癸丑",
+  "@sixty_cycle_gui_chou": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_jia_yin": "甲寅",
+  "@sixty_cycle_jia_yin": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_yi_mao": "乙卯",
+  "@sixty_cycle_yi_mao": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_bing_chen": "丙辰",
+  "@sixty_cycle_bing_chen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ding_si_fest": "丁巳",
+  "@sixty_cycle_ding_si_fest": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_wu_stem_wu": "戊午",
+  "@sixty_cycle_wu_stem_wu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ji_wei": "己未",
+  "@sixty_cycle_ji_wei": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_geng_shen": "庚申",
+  "@sixty_cycle_geng_shen": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_xin_you": "辛酉",
+  "@sixty_cycle_xin_you": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_ren_xu": "壬戌",
+  "@sixty_cycle_ren_xu": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_gui_hai": "癸亥",
+  "@sixty_cycle_gui_hai": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle.dart"
+  },
+  "sixty_cycle_day_d_a_y_ri": "$day日",
+  "@sixty_cycle_day_d_a_y_ri": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle_day.dart"
+  },
+  "sixty_cycle_hour_h_o_u_r_shi_hr": "$hour时",
+  "@sixty_cycle_hour_h_o_u_r_shi_hr": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle_hour.dart"
+  },
+  "sixty_cycle_month_m_o_n_t_h_yue": "$month月",
+  "@sixty_cycle_month_m_o_n_t_h_yue": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle_month.dart"
+  },
+  "sixty_cycle_year_g_e_t_s_i_x_t_y_c_y_c_l_e_nian_yr": "${getSixtyCycle()}年",
+  "@sixty_cycle_year_g_e_t_s_i_x_t_y_c_y_c_l_e_nian_yr": {
+    "description": "Extracted from src/sixtycycle/sixty_cycle_year.dart"
+  }
+}

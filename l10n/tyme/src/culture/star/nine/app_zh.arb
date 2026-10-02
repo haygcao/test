@@ -1,0 +1,103 @@
+{
+  "@@locale": "zh",
+  "dipper_c_5929_c_67a2": "天枢",
+  "@dipper_c_5929_c_67a2": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_5929_c_7487": "天璇",
+  "@dipper_c_5929_c_7487": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_5929_c_7391": "天玑",
+  "@dipper_c_5929_c_7391": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_5929_c_6743": "天权",
+  "@dipper_c_5929_c_6743": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_7389_c_8861": "玉衡",
+  "@dipper_c_7389_c_8861": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_5f00_yang_yy": "开阳",
+  "@dipper_c_5f00_yang_yy": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_6447_c_5149": "摇光",
+  "@dipper_c_6447_c_5149": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_6d1e_ming": "洞明",
+  "@dipper_c_6d1e_ming": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "dipper_c_9690_yuan_fest": "隐元",
+  "@dipper_c_9690_yuan_fest": {
+    "description": "Extracted from src/culture/star/nine/dipper.dart"
+  },
+  "nine_star_yi_1": "一",
+  "@nine_star_yi_1": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_er": "二",
+  "@nine_star_er": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_san": "三",
+  "@nine_star_san": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_si_4": "四",
+  "@nine_star_si_4": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_wu_5": "五",
+  "@nine_star_wu_5": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_liu": "六",
+  "@nine_star_liu": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_qi_fest": "七",
+  "@nine_star_qi_fest": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_ba": "八",
+  "@nine_star_ba": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_jiu": "九",
+  "@nine_star_jiu": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_c_767d": "白",
+  "@nine_star_c_767d": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_c_9ed1": "黑",
+  "@nine_star_c_9ed1": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_c_78a7": "碧",
+  "@nine_star_c_78a7": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_c_7eff": "绿",
+  "@nine_star_c_7eff": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_c_9ec4": "黄",
+  "@nine_star_c_9ec4": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_c_8d64": "赤",
+  "@nine_star_c_8d64": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  },
+  "nine_star_c_7d2b": "紫",
+  "@nine_star_c_7d2b": {
+    "description": "Extracted from src/culture/star/nine/nine_star.dart"
+  }
+}

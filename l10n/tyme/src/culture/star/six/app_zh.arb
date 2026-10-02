@@ -1,0 +1,27 @@
+{
+  "@@locale": "zh",
+  "six_star_c_5148_c_80dc": "先胜",
+  "@six_star_c_5148_c_80dc": {
+    "description": "Extracted from src/culture/star/six/six_star.dart"
+  },
+  "six_star_c_53cb_c_5f15": "友引",
+  "@six_star_c_53cb_c_5f15": {
+    "description": "Extracted from src/culture/star/six/six_star.dart"
+  },
+  "six_star_c_5148_c_8d1f": "先负",
+  "@six_star_c_5148_c_8d1f": {
+    "description": "Extracted from src/culture/star/six/six_star.dart"
+  },
+  "six_star_c_4f5b_c_706d": "佛灭",
+  "@six_star_c_4f5b_c_706d": {
+    "description": "Extracted from src/culture/star/six/six_star.dart"
+  },
+  "six_star_c_5927_c_5b89": "大安",
+  "@six_star_c_5927_c_5b89": {
+    "description": "Extracted from src/culture/star/six/six_star.dart"
+  },
+  "six_star_c_8d64_c_53e3": "赤口",
+  "@six_star_c_8d64_c_53e3": {
+    "description": "Extracted from src/culture/star/six/six_star.dart"
+  }
+}

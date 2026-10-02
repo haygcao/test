@@ -1,0 +1,27 @@
+{
+  "@@locale": "zh",
+  "week_unit_c_7b2c_yi_1_c_5468": "第一周",
+  "@week_unit_c_7b2c_yi_1_c_5468": {
+    "description": "Extracted from src/unit/week_unit.dart"
+  },
+  "week_unit_c_7b2c_er_c_5468": "第二周",
+  "@week_unit_c_7b2c_er_c_5468": {
+    "description": "Extracted from src/unit/week_unit.dart"
+  },
+  "week_unit_c_7b2c_san_c_5468": "第三周",
+  "@week_unit_c_7b2c_san_c_5468": {
+    "description": "Extracted from src/unit/week_unit.dart"
+  },
+  "week_unit_c_7b2c_si_4_c_5468": "第四周",
+  "@week_unit_c_7b2c_si_4_c_5468": {
+    "description": "Extracted from src/unit/week_unit.dart"
+  },
+  "week_unit_c_7b2c_wu_5_c_5468": "第五周",
+  "@week_unit_c_7b2c_wu_5_c_5468": {
+    "description": "Extracted from src/unit/week_unit.dart"
+  },
+  "week_unit_c_7b2c_liu_c_5468": "第六周",
+  "@week_unit_c_7b2c_liu_c_5468": {
+    "description": "Extracted from src/unit/week_unit.dart"
+  }
+}

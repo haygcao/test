@@ -1,0 +1,95 @@
+{
+  "@@locale": "zh",
+  "lunar_festival_chun_jie": "春节",
+  "@lunar_festival_chun_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_yuan_fest_xiao_jie": "元宵节",
+  "@lunar_festival_yuan_fest_xiao_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_long_tou_jie": "龙头节",
+  "@lunar_festival_long_tou_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_shang_si_fest_jie": "上巳节",
+  "@lunar_festival_shang_si_fest_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_qing_ming_jie": "清明节",
+  "@lunar_festival_qing_ming_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_duan_wu_jie": "端午节",
+  "@lunar_festival_duan_wu_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_qi_fest_xi_eve_jie": "七夕节",
+  "@lunar_festival_qi_fest_xi_eve_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_zhong_yuan_fest_jie": "中元节",
+  "@lunar_festival_zhong_yuan_fest_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_zhong_qiu_jie": "中秋节",
+  "@lunar_festival_zhong_qiu_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_chong_yang_yy_jie": "重阳节",
+  "@lunar_festival_chong_yang_yy_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_dong_c_81f3_jie": "冬至节",
+  "@lunar_festival_dong_c_81f3_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_la_ba_jie": "腊八节",
+  "@lunar_festival_la_ba_jie": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "lunar_festival_chu_eve_xi_eve": "除夕",
+  "@lunar_festival_chu_eve_xi_eve": {
+    "description": "Extracted from src/festival/lunar_festival.dart"
+  },
+  "solar_festival_yuan_fest_dan": "元旦",
+  "@solar_festival_yuan_fest_dan": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_5987_nv_jie": "妇女节",
+  "@solar_festival_c_5987_nv_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_690d_c_6811_jie": "植树节",
+  "@solar_festival_c_690d_c_6811_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_52b3_c_52a8_jie": "劳动节",
+  "@solar_festival_c_52b3_c_52a8_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_9752_nian_yr_jie": "青年节",
+  "@solar_festival_c_9752_nian_yr_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_513f_c_7ae5_jie": "儿童节",
+  "@solar_festival_c_513f_c_7ae5_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_5efa_c_515a_jie": "建党节",
+  "@solar_festival_c_5efa_c_515a_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_5efa_c_519b_jie": "建军节",
+  "@solar_festival_c_5efa_c_519b_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_6559_c_5e08_jie": "教师节",
+  "@solar_festival_c_6559_c_5e08_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  },
+  "solar_festival_c_56fd_c_5e86_jie": "国庆节",
+  "@solar_festival_c_56fd_c_5e86_jie": {
+    "description": "Extracted from src/festival/solar_festival.dart"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "@@locale": "zh",
+  "ecliptic_c_9ec4_c_9053": "黄道",
+  "@ecliptic_c_9ec4_c_9053": {
+    "description": "Extracted from src/culture/star/twelve/ecliptic.dart"
+  },
+  "ecliptic_c_9ed1_c_9053": "黑道",
+  "@ecliptic_c_9ed1_c_9053": {
+    "description": "Extracted from src/culture/star/twelve/ecliptic.dart"
+  },
+  "twelve_star_c_9752_long": "青龙",
+  "@twelve_star_c_9752_long": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_ming_c_5802": "明堂",
+  "@twelve_star_ming_c_5802": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_5929_c_5211": "天刑",
+  "@twelve_star_c_5929_c_5211": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_6731_c_96c0": "朱雀",
+  "@twelve_star_c_6731_c_96c0": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_jin_c_532e": "金匮",
+  "@twelve_star_jin_c_532e": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_5929_c_5fb7": "天德",
+  "@twelve_star_c_5929_c_5fb7": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_767d_hu_animal": "白虎",
+  "@twelve_star_c_767d_hu_animal": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_7389_c_5802": "玉堂",
+  "@twelve_star_c_7389_c_5802": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_5929_c_7262": "天牢",
+  "@twelve_star_c_5929_c_7262": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_7384_c_6b66": "玄武",
+  "@twelve_star_c_7384_c_6b66": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_53f8_c_547d": "司命",
+  "@twelve_star_c_53f8_c_547d": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  },
+  "twelve_star_c_52fe_c_9648": "勾陈",
+  "@twelve_star_c_52fe_c_9648": {
+    "description": "Extracted from src/culture/star/twelve/twelve_star.dart"
+  }
+}

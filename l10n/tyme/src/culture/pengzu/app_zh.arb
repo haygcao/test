@@ -1,0 +1,91 @@
+{
+  "@@locale": "zh",
+  "pengzu_earth_branch_zi_c_4e0d_c_95ee_c_535c_c_81ea_c_60f9_c_7978_c_6b83": "子不问卜自惹祸殃",
+  "@pengzu_earth_branch_zi_c_4e0d_c_95ee_c_535c_c_81ea_c_60f9_c_7978_c_6b83": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_chou_c_4e0d_c_51a0_c_5e26_c_4e3b_c_4e0d_c_8fd8_c_4e61": "丑不冠带主不还乡",
+  "@pengzu_earth_branch_chou_c_4e0d_c_51a0_c_5e26_c_4e3b_c_4e0d_c_8fd8_c_4e61": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_yin_c_4e0d_c_796d_c_7940_shen_god_c_9b3c_c_4e0d_c_5c1d": "寅不祭祀神鬼不尝",
+  "@pengzu_earth_branch_yin_c_4e0d_c_796d_c_7940_shen_god_c_9b3c_c_4e0d_c_5c1d": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_mao_c_4e0d_c_7a7f_c_4e95_shui_c_6cc9_c_4e0d_c_9999": "卯不穿井水泉不香",
+  "@pengzu_earth_branch_mao_c_4e0d_c_7a7f_c_4e95_shui_c_6cc9_c_4e0d_c_9999": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_chen_c_4e0d_c_54ed_c_6ce3_c_5fc5_c_4e3b_chong_c_4e27": "辰不哭泣必主重丧",
+  "@pengzu_earth_branch_chen_c_4e0d_c_54ed_c_6ce3_c_5fc5_c_4e3b_chong_c_4e27": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_si_fest_c_4e0d_c_8fdc_c_884c_c_8d22_c_7269_fu_c_85cf": "巳不远行财物伏藏",
+  "@pengzu_earth_branch_si_fest_c_4e0d_c_8fdc_c_884c_c_8d22_c_7269_fu_c_85cf": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_wu_c_4e0d_c_82eb_c_76d6_c_5c4b_c_4e3b_c_66f4_c_5f20": "午不苫盖屋主更张",
+  "@pengzu_earth_branch_wu_c_4e0d_c_82eb_c_76d6_c_5c4b_c_4e3b_c_66f4_c_5f20": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_wei_c_4e0d_c_670d_c_836f_c_6bd2_qi_term_c_5165_c_80a0": "未不服药毒气入肠",
+  "@pengzu_earth_branch_wei_c_4e0d_c_670d_c_836f_c_6bd2_qi_term_c_5165_c_80a0": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_shen_c_4e0d_c_5b89_c_5e8a_c_9b3c_c_795f_c_5165_c_623f": "申不安床鬼祟入房",
+  "@pengzu_earth_branch_shen_c_4e0d_c_5b89_c_5e8a_c_9b3c_c_795f_c_5165_c_623f": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_you_c_4e0d_c_4f1a_c_5ba2_c_9189_c_5750_c_98a0_c_72c2": "酉不会客醉坐颠狂",
+  "@pengzu_earth_branch_you_c_4e0d_c_4f1a_c_5ba2_c_9189_c_5750_c_98a0_c_72c2": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_xu_c_4e0d_c_5403_c_72ac_c_4f5c_c_602a_shang_c_5e8a": "戌不吃犬作怪上床",
+  "@pengzu_earth_branch_xu_c_4e0d_c_5403_c_72ac_c_4f5c_c_602a_shang_c_5e8a": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_earth_branch_hai_c_4e0d_c_5ac1_c_5a36_c_4e0d_c_5229_c_65b0_c_90ce": "亥不嫁娶不利新郎",
+  "@pengzu_earth_branch_hai_c_4e0d_c_5ac1_c_5a36_c_4e0d_c_5229_c_65b0_c_90ce": {
+    "description": "Extracted from src/culture/pengzu/pengzu_earth_branch.dart"
+  },
+  "pengzu_heaven_stem_jia_c_4e0d_c_5f00_c_4ed3_c_8d22_c_7269_c_8017_c_6563": "甲不开仓财物耗散",
+  "@pengzu_heaven_stem_jia_c_4e0d_c_5f00_c_4ed3_c_8d22_c_7269_c_8017_c_6563": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_yi_c_4e0d_c_683d_c_690d_c_5343_c_682a_c_4e0d_c_957f": "乙不栽植千株不长",
+  "@pengzu_heaven_stem_yi_c_4e0d_c_683d_c_690d_c_5343_c_682a_c_4e0d_c_957f": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_bing_c_4e0d_c_4fee_c_7076_c_5fc5_c_89c1_c_707e_c_6b83": "丙不修灶必见灾殃",
+  "@pengzu_heaven_stem_bing_c_4e0d_c_4fee_c_7076_c_5fc5_c_89c1_c_707e_c_6b83": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_ding_c_4e0d_c_5243_tou_tou_c_5fc5_c_751f_c_75ae": "丁不剃头头必生疮",
+  "@pengzu_heaven_stem_ding_c_4e0d_c_5243_tou_tou_c_5fc5_c_751f_c_75ae": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_wu_stem_c_4e0d_c_53d7_c_7530_c_7530_c_4e3b_c_4e0d_c_7965": "戊不受田田主不祥",
+  "@pengzu_heaven_stem_wu_stem_c_4e0d_c_53d7_c_7530_c_7530_c_4e3b_c_4e0d_c_7965": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_ji_c_4e0d_c_7834_c_5238_er_c_6bd4_c_5e76_c_4ea1": "己不破券二比并亡",
+  "@pengzu_heaven_stem_ji_c_4e0d_c_7834_c_5238_er_c_6bd4_c_5e76_c_4ea1": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_geng_c_4e0d_c_7ecf_c_7edc_c_7ec7_c_673a_c_865a_c_5f20": "庚不经络织机虚张",
+  "@pengzu_heaven_stem_geng_c_4e0d_c_7ecf_c_7edc_c_7ec7_c_673a_c_865a_c_5f20": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_xin_c_4e0d_c_5408_c_9171_c_4e3b_c_4eba_c_4e0d_c_5c1d": "辛不合酱主人不尝",
+  "@pengzu_heaven_stem_xin_c_4e0d_c_5408_c_9171_c_4e3b_c_4eba_c_4e0d_c_5c1d": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_ren_c_4e0d_c_6cf1_shui_c_66f4_c_96be_c_63d0_c_9632": "壬不泱水更难提防",
+  "@pengzu_heaven_stem_ren_c_4e0d_c_6cf1_shui_c_66f4_c_96be_c_63d0_c_9632": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  },
+  "pengzu_heaven_stem_gui_c_4e0d_c_8bcd_c_8bbc_c_7406_c_5f31_c_654c_c_5f3a": "癸不词讼理弱敌强",
+  "@pengzu_heaven_stem_gui_c_4e0d_c_8bcd_c_8bbc_c_7406_c_5f31_c_654c_c_5f3a": {
+    "description": "Extracted from src/culture/pengzu/pengzu_heaven_stem.dart"
+  }
+}

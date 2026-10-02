@@ -1,0 +1,27 @@
+{
+  "@@locale": "zh",
+  "minor_ren_c_5927_c_5b89": "大安",
+  "@minor_ren_c_5927_c_5b89": {
+    "description": "Extracted from src/culture/ren/minor_ren.dart"
+  },
+  "minor_ren_c_7559_c_8fde": "留连",
+  "@minor_ren_c_7559_c_8fde": {
+    "description": "Extracted from src/culture/ren/minor_ren.dart"
+  },
+  "minor_ren_c_901f_c_559c": "速喜",
+  "@minor_ren_c_901f_c_559c": {
+    "description": "Extracted from src/culture/ren/minor_ren.dart"
+  },
+  "minor_ren_c_8d64_c_53e3": "赤口",
+  "@minor_ren_c_8d64_c_53e3": {
+    "description": "Extracted from src/culture/ren/minor_ren.dart"
+  },
+  "minor_ren_c_5c0f_ji_luck": "小吉",
+  "@minor_ren_c_5c0f_ji_luck": {
+    "description": "Extracted from src/culture/ren/minor_ren.dart"
+  },
+  "minor_ren_c_7a7a_c_4ea1": "空亡",
+  "@minor_ren_c_7a7a_c_4ea1": {
+    "description": "Extracted from src/culture/ren/minor_ren.dart"
+  }
+}

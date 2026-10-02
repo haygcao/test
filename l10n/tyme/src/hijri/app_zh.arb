@@ -1,0 +1,175 @@
+{
+  "@@locale": "zh",
+  "hijri_day_1_ri": "1日",
+  "@hijri_day_1_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_ri": "2日",
+  "@hijri_day_2_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_3_ri": "3日",
+  "@hijri_day_3_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_4_ri": "4日",
+  "@hijri_day_4_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_5_ri": "5日",
+  "@hijri_day_5_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_6_ri": "6日",
+  "@hijri_day_6_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_7_ri": "7日",
+  "@hijri_day_7_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_8_ri": "8日",
+  "@hijri_day_8_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_9_ri": "9日",
+  "@hijri_day_9_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_0_ri": "10日",
+  "@hijri_day_1_0_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_1_ri": "11日",
+  "@hijri_day_1_1_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_2_ri": "12日",
+  "@hijri_day_1_2_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_3_ri": "13日",
+  "@hijri_day_1_3_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_4_ri": "14日",
+  "@hijri_day_1_4_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_5_ri": "15日",
+  "@hijri_day_1_5_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_6_ri": "16日",
+  "@hijri_day_1_6_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_7_ri": "17日",
+  "@hijri_day_1_7_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_8_ri": "18日",
+  "@hijri_day_1_8_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_1_9_ri": "19日",
+  "@hijri_day_1_9_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_0_ri": "20日",
+  "@hijri_day_2_0_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_1_ri": "21日",
+  "@hijri_day_2_1_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_2_ri": "22日",
+  "@hijri_day_2_2_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_3_ri": "23日",
+  "@hijri_day_2_3_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_4_ri": "24日",
+  "@hijri_day_2_4_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_5_ri": "25日",
+  "@hijri_day_2_5_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_6_ri": "26日",
+  "@hijri_day_2_6_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_7_ri": "27日",
+  "@hijri_day_2_7_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_8_ri": "28日",
+  "@hijri_day_2_8_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_2_9_ri": "29日",
+  "@hijri_day_2_9_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_day_3_0_ri": "30日",
+  "@hijri_day_3_0_ri": {
+    "description": "Extracted from src/hijri/hijri_day.dart"
+  },
+  "hijri_month_c_7a46_c_54c8_c_5170_c_59c6_yue": "穆哈兰姆月",
+  "@hijri_month_c_7a46_c_54c8_c_5170_c_59c6_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_8272_c_6cd5_c_5c14_yue": "色法尔月",
+  "@hijri_month_c_8272_c_6cd5_c_5c14_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_8d56_c_6bd4_c_5c14_c_6556_c_5916_c_9c81_yue": "赖比尔·敖外鲁月",
+  "@hijri_month_c_8d56_c_6bd4_c_5c14_c_6556_c_5916_c_9c81_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_8d56_c_6bd4_c_5c14_c_963f_c_8272_c_5c3c_yue": "赖比尔·阿色尼月",
+  "@hijri_month_c_8d56_c_6bd4_c_5c14_c_963f_c_8272_c_5c3c_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_4e3b_ma_c_8fbe_c_6556_c_5916_c_9c81_yue": "主马达·敖外鲁月",
+  "@hijri_month_c_4e3b_ma_c_8fbe_c_6556_c_5916_c_9c81_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_4e3b_ma_c_8fbe_c_963f_c_8272_c_5c3c_yue": "主马达·阿色尼月",
+  "@hijri_month_c_4e3b_ma_c_8fbe_c_963f_c_8272_c_5c3c_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_8d56_c_54f2_c_535c_yue": "赖哲卜月",
+  "@hijri_month_c_8d56_c_54f2_c_535c_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_820d_c_5c14_c_90a6_yue": "舍尔邦月",
+  "@hijri_month_c_820d_c_5c14_c_90a6_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_8d56_c_4e70_c_4e39_yue": "赖买丹月",
+  "@hijri_month_c_8d56_c_4e70_c_4e39_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_95ea_c_74e6_c_9c81_yue": "闪瓦鲁月",
+  "@hijri_month_c_95ea_c_74e6_c_9c81_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_90fd_c_5c14_c_5580_c_5c14_c_5fb7_yue": "都尔喀尔德月",
+  "@hijri_month_c_90fd_c_5c14_c_5580_c_5c14_c_5fb7_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_month_c_90fd_c_5c14_c_9ed1_c_54f2_yue": "都尔黑哲月",
+  "@hijri_month_c_90fd_c_5c14_c_9ed1_c_54f2_yue": {
+    "description": "Extracted from src/hijri/hijri_month.dart"
+  },
+  "hijri_year_y_e_a_r_nian_yr": "$year年",
+  "@hijri_year_y_e_a_r_nian_yr": {
+    "description": "Extracted from src/hijri/hijri_year.dart"
+  }
+}

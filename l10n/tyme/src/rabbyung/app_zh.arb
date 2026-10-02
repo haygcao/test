@@ -1,0 +1,255 @@
+{
+  "@@locale": "zh",
+  "rab_byung_day_chu_yi_1": "初一",
+  "@rab_byung_day_chu_yi_1": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_er": "初二",
+  "@rab_byung_day_chu_er": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_san": "初三",
+  "@rab_byung_day_chu_san": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_si_4": "初四",
+  "@rab_byung_day_chu_si_4": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_wu_5": "初五",
+  "@rab_byung_day_chu_wu_5": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_liu": "初六",
+  "@rab_byung_day_chu_liu": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_qi_fest": "初七",
+  "@rab_byung_day_chu_qi_fest": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_ba": "初八",
+  "@rab_byung_day_chu_ba": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_jiu": "初九",
+  "@rab_byung_day_chu_jiu": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_chu_shi": "初十",
+  "@rab_byung_day_chu_shi": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_yi_1": "十一",
+  "@rab_byung_day_shi_yi_1": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_er": "十二",
+  "@rab_byung_day_shi_er": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_san": "十三",
+  "@rab_byung_day_shi_san": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_si_4": "十四",
+  "@rab_byung_day_shi_si_4": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_wu_5": "十五",
+  "@rab_byung_day_shi_wu_5": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_liu": "十六",
+  "@rab_byung_day_shi_liu": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_qi_fest": "十七",
+  "@rab_byung_day_shi_qi_fest": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_ba": "十八",
+  "@rab_byung_day_shi_ba": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_shi_jiu": "十九",
+  "@rab_byung_day_shi_jiu": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_er_shi": "二十",
+  "@rab_byung_day_er_shi": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_yi_1": "廿一",
+  "@rab_byung_day_nian_yi_1": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_er": "廿二",
+  "@rab_byung_day_nian_er": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_san": "廿三",
+  "@rab_byung_day_nian_san": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_si_4": "廿四",
+  "@rab_byung_day_nian_si_4": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_wu_5": "廿五",
+  "@rab_byung_day_nian_wu_5": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_liu": "廿六",
+  "@rab_byung_day_nian_liu": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_qi_fest": "廿七",
+  "@rab_byung_day_nian_qi_fest": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_ba": "廿八",
+  "@rab_byung_day_nian_ba": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_nian_jiu": "廿九",
+  "@rab_byung_day_nian_jiu": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_san_shi": "三十",
+  "@rab_byung_day_san_shi": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_day_run": "闰",
+  "@rab_byung_day_run": {
+    "description": "Extracted from src/rabbyung/rab_byung_day.dart"
+  },
+  "rab_byung_element_mu": "木",
+  "@rab_byung_element_mu": {
+    "description": "Extracted from src/rabbyung/rab_byung_element.dart"
+  },
+  "rab_byung_element_huo": "火",
+  "@rab_byung_element_huo": {
+    "description": "Extracted from src/rabbyung/rab_byung_element.dart"
+  },
+  "rab_byung_element_tu": "土",
+  "@rab_byung_element_tu": {
+    "description": "Extracted from src/rabbyung/rab_byung_element.dart"
+  },
+  "rab_byung_element_c_94c1": "铁",
+  "@rab_byung_element_c_94c1": {
+    "description": "Extracted from src/rabbyung/rab_byung_element.dart"
+  },
+  "rab_byung_element_shui": "水",
+  "@rab_byung_element_shui": {
+    "description": "Extracted from src/rabbyung/rab_byung_element.dart"
+  },
+  "rab_byung_month_shen_god_c_53d8_yue": "神变月",
+  "@rab_byung_month_shen_god_c_53d8_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_82e6_c_884c_yue": "苦行月",
+  "@rab_byung_month_c_82e6_c_884c_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_5177_c_9999_yue": "具香月",
+  "@rab_byung_month_c_5177_c_9999_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_8428_c_560e_yue": "萨嘎月",
+  "@rab_byung_month_c_8428_c_560e_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_4f5c_c_51c0_yue": "作净月",
+  "@rab_byung_month_c_4f5c_c_51c0_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_ming_c_51c0_yue": "明净月",
+  "@rab_byung_month_ming_c_51c0_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_5177_c_9189_yue": "具醉月",
+  "@rab_byung_month_c_5177_c_9189_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_5177_c_8d24_yue": "具贤月",
+  "@rab_byung_month_c_5177_c_8d24_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_5929_c_964d_yue": "天降月",
+  "@rab_byung_month_c_5929_c_964d_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_6301_c_4f17_yue": "持众月",
+  "@rab_byung_month_c_6301_c_4f17_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_5e84_c_4e25_yue": "庄严月",
+  "@rab_byung_month_c_5e84_c_4e25_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_c_6ee1_c_610f_yue": "满意月",
+  "@rab_byung_month_c_6ee1_c_610f_yue": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_month_run": "闰",
+  "@rab_byung_month_run": {
+    "description": "Extracted from src/rabbyung/rab_byung_month.dart"
+  },
+  "rab_byung_year_c_96f6": "零",
+  "@rab_byung_year_c_96f6": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_yi_1": "一",
+  "@rab_byung_year_yi_1": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_er": "二",
+  "@rab_byung_year_er": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_san": "三",
+  "@rab_byung_year_san": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_si_4": "四",
+  "@rab_byung_year_si_4": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_wu_5": "五",
+  "@rab_byung_year_wu_5": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_liu": "六",
+  "@rab_byung_year_liu": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_qi_fest": "七",
+  "@rab_byung_year_qi_fest": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_ba": "八",
+  "@rab_byung_year_ba": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_jiu": "九",
+  "@rab_byung_year_jiu": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_shi": "十",
+  "@rab_byung_year_shi": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_c_767e": "百",
+  "@rab_byung_year_c_767e": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_yi_1_shi": "一十",
+  "@rab_byung_year_yi_1_shi": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  },
+  "rab_byung_year_c_7b2c_l_e_t_t_e_r_c_9976_c_8fe5_g_e_t_e_l_e_m_e_n_t_g_e_t_z_o_d_i_a_c_nian_yr": "第$letter饶迥${getElement()}${getZodiac()}年",
+  "@rab_byung_year_c_7b2c_l_e_t_t_e_r_c_9976_c_8fe5_g_e_t_e_l_e_m_e_n_t_g_e_t_z_o_d_i_a_c_nian_yr": {
+    "description": "Extracted from src/rabbyung/rab_byung_year.dart"
+  }
+}

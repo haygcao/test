@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh",
+  "abstract_culture_day_c_u_l_t_u_r_e_c_7b2c_d_a_y_i_n_d_e_x_1_c_5929": "$culture第${dayIndex + 1}天",
+  "@abstract_culture_day_c_u_l_t_u_r_e_c_7b2c_d_a_y_i_n_d_e_x_1_c_5929": {
+    "description": "Extracted from src/abstract_culture_day.dart"
+  }
+}

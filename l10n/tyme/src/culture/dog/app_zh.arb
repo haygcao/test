@@ -1,0 +1,15 @@
+{
+  "@@locale": "zh",
+  "dog_chu_fu": "初伏",
+  "@dog_chu_fu": {
+    "description": "Extracted from src/culture/dog/dog.dart"
+  },
+  "dog_zhong_fu": "中伏",
+  "@dog_zhong_fu": {
+    "description": "Extracted from src/culture/dog/dog.dart"
+  },
+  "dog_c_672b_fu": "末伏",
+  "@dog_c_672b_fu": {
+    "description": "Extracted from src/culture/dog/dog.dart"
+  }
+}

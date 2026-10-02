@@ -1,0 +1,39 @@
+{
+  "@@locale": "zh",
+  "nine_yi_1_jiu": "一九",
+  "@nine_yi_1_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_er_jiu": "二九",
+  "@nine_er_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_san_jiu": "三九",
+  "@nine_san_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_si_4_jiu": "四九",
+  "@nine_si_4_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_wu_5_jiu": "五九",
+  "@nine_wu_5_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_liu_jiu": "六九",
+  "@nine_liu_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_qi_fest_jiu": "七九",
+  "@nine_qi_fest_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_ba_jiu": "八九",
+  "@nine_ba_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  },
+  "nine_jiu_jiu": "九九",
+  "@nine_jiu_jiu": {
+    "description": "Extracted from src/culture/nine/nine.dart"
+  }
+}

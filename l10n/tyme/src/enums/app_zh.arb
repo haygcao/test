@@ -1,0 +1,63 @@
+{
+  "@@locale": "zh",
+  "event_type_c_516c_c_5386_ri_c_671f": "公历日期",
+  "@event_type_c_516c_c_5386_ri_c_671f": {
+    "description": "Extracted from src/enums/event_type.dart"
+  },
+  "event_type_c_51e0_yue_c_7b2c_c_51e0_c_4e2a_c_661f_c_671f_c_51e0": "几月第几个星期几",
+  "@event_type_c_51e0_yue_c_7b2c_c_51e0_c_4e2a_c_661f_c_671f_c_51e0": {
+    "description": "Extracted from src/enums/event_type.dart"
+  },
+  "event_type_c_519c_c_5386_ri_c_671f": "农历日期",
+  "@event_type_c_519c_c_5386_ri_c_671f": {
+    "description": "Extracted from src/enums/event_type.dart"
+  },
+  "event_type_jie_qi_term_ri_c_671f": "节气日期",
+  "@event_type_jie_qi_term_ri_c_671f": {
+    "description": "Extracted from src/enums/event_type.dart"
+  },
+  "event_type_jie_qi_term_c_5929_c_5e72": "节气天干",
+  "@event_type_jie_qi_term_c_5929_c_5e72": {
+    "description": "Extracted from src/enums/event_type.dart"
+  },
+  "event_type_jie_qi_term_c_5730_c_652f": "节气地支",
+  "@event_type_jie_qi_term_c_5730_c_652f": {
+    "description": "Extracted from src/enums/event_type.dart"
+  },
+  "gender_nv": "女",
+  "@gender_nv": {
+    "description": "Extracted from src/enums/gender.dart"
+  },
+  "gender_nan": "男",
+  "@gender_nan": {
+    "description": "Extracted from src/enums/gender.dart"
+  },
+  "hide_heaven_stem_type_c_4f59_qi_term": "余气",
+  "@hide_heaven_stem_type_c_4f59_qi_term": {
+    "description": "Extracted from src/enums/hide_heaven_stem_type.dart"
+  },
+  "hide_heaven_stem_type_zhong_qi_term": "中气",
+  "@hide_heaven_stem_type_zhong_qi_term": {
+    "description": "Extracted from src/enums/hide_heaven_stem_type.dart"
+  },
+  "hide_heaven_stem_type_c_672c_qi_term": "本气",
+  "@hide_heaven_stem_type_c_672c_qi_term": {
+    "description": "Extracted from src/enums/hide_heaven_stem_type.dart"
+  },
+  "side_c_5185": "内",
+  "@side_c_5185": {
+    "description": "Extracted from src/enums/side.dart"
+  },
+  "side_c_5916": "外",
+  "@side_c_5916": {
+    "description": "Extracted from src/enums/side.dart"
+  },
+  "yin_yang_yin_yy": "阴",
+  "@yin_yang_yin_yy": {
+    "description": "Extracted from src/enums/yin_yang.dart"
+  },
+  "yin_yang_yang_yy": "阳",
+  "@yin_yang_yang_yy": {
+    "description": "Extracted from src/enums/yin_yang.dart"
+  }
+}

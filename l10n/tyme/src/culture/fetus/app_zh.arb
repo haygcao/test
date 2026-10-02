@@ -1,0 +1,127 @@
+{
+  "@@locale": "zh",
+  "fetus_day_c_95e8_c_95e8": "门门",
+  "@fetus_day_c_95e8_c_95e8": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_5360_c_5927_c_95e8": "占大门",
+  "@fetus_day_c_5360_c_5927_c_95e8": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_7893_c_78e8_c_7893": "碓磨碓",
+  "@fetus_day_c_7893_c_78e8_c_7893": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_5360_c_7893_c_78e8": "占碓磨",
+  "@fetus_day_c_5360_c_7893_c_78e8": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_623f_c_5e8a_c_5e8a": "房床床",
+  "@fetus_day_c_623f_c_5e8a_c_5e8a": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_5360_c_623f_c_5e8a": "占房床",
+  "@fetus_day_c_5360_c_623f_c_5e8a": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_95e8": "门",
+  "@fetus_day_c_95e8": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_5360_s": "占$s",
+  "@fetus_day_c_5360_s": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_c_623f": "房",
+  "@fetus_day_c_623f": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_bei_dir_nan_dir_xi_dir_dong_dir": "北南西东",
+  "@fetus_day_bei_dir_nan_dir_xi_dir_dong_dir": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_day_zheng": "正",
+  "@fetus_day_zheng": {
+    "description": "Extracted from src/culture/fetus/fetus_day.dart"
+  },
+  "fetus_earth_branch_c_7893": "碓",
+  "@fetus_earth_branch_c_7893": {
+    "description": "Extracted from src/culture/fetus/fetus_earth_branch.dart"
+  },
+  "fetus_earth_branch_c_5395": "厕",
+  "@fetus_earth_branch_c_5395": {
+    "description": "Extracted from src/culture/fetus/fetus_earth_branch.dart"
+  },
+  "fetus_earth_branch_c_7089": "炉",
+  "@fetus_earth_branch_c_7089": {
+    "description": "Extracted from src/culture/fetus/fetus_earth_branch.dart"
+  },
+  "fetus_earth_branch_c_95e8": "门",
+  "@fetus_earth_branch_c_95e8": {
+    "description": "Extracted from src/culture/fetus/fetus_earth_branch.dart"
+  },
+  "fetus_earth_branch_c_6816": "栖",
+  "@fetus_earth_branch_c_6816": {
+    "description": "Extracted from src/culture/fetus/fetus_earth_branch.dart"
+  },
+  "fetus_earth_branch_c_5e8a": "床",
+  "@fetus_earth_branch_c_5e8a": {
+    "description": "Extracted from src/culture/fetus/fetus_earth_branch.dart"
+  },
+  "fetus_heaven_stem_c_95e8": "门",
+  "@fetus_heaven_stem_c_95e8": {
+    "description": "Extracted from src/culture/fetus/fetus_heaven_stem.dart"
+  },
+  "fetus_heaven_stem_c_7893_c_78e8": "碓磨",
+  "@fetus_heaven_stem_c_7893_c_78e8": {
+    "description": "Extracted from src/culture/fetus/fetus_heaven_stem.dart"
+  },
+  "fetus_heaven_stem_c_53a8_c_7076": "厨灶",
+  "@fetus_heaven_stem_c_53a8_c_7076": {
+    "description": "Extracted from src/culture/fetus/fetus_heaven_stem.dart"
+  },
+  "fetus_heaven_stem_c_4ed3_c_5e93": "仓库",
+  "@fetus_heaven_stem_c_4ed3_c_5e93": {
+    "description": "Extracted from src/culture/fetus/fetus_heaven_stem.dart"
+  },
+  "fetus_heaven_stem_c_623f_c_5e8a": "房床",
+  "@fetus_heaven_stem_c_623f_c_5e8a": {
+    "description": "Extracted from src/culture/fetus/fetus_heaven_stem.dart"
+  },
+  "fetus_month_c_5360_c_623f_c_5e8a": "占房床",
+  "@fetus_month_c_5360_c_623f_c_5e8a": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_6237_c_7a97": "占户窗",
+  "@fetus_month_c_5360_c_6237_c_7a97": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_95e8_c_5802": "占门堂",
+  "@fetus_month_c_5360_c_95e8_c_5802": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_53a8_c_7076": "占厨灶",
+  "@fetus_month_c_5360_c_53a8_c_7076": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_5e8a_c_4ed3": "占床仓",
+  "@fetus_month_c_5360_c_5e8a_c_4ed3": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_7893_c_78e8": "占碓磨",
+  "@fetus_month_c_5360_c_7893_c_78e8": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_5395_c_6237": "占厕户",
+  "@fetus_month_c_5360_c_5395_c_6237": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_95e8_c_623f": "占门房",
+  "@fetus_month_c_5360_c_95e8_c_623f": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  },
+  "fetus_month_c_5360_c_7076_c_7089": "占灶炉",
+  "@fetus_month_c_5360_c_7076_c_7089": {
+    "description": "Extracted from src/culture/fetus/fetus_month.dart"
+  }
+}

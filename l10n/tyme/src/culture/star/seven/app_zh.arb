@@ -1,0 +1,31 @@
+{
+  "@@locale": "zh",
+  "seven_star_ri": "日",
+  "@seven_star_ri": {
+    "description": "Extracted from src/culture/star/seven/seven_star.dart"
+  },
+  "seven_star_yue": "月",
+  "@seven_star_yue": {
+    "description": "Extracted from src/culture/star/seven/seven_star.dart"
+  },
+  "seven_star_huo": "火",
+  "@seven_star_huo": {
+    "description": "Extracted from src/culture/star/seven/seven_star.dart"
+  },
+  "seven_star_shui": "水",
+  "@seven_star_shui": {
+    "description": "Extracted from src/culture/star/seven/seven_star.dart"
+  },
+  "seven_star_mu": "木",
+  "@seven_star_mu": {
+    "description": "Extracted from src/culture/star/seven/seven_star.dart"
+  },
+  "seven_star_jin": "金",
+  "@seven_star_jin": {
+    "description": "Extracted from src/culture/star/seven/seven_star.dart"
+  },
+  "seven_star_tu": "土",
+  "@seven_star_tu": {
+    "description": "Extracted from src/culture/star/seven/seven_star.dart"
+  }
+}

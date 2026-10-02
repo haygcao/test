@@ -1,0 +1,303 @@
+{
+  "@@locale": "zh",
+  "phenology_c_86af_yin_worm_c_7ed3": "蚯蚓结",
+  "@phenology_c_86af_yin_worm_c_7ed3": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e8b_c_89d2_c_89e3": "麋角解",
+  "@phenology_c_9e8b_c_89d2_c_89e3": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_shui_c_6cc9_c_52a8": "水泉动",
+  "@phenology_shui_c_6cc9_c_52a8": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_96c1_bei_dir_c_4e61": "雁北乡",
+  "@phenology_c_96c1_bei_dir_c_4e61": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e4a_c_59cb_c_5de2": "鹊始巢",
+  "@phenology_c_9e4a_c_59cb_c_5de2": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_96c9_c_59cb_c_96ca": "雉始雊",
+  "@phenology_c_96c9_c_59cb_c_96ca": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_ji_animal_c_59cb_c_4e73": "鸡始乳",
+  "@phenology_ji_animal_c_59cb_c_4e73": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_5f81_c_9e1f_c_5389_c_75be": "征鸟厉疾",
+  "@phenology_c_5f81_c_9e1f_c_5389_c_75be": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_shui_c_6cfd_c_8179_c_575a": "水泽腹坚",
+  "@phenology_shui_c_6cfd_c_8179_c_575a": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_dong_dir_feng_c_89e3_c_51bb": "东风解冻",
+  "@phenology_dong_dir_feng_c_89e3_c_51bb": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_86f0_c_866b_c_59cb_c_632f": "蛰虫始振",
+  "@phenology_c_86f0_c_866b_c_59cb_c_632f": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9c7c_c_965f_c_8d1f_c_51b0": "鱼陟负冰",
+  "@phenology_c_9c7c_c_965f_c_8d1f_c_51b0": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_736d_c_796d_c_9c7c": "獭祭鱼",
+  "@phenology_c_736d_c_796d_c_9c7c": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_5019_c_96c1_bei_dir": "候雁北",
+  "@phenology_c_5019_c_96c1_bei_dir": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8349_mu_c_840c_c_52a8": "草木萌动",
+  "@phenology_c_8349_mu_c_840c_c_52a8": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_6843_c_59cb_c_534e": "桃始华",
+  "@phenology_c_6843_c_59cb_c_534e": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_4ed3_geng_c_9e23": "仓庚鸣",
+  "@phenology_c_4ed3_geng_c_9e23": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e70_c_5316_c_4e3a_c_9e20": "鹰化为鸠",
+  "@phenology_c_9e70_c_5316_c_4e3a_c_9e20": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_7384_c_9e1f_c_81f3": "玄鸟至",
+  "@phenology_c_7384_c_9e1f_c_81f3": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_lei_c_4e43_c_53d1_c_58f0": "雷乃发声",
+  "@phenology_lei_c_4e43_c_53d1_c_58f0": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_59cb_dian": "始电",
+  "@phenology_c_59cb_dian": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_6850_c_59cb_c_534e": "桐始华",
+  "@phenology_c_6850_c_59cb_c_534e": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_7530_shu_animal_c_5316_c_4e3a_c_9d3d": "田鼠化为鴽",
+  "@phenology_c_7530_shu_animal_c_5316_c_4e3a_c_9d3d": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8679_c_59cb_c_89c1": "虹始见",
+  "@phenology_c_8679_c_59cb_c_89c1": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_840d_c_59cb_c_751f": "萍始生",
+  "@phenology_c_840d_c_59cb_c_751f": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e23_c_9e20_c_62c2_c_5176_c_7fbd": "鸣鸠拂其羽",
+  "@phenology_c_9e23_c_9e20_c_62c2_c_5176_c_7fbd": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_6234_c_80dc_c_964d_c_4e8e_c_6851": "戴胜降于桑",
+  "@phenology_c_6234_c_80dc_c_964d_c_4e8e_c_6851": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_877c_c_8748_c_9e23": "蝼蝈鸣",
+  "@phenology_c_877c_c_8748_c_9e23": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_86af_yin_worm_c_51fa": "蚯蚓出",
+  "@phenology_c_86af_yin_worm_c_51fa": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_738b_c_74dc_c_751f": "王瓜生",
+  "@phenology_c_738b_c_74dc_c_751f": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_82e6_c_83dc_c_79c0": "苦菜秀",
+  "@phenology_c_82e6_c_83dc_c_79c0": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9761_c_8349_c_6b7b": "靡草死",
+  "@phenology_c_9761_c_8349_c_6b7b": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9ea6_qiu_c_81f3": "麦秋至",
+  "@phenology_c_9ea6_qiu_c_81f3": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_87b3_c_8782_c_751f": "螳螂生",
+  "@phenology_c_87b3_c_8782_c_751f": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9d59_c_59cb_c_9e23": "鵙始鸣",
+  "@phenology_c_9d59_c_59cb_c_9e23": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_53cd_c_820c_c_65e0_c_58f0": "反舌无声",
+  "@phenology_c_53cd_c_820c_c_65e0_c_58f0": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_lu_animal_c_89d2_c_89e3": "鹿角解",
+  "@phenology_lu_animal_c_89d2_c_89e3": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8729_c_59cb_c_9e23": "蜩始鸣",
+  "@phenology_c_8729_c_59cb_c_9e23": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_534a_xia_c_751f": "半夏生",
+  "@phenology_c_534a_xia_c_751f": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_6e29_feng_c_81f3": "温风至",
+  "@phenology_c_6e29_feng_c_81f3": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_87cb_c_87c0_c_5c45_c_58c1": "蟋蟀居壁",
+  "@phenology_c_87cb_c_87c0_c_5c45_c_58c1": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e70_c_59cb_c_631a": "鹰始挚",
+  "@phenology_c_9e70_c_59cb_c_631a": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8150_c_8349_c_4e3a_c_8424": "腐草为萤",
+  "@phenology_c_8150_c_8349_c_4e3a_c_8424": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_tu_c_6da6_c_6ebd_shu": "土润溽暑",
+  "@phenology_tu_c_6da6_c_6ebd_shu": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_5927_yu_c_884c_shi_hr": "大雨行时",
+  "@phenology_c_5927_yu_c_884c_shi_hr": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_51c9_feng_c_81f3": "凉风至",
+  "@phenology_c_51c9_feng_c_81f3": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_767d_lu_c_964d": "白露降",
+  "@phenology_c_767d_lu_c_964d": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_han_c_8749_c_9e23": "寒蝉鸣",
+  "@phenology_han_c_8749_c_9e23": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e70_c_4e43_c_796d_c_9e1f": "鹰乃祭鸟",
+  "@phenology_c_9e70_c_4e43_c_796d_c_9e1f": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_5929_c_5730_c_59cb_c_8083": "天地始肃",
+  "@phenology_c_5929_c_5730_c_59cb_c_8083": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_79be_c_4e43_c_767b": "禾乃登",
+  "@phenology_c_79be_c_4e43_c_767b": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e3f_c_96c1_c_6765": "鸿雁来",
+  "@phenology_c_9e3f_c_96c1_c_6765": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_7384_c_9e1f_c_5f52": "玄鸟归",
+  "@phenology_c_7384_c_9e1f_c_5f52": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_7fa4_c_9e1f_c_517b_c_7f9e": "群鸟养羞",
+  "@phenology_c_7fa4_c_9e1f_c_517b_c_7f9e": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_lei_c_59cb_c_6536_c_58f0": "雷始收声",
+  "@phenology_lei_c_59cb_c_6536_c_58f0": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_86f0_c_866b_c_576f_c_6237": "蛰虫坯户",
+  "@phenology_c_86f0_c_866b_c_576f_c_6237": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_shui_c_59cb_c_6db8": "水始涸",
+  "@phenology_shui_c_59cb_c_6db8": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e3f_c_96c1_c_6765_c_5bbe": "鸿雁来宾",
+  "@phenology_c_9e3f_c_96c1_c_6765_c_5bbe": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_96c0_c_5165_c_5927_shui_c_4e3a_c_86e4": "雀入大水为蛤",
+  "@phenology_c_96c0_c_5165_c_5927_shui_c_4e3a_c_86e4": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_83ca_c_6709_c_9ec4_c_82b1": "菊有黄花",
+  "@phenology_c_83ca_c_6709_c_9ec4_c_82b1": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8c7a_c_4e43_c_796d_c_517d": "豺乃祭兽",
+  "@phenology_c_8c7a_c_4e43_c_796d_c_517d": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8349_mu_c_9ec4_c_843d": "草木黄落",
+  "@phenology_c_8349_mu_c_9ec4_c_843d": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_86f0_c_866b_c_54b8_c_4fef": "蛰虫咸俯",
+  "@phenology_c_86f0_c_866b_c_54b8_c_4fef": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_shui_c_59cb_c_51b0": "水始冰",
+  "@phenology_shui_c_59cb_c_51b0": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_5730_c_59cb_c_51bb": "地始冻",
+  "@phenology_c_5730_c_59cb_c_51bb": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_96c9_c_5165_c_5927_shui_c_4e3a_c_8703": "雉入大水为蜃",
+  "@phenology_c_96c9_c_5165_c_5927_shui_c_4e3a_c_8703": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8679_c_85cf_c_4e0d_c_89c1": "虹藏不见",
+  "@phenology_c_8679_c_85cf_c_4e0d_c_89c1": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_5929_qi_term_shang_c_5347_c_5730_qi_term_c_4e0b_c_964d": "天气上升地气下降",
+  "@phenology_c_5929_qi_term_shang_c_5347_c_5730_qi_term_c_4e0b_c_964d": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_95ed_c_585e_c_800c_c_6210_dong": "闭塞而成冬",
+  "@phenology_c_95ed_c_585e_c_800c_c_6210_dong": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_9e56_c_9d20_c_4e0d_c_9e23": "鹖鴠不鸣",
+  "@phenology_c_9e56_c_9d20_c_4e0d_c_9e23": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_hu_animal_c_59cb_c_4ea4": "虎始交",
+  "@phenology_hu_animal_c_59cb_c_4ea4": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "phenology_c_8354_c_633a_c_51fa": "荔挺出",
+  "@phenology_c_8354_c_633a_c_51fa": {
+    "description": "Extracted from src/culture/phenology/phenology.dart"
+  },
+  "three_phenology_chu_c_5019": "初候",
+  "@three_phenology_chu_c_5019": {
+    "description": "Extracted from src/culture/phenology/three_phenology.dart"
+  },
+  "three_phenology_er_c_5019": "二候",
+  "@three_phenology_er_c_5019": {
+    "description": "Extracted from src/culture/phenology/three_phenology.dart"
+  },
+  "three_phenology_san_c_5019": "三候",
+  "@three_phenology_san_c_5019": {
+    "description": "Extracted from src/culture/phenology/three_phenology.dart"
+  }
+}

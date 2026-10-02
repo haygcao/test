@@ -1,0 +1,43 @@
+{
+  "@@locale": "zh",
+  "ten_star_c_6bd4_c_80a9": "比肩",
+  "@ten_star_c_6bd4_c_80a9": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_c_52ab_c_8d22": "劫财",
+  "@ten_star_c_52ab_c_8d22": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_c_98df_shen_god": "食神",
+  "@ten_star_c_98df_shen_god": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_c_4f24_c_5b98": "伤官",
+  "@ten_star_c_4f24_c_5b98": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_c_504f_c_8d22": "偏财",
+  "@ten_star_c_504f_c_8d22": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_zheng_c_8d22": "正财",
+  "@ten_star_zheng_c_8d22": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_qi_fest_c_6740": "七杀",
+  "@ten_star_qi_fest_c_6740": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_zheng_c_5b98": "正官",
+  "@ten_star_zheng_c_5b98": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_c_504f_c_5370": "偏印",
+  "@ten_star_c_504f_c_5370": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  },
+  "ten_star_zheng_c_5370": "正印",
+  "@ten_star_zheng_c_5370": {
+    "description": "Extracted from src/culture/star/ten/ten_star.dart"
+  }
+}

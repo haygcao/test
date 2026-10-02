@@ -1,0 +1,235 @@
+{
+  "@@locale": "zh",
+  "lunar_day_chu_yi_1": "初一",
+  "@lunar_day_chu_yi_1": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_er": "初二",
+  "@lunar_day_chu_er": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_san": "初三",
+  "@lunar_day_chu_san": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_si_4": "初四",
+  "@lunar_day_chu_si_4": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_wu_5": "初五",
+  "@lunar_day_chu_wu_5": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_liu": "初六",
+  "@lunar_day_chu_liu": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_qi_fest": "初七",
+  "@lunar_day_chu_qi_fest": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_ba": "初八",
+  "@lunar_day_chu_ba": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_jiu": "初九",
+  "@lunar_day_chu_jiu": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_chu_shi": "初十",
+  "@lunar_day_chu_shi": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_yi_1": "十一",
+  "@lunar_day_shi_yi_1": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_er": "十二",
+  "@lunar_day_shi_er": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_san": "十三",
+  "@lunar_day_shi_san": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_si_4": "十四",
+  "@lunar_day_shi_si_4": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_wu_5": "十五",
+  "@lunar_day_shi_wu_5": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_liu": "十六",
+  "@lunar_day_shi_liu": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_qi_fest": "十七",
+  "@lunar_day_shi_qi_fest": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_ba": "十八",
+  "@lunar_day_shi_ba": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_shi_jiu": "十九",
+  "@lunar_day_shi_jiu": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_er_shi": "二十",
+  "@lunar_day_er_shi": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_yi_1": "廿一",
+  "@lunar_day_nian_yi_1": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_er": "廿二",
+  "@lunar_day_nian_er": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_san": "廿三",
+  "@lunar_day_nian_san": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_si_4": "廿四",
+  "@lunar_day_nian_si_4": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_wu_5": "廿五",
+  "@lunar_day_nian_wu_5": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_liu": "廿六",
+  "@lunar_day_nian_liu": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_qi_fest": "廿七",
+  "@lunar_day_nian_qi_fest": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_ba": "廿八",
+  "@lunar_day_nian_ba": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_nian_jiu": "廿九",
+  "@lunar_day_nian_jiu": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_day_san_shi": "三十",
+  "@lunar_day_san_shi": {
+    "description": "Extracted from src/lunar/lunar_day.dart"
+  },
+  "lunar_hour_e_a_r_t_h_b_r_a_n_c_h_g_e_t_i_n_d_e_x_i_n_d_a_y_g_e_t_n_a_m_e_shi_hr": "${EarthBranch(getIndexInDay()).getName()}时",
+  "@lunar_hour_e_a_r_t_h_b_r_a_n_c_h_g_e_t_i_n_d_e_x_i_n_d_a_y_g_e_t_n_a_m_e_shi_hr": {
+    "description": "Extracted from src/lunar/lunar_hour.dart"
+  },
+  "lunar_hour_g_e_t_l_u_n_a_r_d_a_y_g_e_t_s_i_x_t_y_c_y_c_l_e_g_e_t_n_a_m_e_shi_hr": "${getLunarDay()}${getSixtyCycle().getName()}时",
+  "@lunar_hour_g_e_t_l_u_n_a_r_d_a_y_g_e_t_s_i_x_t_y_c_y_c_l_e_g_e_t_n_a_m_e_shi_hr": {
+    "description": "Extracted from src/lunar/lunar_hour.dart"
+  },
+  "lunar_month_zheng_yue": "正月",
+  "@lunar_month_zheng_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_er_yue": "二月",
+  "@lunar_month_er_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_san_yue": "三月",
+  "@lunar_month_san_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_si_4_yue": "四月",
+  "@lunar_month_si_4_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_wu_5_yue": "五月",
+  "@lunar_month_wu_5_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_liu_yue": "六月",
+  "@lunar_month_liu_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_qi_fest_yue": "七月",
+  "@lunar_month_qi_fest_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_ba_yue": "八月",
+  "@lunar_month_ba_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_jiu_yue": "九月",
+  "@lunar_month_jiu_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_shi_yue": "十月",
+  "@lunar_month_shi_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_shi_yi_1_yue": "十一月",
+  "@lunar_month_shi_yi_1_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_shi_er_yue": "十二月",
+  "@lunar_month_shi_er_yue": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_month_run": "闰",
+  "@lunar_month_run": {
+    "description": "Extracted from src/lunar/lunar_month.dart"
+  },
+  "lunar_season_c_5b5f_chun": "孟春",
+  "@lunar_season_c_5b5f_chun": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_4ef2_chun": "仲春",
+  "@lunar_season_c_4ef2_chun": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_5b63_chun": "季春",
+  "@lunar_season_c_5b63_chun": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_5b5f_xia": "孟夏",
+  "@lunar_season_c_5b5f_xia": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_4ef2_xia": "仲夏",
+  "@lunar_season_c_4ef2_xia": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_5b63_xia": "季夏",
+  "@lunar_season_c_5b63_xia": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_5b5f_qiu": "孟秋",
+  "@lunar_season_c_5b5f_qiu": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_4ef2_qiu": "仲秋",
+  "@lunar_season_c_4ef2_qiu": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_5b63_qiu": "季秋",
+  "@lunar_season_c_5b63_qiu": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_5b5f_dong": "孟冬",
+  "@lunar_season_c_5b5f_dong": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_4ef2_dong": "仲冬",
+  "@lunar_season_c_4ef2_dong": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_season_c_5b63_dong": "季冬",
+  "@lunar_season_c_5b63_dong": {
+    "description": "Extracted from src/lunar/lunar_season.dart"
+  },
+  "lunar_year_c_519c_c_5386_g_e_t_s_i_x_t_y_c_y_c_l_e_nian_yr": "农历${getSixtyCycle()}年",
+  "@lunar_year_c_519c_c_5386_g_e_t_s_i_x_t_y_c_y_c_l_e_nian_yr": {
+    "description": "Extracted from src/lunar/lunar_year.dart"
+  }
+}
