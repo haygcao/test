@@ -1,10 +1,6 @@
 name: Extract tyme4dart i18n ARB Files
 
 on:
-  push:
-    branches:
-      - main
-      - master
   workflow_dispatch:
 
 permissions:
