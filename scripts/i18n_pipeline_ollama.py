@@ -2,11 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 scripts/i18n_pipeline_ollama.py
-在测试仓库 C:/Users/Ngokel/Desktop/en/example/test 中通过 Ollama kaelri/hy-mt2:1.8b 执行全量 ARB 检修与极速批量翻译脚本
-优化要点：
-  1. 第一阶段：代码级静态扫描与安全去重清理 (i18n_cleaner)
-  2. 第二阶段：30 条黄金批次 JSON 组包，配置 num_predict=4096，100% 确保 JSON 输出完整不截断
-  3. 第三阶段：隔离分支单条 Commit 增量覆盖落盘 (git commit --amend --force)
+在测试仓库 C:/Users/Ngokel/Desktop/en/example/test 中通过 Ollama kaelri/hy-mt2:1.8b 执行全量 ARB 检修与翻译脚本
+100% 使用 GitHub Actions 机器人匿名凭据 (github-actions[bot])
 """
 
 import json
@@ -33,12 +30,12 @@ def log(msg: str):
 
 
 def git_checkpoint_commit_amend(target_locale: str):
-    """在隔离进度分支上执行 git commit --amend 增量保存，保持 Commit 历史永远只有一条"""
+    """在隔离进度分支上执行 git commit --amend 增量保存，使用标准 github-actions[bot] 机器人身份"""
     try:
-        os.system("git config user.name 'i18n-bot'")
-        os.system("git config user.email 'i18n-bot@users.noreply.github.com'")
+        os.system("git config user.name 'github-actions[bot]'")
+        os.system("git config user.email 'github-actions[bot]@users.noreply.github.com'")
         os.system("git add lib/l10n/*.arb")
-        ret = os.system("git commit --amend --no-edit || git commit -m 'style(i18n): auto translation checkpoint progress'")
+        ret = os.system("git commit --amend --no-edit || git commit -m 'style(i18n): auto translation checkpoint progress [github-actions-bot]'")
         if ret == 0:
             log(f"💾 [隔离分支增量落盘] 语言 `{target_locale}` 已成功执行 git commit --amend 覆盖存盘！")
             os.system("git push --force origin HEAD:i18n/checkpoint-progress")
