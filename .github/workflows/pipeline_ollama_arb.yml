@@ -1,9 +1,7 @@
-name: Pipeline Ollama kaelri Full ARB Translation
+name: Pipeline Ollama kaelri Full ARB Translation (Manual Trigger Only)
 
+# 仅保留手动触发，禁止自动 Push 触发，防止浪费算力与时间
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
