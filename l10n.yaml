@@ -1,0 +1,5 @@
+# Flutter / Dart L10n configuration for tyme4dart extracted ARB files
+arb-dir: l10n/tyme
+template-arb-file: app_zh.arb
+output-localization-file: app_localizations.dart
+nullable-getter: false

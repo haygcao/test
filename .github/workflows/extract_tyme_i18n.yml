@@ -1,0 +1,36 @@
+name: Extract tyme4dart i18n ARB Files
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  extract-i18n:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run tyme4dart i18n Extraction
+        run: |
+          python scripts/extract_tyme_i18n.py
+
+      - name: Commit and Push ARB Updates
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add l10n/
+          if git diff --staged --quiet; then
+            echo "No changes in ARB files."
+          else
+            git commit -m "i18n: update extracted tyme4dart ARB files"
+            git push
+          fi

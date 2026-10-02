@@ -1,0 +1,15 @@
+# Independent i18n extraction configuration for tyme4dart
+tyme4dart_repo: "https://github.com/6tail/tyme4dart.git"
+local_tyme4dart_path: "../designed/mix/ref/calendar-almanac/tyme4dart"
+fallback_tyme4dart_path: "C:/Users/Ngokel/Desktop/en/designed/mix/ref/calendar-almanac/tyme4dart"
+
+# Output configuration
+output_dir: "l10n/tyme"
+locale: "zh"
+arb_file_name: "app_zh.arb"
+
+# Structural options
+mirror_folder_structure: true
+key_prefix: "tyme"
+include_metadata: true
+extract_comments: false
