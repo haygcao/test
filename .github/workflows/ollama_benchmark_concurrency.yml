@@ -1,0 +1,27 @@
+name: Ollama Benchmark Concurrency Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  concurrency-test:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: 1. Checkout 测试仓库
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 3. 安装 Ollama CLI 与 Python SDK
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          python -m pip install ollama
+
+      - name: 4. 运行 1/2/3 梯度并发对比基准压测
+        run: |
+          python scripts/benchmark_ollama_concurrency.py
