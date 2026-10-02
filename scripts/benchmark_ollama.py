@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 scripts/benchmark_ollama.py
-在 Ollama (kaelri/hy-mt2:1.8b) 环境下，使用 60 条/批次 + 3 线程/协程并发，对真实 app_en.arb 进行吞吐率压测
+在 Ollama (kaelri/hy-mt2:1.8b) 环境下，使用 60 条/批次 + 2 线程/协程并发，对真实 app_en.arb 进行吞吐率压测
 """
 
 import asyncio
@@ -17,7 +17,7 @@ BASELINE_ARB = os.path.join(PROJECT_ROOT, "lib", "l10n", "app_en.arb")
 OLLAMA_MODEL = "kaelri/hy-mt2:1.8b"
 
 CHUNK_SIZE = 60      # 每批次 60 条真实词条
-MAX_CONCURRENCY = 3  # 3 线程/并发协程
+MAX_CONCURRENCY = 2  # 2 线程/并发协程 (1:1 精确匹配 2 核 CPU)
 
 client = AsyncClient()
 semaphore = asyncio.Semaphore(MAX_CONCURRENCY)
@@ -55,7 +55,7 @@ Input JSON:
 {json.dumps(chunk, ensure_ascii=False)}
 """
     async with semaphore:
-        log(f"⌛ [协程 {chunk_idx}/{total_chunks} 启动] 正在 3 线程并发提交批次 ({len(chunk)} 条词条)...")
+        log(f"⌛ [协程 {chunk_idx}/{total_chunks} 启动] 正在 2 线程并发提交批次 ({len(chunk)} 条词条)...")
         start_t = time.time()
         try:
             response = await client.chat(
@@ -89,7 +89,7 @@ Input JSON:
 
 async def run_benchmark():
     log("==========================================================")
-    log("  Ollama 多线程并发压测 (60条/批 + 3 线程并发)")
+    log("  Ollama 多线程并发压测 (60条/批 + 2 线程并发)")
     log("==========================================================")
 
     real_items = load_real_arb_items()
@@ -101,7 +101,7 @@ async def run_benchmark():
         chunks.append(dict(items[i:i + CHUNK_SIZE]))
 
     total_chunks = len(chunks)
-    log(f"🚀 将 {len(items)} 个真实词条拆分为 {total_chunks} 个批次 (每批 {CHUNK_SIZE} 条)，开启 3 线程并发压测...")
+    log(f"🚀 将 {len(items)} 个真实词条拆分为 {total_chunks} 个批次 (每批 {CHUNK_SIZE} 条)，开启 2 线程并发压测...")
 
     total_start_time = time.time()
 
@@ -117,9 +117,9 @@ async def run_benchmark():
     overall_speed = total_parsed / total_elapsed if total_elapsed > 0 else 0
 
     log("\n" + "=" * 70)
-    log("                    3 线程并发压测数据汇总报告")
+    log("                    2 线程并发压测数据汇总报告")
     log("=" * 70)
-    log(f"配置架构         : 每批 {CHUNK_SIZE} 条 | 3 线程并发")
+    log(f"配置架构         : 每批 {CHUNK_SIZE} 条 | 2 线程并发")
     log(f"总计成功解析词条 : {total_parsed} / {len(items)} 条")
     log(f"并发总计耗时     : {total_elapsed:.2f} 秒 ({total_elapsed / 60:.2f} 分钟)")
     log(f"综合并发吞吐率   : {overall_speed:.2f} 条/秒")
