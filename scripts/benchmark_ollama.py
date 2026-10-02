@@ -2,21 +2,26 @@
 # -*- coding: utf-8 -*-
 """
 scripts/benchmark_ollama.py
-读取真实 app_en.arb 真实长短词条，在 Ollama kaelri/hy-mt2:1.8b 上压测 [30, 50, 100, 200, 300, 500, 1000] 批次处理吞吐率与耗时
-增加 sys.stdout.flush() 实时日志冲刷，防止 GitHub Actions 日志缓冲干等
+多线程/多协程并发压测脚本：
+在 Ollama (OLLAMA_NUM_PARALLEL=4) 环境下，使用 60 条/批次 + 4 线程/协程并发，对真实 app_en.arb 进行吞吐率压测
 """
 
+import asyncio
 import json
 import os
 import sys
 import time
-from ollama import chat
+from ollama import AsyncClient
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASELINE_ARB = os.path.join(PROJECT_ROOT, "lib", "l10n", "app_en.arb")
 OLLAMA_MODEL = "kaelri/hy-mt2:1.8b"
 
-BATCH_SIZES = [30, 50, 100, 200, 300, 500, 1000]
+CHUNK_SIZE = 60      # 每批次 60 条真实词条
+MAX_CONCURRENCY = 4  # 4 线程/并发协程
+
+client = AsyncClient()
+semaphore = asyncio.Semaphore(MAX_CONCURRENCY)
 
 
 def log(msg: str):
@@ -36,10 +41,7 @@ def load_real_arb_items() -> dict:
     return real_items
 
 
-def test_batch_performance(batch_size: int, real_items: dict) -> dict:
-    keys = list(real_items.keys())
-    chunk = {k: real_items[k] for k in keys[:min(batch_size, len(keys))]}
-
+async def translate_chunk_async(chunk_idx: int, total_chunks: int, chunk: dict) -> dict:
     prompt = f"""
 You are a professional Flutter ARB translator.
 Translate the values in the following JSON key-value pairs from English to target language 'zh_CN'.
@@ -53,78 +55,81 @@ Requirements:
 Input JSON:
 {json.dumps(chunk, ensure_ascii=False)}
 """
+    async with semaphore:
+        log(f"⌛ [协程 {chunk_idx}/{total_chunks} 启动] 正在并发提交批次 ({len(chunk)} 条词条)...")
+        start_t = time.time()
+        try:
+            response = await client.chat(
+                model=OLLAMA_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                options={"num_predict": 4096, "temperature": 0.3}
+            )
+            elapsed = time.time() - start_t
+            raw_text = response.message.content.strip()
+            clean_json = raw_text.replace("```json", "").replace("```", "").strip()
 
-    log(f"⌛ [正在请求 Ollama] 正在提交批次 [{batch_size} 条词条] 进行推理，请稍候...")
-    start_time = time.time()
-
-    try:
-        response = chat(
-            model=OLLAMA_MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            options={"num_predict": 4096, "temperature": 0.3}
-        )
-        elapsed = time.time() - start_time
-        raw_text = response.message.content.strip()
-        clean_json = raw_text.replace("```json", "").replace("```", "").strip()
-
-        parsed = json.loads(clean_json)
-        parsed_count = len(parsed)
-        speed = parsed_count / elapsed if elapsed > 0 else 0
-
-        log(f"✅ [批次完成] 批次 [{batch_size} 条]: 耗时 {elapsed:.2f}s | 解析成功 {parsed_count} 条 | 吞吐率: {speed:.2f} 条/秒")
-        return {
-            "batch_size": batch_size,
-            "elapsed_sec": round(elapsed, 2),
-            "parsed_count": parsed_count,
-            "items_per_sec": round(speed, 2),
-            "status": "✅ 成功 (100% JSON 合规)",
-        }
-
-    except Exception as e:
-        elapsed = time.time() - start_time
-        log(f"❌ [批次异常] 批次 [{batch_size} 条]: 耗时 {elapsed:.2f}s | 失败原因: {e}")
-        return {
-            "batch_size": batch_size,
-            "elapsed_sec": round(elapsed, 2),
-            "parsed_count": 0,
-            "items_per_sec": 0,
-            "status": f"❌ 失败 ({str(e)[:40]})",
-        }
+            parsed = json.loads(clean_json)
+            parsed_count = len(parsed)
+            log(f"✅ [协程 {chunk_idx}/{total_chunks} 完成] 耗时 {elapsed:.2f}s | 解析成功 {parsed_count} 条")
+            return {
+                "chunk_idx": chunk_idx,
+                "elapsed": elapsed,
+                "parsed_count": parsed_count,
+                "status": "SUCCESS"
+            }
+        except Exception as e:
+            elapsed = time.time() - start_t
+            log(f"❌ [协程 {chunk_idx}/{total_chunks} 失败] 耗时 {elapsed:.2f}s | 原因: {e}")
+            return {
+                "chunk_idx": chunk_idx,
+                "elapsed": elapsed,
+                "parsed_count": 0,
+                "status": f"FAILED: {e}"
+            }
 
 
-def main():
+async def run_benchmark():
     log("==========================================================")
-    log("  Ollama (kaelri/hy-mt2:1.8b) 真实 ARB 词条批次吞吐率基准压测")
+    log("  Ollama 多线程并发压测 (60条/批 + 4 并发协程)")
     log("==========================================================")
 
     real_items = load_real_arb_items()
-    results = []
+    items = list(real_items.items())
 
-    for bs in BATCH_SIZES:
-        log(f"\n🚀 开始压测批次大小: {bs} 条真实词条...")
-        res = test_batch_performance(bs, real_items)
-        results.append(res)
-        time.sleep(1)
+    # 将 1838 条词条按每批 60 条拆分
+    chunks = []
+    for i in range(0, len(items), CHUNK_SIZE):
+        chunks.append(dict(items[i:i + CHUNK_SIZE]))
+
+    total_chunks = len(chunks)
+    log(f"🚀 将 {len(items)} 个真实词条拆分为 {total_chunks} 个批次 (每批 {CHUNK_SIZE} 条)，开启 {MAX_CONCURRENCY} 并发线程压测...")
+
+    total_start_time = time.time()
+
+    # 4 协程并发并行发射
+    tasks = [
+        translate_chunk_async(idx + 1, total_chunks, chunks[idx])
+        for idx in range(total_chunks)
+    ]
+
+    results = await asyncio.gather(*tasks)
+
+    total_elapsed = time.time() - total_start_time
+    total_parsed = sum(r["parsed_count"] for r in results if r["status"] == "SUCCESS")
+    overall_speed = total_parsed / total_elapsed if total_elapsed > 0 else 0
 
     log("\n" + "=" * 70)
-    log("                    基准性能压测数据汇总报告")
+    log("                    4 线程并发压测数据汇总报告")
     log("=" * 70)
-    log(f"{'批次大小 (Batch)':<12} | {'消耗时间 (秒)':<14} | {'解析词条数':<12} | {'吞吐率 (条/秒)':<14} | {'状态':<20}")
-    log("-" * 75)
+    log(f"配置架构         : 每批 {CHUNK_SIZE} 条 | {MAX_CONCURRENCY} 并发协程")
+    log(f"总计成功解析词条 : {total_parsed} / {len(items)} 条")
+    log(f"并发总计耗时     : {total_elapsed:.2f} 秒 ({total_elapsed / 60:.2f} 分钟)")
+    log(f"综合并发吞吐率   : {overall_speed:.2f} 条/秒")
+    log("=" * 70)
 
-    best_speed = 0
-    best_batch = 0
 
-    for r in results:
-        log(f"{r['batch_size']:<12} | {r['elapsed_sec']:<14} | {r['parsed_count']:<12} | {r['items_per_sec']:<14} | {r['status']:<20}")
-        if r['items_per_sec'] > best_speed:
-            best_speed = r['items_per_sec']
-            best_batch = r['batch_size']
-
-    log("=" * 75)
-    if best_batch > 0:
-        log(f"🎉 最佳推荐性价比批次: [{best_batch} 条/批]，最高吞吐率达 {best_speed:.2f} 条/秒！")
-    log("=" * 75)
+def main():
+    asyncio.run(run_benchmark())
 
 
 if __name__ == "__main__":

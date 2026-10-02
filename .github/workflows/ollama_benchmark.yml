@@ -1,14 +1,17 @@
 name: Ollama Benchmark Test
 
-# 仅保留手动触发，绝对零自动触发
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   ollama-benchmark-test:
     runs-on: ubuntu-latest
     env:
-      PYTHONUNBUFFERED: "1"  # 强制无缓冲实时打出 Python 控制台日志
+      PYTHONUNBUFFERED: "1"
+      OLLAMA_NUM_PARALLEL: "4"
     steps:
       - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
@@ -23,13 +26,13 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 模型
+      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 模型 (开启 4 并发)
         run: |
-          ollama serve &
+          OLLAMA_NUM_PARALLEL=4 ollama serve &
           sleep 5
           echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
           ollama pull kaelri/hy-mt2:1.8b
 
-      - name: 5. 运行真实 app_en.arb 词条批次性能基准压测 (实时无缓冲输出)
+      - name: 5. 运行 60 条/批次 + 4 线程并发基准压测
         run: |
           python scripts/benchmark_ollama.py

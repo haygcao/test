@@ -1,6 +1,6 @@
-name: Ollama Single Test (Disabled Auto Trigger)
+name: Ollama Single Test
 
-# 彻底注销自动触发，仅保留手动触发按钮
+# 禁用自动触发，避免打扰
 on:
   workflow_dispatch:
 
