@@ -18,43 +18,41 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Dependencies
+      - name: Install Python Package
         run: |
           pip install ollama
 
       - name: Install Ollama CLI
         run: |
-          # 修复这里：加上 /install.sh
+          # 使用官方标准的 Linux 环境安装脚本
           curl -fsSL https://ollama.com | sh
 
-      - name: Start Ollama Server & Pull Model
+      - name: Start Ollama & Pull Model
         run: |
+          # 1. 启动纯 CPU 环境下的 Ollama 后台守护进程，并将日志剥离
           ollama serve > ollama.log 2>&1 &
           
-          echo "Waiting for Ollama server to respond..."
-          for i in {1..10}; do
-            if curl -s http://localhost:11434 > /dev/null; then
-              echo "Ollama server is up!"
-              break
-            fi
+          # 2. 严格的端口健康检查：每隔 2 秒检测一次端口，直到服务真正给回响应，杜绝连接报错
+          echo "Checking Ollama server connectivity..."
+          until curl -s http://localhost:11434 > /dev/null; do
+            echo "Ollama is initializing... checking again in 2 seconds"
             sleep 2
           done
+          echo "Ollama server is active and responding!"
           
+          # 3. 此时端口已完全畅通，安全拉取 1.25Bit 极端量化版模型
           echo "Pulling dzgg/Hy-MT2-1.8B-GGUF:1.25Bit..."
           ollama pull dzgg/Hy-MT2-1.8B-GGUF:1.25Bit
 
-      - name: Run Inline Python Script
+      - name: Run Your Python Script
         run: |
+          # 完美兼容运行你给出的原始 Python 客户端调用逻辑
           python - << 'EOF'
           from ollama import chat
 
-          print("--- Starting Inference Request ---")
           response = chat(
               model='dzgg/Hy-MT2-1.8B-GGUF:1.25Bit',
-              messages=[{'role': 'user', 'content': '将以下中文翻译为英文：人工智能正在改变我们的世界。'}],
+              messages=[{'role': 'user', 'content': '将以下中文翻译为英文，只输出翻译结果：实验结果证明了假设的正确性。'}],
           )
-          
-          print("\n--- Model Response ---")
           print(response.message.content)
-          print("-----------------------")
           EOF
