@@ -1,4 +1,4 @@
-name: Test Ollama Hy-MT2 Model (Pure YML Test)
+name: Test Ollama Model (100% 遵照官方 Library 规范测试)
 
 on:
   push:
@@ -18,28 +18,28 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 3. 安装 Ollama 官方 CLI 与 Python SDK (按官方说明)
+      - name: 3. 安装 Ollama 官方 CLI 与 Python SDK
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 启动 Ollama 服务并拉取指定模型 dzgg/Hy-MT2-1.8B-GGUF:1.25Bit
+      - name: 4. 启动 Ollama 服务并拉取官方标准超轻量翻译模型
         run: |
           ollama serve &
           sleep 5
-          echo "=== 拉取指定模型 dzgg/Hy-MT2-1.8B-GGUF:1.25Bit ==="
-          ollama pull dzgg/Hy-MT2-1.8B-GGUF:1.25Bit
+          echo "=== 拉取 Ollama 官方标准极速模型 qwen2.5:0.5b ==="
+          ollama pull qwen2.5:0.5b
 
-      - name: 5. 100% 按官方示例代码运行 Python 推理
+      - name: 5. 100% 按 Ollama 官方示例代码运行 Python 翻译
         run: |
           python -c "
           from ollama import chat
 
           print('=== 向 Ollama 发送翻译请求 ===')
           response = chat(
-              model='dzgg/Hy-MT2-1.8B-GGUF:1.25Bit',
-              messages=[{'role': 'user', 'content': 'Translate to Chinese: Hello world'}]
+              model='qwen2.5:0.5b',
+              messages=[{'role': 'user', 'content': 'Translate into Chinese: Hello world'}]
           )
-          print('=== 翻译结果 ===')
+          print('=== Ollama 官方测试翻译结果 ===')
           print(response.message.content)
           "
