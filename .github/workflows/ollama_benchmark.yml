@@ -1,17 +1,14 @@
 name: Ollama Benchmark Test
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   ollama-benchmark-test:
     runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[run-ollama-benchmark]') || github.event_name == 'workflow_dispatch'
     env:
       PYTHONUNBUFFERED: "1"
-      OLLAMA_NUM_PARALLEL: "4"
     steps:
       - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
@@ -26,13 +23,6 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 模型 (开启 4 并发)
-        run: |
-          OLLAMA_NUM_PARALLEL=4 ollama serve &
-          sleep 5
-          echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
-          ollama pull kaelri/hy-mt2:1.8b
-
-      - name: 5. 运行 60 条/批次 + 4 线程并发基准压测
+      - name: 4. 运行 1/2/3 梯度并发对比基准压测
         run: |
           python scripts/benchmark_ollama.py
