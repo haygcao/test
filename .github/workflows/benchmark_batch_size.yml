@@ -1,0 +1,35 @@
+name: Benchmark Ollama Batch Size Performance
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  benchmark-ollama:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout 测试仓库
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 3. 安装 Ollama CLI 与 Python SDK
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          python -m pip install ollama
+
+      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 模型
+        run: |
+          ollama serve &
+          sleep 5
+          echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
+          ollama pull kaelri/hy-mt2:1.8b
+
+      - name: 5. 运行真实 app_en.arb 词条批次性能基准压测
+        run: |
+          python scripts/benchmark_ollama.py
