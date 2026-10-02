@@ -1,9 +1,7 @@
-name: AngelSlim 400MB Local Translation
+name: AngelSlim 400MB Local Translation (Disabled Auto-Trigger)
 
+# 仅保留手动触发，禁止自动 Push 触发
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
