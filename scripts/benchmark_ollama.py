@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 scripts/benchmark_ollama.py
-在 2 核 CPU 上对比 1 并发 vs 2 并发的实际翻译处理速度
+在 Ollama (kaelri/hy-mt2:1.8b) 环境下，使用 60 条/批次 + 3 线程/协程并发，对真实 app_en.arb 进行吞吐率压测
 """
 
 import asyncio
@@ -16,10 +16,11 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASELINE_ARB = os.path.join(PROJECT_ROOT, "lib", "l10n", "app_en.arb")
 OLLAMA_MODEL = "kaelri/hy-mt2:1.8b"
 
-CHUNK_SIZE = 60
-CONCURRENCY_LEVELS = [1, 2]  # 对比 1 并发与 2 并发
+CHUNK_SIZE = 60      # 每批次 60 条真实词条
+MAX_CONCURRENCY = 3  # 3 线程/并发协程
 
 client = AsyncClient()
+semaphore = asyncio.Semaphore(MAX_CONCURRENCY)
 
 
 def log(msg: str):
@@ -35,10 +36,11 @@ def load_real_arb_items() -> dict:
         data = json.load(f)
 
     real_items = {k: v for k, v in data.items() if not k.startswith("@") and k != "@@locale"}
+    log(f"📦 成功载入真实 app_en.arb，共计 {len(real_items)} 个真实长短词条。")
     return real_items
 
 
-async def translate_chunk_async(semaphore: asyncio.Semaphore, chunk_idx: int, total_chunks: int, chunk: dict) -> dict:
+async def translate_chunk_async(chunk_idx: int, total_chunks: int, chunk: dict) -> dict:
     prompt = f"""
 You are a professional Flutter ARB translator.
 Translate the values in the following JSON key-value pairs from English to target language 'zh_CN'.
@@ -53,7 +55,7 @@ Input JSON:
 {json.dumps(chunk, ensure_ascii=False)}
 """
     async with semaphore:
-        log(f"   ⌛ [批次 {chunk_idx}/{total_chunks} 启动] 正在提交 ({len(chunk)} 条)...")
+        log(f"⌛ [协程 {chunk_idx}/{total_chunks} 启动] 正在 3 线程并发提交批次 ({len(chunk)} 条词条)...")
         start_t = time.time()
         try:
             response = await client.chat(
@@ -67,66 +69,60 @@ Input JSON:
 
             parsed = json.loads(clean_json)
             parsed_count = len(parsed)
-            log(f"   ✅ [批次 {chunk_idx}/{total_chunks} 完成] 耗时 {elapsed:.2f}s | 解析成功 {parsed_count} 条")
-            return {"elapsed": elapsed, "parsed_count": parsed_count, "status": "SUCCESS"}
+            log(f"✅ [协程 {chunk_idx}/{total_chunks} 完成] 耗时 {elapsed:.2f}s | 解析成功 {parsed_count} 条")
+            return {
+                "chunk_idx": chunk_idx,
+                "elapsed": elapsed,
+                "parsed_count": parsed_count,
+                "status": "SUCCESS"
+            }
         except Exception as e:
             elapsed = time.time() - start_t
-            log(f"   ❌ [批次 {chunk_idx}/{total_chunks} 失败] 耗时 {elapsed:.2f}s | 原因: {str(e)[:40]}")
-            return {"elapsed": elapsed, "parsed_count": 0, "status": "FAILED"}
+            log(f"❌ [协程 {chunk_idx}/{total_chunks} 失败] 耗时 {elapsed:.2f}s | 原因: {e}")
+            return {
+                "chunk_idx": chunk_idx,
+                "elapsed": elapsed,
+                "parsed_count": 0,
+                "status": f"FAILED: {e}"
+            }
 
 
 async def run_benchmark():
     log("==========================================================")
-    log("  Ollama (kaelri/hy-mt2:1.8b) 1 并发 vs 2 并发性能对比")
+    log("  Ollama 多线程并发压测 (60条/批 + 3 线程并发)")
     log("==========================================================")
 
     real_items = load_real_arb_items()
     items = list(real_items.items())
 
-    # 截取前 600 条真实词条 (10 个 60 条批次) 进行对比测试
-    sample_items = items[:600]
+    # 将 1838 条词条按每批 60 条拆分
     chunks = []
-    for i in range(0, len(sample_items), CHUNK_SIZE):
-        chunks.append(dict(sample_items[i:i + CHUNK_SIZE]))
+    for i in range(0, len(items), CHUNK_SIZE):
+        chunks.append(dict(items[i:i + CHUNK_SIZE]))
 
     total_chunks = len(chunks)
+    log(f"🚀 将 {len(items)} 个真实词条拆分为 {total_chunks} 个批次 (每批 {CHUNK_SIZE} 条)，开启 3 线程并发压测...")
 
-    all_results = []
+    total_start_time = time.time()
 
-    for concurrency in CONCURRENCY_LEVELS:
-        log(f"\n🚀 开始测试并发度 = {concurrency} (测试 600 条真实词条, {total_chunks} 个批次)...")
-        semaphore = asyncio.Semaphore(concurrency)
-        start_time = time.time()
+    tasks = [
+        translate_chunk_async(idx + 1, total_chunks, chunks[idx])
+        for idx in range(total_chunks)
+    ]
 
-        tasks = [
-            translate_chunk_async(semaphore, idx + 1, total_chunks, chunks[idx])
-            for idx in range(total_chunks)
-        ]
+    results = await asyncio.gather(*tasks)
 
-        results = await asyncio.gather(*tasks)
-
-        total_elapsed = time.time() - start_time
-        total_parsed = sum(r["parsed_count"] for r in results if r["status"] == "SUCCESS")
-        speed = total_parsed / total_elapsed if total_elapsed > 0 else 0
-
-        log(f"🏁 并发 {concurrency} 测试完成 -> 总耗时: {total_elapsed:.2f} 秒 | 成功解析: {total_parsed} 条 | 吞吐率: {speed:.2f} 条/秒")
-
-        all_results.append({
-            "concurrency": concurrency,
-            "elapsed": round(total_elapsed, 2),
-            "parsed": total_parsed,
-            "speed": round(speed, 2)
-        })
+    total_elapsed = time.time() - total_start_time
+    total_parsed = sum(r["parsed_count"] for r in results if r["status"] == "SUCCESS")
+    overall_speed = total_parsed / total_elapsed if total_elapsed > 0 else 0
 
     log("\n" + "=" * 70)
-    log("                  并发度 [1 并发 vs 2 并发] 汇总报告")
+    log("                    3 线程并发压测数据汇总报告")
     log("=" * 70)
-    log(f"{'并发度 (Concurrency)':<20} | {'总耗时 (秒)':<14} | {'解析词条数':<12} | {'吞吐率 (条/秒)':<14}")
-    log("-" * 70)
-
-    for r in all_results:
-        log(f"{r['concurrency']:<20} | {r['elapsed']:<14} | {r['parsed']:<12} | {r['speed']:<14}")
-
+    log(f"配置架构         : 每批 {CHUNK_SIZE} 条 | 3 线程并发")
+    log(f"总计成功解析词条 : {total_parsed} / {len(items)} 条")
+    log(f"并发总计耗时     : {total_elapsed:.2f} 秒 ({total_elapsed / 60:.2f} 分钟)")
+    log(f"综合并发吞吐率   : {overall_speed:.2f} 条/秒")
     log("=" * 70)
 
 
