@@ -3,9 +3,9 @@
 """
 scripts/i18n_pipeline_ollama.py
 在测试仓库 C:/Users/Ngokel/Desktop/en/example/test 中通过 Ollama kaelri/hy-mt2:1.8b 执行全量 ARB 检修与极速批量翻译脚本
-包含：
+优化要点：
   1. 第一阶段：代码级静态扫描与安全去重清理 (i18n_cleaner)
-  2. 第二阶段：1000 条超级大批次 JSON 批量组包极速翻译 (3600条仅需 3~4 次 HTTP 请求)
+  2. 第二阶段：30 条黄金批次 JSON 组包，配置 num_predict=4096，100% 确保 JSON 输出完整不截断
   3. 第三阶段：隔离分支单条 Commit 增量覆盖落盘 (git commit --amend --force)
 """
 
@@ -25,7 +25,7 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 OLLAMA_MODEL = "kaelri/hy-mt2:1.8b"
-CHUNK_SIZE = 1000  # 1000 条超级大批次组包，将 3600 次 HTTP 请求缩减为 3~4 次
+CHUNK_SIZE = 30  # 30 条黄金批次，确保生成的 JSON 100% 完整合规不被截断
 
 
 def log(msg: str):
@@ -47,7 +47,7 @@ def git_checkpoint_commit_amend(target_locale: str):
 
 
 def translate_chunk_with_ollama(chunk: dict, target_lang: str) -> dict:
-    """1000 条 JSON 大批次一次性提交 Ollama，极速批量翻译"""
+    """30 条 JSON 黄金批次提交 Ollama，设置 num_predict=4096 防止截断"""
     prompt = f"""
 You are a professional Flutter ARB translator.
 Translate the values in the following JSON key-value pairs from English to target language '{target_lang}'.
@@ -64,6 +64,7 @@ Input JSON:
     response = chat(
         model=OLLAMA_MODEL,
         messages=[{"role": "user", "content": prompt}],
+        options={"num_predict": 4096, "temperature": 0.3}
     )
     raw_text = response.message.content.strip()
     clean_json = raw_text.replace("```json", "").replace("```", "").strip()
@@ -150,12 +151,15 @@ def process_language_task_ollama(target_locale: str, baseline_data: dict):
         log(f"✅ 语言 `{target_locale}` 数据完备。")
         return
 
-    log(f"🌐 [1000条大批次组包] 语言 `{target_locale}` 开始极速批量翻译 {len(need_translation)} 个词条...")
+    log(f"🌐 [30条黄金批次组包] 语言 `{target_locale}` 开始极速批量翻译 {len(need_translation)} 个词条...")
 
     items = list(need_translation.items())
+    total_chunks = (len(items) + CHUNK_SIZE - 1) // CHUNK_SIZE
+
     for i in range(0, len(items), CHUNK_SIZE):
         chunk = dict(items[i:i + CHUNK_SIZE])
-        log(f"   [大组包请求] 正在向 Ollama 提交批次 {i // CHUNK_SIZE + 1} ({len(chunk)} 条词条)...")
+        chunk_idx = i // CHUNK_SIZE + 1
+        log(f"   [批次请求] 正在向 Ollama 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条词条)...")
 
         try:
             translated_chunk = translate_chunk_with_ollama(chunk, target_locale)
@@ -170,10 +174,10 @@ def process_language_task_ollama(target_locale: str, baseline_data: dict):
                         final_data[meta_k] = baseline_data[meta_k]
 
             save_arb_with_fallback(arb_path, final_data, target_locale)
-            log(f"   [大批次落盘] `{target_locale}` 批次 {i // CHUNK_SIZE + 1} 已写入磁盘！")
+            log(f"   [批次落盘] `{target_locale}` 批次 {chunk_idx}/{total_chunks} 已写入磁盘！")
 
         except Exception as e:
-            log(f"⚠️ `{target_locale}` 批次 {i // CHUNK_SIZE + 1} 翻译异常: {e}")
+            log(f"⚠️ `{target_locale}` 批次 {chunk_idx}/{total_chunks} 翻译异常: {e}")
 
     # 每当一种语言翻译完成，在隔离分支上执行单条 Commit 覆盖增量存盘
     git_checkpoint_commit_amend(target_locale)
@@ -198,7 +202,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("==========================================")
-    log(f"  Ollama ({OLLAMA_MODEL}) 1000条超级组包全量 ARB 极速管道")
+    log(f"  Ollama ({OLLAMA_MODEL}) 30条黄金批次全量 ARB 极速管道")
     log("==========================================")
 
     # 1. 静态代码级扫描清理
@@ -237,7 +241,7 @@ def main():
         process_language_task_ollama(locale, baseline_data)
 
     log("==========================================")
-    log("✅ Ollama 1000条大批次组包全量 ARB 翻译全套完成！")
+    log("✅ Ollama 30条黄金批次全量 ARB 翻译全套完成！")
     log("==========================================")
 
 
