@@ -1,12 +1,14 @@
-name: Ollama Benchmark Test (Disabled Auto Trigger)
+name: Ollama Benchmark Test
 
-# 彻底注销自动触发，仅保留手动触发按钮
+# 仅保留手动触发，绝对零自动触发
 on:
   workflow_dispatch:
 
 jobs:
   ollama-benchmark-test:
     runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: "1"  # 强制无缓冲实时打出 Python 控制台日志
     steps:
       - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
@@ -28,6 +30,6 @@ jobs:
           echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
           ollama pull kaelri/hy-mt2:1.8b
 
-      - name: 5. 运行真实 app_en.arb 词条批次性能基准压测
+      - name: 5. 运行真实 app_en.arb 词条批次性能基准压测 (实时无缓冲输出)
         run: |
           python scripts/benchmark_ollama.py
