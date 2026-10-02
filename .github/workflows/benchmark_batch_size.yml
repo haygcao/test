@@ -1,16 +1,12 @@
 name: Benchmark Ollama Batch Size Performance
 
+# 彻底移除 on: push，100% 仅限在 GitHub 页面手动点击触发，绝对零误触
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   benchmark-ollama:
     runs-on: ubuntu-latest
-    # 关键字精控拦截：只有当 Commit Message 包含 [benchmark] 或 [run benchmark] 关键字，或者是手动点击时才真正触发运行！
-    if: contains(github.event.head_commit.message, '[benchmark]') || contains(github.event.head_commit.message, '[run benchmark]') || github.event_name == 'workflow_dispatch'
     steps:
       - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
