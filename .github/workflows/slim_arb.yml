@@ -1,6 +1,6 @@
 name: Slim ARB Pipeline
 
-# 禁用自动触发，避免打扰
+# 彻底禁用自动触发
 on:
   workflow_dispatch:
 
