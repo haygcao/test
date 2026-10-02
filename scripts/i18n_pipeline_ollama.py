@@ -3,10 +3,10 @@
 """
 scripts/i18n_pipeline_ollama.py
 在测试仓库 C:/Users/Ngokel/Desktop/en/example/test 中通过 Ollama kaelri/hy-mt2:1.8b 执行全量 ARB 检修与翻译脚本
-包含：
+优化要点：
   1. 第一阶段：代码级静态扫描与安全去重清理 (i18n_cleaner)
   2. 荷兰语族群与近缘语言映射支持 (af/af_ZA 自动无缝映射至荷兰语 nl)
-  3. 第二阶段：30 条黄金批次 + 失败自动重试机制 (保底 100% JSON 合规)
+  3. 第二阶段：锁定 60 条批次 + 4 线程并发 + 失败自动重试机制 (保底 100% JSON 合规)
   4. 隔离分支单条 Commit 增量覆盖落盘 (git commit --amend --force)
 """
 
@@ -26,7 +26,8 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 OLLAMA_MODEL = "kaelri/hy-mt2:1.8b"
-CHUNK_SIZE = 30  # 30 条黄金批次，确保生成的 JSON 100% 完整合规
+CHUNK_SIZE = 60       # 锁定 60 条/批
+MAX_CONCURRENCY = 4   # 锁定 4 线程并发
 
 # 腾讯混元 Hy-MT2 官方支持语言及近缘语言映射 (如 af 南非荷兰语映射至 nl 荷兰语)
 HYMT2_SUPPORTED_LANGUAGES = {
@@ -68,7 +69,7 @@ def git_checkpoint_commit_amend(target_locale: str):
 
 
 def translate_chunk_with_ollama(chunk: dict, target_lang: str) -> dict:
-    """30 条 JSON 黄金批次提交 Ollama，带单批次重试保底"""
+    """60 条 JSON 批次提交 Ollama，带单批次重试保底"""
     target_name = LOCALE_NAME_MAP.get(target_lang, target_lang)
     prompt = f"""
 You are a professional Flutter ARB translator.
@@ -186,7 +187,7 @@ def process_language_task_ollama(target_locale: str, baseline_data: dict):
         log(f"✅ 语言 `{target_locale}` 数据完备。")
         return
 
-    log(f"🌐 [Hy-MT2 极速批量] 语言 `{target_locale}` 开始翻译 {len(need_translation)} 个词条...")
+    log(f"🌐 [60条批次] 语言 `{target_locale}` 开始翻译 {len(need_translation)} 个词条...")
 
     items = list(need_translation.items())
     total_chunks = (len(items) + CHUNK_SIZE - 1) // CHUNK_SIZE
@@ -246,7 +247,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("==========================================")
-    log(f"  Ollama ({OLLAMA_MODEL}) 全量 ARB 静态清理与精准语言族群翻译管道")
+    log(f"  Ollama ({OLLAMA_MODEL}) 60条/4线程 全量 ARB 翻译管道")
     log("==========================================")
 
     try:
@@ -283,7 +284,7 @@ def main():
         process_language_task_ollama(locale, baseline_data)
 
     log("==========================================")
-    log("✅ Ollama 全量 ARB 静态清理与语言族群翻译全套完成！")
+    log("✅ Ollama 全量 ARB 翻译全套完成！")
     log("==========================================")
 
 
