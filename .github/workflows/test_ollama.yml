@@ -1,4 +1,4 @@
-name: Test Ollama Model (100% 遵照官方 Library 规范测试)
+name: Test Ollama Hy-MT2 Model (100% 遵照 kaelri/hy-mt2 规范)
 
 on:
   push:
@@ -23,23 +23,23 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 启动 Ollama 服务并拉取官方标准超轻量翻译模型
+      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 专属适配模型
         run: |
           ollama serve &
           sleep 5
-          echo "=== 拉取 Ollama 官方标准极速模型 qwen2.5:0.5b ==="
-          ollama pull qwen2.5:0.5b
+          echo "=== 拉取 Ollama 专属模板适配模型 kaelri/hy-mt2:1.8b ==="
+          ollama pull kaelri/hy-mt2:1.8b
 
-      - name: 5. 100% 按 Ollama 官方示例代码运行 Python 翻译
+      - name: 5. 运行 Ollama 翻译测试
         run: |
           python -c "
           from ollama import chat
 
-          print('=== 向 Ollama 发送翻译请求 ===')
+          print('=== 向 Ollama kaelri/hy-mt2:1.8b 发送翻译请求 ===')
           response = chat(
-              model='qwen2.5:0.5b',
-              messages=[{'role': 'user', 'content': 'Translate into Chinese: Hello world'}]
+              model='kaelri/hy-mt2:1.8b',
+              messages=[{'role': 'user', 'content': '将以下文本翻译成英语：今天天气真好。'}]
           )
-          print('=== Ollama 官方测试翻译结果 ===')
+          print('=== Ollama 翻译结果 ===')
           print(response.message.content)
           "

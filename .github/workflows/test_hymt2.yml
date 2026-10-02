@@ -1,4 +1,4 @@
-name: Test Hy-MT2 Model (100% 遵照官方 README 规范测试)
+name: Test AngelSlim 400MB Model (100% 遵照 AngelSlim 400MB 规范)
 
 on:
   push:
@@ -18,35 +18,33 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 3. Install official PyTorch & Transformers
+      - name: 3. Install AngelSlim & PyTorch
         run: |
           python -m pip install --upgrade pip
           python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install "transformers>=4.40.0" accelerate
+          python -m pip install transformers accelerate
+          python -m pip install git+https://github.com/tencent/AngelSlim.git
 
-      - name: 4. 100% 遵照官方 README 范例执行 Hy-MT2 1.8B 推理
+      - name: 4. 100% 遵照规范载入 AngelSlim 400MB 极轻量端侧模型 (AngelSlim/HY-1.8B-2Bit)
         run: |
           python -c "
           import torch
-          from transformers import AutoModelForCausalLM, AutoTokenizer
+          import angelslim
+          from angelslim.engine import Engine
+          from transformers import AutoTokenizer
 
-          model_path = 'Tencent-Hunyuan/Hy-MT2-1.8B'
-          print(f'=== 载入官方推荐 x86 模型: {model_path} ===')
+          model_path = 'AngelSlim/HY-1.8B-2Bit'
+          print(f'=== 载入 AngelSlim 400MB 端侧模型: {model_path} ===')
 
-          tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
-          model = AutoModelForCausalLM.from_pretrained(
-              model_path,
-              torch_dtype=torch.float32,
-              device_map='cpu',
-              trust_remote_code=True,
-              low_cpu_mem_usage=True
-          )
-          model.eval()
+          slim_engine = Engine()
+          slim_engine.prepare_model(model_name='HunyuanDense', model_path=model_path)
 
-          # 100% 照搬官方 README Prompt 与 Chat Template 转换规范
+          model = slim_engine.slim_model.model
+          tokenizer = getattr(slim_engine.slim_model, 'tokenizer', None) or AutoTokenizer.from_pretrained(model_path)
+
           prompt = '将以下文本翻译成英语,注意只需要输出翻译后的结果,不要额外解释:\n\n今天天气真好。'
           messages = [{'role': 'user', 'content': prompt}]
-          
+
           inputs = tokenizer.apply_chat_template(
               messages,
               add_generation_prompt=True,
@@ -60,6 +58,6 @@ jobs:
               )
 
           response = tokenizer.decode(outputs[0][inputs['input_ids'].shape[-1]:], skip_special_tokens=True)
-          print('=== 官方规范运行 翻译结果 ===')
+          print('=== AngelSlim 400MB 模型运行 翻译结果 ===')
           print(response)
           "
