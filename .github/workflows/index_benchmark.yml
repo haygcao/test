@@ -1,5 +1,6 @@
 name: Index-Translate 2B Benchmark Test
 
+# 全仓库【唯一】允许自动 Push 触发的压测工作流
 on:
   push:
     branches:
@@ -11,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONUNBUFFERED: "1"
-      OMP_NUM_THREADS: "2"
-      MKL_NUM_THREADS: "2"
     steps:
       - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
@@ -28,6 +27,6 @@ jobs:
           python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
           python -m pip install "transformers>=4.40.0" accelerate
 
-      - name: 4. 运行 Index-Translate 2B (Qwen3.5 150+语言) 原生 PyTorch 极速基准压测
+      - name: 4. 运行 Index-Translate 2B (2 线程 vs 4 线程) 压测
         run: |
           python scripts/benchmark_index.py

@@ -1,10 +1,7 @@
 name: Ollama Benchmark Test
 
-# 只要 Push 提交到 main 分支，无条件立即触发 2 线程压测
+# 彻底禁用 Push 触发
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -12,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONUNBUFFERED: "1"
-      OLLAMA_NUM_PARALLEL: "2"
     steps:
       - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
@@ -27,13 +23,6 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 模型 (开启 2 并发)
-        run: |
-          OLLAMA_NUM_PARALLEL=2 ollama serve &
-          sleep 5
-          echo "=== 正在预拉取 kaelri/hy-mt2:1.8b 模型 ==="
-          ollama pull kaelri/hy-mt2:1.8b
-
-      - name: 5. 运行 60 条/批次 + 2 线程并发基准压测
+      - name: 4. 运行 1/2/3 梯度并发对比基准压测
         run: |
           python scripts/benchmark_ollama.py
