@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 3. Install Ollama CLI & Python library
+      - name: 3. 严格按 Ollama 官方文档安装脚本链接 (https://ollama.com/install.sh)
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
