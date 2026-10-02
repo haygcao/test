@@ -1,17 +1,17 @@
 name: Pipeline Ollama kaelri Full ARB Translation
 
+# 彻底注销，仅保留手动触发
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
   ollama-arb-pipeline:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Checkout
+      - name: 1. Checkout 测试仓库
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 2. Setup Python 3.10
         uses: actions/setup-python@v5
@@ -23,13 +23,20 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 专属模型
+      - name: 4. 启动 Ollama 服务并拉取 kaelri/hy-mt2:1.8b 模型
         run: |
           ollama serve &
           sleep 5
           echo "=== 拉取 kaelri/hy-mt2:1.8b ==="
           ollama pull kaelri/hy-mt2:1.8b
 
-      - name: 5. 运行 Ollama 全量 ARB 检修与翻译管道
+      - name: 5. 执行全量 ARB 本地化翻译管道 (Ollama + 隔离分支单 Commit 增量落盘)
         run: |
           python scripts/i18n_pipeline_ollama.py
+
+      - name: 6. 保底机制：无论成功还是超时中断，强制打包上传全量 ARB 产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: translated-arb-files
+          path: lib/l10n/*.arb

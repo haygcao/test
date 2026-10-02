@@ -1,6 +1,6 @@
 name: Ollama Benchmark Test
 
-# 全仓库【唯一】允许自动 Push 触发的压测工作流
+# 全仓库【唯一】允许自动 Push 触发的工作流
 on:
   push:
     branches:
@@ -26,6 +26,13 @@ jobs:
           curl -fsSL https://ollama.com/install.sh | sh
           python -m pip install ollama
 
-      - name: 4. 运行 1/2/3 梯度并发对比基准压测
+      - name: 4. 启动 Ollama 服务并预拉取 kaelri/hy-mt2:1.8b 模型
+        run: |
+          OLLAMA_NUM_PARALLEL=4 ollama serve &
+          sleep 5
+          echo "=== 正在预拉取 kaelri/hy-mt2:1.8b 模型 ==="
+          ollama pull kaelri/hy-mt2:1.8b
+
+      - name: 5. 运行并发对比基准压测
         run: |
           python scripts/benchmark_ollama.py
