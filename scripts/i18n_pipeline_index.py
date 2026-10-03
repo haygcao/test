@@ -3,11 +3,6 @@
 """
 scripts/i18n_pipeline_index.py
 哔哩哔哩最新开源 Index-Translate 2B (Qwen3.5 150+语言) 全量 ARB 极速翻译管道
-配置要点：
-  1. 开启 ThreadPoolExecutor(max_workers=4) 4 线程同时并发并行翻译！
-  2. 60 条黄金批次，结合软硬约束 Prompt 完美保护 JSON 键名与占位符
-  3. 单批次失败自动重试机制 (保底 100% 成功率)
-  4. 隔离分支单条 Commit 增量覆盖落盘 (使用 github-actions[bot] 匿名凭据与 GITHUB_TOKEN)
 """
 
 import json
@@ -19,7 +14,6 @@ import torch
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# 设置 PyTorch 底层 C++ CPU 线程
 torch.set_num_threads(2)
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,8 +24,8 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 MODEL_ID = "IndexTeam/Index-Translate-2B"
-CHUNK_SIZE = 60    # 60 条黄金批次
-MAX_WORKERS = 4   # 4 线程同时并发翻译 4 个语言！
+CHUNK_SIZE = 60
+MAX_WORKERS = 4
 
 model = None
 tokenizer = None
@@ -42,20 +36,23 @@ def log(msg: str):
 
 
 def git_checkpoint_commit_amend(target_locale: str):
-    """在隔离进度分支上执行 git commit --amend 增量保存，使用标准无隐私 github-actions[bot] 身份与 GITHUB_TOKEN 鉴权"""
+    """在隔离进度分支上执行切换与 git commit --amend 增量保存"""
     try:
         token = os.environ.get("GITHUB_TOKEN", "").strip()
         repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
 
         os.system("git config user.name 'github-actions[bot]'")
         os.system("git config user.email '41898282+github-actions[bot]@users.noreply.github.com'")
+        os.system("git checkout -B i18n/checkpoint-progress")
         os.system("git add lib/l10n/*.arb")
 
-        ret = os.system("git commit --amend --no-edit || git commit -m 'style(i18n): auto translation checkpoint progress [github-actions-bot]'")
-        if ret == 0 and token and repository:
-            log(f"💾 [隔离分支增量落盘] 语言 `{target_locale}` 已成功执行 git commit --amend 覆盖存盘！")
+        commit_msg = f"style(i18n): checkpoint translation progress for {target_locale} [github-actions-bot]"
+        ret = os.system(f"git commit --amend -m '{commit_msg}' || git commit -m '{commit_msg}'")
+
+        if token and repository:
+            log(f"💾 [隔离分支增量落盘] 语言 `{target_locale}` 已成功在 i18n/checkpoint-progress 分支存盘！")
             push_url = f"https://x-access-token:{token}@github.com/{repository}.git"
-            os.system(f"git push --force {push_url} HEAD:i18n/checkpoint-progress > /dev/null 2>&1")
+            os.system(f"git push --force {push_url} i18n/checkpoint-progress > /dev/null 2>&1")
     except Exception as e:
         log(f"⚠️ 隔离分支增量存盘提示: {e}")
 
@@ -79,7 +76,6 @@ def init_index_model():
 
 
 def translate_chunk_with_index(chunk: dict, target_lang: str) -> dict:
-    """60 条 JSON 批次提交 Index-Translate 2B，带单批次重试保底"""
     prompt = f"""Translate the values in the following JSON key-value pairs from English into target language '{target_lang}'. Note that you should only output the translated result without any additional explanation:
 
 {json.dumps(chunk, ensure_ascii=False)}"""
@@ -121,7 +117,6 @@ def load_arb(path: str) -> dict:
 
 
 def save_arb_with_fallback(path: str, data: dict, target_locale: str):
-    """写回 ARB 文件，并自动同步基础兜底语言文件 (如 app_hu_HU.arb -> app_hu.arb)"""
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
     with open(path, "w", encoding="utf-8") as f:
@@ -253,7 +248,6 @@ def main():
     log(f"  Index-Translate 2B 4 线程并发全量 ARB 翻译管道")
     log("==========================================")
 
-    # 1. 静态代码级扫描清理
     try:
         from i18n_cleaner import compute_safe_keys_to_remove, apply_cleanup
         log("🧹 [第一阶段] 启动静态代码调用分析与未使用词条安全清理...")
@@ -267,10 +261,8 @@ def main():
     except Exception as e:
         log(f"⚠️ 静态清理阶段跳过/警告: {e}")
 
-    # 2. 初始化模型
     init_index_model()
 
-    # 3. 读取基准英语 ARB
     baseline_data = load_arb(BASELINE_ARB)
     if not baseline_data:
         log(f"❌ 错误: 基准文件 {BASELINE_ARB} 不存在！")
@@ -287,7 +279,6 @@ def main():
     filtered_locales = [loc for loc in target_locales if not loc.startswith("en")]
     log(f"🚀 [第二阶段] 开启 {MAX_WORKERS} 线程同时并发处理 {len(filtered_locales)} 个语言的翻译...")
 
-    # 使用 ThreadPoolExecutor(max_workers=4) 4 线程同时并发并行翻译！
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = {
             executor.submit(process_language_task_index, locale, baseline_data): locale
