@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 scripts/i18n_pipeline_index.py
-哔哩哔哩最新开源 Index-Translate 2B (Qwen3.5 150+语言) 全量 ARB 极速翻译管道
+哔哩哔哩 Index-Translate 2B 全量 ARB 翻译管道
+使用纯粹的 github-actions[bot] 机器人身份与权限
 """
 
 import json
@@ -36,11 +37,8 @@ def log(msg: str):
 
 
 def git_checkpoint_commit_amend(target_locale: str):
-    """在隔离进度分支上执行切换与 git commit --amend 增量保存"""
+    """在隔离进度分支上执行切换与 git commit --amend 增量保存，使用 github-actions[bot] 机器人身份"""
     try:
-        token = os.environ.get("GITHUB_TOKEN", "").strip()
-        repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
-
         os.system("git config user.name 'github-actions[bot]'")
         os.system("git config user.email '41898282+github-actions[bot]@users.noreply.github.com'")
         os.system("git checkout -B i18n/checkpoint-progress")
@@ -49,10 +47,9 @@ def git_checkpoint_commit_amend(target_locale: str):
         commit_msg = f"style(i18n): checkpoint translation progress for {target_locale} [github-actions-bot]"
         ret = os.system(f"git commit --amend -m '{commit_msg}' || git commit -m '{commit_msg}'")
 
-        if token and repository:
+        if ret == 0:
             log(f"💾 [隔离分支增量落盘] 语言 `{target_locale}` 已成功在 i18n/checkpoint-progress 分支存盘！")
-            push_url = f"https://x-access-token:{token}@github.com/{repository}.git"
-            os.system(f"git push --force {push_url} i18n/checkpoint-progress > /dev/null 2>&1")
+            os.system("git push --force origin HEAD:i18n/checkpoint-progress")
     except Exception as e:
         log(f"⚠️ 隔离分支增量存盘提示: {e}")
 

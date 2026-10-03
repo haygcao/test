@@ -4,6 +4,10 @@ name: Ollama ARB Pipeline
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   ollama-arb-pipeline:
     runs-on: ubuntu-latest
@@ -31,8 +35,6 @@ jobs:
           ollama pull kaelri/hy-mt2:1.8b
 
       - name: 5. 执行全量 ARB 本地化翻译管道 (Ollama + 隔离分支单 Commit 增量落盘)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python scripts/i18n_pipeline_ollama.py
 
