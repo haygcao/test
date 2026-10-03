@@ -1,0 +1,43 @@
+name: Index-Translate 2B Full ARB Translation Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  index-arb-pipeline:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: "1"
+      OMP_NUM_THREADS: "4"
+      MKL_NUM_THREADS: "4"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: 1. Checkout 测试仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 2. Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 3. 安装 PyTorch 与 Transformers
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install "transformers>=4.40.0" accelerate
+
+      - name: 4. 执行 Index-Translate 2B 全量 ARB 本地化翻译管道
+        run: |
+          python scripts/i18n_pipeline_index.py
+
+      - name: 5. 保底机制：无论成功还是超时中断，强制打包上传全量 ARB 产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: translated-arb-files
+          path: lib/l10n/*.arb
