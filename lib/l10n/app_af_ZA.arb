@@ -1,0 +1,87 @@
+{
+  "@@locale": "af_ZA",
+  "aboutContactSubscription": "Omsorg virg kontaktesubskripsie",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Omsorg vir labelle",
+  "aboutPhoneSubscriptionRules": "Omsorg vir telefoon-subskripsieregels",
+  "aboutPhoneSubscriptions": "Omsorg vir telefoon-subskripsies",
+  "@aboutPhoneSubscriptions": {
+    "description": "About phone subscriptions title"
+  },
+  "aboutPhoneSubscriptionsDesc": "Skryf jou in vir telefoonreëllys deur ’n URL, en reëls word outomaties opgedateer. Ondersteun reëlbestande in JSON- en CSV-formaat.",
+  "@aboutPhoneSubscriptionsDesc": {
+    "description": "About phone subscriptions description"
+  },
+  "aboutSmsFilter": "Omsorg vir SMS-filtering",
+  "aboutSmsSubscriptionRules": "Omsorg vir SMS-subskripsieregels",
+  "aboutSubtitle": "Aplikasieversie en regstelligheidsinligting",
+  "aboutTitle": "Omsorg",
+  "action": "Aksie",
+  "actionAll": "Alles",
+  "actionAllow": "Tolerer",
+  "actionBlock": "Blokker",
+  "actionFilterAll": "Alles filter",
+  "actionFilterTitle": "Filter volgens aksietipe",
+  "actionFilterTooltip": "Aksiefilter",
+  "actionNone": "Geen aksie",
+  "actionSilence": "Stil",
+  "actionTag": "Aksie: {actionType}",
+  "actionType": "Aksietipe",
+  "actionUnknown": "Onbekend",
+  "add": "Voeg by",
+  "addAllowedBlockedRule": "Voeg toelatings/blokkeringreël by",
+  "addAllowSubscription": "Voeg toelatingssubskripsie by",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Voeg blokkeringsubskripsie by",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Voeg kontak by",
+  "addContactFailed": "Kon kontak nie byvoeg nie: {error}",
+  "addedToAllowedRules": "Voeg by toegelaat reëls",
+  "addedToBlacklist": "Voeg by swartlys",
+  "addedToBlockedRules": "Voeg by geblokkeerde reëls",
+  "addedToFavoriteContacts": "Voeg by gunstelingkontakte",
+  "addedToFavorites": "Voeg by gunstelingkontakte",
+  "addedToWhitelist": "Voeg by witlys",
+  "addFavorite": "Voeg as gunsteling by",
+  "addFilter": "Voeg filter by",
+  "addLabel": "Voeg label by",
+  "addLabelButton": "Voeg label by",
+  "addLabelFailed": "Kon label nie byvoeg nie: {error}",
+  "addLabelToCall": "Voeg label by oproeprekord",
+  "addName": "Voeg naam by",
+  "addNoneSubscription": "Voeg geen subskripsie by",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addOrEditContactInfo": "Word gebruik om kontakinligting by te voeg of te wysig",
+  "addPhoneMark": "Voeg telefoonmerk by",
+  "addPhoneNumberRule": "Voeg telefoonnommerreël by",
+  "addPlugin": "Voeg plugin by",
+  "addPluginFailed": "Kon plugin nie byvoeg nie",
+  "addPluginFailedWithError": "Kon plugin nie byvoeg nie: {error}",
+  "addPluginFromLocalFile": "Voeg plugin by uit plaaslike bestand",
+  "addPluginFromUrl": "Voeg plugin by uit URL",
+  "addRegexRule": "Voeg regekoeireël by",
+  "addRule": "Voeg reël by",
+  "addRuleButton": "Voeg reël by",
+  "addRuleFailed": "Kon reël nie byvoeg nie: {error}",
+  "addRuleTooltip": "Voeg reël by",
+  "addSilenceSubscription": "Voeg stilsubskripsie by",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSimRuleButton": "Voeg SIM-reël by",
+  "addSmsFilterRule": "Voeg SMS-filterreël by",
+  "addSmsRule": "Voeg SMS-reël by",
+  "addSmsSubscription": "Voeg SMS-subskripsie by",
+  "addSubscription": "Voeg subskripsie by",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  }
+}
