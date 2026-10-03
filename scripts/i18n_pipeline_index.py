@@ -4,7 +4,7 @@
 scripts/i18n_pipeline_index.py
 哔哩哔哩最新开源 Index-Translate 2B (Qwen3.5 150+语言) 全量 ARB 极速翻译管道
 配置要点：
-  1. 4 线程 PyTorch CPU 算子加速 (torch.set_num_threads=4)
+  1. 开启 ThreadPoolExecutor(max_workers=4) 4 线程同时并发并行翻译！
   2. 60 条黄金批次，结合软硬约束 Prompt 完美保护 JSON 键名与占位符
   3. 单批次失败自动重试机制 (保底 100% 成功率)
   4. 隔离分支单条 Commit 增量覆盖落盘 (使用 github-actions[bot] 匿名凭据与 GITHUB_TOKEN)
@@ -16,10 +16,11 @@ import re
 import sys
 import time
 import torch
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-# 设置 PyTorch 底层 C++ CPU 线程为 4
-torch.set_num_threads(4)
+# 设置 PyTorch 底层 C++ CPU 线程
+torch.set_num_threads(2)
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 L10N_DIR = os.path.join(PROJECT_ROOT, "lib", "l10n")
@@ -29,7 +30,8 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 MODEL_ID = "IndexTeam/Index-Translate-2B"
-CHUNK_SIZE = 60  # 60 条黄金批次
+CHUNK_SIZE = 60    # 60 条黄金批次
+MAX_WORKERS = 4   # 4 线程同时并发翻译 4 个语言！
 
 model = None
 tokenizer = None
@@ -188,7 +190,7 @@ def process_language_task_index(target_locale: str, baseline_data: dict):
         log(f"✅ 语言 `{target_locale}` 数据完备。")
         return
 
-    log(f"🌐 [Index-Translate 2B] 语言 `{target_locale}` 开始翻译 {len(need_translation)} 个词条...")
+    log(f"🌐 [Index-Translate 2B 并发] 语言 `{target_locale}` 开始翻译 {len(need_translation)} 个词条...")
 
     items = list(need_translation.items())
     total_chunks = (len(items) + CHUNK_SIZE - 1) // CHUNK_SIZE
@@ -196,7 +198,7 @@ def process_language_task_index(target_locale: str, baseline_data: dict):
     for i in range(0, len(items), CHUNK_SIZE):
         chunk = dict(items[i:i + CHUNK_SIZE])
         chunk_idx = i // CHUNK_SIZE + 1
-        log(f"   [批次请求] 正在向 Index-2B 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条词条)...")
+        log(f"   [批次请求] 语言 `{target_locale}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条词条)...")
 
         try:
             translated_chunk = translate_chunk_with_index(chunk, target_locale)
@@ -248,7 +250,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("==========================================")
-    log(f"  Index-Translate 2B 全量 ARB 极速翻译管道")
+    log(f"  Index-Translate 2B 4 线程并发全量 ARB 翻译管道")
     log("==========================================")
 
     # 1. 静态代码级扫描清理
@@ -282,15 +284,25 @@ def main():
         log("⚠️ 未解析到语言配置。")
         sys.exit(0)
 
-    log(f"🚀 [第二阶段] 开始调用 Index-Translate 2B 处理 {len(target_locales)} 个语言的翻译...")
+    filtered_locales = [loc for loc in target_locales if not loc.startswith("en")]
+    log(f"🚀 [第二阶段] 开启 {MAX_WORKERS} 线程同时并发处理 {len(filtered_locales)} 个语言的翻译...")
 
-    for locale in target_locales:
-        if locale.startswith("en"):
-            continue
-        process_language_task_index(locale, baseline_data)
+    # 使用 ThreadPoolExecutor(max_workers=4) 4 线程同时并发并行翻译！
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = {
+            executor.submit(process_language_task_index, locale, baseline_data): locale
+            for locale in filtered_locales
+        }
+        for future in as_completed(futures):
+            loc = futures[future]
+            try:
+                future.result()
+                log(f"🎉 语言 `{loc}` 4 线程并发处理完成！")
+            except Exception as e:
+                log(f"❌ 语言 `{loc}` 并发处理异常: {e}")
 
     log("==========================================")
-    log("✅ Index-Translate 2B 全量 ARB 翻译全套完成！")
+    log("✅ Index-Translate 2B 4 线程并发全量 ARB 翻译全套完成！")
     log("==========================================")
 
 
