@@ -1,10 +1,7 @@
 name: Index-Translate 2B Benchmark Test
 
-# 全仓库【唯一】允许自动 Push 触发的压测工作流
+# 彻底注销，仅保留手动触发
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:

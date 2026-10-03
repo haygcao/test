@@ -1,6 +1,6 @@
 name: Ollama Benchmark Test
 
-# 彻底禁用 Push 触发
+# 彻底注销，仅保留手动触发
 on:
   workflow_dispatch:
 
