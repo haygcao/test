@@ -1,11 +1,15 @@
 name: Index-Translate 2B Full ARB Translation Pipeline
 
-# 全仓库【唯一】允许自动 Push 触发的全量 ARB 翻译管道
+# 允许自动 Push 触发的全量 ARB 翻译管道
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
 
 jobs:
   index-arb-pipeline:
