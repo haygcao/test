@@ -6,7 +6,8 @@ Index-Translate 35B-A3B 官方免费公网 API 极速 ARB 本地化翻译管道
 特点：
   1. 零本地 GPU/CPU 算力消耗，直连官方 35B-A3B 免费公网接口 (OpenAI 规范)
   2. 智能底稿继承 (load_arb_with_fallback)，仅做增量翻译
-  3. 专用隔离分支 i18n/checkpoint-api-progress，单条 Commit 覆盖存盘推送
+  3. 具备多层 JSON 自愈、二分重试与异常兜底容错机制，绝不卡死
+  4. 专用隔离分支 i18n/checkpoint-api-progress，单条 Commit 覆盖存盘推送
 """
 
 import json
@@ -69,8 +70,43 @@ def git_checkpoint_commit_amend(target_locale: str, force: bool = False, count_i
         log(f"⚠️ 隔离分支存盘提示: {e}")
 
 
-def translate_chunk_with_api(chunk: dict, target_lang: str) -> dict:
-    """提交 60 条 JSON 批次到官方免费 35B-A3B 公网 API 接口"""
+def extract_json_from_text(text: str) -> dict:
+    """极其鲁棒的 JSON 提取器，防范模型输出 Markdown、前后废话与多余逗号"""
+    if not text:
+        return {}
+    clean = text.replace("```json", "").replace("```", "").strip()
+    try:
+        res = json.loads(clean)
+        if isinstance(res, dict):
+            return res
+    except Exception:
+        pass
+
+    match = re.search(r"(\{[\s\S]*\})", clean)
+    if match:
+        json_str = match.group(1)
+        try:
+            res = json.loads(json_str)
+            if isinstance(res, dict):
+                return res
+        except Exception:
+            pass
+        fixed_str = re.sub(r",\s*([\}\]])", r"\1", json_str)
+        try:
+            res = json.loads(fixed_str)
+            if isinstance(res, dict):
+                return res
+        except Exception:
+            pass
+
+    return {}
+
+
+def translate_chunk_with_api_safe(chunk: dict, target_lang: str, depth: int = 0) -> dict:
+    """带自动重试与二分降级容错的 API 请求"""
+    if not chunk:
+        return {}
+
     prompt = f"Translate the values in the following JSON key-value pairs from English into target language '{target_lang}'. Note that you should only output the translated result without any additional explanation:\n\n{json.dumps(chunk, ensure_ascii=False)}"
 
     payload = {
@@ -99,13 +135,27 @@ def translate_chunk_with_api(chunk: dict, target_lang: str) -> dict:
                 res_body = resp.read().decode("utf-8")
                 res_json = json.loads(res_body)
                 raw_text = res_json["choices"][0]["message"]["content"]
-                clean_json = raw_text.replace("```json", "").replace("```", "").strip()
-                return json.loads(clean_json)
+                parsed = extract_json_from_text(raw_text)
+                if parsed and isinstance(parsed, dict) and len(parsed) > 0:
+                    valid_res = {k: str(v) for k, v in parsed.items() if k in chunk}
+                    if len(valid_res) >= len(chunk) * 0.7:
+                        return valid_res
         except Exception as e:
             if attempt < max_retries:
                 time.sleep(2 * attempt)
             else:
-                raise e
+                log(f"⚠️ API 请求异常: {e}")
+
+    if len(chunk) > 1 and depth < 3:
+        items = list(chunk.items())
+        mid = len(items) // 2
+        log(f"🔄 对异常批次进行二分降级重试: {len(items[:mid])} 条 + {len(items[mid:])} 条")
+        res_a = translate_chunk_with_api_safe(dict(items[:mid]), target_lang, depth + 1)
+        res_b = translate_chunk_with_api_safe(dict(items[mid:]), target_lang, depth + 1)
+        return {**res_a, **res_b}
+
+    log(f"⚠️ 无法翻译的词条降级保留原文: {list(chunk.keys())}")
+    return chunk
 
 
 def load_arb(path: str) -> dict:
@@ -187,7 +237,7 @@ def is_untranslated_value(en_val: str, target_val: str) -> bool:
 
 
 def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, baseline_data: dict):
-    """单线性顺畅处理不超过 600 条词条的子任务（按 60 条/批次组包），累计存盘并推送隔离分支"""
+    """单线性顺畅处理不超过 600 条词条的子任务（按 60 条批次组包），累计存盘并推送隔离分支"""
     current_data, arb_path = load_arb_with_fallback(target_locale)
     current_data = sanitize_and_deduplicate_arb(current_data)
     current_data = clean_obsolete_keys_from_target(current_data, set(baseline_data.keys()))
@@ -198,10 +248,10 @@ def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, 
     for i in range(0, len(sub_items), CHUNK_SIZE):
         chunk = dict(sub_items[i:i + CHUNK_SIZE])
         chunk_idx = i // CHUNK_SIZE + 1
-        log(f"   [API 极速请求] 子任务 `{subtask_id}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条)...")
+        log(f"   [批次请求] 子任务 `{subtask_id}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条)...")
 
         try:
-            translated_chunk = translate_chunk_with_api(chunk, target_locale)
+            translated_chunk = translate_chunk_with_api_safe(chunk, target_locale)
             current_data.update(translated_chunk)
 
             final_data = {"@@locale": target_locale}
@@ -216,9 +266,8 @@ def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, 
             log(f"   [批次落盘] `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 已写入磁盘！")
 
             git_checkpoint_commit_amend(target_locale, force=False, count_inc=len(chunk))
-
         except Exception as e:
-            log(f"⚠️ `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 翻译异常: {e}")
+            log(f"⚠️ `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 请求异常: {e}")
 
     git_checkpoint_commit_amend(target_locale, force=True)
     log(f"🎉 子任务 `{subtask_id}` 处理完毕！")
@@ -243,7 +292,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("======================================================")
-    log(f"  Index-Translate 35B-A3B 官方免费 API 极速增量翻译管道")
+    log("  Index-Translate 35B-A3B 官方免费公网 API 极速管道")
     log("======================================================")
 
     # 1. 静态代码级扫描清理
@@ -258,9 +307,7 @@ def main():
         else:
             log("   ✅ 未检测到无用词条，无需剔除。")
     except Exception as e:
-        log(f"⚠️ 静态清理阶段跳过/警告: {e}")
-
-    log(f"🔗 准备直连官方 35B-A3B 免费公网接口: {API_URL}")
+        log(f"⚠️ 静态清理阶段跳过警告: {e}")
 
     baseline_data = load_arb(BASELINE_ARB)
     if not baseline_data:
@@ -299,7 +346,7 @@ def main():
             subtask_id = f"{locale}_part{s_idx + 1}" if sub_count > 1 else locale
             subtasks.append((subtask_id, locale, part_items))
 
-    log(f"🚀 [第二阶段] 生成 {len(subtasks)} 个 600条子任务，按 60 条/批次组包顺畅推进...")
+    log(f"🚀 [第二阶段] 生成 {len(subtasks)} 个 600条子任务，按 60 条批次组包顺畅推进...")
 
     for subtask_id, locale, part_items in subtasks:
         process_subtask_index(subtask_id, locale, part_items, baseline_data)
@@ -307,7 +354,7 @@ def main():
     git_checkpoint_commit_amend("all_completed", force=True)
 
     log("======================================================")
-    log("✅ Index-Translate 35B-A3B API 全量 ARB 极速翻译全套完成！")
+    log("✅ Index-Translate 35B-A3B 全量 ARB 翻译全套完成！")
     log("======================================================")
 
 

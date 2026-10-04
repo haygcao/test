@@ -4,9 +4,11 @@
 scripts/i18n_pipeline_index.py
 哔哩哔哩 Index-Translate 2B (Qwen3.5 150+语言) 全量 ARB 翻译管道
 架构规范：
-  1. 600 条大任务切分，内部按 100 条/批次 (CHUNK_SIZE = 100) 组包推进
+  1. 600 条大任务切分，内部按 60 条批次 (CHUNK_SIZE = 60) 组包推进
   2. 单模型 PyTorch C++ 底层独占 2 核 CPU (torch.set_num_threads=2)，杜绝多线程踩踏死锁
-  3. 每完成 100 条/批次立刻落盘，并触发 git commit --amend 隔离分支存盘
+  3. 具备多层 JSON 自愈、二分重试与异常兜底容错机制，绝不卡死
+  4. 每次批次落盘强制 gc.collect() 释放内存，防止 Swap 换页卡顿
+  5. 累计每满 1000 条或子任务完成时向 i18n/checkpoint-progress 分支执行单条 Commit 覆盖推送
 """
 
 import json
@@ -14,6 +16,7 @@ import os
 import re
 import sys
 import time
+import gc
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -28,8 +31,8 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 MODEL_ID = "IndexTeam/Index-Translate-2B"
-CHUNK_SIZE = 60        # 按照实测基准锁定 60 条/批次组包
-SUBTASK_MAX_SIZE = 600 # 严格锁定 600 条/大任务切分上限
+CHUNK_SIZE = 60        # 按照实测基准锁定 60 条批次组包
+SUBTASK_MAX_SIZE = 600 # 严格锁定 600 条大任务切分上限
 PUSH_INTERVAL = 1000   # 累计每满 1000 条词条才执行一次远程分支存盘推送
 
 model = None
@@ -90,36 +93,86 @@ def init_index_model():
     log(f"✅ Index-Translate 2B 模型载入成功！耗时 {time.time() - start_time:.2f}s")
 
 
-def translate_chunk_with_index(chunk: dict, target_lang: str) -> dict:
-    """100 条 JSON 批次提交 Index-Translate 2B，带单批次重试保底"""
+def extract_json_from_text(text: str) -> dict:
+    """极其鲁棒的 JSON 提取器，防范模型输出 Markdown、前后废话与多余逗号"""
+    if not text:
+        return {}
+    clean = text.replace("```json", "").replace("```", "").strip()
+    try:
+        res = json.loads(clean)
+        if isinstance(res, dict):
+            return res
+    except Exception:
+        pass
+
+    match = re.search(r"(\{[\s\S]*\})", clean)
+    if match:
+        json_str = match.group(1)
+        try:
+            res = json.loads(json_str)
+            if isinstance(res, dict):
+                return res
+        except Exception:
+            pass
+        fixed_str = re.sub(r",\s*([\}\]])", r"\1", json_str)
+        try:
+            res = json.loads(fixed_str)
+            if isinstance(res, dict):
+                return res
+        except Exception:
+            pass
+
+    return {}
+
+
+def translate_chunk_with_index_safe(chunk: dict, target_lang: str, depth: int = 0) -> dict:
+    """带自动重试、防死循环与二分降级容错的 Index-Translate 2B 推理"""
+    if not chunk:
+        return {}
+
     prompt = f"""Translate the values in the following JSON key-value pairs from English into target language '{target_lang}'. Note that you should only output the translated result without any additional explanation:
 
 {json.dumps(chunk, ensure_ascii=False)}"""
 
     messages = [{"role": "user", "content": prompt}]
-    inputs = tokenizer.apply_chat_template(
-        messages,
-        add_generation_prompt=True,
-        return_tensors="pt"
-    ).to(model.device)
+    
+    try:
+        inputs = tokenizer.apply_chat_template(
+            messages,
+            tokenize=True,
+            add_generation_prompt=True,
+            return_tensors="pt"
+        ).to("cpu")
 
-    max_retries = 2
-    for attempt in range(1, max_retries + 1):
-        try:
-            with torch.no_grad():
-                outputs = model.generate(
-                    **inputs,
-                    max_new_tokens=2048,
-                    do_sample=False
-                )
-            raw_text = tokenizer.decode(outputs[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True)
-            clean_json = raw_text.replace("```json", "").replace("```", "").strip()
-            return json.loads(clean_json)
-        except Exception as e:
-            if attempt < max_retries:
-                time.sleep(1)
-            else:
-                raise e
+        with torch.no_grad():
+            outputs = model.generate(
+                inputs,
+                max_new_tokens=1024,
+                do_sample=False,
+                repetition_penalty=1.15,
+                pad_token_id=tokenizer.eos_token_id if hasattr(tokenizer, "eos_token_id") else None
+            )
+
+        raw_text = tokenizer.decode(outputs[0][inputs.shape[1]:], skip_special_tokens=True)
+        parsed = extract_json_from_text(raw_text)
+        if parsed and isinstance(parsed, dict) and len(parsed) > 0:
+            valid_res = {k: str(v) for k, v in parsed.items() if k in chunk}
+            if len(valid_res) >= len(chunk) * 0.7:
+                return valid_res
+    except Exception as e:
+        log(f"⚠️ Index-2B 批次推理异常: {e}")
+
+    # 若整体解析失败且当前 chunk > 1，自动二分切小重试（隔离毒药词条）
+    if len(chunk) > 1 and depth < 3:
+        items = list(chunk.items())
+        mid = len(items) // 2
+        log(f"🔄 对异常批次进行二分降级重试: {len(items[:mid])} 条 + {len(items[mid:])} 条")
+        res_a = translate_chunk_with_index_safe(dict(items[:mid]), target_lang, depth + 1)
+        res_b = translate_chunk_with_index_safe(dict(items[mid:]), target_lang, depth + 1)
+        return {**res_a, **res_b}
+
+    log(f"⚠️ 无法翻译的词条降级保留原文: {list(chunk.keys())}")
+    return chunk
 
 
 def load_arb(path: str) -> dict:
@@ -201,7 +254,7 @@ def is_untranslated_value(en_val: str, target_val: str) -> bool:
 
 
 def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, baseline_data: dict):
-    """单线性顺畅处理不超过 600 条词条的子任务（按 60 条/批次组包），累计存盘并推送隔离分支"""
+    """单线性顺畅处理不超过 600 条词条的子任务（按 60 条批次组包），累计存盘并推送隔离分支"""
     current_data, arb_path = load_arb_with_fallback(target_locale)
     current_data = sanitize_and_deduplicate_arb(current_data)
     current_data = clean_obsolete_keys_from_target(current_data, set(baseline_data.keys()))
@@ -215,7 +268,7 @@ def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, 
         log(f"   [批次推理] 子任务 `{subtask_id}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条)...")
 
         try:
-            translated_chunk = translate_chunk_with_index(chunk, target_locale)
+            translated_chunk = translate_chunk_with_index_safe(chunk, target_locale)
             current_data.update(translated_chunk)
 
             final_data = {"@@locale": target_locale}
@@ -229,13 +282,13 @@ def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, 
             save_arb_with_fallback(arb_path, final_data, target_locale)
             log(f"   [批次落盘] `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 已写入磁盘！")
 
-            # 累计达到设定阈值（1000条）时才触发远程存盘推送
             git_checkpoint_commit_amend(target_locale, force=False, count_inc=len(chunk))
-
         except Exception as e:
             log(f"⚠️ `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 翻译异常: {e}")
 
-    # 子任务完成时，强制执行一次单条 commit 存盘推送
+        # 每次批次执行完毕强制清理内存，防止 Swap 卡死
+        gc.collect()
+
     git_checkpoint_commit_amend(target_locale, force=True)
     log(f"🎉 子任务 `{subtask_id}` 处理完毕！")
 
@@ -259,7 +312,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("==========================================")
-    log(f"  Index-Translate 2B (600条切分 + 100条组包) 极速管道")
+    log("  Index-Translate 2B (600条切分 + 60条组包) 极速管道")
     log("==========================================")
 
     # 1. 静态代码级扫描清理
@@ -274,7 +327,7 @@ def main():
         else:
             log("   ✅ 未检测到无用词条，无需剔除。")
     except Exception as e:
-        log(f"⚠️ 静态清理阶段跳过/警告: {e}")
+        log(f"⚠️ 静态清理阶段跳过警告: {e}")
 
     init_index_model()
 
@@ -316,7 +369,7 @@ def main():
             subtask_id = f"{locale}_part{s_idx + 1}" if sub_count > 1 else locale
             subtasks.append((subtask_id, locale, part_items))
 
-    log(f"🚀 [第二阶段] 生成 {len(subtasks)} 个 600条子任务，按 60 条/批次组包顺畅推进...")
+    log(f"🚀 [第二阶段] 生成 {len(subtasks)} 个 600条子任务，按 60 条批次组包顺畅推进...")
 
     for subtask_id, locale, part_items in subtasks:
         process_subtask_index(subtask_id, locale, part_items, baseline_data)
