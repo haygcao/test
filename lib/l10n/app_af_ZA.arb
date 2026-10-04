@@ -118,6 +118,9 @@
     }
   },
   "answerThenHangup": "Beantwoord dan hang op",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
   "applicationSoftware": "Toepassing Sagteware",
   "apply": "Pas Toe",
   "appName": "Your Call Your Rule",
@@ -841,7 +844,6 @@
     "description": "No subscriptions message"
   },
   "notGranted": "Nie toegeken nie",
-  "notificationMode": "Kennisgewingmodus",
   "notificationModeDescription": "Wys bellerinligting in die kennisgewingbalk",
   "notificationPermission": "Kennisgewingtoestemming",
   "notificationPermissionDescription": "Gebruik om inkomende oproep- en boodskapvertonings te vertoon.",
@@ -882,6 +884,9 @@
   "overlayPermission": "Oorleg toestemming",
   "overlayPermissionDescription": "Gebruik om inkomende oproep-oorleg te vertoon.",
   "overview": "Oorsig",
+  "@overview": {
+    "description": "Overview label"
+  },
   "password": "Wagwoord",
   "passwordCannotBeEmpty": "Wagwoord kan nie leeg wees nie",
   "passwordLabel": "Wagwoord",
@@ -896,10 +901,11 @@
   "permissionManagement": "Toestemmingsbestuur",
   "phoneCallsTab": "Telefoon",
   "phoneNumber": "Telefoonnommer",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
   "phoneNumberCannotBeEmpty": "Telefoonnommer kan nie leeg wees nie",
-  "phoneNumberHint": "Voer telefoonnommer in",
   "phoneNumberLabel": "Telefoonnommer",
-  "phoneNumberRequired": "Telefoonnommer word vereis",
   "phoneNumberTypeFixedLine": "Vaste lyn",
   "phoneNumberTypeFixedLineOrMobile": "Vaste lyn of mobiel",
   "phoneNumberTypeMobile": "Mobiel",
@@ -1651,7 +1657,6 @@
   "callTime": "Oproep Tyd",
   "numberInvalidFormat": "Nommer ongeldige formaat",
   "medium": "Medium",
-  "verificationReport": "Verifikasie Verslag",
   "finalRisk": "Finale Risiko",
   "simState": "SIM Staat",
   "ipCountry": "IP Land",
@@ -1715,10 +1720,6 @@
   "@deletionProposal": {
     "description": "Deletion proposal title"
   },
-  "deletionProposals": "Verwyderingsvoorstelle",
-  "@deletionProposals": {
-    "description": "Title for deletion proposals notification channel"
-  },
   "createProposal": "Skep Voorstel",
   "@createProposal": {
     "description": "Create proposal button text"
@@ -1726,9 +1727,6 @@
   "createProposalTitle": "Skep Verwyderingsvoorstel",
   "@createProposalTitle": {
     "description": "Create proposal dialog title"
-  },
-  "@phoneNumber": {
-    "description": "Phone number label"
   },
   "reason": "Rede",
   "@reason": {
@@ -1813,6 +1811,7 @@
       }
     }
   },
+  "verificationReport": "Verifikasie Verslag",
   "@verificationReport": {
     "description": "Verification report label"
   },
@@ -1843,9 +1842,6 @@
   "refreshProposals": "Verfris Voorstelle",
   "@refreshProposals": {
     "description": "Refresh proposals button text"
-  },
-  "@overview": {
-    "description": "Overview label"
   },
   "totalPendingProposals": "Totale Hangende Voorstelle",
   "@totalPendingProposals": {
@@ -1946,6 +1942,10 @@
   "veryLow": "Baie Laag",
   "@veryLow": {
     "description": "Very low risk level label"
+  },
+  "deletionProposals": "Verwyderingsvoorstelle",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
   },
   "deletionProposalNotificationDescription": "Kennisgewings oor verwyderingsvoorstel-stemresultate en opdaterings.",
   "@deletionProposalNotificationDescription": {
@@ -2078,13 +2078,13 @@
   "stirVerificationDescription": "Vertoon STIR/SHAKEN verifikasieresultate vir nommers.",
   "fraudAlerts": "Bedrogwaarskuwings",
   "fraudAlertsDescription": "Vertoon waarskuwings vir moontlike bedrieglike oproepe.",
+  "notificationMode": "Kennisgewingmodus",
   "@notificationMode": {
     "description": "Title for the mode selection part (Immediate, Batched, Custom)"
   },
   "pendingProposals": "Hangende Voorstelle",
   "pendingProposalsBody": "Jy het {count, plural, =0 {geen hangende voorstelle} one {1 hangende voorstel} other {{count} hangende voorstelle}}.",
   "guidelinesLabel": "Riglyne",
-  "reportingGuidelines": "• Rapporteer slegs nommers wat werklik problematies is\n• Verskaf akkurate en gedetailleerde redes\n• Kies die toepaslike risikovlak gebaseer op erns\n• Vals verslae kan lei tot rekeningbeperkings",
   "riskLevelLabel": "Risikovlak",
   "phoneNumberMinDigits": "Telefoonnommer moet ten minste 7 syfers lank wees",
   "provideDetailedExplanation": "Verskaf 'n gedetailleerde verduideliking (minimum 10 karakters)",
@@ -2102,9 +2102,11 @@
   "@countryCodeRequired": {
     "description": "Validation message for required country code"
   },
+  "phoneNumberHint": "Voer telefoonnommer in",
   "@phoneNumberHint": {
     "description": "Hint text for phone number input field"
   },
+  "phoneNumberRequired": "Telefoonnommer word vereis",
   "@phoneNumberRequired": {
     "description": "Validation message for required phone number"
   },
@@ -2137,6 +2139,14 @@
       }
     }
   },
+  "reportingGuidelines": "• Rapporteer slegs nommers wat werklik problematies is\n• Verskaf akkurate en gedetailleerde redes\n• Kies die toepaslike risikovlak gebaseer op erns\n• Vals verslae kan lei tot rekeningbeperkings",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Kennisgewingfrekwensie (Ure)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
   "supportCount": "Ondersteuning ({supportCount})",
   "@supportCount": {
     "description": "Shows the number of support votes.",
@@ -2154,13 +2164,6 @@
         "type": "int"
       }
     }
-  },
-  "@reportingGuidelines": {
-    "description": "Guidelines for reporting a number."
-  },
-  "notificationFrequencyHours": "Kennisgewingfrekwensie (Ure)",
-  "@notificationFrequencyHours": {
-    "description": "Title for the notification frequency setting."
   },
   "votesWithPercentage": "{totalVotes} stemme ({supportPercentage}% ondersteuning)",
   "@votesWithPercentage": {
@@ -2297,5 +2300,73 @@
         "example": "5"
       }
     }
+  },
+  "ruleType": "Rule Type",
+  "localDatabaseSyncTitle": "Local Database Sync",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Sync data across devices",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Supabase Project URL",
+  "supabaseAnonKey": "Anon Key",
+  "supabaseAnonKeyHint": "API Key, anon public key",
+  "connectionString": "Connection String (URI)",
+  "connectionStringHelper": "Only needed for 'Initialize Database'",
+  "syncCallHistory": "Sync Call History",
+  "syncCallHistorySubtitle": "Include private call logs in sync",
+  "requiredField": "Required",
+  "requiredInitField": "Required for initialization",
+  "initDbButton": "Initialize Database",
+  "dbInitSuccess": "Database Initialized Successfully!",
+  "syncSuccess": "Sync Complete. Sent: {pushed}, Received: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Error",
+  "errorLoadingSettings": "Error loading settings",
+  "statusLabel": "Status",
+  "statusConnected": "Connected / Configured",
+  "statusNotConfigured": "Not Configured",
+  "configSaved": "Configuration Saved!",
+  "masterDeviceLabel": "Is Master Device (Admin)",
+  "masterDeviceHelp": "Only the master device can initialize the database structure.",
+  "syncIntervalLabel": "Auto-sync Interval",
+  "syncIntervalValue": "Every {hours} hours",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Leave empty to use default",
+  "vipAccessSubtitle": "Watch ads for free or purchase VIP",
+  "failedToLoadSettingsSchema": "Failed to load settings schema: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "This field is required",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Automatically answer the incoming call and then immediately hang up to terminate it",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
   }
 }
