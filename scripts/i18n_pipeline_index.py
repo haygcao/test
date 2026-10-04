@@ -132,6 +132,25 @@ def load_arb(path: str) -> dict:
         return {}
 
 
+def load_arb_with_fallback(target_locale: str) -> tuple[dict, str]:
+    arb_path = os.path.join(L10N_DIR, f"app_{target_locale}.arb")
+    if os.path.exists(arb_path):
+        return load_arb(arb_path), arb_path
+
+    if "_" in target_locale:
+        base_lang = target_locale.split("_")[0]
+        base_path = os.path.join(L10N_DIR, f"app_{base_lang}.arb")
+        if os.path.exists(base_path):
+            return load_arb(base_path), arb_path
+
+    if target_locale.startswith("nb"):
+        no_path = os.path.join(L10N_DIR, "app_no.arb")
+        if os.path.exists(no_path):
+            return load_arb(no_path), arb_path
+
+    return {}, arb_path
+
+
 def save_arb_with_fallback(path: str, data: dict, target_locale: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
@@ -183,9 +202,7 @@ def is_untranslated_value(en_val: str, target_val: str) -> bool:
 
 def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, baseline_data: dict):
     """单线性顺畅处理不超过 600 条词条的子任务（按 60 条/批次组包），累计存盘并推送隔离分支"""
-    arb_path = os.path.join(L10N_DIR, f"app_{target_locale}.arb")
-
-    current_data = load_arb(arb_path)
+    current_data, arb_path = load_arb_with_fallback(target_locale)
     current_data = sanitize_and_deduplicate_arb(current_data)
     current_data = clean_obsolete_keys_from_target(current_data, set(baseline_data.keys()))
 
@@ -280,8 +297,7 @@ def main():
     valid_en_keys = {k: v for k, v in baseline_data.items() if not k.startswith("@") and k != "@@locale"}
 
     for locale in filtered_locales:
-        arb_path = os.path.join(L10N_DIR, f"app_{locale}.arb")
-        current_data = load_arb(arb_path)
+        current_data, arb_path = load_arb_with_fallback(locale)
         need_items = []
         for k, en_val in valid_en_keys.items():
             curr_val = current_data.get(k)
