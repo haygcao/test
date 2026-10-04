@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 """
 scripts/i18n_pipeline_index.py
-哔哩哔哩 Index-Translate 2B (Qwen3.5 150+语言) 动态 4 线程 600 条拆分与自适应负载降级翻译管道
+哔哩哔哩 Index-Translate 2B (Qwen3.5 150+语言) 全量 ARB 翻译管道
+架构规范：
+  1. 600 条大任务切分，内部按 100 条/批次 (CHUNK_SIZE = 100) 组包推进
+  2. 单模型 PyTorch C++ 底层独占 2 核 CPU (torch.set_num_threads=2)，杜绝多线程踩踏死锁
+  3. 每完成 100 条/批次立刻落盘，并触发 git commit --amend 隔离分支存盘
 """
 
 import json
@@ -11,11 +15,9 @@ import re
 import sys
 import time
 import torch
-import psutil
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from threading import Lock
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+# 设置 PyTorch 底层 C++ CPU 线程为 2 (1:1 独占 2 核 CPU)
 torch.set_num_threads(2)
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,51 +28,37 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 MODEL_ID = "IndexTeam/Index-Translate-2B"
-CHUNK_SIZE = 60         # 60 条推理批次
-SUBTASK_MAX_SIZE = 600 # 大语言拆分为最多 600 条子任务
-MAX_WORKERS = 4        # 默认 4 线程并发
+CHUNK_SIZE = 100       # 严格锁定 100 条/批次组包
+SUBTASK_MAX_SIZE = 600 # 严格锁定 600 条/大任务切分上限
 
 model = None
 tokenizer = None
-file_lock = Lock()
 
 
 def log(msg: str):
     print(f"[i18n-Pipeline-Index2B] {msg}", flush=True)
 
 
-def check_system_load_and_throttle():
-    """监测 RAM 内存使用率，若 > 85% 则暂停休眠放缓算力"""
-    try:
-        mem_percent = psutil.virtual_memory().percent
-        if mem_percent > 85.0:
-            log(f"⚠️ [负载管控] 当前内存使用率高达 {mem_percent}%，暂停 3 秒避开峰值...")
-            time.sleep(3)
-    except Exception:
-        pass
-
-
 def git_checkpoint_commit_amend(target_locale: str):
     """在隔离进度分支上执行切换与 git commit --amend 增量保存"""
-    with file_lock:
-        try:
-            token = os.environ.get("GITHUB_TOKEN", "").strip()
-            repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    try:
+        token = os.environ.get("GITHUB_TOKEN", "").strip()
+        repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
 
-            os.system("git config user.name 'github-actions[bot]'")
-            os.system("git config user.email '41898282+github-actions[bot]@users.noreply.github.com'")
-            os.system("git checkout -B i18n/checkpoint-progress")
-            os.system("git add lib/l10n/*.arb")
+        os.system("git config user.name 'github-actions[bot]'")
+        os.system("git config user.email '41898282+github-actions[bot]@users.noreply.github.com'")
+        os.system("git checkout -B i18n/checkpoint-progress")
+        os.system("git add lib/l10n/*.arb")
 
-            commit_msg = f"style(i18n): checkpoint translation progress for {target_locale} [github-actions-bot]"
-            ret = os.system(f"git commit --amend -m '{commit_msg}' || git commit -m '{commit_msg}'")
+        commit_msg = f"style(i18n): checkpoint translation progress for {target_locale} [github-actions-bot]"
+        ret = os.system(f"git commit --amend -m '{commit_msg}' || git commit -m '{commit_msg}'")
 
-            if ret == 0 and token and repository:
-                log(f"💾 [隔离分支增量落盘] 语言 `{target_locale}` 阶段进度已成功在 i18n/checkpoint-progress 分支存盘！")
-                push_url = f"https://x-access-token:{token}@github.com/{repository}.git"
-                os.system(f"git push --force {push_url} i18n/checkpoint-progress > /dev/null 2>&1")
-        except Exception as e:
-            log(f"⚠️ 隔离分支增量存盘提示: {e}")
+        if token and repository:
+            log(f"💾 [隔离分支增量落盘] 语言 `{target_locale}` 已成功在 i18n/checkpoint-progress 分支存盘！")
+            push_url = f"https://x-access-token:{token}@github.com/{repository}.git"
+            os.system(f"git push --force {push_url} i18n/checkpoint-progress > /dev/null 2>&1")
+    except Exception as e:
+        log(f"⚠️ 隔离分支增量存盘提示: {e}")
 
 
 def init_index_model():
@@ -92,6 +80,7 @@ def init_index_model():
 
 
 def translate_chunk_with_index(chunk: dict, target_lang: str) -> dict:
+    """100 条 JSON 批次提交 Index-Translate 2B，带单批次重试保底"""
     prompt = f"""Translate the values in the following JSON key-value pairs from English into target language '{target_lang}'. Note that you should only output the translated result without any additional explanation:
 
 {json.dumps(chunk, ensure_ascii=False)}"""
@@ -106,11 +95,10 @@ def translate_chunk_with_index(chunk: dict, target_lang: str) -> dict:
     max_retries = 2
     for attempt in range(1, max_retries + 1):
         try:
-            check_system_load_and_throttle()
             with torch.no_grad():
                 outputs = model.generate(
                     **inputs,
-                    max_new_tokens=2048,
+                    max_new_tokens=3072,
                     do_sample=False
                 )
             raw_text = tokenizer.decode(outputs[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True)
@@ -134,23 +122,22 @@ def load_arb(path: str) -> dict:
 
 
 def save_arb_with_fallback(path: str, data: dict, target_locale: str):
-    with file_lock:
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
 
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-            f.write("\n")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        f.write("\n")
 
-        if "_" in target_locale:
-            base_lang = target_locale.split("_")[0]
-            base_arb_path = os.path.join(L10N_DIR, f"app_{base_lang}.arb")
-            if not os.path.exists(base_arb_path):
-                base_data = dict(data)
-                base_data["@@locale"] = base_lang
-                with open(base_arb_path, "w", encoding="utf-8") as f:
-                    json.dump(base_data, f, ensure_ascii=False, indent=2)
-                    f.write("\n")
-                log(f"💡 自动生成 Base Fallback 文件: app_{base_lang}.arb")
+    if "_" in target_locale:
+        base_lang = target_locale.split("_")[0]
+        base_arb_path = os.path.join(L10N_DIR, f"app_{base_lang}.arb")
+        if not os.path.exists(base_arb_path):
+            base_data = dict(data)
+            base_data["@@locale"] = base_lang
+            with open(base_arb_path, "w", encoding="utf-8") as f:
+                json.dump(base_data, f, ensure_ascii=False, indent=2)
+                f.write("\n")
+            log(f"💡 自动生成 Base Fallback 文件: app_{base_lang}.arb")
 
 
 def sanitize_and_deduplicate_arb(data: dict) -> dict:
@@ -184,42 +171,43 @@ def is_untranslated_value(en_val: str, target_val: str) -> bool:
 
 
 def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, baseline_data: dict):
-    """处理不超过 600 条词条的子任务，完成后立刻落盘存盘"""
+    """单线性顺畅处理不超过 600 条词条的子任务（按 100 条/批次组包），每完成 100 条即刻落盘存盘"""
     arb_path = os.path.join(L10N_DIR, f"app_{target_locale}.arb")
 
-    with file_lock:
-        current_data = load_arb(arb_path)
-        current_data = sanitize_and_deduplicate_arb(current_data)
-        current_data = clean_obsolete_keys_from_target(current_data, set(baseline_data.keys()))
+    current_data = load_arb(arb_path)
+    current_data = sanitize_and_deduplicate_arb(current_data)
+    current_data = clean_obsolete_keys_from_target(current_data, set(baseline_data.keys()))
 
-    chunk_map = dict(sub_items)
     total_chunks = (len(sub_items) + CHUNK_SIZE - 1) // CHUNK_SIZE
-    log(f"🌐 [子任务 {subtask_id}] 开始处理 {len(sub_items)} 个词条 (共 {total_chunks} 批)...")
+    log(f"🌐 [子任务 `{subtask_id}`] 开始处理 {len(sub_items)} 个词条 (共 {total_chunks} 个 100条批次)...")
 
     for i in range(0, len(sub_items), CHUNK_SIZE):
         chunk = dict(sub_items[i:i + CHUNK_SIZE])
         chunk_idx = i // CHUNK_SIZE + 1
-        log(f"   [批次请求] 子任务 `{subtask_id}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条)...")
+        log(f"   [100条批次] 子任务 `{subtask_id}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条)...")
 
         try:
             translated_chunk = translate_chunk_with_index(chunk, target_locale)
-            with file_lock:
-                current_data.update(translated_chunk)
-                final_data = {"@@locale": target_locale}
-                for k in baseline_data.keys():
-                    if k in current_data:
-                        final_data[k] = current_data[k]
-                        meta_k = "@" + k
-                        if meta_k in baseline_data:
-                            final_data[meta_k] = baseline_data[meta_k]
-                save_arb_with_fallback(arb_path, final_data, target_locale)
-                log(f"   [批次落盘] `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 已写入磁盘！")
+            current_data.update(translated_chunk)
+
+            final_data = {"@@locale": target_locale}
+            for k in baseline_data.keys():
+                if k in current_data:
+                    final_data[k] = current_data[k]
+                    meta_k = "@" + k
+                    if meta_k in baseline_data:
+                        final_data[meta_k] = baseline_data[meta_k]
+
+            save_arb_with_fallback(arb_path, final_data, target_locale)
+            log(f"   [批次落盘] `{subtask_id}` 100条批次 {chunk_idx}/{total_chunks} 已写入磁盘！")
+
+            # 100 条批次完成，即刻存盘推送
+            git_checkpoint_commit_amend(target_locale)
+
         except Exception as e:
             log(f"⚠️ `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 翻译异常: {e}")
 
-    # 子任务完成，即刻触发隔离分支增量 commit & push 强推
-    git_checkpoint_commit_amend(target_locale)
-    log(f"🎉 子任务 `{subtask_id}` 全套落盘与存盘完成！")
+    log(f"🎉 子任务 `{subtask_id}` 处理完毕！")
 
 
 def parse_target_locales_from_dart(file_path: str) -> list[str]:
@@ -241,7 +229,7 @@ def parse_target_locales_from_dart(file_path: str) -> list[str]:
 
 def main():
     log("==========================================")
-    log(f"  Index-Translate 2B 600条平滑切分与自适应降级管道")
+    log(f"  Index-Translate 2B (600条切分 + 100条组包) 极速管道")
     log("==========================================")
 
     # 1. 静态代码级扫描清理
@@ -275,7 +263,6 @@ def main():
 
     filtered_locales = [loc for loc in target_locales if not loc.startswith("en")]
 
-    # 生成 600 条平滑切分的子任务队列 (Sub-Tasks)
     subtasks = []
     valid_en_keys = {k: v for k, v in baseline_data.items() if not k.startswith("@") and k != "@@locale"}
 
@@ -293,30 +280,20 @@ def main():
             log(f"✅ 语言 `{locale}` 数据完备。")
             continue
 
-        # 按 SUBTASK_MAX_SIZE (600条) 切分子任务
+        # 按 600 条切分子任务
         sub_count = (len(need_items) + SUBTASK_MAX_SIZE - 1) // SUBTASK_MAX_SIZE
         for s_idx in range(sub_count):
             part_items = need_items[s_idx * SUBTASK_MAX_SIZE: (s_idx + 1) * SUBTASK_MAX_SIZE]
             subtask_id = f"{locale}_part{s_idx + 1}" if sub_count > 1 else locale
             subtasks.append((subtask_id, locale, part_items))
 
-    log(f"🚀 [第二阶段] 全局生成 {len(subtasks)} 个平滑子任务 (最多600条/任务)，开启 {MAX_WORKERS} 线程池调度...")
+    log(f"🚀 [第二阶段] 生成 {len(subtasks)} 个 600条子任务，按 100 条/批次组包顺畅推进...")
 
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        futures = {
-            executor.submit(process_subtask_index, sub_id, loc, part_items, baseline_data): sub_id
-            for sub_id, loc, part_items in subtasks
-        }
-        for future in as_completed(futures):
-            sub_id = futures[future]
-            try:
-                future.result()
-                log(f"🎉 子任务 `{sub_id}` 处理完成！")
-            except Exception as e:
-                log(f"❌ 子任务 `{sub_id}` 处理异常: {e}")
+    for subtask_id, locale, part_items in subtasks:
+        process_subtask_index(subtask_id, locale, part_items, baseline_data)
 
     log("==========================================")
-    log("✅ Index-Translate 2B 600条切分全量 ARB 翻译管道顺利完成！")
+    log("✅ Index-Translate 2B 100条组包全量 ARB 翻译全套完成！")
     log("==========================================")
 
 
