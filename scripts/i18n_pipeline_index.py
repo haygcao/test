@@ -28,20 +28,30 @@ BASELINE_ARB = os.path.join(L10N_DIR, "app_en.arb")
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 MODEL_ID = "IndexTeam/Index-Translate-2B"
-CHUNK_SIZE = 100       # 严格锁定 100 条/批次组包
+CHUNK_SIZE = 60        # 按照实测基准锁定 60 条/批次组包
 SUBTASK_MAX_SIZE = 600 # 严格锁定 600 条/大任务切分上限
+PUSH_INTERVAL = 1000   # 累计每满 1000 条词条才执行一次远程分支存盘推送
 
 model = None
 tokenizer = None
+translated_counter = 0
 
 
 def log(msg: str):
     print(f"[i18n-Pipeline-Index2B] {msg}", flush=True)
 
 
-def git_checkpoint_commit_amend(target_locale: str):
-    """在隔离进度分支上执行切换与 git commit --amend 增量保存"""
+def git_checkpoint_commit_amend(target_locale: str, force: bool = False, count_inc: int = 0):
+    """在隔离进度分支上保持永远只有一条 commit 记录，支持累计满额或强制存盘推送"""
+    global translated_counter
+    translated_counter += count_inc
+
+    if not force and translated_counter < PUSH_INTERVAL:
+        return
+
+    translated_counter = 0
     try:
+        os.environ["GIT_TERMINAL_PROMPT"] = "0"
         token = os.environ.get("GITHUB_TOKEN", "").strip()
         repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
 
@@ -51,12 +61,13 @@ def git_checkpoint_commit_amend(target_locale: str):
         os.system("git add lib/l10n/*.arb")
 
         commit_msg = f"style(i18n): checkpoint translation progress for {target_locale} [github-actions-bot]"
-        ret = os.system(f"git commit --amend -m '{commit_msg}' || git commit -m '{commit_msg}'")
+        os.system(f"git commit --amend -m '{commit_msg}' || git commit -m '{commit_msg}'")
 
         if token and repository:
-            log(f"💾 [隔离分支增量落盘] 语言 `{target_locale}` 已成功在 i18n/checkpoint-progress 分支存盘！")
             push_url = f"https://x-access-token:{token}@github.com/{repository}.git"
-            os.system(f"git push --force {push_url} i18n/checkpoint-progress > /dev/null 2>&1")
+            ret = os.system(f"git push --force {push_url} i18n/checkpoint-progress")
+            if ret == 0:
+                log(f"💾 [隔离分支增量存盘] 进度已成功单条覆盖推送至 i18n/checkpoint-progress 分支！")
     except Exception as e:
         log(f"⚠️ 隔离分支增量存盘提示: {e}")
 
@@ -98,7 +109,7 @@ def translate_chunk_with_index(chunk: dict, target_lang: str) -> dict:
             with torch.no_grad():
                 outputs = model.generate(
                     **inputs,
-                    max_new_tokens=3072,
+                    max_new_tokens=2048,
                     do_sample=False
                 )
             raw_text = tokenizer.decode(outputs[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True)
@@ -171,7 +182,7 @@ def is_untranslated_value(en_val: str, target_val: str) -> bool:
 
 
 def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, baseline_data: dict):
-    """单线性顺畅处理不超过 600 条词条的子任务（按 100 条/批次组包），每完成 100 条即刻落盘存盘"""
+    """单线性顺畅处理不超过 600 条词条的子任务（按 60 条/批次组包），累计存盘并推送隔离分支"""
     arb_path = os.path.join(L10N_DIR, f"app_{target_locale}.arb")
 
     current_data = load_arb(arb_path)
@@ -179,12 +190,12 @@ def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, 
     current_data = clean_obsolete_keys_from_target(current_data, set(baseline_data.keys()))
 
     total_chunks = (len(sub_items) + CHUNK_SIZE - 1) // CHUNK_SIZE
-    log(f"🌐 [子任务 `{subtask_id}`] 开始处理 {len(sub_items)} 个词条 (共 {total_chunks} 个 100条批次)...")
+    log(f"🌐 [子任务 `{subtask_id}`] 开始处理 {len(sub_items)} 个词条 (共 {total_chunks} 个批次)...")
 
     for i in range(0, len(sub_items), CHUNK_SIZE):
         chunk = dict(sub_items[i:i + CHUNK_SIZE])
         chunk_idx = i // CHUNK_SIZE + 1
-        log(f"   [100条批次] 子任务 `{subtask_id}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条)...")
+        log(f"   [批次推理] 子任务 `{subtask_id}` 提交批次 {chunk_idx}/{total_chunks} ({len(chunk)} 条)...")
 
         try:
             translated_chunk = translate_chunk_with_index(chunk, target_locale)
@@ -199,14 +210,16 @@ def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, 
                         final_data[meta_k] = baseline_data[meta_k]
 
             save_arb_with_fallback(arb_path, final_data, target_locale)
-            log(f"   [批次落盘] `{subtask_id}` 100条批次 {chunk_idx}/{total_chunks} 已写入磁盘！")
+            log(f"   [批次落盘] `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 已写入磁盘！")
 
-            # 100 条批次完成，即刻存盘推送
-            git_checkpoint_commit_amend(target_locale)
+            # 累计达到设定阈值（1000条）时才触发远程存盘推送
+            git_checkpoint_commit_amend(target_locale, force=False, count_inc=len(chunk))
 
         except Exception as e:
             log(f"⚠️ `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 翻译异常: {e}")
 
+    # 子任务完成时，强制执行一次单条 commit 存盘推送
+    git_checkpoint_commit_amend(target_locale, force=True)
     log(f"🎉 子任务 `{subtask_id}` 处理完毕！")
 
 
@@ -287,13 +300,15 @@ def main():
             subtask_id = f"{locale}_part{s_idx + 1}" if sub_count > 1 else locale
             subtasks.append((subtask_id, locale, part_items))
 
-    log(f"🚀 [第二阶段] 生成 {len(subtasks)} 个 600条子任务，按 100 条/批次组包顺畅推进...")
+    log(f"🚀 [第二阶段] 生成 {len(subtasks)} 个 600条子任务，按 60 条/批次组包顺畅推进...")
 
     for subtask_id, locale, part_items in subtasks:
         process_subtask_index(subtask_id, locale, part_items, baseline_data)
 
+    git_checkpoint_commit_amend("all_completed", force=True)
+
     log("==========================================")
-    log("✅ Index-Translate 2B 100条组包全量 ARB 翻译全套完成！")
+    log("✅ Index-Translate 2B 60条组包全量 ARB 翻译全套完成！")
     log("==========================================")
 
 
