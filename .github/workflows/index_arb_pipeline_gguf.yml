@@ -1,0 +1,47 @@
+name: Index-Translate 2B GGUF Full ARB Translation Pipeline
+
+# 采用官方 GGUF 量化模型与 llama.cpp CPU 极速推理的全量 ARB 翻译管道
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  index-arb-pipeline-gguf:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: "1"
+      GIT_TERMINAL_PROMPT: "0"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: 1. Checkout 测试仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 2. Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 3. 安装 llama-cpp-python 与 huggingface-hub
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install huggingface-hub
+          python -m pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+
+      - name: 4. 执行 Index-Translate 2B GGUF 全量 ARB 本地化翻译管道
+        run: |
+          python scripts/i18n_pipeline_index_gguf.py
+
+      - name: 5. 保底机制：无论成功还是超时中断，强制打包上传全量 ARB 产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: translated-arb-files
+          path: lib/l10n/*.arb
