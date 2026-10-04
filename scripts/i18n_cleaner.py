@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Internationalization (i18n) Cleaner Script
-在隔离测试仓库中，直接读取主库生成的 01_未使用的翻译键.md 报告进行精准剔除。
+在隔离测试仓库中，直接读取主库生成的 01_未使用的翻译键.md 报告进行 100% 精准剔除。
 """
 
 import argparse
@@ -36,7 +36,7 @@ def dump_arb_dict(arb_path: str, data: dict):
 
 
 def parse_unused_keys_from_report(report_path: str) -> set:
-    """读取 01_未使用的翻译键.md，解析出所有打钩 [x] 的废弃键"""
+    """读取 01_未使用的翻译键.md，解析出 Markdown 表格中所有打反引号的废弃键"""
     unused_keys = set()
     if not os.path.exists(report_path):
         return unused_keys
@@ -44,12 +44,13 @@ def parse_unused_keys_from_report(report_path: str) -> set:
     with open(report_path, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
-            # 匹配格式: - [x] `key_name`
-            if line.startswith("- [x] `") or line.startswith("- [X] `"):
+            # 匹配 Markdown 表格格式: | 1 | `aboutPhoneSubscriptions` | ...
+            if line.startswith("|") and "`" in line:
                 parts = line.split("`")
                 if len(parts) >= 3:
-                    key = parts[1]
-                    unused_keys.add(key)
+                    key = parts[1].strip()
+                    if key and not key.startswith("@") and key != "@@locale":
+                        unused_keys.add(key)
     return unused_keys
 
 
