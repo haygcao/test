@@ -1,0 +1,2372 @@
+{
+  "@@locale": "no",
+  "aboutContactSubscription": "Om kontaktabonnement",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Om etiketter",
+  "aboutPhoneSubscriptionRules": "Om telefonabonnementsregler",
+  "aboutSmsFilter": "Om SMS-filtrering",
+  "aboutSmsSubscriptionRules": "Om SMS-abonnementsregler",
+  "aboutSubtitle": "Applikasjonsversjon og juridisk informasjon",
+  "aboutTitle": "Om",
+  "action": "Handling",
+  "actionAll": "Alle",
+  "actionAllow": "Tillat",
+  "actionBlock": "Blokker",
+  "actionFilterTitle": "Filtrer etter handlingstype",
+  "actionFilterTooltip": "Handlingsfilter",
+  "actionNone": "Ingen handling",
+  "actionSilence": "Stillhet",
+  "actionTag": "Handling: {actionType}",
+  "actionType": "Handlingstype",
+  "actionUnknown": "Ukjent",
+  "add": "Legg til",
+  "addAllowedBlockedRule": "Legg til tillat/blokker-regel",
+  "addAllowSubscription": "Legg til tillat-abonnement",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Legg til blokker-abonnement",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Legg til kontakt",
+  "addContactFailed": "Kunne ikke legge til kontakt: {error}",
+  "addedToFavorites": "Lagt til i favoritter",
+  "addLabel": "Legg til etikett",
+  "addLabelButton": "Legg til etikett",
+  "addLabelFailed": "Kunne ikke legge til etikett: {error}",
+  "addName": "Legg til navn",
+  "addNoneSubscription": "Legg til ingen-abonnement",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Legg til telefonmerke",
+  "addPhoneNumberRule": "Legg til telefonnummerregel",
+  "addPlugin": "Legg til plugin",
+  "addPluginFailed": "Kunne ikke legge til plugin",
+  "addPluginFailedWithError": "Kunne ikke legge til plugin: {error}",
+  "addPluginFromLocalFile": "Legg til plugin fra lokal fil",
+  "addPluginFromUrl": "Legg til plugin fra URL",
+  "addRegexRule": "Legg til Regex-regel",
+  "addRule": "Legg til regel",
+  "addRuleFailed": "Kunne ikke legge til regel: {error}",
+  "addRuleTooltip": "Legg til regel",
+  "addSilenceSubscription": "Legg til stillhets-abonnement",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Legg til SMS-filterregel",
+  "addSmsRule": "Legg til SMS-regel",
+  "addSmsSubscription": "Legg til SMS-abonnement",
+  "addSubscription": "Legg til abonnement",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Legg til abonnement",
+  "addSubscriptionFailed": "Kunne ikke legge til abonnement: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Legg til abonnement",
+  "addToBlacklist": "Legg til i svartelisten",
+  "addToFavorites": "Legg til i favoritter",
+  "addToRules": "Legg til i regler",
+  "addToWhitelist": "Legg til i hvitelisten",
+  "agent": "Agent",
+  "all": "Alle",
+  "allCallsTab": "Alle",
+  "allow": "Tillat",
+  "allowAllAllowRules": "Tillat alle tillat-regler",
+  "allowAllAllowRulesDesc": "Tillat samtaler fra tillat-regler",
+  "allowAllBlacklistedNumbers": "Tillat alle svartelistede numre",
+  "allowAllBlockRules": "Tillat alle blokker-regler",
+  "allowAllBlockRulesDesc": "Tillat samtaler fra blokkeringsregler",
+  "allowAllowedNumbers": "Tillat tillatte numre",
+  "allowAllowedNumbersDesc": "Tillat samtaler fra tillat-listen",
+  "allowBlock": "Tillat/blokker",
+  "allowBlockedNumbers": "Tillat blokkerte numre",
+  "allowBlockedNumbersDesc": "Tillat samtaler fra blokkeringslisten",
+  "allowedBlockedRule": "Tillat/blokker-regel",
+  "allowedBlockedRuleEditDialogTitle": "Rediger tillat/blokker-regel",
+  "allowedBlockedRuleManagement": "Håndtering av tillat/blokker-regler",
+  "allowNonExceededNumbers": "Tillat numre som ikke overskrider grensen",
+  "allowNonExceededNumbersDescription": "Tillat automatisk numre som ikke overskrider antallgrensen",
+  "allowRegexAllowRules": "Tillat Regex-tillat-regler",
+  "allowRegexAllowRulesDesc": "Aktiver regulære uttrykk for tillat-regler",
+  "allowRegexAllowRulesDescription": "Aktiver regulære uttrykk-baserte tillat-regler",
+  "allowRegexBlockRules": "Tillat Regex-blokker-regler",
+  "allowRegexBlockRulesDesc": "Aktiver regulære uttrykk for blokker-regler",
+  "allowRegexBlockRulesDescription": "Aktiver regulære uttrykk-baserte blokker-regler",
+  "allowRule": "Tillat-regel",
+  "allowRules": "Tillat-regler",
+  "allPermissionsGranted": "Alle tillatelser er gitt",
+  "allSettingsCompleted": "Alle innstillinger er fullført.",
+  "allUpdateSuccess": "Alle oppdateringer fullført ({count} regler)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "Svar og legg på",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "Applikasjonsprogramvare",
+  "apply": "Bruk",
+  "appName": "Your Call Your Rule",
+  "authorizationFailedCheckCredentialsMessage": "Autorisasjon mislyktes: Vennligst sjekk klient-ID og nøkkel",
+  "authorizationFailedMessage": "Autorisasjon mislyktes",
+  "authorizationSuccessMessage": "Autorisasjon vellykket",
+  "authorizeLoginButton": "Autoriser innlogging",
+  "automotiveIndustry": "Bilindustrien",
+  "autoSyncLabel": "Automatisk synkronisering",
+  "autoUpdate": "Automatisk oppdatering",
+  "autoUpdateDescription": "Sett intervaller for automatisk oppdatering av abonnementer eller oppdater manuelt",
+  "autoUpdateSettings": "Innstillinger for automatisk oppdatering",
+  "autoUpdateSubtitle": "Administrer automatiske oppdateringer for regler og tillegg",
+  "autoUpdateTitle": "Automatisk oppdatering",
+  "avatarBorderColor": "Farge på avatar-kantlinje",
+  "avatarBorderSize": "Tykkelse på avatar-kantlinje",
+  "avatarIconSizesSetting": "Størrelser på avatar og ikoner",
+  "avatarPosition": "Posisjon på avatar",
+  "avatarSize": "Størrelse på avatar",
+  "axisPosition": "Posisjon for {axis}",
+  "backgroundGradientSetting": "Bakgrunnsgradient",
+  "backup": "Sikkerhetskopiering",
+  "backupAndRestore": "Sikkerhetskopiering og gjenoppretting",
+  "backupAndRestoreSubtitle": "Sikkerhetskopier eller gjenopprett applikasjonsdata",
+  "backupAndRestoreTitle": "Sikkerhetskopiering og gjenoppretting",
+  "backupFailed": "Sikkerhetskopiering mislyktes",
+  "backupSettings": "Innstillinger for sikkerhetskopiering",
+  "backupToCloud": "Sikkerhetskopier til skyen",
+  "backupToCloudFailed": "Kunne ikke sikkerhetskopiere til skyen: {error}",
+  "backupToCloudSuccess": "Vellykket sikkerhetskopiert til skyen",
+  "bank": "Bank",
+  "basicInfo": "Grunnleggende informasjon",
+  "basicRuleFilter": "Grunnleggende regel-filter",
+  "basicRuleFiltering": "Grunnleggende regel-filtrering",
+  "basicRuleFilteringExplanation": "• Grunnleggende regel-filtrering: Filtrer regler basert på svarteliste, hviteliste og regulære uttrykk",
+  "basicRuleFilterSubtitle": "Filtrer samtaler ved hjelp av svarteliste/hviteliste og regulære uttrykk",
+  "batchDeleteContactsConfirm": "Er du sikker på at du vil slette {count} valgte kontakter?",
+  "batchDeleteLabelsConfirm": "Er du sikker på at du vil slette {count} etiketter?",
+  "blacklist": "Svarteliste",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "Svartelisting og hvitelisting",
+  "blackWhiteList": "Svart-/hviteliste",
+  "block": "Blokker",
+  "blockCalls": "Blokker samtaler",
+  "blocked": "Blokkert",
+  "blockedCalls": "Blokkerte samtaler",
+  "blockedCallsTitle": "Blokkerte samtaler",
+  "blockedSpamCalls": "Blokkerte spam-samtaler",
+  "blockingTrend": "Blokkerings-trend",
+  "blockInternationalCalls": "matcher numre som ikke starter med + eller 00",
+  "blockInternationalCallsTitle": "Blokker internasjonale numre",
+  "blockMobileNumbers": "matcher numre som ikke starter med 13-19",
+  "blockMobileNumbersTitle": "Blokker mobil-numre",
+  "blockPremiumRateNumbers": "matcher numre som ikke starter med 118 eller 120-190",
+  "blockPremiumRateNumbersTitle": "Blokker numre med spesialpriser",
+  "blockRule": "Blokkeringsregel",
+  "blockRules": "Blokkeringsregler",
+  "blockSpecificAreaCodes": "matcher numre som starter med 0 + 2-3 sifre",
+  "blockSpecificAreaCodesTitle": "Blokker spesifikke retningsnumre:",
+  "blockTypeAnalysisTitle": "Analyse av blokkeringstype",
+  "both": "Begge",
+  "bulkDelete": "Masse sletting av kontakter",
+  "bulkDeleteContacts": "Masse sletting av kontakter",
+  "bulkDeleteLabels": "Masse sletting av etiketter",
+  "call": "Samtale",
+  "callback": "Tilbake-ring",
+  "callBlocking": "Samtaleblokkering",
+  "callerIdApp": "Oppringer-ID-app",
+  "callerIdCustomizationTitle": "Tilpass oppringer-ID",
+  "callerIdDisplayMode": "Visningsmodus for anrops-ID",
+  "callerIdMarkedByCount": "Markert av {count}",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "Forhåndsvisning av anrops-ID",
+  "callFilterRules": "Anropsfilterregler",
+  "callFilterRulesDescription": "Sett grunnleggende regler for anropsfiltrering",
+  "callFilterSettings": "Anropsfilterinnstillinger",
+  "callFrequencyInterceptionSubtitle": "Still inn grenser for anropsfrekvens og blokkeringsregler",
+  "callFrequencyInterceptionTitle": "Oppfangning av anropsfrekvens",
+  "callHistory": "Anropshistorikk",
+  "callHistoryInfoDesc": "Her vises anropshistorikken din, inkludert innkommende, utgående og tapte anrop.",
+  "callHistoryInfoTitle": "Anropshistorikk",
+  "callHistoryTab": "Anropshistorikk",
+  "callScreeningPermission": "Tillatelse for anropsscreening",
+  "callScreeningPermissionDescription": "Brukes til å screene og blokkere spam-anrop.",
+  "callScreeningPermissionNotGranted": "Tillatelse for anropsscreening ikke gitt, kan påvirke app-funksjonalitet.",
+  "callStatistics": "Anropsstatistikk",
+  "callTypeAnswered": "Besvart",
+  "callTypeBlocked": "Blokkert",
+  "callTypeIconColor": "Farge på anropstypeikon",
+  "callTypeMissed": "Tapt anrop",
+  "callTypeOutgoing": "Utgående",
+  "callTypePosition": "Posisjon for anropstype",
+  "callTypeUnknown": "Ukjent",
+  "cancelButton": "Avbryt",
+  "carRental": "Leiebil",
+  "carrier": "Operatør",
+  "carrierColor": "Operatørfarge",
+  "carrierFontSize": "Operatør skriftstørrelse",
+  "carrierPosition": "Operatørposisjon",
+  "changeLabel": "Endre etikett",
+  "changePluginStatusFailed": "Kunne ikke endre plugin-status: {error}",
+  "changeSubscriptionStatusFailed": "Kunne ikke endre abonnementsstatus: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "Veldedighet",
+  "chartOneWeekAgo": "1 uke siden",
+  "chartThreeDaysAgo": "3 dager siden",
+  "chartToday": "I dag",
+  "checkFileFormat": "Vennligst sjekk filformat eller tillatelser",
+  "checkPermissionFailed": "Kunne ikke sjekke tillatelser: {error}",
+  "chooseDefaultInterceptAction": "Velg standard oppfangningshandling",
+  "clearFilter": "Fjern filter",
+  "clearLabelFilterButton": "Fjern etikettfilter",
+  "closeButton": "Lukk",
+  "cloudSync": "Skysynkronisering",
+  "cloudSyncAndBackupTitle": "Skysynkronisering og sikkerhetskopiering",
+  "cloudSyncSettingsSubtitle": "Konfigurer WebDAV, OneDrive og Google Drive",
+  "cloudSyncSettingsTitle": "Innstillinger for skysynkronisering",
+  "cloudSyncTitle": "Skysynkronisering",
+  "collection": "Inkasso",
+  "colorPickerTitle": "Velg farge",
+  "configManagement": "Konfigurasjonsadministrasjon",
+  "configUpdated": "Konfigurasjon oppdatert",
+  "configurationAdvice": "Gjennom riktig konfigurasjon kan du sette forskjellige filtreringsstrategier for jobb- og personlige SIM-kort.",
+  "configureBackupOptions": "Konfigurer sikkerhetskopieringsalternativer",
+  "configureCloudSyncService": "Konfigurer skysynkroniseringstjeneste",
+  "configureCloudSyncServiceMessage": "Vennligst konfigurer en skysynkroniseringstjeneste for å aktivere synkronisering mellom flere enheter.",
+  "configureSimCardFilterRules": "Konfigurer SIM-kortfilterregler",
+  "confirm": "Bekreft",
+  "confirmButton": "Bekreft",
+  "confirmDelete": "Bekreft sletting",
+  "confirmDeleteLabel": "Er du sikker på at du vil slette etiketten \"{name}\"",
+  "confirmDeletePlugin": "Er du sikker på at du vil slette plugin-en \"{name}\"?",
+  "confirmDeletePlugins": "Er du sikker på at du vil slette {count} plugins?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "Er du sikker på at du vil slette denne regelen? Denne handlingen kan ikke angres.",
+  "confirmDeleteSmsFilterRule": "Er du sikker på at du vil slette denne SMS-filterregelen?",
+  "confirmDeleteSmsRule": "Er du sikker på at du vil slette denne SMS-regelen?",
+  "confirmDeleteSubscriptions": "Er du sikker på at du vil slette {name}?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "Bekreft passord",
+  "connectedStatus": "Tilkoblet",
+  "connectionFailedCheckCredentialsMessage": "Tilkobling mislyktes: Vennligst sjekk serveradresse, brukernavn og passord",
+  "connectionFailedMessage": "Tilkobling mislyktes",
+  "connectionStatusLabel": "Tilkoblingsstatus",
+  "connectionSuccessMessage": "Tilkobling vellykket",
+  "contactAddSuccess": "Kontakt lagt til vellykket",
+  "contactDeleted": "Kontakt slettet",
+  "contactNameLabel": "Navn",
+  "contactNotFound": "Kontakt ikke funnet",
+  "contacts": "Kontakter",
+  "contactsDeleted": "Slettet {count} kontakter",
+  "contactsManagement": "Kontaktadministrasjon",
+  "contactsPermission": "Kontakttillatelse",
+  "contactsPermissionDescription": "Brukes til å identifisere kontaktanrop.",
+  "contactsTab": "Kontakter",
+  "contactSubscriptionDescription": "Abonner på kontaktlister via URL, oppdater kontaktinformasjon og etiketter automatisk. Støtter data i JSON-format.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "Kontakt oppdatert vellykket",
+  "contactUs": "Kontakt oss",
+  "content": "Innhold",
+  "contentRegex": "Innholds-regex",
+  "countColor": "Antall farge",
+  "countFontSize": "Antall skriftstørrelse",
+  "countPosition": "Antall posisjon",
+  "country": "Land",
+  "countryNameColor": "Landnavnfarge",
+  "countryNameFontSize": "Landnavnskriftstørrelse",
+  "countryRegionNamePosition": "Land/Region-navn posisjon",
+  "countThresholdDescription": "Still inn minimum antall terskel som kreves for å utløse filtreringshandlinger",
+  "countThresholdLabel": "Antall terskel",
+  "createdRules": "Opprettede regler",
+  "csvFormat": "CSV-format",
+  "currentDeviceLabel": "Nåværende enhets etikett",
+  "currentDeviceTitle": "Nåværende enhet",
+  "currentLanguage": "Nåværende språk",
+  "customerService": "Kundeservice",
+  "dashboardTab": "Dashbord",
+  "dataAnalysis": "Dataanalyse",
+  "dataLoadFailure": "Data lasting mislyktes: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "Kunne ikke laste data: {error}",
+  "dataMigration": "Datamigrering",
+  "dataMigrationDescription": "Denne funksjonen lar deg overføre alle dataene dine mellom enheter. For øyeblikket kan du bruke backup- og gjenopprettingsfunksjonene til å manuelt migrere dataene dine.",
+  "dataSourceReminder": "Datakilde påminnelse",
+  "days": "{count, plural, =1{1 dag} other{{count} dager}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} Dager VIP",
+  "debtCollection": "Inkasso",
+  "delete": "Slett",
+  "deleteButton": "Slett",
+  "deleteContact": "Slett kontakt",
+  "deleteContactConfirm": "Er du sikker på at du vil slette {name}?",
+  "deleteFailed": "Sletting mislyktes: {error}",
+  "deleteLabel": "Slett etikett",
+  "deleteLabelFailed": "Kunne ikke slette etikett: {error}",
+  "deletePlugin": "Slett plugin",
+  "deletePluginFailed": "Kunne ikke slette plugin: {error}",
+  "deletePlugins": "Slett plugins",
+  "deletePluginsFailed": "Kunne ikke slette plugins: {error}",
+  "deleteRule": "Slett regel",
+  "deleteRuleFailed": "Sletting mislyktes: {error}",
+  "deleteSelected": "Slett valgte",
+  "deleteSubscription": "Slett abonnement",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "Er du sikker på at du vil slette abonnementet \"{name}\"?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "Kunne ikke slette abonnement: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "Sletting vellykket",
+  "delivery": "Levering",
+  "deviceIDLabel": "Enhets-ID",
+  "deviceManagementSubtitle": "Administrer synkronisering av flere enheter",
+  "deviceManagementTitle": "Enhetsadministrasjon",
+  "deviceModelLabel": "Enhetsmodell",
+  "deviceName": "Enhetsnavn",
+  "deviceNameLabel": "Enhetsnavn",
+  "deviceRenamedSuccessfullyMessage": "Enhet omdøpt vellykket",
+  "devicesSynchronizedSuccessfullyMessage": "Enheter synkronisert vellykket",
+  "deviceUnregisteredSuccessfullyMessage": "Enhet avregistrert vellykket",
+  "dialogTitle": "Forklaring av Regex-mønster",
+  "differentFromLocalCounter": "Denne funksjonen er forskjellig fra den lokale telleren, da den fokuserer på gjentatte anropsmønstre på kort tid, i stedet for langsiktig markering av antall.",
+  "disabled": "Deaktivert",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "Deaktivert",
+  "disableGlobalPlugins": "Deaktiver globale plugins",
+  "disconnectButton": "Koble fra",
+  "disconnectedMessage": "Frakoblet",
+  "disconnectedStatus": "Frakoblet",
+  "disconnectFailedMessage": "Tilkobling feilet",
+  "done": "Ferdig",
+  "dualSimAdvice": "Denne funksjonen er spesielt nyttig for telefoner med to SIM-kort for å sette forskjellige filtreringsstrategier for jobb- og private SIM-kort.",
+  "earlier": "Tidligere",
+  "ecommerce": "E-handel",
+  "edit": "Rediger",
+  "editContact": "Rediger kontakt",
+  "editLabel": "Rediger etikett",
+  "editPhoneRule": "Rediger telefonregel",
+  "editRule": "Rediger regel",
+  "education": "Utdanning",
+  "elementPositionsSetting": "Posisjoner for elementer",
+  "email": "E-post",
+  "enableCallFilter": "Aktiver anropsfilter",
+  "enableCallFilterDescription": "Når aktivert, sjekkes innkommende anrop mot regelisten nedenfor. Anropsfiltreringsregler synkroniseres ikke mellom enheter som standard.",
+  "enabled": "Aktivert",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "Aktivert",
+  "enableEncryption": "Aktiver kryptering",
+  "enableEncryptionDescription": "Krypter sikkerhetskopifiler",
+  "enableGlobalPlugins": "Aktiver globale plugins",
+  "enableLocalCountFilter": "Aktiver lokalt tellerverktøy",
+  "enableLocalCountFilterDescription": "Filtrer spam-anrop automatisk basert på antall markeringer av anrop",
+  "enableLocalNotification": "Bruk lokal varsling",
+  "enableLocalNotificationDescription": "Når aktivert, vil varsler for filtrerte meldinger vises på enheten",
+  "enableLocationSummary": "Sted",
+  "enableMuteRules": "Aktiver dempingsregler",
+  "enableMuteRulesDesc": "Bruk konfigurasjon for dempingsavskjæringsregler",
+  "enableNoneActionRules": "Aktiver ingen handlingsregler",
+  "enableNoneActionRulesDesc": "Tillat regelkonfigurasjoner uten avskjæringsaksjoner",
+  "enableRemoteNumberFilter": "Aktiver fjernnummerfilter",
+  "enableRemoteNumberFilterDescription": "Bruk fjern database for å filtrere numre",
+  "enableRule": "Aktiver regel",
+  "enableSmsFilter": "Aktiver SMS-filtrering",
+  "enableSmsFilterDescription": "Når aktivert, vil meldinger bli automatisk filtrert i henhold til reglene",
+  "enableTimeInterception": "Aktiver tidsavskjæring",
+  "enableTimeInterceptionDescription": "Avskjær gjentatte anrop innen kort tid",
+  "enableTimeInterceptor": "Aktiver tidsavskjærer",
+  "endCallImmediately": "Avslutt anrop umiddelbart",
+  "endColor": "Sluttfarge",
+  "endDate": "Sluttdato",
+  "enhancedFilterInstructionsTitle": "Instruksjoner for forbedret filtersystem",
+  "enhancedFilterSettings": "Innstillinger for forbedret filter",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "Innstillinger for forbedret filter",
+  "enhancedFilterSystemDescription": "Det forbedrede filtersystemet støtter både globale regler og konfigurasjoner for filtrering per SIM-kort.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "Vennligst oppgi både telefonnummer og regex-mønster.",
+  "enterContactName": "Vennligst oppgi kontaktnavn",
+  "enterDeviceName": "Oppgi enhetsnavn",
+  "enterEmailOptional": "Vennligst oppgi e-post (valgfritt)",
+  "enterEncryptionPasswordHint": "Oppgi krypteringspassord",
+  "enterIconCode": "Oppgi ikonkode",
+  "enterName": "Oppgi kontaktnavn",
+  "enterNewDeviceNameHint": "Oppgi et nytt navn for denne enheten",
+  "enterPasswordAgain": "Oppgi passord igjen",
+  "enterPhoneNumber": "Oppgi telefonnummer",
+  "enterPhoneNumberHint": "Oppgi telefonnummer for å teste",
+  "enterPhoneNumberMultiple": "Vennligst oppgi telefonnummer, flere numre adskilt med komma",
+  "enterPhoneNumberToStartSearch": "Oppgi telefonnummer for å starte søk",
+  "enterPhoneNumberToVerify": "Oppgi telefonnummer for å verifisere",
+  "enterPluginName": "Oppgi plugin-navn",
+  "enterPluginUrl": "Oppgi plugin-adresse",
+  "enterRegexHint": "Oppgi regex-mønster",
+  "enterRuleNameAndPatternMessage": "Vennligst oppgi både regelnavn og regulært uttrykk-mønster.",
+  "enterRuleNameHint": "Skriv inn regelnavn",
+  "enterSearchContent": "Vennligst oppgi søkeinnhold",
+  "enterSubscriptionName": "Skriv inn abonnementsnavn",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "Skriv inn abonnements-URL",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Vennligst oppgi synkroniseringsmappenavn (standard: NotificationManager)",
+  "entertainment": "Underholdning",
+  "enterValidNameAndUrl": "Vennligst oppgi gyldig navn og URL",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "Vennligst oppgi en gyldig URL",
+  "enterVersion": "Skriv inn versjon",
+  "enterWebDAVPasswordHint": "Vennligst oppgi WebDAV-passord",
+  "enterWebDAVServerAddressHint": "Vennligst oppgi WebDAV-serveradresse",
+  "enterWebDAVUsernameHint": "Vennligst oppgi WebDAV-brukernavn",
+  "errorOccurredMessage": "En feil oppstod: {error}",
+  "errorRenamingDeviceMessage": "Feil ved endring av navn på enhet: {error}",
+  "errorSynchronizingDevicesMessage": "Feil ved synkronisering av enheter: {error}",
+  "errorUnregisteringDeviceMessage": "Feil ved avregistrering av enhet: {error}",
+  "exampleBlock400Prefix": "f.eks. Blokker 400 prefiksnummer",
+  "exampleBlockMarketingSms": "f.eks. Blokker markedsførings-SMS",
+  "exampleContentRegexHint": "Eksempel på innholdsmønster",
+  "exampleCouponPromotionDiscount": "f.eks. .*(kupong|kampanje|rabatt).*",
+  "exampleFamilyFriends": "f.eks. Familie, Venner, etc.",
+  "examplePhoneNumber": "f.eks. 10086, 12345, etc.",
+  "exampleRegex400Prefix": "Eksempel på regulært uttrykk for 400 prefiks",
+  "exampleSenderRegexHint": "Eksempel",
+  "exchange": "Bytte",
+  "exchangeNow": "Bytt nå",
+  "exchangeVip": "Bytt VIP",
+  "expiryTime": "Utløpstid: {time}",
+  "export": "Eksporter",
+  "exportAllApplicationSettings": "Eksporter alle applikasjonsinnstillinger",
+  "exportAllRuleConfigurations": "Eksporter alle regelkonfigurasjoner",
+  "exportConfig": "Eksporter konfigurasjon",
+  "exportContacts": "Eksporter kontakter",
+  "exportData": "Eksporter data",
+  "exportFailed": "Eksportering mislyktes",
+  "exportFailure": "Kunne ikke eksportere konfigurasjon",
+  "exportFeatureComingSoon": "Eksportfunksjon kommer snart",
+  "exportLabels": "Eksporter etiketter",
+  "exportLabelsFailed": "Kunne ikke eksportere etiketter: {error}",
+  "exportPluginList": "Eksporter plugin-liste",
+  "exportPluginListFailed": "Kunne ikke eksportere plugin-liste: {error}",
+  "exportRules": "Eksporter regler",
+  "exportSmsRules": "Eksporter SMS-regler",
+  "exportStatisticsData": "Eksporter statistikkdata",
+  "exportSuccesslly": "Konfigurasjon eksportert vellykket",
+  "failedToAddRule": "Kunne ikke legge til regel: {error}",
+  "failedToAddSmsSubscription": "Kunne ikke legge til SMS-abonnement: {error}",
+  "failedToBackupSettings": "Kunne ikke sikkerhetskopiere innstillinger: {error}",
+  "failedToDecryptBackupFile": "Kunne ikke dekryptere sikkerhetskoffertfilen",
+  "failedToDeleteSmsRule": "Kunne ikke slette SMS-regel: {error}",
+  "failedToExportRules": "Kunne ikke eksportere regler: {error}",
+  "failedToGetCallerIdInfo": "Kunne ikke hente nummeropplysningsinformasjon: {error}",
+  "failedToImportRules": "Kunne ikke importere regler: {error}",
+  "failedToRestoreSettings": "Kunne ikke gjenopprette innstillinger",
+  "failedToRestoreSettingsWithError": "Kunne ikke gjenopprette innstillinger: {error}",
+  "failedToToggleRuleStatus": "Kunne ikke veksle regelstatus: {error}",
+  "favoriteContacts": "Favorittkontakter",
+  "featureAddRules": "• Legg til spesifikke regler for telefonnummer",
+  "featureCenter": "Funksjonssenter",
+  "featureEnableDisable": "• Aktiver/deaktiver forskjellige filtre per SIM",
+  "featureListTitle": "Funksjoner:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• Administrer regelsett per SIM",
+  "features": "Funksjoner",
+  "fetchingCallerIdInfo": "Henter nummeropplysningsinformasjon...",
+  "fileSavedTo": "Fil lagret til: {path}",
+  "filter": "Filtrer",
+  "filterByLabel": "Filtrer etter etikett",
+  "filterControlPanelTitle": "Filterkontrollpanel",
+  "filterControlSubtitle": "Administrer av/på-status for alle filtre",
+  "filterControlTitle": "Kontroll for filtre",
+  "filtered": "Filtrert",
+  "filterExplanation": "Forklaring av filter",
+  "filterManagement": "Filteradministrasjon",
+  "filterName": "Filter navn",
+  "filterPriorityNote": "Merk: Det er prioriteringsforhold mellom filtre, vennligst se hjelpedokumentasjonen for detaljer",
+  "filterSettings": "Filterinnstillinger",
+  "filterSettingsTitle": "Filterinnstillinger",
+  "filterSMS": "Filtrer SMS",
+  "filterToggleInstructions": "Aktiver eller deaktiver filtre for denne SIM-kortplassen:",
+  "filterToggleStatus": "{status} filter: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "Filtertype",
+  "financial": "Finansiell",
+  "flexibleCombinationFeature": "• Fleksible kombinasjoner: Aktiver/deaktiver filtre per SIM-kortplass",
+  "fontSizesSetting": "Skriftstørrelser",
+  "foundRules": "Fant {count} regler",
+  "fraudAlert": "SVINDELALARM - Legg på samtalen",
+  "fraudScamLikely": "Svindel, sannsynlig svindel",
+  "free": "Gratis",
+  "functionSettingsTitle": "Funksjonsinnstillinger",
+  "generalUpdateFailure": "Oppdatering mislyktes: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "Få gratis",
+  "github": "GitHub",
+  "globalFilterDescription": "Konfigurer globale filtre for alle SIM-kort:",
+  "globalFilterFeature": "• Globale filtre: Grunnleggende regler for alle innkommende anrop",
+  "globalFilterSettings": "Globale filterinnstillinger",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "Globale innstillinger",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "Autoriser ved bruk av systemkonfigurert Google Drive-klient-ID og nøkkel",
+  "googleDriveConfigTitle": "Google Drive-konfigurasjon",
+  "government": "Myndigheter",
+  "granted": "Innrømmet",
+  "grantNecessaryPermissions": "Gi nødvendige tillatelser",
+  "grantPermissions": "Gi tillatelser",
+  "headhunter": "Rekrutterer",
+  "height": "Høyde",
+  "homeTab": "Hjem",
+  "howItWorksPoint1": "• Systemet vil automatisk tillate anrop fra samme nummer innenfor det angitte tidsvinduet",
+  "howItWorksPoint2": "• Kortere tidsvinduer gir strengere avskjæring; lengre tidsvinduer gir løsere avskjæring",
+  "howItWorksPoint3": "• Systemet sjekker anropslogger for å avgjøre om det er et gjentatt anrop",
+  "howItWorksTitle": "Slik fungerer det:",
+  "iconCodeOptional": "Ikonkode (valgfritt)",
+  "iconSize": "Ikonstørrelse",
+  "import": "Importer",
+  "important": "Viktig",
+  "importConfig": "Importer konfigurasjon",
+  "importContacts": "Importer kontakter",
+  "importExportContacts": "Importer/eksporter kontakter",
+  "importExportContactsTooltip": "Importer/eksporter kontakter",
+  "importExportRules": "Importer/eksporter regler",
+  "importFailed": "Import mislyktes: {error}",
+  "importFailure": "Kunne ikke importere konfigurasjon",
+  "importFeatureComingSoon": "Importfunksjon kommer snart",
+  "importLabels": "Importer etiketter",
+  "importLabelsFailed": "Kunne ikke importere etiketter: {error}",
+  "importPluginList": "Importer plugin-liste",
+  "importPluginListFailed": "Kunne ikke importere plugin-liste: {error}",
+  "importPluginSuccess": "Vellykket importert {count} plugins",
+  "importRuleConfigurationsFromFile": "Importer regelkonfigurasjoner fra fil",
+  "importRules": "Importer regler",
+  "importSuccess": "Import vellykket",
+  "incomingCallInterceptAction": "Handling ved avskjæring av innkommende anrop",
+  "incorrectPassword": "Feil passord",
+  "initializing": "Initialiserer",
+  "installed": "Installert",
+  "insufficientMarks": "Utililstrekkelige poeng",
+  "insurance": "Forsikring",
+  "interceptAction": "Avskjærings handling",
+  "interceptionActionSettingsSubtitle": "Still inn hvordan blokkerte anrop håndteres",
+  "interceptionActionSettingsTitle": "Innstillinger for avskjærings handling",
+  "interceptionTimeInterval": "Avskjæring tidsintervall",
+  "internet": "Internett",
+  "intervalSetSuccess": "{service} oppdateringsintervall satt til {days} dager",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "Ugyldig innholdsregEx",
+  "invalidLabel": "Ugyldig etikett",
+  "invalidRegexPattern": "Ugyldig regex-mønster",
+  "invalidSenderRegex": "Ugyldig avsender-regex",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "Bli med i Telegram-kanalen og gruppen for mer informasjon",
+  "jsonFormat": "JSON-format",
+  "keepAllVersions": "Behold alle versjoner",
+  "keepAllVersionsDescription": "Behold alle historiske versjoner av hver sikkerhetskopi",
+  "label": "Etikett",
+  "labelAddedSuccessfully": "Etiketten \"{name}\" ble lagt til vellykket",
+  "labelCategories": "Etikettkategorier",
+  "labelDeleted": "Etikett slettet",
+  "labelDescription": "Etiketter hjelper deg med å administrere kontakter bedre, legg til egendefinerte etiketter på telefonnumre for enkel identifisering av anrop og meldinger.",
+  "labelFilterTooltip": "Etikettfilter",
+  "labelIconColor": "Etikettikonfarge",
+  "labelManagement": "Etiketthåndtering",
+  "labelNotFound": "Etikett ikke funnet",
+  "labels": "Etiketter",
+  "labelsColor": "Etiketter farge",
+  "labelsDeleted": "{count} etiketter slettet",
+  "labelsExportedSuccessfully": "Etiketter eksportert vellykket",
+  "labelsFontSize": "Etiketter skriftstørrelse",
+  "labelsImportedSuccessfully": "Vellykket importert {count} etiketter",
+  "labelsPosition": "Etiketter posisjon",
+  "labelTag": "Etikett: {labelId}",
+  "labelUpdateFailed": "Kunne ikke oppdatere etikett: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "Etiketten \"$labelText\" ble oppdatert vellykket",
+  "languageSettings": "Språkinnstillinger",
+  "languageSettingsSubtitle": "Endre appens visningsspråk",
+  "languageSettingsTitle": "Språkinnstillinger",
+  "lastSyncLabel": "Siste synkronisering",
+  "lastUpdated": "Sist oppdatert: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "Livstidsmedlemskap",
+  "lifetimeMembershipDescription": "Engangskjøp, lås opp permanent alle premiumfunksjoner og fremtidige oppdateringer",
+  "loadContactsFailed": "Kunne ikke laste inn kontakter: {error}",
+  "loadDataFailed": "Kunne ikke laste inn data",
+  "loading": "Laster inn...",
+  "loadingTags": "Laster inn merkelapper...",
+  "loadLabelFailed": "Kunne ikke laste inn etiketter: {error}",
+  "loadLabelsFailed": "Kunne ikke laste inn etiketter: {error}",
+  "loadMarkCountFailed": "Kunne ikke laste inn merkede telefonnumre: {error}",
+  "loadMarkedPhonesFailed": "Kunne ikke laste inn merkede telefonnumre: {error}",
+  "loadPluginsFailed": "Kunne ikke laste inn plugins: {error}",
+  "loadSettingsFailed": "Kunne ikke laste inn innstillinger: {error}",
+  "loadSmsRulesFailed": "Kunne ikke laste inn SMS-regler: {error}",
+  "loadStatusFailedMessage": "Kunne ikke laste inn status",
+  "loadSubscriptionsFailed": "Kunne ikke laste inn abonnementer: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "Lån",
+  "localCounterFilter": "Lokal tellerfilter",
+  "localCounterFilterSubtitle": "Filtrer automatisk spam-anrop basert på anropsfrekvens",
+  "localCountFilter": "Lokal antallsfilter",
+  "localCountFilterDescription": "Avskjær hyppige anrop basert på lokale nummertall",
+  "localCountFilterExplanationContent": "Det lokale antallsfilteret analyserer samtalehistorikk for å automatisk identifisere og blokkere hyppige spam-anrop.",
+  "localCountFilterExplanationTitle": "Forklaring av lokalt antallsfilter",
+  "localCountFilterHowItWorksPoint1": "• Bestem om du vil blokkere basert på nummers antallsverdi",
+  "localCountFilterHowItWorksPoint2": "• Når et nummers antall overstiger den innstilte terskelen, kan du velge å blokkere det automatisk",
+  "localCountFilterHowItWorksPoint3": "• Du kan selektivt tillate numre som ikke overskrider terskelen",
+  "localCountFilterHowItWorksPoint4": "• Du kan velge om du vil registrere alle spørringslogger",
+  "localCountFiltering": "Lokal antallsfiltrering",
+  "localCountFilteringExplanation": "• Lokal antallsfiltrering: Filtreringsregler basert på lokal merket antall",
+  "localCountFilterSettings": "Innstillinger for lokalt antallsfilter",
+  "localCountFilterUseCases": "Dette filteret er spesielt egnet for å identifisere automatiserte spam-anrop og markedsføringsanrop.",
+  "localFilterSettings": "Innstillinger for lokalt filter",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "Lokal varsling deaktivert",
+  "localNotificationEnabled": "Lokal varsling aktivert",
+  "localServices": "Lokale tjenester",
+  "locationColor": "Plassering farge",
+  "locationFontSize": "Plassering skriftstørrelse",
+  "locationIconColor": "Plassering ikonfarge",
+  "locationPosition": "Plassering posisjon",
+  "logAllLocalQueries": "Logg alle lokale spørringer",
+  "logAllLocalQueriesDescription": "Registrer logger for alle lokale nummerspørringer",
+  "logAllRemoteQueries": "Logg alle eksterne spørringer",
+  "logAllRemoteQueriesDescription": "Registrer alle eksterne nummerspørringsoperasjoner",
+  "manage": "Administrer kontakter",
+  "manageFavoriteContacts": "Administrer favorittkontakter",
+  "manageFilterRules": "Administrer filterregler",
+  "manageFilterRulesDescription": "Legg til, rediger eller slett SMS-filterregler",
+  "markCounts": "Merk antall",
+  "markCount": "Merk antall",
+  "markedByCount": "Merke av {count}",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Merkede telefonnumre",
+  "markExchange": "Merk utveksling",
+  "markPhone": "Merk telefonnummer",
+  "markPhoneFailed": "Kunne ikke merke telefonnummer: {error}",
+  "markPhoneManagementTitle": "Håndtering av merkede telefonnumre",
+  "markPhoneSuccess": "Telefonnummer merket vellykket",
+  "matchFailedMessage": "Treff mislyktes.",
+  "matchNumbersWithSpecialCharacters": "matcher spesifikt nummerformat",
+  "matchNumbersWithSpecialCharactersTitle": "Matcher tall med spesialtegn:",
+  "matchSpecificDigitPatterns": "matcher XXX-XXXX-XXXX format",
+  "matchSpecificDigitPatternsTitle": "Matcher spesifikke sifermønstre:",
+  "matchSuccessfulMessage": "Treff vellykket!",
+  "medical": "Medisinsk",
+  "membershipPrivileges": "Medlemskapsfordeler",
+  "migrationTool": "Migreringsverktøy",
+  "minutes": "minutter",
+  "month": "Måned",
+  "monthly": "Månedlig",
+  "monthlyCallCount": "Månedlige anrop",
+  "monthlyMembership": "Månedlig medlemskap",
+  "monthlyMembershipDescription": "Lås opp alle premiumfunksjoner, fornyes automatisk månedlig",
+  "monthlyTotal": "Månedlig totalt",
+  "moreOptions": "Flere alternativer",
+  "name": "Navn",
+  "nameAndPhoneNumberCannotBeEmpty": "Navn og telefonnummer kan ikke være tomme",
+  "nameColor": "Navnfarge",
+  "nameFontSize": "Navn skriftstørrelse",
+  "namePosition": "Navn posisjon",
+  "nameUnknown": "Navn: Ukjent",
+  "nextStep": "Neste",
+  "noAction": "Ingen handling",
+  "noActionRules": "Ingen handling-regler",
+  "noActiveCloudSyncServiceMessage": "Ingen aktiv skysynkroniseringstjeneste",
+  "noCallRecords": "Ingen samtaleoppføringer",
+  "noContactsYet": "Ingen kontakter ennå",
+  "noData": "Ingen data",
+  "noDevicesRegisteredMessage": "Ingen enheter registrert",
+  "noLabels": "Ingen etiketter ennå",
+  "noMarkedPhones": "Ingen merkede telefonnumre",
+  "noMatchingContactsFound": "Ingen matchende kontakter funnet",
+  "noMatchingNumbersFound": "Ingen matchende numre funnet",
+  "noMatchingRules": "Ingen matchende {ruleType}",
+  "none": "Ingen",
+  "noneServiceType": "Ingen",
+  "noPlugins": "Ingen plugins ennå",
+  "noRules": "Ingen {ruleType} ennå",
+  "noRulesPrompt": "Ingen regler funnet, legg til regler",
+  "noRulesToExport": "Ingen regler å eksportere",
+  "noSmsFilterRulesYet": "Ingen SMS-filterregler ennå",
+  "noSmsRulesYet": "Ingen SMS-regler ennå",
+  "noSubscriptions": "Ingen abonnementer",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "Ikke gitt",
+  "notificationModeDescription": "Vis oppringerinformasjon i varslingsfeltet",
+  "notificationPermission": "Varslingsrettighet",
+  "notificationPermissionDescription": "Brukes til å vise varsler om innkommende anrop og meldinger.",
+  "notifications": "Varsler",
+  "notificationSettings": "Varslingsinnstillinger",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "Ikke verifisert",
+  "noValidSmsRulesFoundInFile": "Ingen gyldige SMS-regler funnet i fil",
+  "number": "Nummer",
+  "numberColor": "Nummerfarge",
+  "numberFontSize": "Nummer skriftstørrelse",
+  "numberPosition": "Nummer posisjon",
+  "numberSearch": "Nummersøk",
+  "numberTypeColor": "Nummertypefarge",
+  "numberTypeFontSize": "Nummertype skriftstørrelse",
+  "numberTypePosition": "Nummertype posisjon",
+  "okButton": "OK",
+  "onboardingCompleteDescription": "Din samtalestyringsverktøy er klar, begynn å nyte en trygg samtaleopplevelse!",
+  "onboardingLanguageDescription": "Velg ditt foretrukne språk for best mulig opplevelse.",
+  "onboardingPermissionsDescription": "For å gi full service trenger vi følgende tillatelser:",
+  "onboardingPowerfulSpamBlockingDescription": "Ettklikksblokkering av spam-anrop og meldinger, tilpass blokkeringsregler og gi deg et rolig miljø.",
+  "onboardingSmartCallerIdDescription": "Identifiser ukjente anrop automatisk, merk mistenkelige numre og beskytt samtaletryggheten din.",
+  "onboardingWelcomeDescription": "Din samtalestyringsekspert, som tilbyr omfattende samtaleidentifikasjon og blokkeringstjenester.",
+  "oneDriveAuthDescription": "Autoriser ved å bruke systemkonfigurert OneDrive-klient-ID og nøkkel",
+  "oneDriveConfigTitle": "OneDrive Konfigurasjon",
+  "onlineCallerIdSubscription": "Online Anrops-ID Abonnement",
+  "openAppSettings": "Åpne appinnstillinger",
+  "openAppSettingsFailed": "Kunne ikke åpne appinnstillinger: {error}",
+  "operationFailed": "Operasjon mislyktes: {error}",
+  "operationFailure": "Operasjon mislyktes",
+  "operationSuccess": "Operasjon fullført",
+  "other": "Annen",
+  "ourOtherApps": "Våre Andre Apper",
+  "overlayMode": "Flytende Vindu",
+  "overlayModeDescription": "Vis anropsinformasjon i et flytende vindu",
+  "overlayPermission": "Overleggstillatelse",
+  "overlayPermissionDescription": "Brukes til å vise innkommende anrops-overlay.",
+  "overview": "Oversikt",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "Passord",
+  "passwordCannotBeEmpty": "Passord kan ikke være tomt",
+  "passwordLabel": "Passord",
+  "passwordsDoNotMatch": "Passordene stemmer ikke overens",
+  "pattern": "Mønster",
+  "pendingSync": "Venter på synkronisering",
+  "periodMonth": "Måned",
+  "periodWeek": "Uke",
+  "periodYear": "År",
+  "permissionDenied": "Tillatelsesforespørsel nektet",
+  "permissionGranted": "Tillatelse gitt",
+  "permissionManagement": "Tillatelsesadministrasjon",
+  "phoneCallsTab": "Telefon",
+  "phoneNumber": "Telefonnummer",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "Telefonnummer kan ikke være tomt",
+  "phoneNumberLabel": "Telefonnummer",
+  "phoneNumberTypeFixedLine": "Fasttelefon",
+  "phoneNumberTypeFixedLineOrMobile": "Fasttelefon eller mobil",
+  "phoneNumberTypeMobile": "Mobil",
+  "phoneNumberTypePager": "Pager",
+  "phoneNumberTypePersonalNumber": "Personlig nummer",
+  "phoneNumberTypePremiumRate": "Premium-sats",
+  "phoneNumberTypeSharedCost": "Delt kostnad",
+  "phoneNumberTypeTollFree": "Tollfri",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "Ukjent",
+  "phoneNumberTypeVoicemail": "Talepost",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "Telefontillatelse",
+  "phonePermissionDescription": "Brukes til å identifisere og blokkere innkommende anrop.",
+  "phoneRule": "Telefonregel",
+  "phoneRuleManagement": "Administrasjon av telefonregler",
+  "phoneRuleSubscription": "Abonnement på telefonregler",
+  "phoneSubscription": "Telefonsubskripsjon",
+  "phoneSubscriptionRulesDescription": "Abonner på lister over telefonregler via URL for automatisk oppdatering av hviteliste- og svartelister. Støtter regel-filer i JSON-format.",
+  "pleaseSelectLabelAndEnterValidPhone": "Vennligst velg en etikett og skriv inn et gyldig telefonnummer",
+  "pluginAddedSuccess": "Plugin \"{name}\" lagt til vellykket",
+  "pluginDeleted": "Plugin slettet",
+  "pluginLatestVersion": "Plugin er allerede den nyeste versjonen",
+  "pluginListExportSuccess": "Plugin-liste eksportert vellykket",
+  "pluginManagement": "Pluginadministrasjon",
+  "pluginManagementSubtitle": "Administrer og konfigurer tredjeparts plugins",
+  "pluginName": "Pluginnavn",
+  "pluginsDeleted": "{count} plugins slettet vellykket.",
+  "pluginService": "Plugin-tjeneste",
+  "pluginTestPageTitle": "Plugin-test",
+  "pluginUpdateSuccess": "Plugin oppdatert vellykket",
+  "pluginUrl": "Plugin-URL",
+  "pluginVersion": "Plugin-versjon",
+  "political": "Politisk",
+  "powerfulSpamBlocking": "Kraftig Spam-blokkering",
+  "previousStep": "Forrige",
+  "prioritizeRemoteAction": "Prioriter Innstillinger for fjernhandling",
+  "prioritizeRemoteActionDescription": "Prioriter innstillinger fra fjernbasen",
+  "processing": "Behandler...",
+  "processingOperation": "Behandler...",
+  "purchase": "Kjøp",
+  "quarterlyMembership": "Kvartalsmedlemskap",
+  "quarterlyMembershipDescription": "Lås opp alle premium-funksjoner, fornyes automatisk kvartalsvis",
+  "ready": "Klar!",
+  "recruiter": "Rekrutterer",
+  "refresh": "Oppdater",
+  "refreshPermissionStatus": "Oppdater tillatelsesstatus",
+  "refreshTooltip": "Oppdater",
+  "regexErrorMessage": "Regex-feil: {error}",
+  "regexPattern": "Regex-mønster",
+  "regexPatternExplanation": "Forklaring til regex-mønster",
+  "regexPatternExplanationButton": "Forklaring til regex-mønster",
+  "regexPatternLabel": "Regex-mønster",
+  "regexPatternsForPhoneNumberMatching": "Regex-mønstre for telefonskattmatching",
+  "regexRule": "Regex-regel",
+  "regexRuleAddFailed": "Kunne ikke legge til regex-regel: {error}",
+  "regexRuleAddSuccess": "Regex-regel lagt til vellykket",
+  "regexRuleManagement": "Regex-regeladministrasjon",
+  "regexRuleNamePatternRequired": "Regelnavn og regex-mønster kan ikke være tomme",
+  "regexRules": "Regex-regler",
+  "regexTesterTitle": "Regex-tester",
+  "region": "Region",
+  "registeredDevicesTitle": "Registrerte enheter",
+  "rejectAllCalls": "Avvis alle anrop",
+  "rejectAllCallsDescription": "Når aktivert, vil alle anrop bli avvist med høyeste prioritet",
+  "rejectAllNumbers": "Avvis alle numre",
+  "rejectAllNumbersDesc": "Avvis alle innkommende anrop når aktivert",
+  "rejectExceededNumbers": "Avvis overskredne numre",
+  "rejectExceededNumbersDescription": "Avvis automatisk numre som overskrider terskelverdien",
+  "remoteFilterSettings": "Fjernfiltermuligheter",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "Innstillinger for ekstern nummerfilter",
+  "remoteNumberFilter": "Ekstern nummerfilter",
+  "remoteNumberFilterDescription": "Avskjær plagsomme anrop basert på ekstern databasinformasjon",
+  "remoteNumberFiltering": "Ekstern nummerfiltrering",
+  "remoteNumberFilteringExplanation": "• Ekstern nummerfiltrering: Filtreringsregler basert på informasjon fra ekstern database",
+  "remoteNumberFilterSubtitle": "Identifiser spam-anrop ved hjelp av skybasert database og fellesskapsrapporter",
+  "removeAdsDescription": "Fjern permanent alle annonser i appen for en jevnere opplevelse",
+  "removeAdsTitle": "Fjern annonser",
+  "removedFromFavorites": "Fjernet fra favoritter",
+  "removeFromFavorites": "Fjern fra favoritter",
+  "renameDeviceTitle": "Gi nytt navn til enhet",
+  "requestAllPermissions": "Be om alle tillatelser",
+  "requestPermission": "Be om tillatelse",
+  "requestPermissionFailed": "Kunne ikke be om tillatelse: {error}",
+  "requiredMarks": "{count} merker",
+  "reset": "Tilbakestill",
+  "restore": "Gjenopprett",
+  "restoreApplicationSettingsFromBackup": "Gjenopprett applikasjonsinnstillinger fra sikkerhetskopi",
+  "restoreFromCloud": "Gjenopprett fra sky",
+  "restoreFromCloudFailed": "Kunne ikke gjenopprette fra sky: {error}",
+  "restoreFromCloudSuccess": "Vellykket gjenoppretting fra sky",
+  "restorePurchases": "Gjenopprett kjøp",
+  "restoreSettings": "Gjenopprett innstillinger",
+  "restoreSettingsConfirmation": "Dette vil erstatte alle dine gjeldende innstillinger. Er du sikker på at du vil fortsette?",
+  "retry": "Prøv igjen",
+  "ridesharing": "Samkjøring",
+  "risk": "Risiko",
+  "robocall": "Robocall",
+  "ruleAction": "Regelhandling",
+  "ruleAddedSuccess": "Regel lagt til vellykket",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "Regel lagt til vellykket",
+  "ruleDeleteConfirmContent": "Er du sikker på at du vil slette denne {ruleType}?",
+  "ruleDeleteConfirmTitle": "Slett regel",
+  "ruleDeletedSuccessfully": "Regel slettet vellykket",
+  "ruleDeleteFailed": "Kunne ikke slette regel: {error}",
+  "ruleDeleteSuccess": "Regel slettet vellykket",
+  "ruleDisabledSuccessfully": "Regel deaktivert vellykket",
+  "ruleEnabledSuccessfully": "Regel aktivert vellykket",
+  "ruleLoadFailed": "Kunne ikke laste regler: {error}",
+  "ruleManagement": "Regeladministrasjon",
+  "ruleName": "Regelnavn",
+  "ruleNameAndContentRegexCannotBeEmpty": "Regelnavn og innholdsregex kan ikke være tomme",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "Regelnavn og telefonnummer kan ikke være tomme",
+  "ruleNameHint": "f.eks. Familie, Venner, osv.",
+  "ruleNameLabel": "Regelnavn",
+  "ruleNameRequired": "Regelnavn og telefonnummer kan ikke være tomme",
+  "ruleNotExist": "Regel finnes ikke eller er slettet",
+  "ruleNotFound": "Regel ikke funnet: {error}",
+  "ruleSavedSuccessMessage": "Regel lagret vellykket!",
+  "rulesExportedSuccessfully": "Regler eksportert vellykket",
+  "rulesExportedTo": "Regler eksportert til: {path}",
+  "rulesImported": "Regler importert vellykket",
+  "rulesImportedSuccessfully": "{count} regler importert vellykket",
+  "ruleStatusChanged": "Regel {status} vellykket",
+  "ruleToggleFailed": "Operasjon mislyktes: {error}",
+  "ruleToggleSuccess": "Regel {status} vellykket",
+  "ruleUpdateFailed": "Kunne ikke oppdatere regel: {error}",
+  "ruleUpdateSuccess": "Regel oppdatert vellykket",
+  "ruleVerification": "Regelverifisering",
+  "save": "Lagre",
+  "saveButton": "Lagre",
+  "saveButtonText": "Lagre",
+  "saveFailed": "Lagring mislyktes: {error}",
+  "saveSettings": "Lagre innstillinger",
+  "scamsLikely": "Sannsynlig svindel",
+  "search": "Søk",
+  "searchContacts": "Søk i kontakter",
+  "searchError": "Søker feil: {error}",
+  "searchHint": "Søk...",
+  "securityMessage": "Ikke stol på telefonsamtaler. Verifiser alltid kundeservicenummer uavhengig. Aldri del passord, verifiseringskoder, kortnummer eller personlig informasjon.",
+  "selectActionWhenBlockingCalls": "Velg handling ved blokkering av anrop",
+  "selectActionWhenRuleMatches": "Velg handling når regelen matcher",
+  "selectAll": "Velg alle",
+  "selectCountry": "Velg land",
+  "selectedItems": "{count} elementer valgt",
+  "selectedLabel": "Valgt:",
+  "selectExportFormat": "Velg eksportformat",
+  "selectLabel": "Velg etikett",
+  "selectLabelAndEnterPhoneNumber": "Vennligst velg en etikett og oppgi et gyldig telefonnummer",
+  "selectLanguage": "Velg språk",
+  "selectMultiple": "Velg flere",
+  "selectSimCard": "Velg SIM-kort",
+  "selectTags": "Velg etiketter",
+  "selectTrustedDataSource": "Vennligst velg klarerte datakilder",
+  "selectYourLanguage": "Velg ditt språk",
+  "sender": "Avsender",
+  "senderRegexOptional": "Avsender Regex (valgfritt)",
+  "serverAddressLabel": "Serveradresse",
+  "serviceTypeContact": "Kontokontakt",
+  "serviceTypeLabel": "Tjenestetype",
+  "serviceTypePhone": "Telefonabonnement",
+  "serviceTypePlugin": "Plugin-oppdatering",
+  "serviceTypeSms": "SMS-abonnement",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "Angi krypteringspassord",
+  "settings": "Innstillinger",
+  "settingsBackedUpTo": "Innstillinger sikkerhetskopiert til: {path}",
+  "settingsRestoredSuccessfully": "Innstillinger gjenopprettet vellykket. Vennligst start appen på nytt for at endringene skal tre i kraft.",
+  "settingsSaved": "Innstillinger lagret",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "Kunne ikke lagre innstillinger: {error}",
+  "settingsTab": "Innstillinger",
+  "settingsTitle": "Innstillinger",
+  "setup": "Oppsett",
+  "silence": "Stillhet",
+  "silenceAndNoAnswer": "Stillhet og ingen svar",
+  "silenceNoAnswer": "Stillhet ingen svar",
+  "silentCallVoiceClone": "Still anrop stemmekloning",
+  "silentRules": "Stille regler",
+  "simCard": "SIM-kort {simNumber}",
+  "simCardColor": "SIM-kortfarge",
+  "simCardConfigurationExplanation": "• SIM-kortkonfigurasjon: Angi uavhengige filtreringsregler for hvert SIM-kort",
+  "simCardFilterRules": "SIM-kort filterregler",
+  "simCardFilterRulesDescription": "Angi forskjellige filtreringsregler basert på SIM-kortspor",
+  "simCardFontSize": "SIM-kort skriftstørrelse",
+  "simCardPosition": "SIM-kort plassering",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "SIM-regelregler lar deg konfigurere uavhengige filtreringsregler for hvert SIM-spor.",
+  "simRuleInstructionsTitle": "SIM-sporregler",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "Konfigurer uavhengige filtreringsregler for hvert SIM-kort:",
+  "simSlotFilterSettingsTitle": "SIM-spor {slotNumber} filterinnstillinger",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "Administrasjon av SIM-spor",
+  "simSlotPosition": "SIM-sporets posisjon {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• SIM-sporregler: Uavhengige filtreringsstrategier per SIM",
+  "simSlotRuleListTitle": "Liste over SIM-sporregler",
+  "simSlotRuleManagement": "SIM-sporregler",
+  "simSlotTitle": "SIM-spor {slotNumber}",
+  "skip": "Hopp over",
+  "smartCallerId": "Smart samtaleidentifikasjon",
+  "sms": "SMS",
+  "smsFilterDescription": "SMS-filtrering hjelper deg med å automatisk filtrere søppelpostmeldinger og holde meldingslisten din ren. Du kan sette opp filtreringsregler og varslingsmetoder.",
+  "smsFilterDisabled": "SMS-filtrering deaktivert",
+  "smsFilterEnabled": "SMS-filtrering aktivert",
+  "smsFilterRuleAddedSuccessfully": "SMS-filterregel lagt til vellykket",
+  "smsFilterRules": "SMS-filterregler",
+  "smsFilterSettings": "SMS-filterinnstillinger",
+  "smsManagement": "SMS-administrasjon",
+  "smsPermission": "SMS-tillatelse",
+  "smsPermissionDescription": "Brukes til å filtrere søppelpostmeldinger.",
+  "smsRuleAddedSuccessfully": "SMS-regel lagt til vellykket",
+  "smsRuleDeletedSuccessfully": "SMS-regel slettet vellykket",
+  "smsRuleLoadFailed": "Kunne ikke laste SMS-regler: {error}",
+  "smsRuleManagement": "Administrasjon av SMS-regler",
+  "smsRuleSubscription": "SMS-regelabonnement",
+  "smsSubscription": "SMS-abonnement",
+  "smsSubscriptionAddedSuccessfully": "SMS-abonnement lagt til vellykket",
+  "smsSubscriptionRulesDescription": "Abonner på SMS-regel-lister via URL, med støtte for regulære uttrykk. Du kan sette blokkerings- eller tillatelseshandlinger.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "Noen tillatelsesforespørsler avslått",
+  "spamLikely": "Sannsynligvis søppelpost",
+  "startColor": "Startfarge",
+  "startDate": "Startdato",
+  "startUsing": "Kom i gang",
+  "statAnswered": "Besvart",
+  "statBlocked": "Blokkert",
+  "statistics": "Statistikk",
+  "statisticsPageTitle": "Dataanalyse",
+  "stirColor": "STIR-farge",
+  "stirFontSize": "STIR skriftstørrelse",
+  "stirPosition": "STIR-posisjon",
+  "storagePermission": "Lagringstillatelse",
+  "storagePermissionDescription": "Brukes til å lagre innstillinger og regler.",
+  "subscribe": "Abonner",
+  "subscriptionAddSuccess": "Abonnement \"{name}\" lagt til vellykket",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "Er du sikker på at du vil slette dette abonnementet?",
+  "subscriptionDeleteConfirmTitle": "Slett abonnement",
+  "subscriptionDeleted": "Abonnement slettet",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "Kunne ikke slette abonnement: {error}",
+  "subscriptionDeleteSuccess": "Abonnement slettet",
+  "subscriptionLoadFailed": "Kunne ikke laste abonnementer: {error}",
+  "subscriptionName": "Abonnementsnavn",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "Abonnementsnavn og URL kan ikke være tomme",
+  "subscriptionNameHint": "Skriv inn abonnementsnavn",
+  "subscriptionStatusChangeFailed": "Kunne ikke endre abonnementsstatus: {error}",
+  "subscriptionUpdateFailed": "Kunne ikke oppdatere abonnement: {error}",
+  "subscriptionUpdateSuccess": "Abonnement oppdatert vellykket",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "Abonnements-URL",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "Skriv inn abonnements-URL",
+  "successfullyImportedRules": "Vellykket importert {count} regler",
+  "supportSync": "Støtt synkronisering",
+  "survey": "Undersøkelse",
+  "syncDevicesButton": "Synkroniser enheter",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "Synkronisering mislyktes",
+  "syncFailedMessage": "Synkronisering mislyktes",
+  "syncFolderNameLabel": "Synkroniseringsmappenavn",
+  "synchronized": "Synkronisert",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "Synkroniserer...",
+  "syncNow": "Synkroniser nå",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "Synk nå",
+  "syncStatusTitle": "Synkroniseringsstatus",
+  "syncStatusUpdatedMessage": "Synkroniseringsstatus oppdatert",
+  "syncSuccessMessage": "Synkronisering vellykket",
+  "syncWithCloudStorage": "Synkroniser med skytjenester",
+  "systemFeatures": "Systemfunksjoner:",
+  "systemSettingsTitle": "Systeminnstillinger",
+  "tabAll": "Alle",
+  "tabAnswered": "Besvart",
+  "tabBlocked": "Blokkert",
+  "tabMissed": "Ubesvart",
+  "tabOutgoing": "Utgående",
+  "tagLabel": "Etikett: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "Takeaway",
+  "telecommunication": "Telekommunikasjon",
+  "telegram": "Telegram",
+  "telemarketing": "Telemarketing",
+  "testButton": "TEST",
+  "testConnectionButton": "Test Tilkobling",
+  "textColorsSetting": "Tekst- og etikettfarger",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "Denne appen er et kraftig verktøy for oppringing-ID som lar deg identifisere og blokkere uønskede anrop.",
+  "thisWeek": "Denne Uken",
+  "timeInterceptor": "Tidsavskjæring",
+  "timeInterceptorDescription": "Avskjær/tillat automatisk potensielle anrop basert på anropsfrekvens",
+  "timeInterceptorExplanation": "• Tidsavskjæring: Avskjær/tillat gjentatte anrop innen kort tid",
+  "timeInterceptorExplanationContent": "Funksjonen for avskjæring av anropsfrekvens analyserer anropsfrekvensen for å automatisk identifisere og avskjære/tillate hyppige spam-anrop.",
+  "timeInterceptorExplanationTitle": "Forklaring av avskjæring av anropsfrekvens",
+  "timeInterceptorSettingsTitle": "Innstillinger for avskjæring av anropsfrekvens",
+  "timeWindowDescription": "Still inn tidsvindusstørrelsen for å tillate gjentatte anrop. Anrop fra samme nummer innenfor dette vinduet vil bli tillatt",
+  "timeWindowLabel": "Avskjæringstid (minutter): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "I Dag",
+  "total": "Totalt",
+  "totalBlocked": "Totalt blokkert",
+  "transferDataBetweenDevicesOrPlatforms": "Overfør data mellom enheter eller plattformer",
+  "travelTicketing": "Reisebilletter",
+  "tutorial": "Veiledning",
+  "type": "Type",
+  "unassignedSIMCard": "Utdelt SIM-kort",
+  "unknown": "Ukjent",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "Etikett: Ukjent",
+  "unregisterButton": "Avregistrer",
+  "unregisterDeviceConfirmationMessage": "Er du sikker på at du vil avregistrere {deviceName}?",
+  "unregisterDeviceTitle": "Avregistrer enhet",
+  "unsupportedFileFormat": "Ugyldig filformat",
+  "update": "Oppdater",
+  "updateAllNow": "Oppdater alle nå",
+  "updateContactFailed": "Kunne ikke oppdatere kontakt: {error}",
+  "updateFavoriteStatus": "Oppdater favorittstatus",
+  "updateInterval": "Oppdateringsintervall",
+  "updateNow": "Oppdater nå",
+  "updatePlugin": "Oppdater tillegg",
+  "updatePluginFailed": "Kunne ikke oppdatere tillegg: {error}",
+  "updateRuleFailed": "Kunne ikke oppdatere regel: {error}",
+  "updateSubscriptionFailed": "Kunne ikke oppdatere abonnement: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} oppdatert vellykket ({count} regler)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• Identifiser spam-anrop som ringes på nytt automatisk",
+  "useCasesPoint2": "• Avskjær markedsføringsanrop som ringer flere ganger på kort tid",
+  "useCasesPoint3": "• Forhindre telefonbombing og trakassering",
+  "useCasesTitle": "Bruksområder:",
+  "useGlobalSettings": "Bruk globale innstillinger",
+  "usernameLabel": "Brukernavn",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "Bruk standard regex-syntaks for å definere mønstre. Eksempler:",
+  "verificationFailedText": "Feilet",
+  "verifiedText": "Verifisert",
+  "verify": "Bekreft",
+  "version": "Versjon: {version}",
+  "vipExchangeDescription": "Bytt VIP-medlemskap med antall markeringer av telefonnummer",
+  "vipExchangeTitle": "Bytt VIP-markering",
+  "watchAd": "Se annonse",
+  "watchAdForTemp": "Se annonse for midlertidige privilegier",
+  "watchAdForTempDescription": "Se en kort annonse for å midlertidig låse opp noen premiumfunksjoner",
+  "webDAVConfigTitle": "WebDAV-konfigurasjon",
+  "week": "Uke",
+  "welcome": "Velkommen",
+  "whitelist": "Hvitliste",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "Bredde",
+  "wildcardMatchingDescription": "Bruk '.' for å matche et hvilket som helst tegn (f.eks. '123.456' matcher 123-456)",
+  "wildcardMatchingTitle": "Wildcard-matching:",
+  "wildcardSupportForFlexibleFiltering": "Wildcard-støtte for fleksibel filtrering",
+  "windowSizeSetting": "Vindusstørrelse",
+  "year": "År",
+  "noSimCardsDetected": "Ingen SIM-kort oppdaget",
+  "filterManagementDescription": "Sett anropsfiltre",
+  "callerIdCustomizationSubtitle": "Tilpass utseendet på nummerpresentasjon",
+  "fraudAlerSettingTitle": "Innstillinger for svindelvarsling",
+  "fraudAlerSettingSubtitle": "For å sette opp svindelvarsling",
+  "enableFraudAlert": "Aktiver svindelvarsling",
+  "enableFraudAlertDescription": "Varsel for mistenkelige svindelsamtaler",
+  "enableVibration": "Aktiver vibrasjon",
+  "enableVibrationDescription": "Vibrer når samtalen mistenkes å være svindel",
+  "notificationSettingsTitle": "Varslingsinnstillinger",
+  "useLocalNotification": "Bruk lokale varsler",
+  "useLocalNotificationDescription": "Aktiver lokale varsler for innkommende samtaler",
+  "cancelLocalNotification": "Lukk lokale varsler",
+  "useStirNotification": "Bruk varsel fra STIR",
+  "cancelLocalNotificationDescription": "Lukk lokale varsler automatisk",
+  "callerIdSettingsTitle": "Innstillinger for nummerpresentasjon",
+  "callerIdSettingsSubtitle": "For å sette opp varsler og visningsmodus for innkommende samtaler",
+  "purchaseTitle": "Kjøp",
+  "purchaseSubtitle": "For å kjøpe tjenesten",
+  "callerIdNotificationTitle": "Informasjon om innkommende samtale",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "Blokkert samtale",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "Blokkert samtale fra {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "Verifisert",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "Ikke verifisert",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "Verifisering mislyktes",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "Ukjent verifiseringsstatus",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "STIR/SHAKEN-verifisering",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} for nummer {phoneNumber}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "Innstillinger for rullende sikkerhetsmelding",
+  "messageColor": "Meldingens farge",
+  "messageFontSize": "Meldingens skriftstørrelse",
+  "messagePosition": "Meldingens posisjon",
+  "containerWidth": "Beholderens bredde",
+  "scrollSpeed": "Rullehastighet",
+  "enableSecurityMessage": "Aktiver sikkerhetsmelding",
+  "fraudAlertTitle": "Svindelvarsling",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "Ingen data tilgjengelig for blokkert type",
+  "importEntity": "Importer {entityTypeName}",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} importert vellykket, totalt {count} poster importert",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "Kunne ikke importere {entityTypeName}: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "Eksporter {entityTypeName}",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} eksportert vellykket",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "Kunne ikke eksportere {entityTypeName}: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "Skysynkroniseringstjeneste",
+  "membershipCenter": "Medlemsenter",
+  "redeemVipWithMarks": "Løs inn VIP med poeng",
+  "currentMarkCount": "Nåværende poengsum",
+  "markMoreNumbersForMore": "Merk flere numre for flere poeng",
+  "noAds": "Ingen reklame",
+  "cloudBackup": "Skylagring",
+  "callerIdEnhancement": "Forbedring av nummerpresentasjon",
+  "voiceRecognition": "Talegjenkjenning",
+  "feature": "Funksjon",
+  "normalUser": "Vanlig bruker",
+  "vipUser": "VIP-bruker",
+  "temporaryVip": "Midlertidig VIP",
+  "removeAds": "Fjern reklame",
+  "settingsBackup": "Sikkerhetskopi av innstillinger ",
+  "allServicesStatusTitle": "Nåværende tjenestestatus",
+  "allServicesStatusSubtitle": "Nåværende status for hver skytjeneste",
+  "redirect": "Omdiriger",
+  "notify": "Varsle",
+  "log": "Logg",
+  "custom": "Egendefinert",
+  "allowActionDescription": "Samtaler vil bli tillatt, selv om nummeret er på blokkeringslisten.",
+  "blockActionDescription": "Samtaler vil bli blokkert og vist i anropsloggen.",
+  "silenceActionDescription": "Samtaler vil bli dempet, men vist i anropsloggen.",
+  "noneActionDescription": "Ingen spesiell handling vil bli utført for samtalen.",
+  "redirectActionDescription": "Omdiriger samtalen til et spesifisert nummer.",
+  "labelActionDescription": "Legg til en etikett på samtalen for enkel identifikasjon.",
+  "notifyActionDescription": "Send et varsel når en samtale mottas.",
+  "logActionDescription": "Loggfør samtalens informasjon uten å utføre andre handlinger.",
+  "customActionDescription": "Utfør en egendefinert handling.",
+  "synced": "Synkronisert",
+  "needVipAccess": "Du trenger VIP-tilgang for å bruke denne funksjonen",
+  "importExportDescription": "Importer eller eksporter {entityTypeName}-data",
+  "importExportTitle": "Import/Eksport",
+  "noPhoneRules": "Ingen telefonregler funnet",
+  "noRegexRules": "Ingen regex-regler funnet",
+  "noAllowedBlockedRules": "Ingen tillatte/blokkerte regler funnet",
+  "importExport": "Import/Eksport",
+  "filterByAction": "Filtrer etter handling",
+  "upgradeToVip": "Oppgrader til VIP",
+  "batteryOptimizationPermission": "Batterioptimalisering",
+  "batteryOptimizationPermissionDescription": "Tillat appen å kjøre i bakgrunnen for å tilby tjenester som anrops-ID.",
+  "permissionTitle": "Spesialtillatelser",
+  "permissionSubtitle": "Administrer overlegg- og batterioptimaliseringstillatelser",
+  "themeSettingsTitle": "Temainnstillinger",
+  "themeSettingsSubtitle": "Velg ditt favorittema",
+  "databaseSyncTitle": "Databasesynkronisering",
+  "countrySyncSettingsTitle": "Landbaserte databasesynkroniseringsinnstillinger",
+  "countrySyncSettingsSubtitle": "Velg land for datasynkronisering",
+  "countryDataDisclaimer": "Vær oppmerksom på: Databasen kan mangle data for alle spesifikke land eller regioner.",
+  "editSubscription": "Rediger abonnement",
+  "searchByNameOrPhoneNumber": "Søk etter navn eller telefonnummer",
+  "allowedBlockedRulesInfo": "Tillatte/blokkerte regler brukes til å matche anrop mot spesifikke telefonnumre, som har høyest prioritet.",
+  "searchPhoneRulesHint": "Søk etter telefonregler",
+  "phoneRulesInfo": "Telefonregler brukes til å matche anrop mot spesifikke telefonnumre, som har lavere prioritet. Noen kommer fra telefonregelabonnementene.",
+  "searchSubscriptionsHint": "Søk etter abonnementer",
+  "searchPluginsHint": "Søk etter plugins",
+  "searchLabelsHint": "Søk etter etiketter",
+  "pluginDescription": "Pluginbeskrivelse",
+  "enterPluginDescription": "Skriv inn pluginbeskrivelse",
+  "searchRegexRulesHint": "Søk etter regex-regler",
+  "regexRulesInfo": "Regex-regler brukes til å filtrere anrop basert på Regex-mønstre.",
+  "searchMarkedPhonesHint": "Søk etter markerte telefoner",
+  "searchContactSubscriptionsHint": "Søk etter kontaktabonnementer",
+  "showAllContacts": "Vis alle kontakter",
+  "showFavorites": "Vis favoritter",
+  "manualEntry": "Manuell oppføring info",
+  "scriptSaved": "Skript lagret",
+  "editScriptFor": "Rediger skript for {pluginName}",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "Lagre skript",
+  "testPlugin": "Test plugin",
+  "description": "Beskrivelse",
+  "accessTargetUrl": "Tilgang til målenettadresse",
+  "result": "Resultat",
+  "editScript": "Rediger skript",
+  "numberFormat": "Nummerformat",
+  "nationalNumber": "Nasjonalt nummer",
+  "e164Number": "E164-nummer",
+  "pluginRulesInfo": "Av sikkerhetshensyn, vennligst bruk plugins fra pålitelige kilder. Bruk gjerne malene våre for å lage dine egne egendefinerte plugins!",
+  "advancedMode": "Avansert modus",
+  "pleaseEnterAtLeastOneNumber": "Vennligst skriv inn minst ett nummer.",
+  "openInWebView": "Åpne i WebView",
+  "pluginLabel": "Plugin-etikett",
+  "pluginID": "ID",
+  "pluginURL": "URL",
+  "messageBackgroundColor": "Bakgrunnsfarge for melding",
+  "clearAllCallLogs": "Slett alle anropslogger",
+  "clearAllCallLogsConfirmation": "Bekreft for å slette alle anropslogger",
+  "allCallLogsCleared": "Alle anropslogger er slettet",
+  "unblocked": "Fjernet blokkering",
+  "blockNumber": "Blokker nummer",
+  "blockNumberSuccess": "Nummer blokkert med suksess",
+  "unblockNumberConfirmation": "Er du sikker på at du vil fjerne blokkeringen av {phoneNumber}?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "Vis detaljer",
+  "unblock": "Fjern blokkering",
+  "unblockNumber": "Fjern blokkering av nummer",
+  "unblockNumberSuccess": "Nummer fjernet blokkering med suksess",
+  "unblockNumberFailed": "Fjerning av nummerblokkering mislyktes",
+  "callingNumberFailed": "Nummerpåringing mislyktes",
+  "listView": "Listevisning",
+  "timelineView": "Tidslinjevisning",
+  "nameCannotBeEmpty": "Navn kan ikke være tomt",
+  "selectAction": "Velg handling",
+  "selectTargetService": "Velg måltjeneste",
+  "callDetails": "Anropsdetaljer",
+  "callType": "Anropstype",
+  "callTime": "Anropstid",
+  "numberInvalidFormat": "Nummer i ugyldig format",
+  "medium": "Medium",
+  "finalRisk": "Endelig risiko",
+  "simState": "SIM-tilstand",
+  "ipCountry": "IP-land",
+  "simCountry": "SIM-land",
+  "isRoaming": "Roaming",
+  "isNumberMatch": "Nummermatch",
+  "support": "Støtte",
+  "rewardedAdService": "Belønnede annonsertjenester",
+  "hasVipPrivilegeExceptAds": "Du har allerede VIP-privilegier (unntatt annonser)",
+  "hasTempPrivilegeWithExpiry": "Du har allerede midlertidige privilegier, utløpsdato: {expiryDate}",
+  "watchMoreAdsForTempVip": "Du må se {count} flere annonser for å få midlertidige VIP-privilegier",
+  "grantedTempPurchaseWithExpiry": "Du har fått {days} dagers midlertidige kjøpsprivilegier. Utløpsdato: {expiryDate}",
+  "tempPurchaseExpired": "Midlertidig kjøpsprivilegium har utløpt",
+  "loadingAd": "Laster annonse...",
+  "earnedTempVip": "Opptjent midlertidig VIP",
+  "vipExchangeService": "VIP-utvekslingstjeneste",
+  "marksInsufficient": "Utilstrekkelig antall merker for utveksling",
+  "invalidExchangeRule": "Ugyldig utvekslingsregel",
+  "exchangeSuccess": "Vellykket utvekslet for {description}, utløpsdato: {expiryDate}",
+  "exchangeFailed": "Utveksling mislyktes: {error}",
+  "vip3DaysWithAds": "3-dagers VIP med annonser (kun synkronisering)",
+  "vip5DaysNoAds": "5-dagers fullt utstyrt annonsefri VIP",
+  "vip7DaysNoAds": "7-dagers fullt utstyrt annonsefri VIP",
+  "noNotifications": "Ingen varsler",
+  "clearAllNotifications": "Slett alle varsler",
+  "clearAllNotificationsConfirmation": "Bekreft for å slette alle varsler",
+  "clearButton": "Tøm",
+  "justNow": "Nettopp",
+  "minutesAgo": "{count,plural, =1{1 minutt siden} other{{count} minutter siden}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{1 time siden} other{{count} timer siden}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{1 dag siden} other{{count} dager siden}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "I går",
+  "deletionProposal": "Slettingsforslag",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "Opprett forslag",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "Opprett slettingsforslag",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "Årsak",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "Utdatert nummer",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "Personvernhensyn",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "Ikke i bruk",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "Feilidentifisert",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "Unøyaktig informasjon",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "Annet",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "Send inn",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Avbryt",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "Risikonivå",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Lav",
+  "@riskLevelLow": {
+    "description": "Label for low risk level"
+  },
+  "riskLevelHigh": "Høy",
+  "@riskLevelHigh": {
+    "description": "Label for high risk level"
+  },
+  "agreeVotes": "Enige: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "Totalt: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "Enig",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "Uenig",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "Opprettet: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "Verifikasjonsrapport",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "Forslagsstatistikk",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "Totalt antall forslag",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "Aktive forslag",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "Forslag opprettet vellykket",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "Stemme sendt inn vellykket",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "Ingen forslag funnet",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "Oppdater forslag",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "Totalt antall ventende forslag",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "Høy risiko",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "Middels risiko",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "Lav risiko",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "Samfunnspåvirkning",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "Kritiske problemer",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "Samfunnsdeltakelse",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "Ingen aktivitet",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Lav",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "Moderat",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "Høy",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "Veldig høy",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "Stemte",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "Samfunnsstemmer",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "Venter på flere samfunnsstemmer",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "Dette forslaget er behandlet",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "STØTTET",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "IMOT",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "GODKJENT",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "AVSLÅTT",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "FULLFØRT",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "VENTER",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "Kritisk",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "Motsett deg",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "Veldig lav",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "Slettingsforslag",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "Varsler om resultater og oppdateringer fra avstemning om slettingsforslag.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "Slettingsforslag opprettet",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "Ditt slettingsforslag for {phoneNumber} er sendt inn for gjennomgang av samfunnet.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "Forslag godkjent ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "Slettingsforslaget for {phoneNumber} er godkjent av samfunnet ({supportPercentage}% støtte, {totalVotes} stemmer).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "Forslag avvist ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "Slettingsforslaget for {phoneNumber} er avvist av samfunnet ({supportPercentage}% støtte, {totalVotes} stemmer).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "Samfunnsavstemning startet",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "Et nytt slettingsforslag for {phoneNumber} er nå åpent for samfunnsavstemning.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "Avstemning fullført",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "Samfunnsavstemning for {phoneNumber} er avsluttet. Resultat: {result} ({supportPercentage}% støtte).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "Ny stemme mottatt",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "Noen stemte for å {voteType} sletting av {phoneNumber}. Nåværende stemmer: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "Antall stemmer",
+  "deletionProposalDescription": "Forslå numre for sletting som bryter med samfunnets retningslinjer. Din deltakelse bidrar til å holde plattformen trygg.",
+  "searchProposals": "Søk i forslag",
+  "defaultNotifications": "Standardvarsler",
+  "defaultNotificationsDescription": "Standard varslingskanal for appen.",
+  "blockedCallNotifications": "Blokkerte anropsvarsler",
+  "blockedCallNotificationsDescription": "Viser informasjon om blokkerte samtaler.",
+  "stirVerification": "STIR/SHAKEN-bekreftelse",
+  "stirVerificationDescription": "Viser STIR/SHAKEN-bekreftelsesresultater for numre.",
+  "fraudAlerts": "Svindelvarsler",
+  "fraudAlertsDescription": "Viser advarsler for potensielt svindelaktige samtaler.",
+  "notificationMode": "Varslingsmodus",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "Avventende forslag",
+  "pendingProposalsBody": "Du har {count, plural, =0 {ingen avventende forslag} one {1 avventende forslag} other {{count} avventende forslag}}.",
+  "guidelinesLabel": "Retningslinjer",
+  "riskLevelLabel": "Risikonivå",
+  "phoneNumberMinDigits": "Telefonnummer må være minst 7 sifre",
+  "provideDetailedExplanation": "Gi en detaljert forklaring (minimum 10 tegn)",
+  "reasonMinCharacters": "Årsak må være minst 10 tegn",
+  "countryCodeTwoLetters": "Landskode (ISO 3166-1 alfa-2) *",
+  "countryCodeLabel": "Landskode (ISO 3166-1 alfa-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "f.eks. NO, US, CN",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "Landskode er påkrevd",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "Skriv inn telefonnummer",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "Telefonnummer er påkrevd",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "Årsak er påkrevd",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "Kritisk",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "Middels",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "Veldig lav",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "Varslingsfrekvens",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "Feil: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• Rapporter kun numre som er genuint problematiske\n• Oppgi nøyaktige og detaljerte årsaker\n• Velg passende risikonivå basert på alvorlighetsgrad\n• Falske rapporter kan føre til kontobegrensninger",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Varslingsfrekvens (Timer)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "Støtte ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "Imot ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} stemmer ({supportPercentage}% støtte)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 timer} =1{1 time} other{{count} timer}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "Viktig merknad",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "Numre hentes fra internett og brukerinnlegg. Vi kan ikke garantere at et nummer, etter å ha blitt slettet, ikke blir re-sendt av andre brukere eller kilder. Vennligst søk aktivt og verifiser informasjonen.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "Avatar",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "Sted",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "SIM-kort",
+  "liveActivitiesSettingsTitle": "Innstillinger for Live Aktiviteter",
+  "elementsSettingsTitle": "Innstillinger for Elementer",
+  "liveActivityMode": "Live Aktivitet",
+  "liveActivityModeDescription": "Viser samtaleinformasjon som et vedvarende varsel på låseskjermen og i Dynamic Island (iOS).",
+  "phoneNumberType": "Telefonnummer Type",
+  "liveActivitiesTestEndActivity": "Avslutt aktivitet",
+  "liveActivitiesTestSendNewActivity": "Send ny aktivitet",
+  "liveActivitiesTestUpdateActivity": "Oppdater aktivitet",
+  "liveActivityControlsTitle": "Kontroller for Live Aktivitet",
+  "liveActivitiesTestTitle": "Live Aktiviteter Test",
+  "liveNotificationCustomizationTitle": "Tilpasning av Live Varsler",
+  "liveNotificationCustomizationSubtitle": "Tilpass utseendet til live varsler.",
+  "notification_instructions": "Instruksjoner:\n1. Trykk på \"SEND\" for å opprette eller oppdatere et varsel.\n2. Gå til startskjermen eller dra ned varslingspanelet for å se resultatet.\n3. Trykk på \"AVSLUTT\" for å lukke varselet.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "Automatisk kanseller varsel",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "Hvis merket, vil varselet automatisk lukkes når brukeren trykker på det.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "Sett forsinkelsestid",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "Forslagsdetaljer",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "Forslag ikke funnet",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "Behandlet",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "Filtrer og sorter",
+  "filterVerifiedOwner": "Filtrer verifisert eier",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "Filtrer etter",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "Sorter eldste",
+  "sortNewest": "Sorter nyeste",
+  "sortMostPopular": "Sorter mest populære",
+  "sortLeastPopular": "Sorter minst populære",
+  "sortBy": "Sorter etter",
+  "simRulesNotFound": "SIM-regler ikke funnet",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "SIM-sporet regler",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "Ingen SIM-kort oppdaget",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "Ugyldige SIM-data",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "SIM-sporet",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "Aktiver filtrering",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "Detaljerte innstillinger",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "Inngangspunktvisning",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "Avvist",
+  "callTypeSilenced": "Dempet",
+  "andMoreItems": "og {count} flere elementer",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Rule Type",
+  "localDatabaseSyncTitle": "Local Database Sync",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Sync data across devices",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Supabase Project URL",
+  "supabaseAnonKey": "Anon Key",
+  "supabaseAnonKeyHint": "API Key, anon public key",
+  "connectionString": "Connection String (URI)",
+  "connectionStringHelper": "Only needed for 'Initialize Database'",
+  "syncCallHistory": "Sync Call History",
+  "syncCallHistorySubtitle": "Include private call logs in sync",
+  "requiredField": "Required",
+  "requiredInitField": "Required for initialization",
+  "initDbButton": "Initialize Database",
+  "dbInitSuccess": "Database Initialized Successfully!",
+  "syncSuccess": "Sync Complete. Sent: {pushed}, Received: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Error",
+  "errorLoadingSettings": "Error loading settings",
+  "statusLabel": "Status",
+  "statusConnected": "Connected / Configured",
+  "statusNotConfigured": "Not Configured",
+  "configSaved": "Configuration Saved!",
+  "masterDeviceLabel": "Is Master Device (Admin)",
+  "masterDeviceHelp": "Only the master device can initialize the database structure.",
+  "syncIntervalLabel": "Auto-sync Interval",
+  "syncIntervalValue": "Every {hours} hours",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Leave empty to use default",
+  "vipAccessSubtitle": "Watch ads for free or purchase VIP",
+  "failedToLoadSettingsSchema": "Failed to load settings schema: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "This field is required",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Automatically answer the incoming call and then immediately hang up to terminate it",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}

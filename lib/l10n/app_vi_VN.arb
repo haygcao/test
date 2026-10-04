@@ -1,0 +1,2372 @@
+{
+  "@@locale": "vi",
+  "aboutContactSubscription": "Giới thiệu Đăng ký Danh bạ",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Giới thiệu Nhãn",
+  "aboutPhoneSubscriptionRules": "Giới thiệu Quy tắc Đăng ký Điện thoại",
+  "aboutSmsFilter": "Giới thiệu Lọc SMS",
+  "aboutSmsSubscriptionRules": "Giới thiệu Quy tắc Đăng ký SMS",
+  "aboutSubtitle": "Phiên bản ứng dụng và thông tin pháp lý",
+  "aboutTitle": "Giới thiệu",
+  "action": "Hành động",
+  "actionAll": "Tất cả",
+  "actionAllow": "Cho phép",
+  "actionBlock": "Chặn",
+  "actionFilterTitle": "Lọc theo Loại Hành động",
+  "actionFilterTooltip": "Bộ lọc Hành động",
+  "actionNone": "Không Hành động",
+  "actionSilence": "Im lặng",
+  "actionTag": "Hành động: {actionType}",
+  "actionType": "Loại Hành động",
+  "actionUnknown": "Không xác định",
+  "add": "Thêm",
+  "addAllowedBlockedRule": "Thêm Quy tắc Cho phép/Chặn",
+  "addAllowSubscription": "Thêm Đăng ký Cho phép",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Thêm Đăng ký Chặn",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Thêm Danh bạ",
+  "addContactFailed": "Thêm danh bạ thất bại: {error}",
+  "addedToFavorites": "Đã thêm vào danh bạ yêu thích",
+  "addLabel": "Thêm Nhãn",
+  "addLabelButton": "Thêm Nhãn",
+  "addLabelFailed": "Thêm nhãn thất bại: {error}",
+  "addName": "Thêm Tên",
+  "addNoneSubscription": "Thêm Đăng ký Không hành động",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Thêm Nhãn điện thoại",
+  "addPhoneNumberRule": "Thêm Quy tắc Số điện thoại",
+  "addPlugin": "Thêm Plugin",
+  "addPluginFailed": "Thêm plugin thất bại",
+  "addPluginFailedWithError": "Thêm plugin thất bại: {error}",
+  "addPluginFromLocalFile": "Thêm Plugin từ Tệp cục bộ",
+  "addPluginFromUrl": "Thêm Plugin từ URL",
+  "addRegexRule": "Thêm Quy tắc Regex",
+  "addRule": "Thêm Quy tắc",
+  "addRuleFailed": "Thêm quy tắc thất bại: {error}",
+  "addRuleTooltip": "Thêm Quy tắc",
+  "addSilenceSubscription": "Thêm Đăng ký Im lặng",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Thêm Quy tắc Lọc SMS",
+  "addSmsRule": "Thêm Quy tắc SMS",
+  "addSmsSubscription": "Thêm Đăng ký SMS",
+  "addSubscription": "Thêm Đăng ký",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Thêm Đăng ký",
+  "addSubscriptionFailed": "Thêm đăng ký thất bại: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Thêm Đăng ký",
+  "addToBlacklist": "Thêm vào Danh sách chặn",
+  "addToFavorites": "Thêm vào Mục Yêu thích",
+  "addToRules": "Thêm vào Quy tắc",
+  "addToWhitelist": "Thêm vào Danh sách cho phép",
+  "agent": "Tác nhân",
+  "all": "Tất cả",
+  "allCallsTab": "Tất cả",
+  "allow": "Cho phép",
+  "allowAllAllowRules": "Cho phép Tất cả Quy tắc Cho phép",
+  "allowAllAllowRulesDesc": "Cho phép các cuộc gọi từ quy tắc cho phép",
+  "allowAllBlacklistedNumbers": "Cho phép Tất cả Số điện thoại trong Danh sách chặn",
+  "allowAllBlockRules": "Cho phép Tất cả Quy tắc Chặn",
+  "allowAllBlockRulesDesc": "Cho phép các cuộc gọi từ quy tắc chặn",
+  "allowAllowedNumbers": "Cho phép các số đã cho phép",
+  "allowAllowedNumbersDesc": "Cho phép các cuộc gọi từ danh sách cho phép",
+  "allowBlock": "Cho phép/Chặn",
+  "allowBlockedNumbers": "Cho phép Số điện thoại đã chặn",
+  "allowBlockedNumbersDesc": "Cho phép các cuộc gọi từ danh sách chặn",
+  "allowedBlockedRule": "Quy tắc Cho phép/Chặn",
+  "allowedBlockedRuleEditDialogTitle": "Chỉnh sửa Quy tắc Cho phép/Chặn",
+  "allowedBlockedRuleManagement": "Quản lý Quy tắc Cho phép/Chặn",
+  "allowNonExceededNumbers": "Cho phép Số không vượt quá giới hạn",
+  "allowNonExceededNumbersDescription": "Tự động cho phép các số không vượt quá ngưỡng số lượng",
+  "allowRegexAllowRules": "Cho phép Quy tắc Cho phép Regex",
+  "allowRegexAllowRulesDesc": "Bật đối sánh mẫu regex cho quy tắc cho phép",
+  "allowRegexAllowRulesDescription": "Bật quy tắc cho phép dựa trên regex",
+  "allowRegexBlockRules": "Cho phép Quy tắc Chặn Regex",
+  "allowRegexBlockRulesDesc": "Bật đối sánh mẫu regex cho quy tắc chặn",
+  "allowRegexBlockRulesDescription": "Bật quy tắc chặn dựa trên regex",
+  "allowRule": "Quy tắc Cho phép",
+  "allowRules": "Quy tắc Cho phép",
+  "allPermissionsGranted": "Đã cấp tất cả quyền",
+  "allSettingsCompleted": "Đã hoàn tất tất cả cài đặt.",
+  "allUpdateSuccess": "Đã hoàn thành tất cả cập nhật ({count} quy tắc)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "Trả lời rồi cúp máy",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "Phần mềm ứng dụng",
+  "apply": "Áp dụng",
+  "appName": "Your Call Your Rule",
+  "authorizationFailedCheckCredentialsMessage": "Ủy quyền thất bại: Vui lòng kiểm tra ID khách hàng và khóa",
+  "authorizationFailedMessage": "Ủy quyền thất bại",
+  "authorizationSuccessMessage": "Ủy quyền thành công",
+  "authorizeLoginButton": "Ủy quyền Đăng nhập",
+  "automotiveIndustry": "Ngành công nghiệp ô tô",
+  "autoSyncLabel": "Tự động đồng bộ",
+  "autoUpdate": "Tự động cập nhật",
+  "autoUpdateDescription": "Đặt khoảng thời gian tự động cập nhật cho các đăng ký hoặc cập nhật thủ công",
+  "autoUpdateSettings": "Cài đặt tự động cập nhật",
+  "autoUpdateSubtitle": "Quản lý cập nhật tự động cho quy tắc và plugin",
+  "autoUpdateTitle": "Tự động cập nhật",
+  "avatarBorderColor": "Màu viền ảnh đại diện",
+  "avatarBorderSize": "Kích thước viền ảnh đại diện",
+  "avatarIconSizesSetting": "Kích thước ảnh đại diện & biểu tượng",
+  "avatarPosition": "Vị trí ảnh đại diện",
+  "avatarSize": "Kích thước ảnh đại diện",
+  "axisPosition": "Vị trí {axis}",
+  "backgroundGradientSetting": "Màu nền chuyển sắc",
+  "backup": "Sao lưu",
+  "backupAndRestore": "Sao lưu và khôi phục",
+  "backupAndRestoreSubtitle": "Sao lưu hoặc khôi phục dữ liệu ứng dụng",
+  "backupAndRestoreTitle": "Sao lưu & Khôi phục",
+  "backupFailed": "Sao lưu thất bại",
+  "backupSettings": "Cài đặt sao lưu",
+  "backupToCloud": "Sao lưu lên đám mây",
+  "backupToCloudFailed": "Không thể sao lưu lên đám mây: {error}",
+  "backupToCloudSuccess": "Sao lưu lên đám mây thành công",
+  "bank": "Ngân hàng",
+  "basicInfo": "Thông tin cơ bản",
+  "basicRuleFilter": "Bộ lọc quy tắc cơ bản",
+  "basicRuleFiltering": "Lọc quy tắc cơ bản",
+  "basicRuleFilteringExplanation": "• Lọc quy tắc cơ bản: Lọc quy tắc dựa trên danh sách đen, danh sách trắng và biểu thức chính quy",
+  "basicRuleFilterSubtitle": "Lọc cuộc gọi bằng danh sách đen/trắng và biểu thức chính quy",
+  "batchDeleteContactsConfirm": "Bạn có chắc chắn muốn xóa {count} danh bạ đã chọn không?",
+  "batchDeleteLabelsConfirm": "Bạn có chắc chắn muốn xóa {count} nhãn đã chọn không?",
+  "blacklist": "Danh sách đen",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "Danh sách đen và Danh sách trắng",
+  "blackWhiteList": "Danh sách đen/trắng",
+  "block": "Chặn",
+  "blockCalls": "Chặn cuộc gọi",
+  "blocked": "Đã chặn",
+  "blockedCalls": "Cuộc gọi bị chặn",
+  "blockedCallsTitle": "Cuộc gọi bị chặn",
+  "blockedSpamCalls": "Cuộc gọi rác bị chặn",
+  "blockingTrend": "Xu hướng chặn",
+  "blockInternationalCalls": "khớp với các số không bắt đầu bằng + hoặc 00",
+  "blockInternationalCallsTitle": "Chặn cuộc gọi quốc tế",
+  "blockMobileNumbers": "khớp với các số không bắt đầu bằng 13-19",
+  "blockMobileNumbersTitle": "Chặn số điện thoại di động",
+  "blockPremiumRateNumbers": "khớp với các số không bắt đầu bằng 118 hoặc 120-190",
+  "blockPremiumRateNumbersTitle": "Chặn số dịch vụ giá cao",
+  "blockRule": "Quy tắc chặn",
+  "blockRules": "Quy tắc chặn",
+  "blockSpecificAreaCodes": "khớp với các số bắt đầu bằng 0 + 2-3 chữ số",
+  "blockSpecificAreaCodesTitle": "Chặn mã vùng cụ thể:",
+  "blockTypeAnalysisTitle": "Phân tích loại chặn",
+  "both": "Cả hai",
+  "bulkDelete": "Xóa hàng loạt danh bạ",
+  "bulkDeleteContacts": "Xóa hàng loạt danh bạ",
+  "bulkDeleteLabels": "Xóa hàng loạt nhãn",
+  "call": "Gọi",
+  "callback": "Gọi lại",
+  "callBlocking": "Chặn cuộc gọi",
+  "callerIdApp": "Ứng dụng hiển thị ID người gọi",
+  "callerIdCustomizationTitle": "Tùy chỉnh ID người gọi",
+  "callerIdDisplayMode": "Chế độ hiển thị ID người gọi",
+  "callerIdMarkedByCount": "Được đánh dấu bởi {count}",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "Xem trước ID người gọi",
+  "callFilterRules": "Quy tắc lọc cuộc gọi",
+  "callFilterRulesDescription": "Đặt các quy tắc cơ bản để lọc cuộc gọi",
+  "callFilterSettings": "Cài đặt Bộ lọc cuộc gọi",
+  "callFrequencyInterceptionSubtitle": "Đặt giới hạn tần suất cuộc gọi và quy tắc chặn",
+  "callFrequencyInterceptionTitle": "Chặn theo tần suất cuộc gọi",
+  "callHistory": "Lịch sử cuộc gọi",
+  "callHistoryInfoDesc": "Tại đây hiển thị lịch sử cuộc gọi của bạn, bao gồm các cuộc gọi đến, đi và bị nhỡ.",
+  "callHistoryInfoTitle": "Lịch sử cuộc gọi",
+  "callHistoryTab": "Lịch sử cuộc gọi",
+  "callScreeningPermission": "Quyền sàng lọc cuộc gọi",
+  "callScreeningPermissionDescription": "Được sử dụng để sàng lọc và chặn các cuộc gọi rác.",
+  "callScreeningPermissionNotGranted": "Quyền sàng lọc cuộc gọi chưa được cấp, có thể ảnh hưởng đến chức năng ứng dụng.",
+  "callStatistics": "Thống kê cuộc gọi",
+  "callTypeAnswered": "Đã trả lời",
+  "callTypeBlocked": "Đã bị chặn",
+  "callTypeIconColor": "Màu biểu tượng loại cuộc gọi",
+  "callTypeMissed": "Cuộc gọi nhỡ",
+  "callTypeOutgoing": "Cuộc gọi đi",
+  "callTypePosition": "Vị trí loại cuộc gọi",
+  "callTypeUnknown": "Không xác định",
+  "cancelButton": "Hủy",
+  "carRental": "Thuê xe",
+  "carrier": "Nhà mạng",
+  "carrierColor": "Màu nhà mạng",
+  "carrierFontSize": "Cỡ chữ nhà mạng",
+  "carrierPosition": "Vị trí nhà mạng",
+  "changeLabel": "Đổi nhãn",
+  "changePluginStatusFailed": "Thay đổi trạng thái plugin thất bại: {error}",
+  "changeSubscriptionStatusFailed": "Thay đổi trạng thái đăng ký thất bại: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "Từ thiện",
+  "chartOneWeekAgo": "1 tuần trước",
+  "chartThreeDaysAgo": "3 ngày trước",
+  "chartToday": "Hôm nay",
+  "checkFileFormat": "Vui lòng kiểm tra định dạng tệp hoặc quyền",
+  "checkPermissionFailed": "Kiểm tra quyền thất bại: {error}",
+  "chooseDefaultInterceptAction": "Chọn hành động chặn mặc định",
+  "clearFilter": "Xóa bộ lọc",
+  "clearLabelFilterButton": "Xóa bộ lọc nhãn",
+  "closeButton": "Đóng",
+  "cloudSync": "Đồng bộ đám mây",
+  "cloudSyncAndBackupTitle": "Đồng bộ đám mây & Sao lưu",
+  "cloudSyncSettingsSubtitle": "Cấu hình WebDAV, OneDrive và Google Drive",
+  "cloudSyncSettingsTitle": "Cài đặt Đồng bộ đám mây",
+  "cloudSyncTitle": "Đồng bộ đám mây",
+  "collection": "Thu hồi nợ",
+  "colorPickerTitle": "Chọn màu",
+  "configManagement": "Quản lý cấu hình",
+  "configUpdated": "Đã cập nhật cấu hình",
+  "configurationAdvice": "Thông qua cấu hình phù hợp, bạn có thể đặt các chiến lược lọc khác nhau cho SIM công việc và SIM cá nhân.",
+  "configureBackupOptions": "Cấu hình tùy chọn sao lưu",
+  "configureCloudSyncService": "Cấu hình Dịch vụ Đồng bộ đám mây",
+  "configureCloudSyncServiceMessage": "Vui lòng cấu hình dịch vụ đồng bộ đám mây để bật đồng bộ hóa đa thiết bị.",
+  "configureSimCardFilterRules": "Cấu hình Quy tắc lọc SIM",
+  "confirm": "Xác nhận",
+  "confirmButton": "Xác nhận",
+  "confirmDelete": "Xác nhận xóa",
+  "confirmDeleteLabel": "Bạn có chắc chắn muốn xóa nhãn \"{name}\" không",
+  "confirmDeletePlugin": "Bạn có chắc chắn muốn xóa plugin \"{name}\" không?",
+  "confirmDeletePlugins": "Bạn có chắc chắn muốn xóa {count} plugin không?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "Bạn có chắc chắn muốn xóa quy tắc này không? Hành động này không thể hoàn tác.",
+  "confirmDeleteSmsFilterRule": "Bạn có chắc chắn muốn xóa quy tắc lọc SMS này không?",
+  "confirmDeleteSmsRule": "Bạn có chắc chắn muốn xóa quy tắc SMS này không?",
+  "confirmDeleteSubscriptions": "Bạn có chắc chắn muốn xóa {name} không?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "Xác nhận mật khẩu",
+  "connectedStatus": "Đã kết nối",
+  "connectionFailedCheckCredentialsMessage": "Kết nối thất bại: Vui lòng kiểm tra địa chỉ máy chủ, tên người dùng và mật khẩu",
+  "connectionFailedMessage": "Kết nối thất bại",
+  "connectionStatusLabel": "Trạng thái kết nối",
+  "connectionSuccessMessage": "Kết nối thành công",
+  "contactAddSuccess": "Đã thêm liên hệ thành công",
+  "contactDeleted": "Đã xóa liên hệ",
+  "contactNameLabel": "Tên",
+  "contactNotFound": "Không tìm thấy liên hệ",
+  "contacts": "liên hệ",
+  "contactsDeleted": "Đã xóa {count} liên hệ",
+  "contactsManagement": "Quản lý liên hệ",
+  "contactsPermission": "Quyền truy cập danh bạ",
+  "contactsPermissionDescription": "Được sử dụng để xác định cuộc gọi từ liên hệ.",
+  "contactsTab": "Liên hệ",
+  "contactSubscriptionDescription": "Đăng ký danh sách liên hệ qua URL, tự động cập nhật thông tin và nhãn liên hệ. Hỗ trợ dữ liệu định dạng JSON.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "Đã cập nhật liên hệ thành công",
+  "contactUs": "Liên hệ với chúng tôi",
+  "content": "Nội dung",
+  "contentRegex": "Regex Nội dung",
+  "countColor": "Màu số lượng",
+  "countFontSize": "Cỡ chữ số lượng",
+  "countPosition": "Vị trí số lượng",
+  "country": "Quốc gia",
+  "countryNameColor": "Màu tên quốc gia",
+  "countryNameFontSize": "Cỡ chữ tên quốc gia",
+  "countryRegionNamePosition": "Vị trí tên Quốc gia/Khu vực",
+  "countThresholdDescription": "Đặt ngưỡng số lượng tối thiểu cần thiết để kích hoạt hành động lọc",
+  "countThresholdLabel": "Ngưỡng số lượng",
+  "createdRules": "Các quy tắc đã tạo",
+  "csvFormat": "Định dạng CSV",
+  "currentDeviceLabel": "Nhãn thiết bị hiện tại",
+  "currentDeviceTitle": "Thiết bị hiện tại",
+  "currentLanguage": "Ngôn ngữ hiện tại",
+  "customerService": "Dịch vụ khách hàng",
+  "dashboardTab": "Bảng điều khiển",
+  "dataAnalysis": "Phân tích dữ liệu",
+  "dataLoadFailure": "Tải dữ liệu thất bại: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "Không thể tải dữ liệu: {error}",
+  "dataMigration": "Di chuyển dữ liệu",
+  "dataMigrationDescription": "Tính năng này cho phép bạn chuyển tất cả dữ liệu của mình giữa các thiết bị. Hiện tại, bạn có thể sử dụng tính năng sao lưu và khôi phục để di chuyển dữ liệu thủ công.",
+  "dataSourceReminder": "Nhắc nhở nguồn dữ liệu",
+  "days": "{count, plural, =1{1 ngày} other{{count} ngày}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} VIP",
+  "debtCollection": "Thu nợ",
+  "delete": "Xóa",
+  "deleteButton": "Xóa",
+  "deleteContact": "Xóa liên hệ",
+  "deleteContactConfirm": "Bạn có chắc chắn muốn xóa {name} không?",
+  "deleteFailed": "Xóa thất bại: {error}",
+  "deleteLabel": "Xóa nhãn",
+  "deleteLabelFailed": "Không thể xóa nhãn: {error}",
+  "deletePlugin": "Xóa plugin",
+  "deletePluginFailed": "Không thể xóa plugin: {error}",
+  "deletePlugins": "Xóa các plugin",
+  "deletePluginsFailed": "Không thể xóa các plugin: {error}",
+  "deleteRule": "Xóa quy tắc",
+  "deleteRuleFailed": "Xóa thất bại: {error}",
+  "deleteSelected": "Xóa đã chọn",
+  "deleteSubscription": "Xóa đăng ký",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "Bạn có chắc chắn muốn xóa đăng ký \"{name}\" không?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "Không thể xóa đăng ký: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "Xóa thành công",
+  "delivery": "Phân phối",
+  "deviceIDLabel": "ID thiết bị",
+  "deviceManagementSubtitle": "Quản lý đồng bộ hóa đa thiết bị",
+  "deviceManagementTitle": "Quản lý thiết bị",
+  "deviceModelLabel": "Mô hình thiết bị",
+  "deviceName": "Tên thiết bị",
+  "deviceNameLabel": "Tên Thiết Bị",
+  "deviceRenamedSuccessfullyMessage": "Đổi tên thiết bị thành công",
+  "devicesSynchronizedSuccessfullyMessage": "Đồng bộ hóa thiết bị thành công",
+  "deviceUnregisteredSuccessfullyMessage": "Hủy đăng ký thiết bị thành công",
+  "dialogTitle": "Giải thích mẫu Regex",
+  "differentFromLocalCounter": "Tính năng này khác với bộ lọc bộ đếm cục bộ, vì nó tập trung vào các kiểu cuộc gọi lặp lại trong thời gian ngắn thay vì số lần đánh dấu dài hạn.",
+  "disabled": "Đã tắt",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "Đã tắt",
+  "disableGlobalPlugins": "Tắt plugin toàn cầu",
+  "disconnectButton": "Ngắt kết nối",
+  "disconnectedMessage": "Đã ngắt kết nối",
+  "disconnectedStatus": "Đã ngắt kết nối",
+  "disconnectFailedMessage": "Ngắt kết nối thất bại",
+  "done": "Xong",
+  "dualSimAdvice": "Tính năng này đặc biệt hữu ích cho điện thoại hai SIM để đặt các chiến lược lọc khác nhau cho thẻ SIM công việc và cá nhân.",
+  "earlier": "Trước đó",
+  "ecommerce": "Thương mại điện tử",
+  "edit": "Chỉnh sửa",
+  "editContact": "Chỉnh sửa liên hệ",
+  "editLabel": "Chỉnh sửa nhãn",
+  "editPhoneRule": "Chỉnh sửa quy tắc điện thoại",
+  "editRule": "Chỉnh sửa quy tắc",
+  "education": "Giáo dục",
+  "elementPositionsSetting": "Vị trí phần tử",
+  "email": "Email",
+  "enableCallFilter": "Bật Bộ lọc cuộc gọi",
+  "enableCallFilterDescription": "Khi được bật, các cuộc gọi đến sẽ được kiểm tra dựa trên danh sách quy tắc bên dưới. Các quy tắc lọc cuộc gọi không được đồng bộ hóa giữa các thiết bị theo mặc định.",
+  "enabled": "Đã bật",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "Đã bật",
+  "enableEncryption": "Bật mã hóa",
+  "enableEncryptionDescription": "Mã hóa các tập tin sao lưu",
+  "enableGlobalPlugins": "Bật plugin toàn cầu",
+  "enableLocalCountFilter": "Bật Bộ lọc số lần cục bộ",
+  "enableLocalCountFilterDescription": "Tự động lọc cuộc gọi rác dựa trên số lần đánh dấu cuộc gọi",
+  "enableLocalNotification": "Sử dụng thông báo cục bộ",
+  "enableLocalNotificationDescription": "Khi được bật, thông báo về tin nhắn đã lọc sẽ được hiển thị trên thiết bị",
+  "enableLocationSummary": "Vị trí",
+  "enableMuteRules": "Bật Quy tắc im lặng",
+  "enableMuteRulesDesc": "Áp dụng cấu hình quy tắc chặn im lặng",
+  "enableNoneActionRules": "Bật Quy tắc hành động None",
+  "enableNoneActionRulesDesc": "Cho phép cấu hình quy tắc không có hành động chặn nào",
+  "enableRemoteNumberFilter": "Bật Bộ lọc số từ xa",
+  "enableRemoteNumberFilterDescription": "Sử dụng cơ sở dữ liệu từ xa để lọc số",
+  "enableRule": "Bật Quy tắc",
+  "enableSmsFilter": "Bật Lọc SMS",
+  "enableSmsFilterDescription": "Khi được bật, tin nhắn sẽ được tự động lọc theo các quy tắc",
+  "enableTimeInterception": "Bật Chặn theo thời gian",
+  "enableTimeInterceptionDescription": "Chặn các cuộc gọi lặp lại trong thời gian ngắn",
+  "enableTimeInterceptor": "Bật Bộ chặn theo thời gian",
+  "endCallImmediately": "Kết thúc cuộc gọi ngay lập tức",
+  "endColor": "Màu kết thúc",
+  "endDate": "Ngày kết thúc",
+  "enhancedFilterInstructionsTitle": "Hệ thống lọc nâng cao",
+  "enhancedFilterSettings": "Cài đặt bộ lọc nâng cao",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "Cài đặt bộ lọc nâng cao",
+  "enhancedFilterSystemDescription": "Hệ thống lọc nâng cao hỗ trợ cả quy tắc toàn cầu và cấu hình lọc cho từng thẻ SIM.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "Vui lòng nhập cả số điện thoại và mẫu regex.",
+  "enterContactName": "Vui lòng nhập tên liên hệ",
+  "enterDeviceName": "Nhập tên thiết bị",
+  "enterEmailOptional": "Vui lòng nhập email (không bắt buộc)",
+  "enterEncryptionPasswordHint": "Nhập mật khẩu mã hóa",
+  "enterIconCode": "Nhập mã biểu tượng",
+  "enterName": "Nhập tên liên hệ",
+  "enterNewDeviceNameHint": "Nhập tên mới cho thiết bị này",
+  "enterPasswordAgain": "Nhập lại mật khẩu",
+  "enterPhoneNumber": "Nhập số điện thoại",
+  "enterPhoneNumberHint": "Nhập số điện thoại để kiểm tra",
+  "enterPhoneNumberMultiple": "Vui lòng nhập số điện thoại, nhiều số cách nhau bằng dấu phẩy",
+  "enterPhoneNumberToStartSearch": "Nhập số điện thoại để bắt đầu tìm kiếm",
+  "enterPhoneNumberToVerify": "Nhập số điện thoại để xác minh",
+  "enterPluginName": "Nhập tên Plugin",
+  "enterPluginUrl": "Nhập địa chỉ URL plugin",
+  "enterRegexHint": "Nhập mẫu regex",
+  "enterRuleNameAndPatternMessage": "Vui lòng nhập cả tên quy tắc và mẫu regex.",
+  "enterRuleNameHint": "Nhập tên quy tắc",
+  "enterSearchContent": "Vui lòng nhập nội dung tìm kiếm",
+  "enterSubscriptionName": "Nhập tên đăng ký",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "Nhập URL đăng ký",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Vui lòng nhập tên thư mục đồng bộ (mặc định: NotificationManager)",
+  "entertainment": "Giải trí",
+  "enterValidNameAndUrl": "Vui lòng nhập tên và URL hợp lệ",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "Vui lòng nhập URL hợp lệ",
+  "enterVersion": "Nhập Phiên bản",
+  "enterWebDAVPasswordHint": "Vui lòng nhập mật khẩu WebDAV",
+  "enterWebDAVServerAddressHint": "Vui lòng nhập địa chỉ máy chủ WebDAV",
+  "enterWebDAVUsernameHint": "Vui lòng nhập tên người dùng WebDAV",
+  "errorOccurredMessage": "Đã xảy ra lỗi: {error}",
+  "errorRenamingDeviceMessage": "Lỗi khi đổi tên thiết bị: {error}",
+  "errorSynchronizingDevicesMessage": "Lỗi đồng bộ hóa thiết bị: {error}",
+  "errorUnregisteringDeviceMessage": "Lỗi khi hủy đăng ký thiết bị: {error}",
+  "exampleBlock400Prefix": "ví dụ: Chặn các số có tiền tố 400",
+  "exampleBlockMarketingSms": "ví dụ: Chặn tin nhắn SMS tiếp thị",
+  "exampleContentRegexHint": "Ví dụ Regex Nội dung",
+  "exampleCouponPromotionDiscount": "ví dụ: .*(coupon|promotion|discount).*",
+  "exampleFamilyFriends": "ví dụ: Gia đình, Bạn bè, v.v.",
+  "examplePhoneNumber": "ví dụ: 10086, 12345, v.v.",
+  "exampleRegex400Prefix": "Ví dụ regex cho tiền tố 400",
+  "exampleSenderRegexHint": "Ví dụ",
+  "exchange": "Trao đổi",
+  "exchangeNow": "Đổi ngay",
+  "exchangeVip": "Đổi VIP",
+  "expiryTime": "Thời gian hết hạn: {time}",
+  "export": "Xuất",
+  "exportAllApplicationSettings": "Xuất tất cả cài đặt ứng dụng",
+  "exportAllRuleConfigurations": "Xuất Tất cả Cấu hình Quy tắc",
+  "exportConfig": "Xuất Cấu hình",
+  "exportContacts": "Xuất Danh bạ",
+  "exportData": "Xuất Dữ liệu",
+  "exportFailed": "Xuất thất bại",
+  "exportFailure": "Không thể xuất cấu hình",
+  "exportFeatureComingSoon": "Tính năng xuất sẽ sớm ra mắt",
+  "exportLabels": "Xuất Nhãn",
+  "exportLabelsFailed": "Không thể xuất nhãn: {error}",
+  "exportPluginList": "Xuất Danh sách Plugin",
+  "exportPluginListFailed": "Không thể xuất danh sách plugin: {error}",
+  "exportRules": "Xuất Quy tắc",
+  "exportSmsRules": "Xuất Quy tắc SMS",
+  "exportStatisticsData": "Xuất Dữ liệu Thống kê",
+  "exportSuccesslly": "Đã xuất cấu hình thành công",
+  "failedToAddRule": "Không thể thêm quy tắc: {error}",
+  "failedToAddSmsSubscription": "Không thể thêm đăng ký SMS: {error}",
+  "failedToBackupSettings": "Không thể sao lưu cài đặt: {error}",
+  "failedToDecryptBackupFile": "Không thể giải mã tệp sao lưu",
+  "failedToDeleteSmsRule": "Không thể xóa quy tắc SMS: {error}",
+  "failedToExportRules": "Không thể xuất quy tắc: {error}",
+  "failedToGetCallerIdInfo": "Không thể lấy thông tin ID người gọi: {error}",
+  "failedToImportRules": "Không thể nhập quy tắc: {error}",
+  "failedToRestoreSettings": "Không thể khôi phục cài đặt",
+  "failedToRestoreSettingsWithError": "Không thể khôi phục cài đặt: {error}",
+  "failedToToggleRuleStatus": "Không thể chuyển đổi trạng thái quy tắc: {error}",
+  "favoriteContacts": "Liên hệ yêu thích",
+  "featureAddRules": "• Thêm quy tắc cụ thể cho số điện thoại",
+  "featureCenter": "Trung tâm Tính năng",
+  "featureEnableDisable": "• Bật/tắt các bộ lọc khác nhau cho từng SIM",
+  "featureListTitle": "Tính năng:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• Quản lý danh sách quy tắc cho từng SIM",
+  "features": "Tính năng",
+  "fetchingCallerIdInfo": "Đang tìm nạp thông tin ID người gọi...",
+  "fileSavedTo": "Tệp đã lưu tại: {path}",
+  "filter": "Bộ lọc",
+  "filterByLabel": "Lọc theo Nhãn",
+  "filterControlPanelTitle": "Bảng điều khiển Bộ lọc",
+  "filterControlSubtitle": "Quản lý trạng thái bật/tắt của tất cả bộ lọc",
+  "filterControlTitle": "Điều khiển bộ lọc",
+  "filtered": "Đã lọc",
+  "filterExplanation": "Giải thích bộ lọc",
+  "filterManagement": "Quản lý bộ lọc",
+  "filterName": "Tên bộ lọc",
+  "filterPriorityNote": "Lưu ý: Có mối quan hệ ưu tiên giữa các bộ lọc, vui lòng tham khảo tài liệu trợ giúp để biết chi tiết",
+  "filterSettings": "Cài đặt bộ lọc",
+  "filterSettingsTitle": "Cài đặt bộ lọc",
+  "filterSMS": "Lọc SMS",
+  "filterToggleInstructions": "Bật hoặc tắt bộ lọc cho khe SIM này:",
+  "filterToggleStatus": "Bộ lọc {status}: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "Loại bộ lọc",
+  "financial": "Tài chính",
+  "flexibleCombinationFeature": "• Kết hợp linh hoạt: Bật/tắt bộ lọc cho từng khe SIM",
+  "fontSizesSetting": "Cỡ chữ",
+  "foundRules": "Tìm thấy {count} quy tắc",
+  "fraudAlert": "CẢNH BÁO LỪA ĐẢO - Dừng cuộc gọi",
+  "fraudScamLikely": "Có thể là lừa đảo",
+  "free": "Miễn phí",
+  "functionSettingsTitle": "Cài đặt chức năng",
+  "generalUpdateFailure": "Cập nhật thất bại: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "Nhận miễn phí",
+  "github": "GitHub",
+  "globalFilterDescription": "Cấu hình bộ lọc toàn cầu cho tất cả các thẻ SIM:",
+  "globalFilterFeature": "• Bộ lọc toàn cầu: Các quy tắc cơ bản cho tất cả các cuộc gọi đến",
+  "globalFilterSettings": "Cài đặt bộ lọc toàn cầu",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "Cài đặt toàn cầu",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "Ủy quyền bằng ID và khóa máy khách Google Drive được cấu hình hệ thống",
+  "googleDriveConfigTitle": "Cấu hình Google Drive",
+  "government": "Chính phủ",
+  "granted": "Đã cấp",
+  "grantNecessaryPermissions": "Cấp các quyền cần thiết",
+  "grantPermissions": "Cấp quyền",
+  "headhunter": "Tuyển dụng",
+  "height": "Chiều cao",
+  "homeTab": "Trang chủ",
+  "howItWorksPoint1": "• Hệ thống sẽ tự động cho phép các cuộc gọi từ cùng một số trong khoảng thời gian đã đặt",
+  "howItWorksPoint2": "• Khoảng thời gian ngắn hơn dẫn đến chặn nghiêm ngặt hơn; khoảng thời gian dài hơn dẫn đến chặn lỏng hơn",
+  "howItWorksPoint3": "• Hệ thống kiểm tra nhật ký cuộc gọi để xác định xem đó có phải là cuộc gọi lặp lại hay không",
+  "howItWorksTitle": "Cách hoạt động:",
+  "iconCodeOptional": "Mã biểu tượng (Tùy chọn)",
+  "iconSize": "Kích thước biểu tượng",
+  "import": "Nhập",
+  "important": "Quan trọng",
+  "importConfig": "Nhập cấu hình",
+  "importContacts": "Nhập danh bạ",
+  "importExportContacts": "Nhập/Xuất danh bạ",
+  "importExportContactsTooltip": "Nhập/Xuất danh bạ",
+  "importExportRules": "Nhập/Xuất quy tắc",
+  "importFailed": "Nhập thất bại: {error}",
+  "importFailure": "Nhập cấu hình thất bại",
+  "importFeatureComingSoon": "Tính năng nhập sắp ra mắt",
+  "importLabels": "Nhập nhãn",
+  "importLabelsFailed": "Nhập nhãn thất bại: {error}",
+  "importPluginList": "Nhập danh sách plugin",
+  "importPluginListFailed": "Nhập danh sách plugin thất bại: {error}",
+  "importPluginSuccess": "Đã nhập thành công {count} plugin",
+  "importRuleConfigurationsFromFile": "Nhập cấu hình quy tắc từ tệp",
+  "importRules": "Nhập quy tắc",
+  "importSuccess": "Nhập thành công",
+  "incomingCallInterceptAction": "Hành động chặn cuộc gọi đến",
+  "incorrectPassword": "Mật khẩu không chính xác",
+  "initializing": "Đang khởi tạo",
+  "installed": "Đã cài đặt",
+  "insufficientMarks": "Không đủ điểm",
+  "insurance": "Bảo hiểm",
+  "interceptAction": "Hành động chặn",
+  "interceptionActionSettingsSubtitle": "Đặt cách xử lý các cuộc gọi bị chặn",
+  "interceptionActionSettingsTitle": "Cài đặt hành động chặn",
+  "interceptionTimeInterval": "Khoảng thời gian chặn",
+  "internet": "Internet",
+  "intervalSetSuccess": "Khoảng thời gian cập nhật {service} đã được đặt thành {days} ngày",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "Regex nội dung không hợp lệ",
+  "invalidLabel": "Nhãn không hợp lệ",
+  "invalidRegexPattern": "Mẫu regex không hợp lệ",
+  "invalidSenderRegex": "Regex người gửi không hợp lệ",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "Tham gia Kênh và Nhóm Telegram để biết thêm thông tin",
+  "jsonFormat": "Định dạng JSON",
+  "keepAllVersions": "Giữ tất cả phiên bản",
+  "keepAllVersionsDescription": "Giữ tất cả các phiên bản lịch sử của mỗi bản sao lưu",
+  "label": "Nhãn",
+  "labelAddedSuccessfully": "Nhãn \"{name}\" đã được thêm thành công",
+  "labelCategories": "Danh mục nhãn",
+  "labelDeleted": "Nhãn đã bị xóa",
+  "labelDescription": "Nhãn giúp bạn quản lý danh bạ tốt hơn, thêm nhãn tùy chỉnh vào số điện thoại để dễ dàng nhận dạng cuộc gọi và tin nhắn.",
+  "labelFilterTooltip": "Bộ lọc nhãn",
+  "labelIconColor": "Màu biểu tượng nhãn",
+  "labelManagement": "Quản lý nhãn",
+  "labelNotFound": "Không tìm thấy nhãn",
+  "labels": "Nhãn",
+  "labelsColor": "Màu nhãn",
+  "labelsDeleted": "Đã xóa {count} nhãn",
+  "labelsExportedSuccessfully": "Xuất nhãn thành công",
+  "labelsFontSize": "Cỡ chữ nhãn",
+  "labelsImportedSuccessfully": "Đã nhập thành công {count} nhãn",
+  "labelsPosition": "Vị trí nhãn",
+  "labelTag": "Nhãn: {labelId}",
+  "labelUpdateFailed": "Cập nhật nhãn không thành công: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "Nhãn \"$labelText\" đã cập nhật thành công",
+  "languageSettings": "Cài đặt ngôn ngữ",
+  "languageSettingsSubtitle": "Thay đổi ngôn ngữ hiển thị của ứng dụng",
+  "languageSettingsTitle": "Cài đặt ngôn ngữ",
+  "lastSyncLabel": "Lần đồng bộ cuối",
+  "lastUpdated": "Cập nhật lần cuối: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "Thành viên trọn đời",
+  "lifetimeMembershipDescription": "Mua một lần, mở khóa vĩnh viễn tất cả tính năng cao cấp và các bản cập nhật trong tương lai",
+  "loadContactsFailed": "Không thể tải danh bạ: {error}",
+  "loadDataFailed": "Không thể tải dữ liệu",
+  "loading": "Đang tải...",
+  "loadingTags": "Đang tải thẻ...",
+  "loadLabelFailed": "Không thể tải nhãn: {error}",
+  "loadLabelsFailed": "Không thể tải nhãn: {error}",
+  "loadMarkCountFailed": "Không thể tải số điện thoại đã đánh dấu: {error}",
+  "loadMarkedPhonesFailed": "Không thể tải số điện thoại đã đánh dấu: {error}",
+  "loadPluginsFailed": "Không thể tải plugin: {error}",
+  "loadSettingsFailed": "Không thể tải cài đặt: {error}",
+  "loadSmsRulesFailed": "Không thể tải quy tắc SMS: {error}",
+  "loadStatusFailedMessage": "Không thể tải trạng thái",
+  "loadSubscriptionsFailed": "Không thể tải đăng ký: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "Khoản vay",
+  "localCounterFilter": "Bộ lọc đếm cục bộ",
+  "localCounterFilterSubtitle": "Tự động lọc cuộc gọi rác dựa trên tần suất cuộc gọi",
+  "localCountFilter": "Bộ lọc đếm cục bộ",
+  "localCountFilterDescription": "Chặn các cuộc gọi thường xuyên dựa trên số lần đếm cục bộ của số điện thoại",
+  "localCountFilterExplanationContent": "Bộ lọc đếm cục bộ phân tích lịch sử cuộc gọi để tự động nhận dạng và chặn các cuộc gọi rác thường xuyên.",
+  "localCountFilterExplanationTitle": "Giải thích về Bộ lọc đếm cục bộ",
+  "localCountFilterHowItWorksPoint1": "• Xác định có chặn hay không dựa trên giá trị đếm của số điện thoại",
+  "localCountFilterHowItWorksPoint2": "• Khi số lần đếm của một số vượt quá ngưỡng đã đặt, bạn có thể chọn tự động chặn",
+  "localCountFilterHowItWorksPoint3": "• Bạn có thể chọn cho phép các số không vượt quá ngưỡng",
+  "localCountFilterHowItWorksPoint4": "• Bạn có thể chọn có ghi lại tất cả nhật ký truy vấn hay không",
+  "localCountFiltering": "Lọc đếm cục bộ",
+  "localCountFilteringExplanation": "• Lọc đếm cục bộ: Quy tắc lọc dựa trên số lần đánh dấu cục bộ",
+  "localCountFilterSettings": "Cài đặt Bộ lọc đếm cục bộ",
+  "localCountFilterUseCases": "Bộ lọc này đặc biệt phù hợp để xác định các cuộc gọi rác tự động quay số và cuộc gọi tiếp thị.",
+  "localFilterSettings": "Cài đặt Bộ lọc cục bộ",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "Thông báo cục bộ đã tắt",
+  "localNotificationEnabled": "Thông báo cục bộ đã bật",
+  "localServices": "Dịch vụ cục bộ",
+  "locationColor": "Màu vị trí",
+  "locationFontSize": "Cỡ chữ vị trí",
+  "locationIconColor": "Màu biểu tượng vị trí",
+  "locationPosition": "Vị trí",
+  "logAllLocalQueries": "Ghi lại tất cả truy vấn cục bộ",
+  "logAllLocalQueriesDescription": "Ghi lại nhật ký cho tất cả các truy vấn số điện thoại cục bộ",
+  "logAllRemoteQueries": "Ghi lại tất cả truy vấn từ xa",
+  "logAllRemoteQueriesDescription": "Ghi lại tất cả các thao tác truy vấn số điện thoại từ xa",
+  "manage": "Quản lý danh bạ",
+  "manageFavoriteContacts": "Quản lý danh bạ yêu thích",
+  "manageFilterRules": "Quản lý Quy tắc Lọc",
+  "manageFilterRulesDescription": "Thêm, sửa đổi hoặc xóa các quy tắc lọc SMS",
+  "markCounts": "Số lần đánh dấu",
+  "markCount": "Số lần đánh dấu",
+  "markedByCount": "Được đánh dấu bởi {count} người",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Số điện thoại đã đánh dấu",
+  "markExchange": "Đánh dấu Trao đổi",
+  "markPhone": "Đánh dấu số điện thoại",
+  "markPhoneFailed": "Đánh dấu số điện thoại thất bại: {error}",
+  "markPhoneManagementTitle": "Quản lý Đánh dấu Số điện thoại",
+  "markPhoneSuccess": "Đánh dấu số điện thoại thành công",
+  "matchFailedMessage": "Khớp thất bại.",
+  "matchNumbersWithSpecialCharacters": "khớp định dạng số cụ thể",
+  "matchNumbersWithSpecialCharactersTitle": "Khớp các số có ký tự đặc biệt:",
+  "matchSpecificDigitPatterns": "khớp định dạng XXX-XXXX-XXXX",
+  "matchSpecificDigitPatternsTitle": "Khớp các mẫu chữ số cụ thể:",
+  "matchSuccessfulMessage": "Khớp thành công!",
+  "medical": "Y tế",
+  "membershipPrivileges": "Đặc quyền Thành viên",
+  "migrationTool": "Công cụ Di chuyển",
+  "minutes": "phút",
+  "month": "Tháng",
+  "monthly": "Hàng tháng",
+  "monthlyCallCount": "Số cuộc gọi hàng tháng",
+  "monthlyMembership": "Gói thành viên hàng tháng",
+  "monthlyMembershipDescription": "Mở khóa tất cả các tính năng cao cấp, tự động gia hạn hàng tháng",
+  "monthlyTotal": "Tổng cộng Hàng tháng",
+  "moreOptions": "Tùy chọn Khác",
+  "name": "Tên",
+  "nameAndPhoneNumberCannotBeEmpty": "Tên và số điện thoại không được để trống",
+  "nameColor": "Màu Tên",
+  "nameFontSize": "Cỡ chữ Tên",
+  "namePosition": "Vị trí Tên",
+  "nameUnknown": "Tên: Không xác định",
+  "nextStep": "Tiếp theo",
+  "noAction": "Không Hành động",
+  "noActionRules": "Không có Quy tắc Hành động nào",
+  "noActiveCloudSyncServiceMessage": "Không có dịch vụ đồng bộ hóa đám mây hoạt động",
+  "noCallRecords": "Không có bản ghi cuộc gọi",
+  "noContactsYet": "Chưa có danh bạ",
+  "noData": "Không có Dữ liệu",
+  "noDevicesRegisteredMessage": "Không có thiết bị nào được đăng ký",
+  "noLabels": "Chưa có nhãn nào",
+  "noMarkedPhones": "Không có số điện thoại được đánh dấu",
+  "noMatchingContactsFound": "Không tìm thấy danh bạ phù hợp",
+  "noMatchingNumbersFound": "Không tìm thấy số phù hợp",
+  "noMatchingRules": "Không có {ruleType} phù hợp",
+  "none": "Không",
+  "noneServiceType": "Không",
+  "noPlugins": "Chưa có plugin nào",
+  "noRules": "Chưa có {ruleType} nào",
+  "noRulesPrompt": "Không tìm thấy quy tắc nào, vui lòng thêm quy tắc",
+  "noRulesToExport": "Không có quy tắc nào để xuất",
+  "noSmsFilterRulesYet": "Chưa có quy tắc lọc tin nhắn SMS nào",
+  "noSmsRulesYet": "Chưa có quy tắc tin nhắn SMS nào",
+  "noSubscriptions": "Không có đăng ký",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "Chưa được cấp",
+  "notificationModeDescription": "Hiển thị thông tin người gọi trên thanh thông báo",
+  "notificationPermission": "Quyền Thông báo",
+  "notificationPermissionDescription": "Được sử dụng để hiển thị thông báo cuộc gọi và tin nhắn đến.",
+  "notifications": "Thông báo",
+  "notificationSettings": "Cài đặt Thông báo",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "Chưa Xác minh",
+  "noValidSmsRulesFoundInFile": "Không tìm thấy quy tắc SMS hợp lệ trong tệp",
+  "number": "Số",
+  "numberColor": "Màu Số",
+  "numberFontSize": "Cỡ chữ Số",
+  "numberPosition": "Vị trí Số",
+  "numberSearch": "Tìm kiếm Số",
+  "numberTypeColor": "Màu Loại Số",
+  "numberTypeFontSize": "Cỡ chữ Loại Số",
+  "numberTypePosition": "Vị trí Loại Số",
+  "okButton": "OK",
+  "onboardingCompleteDescription": "Trình quản lý bảo mật cuộc gọi của bạn đã sẵn sàng, hãy bắt đầu tận hưởng trải nghiệm cuộc gọi an toàn!",
+  "onboardingLanguageDescription": "Chọn ngôn ngữ ưu tiên của bạn để có trải nghiệm tốt nhất.",
+  "onboardingPermissionsDescription": "Để cung cấp đầy đủ dịch vụ, chúng tôi cần các quyền sau:",
+  "onboardingPowerfulSpamBlockingDescription": "Chặn cuộc gọi và tin nhắn rác bằng một cú nhấp chuột, tùy chỉnh quy tắc chặn và mang lại cho bạn môi trường yên tĩnh.",
+  "onboardingSmartCallerIdDescription": "Tự động xác định các cuộc gọi không xác định, đánh dấu các số đáng ngờ và bảo vệ an toàn cuộc gọi của bạn.",
+  "onboardingWelcomeDescription": "Chuyên gia quản lý cuộc gọi của bạn, cung cấp dịch vụ nhận dạng và chặn cuộc gọi toàn diện.",
+  "oneDriveAuthDescription": "Cho phép sử dụng ID và khóa client OneDrive được cấu hình hệ thống",
+  "oneDriveConfigTitle": "Cấu hình OneDrive",
+  "onlineCallerIdSubscription": "Đăng ký Nhận dạng người gọi trực tuyến",
+  "openAppSettings": "Mở cài đặt ứng dụng",
+  "openAppSettingsFailed": "Không thể mở cài đặt ứng dụng: {error}",
+  "operationFailed": "Thao tác thất bại: {error}",
+  "operationFailure": "Thao tác thất bại",
+  "operationSuccess": "Thao tác thành công",
+  "other": "Khác",
+  "ourOtherApps": "Ứng dụng khác của chúng tôi",
+  "overlayMode": "Cửa sổ nổi",
+  "overlayModeDescription": "Hiển thị thông tin người gọi trong cửa sổ nổi",
+  "overlayPermission": "Quyền cửa sổ nổi",
+  "overlayPermissionDescription": "Được sử dụng để hiển thị lớp phủ cuộc gọi đến.",
+  "overview": "Tổng quan",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "Mật khẩu",
+  "passwordCannotBeEmpty": "Mật khẩu không được để trống",
+  "passwordLabel": "Mật khẩu",
+  "passwordsDoNotMatch": "Mật khẩu không khớp",
+  "pattern": "Mẫu",
+  "pendingSync": "Đang chờ đồng bộ",
+  "periodMonth": "Tháng",
+  "periodWeek": "Tuần",
+  "periodYear": "Năm",
+  "permissionDenied": "Yêu cầu quyền bị từ chối",
+  "permissionGranted": "Quyền đã được cấp",
+  "permissionManagement": "Quản lý quyền",
+  "phoneCallsTab": "Điện thoại",
+  "phoneNumber": "Số điện thoại",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "Số điện thoại không được để trống",
+  "phoneNumberLabel": "Số điện thoại",
+  "phoneNumberTypeFixedLine": "Đường dây cố định",
+  "phoneNumberTypeFixedLineOrMobile": "Cố định hoặc di động",
+  "phoneNumberTypeMobile": "Di động",
+  "phoneNumberTypePager": "Máy nhắn tin",
+  "phoneNumberTypePersonalNumber": "Số cá nhân",
+  "phoneNumberTypePremiumRate": "Cước phí cao",
+  "phoneNumberTypeSharedCost": "Chia sẻ chi phí",
+  "phoneNumberTypeTollFree": "Miễn phí",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "Không xác định",
+  "phoneNumberTypeVoicemail": "Thư thoại",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "Quyền điện thoại",
+  "phonePermissionDescription": "Được sử dụng để nhận dạng và chặn các cuộc gọi đến.",
+  "phoneRule": "Quy tắc điện thoại",
+  "phoneRuleManagement": "Quản lý quy tắc điện thoại",
+  "phoneRuleSubscription": "Đăng ký quy tắc điện thoại",
+  "phoneSubscription": "Đăng ký điện thoại",
+  "phoneSubscriptionRulesDescription": "Đăng ký danh sách quy tắc điện thoại qua URL để tự động cập nhật quy tắc danh sách trắng và danh sách đen. Hỗ trợ tệp quy tắc định dạng JSON.",
+  "pleaseSelectLabelAndEnterValidPhone": "Vui lòng chọn nhãn và nhập số điện thoại hợp lệ",
+  "pluginAddedSuccess": "Plugin \"{name}\" đã được thêm thành công",
+  "pluginDeleted": "Plugin đã bị xóa",
+  "pluginLatestVersion": "Plugin đã là phiên bản mới nhất",
+  "pluginListExportSuccess": "Danh sách plugin đã được xuất thành công",
+  "pluginManagement": "Quản lý Plugin",
+  "pluginManagementSubtitle": "Quản lý và cấu hình các plugin của bên thứ ba",
+  "pluginName": "Tên Plugin",
+  "pluginsDeleted": "{count} plugin đã được xóa thành công.",
+  "pluginService": "Dịch vụ Plugin",
+  "pluginTestPageTitle": "Kiểm tra Plugin",
+  "pluginUpdateSuccess": "Plugin đã cập nhật thành công",
+  "pluginUrl": "URL Plugin",
+  "pluginVersion": "Phiên bản Plugin",
+  "political": "Chính trị",
+  "powerfulSpamBlocking": "Chặn spam mạnh mẽ",
+  "previousStep": "Trước",
+  "prioritizeRemoteAction": "Ưu tiên cài đặt hành động từ xa",
+  "prioritizeRemoteActionDescription": "Ưu tiên cài đặt hành động từ cơ sở dữ liệu từ xa",
+  "processing": "Đang xử lý...",
+  "processingOperation": "Đang xử lý...",
+  "purchase": "Mua",
+  "quarterlyMembership": "Gói thành viên hàng quý",
+  "quarterlyMembershipDescription": "Mở khóa tất cả các tính năng cao cấp, tự động gia hạn hàng quý",
+  "ready": "Sẵn sàng!",
+  "recruiter": "Tuyển dụng",
+  "refresh": "Làm mới",
+  "refreshPermissionStatus": "Làm mới trạng thái quyền",
+  "refreshTooltip": "Làm mới",
+  "regexErrorMessage": "Lỗi Regex: {error}",
+  "regexPattern": "Mẫu Regex",
+  "regexPatternExplanation": "Giải thích Mẫu Regex",
+  "regexPatternExplanationButton": "Giải thích Mẫu Regex",
+  "regexPatternLabel": "Mẫu Regex",
+  "regexPatternsForPhoneNumberMatching": "Mẫu Regex để khớp Số Điện thoại",
+  "regexRule": "Quy tắc Regex",
+  "regexRuleAddFailed": "Thêm quy tắc regex thất bại: {error}",
+  "regexRuleAddSuccess": "Đã thêm quy tắc regex thành công",
+  "regexRuleManagement": "Quản lý Quy tắc Regex",
+  "regexRuleNamePatternRequired": "Tên quy tắc và mẫu regex không được để trống",
+  "regexRules": "Các Quy tắc Regex",
+  "regexTesterTitle": "Bộ kiểm tra Regex",
+  "region": "Khu vực",
+  "registeredDevicesTitle": "Các Thiết bị đã Đăng ký",
+  "rejectAllCalls": "Từ chối Tất cả Cuộc gọi",
+  "rejectAllCallsDescription": "Khi được bật, tất cả cuộc gọi sẽ bị từ chối với ưu tiên cao nhất",
+  "rejectAllNumbers": "Từ chối Tất cả các Số",
+  "rejectAllNumbersDesc": "Từ chối tất cả cuộc gọi đến khi được bật",
+  "rejectExceededNumbers": "Từ chối các Số vượt ngưỡng",
+  "rejectExceededNumbersDescription": "Tự động từ chối các số vượt quá ngưỡng đếm",
+  "remoteFilterSettings": "Cài đặt Bộ lọc từ xa",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "Cài đặt Bộ lọc Số từ xa",
+  "remoteNumberFilter": "Bộ lọc Số từ xa",
+  "remoteNumberFilterDescription": "Chặn cuộc gọi quấy rối dựa trên thông tin cơ sở dữ liệu từ xa",
+  "remoteNumberFiltering": "Lọc Số từ xa",
+  "remoteNumberFilteringExplanation": "• Lọc Số từ xa: Các quy tắc lọc dựa trên thông tin cơ sở dữ liệu từ xa",
+  "remoteNumberFilterSubtitle": "Xác định cuộc gọi spam bằng cách sử dụng cơ sở dữ liệu đám mây và báo cáo cộng đồng",
+  "removeAdsDescription": "Xóa vĩnh viễn tất cả quảng cáo trong ứng dụng để có trải nghiệm mượt mà hơn",
+  "removeAdsTitle": "Xóa Quảng cáo",
+  "removedFromFavorites": "Đã xóa khỏi danh bạ yêu thích",
+  "removeFromFavorites": "Xóa khỏi Mục yêu thích",
+  "renameDeviceTitle": "Đổi tên Thiết bị",
+  "requestAllPermissions": "Yêu cầu Tất cả Quyền",
+  "requestPermission": "Yêu cầu Quyền",
+  "requestPermissionFailed": "Yêu cầu quyền thất bại: {error}",
+  "requiredMarks": "{count} Dấu hiệu",
+  "reset": "Đặt lại",
+  "restore": "Khôi phục",
+  "restoreApplicationSettingsFromBackup": "Khôi phục Cài đặt Ứng dụng từ Bản sao lưu",
+  "restoreFromCloud": "Khôi phục từ Đám mây",
+  "restoreFromCloudFailed": "Khôi phục từ đám mây thất bại: {error}",
+  "restoreFromCloudSuccess": "Khôi phục từ đám mây thành công",
+  "restorePurchases": "Khôi phục Giao dịch mua",
+  "restoreSettings": "Khôi phục Cài đặt",
+  "restoreSettingsConfirmation": "Thao tác này sẽ thay thế tất cả cài đặt hiện tại của bạn. Bạn có chắc chắn muốn tiếp tục?",
+  "retry": "Thử lại",
+  "ridesharing": "Gọi xe chung",
+  "risk": "Rủi ro",
+  "robocall": "Cuộc gọi tự động",
+  "ruleAction": "Hành động Quy tắc",
+  "ruleAddedSuccess": "Đã thêm quy tắc thành công",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "Đã thêm quy tắc thành công",
+  "ruleDeleteConfirmContent": "Bạn có chắc chắn muốn xóa {ruleType} này không?",
+  "ruleDeleteConfirmTitle": "Xóa Quy tắc",
+  "ruleDeletedSuccessfully": "Đã xóa quy tắc thành công",
+  "ruleDeleteFailed": "Xóa quy tắc thất bại: {error}",
+  "ruleDeleteSuccess": "Đã xóa quy tắc thành công",
+  "ruleDisabledSuccessfully": "Đã tắt quy tắc thành công",
+  "ruleEnabledSuccessfully": "Đã bật quy tắc thành công",
+  "ruleLoadFailed": "Tải quy tắc thất bại: {error}",
+  "ruleManagement": "Quản lý Quy tắc",
+  "ruleName": "Tên Quy tắc",
+  "ruleNameAndContentRegexCannotBeEmpty": "Tên quy tắc và regex nội dung không được để trống",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "Tên quy tắc và số điện thoại không được để trống",
+  "ruleNameHint": "ví dụ: Gia đình, Bạn bè, v.v.",
+  "ruleNameLabel": "Tên Quy tắc",
+  "ruleNameRequired": "Tên quy tắc và số điện thoại không được để trống",
+  "ruleNotExist": "Quy tắc không tồn tại hoặc đã bị xóa",
+  "ruleNotFound": "Không tìm thấy quy tắc: {error}",
+  "ruleSavedSuccessMessage": "Lưu quy tắc thành công!",
+  "rulesExportedSuccessfully": "Xuất quy tắc thành công",
+  "rulesExportedTo": "Quy tắc được xuất tới: {path}",
+  "rulesImported": "Nhập quy tắc thành công",
+  "rulesImportedSuccessfully": "Nhập thành công {count} quy tắc",
+  "ruleStatusChanged": "Quy tắc {status} thành công",
+  "ruleToggleFailed": "Thao tác thất bại: {error}",
+  "ruleToggleSuccess": "Quy tắc {status} thành công",
+  "ruleUpdateFailed": "Cập nhật quy tắc thất bại: {error}",
+  "ruleUpdateSuccess": "Cập nhật quy tắc thành công",
+  "ruleVerification": "Xác minh quy tắc",
+  "save": "Lưu",
+  "saveButton": "Lưu",
+  "saveButtonText": "Lưu",
+  "saveFailed": "Lưu thất bại: {error}",
+  "saveSettings": "Lưu Cài đặt",
+  "scamsLikely": "Có khả năng lừa đảo",
+  "search": "Tìm kiếm",
+  "searchContacts": "Tìm kiếm danh bạ",
+  "searchError": "Lỗi tìm kiếm: {error}",
+  "searchHint": "Tìm kiếm...",
+  "securityMessage": "Không tin tưởng bất kỳ cuộc gọi điện thoại nào. Luôn xác minh số tổng đài chăm sóc khách hàng một cách độc lập. Không bao giờ chia sẻ mật khẩu, mã xác minh, số thẻ hoặc thông tin cá nhân.",
+  "selectActionWhenBlockingCalls": "Chọn hành động khi chặn cuộc gọi",
+  "selectActionWhenRuleMatches": "Chọn hành động khi quy tắc khớp",
+  "selectAll": "Chọn tất cả",
+  "selectCountry": "Chọn Quốc gia",
+  "selectedItems": "Đã chọn {count} mục",
+  "selectedLabel": "Đã chọn:",
+  "selectExportFormat": "Chọn Định dạng xuất",
+  "selectLabel": "Chọn Nhãn",
+  "selectLabelAndEnterPhoneNumber": "Vui lòng chọn nhãn và nhập số điện thoại hợp lệ",
+  "selectLanguage": "Chọn Ngôn ngữ",
+  "selectMultiple": "Chọn nhiều",
+  "selectSimCard": "Chọn SIM",
+  "selectTags": "Chọn Thẻ",
+  "selectTrustedDataSource": "Vui lòng chọn nguồn dữ liệu đáng tin cậy",
+  "selectYourLanguage": "Chọn Ngôn ngữ của bạn",
+  "sender": "Người gửi",
+  "senderRegexOptional": "Regex người gửi (Tùy chọn)",
+  "serverAddressLabel": "Địa chỉ máy chủ",
+  "serviceTypeContact": "Đăng ký danh bạ",
+  "serviceTypeLabel": "Loại dịch vụ",
+  "serviceTypePhone": "Đăng ký điện thoại",
+  "serviceTypePlugin": "Cập nhật plugin",
+  "serviceTypeSms": "Đăng ký SMS",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "Đặt mật khẩu mã hóa",
+  "settings": "Cài đặt",
+  "settingsBackedUpTo": "Cài đặt đã sao lưu tới: {path}",
+  "settingsRestoredSuccessfully": "Khôi phục cài đặt thành công. Vui lòng khởi động lại ứng dụng để các thay đổi có hiệu lực.",
+  "settingsSaved": "Cài đặt đã lưu",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "Lưu cài đặt thất bại: {error}",
+  "settingsTab": "Cài đặt",
+  "settingsTitle": "Cài đặt",
+  "setup": "Thiết lập",
+  "silence": "Im lặng",
+  "silenceAndNoAnswer": "Im lặng và Không trả lời",
+  "silenceNoAnswer": "Im lặng Không trả lời",
+  "silentCallVoiceClone": "Bản sao giọng nói cuộc gọi im lặng",
+  "silentRules": "Quy tắc im lặng",
+  "simCard": "SIM {simNumber}",
+  "simCardColor": "Màu thẻ SIM",
+  "simCardConfigurationExplanation": "• Cấu hình thẻ SIM: Đặt quy tắc lọc độc lập cho từng thẻ SIM",
+  "simCardFilterRules": "Quy tắc lọc thẻ SIM",
+  "simCardFilterRulesDescription": "Đặt các quy tắc lọc khác nhau dựa trên khe cắm SIM",
+  "simCardFontSize": "Cỡ chữ thẻ SIM",
+  "simCardPosition": "Vị trí thẻ SIM",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "Quy tắc khe cắm SIM cho phép bạn định cấu hình quy tắc lọc độc lập cho từng khe cắm SIM.",
+  "simRuleInstructionsTitle": "Quy tắc Khe cắm SIM",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "Cấu hình quy tắc lọc độc lập cho từng thẻ SIM:",
+  "simSlotFilterSettingsTitle": "Cài đặt Lọc Khe cắm SIM {slotNumber}",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "Quản lý Khe cắm SIM",
+  "simSlotPosition": "Vị trí Khe cắm SIM {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• Quy tắc Khe cắm SIM: Chiến lược lọc độc lập cho mỗi SIM",
+  "simSlotRuleListTitle": "Danh sách Quy tắc Khe cắm SIM",
+  "simSlotRuleManagement": "Quy tắc Khe cắm SIM",
+  "simSlotTitle": "Khe cắm SIM {slotNumber}",
+  "skip": "Bỏ qua",
+  "smartCallerId": "Nhận dạng Cuộc gọi Thông minh",
+  "sms": "SMS",
+  "smsFilterDescription": "Lọc SMS giúp bạn tự động lọc các tin nhắn rác và giữ cho danh sách tin nhắn của bạn sạch sẽ. Bạn có thể đặt quy tắc lọc và phương thức thông báo.",
+  "smsFilterDisabled": "Đã tắt lọc SMS",
+  "smsFilterEnabled": "Đã bật lọc SMS",
+  "smsFilterRuleAddedSuccessfully": "Đã thêm quy tắc lọc SMS thành công",
+  "smsFilterRules": "Quy tắc Lọc SMS",
+  "smsFilterSettings": "Cài đặt Lọc SMS",
+  "smsManagement": "Quản lý SMS",
+  "smsPermission": "Quyền SMS",
+  "smsPermissionDescription": "Dùng để lọc tin nhắn rác.",
+  "smsRuleAddedSuccessfully": "Đã thêm quy tắc SMS thành công",
+  "smsRuleDeletedSuccessfully": "Đã xóa quy tắc SMS thành công",
+  "smsRuleLoadFailed": "Không thể tải quy tắc SMS: {error}",
+  "smsRuleManagement": "Quản lý Quy tắc SMS",
+  "smsRuleSubscription": "Đăng ký Quy tắc SMS",
+  "smsSubscription": "Đăng ký SMS",
+  "smsSubscriptionAddedSuccessfully": "Đã thêm đăng ký SMS thành công",
+  "smsSubscriptionRulesDescription": "Đăng ký danh sách quy tắc SMS qua URL, hỗ trợ khớp biểu thức chính quy. Bạn có thể đặt hành động chặn hoặc cho phép.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "Một số yêu cầu quyền bị từ chối",
+  "spamLikely": "Có thể là thư rác",
+  "startColor": "Màu Bắt đầu",
+  "startDate": "Ngày Bắt đầu",
+  "startUsing": "Bắt đầu sử dụng",
+  "statAnswered": "Đã trả lời",
+  "statBlocked": "Blocked",
+  "statistics": "Thống kê",
+  "statisticsPageTitle": "Phân tích Dữ liệu",
+  "stirColor": "Màu STIR",
+  "stirFontSize": "Cỡ chữ STIR",
+  "stirPosition": "Vị trí STIR",
+  "storagePermission": "Quyền truy cập Bộ nhớ",
+  "storagePermissionDescription": "Dùng để lưu cài đặt và quy tắc.",
+  "subscribe": "Đăng ký",
+  "subscriptionAddSuccess": "Đã thêm đăng ký \"{name}\" thành công",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "Bạn có chắc chắn muốn xóa đăng ký này không?",
+  "subscriptionDeleteConfirmTitle": "Xóa Đăng ký",
+  "subscriptionDeleted": "Đã xóa đăng ký",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "Không thể xóa đăng ký: {error}",
+  "subscriptionDeleteSuccess": "Đã xóa đăng ký",
+  "subscriptionLoadFailed": "Không thể tải đăng ký: {error}",
+  "subscriptionName": "Tên Đăng ký",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "Tên đăng ký và URL không được để trống",
+  "subscriptionNameHint": "Nhập tên đăng ký",
+  "subscriptionStatusChangeFailed": "Không thể thay đổi trạng thái đăng ký: {error}",
+  "subscriptionUpdateFailed": "Không thể cập nhật đăng ký: {error}",
+  "subscriptionUpdateSuccess": "Đã cập nhật đăng ký thành công",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "URL Đăng ký",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "Nhập URL đăng ký",
+  "successfullyImportedRules": "Đã nhập thành công {count} quy tắc",
+  "supportSync": "Hỗ trợ Đồng bộ hóa",
+  "survey": "Khảo sát",
+  "syncDevicesButton": "Đồng bộ hóa Thiết bị",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "Đồng bộ hóa thất bại",
+  "syncFailedMessage": "Đồng bộ hóa thất bại",
+  "syncFolderNameLabel": "Tên Thư mục Đồng bộ hóa",
+  "synchronized": "Đã đồng bộ hóa",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "Đang đồng bộ hóa...",
+  "syncNow": "Đồng bộ hóa Ngay",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "Đồng bộ ngay",
+  "syncStatusTitle": "Trạng thái đồng bộ",
+  "syncStatusUpdatedMessage": "Trạng thái đồng bộ đã cập nhật",
+  "syncSuccessMessage": "Đồng bộ thành công",
+  "syncWithCloudStorage": "Đồng bộ với Kho lưu trữ đám mây",
+  "systemFeatures": "Tính năng hệ thống:",
+  "systemSettingsTitle": "Cài đặt hệ thống",
+  "tabAll": "Tất cả",
+  "tabAnswered": "Đã trả lời",
+  "tabBlocked": "Đã chặn",
+  "tabMissed": "Bỏ lỡ",
+  "tabOutgoing": "Cuộc gọi đi",
+  "tagLabel": "Thẻ: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "Điểm rút gọn",
+  "telecommunication": "Viễn thông",
+  "telegram": "Telegram",
+  "telemarketing": "Tiếp thị qua điện thoại",
+  "testButton": "KIỂM TRA",
+  "testConnectionButton": "Kiểm tra kết nối",
+  "textColorsSetting": "Màu văn bản & nhãn",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "Ứng dụng này là công cụ nhận dạng người gọi mạnh mẽ cho phép bạn xác định và chặn các cuộc gọi không mong muốn.",
+  "thisWeek": "Tuần này",
+  "timeInterceptor": "Bộ chặn theo tần suất thời gian",
+  "timeInterceptorDescription": "Tự động chặn/cho phép các cuộc gọi tiềm năng dựa trên tần suất cuộc gọi",
+  "timeInterceptorExplanation": "• Bộ chặn theo tần suất thời gian: Chặn/cho phép các cuộc gọi lặp lại trong thời gian ngắn",
+  "timeInterceptorExplanationContent": "Tính năng chặn theo tần suất cuộc gọi phân tích tần suất cuộc gọi để tự động xác định và chặn/cho phép các cuộc gọi rác thường xuyên.",
+  "timeInterceptorExplanationTitle": "Giải thích tính năng chặn theo tần suất cuộc gọi",
+  "timeInterceptorSettingsTitle": "Cài đặt chặn theo tần suất cuộc gọi",
+  "timeWindowDescription": "Đặt kích thước cửa sổ thời gian để cho phép các cuộc gọi lặp lại. Các cuộc gọi từ cùng một số trong cửa sổ này sẽ được cho phép",
+  "timeWindowLabel": "Cửa sổ thời gian chặn (phút): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "Hôm nay",
+  "total": "Tổng cộng",
+  "totalBlocked": "Tổng số đã chặn",
+  "transferDataBetweenDevicesOrPlatforms": "Chuyển dữ liệu giữa các thiết bị hoặc nền tảng",
+  "travelTicketing": "Vé du lịch",
+  "tutorial": "Hướng dẫn",
+  "type": "Loại",
+  "unassignedSIMCard": "Thẻ SIM chưa được gán",
+  "unknown": "Không xác định",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "Thẻ: Không xác định",
+  "unregisterButton": "Hủy đăng ký",
+  "unregisterDeviceConfirmationMessage": "Bạn có chắc chắn muốn hủy đăng ký {deviceName} không?",
+  "unregisterDeviceTitle": "Hủy đăng ký thiết bị",
+  "unsupportedFileFormat": "Định dạng tệp không được hỗ trợ",
+  "update": "Cập nhật",
+  "updateAllNow": "Cập nhật tất cả ngay",
+  "updateContactFailed": "Không thể cập nhật danh bạ: {error}",
+  "updateFavoriteStatus": "Cập nhật trạng thái yêu thích",
+  "updateInterval": "Khoảng thời gian cập nhật",
+  "updateNow": "Cập nhật ngay",
+  "updatePlugin": "Cập nhật Plugin",
+  "updatePluginFailed": "Không thể cập nhật plugin: {error}",
+  "updateRuleFailed": "Không thể cập nhật quy tắc: {error}",
+  "updateSubscriptionFailed": "Không thể cập nhật đăng ký: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} đã cập nhật thành công ({count} quy tắc)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• Xác định các cuộc gọi rác tự động gọi lại",
+  "useCasesPoint2": "• Chặn các cuộc gọi tiếp thị gọi nhiều lần trong thời gian ngắn",
+  "useCasesPoint3": "• Ngăn chặn quấy rối và gọi điện khủng bố",
+  "useCasesTitle": "Các trường hợp sử dụng:",
+  "useGlobalSettings": "Sử dụng cài đặt toàn cục",
+  "usernameLabel": "Tên người dùng",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "Sử dụng cú pháp regex tiêu chuẩn để xác định các mẫu. Ví dụ:",
+  "verificationFailedText": "Thất bại",
+  "verifiedText": "Đã xác minh",
+  "verify": "Xác minh",
+  "version": "Phiên bản: {version}",
+  "vipExchangeDescription": "Đổi tư cách thành viên VIP bằng số lần đánh dấu số điện thoại",
+  "vipExchangeTitle": "Đánh dấu đổi VIP",
+  "watchAd": "Xem quảng cáo",
+  "watchAdForTemp": "Xem quảng cáo để có đặc quyền tạm thời",
+  "watchAdForTempDescription": "Xem một quảng cáo ngắn để tạm thời mở khóa một số tính năng cao cấp",
+  "webDAVConfigTitle": "Cấu hình WebDAV",
+  "week": "Tuần",
+  "welcome": "Chào mừng",
+  "whitelist": "Danh sách trắng",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "Chiều rộng",
+  "wildcardMatchingDescription": "Sử dụng '.' để khớp với bất kỳ ký tự nào (ví dụ: '123.456' khớp với 123-456)",
+  "wildcardMatchingTitle": "Khớp ký tự đại diện:",
+  "wildcardSupportForFlexibleFiltering": "Hỗ trợ Ký tự đại diện cho Lọc linh hoạt",
+  "windowSizeSetting": "Kích thước cửa sổ",
+  "year": "Năm",
+  "noSimCardsDetected": "Không phát hiện thẻ SIM",
+  "filterManagementDescription": "Đặt bộ lọc cuộc gọi",
+  "callerIdCustomizationSubtitle": "Tùy chỉnh bố cục Caller ID",
+  "fraudAlerSettingTitle": "Cài đặt Cảnh báo Lừa đảo",
+  "fraudAlerSettingSubtitle": "Để đặt cảnh báo lừa đảo",
+  "enableFraudAlert": "Bật Cảnh báo Lừa đảo",
+  "enableFraudAlertDescription": "Cảnh báo cho các cuộc gọi lừa đảo bị nghi ngờ",
+  "enableVibration": "Bật Rung",
+  "enableVibrationDescription": "Rung khi cuộc gọi bị nghi ngờ là cuộc gọi lừa đảo",
+  "notificationSettingsTitle": "Cài đặt Thông báo",
+  "useLocalNotification": "Sử dụng Thông báo cục bộ",
+  "useLocalNotificationDescription": "Bật thông báo cục bộ cho các cuộc gọi đến",
+  "cancelLocalNotification": "Đóng Thông báo cục bộ",
+  "useStirNotification": "Sử dụng Thông báo từ STIR",
+  "cancelLocalNotificationDescription": "Tự động đóng Thông báo cục bộ",
+  "callerIdSettingsTitle": "Cài đặt Caller ID",
+  "callerIdSettingsSubtitle": "Để thiết lập Thông báo cuộc gọi đến & Chế độ hiển thị",
+  "purchaseTitle": "Mua hàng",
+  "purchaseSubtitle": "Để mua dịch vụ",
+  "callerIdNotificationTitle": "Thông tin cuộc gọi đến",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "Cuộc gọi bị chặn",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "Cuộc gọi bị chặn từ {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "Đã xác minh",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "Chưa xác minh",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "Xác minh thất bại",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "Trạng thái xác minh không rõ",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "Xác minh STIR/SHAKEN",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} cho số {phoneNumber}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "Cài đặt Tin nhắn Bảo mật Cuộn",
+  "messageColor": "Màu tin nhắn",
+  "messageFontSize": "Cỡ chữ tin nhắn",
+  "messagePosition": "Vị trí tin nhắn",
+  "containerWidth": "Chiều rộng vùng chứa",
+  "scrollSpeed": "Tốc độ cuộn",
+  "enableSecurityMessage": "Bật Tin nhắn Bảo mật",
+  "fraudAlertTitle": "Cảnh báo Lừa đảo",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "Không có dữ liệu loại bị chặn",
+  "importEntity": "Nhập {entityTypeName}",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} được nhập thành công, tổng cộng {count} bản ghi được nhập",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "Không thể nhập {entityTypeName}: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "Xuất {entityTypeName}",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} được xuất thành công",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "Không thể xuất {entityTypeName}: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "Dịch vụ đồng bộ hóa đám mây",
+  "membershipCenter": "Trung tâm thành viên",
+  "redeemVipWithMarks": "Đổi VIP bằng Mark",
+  "currentMarkCount": "Số Mark hiện tại",
+  "markMoreNumbersForMore": "Gắn dấu nhiều số hơn để nhận thêm Mark",
+  "noAds": "Không quảng cáo",
+  "cloudBackup": "Sao lưu đám mây",
+  "callerIdEnhancement": "Cải tiến Caller ID",
+  "voiceRecognition": "Nhận dạng giọng nói",
+  "feature": "Tính năng",
+  "normalUser": "Người dùng thông thường",
+  "vipUser": "Người dùng VIP",
+  "temporaryVip": "VIP tạm thời",
+  "removeAds": "Xóa quảng cáo",
+  "settingsBackup": "Sao lưu cài đặt ",
+  "allServicesStatusTitle": "Trạng thái Dịch vụ hiện tại",
+  "allServicesStatusSubtitle": "Trạng thái hiện tại của từng Dịch vụ Đám mây",
+  "redirect": "Chuyển hướng",
+  "notify": "Thông báo",
+  "log": "Ghi nhật ký",
+  "custom": "Tùy chỉnh",
+  "allowActionDescription": "Cuộc gọi sẽ được cho phép, ngay cả khi số đó có trong danh sách chặn.",
+  "blockActionDescription": "Cuộc gọi sẽ bị chặn và hiển thị trong nhật ký cuộc gọi.",
+  "silenceActionDescription": "Cuộc gọi sẽ bị im lặng nhưng vẫn hiển thị trong nhật ký cuộc gọi.",
+  "noneActionDescription": "Không có hành động đặc biệt nào được thực hiện cho cuộc gọi.",
+  "redirectActionDescription": "Chuyển hướng cuộc gọi đến một số được chỉ định.",
+  "labelActionDescription": "Thêm nhãn cho cuộc gọi để dễ nhận dạng.",
+  "notifyActionDescription": "Gửi thông báo khi có cuộc gọi đến.",
+  "logActionDescription": "Ghi lại thông tin cuộc gọi mà không thực hiện hành động nào khác.",
+  "customActionDescription": "Thực hiện hành động tùy chỉnh.",
+  "synced": "Đã đồng bộ",
+  "needVipAccess": "Bạn cần quyền truy cập VIP để sử dụng tính năng này",
+  "importExportDescription": "Nhập hoặc xuất dữ liệu {entityTypeName}",
+  "importExportTitle": "Nhập/Xuất",
+  "noPhoneRules": "Không tìm thấy quy tắc điện thoại nào",
+  "noRegexRules": "Không tìm thấy quy tắc biểu thức chính quy nào",
+  "noAllowedBlockedRules": "Không tìm thấy quy tắc cho phép/chặn nào",
+  "importExport": "Nhập/Xuất",
+  "filterByAction": "Lọc theo Hành động",
+  "upgradeToVip": "Nâng cấp lên VIP",
+  "batteryOptimizationPermission": "Tối ưu hóa Pin",
+  "batteryOptimizationPermissionDescription": "Cho phép ứng dụng chạy nền để cung cấp các dịch vụ như nhận diện người gọi.",
+  "permissionTitle": "Quyền Đặc biệt",
+  "permissionSubtitle": "Quản lý quyền phủ lớp và tối ưu hóa pin",
+  "themeSettingsTitle": "Cài đặt Chủ đề",
+  "themeSettingsSubtitle": "Chọn chủ đề yêu thích của bạn",
+  "databaseSyncTitle": "Đồng bộ hóa Cơ sở dữ liệu",
+  "countrySyncSettingsTitle": "Cài đặt Đồng bộ hóa Cơ sở dữ liệu theo Quốc gia",
+  "countrySyncSettingsSubtitle": "Chọn quốc gia để đồng bộ hóa dữ liệu",
+  "countryDataDisclaimer": "Xin lưu ý: Cơ sở dữ liệu có thể không bao gồm dữ liệu cho tất cả các quốc gia hoặc khu vực cụ thể.",
+  "editSubscription": "Chỉnh sửa Đăng ký",
+  "searchByNameOrPhoneNumber": "Tìm kiếm theo Tên hoặc Số điện thoại",
+  "allowedBlockedRulesInfo": "Các quy tắc cho phép/chặn được sử dụng để khớp các cuộc gọi với các số điện thoại cụ thể, có ưu tiên cao nhất.",
+  "searchPhoneRulesHint": "Tìm kiếm quy tắc điện thoại",
+  "phoneRulesInfo": "Các quy tắc điện thoại được sử dụng để khớp các cuộc gọi với các số điện thoại cụ thể, có ưu tiên thấp hơn. Một số đến từ các đăng ký phoneRule",
+  "searchSubscriptionsHint": "Tìm kiếm đăng ký",
+  "searchPluginsHint": "Tìm kiếm plugin",
+  "searchLabelsHint": "Tìm kiếm nhãn",
+  "pluginDescription": "Mô tả plugin",
+  "enterPluginDescription": "Nhập mô tả plugin",
+  "searchRegexRulesHint": "Tìm kiếm quy tắc regex",
+  "regexRulesInfo": "Quy tắc Regex được sử dụng để lọc cuộc gọi dựa trên các Mẫu Regex.",
+  "searchMarkedPhonesHint": "Tìm kiếm số điện thoại đã đánh dấu",
+  "searchContactSubscriptionsHint": "Tìm kiếm đăng ký liên hệ",
+  "showAllContacts": "Hiển thị Tất cả Liên hệ",
+  "showFavorites": "Hiển thị Mục yêu thích",
+  "manualEntry": "Thông tin Nhập thủ công",
+  "scriptSaved": "Kịch bản đã được lưu",
+  "editScriptFor": "Chỉnh sửa kịch bản cho {pluginName}",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "Lưu Kịch bản",
+  "testPlugin": "Kiểm tra Plugin",
+  "description": "Mô tả",
+  "accessTargetUrl": "Truy cập URL đích",
+  "result": "Kết quả",
+  "editScript": "Chỉnh sửa Kịch bản",
+  "numberFormat": "Định dạng Số",
+  "nationalNumber": "Số Quốc gia",
+  "e164Number": "Số E164",
+  "pluginRulesInfo": "Để đảm bảo an toàn, vui lòng chỉ sử dụng plugin từ các nguồn đáng tin cậy. Hãy thoải mái sử dụng các mẫu của chúng tôi để tạo plugin tùy chỉnh của riêng bạn!",
+  "advancedMode": "Chế độ Nâng cao",
+  "pleaseEnterAtLeastOneNumber": "Vui lòng nhập ít nhất một số.",
+  "openInWebView": "Mở trong WebView",
+  "pluginLabel": "Nhãn Plugin",
+  "pluginID": "ID",
+  "pluginURL": "URL",
+  "messageBackgroundColor": "Màu nền Tin nhắn",
+  "clearAllCallLogs": "Xóa Tất cả Nhật ký Cuộc gọi",
+  "clearAllCallLogsConfirmation": "Xác nhận xóa tất cả nhật ký cuộc gọi",
+  "allCallLogsCleared": "Tất cả nhật ký cuộc gọi đã được xóa",
+  "unblocked": "Đã bỏ chặn",
+  "blockNumber": "Chặn Số",
+  "blockNumberSuccess": "Chặn số thành công",
+  "unblockNumberConfirmation": "Bạn có chắc chắn muốn bỏ chặn {phoneNumber}?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "Xem Chi tiết",
+  "unblock": "Bỏ chặn",
+  "unblockNumber": "Bỏ Chặn Số",
+  "unblockNumberSuccess": "Bỏ chặn số thành công",
+  "unblockNumberFailed": "Bỏ chặn số thất bại",
+  "callingNumberFailed": "Gọi số thất bại",
+  "listView": "Chế độ xem Danh sách",
+  "timelineView": "Chế độ xem Dòng thời gian",
+  "nameCannotBeEmpty": "Tên không được để trống",
+  "selectAction": "Chọn hành động",
+  "selectTargetService": "Chọn dịch vụ đích",
+  "callDetails": "Chi tiết Cuộc gọi",
+  "callType": "Loại Cuộc gọi",
+  "callTime": "Thời gian Cuộc gọi",
+  "numberInvalidFormat": "Định dạng số không hợp lệ",
+  "medium": "Trung bình",
+  "finalRisk": "Rủi ro Cuối cùng",
+  "simState": "Trạng thái SIM",
+  "ipCountry": "Quốc gia IP",
+  "simCountry": "Quốc gia SIM",
+  "isRoaming": "Chuyển vùng",
+  "isNumberMatch": "Khớp số",
+  "support": "Hỗ trợ",
+  "rewardedAdService": "Dịch vụ Quảng cáo Thưởng",
+  "hasVipPrivilegeExceptAds": "Bạn đã có đặc quyền VIP (ngoại trừ quảng cáo)",
+  "hasTempPrivilegeWithExpiry": "Bạn đã có đặc quyền tạm thời, ngày hết hạn: {expiryDate}",
+  "watchMoreAdsForTempVip": "Bạn cần xem thêm {count} quảng cáo để nhận đặc quyền VIP tạm thời",
+  "grantedTempPurchaseWithExpiry": "Bạn đã được cấp {days} ngày đặc quyền mua hàng tạm thời. Ngày hết hạn: {expiryDate}",
+  "tempPurchaseExpired": "Đặc quyền mua hàng tạm thời đã hết hạn",
+  "loadingAd": "Đang tải Quảng cáo...",
+  "earnedTempVip": "Đã nhận VIP tạm thời",
+  "vipExchangeService": "Dịch vụ Đổi VIP",
+  "marksInsufficient": "Không đủ điểm để đổi",
+  "invalidExchangeRule": "Quy tắc đổi không hợp lệ",
+  "exchangeSuccess": "Đổi thành công {description}, ngày hết hạn: {expiryDate}",
+  "exchangeFailed": "Đổi thất bại: {error}",
+  "vip3DaysWithAds": "VIP 3 ngày có quảng cáo (chỉ đồng bộ)",
+  "vip5DaysNoAds": "VIP 5 ngày đầy đủ tính năng, không quảng cáo",
+  "vip7DaysNoAds": "VIP 7 ngày đầy đủ tính năng, không quảng cáo",
+  "noNotifications": "Không có thông báo nào",
+  "clearAllNotifications": "Xóa Tất cả Thông báo",
+  "clearAllNotificationsConfirmation": "Xác nhận xóa tất cả thông báo",
+  "clearButton": "Xóa",
+  "justNow": "Vừa xong",
+  "minutesAgo": "{count,plural, =1{1 phút trước} other{{count} phút trước}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{1 giờ trước} other{{count} giờ trước}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{1 ngày trước} other{{count} ngày trước}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "Hôm qua",
+  "deletionProposal": "Đề xuất xóa",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "Tạo đề xuất",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "Tạo đề xuất xóa",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "Lý do",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "Số điện thoại lỗi thời",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "Vấn đề riêng tư",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "Không còn sử dụng",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "Nhận dạng sai",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "Thông tin không chính xác",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "Khác",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "Gửi",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Hủy",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "Mức độ rủi ro",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Thấp",
+  "@riskLevelLow": {
+    "description": "Label for low risk level"
+  },
+  "riskLevelHigh": "Cao",
+  "@riskLevelHigh": {
+    "description": "Label for high risk level"
+  },
+  "agreeVotes": "Đồng ý: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "Tổng cộng: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "Đồng ý",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "Không đồng ý",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "Được tạo: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "Báo cáo Xác minh",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "Thống kê đề xuất",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "Tổng số đề xuất",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "Đề xuất đang hoạt động",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "Đề xuất đã được tạo thành công",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "Phiếu bầu đã được gửi thành công",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "Không tìm thấy đề xuất nào",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "Làm mới đề xuất",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "Tổng số đề xuất đang chờ",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "Rủi ro cao",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "Rủi ro trung bình",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "Rủi ro thấp",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "Tác động cộng đồng",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "Vấn đề nghiêm trọng",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "Tham gia cộng đồng",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "Không có hoạt động",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Thấp",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "Trung bình",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "Cao",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "Rất cao",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "Đã bầu",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "Bình chọn cộng đồng",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "Đang chờ thêm phiếu bầu từ cộng đồng",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "Đề xuất này đã được xử lý",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "ĐƯỢC HỖ TRỢ",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "BỊ PHẢN ĐỐI",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "ĐÃ PHÊ DUYỆT",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "BỊ TỪ CHỐI",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "HOÀN THÀNH",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "ĐANG CHỜ",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "Nghiêm trọng",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "Phản đối",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "Rất thấp",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "Các đề xuất xóa",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "Thông báo về kết quả bỏ phiếu đề xuất xóa và cập nhật.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "Đã tạo đề xuất xóa",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "Đề xuất xóa của bạn cho số {phoneNumber} đã được gửi để cộng đồng xem xét.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "Đề xuất đã được phê duyệt ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "Đề xuất xóa cho số {phoneNumber} đã được cộng đồng phê duyệt ({supportPercentage}% ủng hộ, {totalVotes} phiếu bầu).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "Đề xuất bị từ chối ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "Đề xuất xóa cho số {phoneNumber} đã bị cộng đồng từ chối ({supportPercentage}% ủng hộ, {totalVotes} phiếu bầu).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "Bỏ phiếu cộng đồng đã bắt đầu",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "Một đề xuất xóa mới cho số {phoneNumber} hiện đã mở để cộng đồng bỏ phiếu.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "Bỏ phiếu đã hoàn thành",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "Bỏ phiếu cộng đồng cho số {phoneNumber} đã kết thúc. Kết quả: {result} ({supportPercentage}% ủng hộ).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "Đã nhận được phiếu bầu mới",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "Ai đó đã bầu {voteType} việc xóa số {phoneNumber}. Phiếu bầu hiện tại: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "Số phiếu bầu",
+  "deletionProposalDescription": "Đề xuất các số điện thoại để xóa nếu vi phạm nguyên tắc cộng đồng. Sự tham gia của bạn giúp giữ cho nền tảng an toàn.",
+  "searchProposals": "Tìm kiếm đề xuất",
+  "defaultNotifications": "Thông báo mặc định",
+  "defaultNotificationsDescription": "Kênh thông báo mặc định cho ứng dụng.",
+  "blockedCallNotifications": "Thông báo cuộc gọi bị chặn",
+  "blockedCallNotificationsDescription": "Hiển thị thông tin về các cuộc gọi bị chặn.",
+  "stirVerification": "Xác minh STIR/SHAKEN",
+  "stirVerificationDescription": "Hiển thị kết quả xác minh STIR/SHAKEN cho các số điện thoại.",
+  "fraudAlerts": "Cảnh báo lừa đảo",
+  "fraudAlertsDescription": "Hiển thị cảnh báo cho các cuộc gọi có khả năng lừa đảo.",
+  "notificationMode": "Chế độ Thông báo",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "Đề xuất đang chờ xử lý",
+  "pendingProposalsBody": "Bạn có {count, plural, =0 {không có đề xuất nào đang chờ xử lý} one {1 đề xuất đang chờ xử lý} other {{count} đề xuất đang chờ xử lý}}.",
+  "guidelinesLabel": "Hướng dẫn",
+  "riskLevelLabel": "Mức độ rủi ro",
+  "phoneNumberMinDigits": "Số điện thoại phải có ít nhất 7 chữ số",
+  "provideDetailedExplanation": "Cung cấp giải thích chi tiết (tối thiểu 10 ký tự)",
+  "reasonMinCharacters": "Lý do phải có ít nhất 10 ký tự",
+  "countryCodeTwoLetters": "Mã quốc gia (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "Mã quốc gia (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "Ví dụ: US, CN, GB",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "Mã quốc gia là bắt buộc",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "Nhập số điện thoại",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "Số điện thoại là bắt buộc",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "Lý do là bắt buộc",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "Nghiêm trọng",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "Trung bình",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "Rất thấp",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "Tần suất thông báo",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "Lỗi: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• Chỉ báo cáo các số thực sự có vấn đề\n• Cung cấp lý do chính xác và chi tiết\n• Chọn mức độ rủi ro phù hợp dựa trên mức độ nghiêm trọng\n• Báo cáo sai có thể dẫn đến hạn chế tài khoản",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Tần suất thông báo (Giờ)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "Ủng hộ ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "Phản đối ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} phiếu bầu ({supportPercentage}% ủng hộ)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 giờ} =1{1 giờ} other{{count} giờ}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "Thông báo quan trọng",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "Các số được lấy từ internet và do người dùng gửi. Chúng tôi không thể đảm bảo rằng một số, sau khi bị xóa, sẽ không được gửi lại bởi những người dùng hoặc nguồn khác. Vui lòng chủ động tìm kiếm và xác minh thông tin.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "Hình đại diện",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "Vị trí",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "Thẻ SIM",
+  "liveActivitiesSettingsTitle": "Cài đặt Hoạt động trực tiếp",
+  "elementsSettingsTitle": "Cài đặt thành phần",
+  "liveActivityMode": "Hoạt động trực tiếp",
+  "liveActivityModeDescription": "Hiển thị thông tin cuộc gọi dưới dạng thông báo cố định trên màn hình khóa và Đảo động (iOS).",
+  "phoneNumberType": "Loại số điện thoại",
+  "liveActivitiesTestEndActivity": "Kết thúc hoạt động",
+  "liveActivitiesTestSendNewActivity": "Gửi hoạt động mới",
+  "liveActivitiesTestUpdateActivity": "Cập nhật hoạt động",
+  "liveActivityControlsTitle": "Điều khiển Hoạt động trực tiếp",
+  "liveActivitiesTestTitle": "Kiểm tra Hoạt động trực tiếp",
+  "liveNotificationCustomizationTitle": "Tùy chỉnh thông báo trực tiếp",
+  "liveNotificationCustomizationSubtitle": "Tùy chỉnh giao diện của các thông báo trực tiếp.",
+  "notification_instructions": "Hướng dẫn:\n1. Nhấn \"GỬI\" để tạo hoặc cập nhật thông báo.\n2. Đi tới màn hình chính hoặc kéo xuống khay thông báo để xem kết quả.\n3. Nhấn \"KẾT THÚC\" để loại bỏ thông báo.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "Tự động hủy thông báo",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "Nếu được chọn, thông báo sẽ tự động bị loại bỏ khi người dùng nhấn vào.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "Đặt thời gian trễ",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "Chi tiết đề xuất",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "Không tìm thấy đề xuất",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "Đã xử lý",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "Lọc và Sắp xếp",
+  "filterVerifiedOwner": "Lọc Chủ sở hữu đã xác minh",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "Lọc theo",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "Sắp xếp cũ nhất",
+  "sortNewest": "Sắp xếp mới nhất",
+  "sortMostPopular": "Sắp xếp phổ biến nhất",
+  "sortLeastPopular": "Sắp xếp ít phổ biến nhất",
+  "sortBy": "Sắp xếp theo",
+  "simRulesNotFound": "Không tìm thấy quy tắc SIM",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "Quy tắc khe SIM",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "Không phát hiện thẻ SIM",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "Dữ liệu SIM không hợp lệ",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "Khe SIM",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "Bật lọc",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "Cài đặt chi tiết",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "Màn hình điểm vào",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "Từ chối",
+  "callTypeSilenced": "Im lặng",
+  "andMoreItems": "và {count} mục khác",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Rule Type",
+  "localDatabaseSyncTitle": "Local Database Sync",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Sync data across devices",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Supabase Project URL",
+  "supabaseAnonKey": "Anon Key",
+  "supabaseAnonKeyHint": "API Key, anon public key",
+  "connectionString": "Connection String (URI)",
+  "connectionStringHelper": "Only needed for 'Initialize Database'",
+  "syncCallHistory": "Sync Call History",
+  "syncCallHistorySubtitle": "Include private call logs in sync",
+  "requiredField": "Required",
+  "requiredInitField": "Required for initialization",
+  "initDbButton": "Initialize Database",
+  "dbInitSuccess": "Database Initialized Successfully!",
+  "syncSuccess": "Sync Complete. Sent: {pushed}, Received: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Error",
+  "errorLoadingSettings": "Error loading settings",
+  "statusLabel": "Status",
+  "statusConnected": "Connected / Configured",
+  "statusNotConfigured": "Not Configured",
+  "configSaved": "Configuration Saved!",
+  "masterDeviceLabel": "Is Master Device (Admin)",
+  "masterDeviceHelp": "Only the master device can initialize the database structure.",
+  "syncIntervalLabel": "Auto-sync Interval",
+  "syncIntervalValue": "Every {hours} hours",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Leave empty to use default",
+  "vipAccessSubtitle": "Watch ads for free or purchase VIP",
+  "failedToLoadSettingsSchema": "Failed to load settings schema: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "This field is required",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Automatically answer the incoming call and then immediately hang up to terminate it",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}

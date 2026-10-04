@@ -1,0 +1,2372 @@
+{
+  "@@locale": "id",
+  "aboutContactSubscription": "Tentang Langganan Kontak",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Tentang Label",
+  "aboutPhoneSubscriptionRules": "Tentang Aturan Langganan Telepon",
+  "aboutSmsFilter": "Tentang Pemfilteran SMS",
+  "aboutSmsSubscriptionRules": "Tentang Aturan Langganan SMS",
+  "aboutSubtitle": "Informasi versi aplikasi dan hukum",
+  "aboutTitle": "Tentang",
+  "action": "Tindakan",
+  "actionAll": "Semua",
+  "actionAllow": "Izinkan",
+  "actionBlock": "Blokir",
+  "actionFilterTitle": "Filter berdasarkan Jenis Tindakan",
+  "actionFilterTooltip": "Filter Tindakan",
+  "actionNone": "Tanpa Tindakan",
+  "actionSilence": "Senyapkan",
+  "actionTag": "Tindakan: {actionType}",
+  "actionType": "Jenis Tindakan",
+  "actionUnknown": "Tidak Diketahui",
+  "add": "Tambah",
+  "addAllowedBlockedRule": "Tambah Aturan Izinkan/Blokir",
+  "addAllowSubscription": "Tambah Langganan Izinkan",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Tambah Langganan Blokir",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Tambah Kontak",
+  "addContactFailed": "Gagal menambahkan kontak: {error}",
+  "addedToFavorites": "Ditambahkan ke favorit",
+  "addLabel": "Tambah Label",
+  "addLabelButton": "Tambah Label",
+  "addLabelFailed": "Gagal menambahkan label: {error}",
+  "addName": "Tambah Nama",
+  "addNoneSubscription": "Tambah Langganan Tanpa",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Tambah Tanda Telepon",
+  "addPhoneNumberRule": "Tambah Aturan Nomor Telepon",
+  "addPlugin": "Tambah Plugin",
+  "addPluginFailed": "Gagal menambahkan plugin",
+  "addPluginFailedWithError": "Gagal menambahkan plugin: {error}",
+  "addPluginFromLocalFile": "Tambah Plugin dari File Lokal",
+  "addPluginFromUrl": "Tambah Plugin dari URL",
+  "addRegexRule": "Tambah Aturan Regex",
+  "addRule": "Tambah Aturan",
+  "addRuleFailed": "Gagal menambahkan aturan: {error}",
+  "addRuleTooltip": "Tambah Aturan",
+  "addSilenceSubscription": "Tambah Langganan Senyap",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Tambah Aturan Filter SMS",
+  "addSmsRule": "Tambah Aturan SMS",
+  "addSmsSubscription": "Tambah Langganan SMS",
+  "addSubscription": "Tambah Langganan",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Tambah Langganan",
+  "addSubscriptionFailed": "Gagal menambahkan langganan: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Tambah Langganan",
+  "addToBlacklist": "Tambahkan ke Daftar Hitam",
+  "addToFavorites": "Tambahkan ke Favorit",
+  "addToRules": "Tambahkan ke Aturan",
+  "addToWhitelist": "Tambahkan ke Daftar Putih",
+  "agent": "Agen",
+  "all": "Semua",
+  "allCallsTab": "Semua",
+  "allow": "Izinkan",
+  "allowAllAllowRules": "Izinkan Semua Aturan Izinkan",
+  "allowAllAllowRulesDesc": "Izinkan panggilan dari aturan izinkan",
+  "allowAllBlacklistedNumbers": "Izinkan Semua Nomor yang Masuk Daftar Hitam",
+  "allowAllBlockRules": "Izinkan Semua Aturan Blokir",
+  "allowAllBlockRulesDesc": "Izinkan panggilan dari aturan blokir",
+  "allowAllowedNumbers": "Izinkan Nomor yang Diizinkan",
+  "allowAllowedNumbersDesc": "Izinkan panggilan dari daftar putih",
+  "allowBlock": "Izinkan/Blokir",
+  "allowBlockedNumbers": "Izinkan Nomor yang Diblokir",
+  "allowBlockedNumbersDesc": "Izinkan panggilan dari daftar blokir",
+  "allowedBlockedRule": "Aturan Izinkan/Blokir",
+  "allowedBlockedRuleEditDialogTitle": "Edit Aturan Izinkan/Blokir",
+  "allowedBlockedRuleManagement": "Manajemen Aturan Izinkan/Blokir",
+  "allowNonExceededNumbers": "Izinkan Nomor yang Tidak Melebihi Batas",
+  "allowNonExceededNumbersDescription": "Otomatis izinkan nomor yang tidak melebihi ambang batas jumlah",
+  "allowRegexAllowRules": "Izinkan Aturan Izinkan Regex",
+  "allowRegexAllowRulesDesc": "Aktifkan pencocokan pola regex untuk aturan izinkan",
+  "allowRegexAllowRulesDescription": "Aktifkan aturan berbasis regex untuk diizinkan",
+  "allowRegexBlockRules": "Izinkan Aturan Blokir Regex",
+  "allowRegexBlockRulesDesc": "Aktifkan pencocokan pola regex untuk aturan blokir",
+  "allowRegexBlockRulesDescription": "Aktifkan aturan berbasis regex untuk diblokir",
+  "allowRule": "Aturan Izinkan",
+  "allowRules": "Aturan Izinkan",
+  "allPermissionsGranted": "Semua izin diberikan",
+  "allSettingsCompleted": "Semua pengaturan selesai.",
+  "allUpdateSuccess": "Semua pembaruan selesai ({count} aturan)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "Jawab lalu tutup telepon",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "Perangkat Lunak Aplikasi",
+  "apply": "Terapkan",
+  "appName": "Your Call Your Rule",
+  "authorizationFailedCheckCredentialsMessage": "Otorisasi gagal: Harap periksa ID klien dan kunci",
+  "authorizationFailedMessage": "Otorisasi gagal",
+  "authorizationSuccessMessage": "Otorisasi berhasil",
+  "authorizeLoginButton": "Otorisasi Login",
+  "automotiveIndustry": "Industri Otomotif",
+  "autoSyncLabel": "Sinkronisasi Otomatis",
+  "autoUpdate": "Pembaruan Otomatis",
+  "autoUpdateDescription": "Atur interval pembaruan otomatis untuk langganan atau perbarui secara manual",
+  "autoUpdateSettings": "Pengaturan Pembaruan Otomatis",
+  "autoUpdateSubtitle": "Kelola pembaruan otomatis untuk aturan dan plugin",
+  "autoUpdateTitle": "Pembaruan Otomatis",
+  "avatarBorderColor": "Warna Bingkai Avatar",
+  "avatarBorderSize": "Ukuran Bingkai Avatar",
+  "avatarIconSizesSetting": "Ukuran Avatar & Ikon",
+  "avatarPosition": "Posisi Avatar",
+  "avatarSize": "Ukuran Avatar",
+  "axisPosition": "Posisi {axis}",
+  "backgroundGradientSetting": "Gradien Latar Belakang",
+  "backup": "Cadangan",
+  "backupAndRestore": "Cadangkan dan Pulihkan",
+  "backupAndRestoreSubtitle": "Cadangkan atau pulihkan data aplikasi",
+  "backupAndRestoreTitle": "Cadangkan & Pulihkan",
+  "backupFailed": "Cadangan gagal",
+  "backupSettings": "Pengaturan Cadangan",
+  "backupToCloud": "Cadangkan ke Cloud",
+  "backupToCloudFailed": "Gagal mencadangkan ke cloud: {error}",
+  "backupToCloudSuccess": "Berhasil dicadangkan ke cloud",
+  "bank": "Bank",
+  "basicInfo": "Informasi Dasar",
+  "basicRuleFilter": "Filter Aturan Dasar",
+  "basicRuleFiltering": "Pemfilteran Aturan Dasar",
+  "basicRuleFilteringExplanation": "• Pemfilteran Aturan Dasar: Memfilter aturan berdasarkan daftar hitam, daftar putih, dan regex",
+  "basicRuleFilterSubtitle": "Filter panggilan menggunakan daftar hitam/putih dan ekspresi reguler",
+  "batchDeleteContactsConfirm": "Apakah Anda yakin ingin menghapus {count} kontak yang dipilih?",
+  "batchDeleteLabelsConfirm": "Apakah Anda yakin ingin menghapus {count} label?",
+  "blacklist": "Daftar Hitam",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "Daftar Hitam dan Daftar Putih",
+  "blackWhiteList": "Daftar Hitam/Putih",
+  "block": "Blokir",
+  "blockCalls": "Blokir Panggilan",
+  "blocked": "Diblokir",
+  "blockedCalls": "Panggilan yang Diblokir",
+  "blockedCallsTitle": "Panggilan yang Diblokir",
+  "blockedSpamCalls": "Panggilan Spam yang Diblokir",
+  "blockingTrend": "Tren Pemblokiran",
+  "blockInternationalCalls": "cocok dengan nomor yang tidak diawali dengan + atau 00",
+  "blockInternationalCallsTitle": "Blokir Panggilan Internasional",
+  "blockMobileNumbers": "cocok dengan nomor yang tidak diawali dengan 13-19",
+  "blockMobileNumbersTitle": "Blokir Nomor Ponsel",
+  "blockPremiumRateNumbers": "cocok dengan nomor yang tidak diawali dengan 118 atau 120-190",
+  "blockPremiumRateNumbersTitle": "Blokir Nomor Tarif Premium",
+  "blockRule": "Aturan Blokir",
+  "blockRules": "Aturan Blokir",
+  "blockSpecificAreaCodes": "cocok dengan nomor yang diawali dengan 0 + 2-3 digit",
+  "blockSpecificAreaCodesTitle": "Blokir kode area tertentu:",
+  "blockTypeAnalysisTitle": "Analisis Tipe Blokir",
+  "both": "Keduanya",
+  "bulkDelete": "Hapus Kontak Massal",
+  "bulkDeleteContacts": "Hapus Kontak Massal",
+  "bulkDeleteLabels": "Hapus Label Massal",
+  "call": "Panggilan",
+  "callback": "Panggil Balik",
+  "callBlocking": "Pemblokiran Panggilan",
+  "callerIdApp": "Aplikasi ID Penelepon",
+  "callerIdCustomizationTitle": "Sesuaikan ID Penelepon",
+  "callerIdDisplayMode": "Mode Tampilan ID Penelepon",
+  "callerIdMarkedByCount": "Ditandai oleh {count}",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "Pratinjau ID Penelepon",
+  "callFilterRules": "Aturan Filter Panggilan",
+  "callFilterRulesDescription": "Tetapkan aturan dasar untuk penyaringan panggilan",
+  "callFilterSettings": "Pengaturan Filter Panggilan",
+  "callFrequencyInterceptionSubtitle": "Tetapkan batas frekuensi panggilan dan aturan pemblokiran",
+  "callFrequencyInterceptionTitle": "Pencegatan Frekuensi Panggilan",
+  "callHistory": "Riwayat Panggilan",
+  "callHistoryInfoDesc": "Di sini menunjukkan riwayat panggilan Anda, termasuk panggilan masuk, keluar, dan tidak terjawab.",
+  "callHistoryInfoTitle": "Riwayat Panggilan",
+  "callHistoryTab": "Riwayat Panggilan",
+  "callScreeningPermission": "Izin Penyaringan Panggilan",
+  "callScreeningPermissionDescription": "Digunakan untuk menyaring dan memblokir panggilan spam.",
+  "callScreeningPermissionNotGranted": "Izin penyaringan panggilan tidak diberikan, dapat memengaruhi fungsionalitas aplikasi.",
+  "callStatistics": "Statistik Panggilan",
+  "callTypeAnswered": "Terjawab",
+  "callTypeBlocked": "Diblokir",
+  "callTypeIconColor": "Warna Ikon Jenis Panggilan",
+  "callTypeMissed": "Panggilan Tak Terjawab",
+  "callTypeOutgoing": "Keluar",
+  "callTypePosition": "Posisi Jenis Panggilan",
+  "callTypeUnknown": "Tidak Diketahui",
+  "cancelButton": "Batal",
+  "carRental": "Sewa Mobil",
+  "carrier": "Operator",
+  "carrierColor": "Warna Operator",
+  "carrierFontSize": "Ukuran Font Operator",
+  "carrierPosition": "Posisi Operator",
+  "changeLabel": "Ubah Label",
+  "changePluginStatusFailed": "Gagal mengubah status plugin: {error}",
+  "changeSubscriptionStatusFailed": "Gagal mengubah status langganan: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "Donasi",
+  "chartOneWeekAgo": "1 minggu yang lalu",
+  "chartThreeDaysAgo": "3 hari yang lalu",
+  "chartToday": "Hari Ini",
+  "checkFileFormat": "Harap periksa format atau izin file",
+  "checkPermissionFailed": "Gagal memeriksa izin: {error}",
+  "chooseDefaultInterceptAction": "Pilih tindakan pencegatan default",
+  "clearFilter": "Hapus Filter",
+  "clearLabelFilterButton": "Hapus Filter Label",
+  "closeButton": "Tutup",
+  "cloudSync": "Sinkronisasi Cloud",
+  "cloudSyncAndBackupTitle": "Sinkronisasi & Cadangan Cloud",
+  "cloudSyncSettingsSubtitle": "Konfigurasi WebDAV, OneDrive, dan Google Drive",
+  "cloudSyncSettingsTitle": "Pengaturan Sinkronisasi Cloud",
+  "cloudSyncTitle": "Sinkronisasi Cloud",
+  "collection": "Penagihan Utang",
+  "colorPickerTitle": "Pilih Warna",
+  "configManagement": "Manajemen Konfigurasi",
+  "configUpdated": "Konfigurasi diperbarui",
+  "configurationAdvice": "Melalui konfigurasi yang tepat, Anda dapat mengatur strategi pemfilteran yang berbeda untuk kartu SIM kerja dan pribadi.",
+  "configureBackupOptions": "Konfigurasi Opsi Cadangan",
+  "configureCloudSyncService": "Konfigurasi Layanan Sinkronisasi Cloud",
+  "configureCloudSyncServiceMessage": "Harap konfigurasikan layanan sinkronisasi cloud untuk mengaktifkan sinkronisasi multi-perangkat.",
+  "configureSimCardFilterRules": "Konfigurasi Aturan Filter Kartu SIM",
+  "confirm": "Konfirmasi",
+  "confirmButton": "Konfirmasi",
+  "confirmDelete": "Konfirmasi Hapus",
+  "confirmDeleteLabel": "Apakah Anda yakin ingin menghapus label \"{name}\"",
+  "confirmDeletePlugin": "Apakah Anda yakin ingin menghapus plugin \"{name}\"?",
+  "confirmDeletePlugins": "Apakah Anda yakin ingin menghapus {count} plugin?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "Apakah Anda yakin ingin menghapus aturan ini? Tindakan ini tidak dapat dibatalkan.",
+  "confirmDeleteSmsFilterRule": "Apakah Anda yakin ingin menghapus aturan filter SMS ini?",
+  "confirmDeleteSmsRule": "Apakah Anda yakin ingin menghapus aturan SMS ini?",
+  "confirmDeleteSubscriptions": "Apakah Anda yakin ingin menghapus {name}?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "Konfirmasi Kata Sandi",
+  "connectedStatus": "Terhubung",
+  "connectionFailedCheckCredentialsMessage": "Koneksi gagal: Harap periksa alamat server, nama pengguna, dan kata sandi",
+  "connectionFailedMessage": "Koneksi gagal",
+  "connectionStatusLabel": "Status Koneksi",
+  "connectionSuccessMessage": "Koneksi berhasil",
+  "contactAddSuccess": "Kontak berhasil ditambahkan",
+  "contactDeleted": "Kontak dihapus",
+  "contactNameLabel": "Nama",
+  "contactNotFound": "Kontak tidak ditemukan",
+  "contacts": "Kontak",
+  "contactsDeleted": "Menghapus {count} kontak",
+  "contactsManagement": "Manajemen Kontak",
+  "contactsPermission": "Izin Kontak",
+  "contactsPermissionDescription": "Digunakan untuk mengidentifikasi panggilan kontak.",
+  "contactsTab": "Kontak",
+  "contactSubscriptionDescription": "Berlangganan daftar kontak melalui URL, secara otomatis memperbarui informasi dan label kontak. Mendukung data format JSON.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "Kontak berhasil diperbarui",
+  "contactUs": "Hubungi Kami",
+  "content": "Konten",
+  "contentRegex": "Regex Konten",
+  "countColor": "Warna Jumlah",
+  "countFontSize": "Ukuran Font Jumlah",
+  "countPosition": "Posisi Jumlah",
+  "country": "Negara",
+  "countryNameColor": "Warna Nama Negara",
+  "countryNameFontSize": "Ukuran Font Nama Negara",
+  "countryRegionNamePosition": "Posisi Nama Negara/Wilayah",
+  "countThresholdDescription": "Atur ambang batas jumlah minimum yang diperlukan untuk memicu tindakan pemfilteran",
+  "countThresholdLabel": "Ambang Batas Jumlah",
+  "createdRules": "Aturan yang Dibuat",
+  "csvFormat": "Format CSV",
+  "currentDeviceLabel": "Label Perangkat Saat Ini",
+  "currentDeviceTitle": "Perangkat Saat Ini",
+  "currentLanguage": "Bahasa Saat Ini",
+  "customerService": "Layanan Pelanggan",
+  "dashboardTab": "Dasbor",
+  "dataAnalysis": "Analisis Data",
+  "dataLoadFailure": "Gagal memuat data: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "Gagal memuat data: {error}",
+  "dataMigration": "Migrasi Data",
+  "dataMigrationDescription": "Fitur ini memungkinkan Anda mentransfer semua data Anda antar perangkat. Saat ini, Anda dapat menggunakan fitur cadangan dan pemulihan untuk memigrasikan data Anda secara manual.",
+  "dataSourceReminder": "Pengingat Sumber Data",
+  "days": "{count, plural, =1{1 hari} other{{count} hari}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} Hari VIP",
+  "debtCollection": "Penagihan Utang",
+  "delete": "Hapus",
+  "deleteButton": "Hapus",
+  "deleteContact": "Hapus Kontak",
+  "deleteContactConfirm": "Anda yakin ingin menghapus {name}?",
+  "deleteFailed": "Penghapusan gagal: {error}",
+  "deleteLabel": "Hapus Label",
+  "deleteLabelFailed": "Gagal menghapus label: {error}",
+  "deletePlugin": "Hapus Plugin",
+  "deletePluginFailed": "Gagal menghapus plugin: {error}",
+  "deletePlugins": "Hapus Plugin-plugin",
+  "deletePluginsFailed": "Gagal menghapus plugin-plugin: {error}",
+  "deleteRule": "Hapus Aturan",
+  "deleteRuleFailed": "Penghapusan gagal: {error}",
+  "deleteSelected": "Hapus yang Dipilih",
+  "deleteSubscription": "Hapus Langganan",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "Anda yakin ingin menghapus langganan \"{name}\"?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "Gagal menghapus langganan: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "Penghapusan berhasil",
+  "delivery": "Pengiriman",
+  "deviceIDLabel": "ID Perangkat",
+  "deviceManagementSubtitle": "Kelola sinkronisasi multi-perangkat",
+  "deviceManagementTitle": "Manajemen Perangkat",
+  "deviceModelLabel": "Model Perangkat",
+  "deviceName": "Nama Perangkat",
+  "deviceNameLabel": "Nama Perangkat",
+  "deviceRenamedSuccessfullyMessage": "Perangkat berhasil diganti nama",
+  "devicesSynchronizedSuccessfullyMessage": "Perangkat berhasil disinkronkan",
+  "deviceUnregisteredSuccessfullyMessage": "Perangkat berhasil dibatalkan pendaftarannya",
+  "dialogTitle": "Penjelasan Pola Regex",
+  "differentFromLocalCounter": "Fitur ini berbeda dari filter penghitung lokal, karena berfokus pada pola panggilan berulang dalam waktu singkat daripada jumlah penandaan jangka panjang.",
+  "disabled": "Dinonaktifkan",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "Dinonaktifkan",
+  "disableGlobalPlugins": "Nonaktifkan plugin global",
+  "disconnectButton": "Putuskan Sambungan",
+  "disconnectedMessage": "Terputus",
+  "disconnectedStatus": "Terputus",
+  "disconnectFailedMessage": "Gagal memutuskan sambungan",
+  "done": "Selesai",
+  "dualSimAdvice": "Fitur ini sangat berguna untuk ponsel dual-SIM untuk mengatur strategi pemfilteran yang berbeda untuk kartu SIM kerja dan pribadi.",
+  "earlier": "Lebih Awal",
+  "ecommerce": "E-commerce",
+  "edit": "Edit",
+  "editContact": "Edit Kontak",
+  "editLabel": "Edit Label",
+  "editPhoneRule": "Edit Aturan Telepon",
+  "editRule": "Edit Aturan",
+  "education": "Pendidikan",
+  "elementPositionsSetting": "Posisi Elemen",
+  "email": "Email",
+  "enableCallFilter": "Aktifkan Filter Panggilan",
+  "enableCallFilterDescription": "Saat diaktifkan, panggilan masuk diperiksa terhadap daftar aturan di bawah ini. Aturan pemfilteran panggilan tidak disinkronkan antar perangkat secara default.",
+  "enabled": "Diaktifkan",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "Diaktifkan",
+  "enableEncryption": "Aktifkan Enkripsi",
+  "enableEncryptionDescription": "Enkripsi file cadangan",
+  "enableGlobalPlugins": "Aktifkan plugin global",
+  "enableLocalCountFilter": "Aktifkan Filter Penghitung Lokal",
+  "enableLocalCountFilterDescription": "Filter panggilan spam secara otomatis berdasarkan jumlah penandaan panggilan",
+  "enableLocalNotification": "Gunakan Notifikasi Lokal",
+  "enableLocalNotificationDescription": "Saat diaktifkan, notifikasi untuk pesan yang difilter akan ditampilkan di perangkat",
+  "enableLocationSummary": "Lokasi",
+  "enableMuteRules": "Aktifkan Aturan Senyap",
+  "enableMuteRulesDesc": "Terapkan konfigurasi aturan intersepsi senyap",
+  "enableNoneActionRules": "Aktifkan Aturan Tanpa Tindakan",
+  "enableNoneActionRulesDesc": "Izinkan konfigurasi aturan tanpa tindakan intersepsi",
+  "enableRemoteNumberFilter": "Aktifkan Filter Nomor Jarak Jauh",
+  "enableRemoteNumberFilterDescription": "Gunakan database jarak jauh untuk memfilter nomor",
+  "enableRule": "Aktifkan Aturan",
+  "enableSmsFilter": "Aktifkan Pemfilteran SMS",
+  "enableSmsFilterDescription": "Saat diaktifkan, pesan akan difilter secara otomatis sesuai dengan aturan",
+  "enableTimeInterception": "Aktifkan Intersepsi Waktu",
+  "enableTimeInterceptionDescription": "Intersepsi panggilan berulang dalam waktu singkat",
+  "enableTimeInterceptor": "Aktifkan Interseptor Waktu",
+  "endCallImmediately": "Akhiri panggilan segera",
+  "endColor": "Warna Akhir",
+  "endDate": "Tanggal Akhir",
+  "enhancedFilterInstructionsTitle": "Judul Instruksi Filter yang Ditingkatkan",
+  "enhancedFilterSettings": "Pengaturan Filter yang Ditingkatkan",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "Pengaturan Filter yang Ditingkatkan",
+  "enhancedFilterSystemDescription": "Sistem filter yang ditingkatkan mendukung aturan global dan konfigurasi pemfilteran per kartu SIM.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "Harap masukkan nomor telepon dan pola regex.",
+  "enterContactName": "Masukkan nama kontak",
+  "enterDeviceName": "Masukkan Nama Perangkat",
+  "enterEmailOptional": "Masukkan email (opsional)",
+  "enterEncryptionPasswordHint": "Masukkan kata sandi enkripsi",
+  "enterIconCode": "Masukkan kode ikon",
+  "enterName": "Masukkan nama kontak",
+  "enterNewDeviceNameHint": "Masukkan nama baru untuk perangkat ini",
+  "enterPasswordAgain": "Masukkan Kata Sandi Lagi",
+  "enterPhoneNumber": "Masukkan nomor telepon",
+  "enterPhoneNumberHint": "Masukkan nomor telepon untuk diuji",
+  "enterPhoneNumberMultiple": "Masukkan nomor telepon, beberapa nomor dipisahkan dengan koma",
+  "enterPhoneNumberToStartSearch": "Masukkan nomor telepon untuk memulai pencarian",
+  "enterPhoneNumberToVerify": "Masukkan nomor telepon untuk memverifikasi",
+  "enterPluginName": "Masukkan Nama Plugin",
+  "enterPluginUrl": "Masukkan alamat URL plugin",
+  "enterRegexHint": "Masukkan pola regex",
+  "enterRuleNameAndPatternMessage": "Harap masukkan nama aturan dan pola regex.",
+  "enterRuleNameHint": "Masukkan nama aturan",
+  "enterSearchContent": "Harap masukkan konten pencarian",
+  "enterSubscriptionName": "Masukkan nama langganan",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "Masukkan URL langganan",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Silakan masukkan nama folder sinkronisasi (default: NotificationManager)",
+  "entertainment": "Hiburan",
+  "enterValidNameAndUrl": "Harap masukkan nama dan URL yang valid",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "Harap masukkan URL yang valid",
+  "enterVersion": "Masukkan Versi",
+  "enterWebDAVPasswordHint": "Silakan masukkan kata sandi WebDAV",
+  "enterWebDAVServerAddressHint": "Silakan masukkan alamat server WebDAV",
+  "enterWebDAVUsernameHint": "Silakan masukkan nama pengguna WebDAV",
+  "errorOccurredMessage": "Terjadi kesalahan: {error}",
+  "errorRenamingDeviceMessage": "Gagal mengganti nama perangkat: {error}",
+  "errorSynchronizingDevicesMessage": "Gagal menyinkronkan perangkat: {error}",
+  "errorUnregisteringDeviceMessage": "Gagal membatalkan pendaftaran perangkat: {error}",
+  "exampleBlock400Prefix": "misalnya. Blokir nomor awalan 400",
+  "exampleBlockMarketingSms": "misalnya. Blokir SMS pemasaran",
+  "exampleContentRegexHint": "Contoh Regex Konten",
+  "exampleCouponPromotionDiscount": "misalnya. .*(kupon|promosi|diskon).*",
+  "exampleFamilyFriends": "misalnya. Keluarga, Teman, dll.",
+  "examplePhoneNumber": "misalnya. 10086, 12345, dll.",
+  "exampleRegex400Prefix": "Contoh regex untuk awalan 400",
+  "exampleSenderRegexHint": "Contoh",
+  "exchange": "Tukar",
+  "exchangeNow": "Tukar Sekarang",
+  "exchangeVip": "Tukar VIP",
+  "expiryTime": "Waktu kedaluwarsa: {time}",
+  "export": "Ekspor",
+  "exportAllApplicationSettings": "Ekspor semua pengaturan aplikasi",
+  "exportAllRuleConfigurations": "Ekspor Semua Konfigurasi Aturan",
+  "exportConfig": "Ekspor Konfigurasi",
+  "exportContacts": "Ekspor Kontak",
+  "exportData": "Ekspor Data",
+  "exportFailed": "Ekspor gagal",
+  "exportFailure": "Gagal mengekspor konfigurasi",
+  "exportFeatureComingSoon": "Fitur ekspor segera hadir",
+  "exportLabels": "Ekspor Label",
+  "exportLabelsFailed": "Gagal mengekspor label: {error}",
+  "exportPluginList": "Ekspor Daftar Plugin",
+  "exportPluginListFailed": "Gagal mengekspor daftar plugin: {error}",
+  "exportRules": "Ekspor Aturan",
+  "exportSmsRules": "Ekspor Aturan SMS",
+  "exportStatisticsData": "Ekspor Data Statistik",
+  "exportSuccesslly": "Konfigurasi berhasil diekspor",
+  "failedToAddRule": "Gagal menambahkan aturan: {error}",
+  "failedToAddSmsSubscription": "Gagal menambahkan langganan SMS: {error}",
+  "failedToBackupSettings": "Gagal mencadangkan pengaturan: {error}",
+  "failedToDecryptBackupFile": "Gagal mendekripsi file cadangan",
+  "failedToDeleteSmsRule": "Gagal menghapus aturan SMS: {error}",
+  "failedToExportRules": "Gagal mengekspor aturan: {error}",
+  "failedToGetCallerIdInfo": "Gagal mendapatkan informasi ID penelepon: {error}",
+  "failedToImportRules": "Gagal mengimpor aturan: {error}",
+  "failedToRestoreSettings": "Gagal memulihkan pengaturan",
+  "failedToRestoreSettingsWithError": "Gagal memulihkan pengaturan: {error}",
+  "failedToToggleRuleStatus": "Gagal mengubah status aturan: {error}",
+  "favoriteContacts": "Kontak Favorit",
+  "featureAddRules": "• Tambahkan aturan khusus nomor telepon",
+  "featureCenter": "Pusat Fitur",
+  "featureEnableDisable": "• Aktifkan/nonaktifkan filter berbeda per SIM",
+  "featureListTitle": "Fitur:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• Kelola daftar aturan per SIM",
+  "features": "Fitur",
+  "fetchingCallerIdInfo": "Mengambil informasi ID penelepon...",
+  "fileSavedTo": "File disimpan ke: {path}",
+  "filter": "Filter",
+  "filterByLabel": "Filter berdasarkan Label",
+  "filterControlPanelTitle": "Panel Kontrol Filter",
+  "filterControlSubtitle": "Kelola status aktif/nonaktif semua filter",
+  "filterControlTitle": "Kontrol Filter",
+  "filtered": "Difilter",
+  "filterExplanation": "Penjelasan Filter",
+  "filterManagement": "Manajemen Filter",
+  "filterName": "Nama Filter",
+  "filterPriorityNote": "Catatan: Ada hubungan prioritas antar filter, silakan merujuk ke dokumentasi bantuan untuk detailnya",
+  "filterSettings": "Pengaturan Filter",
+  "filterSettingsTitle": "Pengaturan Filter",
+  "filterSMS": "Filter SMS",
+  "filterToggleInstructions": "Aktifkan atau nonaktifkan filter untuk slot SIM ini:",
+  "filterToggleStatus": "Filter {status}: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "Jenis Filter",
+  "financial": "Keuangan",
+  "flexibleCombinationFeature": "• Kombinasi Fleksibel: Aktifkan/nonaktifkan filter per slot SIM",
+  "fontSizesSetting": "Ukuran Font",
+  "foundRules": "Ditemukan {count} aturan",
+  "fraudAlert": "PERINGATAN PENIPUAN - Tutup telepon",
+  "fraudScamLikely": "Kemungkinan Penipuan",
+  "free": "Gratis",
+  "functionSettingsTitle": "Pengaturan Fungsi",
+  "generalUpdateFailure": "Pembaruan gagal: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "Dapatkan Gratis",
+  "github": "GitHub",
+  "globalFilterDescription": "Konfigurasikan filter global untuk semua kartu SIM:",
+  "globalFilterFeature": "• Filter Global: Aturan dasar untuk semua panggilan masuk",
+  "globalFilterSettings": "Pengaturan Filter Global",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "Pengaturan Global",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "Otorisasi menggunakan ID klien dan kunci Google Drive yang dikonfigurasi sistem",
+  "googleDriveConfigTitle": "Konfigurasi Google Drive",
+  "government": "Pemerintah",
+  "granted": "Diberikan",
+  "grantNecessaryPermissions": "Berikan Izin yang Diperlukan",
+  "grantPermissions": "Berikan Izin",
+  "headhunter": "Pencari Kerja",
+  "height": "Tinggi",
+  "homeTab": "Beranda",
+  "howItWorksPoint1": "• Sistem akan secara otomatis mengizinkan panggilan dari nomor yang sama dalam jendela waktu yang ditetapkan",
+  "howItWorksPoint2": "• Jendela waktu yang lebih pendek menghasilkan intersepsi yang lebih ketat; jendela waktu yang lebih lama menghasilkan intersepsi yang lebih longgar",
+  "howItWorksPoint3": "• Sistem memeriksa riwayat panggilan untuk menentukan apakah itu panggilan berulang",
+  "howItWorksTitle": "Cara Kerja:",
+  "iconCodeOptional": "Kode Ikon (Opsional)",
+  "iconSize": "Ukuran Ikon",
+  "import": "Impor",
+  "important": "Penting",
+  "importConfig": "Impor Konfigurasi",
+  "importContacts": "Impor Kontak",
+  "importExportContacts": "Impor/Ekspor Kontak",
+  "importExportContactsTooltip": "Impor/Ekspor Kontak",
+  "importExportRules": "Impor/Ekspor Aturan",
+  "importFailed": "Impor gagal: {error}",
+  "importFailure": "Gagal mengimpor konfigurasi",
+  "importFeatureComingSoon": "Fitur impor segera hadir",
+  "importLabels": "Impor Label",
+  "importLabelsFailed": "Gagal mengimpor label: {error}",
+  "importPluginList": "Impor Daftar Plugin",
+  "importPluginListFailed": "Gagal mengimpor daftar plugin: {error}",
+  "importPluginSuccess": "Berhasil mengimpor {count} plugin",
+  "importRuleConfigurationsFromFile": "Impor Konfigurasi Aturan dari File",
+  "importRules": "Impor Aturan",
+  "importSuccess": "Impor berhasil",
+  "incomingCallInterceptAction": "Tindakan Intersepsi Panggilan Masuk",
+  "incorrectPassword": "Kata sandi salah",
+  "initializing": "Menginisialisasi",
+  "installed": "Terpasang",
+  "insufficientMarks": "Tanda tidak mencukupi",
+  "insurance": "Asuransi",
+  "interceptAction": "Tindakan Intersepsi",
+  "interceptionActionSettingsSubtitle": "Atur cara panggilan yang diblokir ditangani",
+  "interceptionActionSettingsTitle": "Pengaturan Tindakan Intersepsi",
+  "interceptionTimeInterval": "Interval Waktu Intersepsi",
+  "internet": "Internet",
+  "intervalSetSuccess": "Interval pembaruan {service} diatur ke {days} hari",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "Regex konten tidak valid",
+  "invalidLabel": "Label tidak valid",
+  "invalidRegexPattern": "Pola regex tidak valid",
+  "invalidSenderRegex": "Regex pengirim tidak valid",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "Bergabunglah dengan Saluran dan Grup Telegram untuk Info Lebih Lanjut",
+  "jsonFormat": "Format JSON",
+  "keepAllVersions": "Simpan Semua Versi",
+  "keepAllVersionsDescription": "Simpan semua versi historis dari setiap cadangan",
+  "label": "Label",
+  "labelAddedSuccessfully": "Label \"{name}\" berhasil ditambahkan",
+  "labelCategories": "Kategori Label",
+  "labelDeleted": "Label dihapus",
+  "labelDescription": "Label membantu Anda mengelola kontak dengan lebih baik, menambahkan label khusus ke nomor telepon untuk identifikasi panggilan dan pesan yang mudah.",
+  "labelFilterTooltip": "Filter Label",
+  "labelIconColor": "Warna Ikon Label",
+  "labelManagement": "Manajemen Label",
+  "labelNotFound": "Label tidak ditemukan",
+  "labels": "Label",
+  "labelsColor": "Warna Label",
+  "labelsDeleted": "{count} label dihapus",
+  "labelsExportedSuccessfully": "Label berhasil diekspor",
+  "labelsFontSize": "Ukuran Font Label",
+  "labelsImportedSuccessfully": "Berhasil mengimpor {count} label",
+  "labelsPosition": "Posisi Label",
+  "labelTag": "Label: {labelId}",
+  "labelUpdateFailed": "Gagal memperbarui label: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "Label \"$labelText\" berhasil diperbarui",
+  "languageSettings": "Pengaturan Bahasa",
+  "languageSettingsSubtitle": "Ubah bahasa tampilan aplikasi",
+  "languageSettingsTitle": "Pengaturan Bahasa",
+  "lastSyncLabel": "Sinkronisasi Terakhir",
+  "lastUpdated": "Terakhir diperbarui: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "Keanggotaan Seumur Hidup",
+  "lifetimeMembershipDescription": "Pembelian satu kali, buka selamanya semua fitur premium dan pembaruan di masa mendatang",
+  "loadContactsFailed": "Gagal memuat kontak: {error}",
+  "loadDataFailed": "Gagal memuat data",
+  "loading": "Memuat...",
+  "loadingTags": "Memuat tag...",
+  "loadLabelFailed": "Gagal memuat label: {error}",
+  "loadLabelsFailed": "Gagal memuat label: {error}",
+  "loadMarkCountFailed": "Gagal memuat nomor telepon yang ditandai: {error}",
+  "loadMarkedPhonesFailed": "Gagal memuat telepon yang ditandai: {error}",
+  "loadPluginsFailed": "Gagal memuat plugin: {error}",
+  "loadSettingsFailed": "Gagal memuat pengaturan: {error}",
+  "loadSmsRulesFailed": "Gagal memuat aturan SMS: {error}",
+  "loadStatusFailedMessage": "Gagal memuat status",
+  "loadSubscriptionsFailed": "Gagal memuat langganan: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "Pinjaman",
+  "localCounterFilter": "Filter Penghitung Lokal",
+  "localCounterFilterSubtitle": "Secara otomatis memfilter panggilan spam berdasarkan frekuensi panggilan",
+  "localCountFilter": "Filter Jumlah Lokal",
+  "localCountFilterDescription": "Mencegat panggilan yang sering berdasarkan jumlah nomor lokal",
+  "localCountFilterExplanationContent": "Filter jumlah lokal menganalisis catatan riwayat panggilan untuk secara otomatis mengidentifikasi dan memblokir panggilan spam yang sering terjadi.",
+  "localCountFilterExplanationTitle": "Penjelasan Filter Jumlah Lokal",
+  "localCountFilterHowItWorksPoint1": "• Tentukan apakah akan memblokir berdasarkan nilai jumlah nomor",
+  "localCountFilterHowItWorksPoint2": "• Ketika jumlah nomor melebihi ambang batas yang ditetapkan, Anda dapat memilih untuk memblokirnya secara otomatis",
+  "localCountFilterHowItWorksPoint3": "• Anda dapat secara selektif mengizinkan nomor yang tidak melebihi ambang batas",
+  "localCountFilterHowItWorksPoint4": "• Anda dapat memilih apakah akan mencatat semua log kueri",
+  "localCountFiltering": "Penyaringan Jumlah Lokal",
+  "localCountFilteringExplanation": "• Penyaringan Jumlah Lokal: Aturan penyaringan berdasarkan jumlah penandaan lokal",
+  "localCountFilterSettings": "Pengaturan Filter Jumlah Lokal",
+  "localCountFilterUseCases": "Filter ini sangat cocok untuk mengidentifikasi panggilan spam yang didial otomatis dan panggilan pemasaran.",
+  "localFilterSettings": "Pengaturan Filter Lokal",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "Notifikasi lokal dinonaktifkan",
+  "localNotificationEnabled": "Notifikasi lokal diaktifkan",
+  "localServices": "Layanan Lokal",
+  "locationColor": "Warna Lokasi",
+  "locationFontSize": "Ukuran Font Lokasi",
+  "locationIconColor": "Warna Ikon Lokasi",
+  "locationPosition": "Posisi Lokasi",
+  "logAllLocalQueries": "Catat Semua Kueri Lokal",
+  "logAllLocalQueriesDescription": "Catat log untuk semua kueri nomor lokal",
+  "logAllRemoteQueries": "Catat Semua Kueri Jarak Jauh",
+  "logAllRemoteQueriesDescription": "Catat semua operasi kueri nomor jarak jauh",
+  "manage": "Kelola Kontak",
+  "manageFavoriteContacts": "Kelola Kontak Favorit",
+  "manageFilterRules": "Kelola Aturan Filter",
+  "manageFilterRulesDescription": "Tambahkan, edit, atau hapus aturan filter SMS",
+  "markCounts": "Jumlah Tanda",
+  "markCount": "Jumlah Tanda",
+  "markedByCount": "Ditandai oleh {count}",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Daftar Nomor Telepon yang Ditandai",
+  "markExchange": "Pertukaran Tanda",
+  "markPhone": "Tandai Nomor Telepon",
+  "markPhoneFailed": "Gagal menandai nomor telepon: {error}",
+  "markPhoneManagementTitle": "Manajemen Penandaan Telepon",
+  "markPhoneSuccess": "Nomor telepon berhasil ditandai",
+  "matchFailedMessage": "Pencocokan gagal.",
+  "matchNumbersWithSpecialCharacters": "mencocokkan format nomor tertentu",
+  "matchNumbersWithSpecialCharactersTitle": "Cocokkan nomor dengan karakter khusus:",
+  "matchSpecificDigitPatterns": "mencocokkan format XXX-XXXX-XXXX",
+  "matchSpecificDigitPatternsTitle": "Cocokkan pola digit tertentu:",
+  "matchSuccessfulMessage": "Pencocokan berhasil!",
+  "medical": "Medis",
+  "membershipPrivileges": "Hak Keanggotaan",
+  "migrationTool": "Alat Migrasi",
+  "minutes": "menit",
+  "month": "Bulan",
+  "monthly": "Bulanan",
+  "monthlyCallCount": "Panggilan Bulanan",
+  "monthlyMembership": "Keanggotaan Bulanan",
+  "monthlyMembershipDescription": "Buka semua fitur premium, perpanjangan otomatis bulanan",
+  "monthlyTotal": "Total Bulanan",
+  "moreOptions": "Opsi Lainnya",
+  "name": "Nama",
+  "nameAndPhoneNumberCannotBeEmpty": "Nama dan nomor telepon tidak boleh kosong",
+  "nameColor": "Warna Nama",
+  "nameFontSize": "Ukuran Font Nama",
+  "namePosition": "Posisi Nama",
+  "nameUnknown": "Nama: Tidak Diketahui",
+  "nextStep": "Selanjutnya",
+  "noAction": "Tidak Ada Tindakan",
+  "noActionRules": "Aturan Tanpa Tindakan",
+  "noActiveCloudSyncServiceMessage": "Tidak ada layanan sinkronisasi cloud yang aktif",
+  "noCallRecords": "Tidak ada catatan panggilan",
+  "noContactsYet": "Belum ada kontak",
+  "noData": "Tidak Ada Data",
+  "noDevicesRegisteredMessage": "Tidak ada perangkat yang terdaftar",
+  "noLabels": "Belum ada label",
+  "noMarkedPhones": "Tidak ada nomor telepon yang ditandai",
+  "noMatchingContactsFound": "Tidak ada kontak yang cocok ditemukan",
+  "noMatchingNumbersFound": "Tidak ada nomor yang cocok ditemukan",
+  "noMatchingRules": "Tidak ada {ruleType} yang cocok",
+  "none": "Tidak Ada",
+  "noneServiceType": "Tidak Ada",
+  "noPlugins": "Belum ada plugin",
+  "noRules": "Belum ada {ruleType}",
+  "noRulesPrompt": "Tidak ada aturan yang ditemukan, silakan tambahkan aturan",
+  "noRulesToExport": "Tidak ada aturan untuk diekspor",
+  "noSmsFilterRulesYet": "Belum ada aturan filter SMS",
+  "noSmsRulesYet": "Belum ada aturan SMS",
+  "noSubscriptions": "Tidak ada langganan",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "Tidak Diberikan",
+  "notificationModeDescription": "Tampilkan informasi penelepon di bilah notifikasi",
+  "notificationPermission": "Izin Notifikasi",
+  "notificationPermissionDescription": "Digunakan untuk menampilkan notifikasi panggilan dan pesan masuk.",
+  "notifications": "Notifikasi",
+  "notificationSettings": "Pengaturan Notifikasi",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "Belum Terverifikasi",
+  "noValidSmsRulesFoundInFile": "Tidak ada aturan SMS yang valid ditemukan dalam file",
+  "number": "Nomor",
+  "numberColor": "Warna Nomor",
+  "numberFontSize": "Ukuran Font Nomor",
+  "numberPosition": "Posisi Nomor",
+  "numberSearch": "Pencarian Nomor",
+  "numberTypeColor": "Warna Tipe Nomor",
+  "numberTypeFontSize": "Ukuran Font Tipe Nomor",
+  "numberTypePosition": "Posisi Tipe Nomor",
+  "okButton": "OK",
+  "onboardingCompleteDescription": "Manajer keamanan panggilan Anda siap, mulailah menikmati pengalaman panggilan yang aman!",
+  "onboardingLanguageDescription": "Pilih bahasa pilihan Anda untuk pengalaman terbaik.",
+  "onboardingPermissionsDescription": "Untuk memberikan layanan penuh, kami memerlukan izin berikut:",
+  "onboardingPowerfulSpamBlockingDescription": "Blokir panggilan dan pesan spam dalam satu klik, sesuaikan aturan pemblokiran, dan berikan Anda lingkungan yang tenang.",
+  "onboardingSmartCallerIdDescription": "Identifikasi panggilan tak dikenal secara otomatis, tandai nomor mencurigakan, dan lindungi keamanan panggilan Anda.",
+  "onboardingWelcomeDescription": "Pakar manajemen panggilan Anda, menyediakan layanan identifikasi dan pemblokiran panggilan yang komprehensif.",
+  "oneDriveAuthDescription": "Otorisasi menggunakan ID dan kunci klien OneDrive yang dikonfigurasi sistem",
+  "oneDriveConfigTitle": "Konfigurasi OneDrive",
+  "onlineCallerIdSubscription": "Langganan ID Penelepon Online",
+  "openAppSettings": "Buka pengaturan aplikasi",
+  "openAppSettingsFailed": "Gagal membuka pengaturan aplikasi: {error}",
+  "operationFailed": "Operasi gagal: {error}",
+  "operationFailure": "Operasi gagal",
+  "operationSuccess": "Operasi berhasil",
+  "other": "Lainnya",
+  "ourOtherApps": "Aplikasi Kami Lainnya",
+  "overlayMode": "Jendela Mengambang",
+  "overlayModeDescription": "Tampilkan informasi penelepon dalam jendela mengambang",
+  "overlayPermission": "Izin Mengambang",
+  "overlayPermissionDescription": "Digunakan untuk menampilkan overlay panggilan masuk.",
+  "overview": "Tinjauan",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "Kata Sandi",
+  "passwordCannotBeEmpty": "Kata sandi tidak boleh kosong",
+  "passwordLabel": "Kata Sandi",
+  "passwordsDoNotMatch": "Kata sandi tidak cocok",
+  "pattern": "Pola",
+  "pendingSync": "Sinkronisasi Tertunda",
+  "periodMonth": "Bulan",
+  "periodWeek": "Minggu",
+  "periodYear": "Tahun",
+  "permissionDenied": "Permintaan izin ditolak",
+  "permissionGranted": "Izin diberikan",
+  "permissionManagement": "Manajemen Izin",
+  "phoneCallsTab": "Telepon",
+  "phoneNumber": "Nomor Telepon",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "Nomor telepon tidak boleh kosong",
+  "phoneNumberLabel": "Nomor Telepon",
+  "phoneNumberTypeFixedLine": "Jalur tetap",
+  "phoneNumberTypeFixedLineOrMobile": "Jalur tetap atau seluler",
+  "phoneNumberTypeMobile": "Seluler",
+  "phoneNumberTypePager": "Pager",
+  "phoneNumberTypePersonalNumber": "Nomor pribadi",
+  "phoneNumberTypePremiumRate": "Tarif premium",
+  "phoneNumberTypeSharedCost": "Biaya bersama",
+  "phoneNumberTypeTollFree": "Bebas pulsa",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "Tidak dikenal",
+  "phoneNumberTypeVoicemail": "Pesan suara",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "Izin Telepon",
+  "phonePermissionDescription": "Digunakan untuk mengidentifikasi dan memblokir panggilan masuk.",
+  "phoneRule": "Aturan Telepon",
+  "phoneRuleManagement": "Manajemen Aturan Telepon",
+  "phoneRuleSubscription": "Langganan Aturan Telepon",
+  "phoneSubscription": "Langganan Telepon",
+  "phoneSubscriptionRulesDescription": "Berlangganan daftar aturan telepon melalui URL untuk memperbarui aturan daftar putih dan daftar hitam secara otomatis. Mendukung file aturan format JSON.",
+  "pleaseSelectLabelAndEnterValidPhone": "Silakan pilih label dan masukkan nomor telepon yang valid",
+  "pluginAddedSuccess": "Plugin \"{name}\" berhasil ditambahkan",
+  "pluginDeleted": "Plugin dihapus",
+  "pluginLatestVersion": "Plugin sudah versi terbaru",
+  "pluginListExportSuccess": "Daftar plugin berhasil diekspor",
+  "pluginManagement": "Manajemen Plugin",
+  "pluginManagementSubtitle": "Kelola dan konfigurasikan plugin pihak ketiga",
+  "pluginName": "Nama Plugin",
+  "pluginsDeleted": "{count} plugin berhasil dihapus.",
+  "pluginService": "Layanan Plugin",
+  "pluginTestPageTitle": "Uji Plugin",
+  "pluginUpdateSuccess": "Plugin berhasil diperbarui",
+  "pluginUrl": "URL Plugin",
+  "pluginVersion": "Versi Plugin",
+  "political": "Politik",
+  "powerfulSpamBlocking": "Pemblokiran Spam yang Ampuh",
+  "previousStep": "Sebelumnya",
+  "prioritizeRemoteAction": "Prioritaskan Pengaturan Tindakan Jarak Jauh",
+  "prioritizeRemoteActionDescription": "Prioritaskan pengaturan tindakan dari database jarak jauh",
+  "processing": "Memproses...",
+  "processingOperation": "Memproses...",
+  "purchase": "Beli",
+  "quarterlyMembership": "Keanggotaan Triwulanan",
+  "quarterlyMembershipDescription": "Buka semua fitur premium, perpanjangan otomatis triwulanan",
+  "ready": "Siap!",
+  "recruiter": "Perekrut",
+  "refresh": "Segarkan",
+  "refreshPermissionStatus": "Segarkan status izin",
+  "refreshTooltip": "Segarkan",
+  "regexErrorMessage": "Kesalahan regex: {error}",
+  "regexPattern": "Pola Regex",
+  "regexPatternExplanation": "Penjelasan Pola Regex",
+  "regexPatternExplanationButton": "Penjelasan Pola Regex",
+  "regexPatternLabel": "Pola Regex",
+  "regexPatternsForPhoneNumberMatching": "Pola Regex untuk Pencocokan Nomor Telepon",
+  "regexRule": "Aturan Regex",
+  "regexRuleAddFailed": "Gagal menambahkan aturan regex: {error}",
+  "regexRuleAddSuccess": "Aturan regex berhasil ditambahkan",
+  "regexRuleManagement": "Manajemen Aturan Regex",
+  "regexRuleNamePatternRequired": "Nama aturan dan pola regex tidak boleh kosong",
+  "regexRules": "Aturan Regex",
+  "regexTesterTitle": "Penguji Regex",
+  "region": "Wilayah",
+  "registeredDevicesTitle": "Perangkat Terdaftar",
+  "rejectAllCalls": "Tolak Semua Panggilan",
+  "rejectAllCallsDescription": "Saat diaktifkan, semua panggilan akan ditolak dengan prioritas tertinggi",
+  "rejectAllNumbers": "Tolak Semua Nomor",
+  "rejectAllNumbersDesc": "Tolak semua panggilan masuk saat diaktifkan",
+  "rejectExceededNumbers": "Tolak Nomor yang Melebihi Batas",
+  "rejectExceededNumbersDescription": "Tolak nomor secara otomatis yang melebihi ambang batas jumlah",
+  "remoteFilterSettings": "Pengaturan Filter Jarak Jauh",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "Pengaturan Filter Nomor Jarak Jauh",
+  "remoteNumberFilter": "Filter Nomor Jarak Jauh",
+  "remoteNumberFilterDescription": "Intersep panggilan yang mengganggu berdasarkan informasi database jarak jauh",
+  "remoteNumberFiltering": "Penyaringan Nomor Jarak Jauh",
+  "remoteNumberFilteringExplanation": "• Penyaringan Nomor Jarak Jauh: Aturan penyaringan berdasarkan informasi database jarak jauh",
+  "remoteNumberFilterSubtitle": "Identifikasi panggilan spam menggunakan database cloud dan laporan komunitas",
+  "removeAdsDescription": "Hapus semua iklan secara permanen di aplikasi untuk pengalaman yang lebih lancar",
+  "removeAdsTitle": "Hapus Iklan",
+  "removedFromFavorites": "Dihapus dari kontak favorit",
+  "removeFromFavorites": "Hapus dari Favorit",
+  "renameDeviceTitle": "Ubah Nama Perangkat",
+  "requestAllPermissions": "Minta Semua Izin",
+  "requestPermission": "Minta Izin",
+  "requestPermissionFailed": "Gagal meminta izin: {error}",
+  "requiredMarks": "{count} Tanda",
+  "reset": "Atur Ulang",
+  "restore": "Pulihkan",
+  "restoreApplicationSettingsFromBackup": "Pulihkan Pengaturan Aplikasi dari Cadangan",
+  "restoreFromCloud": "Pulihkan dari Cloud",
+  "restoreFromCloudFailed": "Gagal memulihkan dari cloud: {error}",
+  "restoreFromCloudSuccess": "Berhasil dipulihkan dari cloud",
+  "restorePurchases": "Pulihkan Pembelian",
+  "restoreSettings": "Pulihkan Pengaturan",
+  "restoreSettingsConfirmation": "Ini akan mengganti semua pengaturan Anda saat ini. Apakah Anda yakin ingin melanjutkan?",
+  "retry": "Coba Lagi",
+  "ridesharing": "Berbagi Tumpangan",
+  "risk": "Risiko",
+  "robocall": "Robocall",
+  "ruleAction": "Tindakan Aturan",
+  "ruleAddedSuccess": "Aturan berhasil ditambahkan",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "Aturan berhasil ditambahkan",
+  "ruleDeleteConfirmContent": "Apakah Anda yakin ingin menghapus {ruleType} ini?",
+  "ruleDeleteConfirmTitle": "Hapus Aturan",
+  "ruleDeletedSuccessfully": "Aturan berhasil dihapus",
+  "ruleDeleteFailed": "Gagal menghapus aturan: {error}",
+  "ruleDeleteSuccess": "Aturan berhasil dihapus",
+  "ruleDisabledSuccessfully": "Aturan berhasil dinonaktifkan",
+  "ruleEnabledSuccessfully": "Aturan berhasil diaktifkan",
+  "ruleLoadFailed": "Gagal memuat aturan: {error}",
+  "ruleManagement": "Manajemen Aturan",
+  "ruleName": "Nama Aturan",
+  "ruleNameAndContentRegexCannotBeEmpty": "Nama aturan dan regex konten tidak boleh kosong",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "Nama aturan dan nomor telepon tidak boleh kosong",
+  "ruleNameHint": "misalnya, Keluarga, Teman, dll.",
+  "ruleNameLabel": "Nama Aturan",
+  "ruleNameRequired": "Nama aturan dan nomor telepon tidak boleh kosong",
+  "ruleNotExist": "Aturan tidak ada atau telah dihapus",
+  "ruleNotFound": "Aturan tidak ditemukan: {error}",
+  "ruleSavedSuccessMessage": "Aturan berhasil disimpan!",
+  "rulesExportedSuccessfully": "Aturan berhasil diekspor",
+  "rulesExportedTo": "Aturan diekspor ke: {path}",
+  "rulesImported": "Aturan berhasil diimpor",
+  "rulesImportedSuccessfully": "{count} aturan berhasil diimpor",
+  "ruleStatusChanged": "Aturan {status} berhasil",
+  "ruleToggleFailed": "Operasi gagal: {error}",
+  "ruleToggleSuccess": "Aturan {status} berhasil",
+  "ruleUpdateFailed": "Gagal memperbarui aturan: {error}",
+  "ruleUpdateSuccess": "Aturan berhasil diperbarui",
+  "ruleVerification": "Verifikasi Aturan",
+  "save": "Simpan",
+  "saveButton": "Simpan",
+  "saveButtonText": "Simpan",
+  "saveFailed": "Gagal menyimpan: {error}",
+  "saveSettings": "Simpan Pengaturan",
+  "scamsLikely": "Kemungkinan Penipuan",
+  "search": "Cari",
+  "searchContacts": "Cari Kontak",
+  "searchError": "Kesalahan pencarian: {error}",
+  "searchHint": "Cari...",
+  "securityMessage": "Jangan percayai panggilan telepon apa pun. Selalu verifikasi nomor layanan pelanggan secara mandiri. Jangan pernah membagikan kata sandi, kode verifikasi, nomor kartu, atau informasi pribadi.",
+  "selectActionWhenBlockingCalls": "Pilih tindakan saat memblokir panggilan",
+  "selectActionWhenRuleMatches": "Pilih tindakan saat aturan cocok",
+  "selectAll": "Pilih Semua",
+  "selectCountry": "Pilih Negara",
+  "selectedItems": "{count} item terpilih",
+  "selectedLabel": "Terpilih:",
+  "selectExportFormat": "Pilih Format Ekspor",
+  "selectLabel": "Pilih Label",
+  "selectLabelAndEnterPhoneNumber": "Silakan pilih label dan masukkan nomor telepon yang valid",
+  "selectLanguage": "Pilih Bahasa",
+  "selectMultiple": "Pilih Banyak",
+  "selectSimCard": "Pilih Kartu SIM",
+  "selectTags": "Pilih Tag",
+  "selectTrustedDataSource": "Silakan pilih sumber data tepercaya",
+  "selectYourLanguage": "Pilih Bahasa Anda",
+  "sender": "Pengirim",
+  "senderRegexOptional": "Regex Pengirim (Opsional)",
+  "serverAddressLabel": "Alamat Server",
+  "serviceTypeContact": "Langganan Kontak",
+  "serviceTypeLabel": "Jenis Layanan",
+  "serviceTypePhone": "Langganan Telepon",
+  "serviceTypePlugin": "Pembaruan Plugin",
+  "serviceTypeSms": "Langganan SMS",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "Atur Kata Sandi Enkripsi",
+  "settings": "Pengaturan",
+  "settingsBackedUpTo": "Pengaturan dicadangkan ke: {path}",
+  "settingsRestoredSuccessfully": "Pengaturan berhasil dipulihkan. Harap mulai ulang aplikasi agar perubahan berlaku.",
+  "settingsSaved": "Pengaturan disimpan",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "Gagal menyimpan pengaturan: {error}",
+  "settingsTab": "Pengaturan",
+  "settingsTitle": "Pengaturan",
+  "setup": "Pengaturan Awal",
+  "silence": "Diam",
+  "silenceAndNoAnswer": "Diam dan Tanpa Jawaban",
+  "silenceNoAnswer": "Diam Tanpa Jawaban",
+  "silentCallVoiceClone": "Klon Suara Panggilan Senyap",
+  "silentRules": "Aturan Senyap",
+  "simCard": "Kartu SIM {simNumber}",
+  "simCardColor": "Warna Kartu SIM",
+  "simCardConfigurationExplanation": "• Konfigurasi Kartu SIM: Atur aturan pemfilteran independen untuk setiap kartu SIM",
+  "simCardFilterRules": "Aturan Filter Kartu SIM",
+  "simCardFilterRulesDescription": "Atur aturan pemfilteran yang berbeda berdasarkan slot kartu SIM",
+  "simCardFontSize": "Ukuran Font Kartu SIM",
+  "simCardPosition": "Posisi Kartu SIM",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "Aturan slot SIM memungkinkan Anda mengonfigurasi aturan pemfilteran independen untuk setiap slot SIM.",
+  "simRuleInstructionsTitle": "Aturan Slot SIM",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "Konfigurasikan aturan pemfilteran independen untuk setiap kartu SIM:",
+  "simSlotFilterSettingsTitle": "Pengaturan Filter Slot SIM {slotNumber}",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "Manajemen Slot SIM",
+  "simSlotPosition": "Posisi Slot SIM {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• Aturan Slot SIM: Strategi pemfilteran independen per SIM",
+  "simSlotRuleListTitle": "Daftar Aturan Slot SIM",
+  "simSlotRuleManagement": "Aturan Slot SIM",
+  "simSlotTitle": "Slot SIM {slotNumber}",
+  "skip": "Lewati",
+  "smartCallerId": "Identifikasi Pemanggil Cerdas",
+  "sms": "SMS",
+  "smsFilterDescription": "Pemfilteran SMS membantu Anda secara otomatis memfilter pesan spam dan menjaga daftar pesan Anda tetap bersih. Anda dapat mengatur aturan filter dan metode notifikasi.",
+  "smsFilterDisabled": "Pemfilteran SMS dinonaktifkan",
+  "smsFilterEnabled": "Pemfilteran SMS diaktifkan",
+  "smsFilterRuleAddedSuccessfully": "Aturan filter SMS berhasil ditambahkan",
+  "smsFilterRules": "Aturan Filter SMS",
+  "smsFilterSettings": "Pengaturan Filter SMS",
+  "smsManagement": "Manajemen SMS",
+  "smsPermission": "Izin SMS",
+  "smsPermissionDescription": "Digunakan untuk memfilter pesan spam.",
+  "smsRuleAddedSuccessfully": "Aturan SMS berhasil ditambahkan",
+  "smsRuleDeletedSuccessfully": "Aturan SMS berhasil dihapus",
+  "smsRuleLoadFailed": "Gagal memuat aturan SMS: {error}",
+  "smsRuleManagement": "Manajemen Aturan SMS",
+  "smsRuleSubscription": "Langganan Aturan SMS",
+  "smsSubscription": "Langganan SMS",
+  "smsSubscriptionAddedSuccessfully": "Langganan SMS berhasil ditambahkan",
+  "smsSubscriptionRulesDescription": "Berlangganan daftar aturan SMS melalui URL, mendukung pencocokan ekspresi reguler. Anda dapat mengatur tindakan blokir atau izinkan.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "Beberapa permintaan izin ditolak",
+  "spamLikely": "Kemungkinan Spam",
+  "startColor": "Warna Mulai",
+  "startDate": "Tanggal Mulai",
+  "startUsing": "Mulai Menggunakan",
+  "statAnswered": "Dijawab",
+  "statBlocked": "Diblokir",
+  "statistics": "Statistik",
+  "statisticsPageTitle": "Analisis Data",
+  "stirColor": "Warna STIR",
+  "stirFontSize": "Ukuran Font STIR",
+  "stirPosition": "Posisi STIR",
+  "storagePermission": "Izin Penyimpanan",
+  "storagePermissionDescription": "Digunakan untuk menyimpan pengaturan dan aturan.",
+  "subscribe": "Berlangganan",
+  "subscriptionAddSuccess": "Langganan \"{name}\" berhasil ditambahkan",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "Apakah Anda yakin ingin menghapus langganan ini?",
+  "subscriptionDeleteConfirmTitle": "Hapus Langganan",
+  "subscriptionDeleted": "Langganan dihapus",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "Gagal menghapus langganan: {error}",
+  "subscriptionDeleteSuccess": "Langganan dihapus",
+  "subscriptionLoadFailed": "Gagal memuat langganan: {error}",
+  "subscriptionName": "Nama Langganan",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "Nama dan URL langganan tidak boleh kosong",
+  "subscriptionNameHint": "Masukkan nama langganan",
+  "subscriptionStatusChangeFailed": "Gagal mengubah status langganan: {error}",
+  "subscriptionUpdateFailed": "Gagal memperbarui langganan: {error}",
+  "subscriptionUpdateSuccess": "Langganan berhasil diperbarui",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "URL Langganan",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "Masukkan URL langganan",
+  "successfullyImportedRules": "Berhasil mengimpor {count} aturan",
+  "supportSync": "Dukung Sinkronisasi",
+  "survey": "Survei",
+  "syncDevicesButton": "Sinkronkan Perangkat",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "Sinkronisasi gagal",
+  "syncFailedMessage": "Sinkronisasi gagal",
+  "syncFolderNameLabel": "Nama Folder Sinkronisasi",
+  "synchronized": "Tersinkronisasi",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "Menyinkronkan...",
+  "syncNow": "Sinkronkan Sekarang",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "Sinkronisasi Sekarang",
+  "syncStatusTitle": "Status Sinkronisasi",
+  "syncStatusUpdatedMessage": "Status sinkronisasi diperbarui",
+  "syncSuccessMessage": "Sinkronisasi berhasil",
+  "syncWithCloudStorage": "Sinkronisasi dengan Penyimpanan Cloud",
+  "systemFeatures": "Fitur Sistem:",
+  "systemSettingsTitle": "Pengaturan Sistem",
+  "tabAll": "Semua",
+  "tabAnswered": "Dijawab",
+  "tabBlocked": "Diblokir",
+  "tabMissed": "Tidak Terjawab",
+  "tabOutgoing": "Keluar",
+  "tagLabel": "Tag: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "Ringkasan",
+  "telecommunication": "Telekomunikasi",
+  "telegram": "Telegram",
+  "telemarketing": "Telemarketing",
+  "testButton": "UJI",
+  "testConnectionButton": "Uji Koneksi",
+  "textColorsSetting": "Warna Teks & Label",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "Aplikasi ini adalah alat ID penelepon yang kuat yang memungkinkan Anda mengidentifikasi dan memblokir panggilan yang tidak diinginkan.",
+  "thisWeek": "Minggu Ini",
+  "timeInterceptor": "Pencegat Waktu",
+  "timeInterceptorDescription": "Secara otomatis mencegat/mengizinkan potensi panggilan berdasarkan frekuensi panggilan",
+  "timeInterceptorExplanation": "• Pencegat Waktu: Cegat/izinkan panggilan berulang dalam waktu singkat",
+  "timeInterceptorExplanationContent": "Fitur pencegatan frekuensi panggilan menganalisis frekuensi panggilan untuk secara otomatis mengidentifikasi dan mencegat/mengizinkan panggilan spam yang sering.",
+  "timeInterceptorExplanationTitle": "Penjelasan Pencegatan Frekuensi Panggilan",
+  "timeInterceptorSettingsTitle": "Pengaturan Pencegatan Frekuensi Panggilan",
+  "timeWindowDescription": "Atur ukuran jendela waktu untuk mengizinkan panggilan berulang. Panggilan dari nomor yang sama dalam jendela ini akan diizinkan",
+  "timeWindowLabel": "Jendela Waktu Pencegatan (menit): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "Hari Ini",
+  "total": "Total",
+  "totalBlocked": "Total Diblokir",
+  "transferDataBetweenDevicesOrPlatforms": "Transfer data antar perangkat atau platform",
+  "travelTicketing": "Tiket Perjalanan",
+  "tutorial": "Tutorial",
+  "type": "Tipe",
+  "unassignedSIMCard": "Kartu SIM Tidak Ditugaskan",
+  "unknown": "Tidak Diketahui",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "Tag: Tidak Diketahui",
+  "unregisterButton": "Batalkan Pendaftaran",
+  "unregisterDeviceConfirmationMessage": "Apakah Anda yakin ingin membatalkan pendaftaran {deviceName}?",
+  "unregisterDeviceTitle": "Batalkan Pendaftaran Perangkat",
+  "unsupportedFileFormat": "Format file tidak didukung",
+  "update": "Perbarui",
+  "updateAllNow": "Perbarui Semua Sekarang",
+  "updateContactFailed": "Gagal memperbarui kontak: {error}",
+  "updateFavoriteStatus": "Perbarui Status Favorit",
+  "updateInterval": "Interval Pembaruan",
+  "updateNow": "Perbarui Sekarang",
+  "updatePlugin": "Perbarui Plugin",
+  "updatePluginFailed": "Gagal memperbarui plugin: {error}",
+  "updateRuleFailed": "Gagal memperbarui aturan: {error}",
+  "updateSubscriptionFailed": "Gagal memperbarui langganan: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} berhasil diperbarui ({count} aturan)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• Identifikasi panggilan spam dial-ulang otomatis",
+  "useCasesPoint2": "• Cegat panggilan pemasaran yang menghubungi berkali-kali dalam waktu singkat",
+  "useCasesPoint3": "• Cegah bom telepon dan pelecehan",
+  "useCasesTitle": "Kasus Penggunaan:",
+  "useGlobalSettings": "Gunakan Pengaturan Global",
+  "usernameLabel": "Nama Pengguna",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "Gunakan sintaks regex standar untuk mendefinisikan pola. Contoh:",
+  "verificationFailedText": "Gagal",
+  "verifiedText": "Terverifikasi",
+  "verify": "Verifikasi",
+  "version": "Versi: {version}",
+  "vipExchangeDescription": "Tukar keanggotaan VIP dengan jumlah penandaan nomor telepon",
+  "vipExchangeTitle": "Tukar VIP Penandaan",
+  "watchAd": "Tonton Iklan",
+  "watchAdForTemp": "Tonton Iklan untuk Hak Sementara",
+  "watchAdForTempDescription": "Tonton iklan singkat untuk sementara membuka beberapa fitur premium",
+  "webDAVConfigTitle": "Konfigurasi WebDAV",
+  "week": "Minggu",
+  "welcome": "Selamat datang",
+  "whitelist": "Daftar Putih",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "Lebar",
+  "wildcardMatchingDescription": "Gunakan '.' untuk mencocokkan karakter apa pun (misalnya, '123.456' cocok dengan 123-456)",
+  "wildcardMatchingTitle": "Pencocokan wildcard:",
+  "wildcardSupportForFlexibleFiltering": "Dukungan Wildcard untuk Penyaringan Fleksibel",
+  "windowSizeSetting": "Ukuran Jendela",
+  "year": "Tahun",
+  "noSimCardsDetected": "Tidak ada kartu SIM terdeteksi",
+  "filterManagementDescription": "Atur Filter Panggilan",
+  "callerIdCustomizationSubtitle": "Sesuaikan Tata Letak ID Penelepon",
+  "fraudAlerSettingTitle": "Pengaturan Peringatan Penipuan",
+  "fraudAlerSettingSubtitle": "Untuk Mengatur Peringatan Penipuan",
+  "enableFraudAlert": "Aktifkan Peringatan Penipuan",
+  "enableFraudAlertDescription": "Peringatan untuk panggilan penipuan yang dicurigai",
+  "enableVibration": "Aktifkan Getaran",
+  "enableVibrationDescription": "Bergetar ketika panggilan dicurigai sebagai panggilan penipuan",
+  "notificationSettingsTitle": "Pengaturan Notifikasi",
+  "useLocalNotification": "Gunakan Notifikasi Lokal",
+  "useLocalNotificationDescription": "Aktifkan notifikasi lokal untuk panggilan masuk",
+  "cancelLocalNotification": "Tutup Notifikasi Lokal",
+  "useStirNotification": "Gunakan Notifikasi dari STIR",
+  "cancelLocalNotificationDescription": "Tutup Notifikasi Lokal Secara Otomatis",
+  "callerIdSettingsTitle": "Pengaturan ID Penelepon",
+  "callerIdSettingsSubtitle": "Untuk Mengatur Mode Notifikasi & Tampilan Panggilan Masuk",
+  "purchaseTitle": "Pembelian",
+  "purchaseSubtitle": "Untuk Membeli Layanan",
+  "callerIdNotificationTitle": "Info Panggilan Masuk",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "Panggilan Diblokir",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "Panggilan diblokir dari {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "Terverifikasi",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "Tidak Terverifikasi",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "Verifikasi Gagal",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "Status Verifikasi Tidak Diketahui",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "Verifikasi STIR/SHAKEN",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} untuk nomor {phoneNumber}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "Pengaturan Pesan Keamanan Bergulir",
+  "messageColor": "Warna Pesan",
+  "messageFontSize": "Ukuran Font Pesan",
+  "messagePosition": "Posisi Pesan",
+  "containerWidth": "Lebar Kontainer",
+  "scrollSpeed": "Kecepatan Gulir",
+  "enableSecurityMessage": "Aktifkan Pesan Keamanan",
+  "fraudAlertTitle": "Peringatan Penipuan",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "Tidak ada data jenis yang diblokir tersedia",
+  "importEntity": "Impor {entityTypeName}",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} berhasil diimpor, total {count} rekaman diimpor",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "Gagal mengimpor {entityTypeName}: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "Ekspor {entityTypeName}",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} berhasil diekspor",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "Gagal mengekspor {entityTypeName}: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "Layanan Sinkronisasi Cloud",
+  "membershipCenter": "Pusat Keanggotaan",
+  "redeemVipWithMarks": "Tukarkan VIP dengan Tanda",
+  "currentMarkCount": "Jumlah Tanda Saat Ini",
+  "markMoreNumbersForMore": "Tandai lebih banyak nomor untuk mendapatkan lebih banyak tanda",
+  "noAds": "Tanpa Iklan",
+  "cloudBackup": "Cadangan Cloud",
+  "callerIdEnhancement": "Peningkatan ID Penelepon",
+  "voiceRecognition": "Pengenalan Suara",
+  "feature": "Fitur",
+  "normalUser": "Pengguna Biasa",
+  "vipUser": "Pengguna VIP",
+  "temporaryVip": "VIP Sementara",
+  "removeAds": "Hapus Iklan",
+  "settingsBackup": "Cadangan Pengaturan ",
+  "allServicesStatusTitle": "Status Layanan Saat Ini",
+  "allServicesStatusSubtitle": "Status Saat Ini dari Setiap Layanan Cloud",
+  "redirect": "Alihkan",
+  "notify": "Beri tahu",
+  "log": "Log",
+  "custom": "Kustom",
+  "allowActionDescription": "Panggilan akan diizinkan, bahkan jika nomor ada di daftar blokir.",
+  "blockActionDescription": "Panggilan akan diblokir dan ditampilkan di log panggilan.",
+  "silenceActionDescription": "Panggilan akan dibisukan tetapi ditampilkan di log panggilan.",
+  "noneActionDescription": "Tidak ada tindakan khusus yang akan diambil untuk panggilan tersebut.",
+  "redirectActionDescription": "Alihkan panggilan ke nomor yang ditentukan.",
+  "labelActionDescription": "Tambahkan label ke panggilan agar mudah diidentifikasi.",
+  "notifyActionDescription": "Kirim notifikasi saat panggilan diterima.",
+  "logActionDescription": "Catat informasi panggilan tanpa mengambil tindakan lain.",
+  "customActionDescription": "Lakukan tindakan khusus.",
+  "synced": "Tersinkronisasi",
+  "needVipAccess": "Anda memerlukan akses VIP untuk menggunakan fitur ini",
+  "importExportDescription": "Impor atau ekspor data {entityTypeName}",
+  "importExportTitle": "Impor/Ekspor",
+  "noPhoneRules": "Tidak ada aturan telepon yang ditemukan",
+  "noRegexRules": "Tidak ada aturan regex yang ditemukan",
+  "noAllowedBlockedRules": "Tidak ada aturan yang diizinkan/diblokir yang ditemukan",
+  "importExport": "Impor/Ekspor",
+  "filterByAction": "Filter berdasarkan Tindakan",
+  "upgradeToVip": "Tingkatkan ke VIP",
+  "batteryOptimizationPermission": "Optimasi Baterai",
+  "batteryOptimizationPermissionDescription": "Izinkan aplikasi berjalan di latar belakang untuk menyediakan layanan seperti ID penelepon.",
+  "permissionTitle": "Izin Khusus",
+  "permissionSubtitle": "Kelola izin overlay dan optimasi baterai",
+  "themeSettingsTitle": "Pengaturan Tema",
+  "themeSettingsSubtitle": "Pilih tema favorit Anda",
+  "databaseSyncTitle": "Sinkronisasi Database",
+  "countrySyncSettingsTitle": "Pengaturan Sinkronisasi Database Berbasis Negara",
+  "countrySyncSettingsSubtitle": "Pilih negara untuk sinkronisasi data",
+  "countryDataDisclaimer": "Harap dicatat: Basis data mungkin tidak menyertakan data untuk semua negara atau wilayah tertentu.",
+  "editSubscription": "Edit Langganan",
+  "searchByNameOrPhoneNumber": "Cari Berdasarkan Nama atau Nomor Telepon",
+  "allowedBlockedRulesInfo": "Aturan yang diizinkan/diblokir digunakan untuk mencocokkan panggilan ke nomor telepon tertentu, yang memiliki prioritas tertinggi.",
+  "searchPhoneRulesHint": "Cari aturan telepon",
+  "phoneRulesInfo": "Aturan telepon digunakan untuk mencocokkan panggilan ke nomor telepon tertentu, yang memiliki prioritas lebih rendah. Beberapa berasal dari langganan phoneRule.",
+  "searchSubscriptionsHint": "Cari langganan",
+  "searchPluginsHint": "Cari plugin",
+  "searchLabelsHint": "Cari label",
+  "pluginDescription": "Deskripsi plugin",
+  "enterPluginDescription": "Masukkan deskripsi plugin",
+  "searchRegexRulesHint": "Cari aturan regex",
+  "regexRulesInfo": "Aturan Regex digunakan untuk memfilter panggilan berdasarkan Pola Regex.",
+  "searchMarkedPhonesHint": "Cari nomor yang ditandai",
+  "searchContactSubscriptionsHint": "Cari langganan kontak",
+  "showAllContacts": "Tampilkan Semua Kontak",
+  "showFavorites": "Tampilkan Favorit",
+  "manualEntry": "Info Masukan Manual",
+  "scriptSaved": "Skrip disimpan",
+  "editScriptFor": "Edit skrip untuk {pluginName}",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "Simpan Skrip",
+  "testPlugin": "Uji Plugin",
+  "description": "Deskripsi",
+  "accessTargetUrl": "Akses URL Target",
+  "result": "Hasil",
+  "editScript": "Edit Skrip",
+  "numberFormat": "Format Nomor",
+  "nationalNumber": "Nomor Nasional",
+  "e164Number": "Nomor E164",
+  "pluginRulesInfo": "Demi keamanan, harap gunakan plugin dari sumber tepercaya saja. Jangan ragu untuk menggunakan templat kami untuk membuat plugin kustom Anda sendiri!",
+  "advancedMode": "Mode Lanjutan",
+  "pleaseEnterAtLeastOneNumber": "Mohon masukkan setidaknya satu nomor.",
+  "openInWebView": "Buka di WebView",
+  "pluginLabel": "Label Plugin",
+  "pluginID": "ID",
+  "pluginURL": "URL",
+  "messageBackgroundColor": "Warna Latar Belakang Pesan",
+  "clearAllCallLogs": "Hapus Semua Riwayat Panggilan",
+  "clearAllCallLogsConfirmation": "Konfirmasi untuk menghapus semua riwayat panggilan",
+  "allCallLogsCleared": "Semua riwayat panggilan telah dihapus",
+  "unblocked": "Dibatalkan pemblokirannya",
+  "blockNumber": "Blokir Nomor",
+  "blockNumberSuccess": "Berhasil memblokir nomor",
+  "unblockNumberConfirmation": "Apakah Anda yakin ingin membuka blokir {phoneNumber}?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "Lihat Detail",
+  "unblock": "Buka Blokir",
+  "unblockNumber": "Buka Blokir Nomor",
+  "unblockNumberSuccess": "Nomor berhasil dibuka blokirnya",
+  "unblockNumberFailed": "Gagal membuka blokir nomor",
+  "callingNumberFailed": "Gagal memanggil nomor",
+  "listView": "Tampilan Daftar",
+  "timelineView": "Tampilan Linimasa",
+  "nameCannotBeEmpty": "Nama tidak boleh kosong",
+  "selectAction": "Pilih tindakan",
+  "selectTargetService": "Pilih layanan target",
+  "callDetails": "Detail Panggilan",
+  "callType": "Jenis Panggilan",
+  "callTime": "Waktu Panggilan",
+  "numberInvalidFormat": "Format nomor tidak valid",
+  "medium": "Media",
+  "finalRisk": "Risiko Akhir",
+  "simState": "Status SIM",
+  "ipCountry": "Negara IP",
+  "simCountry": "Negara SIM",
+  "isRoaming": "Roaming",
+  "isNumberMatch": "Cocok Nomor",
+  "support": "Dukungan",
+  "rewardedAdService": "Layanan Iklan Berhadiah",
+  "hasVipPrivilegeExceptAds": "Anda sudah memiliki hak istimewa VIP (kecuali iklan)",
+  "hasTempPrivilegeWithExpiry": "Anda sudah memiliki hak istimewa sementara, tanggal kedaluwarsa: {expiryDate}",
+  "watchMoreAdsForTempVip": "Anda perlu menonton {count} iklan lagi untuk mendapatkan hak istimewa VIP sementara",
+  "grantedTempPurchaseWithExpiry": "Anda telah diberikan {days} hari hak istimewa pembelian sementara. Tanggal kedaluwarsa: {expiryDate}",
+  "tempPurchaseExpired": "Hak istimewa pembelian sementara telah kedaluwarsa",
+  "loadingAd": "Memuat Iklan...",
+  "earnedTempVip": "Memperoleh VIP sementara",
+  "vipExchangeService": "Layanan Penukaran VIP",
+  "marksInsufficient": "Tanda tidak mencukupi untuk ditukar",
+  "invalidExchangeRule": "Aturan penukaran tidak valid",
+  "exchangeSuccess": "Berhasil ditukar untuk {description}, tanggal kedaluwarsa: {expiryDate}",
+  "exchangeFailed": "Penukaran gagal: {error}",
+  "vip3DaysWithAds": "VIP 3 hari dengan iklan (sinkronisasi saja)",
+  "vip5DaysNoAds": "VIP 5 hari berfitur lengkap tanpa iklan",
+  "vip7DaysNoAds": "VIP 7 hari berfitur lengkap tanpa iklan",
+  "noNotifications": "Tidak ada notifikasi",
+  "clearAllNotifications": "Hapus Semua Notifikasi",
+  "clearAllNotificationsConfirmation": "Konfirmasi untuk menghapus semua notifikasi",
+  "clearButton": "Hapus",
+  "justNow": "Baru saja",
+  "minutesAgo": "{count,plural, =1{1 menit yang lalu} other{{count} menit yang lalu}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{1 jam yang lalu} other{{count} jam yang lalu}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{1 hari yang lalu} other{{count} hari yang lalu}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "Kemarin",
+  "deletionProposal": "Proposal Penghapusan",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "Buat Proposal",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "Buat Proposal Penghapusan",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "Alasan",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "Nomor Kedaluwarsa",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "Masalah Privasi",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "Tidak dalam Layanan",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "Salah Diidentifikasi",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "Informasi Tidak Akurat",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "Lainnya",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "Kirim",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Batal",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "Tingkat Risiko",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Rendah",
+  "@riskLevelLow": {
+    "description": "Label for low risk level"
+  },
+  "riskLevelHigh": "Tinggi",
+  "@riskLevelHigh": {
+    "description": "Label for high risk level"
+  },
+  "agreeVotes": "Setuju: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "Total: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "Setuju",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "Tidak Setuju",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "Dibuat: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "Laporan Verifikasi",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "Statistik Proposal",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "Total Proposal",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "Proposal Aktif",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "Proposal berhasil dibuat",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "Suara berhasil dikirim",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "Tidak ada proposal ditemukan",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "Segarkan Proposal",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "Total Proposal Tertunda",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "Risiko Tinggi",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "Risiko Sedang",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "Risiko Rendah",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "Dampak Komunitas",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "Masalah Kritis",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "Partisipasi Komunitas",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "Tidak Ada Aktivitas",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Rendah",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "Sedang",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "Tinggi",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "Sangat Tinggi",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "Sudah memilih",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "Suara komunitas",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "Menunggu lebih banyak suara komunitas",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "Proposal ini telah diproses",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "DIDUKUNG",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "DITENTANG",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "DISETUJUI",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "DITOLAK",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "SELESAI",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "TERTUNDA",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "Kritis",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "Menentang",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "Sangat Rendah",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "Proposal Penghapusan",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "Notifikasi tentang hasil pemungutan suara proposal penghapusan dan pembaruan.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "Proposal Penghapusan Dibuat",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "Proposal penghapusan Anda untuk {phoneNumber} telah diajukan untuk ditinjau oleh komunitas.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "Proposal Disetujui ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "Proposal penghapusan untuk {phoneNumber} telah disetujui oleh komunitas ({supportPercentage}% dukungan, {totalVotes} suara).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "Proposal Ditolak ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "Proposal penghapusan untuk {phoneNumber} telah ditolak oleh komunitas ({supportPercentage}% dukungan, {totalVotes} suara).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "Pemungutan Suara Komunitas Dimulai",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "Proposal penghapusan baru untuk {phoneNumber} kini dibuka untuk pemungutan suara komunitas.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "Pemungutan Suara Selesai",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "Pemungutan suara komunitas untuk {phoneNumber} telah berakhir. Hasil: {result} ({supportPercentage}% dukungan).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "Suara Baru Diterima",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "Seseorang memilih untuk {voteType} penghapusan {phoneNumber}. Suara saat ini: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "Jumlah Suara",
+  "deletionProposalDescription": "Ajukan nomor untuk dihapus yang melanggar pedoman komunitas. Partisipasi Anda membantu menjaga keamanan platform.",
+  "searchProposals": "Cari Proposal",
+  "defaultNotifications": "Notifikasi Default",
+  "defaultNotificationsDescription": "Saluran notifikasi default untuk aplikasi.",
+  "blockedCallNotifications": "Notifikasi Panggilan Diblokir",
+  "blockedCallNotificationsDescription": "Menampilkan informasi tentang panggilan yang diblokir.",
+  "stirVerification": "Verifikasi STIR/SHAKEN",
+  "stirVerificationDescription": "Menampilkan hasil verifikasi STIR/SHAKEN untuk nomor.",
+  "fraudAlerts": "Peringatan Penipuan",
+  "fraudAlertsDescription": "Menampilkan peringatan untuk potensi panggilan penipuan.",
+  "notificationMode": "Mode Notifikasi",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "Proposal Tertunda",
+  "pendingProposalsBody": "Anda memiliki {count, plural, =0 {tidak ada proposal tertunda} one {1 proposal tertunda} other {{count} proposal tertunda}}.",
+  "guidelinesLabel": "Pedoman",
+  "riskLevelLabel": "Tingkat Risiko",
+  "phoneNumberMinDigits": "Nomor telepon harus minimal 7 digit",
+  "provideDetailedExplanation": "Berikan penjelasan terperinci (minimal 10 karakter)",
+  "reasonMinCharacters": "Alasan harus minimal 10 karakter",
+  "countryCodeTwoLetters": "Kode Negara (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "Kode Negara (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "misalnya, US, CN, GB",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "Kode negara wajib diisi",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "Masukkan nomor telepon",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "Nomor telepon wajib diisi",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "Alasan wajib diisi",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "Kritis",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "Sedang",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "Sangat Rendah",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "Frekuensi Notifikasi",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "Kesalahan: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• Laporkan hanya nomor yang benar-benar bermasalah\n• Berikan alasan yang akurat dan terperinci\n• Pilih tingkat risiko yang sesuai berdasarkan tingkat keparahan\n• Laporan palsu dapat mengakibatkan pembatasan akun",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Frekuensi Notifikasi (Jam)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "Dukungan ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "Menentang ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} suara ({supportPercentage}% dukungan)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 jam} =1{1 jam} other{{count} jam}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "Pemberitahuan Penting",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "Nomor bersumber dari internet dan kiriman pengguna. Kami tidak dapat menjamin bahwa nomor yang telah dihapus tidak akan dikirim ulang oleh pengguna atau sumber lain. Mohon aktif mencari dan memverifikasi informasi.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "Avatar",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "Lokasi",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "Kartu SIM",
+  "liveActivitiesSettingsTitle": "Pengaturan Aktivitas Langsung",
+  "elementsSettingsTitle": "Pengaturan Elemen",
+  "liveActivityMode": "Aktivitas Langsung",
+  "liveActivityModeDescription": "Menampilkan informasi panggilan sebagai notifikasi persisten di layar kunci dan di Dynamic Island (iOS).",
+  "phoneNumberType": "Tipe Nomor Telepon",
+  "liveActivitiesTestEndActivity": "Akhiri Aktivitas",
+  "liveActivitiesTestSendNewActivity": "Kirim Aktivitas Baru",
+  "liveActivitiesTestUpdateActivity": "Perbarui Aktivitas",
+  "liveActivityControlsTitle": "Kontrol Aktivitas Langsung",
+  "liveActivitiesTestTitle": "Uji Aktivitas Langsung",
+  "liveNotificationCustomizationTitle": "Kustomisasi Notifikasi Langsung",
+  "liveNotificationCustomizationSubtitle": "Sesuaikan tampilan notifikasi langsung.",
+  "notification_instructions": "Instruksi:\n1. Ketuk \"KIRIM\" untuk membuat atau memperbarui notifikasi.\n2. Buka layar beranda Anda atau tarik ke bawah baki notifikasi untuk melihat hasilnya.\n3. Ketuk \"AKHIRI\" untuk menutup notifikasi.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "Batalkan Notifikasi Otomatis",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "Jika dicentang, notifikasi akan otomatis ditutup saat pengguna mengetuknya.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "Atur Waktu Tunda",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "Detail Proposal",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "Proposal tidak ditemukan",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "Diproses",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "Filter dan Urutkan",
+  "filterVerifiedOwner": "Filter Pemilik Terverifikasi",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "Filter Berdasarkan",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "Urutkan Terlama",
+  "sortNewest": "Urutkan Terbaru",
+  "sortMostPopular": "Urutkan Paling Populer",
+  "sortLeastPopular": "Urutkan Paling Tidak Populer",
+  "sortBy": "Urutkan Berdasarkan",
+  "simRulesNotFound": "Aturan SIM tidak ditemukan",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "Aturan Slot SIM",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "Tidak ada kartu SIM terdeteksi",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "Data SIM tidak valid",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "Slot SIM",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "Aktifkan Pemfilteran",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "Pengaturan Rinci",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "Tampilan Titik Masuk",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "Ditolak",
+  "callTypeSilenced": "Dibungkam",
+  "andMoreItems": "dan {count} item lainnya",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Rule Type",
+  "localDatabaseSyncTitle": "Local Database Sync",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Sync data across devices",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Supabase Project URL",
+  "supabaseAnonKey": "Anon Key",
+  "supabaseAnonKeyHint": "API Key, anon public key",
+  "connectionString": "Connection String (URI)",
+  "connectionStringHelper": "Only needed for 'Initialize Database'",
+  "syncCallHistory": "Sync Call History",
+  "syncCallHistorySubtitle": "Include private call logs in sync",
+  "requiredField": "Required",
+  "requiredInitField": "Required for initialization",
+  "initDbButton": "Initialize Database",
+  "dbInitSuccess": "Database Initialized Successfully!",
+  "syncSuccess": "Sync Complete. Sent: {pushed}, Received: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Error",
+  "errorLoadingSettings": "Error loading settings",
+  "statusLabel": "Status",
+  "statusConnected": "Connected / Configured",
+  "statusNotConfigured": "Not Configured",
+  "configSaved": "Configuration Saved!",
+  "masterDeviceLabel": "Is Master Device (Admin)",
+  "masterDeviceHelp": "Only the master device can initialize the database structure.",
+  "syncIntervalLabel": "Auto-sync Interval",
+  "syncIntervalValue": "Every {hours} hours",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Leave empty to use default",
+  "vipAccessSubtitle": "Watch ads for free or purchase VIP",
+  "failedToLoadSettingsSchema": "Failed to load settings schema: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "This field is required",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Automatically answer the incoming call and then immediately hang up to terminate it",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}

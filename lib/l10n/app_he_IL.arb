@@ -1,0 +1,2372 @@
+{
+  "@@locale": "he",
+  "aboutContactSubscription": "אודות מנוי אנשי קשר",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "אודות תוויות",
+  "aboutPhoneSubscriptionRules": "אודות כללי מנוי טלפון",
+  "aboutSmsFilter": "אודות סינון SMS",
+  "aboutSmsSubscriptionRules": "אודות כללי מנוי SMS",
+  "aboutSubtitle": "גרסת אפליקציה ומידע משפטי",
+  "aboutTitle": "אודות",
+  "action": "פעולה",
+  "actionAll": "הכל",
+  "actionAllow": "אפשר",
+  "actionBlock": "חסום",
+  "actionFilterTitle": "סנן לפי סוג פעולה",
+  "actionFilterTooltip": "מסנן פעולה",
+  "actionNone": "אין פעולה",
+  "actionSilence": "השתק",
+  "actionTag": "פעולה: {actionType}",
+  "actionType": "סוג פעולה",
+  "actionUnknown": "לא ידוע",
+  "add": "הוסף",
+  "addAllowedBlockedRule": "הוסף כלל אישור/חסימה",
+  "addAllowSubscription": "הוסף מנוי אישור",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "הוסף מנוי חסימה",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "הוסף איש קשר",
+  "addContactFailed": "נכשל הוספת איש קשר: {error}",
+  "addedToFavorites": "נוסף למועדפים",
+  "addLabel": "הוסף תווית",
+  "addLabelButton": "הוסף תווית",
+  "addLabelFailed": "נכשל הוספת תווית: {error}",
+  "addName": "הוסף שם",
+  "addNoneSubscription": "הוסף מנוי ללא פעולה",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "הוסף סימן טלפון",
+  "addPhoneNumberRule": "הוסף כלל מספר טלפון",
+  "addPlugin": "הוסף תוסף",
+  "addPluginFailed": "נכשל הוספת תוסף",
+  "addPluginFailedWithError": "נכשל הוספת תוסף: {error}",
+  "addPluginFromLocalFile": "הוסף תוסף מקובץ מקומי",
+  "addPluginFromUrl": "הוסף תוסף מ-URL",
+  "addRegexRule": "הוסף כלל Regex",
+  "addRule": "הוסף כלל",
+  "addRuleFailed": "נכשל הוספת כלל: {error}",
+  "addRuleTooltip": "הוסף כלל",
+  "addSilenceSubscription": "הוסף מנוי השתקה",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "הוסף כלל סינון SMS",
+  "addSmsRule": "הוסף כלל SMS",
+  "addSmsSubscription": "הוסף מנוי SMS",
+  "addSubscription": "הוסף מנוי",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "הוסף מנוי",
+  "addSubscriptionFailed": "נכשל הוספת מנוי: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "הוסף מנוי",
+  "addToBlacklist": "הוסף לרשימה השחורה",
+  "addToFavorites": "הוסף למועדפים",
+  "addToRules": "הוסף לכללים",
+  "addToWhitelist": "הוסף לרשימה הלבנה",
+  "agent": "סוכן",
+  "all": "הכל",
+  "allCallsTab": "הכל",
+  "allow": "אפשר",
+  "allowAllAllowRules": "אפשר את כל כללי האישור",
+  "allowAllAllowRulesDesc": "אפשר שיחות מכללי האישור",
+  "allowAllBlacklistedNumbers": "אפשר את כל המספרים החסומים",
+  "allowAllBlockRules": "אפשר את כל כללי החסימה",
+  "allowAllBlockRulesDesc": "אפשר שיחות מכללי החסימה",
+  "allowAllowedNumbers": "אפשר מספרים מורשים",
+  "allowAllowedNumbersDesc": "אפשר שיחות מרשימת האישור",
+  "allowBlock": "אישור/חסימה",
+  "allowBlockedNumbers": "אפשר מספרים חסומים",
+  "allowBlockedNumbersDesc": "אפשר שיחות מרשימת החסימה",
+  "allowedBlockedRule": "כלל אישור/חסימה",
+  "allowedBlockedRuleEditDialogTitle": "ערוך כלל אישור/חסימה",
+  "allowedBlockedRuleManagement": "ניהול כללי אישור/חסימה",
+  "allowNonExceededNumbers": "אפשר מספרים שלא חרגו מהסף",
+  "allowNonExceededNumbersDescription": "אפשר באופן אוטומטי מספרים שלא חרגו מסף הכמות",
+  "allowRegexAllowRules": "אפשר כללי Regex לאישור",
+  "allowRegexAllowRulesDesc": "אפשר התאמת תבנית Regex לכללי אישור",
+  "allowRegexAllowRulesDescription": "אפשר כללי אישור מבוססי Regex",
+  "allowRegexBlockRules": "אפשר כללי Regex לחסימה",
+  "allowRegexBlockRulesDesc": "אפשר התאמת תבנית Regex לכללי חסימה",
+  "allowRegexBlockRulesDescription": "אפשר כללי חסימה מבוססי Regex",
+  "allowRule": "כלל אישור",
+  "allowRules": "כללי אישור",
+  "allPermissionsGranted": "כל ההרשאות הוענקו",
+  "allSettingsCompleted": "כל ההגדרות הושלמו.",
+  "allUpdateSuccess": "כל העדכונים הושלמו ({count} כללים)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "ענה ואז נתק",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "תוכנת יישום",
+  "apply": "החל",
+  "appName": "Your Call Your Rule",
+  "authorizationFailedCheckCredentialsMessage": "אימות נכשל: אנא בדוק את מזהה הלקוח והמפתח",
+  "authorizationFailedMessage": "אימות נכשל",
+  "authorizationSuccessMessage": "אימות הצליח",
+  "authorizeLoginButton": "אשר כניסה",
+  "automotiveIndustry": "תעשיית הרכב",
+  "autoSyncLabel": "סנכרון אוטומטי",
+  "autoUpdate": "עדכון אוטומטי",
+  "autoUpdateDescription": "הגדר מרווחי עדכון אוטומטיים למנויים או עדכן ידנית",
+  "autoUpdateSettings": "הגדרות עדכון אוטומטי",
+  "autoUpdateSubtitle": "נהל עדכונים אוטומטיים עבור כללים ותוספים",
+  "autoUpdateTitle": "עדכון אוטומטי",
+  "avatarBorderColor": "צבע גבול התמונה האישית",
+  "avatarBorderSize": "גודל גבול התמונה האישית",
+  "avatarIconSizesSetting": "גודל תמונות אישיות וסמלים",
+  "avatarPosition": "מיקום תמונה אישית",
+  "avatarSize": "גודל תמונה אישית",
+  "axisPosition": "מיקום {axis}",
+  "backgroundGradientSetting": "מעבר צבע רקע",
+  "backup": "גיבוי",
+  "backupAndRestore": "גיבוי ושחזור",
+  "backupAndRestoreSubtitle": "גבה או שחזר נתוני יישום",
+  "backupAndRestoreTitle": "גיבוי ושחזור",
+  "backupFailed": "גיבוי נכשל",
+  "backupSettings": "הגדרות גיבוי",
+  "backupToCloud": "גיבוי לענן",
+  "backupToCloudFailed": "כשל בגיבוי לענן: {error}",
+  "backupToCloudSuccess": "הועלה בהצלחה לענן",
+  "bank": "בנק",
+  "basicInfo": "מידע בסיסי",
+  "basicRuleFilter": "מסנן כללים בסיסי",
+  "basicRuleFiltering": "סינון כללים בסיסי",
+  "basicRuleFilteringExplanation": "• סינון כללים בסיסי: סינון כללים על בסיס רשימה שחורה, רשימה לבנה וביטויים רגולריים",
+  "basicRuleFilterSubtitle": "סנן שיחות באמצעות רשימה שחורה/לבנה וביטויים רגולריים",
+  "batchDeleteContactsConfirm": "האם אתה בטוח שברצונך למחוק {count} אנשי קשר נבחרים?",
+  "batchDeleteLabelsConfirm": "האם אתה בטוח שברצונך למחוק {count} תוויות?",
+  "blacklist": "רשימה שחורה",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "רישום שחור ולבן",
+  "blackWhiteList": "רשימה שחורה/לבנה",
+  "block": "חסום",
+  "blockCalls": "חסום שיחות",
+  "blocked": "חסום",
+  "blockedCalls": "שיחות חסומות",
+  "blockedCallsTitle": "שיחות חסומות",
+  "blockedSpamCalls": "שיחות ספאם חסומות",
+  "blockingTrend": "מגמת חסימה",
+  "blockInternationalCalls": "מתאים למספרים שאינם מתחילים ב- + או 00",
+  "blockInternationalCallsTitle": "חסום שיחות בינלאומיות",
+  "blockMobileNumbers": "מתאים למספרים שאינם מתחילים ב- 13-19",
+  "blockMobileNumbersTitle": "חסום מספרי סלולר",
+  "blockPremiumRateNumbers": "מתאים למספרים שאינם מתחילים ב- 118 או 120-190",
+  "blockPremiumRateNumbersTitle": "חסום מספרי פרימיום",
+  "blockRule": "כלל חסימה",
+  "blockRules": "כללי חסימה",
+  "blockSpecificAreaCodes": "מתאים למספרים שמתחילים ב- 0 + 2-3 ספרות",
+  "blockSpecificAreaCodesTitle": "חסום קידומות אזור ספציפיות:",
+  "blockTypeAnalysisTitle": "ניתוח סוגי חסימות",
+  "both": "שניהם",
+  "bulkDelete": "מחיקת אנשי קשר באצווה",
+  "bulkDeleteContacts": "מחיקת אנשי קשר באצווה",
+  "bulkDeleteLabels": "מחיקת תוויות באצווה",
+  "call": "שיחה",
+  "callback": "התקשר בחזרה",
+  "callBlocking": "חסימת שיחות",
+  "callerIdApp": "אפליקציית מזהה מתקשר",
+  "callerIdCustomizationTitle": "התאם אישית את מזהה המתקשר",
+  "callerIdDisplayMode": "מצב תצוגת מזהה המתקשר",
+  "callerIdMarkedByCount": "סומן על ידי {count}",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "תצוגה מקדימה של מזהה המתקשר",
+  "callFilterRules": "כללי סינון שיחות",
+  "callFilterRulesDescription": "הגדר כללים בסיסיים לסינון שיחות",
+  "callFilterSettings": "הגדרות סינון שיחות",
+  "callFrequencyInterceptionSubtitle": "הגדר מגבלות תדירות שיחות וכללי חסימה",
+  "callFrequencyInterceptionTitle": "יירוט תדירות שיחות",
+  "callHistory": "היסטוריית שיחות",
+  "callHistoryInfoDesc": "כאן מוצגת היסטוריית השיחות שלך, כולל שיחות נכנסות, יוצאות ולא נענו.",
+  "callHistoryInfoTitle": "היסטוריית שיחות",
+  "callHistoryTab": "היסטוריית שיחות",
+  "callScreeningPermission": "הרשאת סינון שיחות",
+  "callScreeningPermissionDescription": "משמש לסינון וחסימת שיחות ספאם.",
+  "callScreeningPermissionNotGranted": "הרשאת סינון שיחות לא הוענקה, עשויה להשפיע על פונקציונליות האפליקציה.",
+  "callStatistics": "סטטיסטיקות שיחות",
+  "callTypeAnswered": "נענו",
+  "callTypeBlocked": "נחסמו",
+  "callTypeIconColor": "צבע אייקון סוג שיחה",
+  "callTypeMissed": "שיחה שלא נענתה",
+  "callTypeOutgoing": "יוצאת",
+  "callTypePosition": "מיקום סוג שיחה",
+  "callTypeUnknown": "לא ידוע",
+  "cancelButton": "ביטול",
+  "carRental": "השכרת רכב",
+  "carrier": "ספק",
+  "carrierColor": "צבע ספק",
+  "carrierFontSize": "גודל גופן ספק",
+  "carrierPosition": "מיקום ספק",
+  "changeLabel": "שנה תווית",
+  "changePluginStatusFailed": "נכשל בשינוי סטטוס תוסף: {error}",
+  "changeSubscriptionStatusFailed": "נכשל בשינוי סטטוס מנוי: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "צדקה",
+  "chartOneWeekAgo": "לפני שבוע אחד",
+  "chartThreeDaysAgo": "לפני 3 ימים",
+  "chartToday": "היום",
+  "checkFileFormat": "אנא בדוק את פורמט הקובץ או הרשאות",
+  "checkPermissionFailed": "נכשל בבדיקת הרשאות: {error}",
+  "chooseDefaultInterceptAction": "בחר את פעולת היירוט המוגדרת כברירת מחדל",
+  "clearFilter": "נקה מסנן",
+  "clearLabelFilterButton": "נקה מסנן תווית",
+  "closeButton": "סגור",
+  "cloudSync": "סנכרון ענן",
+  "cloudSyncAndBackupTitle": "סנכרון וגיבוי בענן",
+  "cloudSyncSettingsSubtitle": "הגדר WebDAV, OneDrive ו-Google Drive",
+  "cloudSyncSettingsTitle": "הגדרות סנכרון ענן",
+  "cloudSyncTitle": "סנכרון ענן",
+  "collection": "גביית חובות",
+  "colorPickerTitle": "בחר צבע",
+  "configManagement": "ניהול תצורה",
+  "configUpdated": "תצורה עודכנה",
+  "configurationAdvice": "באמצעות תצורה נכונה, ניתן להגדיר אסטרטגיות סינון שונות עבור SIM עבודה ואישי.",
+  "configureBackupOptions": "הגדר אפשרויות גיבוי",
+  "configureCloudSyncService": "הגדר שירות סנכרון ענן",
+  "configureCloudSyncServiceMessage": "אנא הגדר שירות סנכרון ענן כדי לאפשר סנכרון בין מספר מכשירים.",
+  "configureSimCardFilterRules": "הגדר כללי סינון כרטיס SIM",
+  "confirm": "אישור",
+  "confirmButton": "אישור",
+  "confirmDelete": "אישור מחיקה",
+  "confirmDeleteLabel": "האם אתה בטוח שברצונך למחוק את התווית \"{name}\"",
+  "confirmDeletePlugin": "האם אתה בטוח שברצונך למחוק את התוסף \"{name}\"?",
+  "confirmDeletePlugins": "האם אתה בטוח שברצונך למחוק {count} תוספים?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "האם אתה בטוח שברצונך למחוק כלל זה? לא ניתן לבטל פעולה זו.",
+  "confirmDeleteSmsFilterRule": "האם אתה בטוח שברצונך למחוק כלל מסנן SMS זה?",
+  "confirmDeleteSmsRule": "האם אתה בטוח שברצונך למחוק כלל SMS זה?",
+  "confirmDeleteSubscriptions": "האם אתה בטוח שברצונך למחוק {name}?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "אישור סיסמה",
+  "connectedStatus": "מחובר",
+  "connectionFailedCheckCredentialsMessage": "החיבור נכשל: אנא בדוק את כתובת השרת, שם המשתמש והסיסמה",
+  "connectionFailedMessage": "החיבור נכשל",
+  "connectionStatusLabel": "סטטוס חיבור",
+  "connectionSuccessMessage": "החיבור הצליח",
+  "contactAddSuccess": "איש קשר נוסף בהצלחה",
+  "contactDeleted": "איש קשר נמחק",
+  "contactNameLabel": "שם",
+  "contactNotFound": "איש קשר לא נמצא",
+  "contacts": "אנשי קשר",
+  "contactsDeleted": "נמחקו {count} אנשי קשר",
+  "contactsManagement": "ניהול אנשי קשר",
+  "contactsPermission": "הרשאת אנשי קשר",
+  "contactsPermissionDescription": "משמש לזיהוי שיחות מאנשי קשר.",
+  "contactsTab": "אנשי קשר",
+  "contactSubscriptionDescription": "הירשם לרשימות אנשי קשר באמצעות URL, עדכן אוטומטית פרטי אנשי קשר ותוויות. תומך בנתוני פורמט JSON.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "איש קשר עודכן בהצלחה",
+  "contactUs": "צור קשר",
+  "content": "תוכן",
+  "contentRegex": "ביטוי רגולרי לתוכן",
+  "countColor": "צבע ספירה",
+  "countFontSize": "גודל גופן ספירה",
+  "countPosition": "מיקום ספירה",
+  "country": "מדינה",
+  "countryNameColor": "צבע שם מדינה",
+  "countryNameFontSize": "גודל גופן שם מדינה",
+  "countryRegionNamePosition": "מיקום שם מדינה/אזור",
+  "countThresholdDescription": "הגדר את סף הספירה המינימלי הנדרש להפעלת פעולות סינון",
+  "countThresholdLabel": "סף ספירה",
+  "createdRules": "כללים שנוצרו",
+  "csvFormat": "פורמט CSV",
+  "currentDeviceLabel": "תווית התקן נוכחי",
+  "currentDeviceTitle": "התקן נוכחי",
+  "currentLanguage": "שפה נוכחית",
+  "customerService": "שירות לקוחות",
+  "dashboardTab": "לוח מחוונים",
+  "dataAnalysis": "ניתוח נתונים",
+  "dataLoadFailure": "טעינת נתונים נכשלה: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "טעינת נתונים נכשלה: {error}",
+  "dataMigration": "העברת נתונים",
+  "dataMigrationDescription": "תכונה זו מאפשרת לך להעביר את כל הנתונים שלך בין מכשירים. כרגע, תוכל להשתמש בתכונות הגיבוי והשחזור כדי להעביר את הנתונים שלך באופן ידני.",
+  "dataSourceReminder": "תזכורת מקור נתונים",
+  "days": "{count, plural, =1{יום אחד} other{{count} ימים}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} ימי VIP",
+  "debtCollection": "גביית חובות",
+  "delete": "מחק",
+  "deleteButton": "מחק",
+  "deleteContact": "מחק איש קשר",
+  "deleteContactConfirm": "האם אתה בטוח שברצונך למחוק את {name}?",
+  "deleteFailed": "מחיקה נכשלה: {error}",
+  "deleteLabel": "מחק תווית",
+  "deleteLabelFailed": "מחיקת תווית נכשלה: {error}",
+  "deletePlugin": "מחק תוסף",
+  "deletePluginFailed": "מחיקת תוסף נכשלה: {error}",
+  "deletePlugins": "מחק תוספים",
+  "deletePluginsFailed": "מחיקת תוספים נכשלה: {error}",
+  "deleteRule": "מחק כלל",
+  "deleteRuleFailed": "מחיקה נכשלה: {error}",
+  "deleteSelected": "מחק נבחרים",
+  "deleteSubscription": "מחק מנוי",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "האם אתה בטוח שברצונך למחוק את המנוי \"{name}\"?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "מחיקת מנוי נכשלה: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "המחיקה הצליחה",
+  "delivery": "משלוח",
+  "deviceIDLabel": "מזהה התקן",
+  "deviceManagementSubtitle": "נהל סנכרון בין מספר התקנים",
+  "deviceManagementTitle": "ניהול התקנים",
+  "deviceModelLabel": "דגם התקן",
+  "deviceName": "שם התקן",
+  "deviceNameLabel": "שם מכשיר",
+  "deviceRenamedSuccessfullyMessage": "המכשיר שונה בהצלחה",
+  "devicesSynchronizedSuccessfullyMessage": "מכשירים סונכרנו בהצלחה",
+  "deviceUnregisteredSuccessfullyMessage": "המכשיר נרשם בהצלחה",
+  "dialogTitle": "הסבר דפוס Regex",
+  "differentFromLocalCounter": "תכונה זו שונה ממסנן המונה המקומי, שכן היא מתמקדת בדפוסי שיחות חוזרים בפרק זמן קצר במקום בספירת סימונים לטווח ארוך.",
+  "disabled": "מושבת",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "מושבת",
+  "disableGlobalPlugins": "בטל פלאגינים גלובליים",
+  "disconnectButton": "נתק",
+  "disconnectedMessage": "מנותק",
+  "disconnectedStatus": "מנותק",
+  "disconnectFailedMessage": "ניתוק נכשל",
+  "done": "סיום",
+  "dualSimAdvice": "תכונה זו שימושית במיוחד עבור טלפונים עם שני SIM כדי להגדיר אסטרטגיות סינון שונות עבור כרטיסי SIM עבודה ואישיים.",
+  "earlier": "מוקדם יותר",
+  "ecommerce": "מסחר אלקטרוני",
+  "edit": "ערוך",
+  "editContact": "ערוך איש קשר",
+  "editLabel": "ערוך תווית",
+  "editPhoneRule": "ערוך כלל טלפון",
+  "editRule": "ערוך כלל",
+  "education": "חינוך",
+  "elementPositionsSetting": "מיקומי אלמנטים",
+  "email": "דוא\"ל",
+  "enableCallFilter": "אפשר סינון שיחות",
+  "enableCallFilterDescription": "כאשר מופעל, שיחות נכנסות נבדקות מול רשימת הכללים למטה. כללי סינון שיחות אינם מסונכרנים בין מכשירים כברירת מחדל.",
+  "enabled": "מופעל",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "מופעל",
+  "enableEncryption": "אפשר הצפנה",
+  "enableEncryptionDescription": "הצפן קבצי גיבוי",
+  "enableGlobalPlugins": "אפשר פלאגינים גלובליים",
+  "enableLocalCountFilter": "אפשר מסנן מונה מקומי",
+  "enableLocalCountFilterDescription": "סנן אוטומטית שיחות ספאם על פי ספירת סימוני שיחות",
+  "enableLocalNotification": "השתמש בהתראות מקומיות",
+  "enableLocalNotificationDescription": "כאשר מופעל, התראות להודעות מסוננות יוצגו במכשיר",
+  "enableLocationSummary": "מיקום",
+  "enableMuteRules": "אפשר כללי השתקה",
+  "enableMuteRulesDesc": "החל תצורת כללי חסימת השתקה",
+  "enableNoneActionRules": "אפשר כללים ללא פעולה",
+  "enableNoneActionRulesDesc": "אפשר הגדרות כללים ללא פעולות חסימה",
+  "enableRemoteNumberFilter": "אפשר מסנן מספרים מרוחקים",
+  "enableRemoteNumberFilterDescription": "השתמש במסד נתונים מרוחק לסינון מספרים",
+  "enableRule": "אפשר כלל",
+  "enableSmsFilter": "אפשר סינון SMS",
+  "enableSmsFilterDescription": "כאשר מופעל, הודעות יסוננו אוטומטית לפי הכללים",
+  "enableTimeInterception": "אפשר חסימת זמן",
+  "enableTimeInterceptionDescription": "חסום שיחות חוזרות בפרק זמן קצר",
+  "enableTimeInterceptor": "אפשר חוסם זמן",
+  "endCallImmediately": "סיים שיחה באופן מיידי",
+  "endColor": "צבע סיום",
+  "endDate": "תאריך סיום",
+  "enhancedFilterInstructionsTitle": "מערכת סינון משופרת",
+  "enhancedFilterSettings": "הגדרות סינון משופרות",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "הגדרות סינון משופרות",
+  "enhancedFilterSystemDescription": "מערכת הסינון המשופרת תומכת בכללים גלובליים ובהגדרות סינון לכל כרטיס SIM.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "אנא הכנס גם מספר טלפון וגם דפוס Regex.",
+  "enterContactName": "אנא הכנס שם איש קשר",
+  "enterDeviceName": "הכנס שם מכשיר",
+  "enterEmailOptional": "אנא הכנס דוא\"ל (אופציונלי)",
+  "enterEncryptionPasswordHint": "הכנס סיסמת הצפנה",
+  "enterIconCode": "הכנס קוד אייקון",
+  "enterName": "הכנס שם איש קשר",
+  "enterNewDeviceNameHint": "הכנס שם חדש למכשיר זה",
+  "enterPasswordAgain": "הכנס סיסמה שוב",
+  "enterPhoneNumber": "הכנס מספר טלפון",
+  "enterPhoneNumberHint": "הכנס מספר טלפון לבדיקה",
+  "enterPhoneNumberMultiple": "אנא הכנס מספר טלפון, מספרים מרובים מופרדים בפסיקים",
+  "enterPhoneNumberToStartSearch": "הכנס מספר טלפון להתחלת חיפוש",
+  "enterPhoneNumberToVerify": "הכנס מספר טלפון לאימות",
+  "enterPluginName": "הכנס שם פלאגין",
+  "enterPluginUrl": "הכנס כתובת URL של פלאגין",
+  "enterRegexHint": "הכנס דפוס Regex",
+  "enterRuleNameAndPatternMessage": "נא להזין שם כלל ותבנית Regex.",
+  "enterRuleNameHint": "הזן שם כלל",
+  "enterSearchContent": "נא להזין תוכן לחיפוש",
+  "enterSubscriptionName": "הזן שם מנוי",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "הזן כתובת URL למנוי",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "נא להזין שם תיקיית סינכרון (ברירת מחדל: NotificationManager)",
+  "entertainment": "בידור",
+  "enterValidNameAndUrl": "נא להזין שם וכתובת URL תקינים",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "נא להזין כתובת URL תקינה",
+  "enterVersion": "הזן גרסה",
+  "enterWebDAVPasswordHint": "נא להזין סיסמת WebDAV",
+  "enterWebDAVServerAddressHint": "נא להזין כתובת שרת WebDAV",
+  "enterWebDAVUsernameHint": "נא להזין שם משתמש WebDAV",
+  "errorOccurredMessage": "אירעה שגיאה: {error}",
+  "errorRenamingDeviceMessage": "שגיאה בשינוי שם מכשיר: {error}",
+  "errorSynchronizingDevicesMessage": "שגיאה בסנכרון מכשירים: {error}",
+  "errorUnregisteringDeviceMessage": "שגיאה בהסרת רישום מכשיר: {error}",
+  "exampleBlock400Prefix": "לדוגמה, חסימת מספרים מתחילים ב-400",
+  "exampleBlockMarketingSms": "לדוגמה, חסימת SMS שיווקיים",
+  "exampleContentRegexHint": "דוגמה ל-Regex של תוכן",
+  "exampleCouponPromotionDiscount": "לדוגמה, .*(coupon|promotion|discount).*",
+  "exampleFamilyFriends": "לדוגמה, משפחה, חברים וכו'.",
+  "examplePhoneNumber": "לדוגמה, 10086, 12345, וכו'.",
+  "exampleRegex400Prefix": "דוגמה ל-Regex עבור קידומת 400",
+  "exampleSenderRegexHint": "דוגמה",
+  "exchange": "החלפה",
+  "exchangeNow": "החלף עכשיו",
+  "exchangeVip": "החלף VIP",
+  "expiryTime": "זמן תפוגה: {time}",
+  "export": "ייצוא",
+  "exportAllApplicationSettings": "ייצא את כל הגדרות האפליקציה",
+  "exportAllRuleConfigurations": "ייצא את כל תצורות הכללים",
+  "exportConfig": "ייצוא תצורה",
+  "exportContacts": "ייצוא אנשי קשר",
+  "exportData": "ייצוא נתונים",
+  "exportFailed": "הייצוא נכשל",
+  "exportFailure": "נכשל בייצוא תצורה",
+  "exportFeatureComingSoon": "תכונת הייצוא תגיע בקרוב",
+  "exportLabels": "ייצוא תוויות",
+  "exportLabelsFailed": "נכשל בייצוא תוויות: {error}",
+  "exportPluginList": "ייצוא רשימת פלאגינים",
+  "exportPluginListFailed": "נכשל בייצוא רשימת פלאגינים: {error}",
+  "exportRules": "ייצוא כללים",
+  "exportSmsRules": "ייצוא כללי SMS",
+  "exportStatisticsData": "ייצוא נתוני סטטיסטיקה",
+  "exportSuccesslly": "התצורה יצאה בהצלחה",
+  "failedToAddRule": "נכשל בהוספת כלל: {error}",
+  "failedToAddSmsSubscription": "נכשל בהוספת מנוי SMS: {error}",
+  "failedToBackupSettings": "נכשל בגיבוי הגדרות: {error}",
+  "failedToDecryptBackupFile": "נכשל בפיצוח קובץ גיבוי",
+  "failedToDeleteSmsRule": "נכשל במחיקת כלל SMS: {error}",
+  "failedToExportRules": "נכשל בייצוא כללים: {error}",
+  "failedToGetCallerIdInfo": "נכשל בקבלת מידע על מזהה מתקשר: {error}",
+  "failedToImportRules": "נכשל בייבוא כללים: {error}",
+  "failedToRestoreSettings": "נכשל בשחזור הגדרות",
+  "failedToRestoreSettingsWithError": "נכשל בשחזור הגדרות: {error}",
+  "failedToToggleRuleStatus": "נכשל בהחלפת סטטוס כלל: {error}",
+  "favoriteContacts": "אנשי קשר מועדפים",
+  "featureAddRules": "• הוספת כללים ספציפיים למספר טלפון",
+  "featureCenter": "מרכז תכונות",
+  "featureEnableDisable": "• הפעלה/כיבוי של מסננים שונים לכל SIM",
+  "featureListTitle": "תכונות:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• ניהול רשימות כללים לכל SIM",
+  "features": "תכונות",
+  "fetchingCallerIdInfo": "מביא מידע על מזהה מתקשר...",
+  "fileSavedTo": "הקובץ נשמר ב: {path}",
+  "filter": "סנן",
+  "filterByLabel": "סנן לפי תווית",
+  "filterControlPanelTitle": "פאנל בקרת סינון",
+  "filterControlSubtitle": "נהל את סטטוס ההפעלה/כיבוי של כל המסננים",
+  "filterControlTitle": "בקרת סינון",
+  "filtered": "מסונן",
+  "filterExplanation": "הסבר סינון",
+  "filterManagement": "ניהול סינון",
+  "filterName": "שם סינון",
+  "filterPriorityNote": "הערה: קיימים יחסי עדיפות בין מסננים, אנא עיין בתיעוד העזרה לקבלת פרטים",
+  "filterSettings": "הגדרות סינון",
+  "filterSettingsTitle": "הגדרות סינון",
+  "filterSMS": "סינון SMS",
+  "filterToggleInstructions": "הפעל או השבת מסננים עבור חריץ SIM זה:",
+  "filterToggleStatus": "סנן {status}: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "סוג סינון",
+  "financial": "פיננסי",
+  "flexibleCombinationFeature": "• שילובים גמישים: הפעל/השבת מסננים לפי חריץ SIM",
+  "fontSizesSetting": "גדלי גופן",
+  "foundRules": "נמצאו {count} כללים",
+  "fraudAlert": "התראת הונאה - נתק את השיחה",
+  "fraudScamLikely": "חשד להונאה/תרמית",
+  "free": "חינם",
+  "functionSettingsTitle": "הגדרות פונקציה",
+  "generalUpdateFailure": "עדכון נכשל: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "קבל חינם",
+  "github": "GitHub",
+  "globalFilterDescription": "הגדר מסננים גלובליים עבור כל כרטיסי ה-SIM:",
+  "globalFilterFeature": "• מסננים גלובליים: כללים בסיסיים לכל השיחות הנכנסות",
+  "globalFilterSettings": "הגדרות מסנן גלובלי",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "הגדרות גלובליות",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "אשר באמצעות מזהה הלקוח ומפתח Google Drive שהוגדרו במערכת",
+  "googleDriveConfigTitle": "תצורת Google Drive",
+  "government": "ממשלה",
+  "granted": "הוענק",
+  "grantNecessaryPermissions": "הענק הרשאות נחוצות",
+  "grantPermissions": "הענק הרשאות",
+  "headhunter": "Headhunter",
+  "height": "גובה",
+  "homeTab": "בית",
+  "howItWorksPoint1": "• המערכת תאפשר אוטומטית שיחות מאותו מספר בתוך חלון הזמן שנקבע",
+  "howItWorksPoint2": "• חלונות זמן קצרים יותר מובילים ליירוט קפדני יותר; חלונות זמן ארוכים יותר מובילים ליירוט פחות קפדני",
+  "howItWorksPoint3": "• המערכת בודקת את יומני השיחות כדי לקבוע אם זו שיחה חוזרת",
+  "howItWorksTitle": "איך זה עובד:",
+  "iconCodeOptional": "קוד אייקון (אופציונלי)",
+  "iconSize": "גודל אייקון",
+  "import": "יבוא",
+  "important": "חשוב",
+  "importConfig": "ייבוא תצורה",
+  "importContacts": "ייבוא אנשי קשר",
+  "importExportContacts": "ייבוא/ייצוא אנשי קשר",
+  "importExportContactsTooltip": "ייבוא/ייצוא אנשי קשר",
+  "importExportRules": "ייבוא/ייצוא כללים",
+  "importFailed": "ייבוא נכשל: {error}",
+  "importFailure": "כשל בייבוא תצורה",
+  "importFeatureComingSoon": "תכונת ייבוא בקרוב",
+  "importLabels": "ייבוא תוויות",
+  "importLabelsFailed": "כשל בייבוא תוויות: {error}",
+  "importPluginList": "ייבוא רשימת פלאגינים",
+  "importPluginListFailed": "כשל בייבוא רשימת פלאגינים: {error}",
+  "importPluginSuccess": "יובאו בהצלחה {count} פלאגינים",
+  "importRuleConfigurationsFromFile": "ייבוא תצורות כללים מקובץ",
+  "importRules": "ייבוא כללים",
+  "importSuccess": "הייבוא הצליח",
+  "incomingCallInterceptAction": "פעולת יירוט שיחה נכנסת",
+  "incorrectPassword": "סיסמה שגויה",
+  "initializing": "מאחל",
+  "installed": "מותקן",
+  "insufficientMarks": "סימנים לא מספיקים",
+  "insurance": "ביטוח",
+  "interceptAction": "פעולת יירוט",
+  "interceptionActionSettingsSubtitle": "הגדר כיצד שיחות חסומות מטופלות",
+  "interceptionActionSettingsTitle": "הגדרות פעולת יירוט",
+  "interceptionTimeInterval": "מרווח זמן ליירוט",
+  "internet": "אינטרנט",
+  "intervalSetSuccess": "מרווח עדכון {service} הוגדר ל-{days} ימים",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "ביטוי רגולרי של תוכן לא תקין",
+  "invalidLabel": "תווית לא תקינה",
+  "invalidRegexPattern": "תבנית ביטוי רגולרי לא תקינה",
+  "invalidSenderRegex": "ביטוי רגולרי של שולח לא תקין",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "הצטרף לערוץ ול קבוצת הטלגרם למידע נוסף",
+  "jsonFormat": "פורמט JSON",
+  "keepAllVersions": "שמור את כל הגרסאות",
+  "keepAllVersionsDescription": "שמור את כל הגרסאות ההיסטוריות של כל גיבוי",
+  "label": "תווית",
+  "labelAddedSuccessfully": "התווית \"{name}\" הוספה בהצלחה",
+  "labelCategories": "קטגוריות תווית",
+  "labelDeleted": "התווית נמחקה",
+  "labelDescription": "תוויות עוזרות לך לנהל אנשי קשר טוב יותר, הוסף תוויות מותאמות אישית למספרי טלפון לצורך זיהוי קל של שיחות והודעות.",
+  "labelFilterTooltip": "סינון תווית",
+  "labelIconColor": "צבע אייקון התווית",
+  "labelManagement": "ניהול תווית",
+  "labelNotFound": "התווית לא נמצאה",
+  "labels": "תוויות",
+  "labelsColor": "צבע תוויות",
+  "labelsDeleted": "{count} תוויות נמחקו",
+  "labelsExportedSuccessfully": "התוויות יוצאו בהצלחה",
+  "labelsFontSize": "גודל גופן תוויות",
+  "labelsImportedSuccessfully": "הייבוא של {count} תוויות הושלם בהצלחה",
+  "labelsPosition": "מיקום תוויות",
+  "labelTag": "תווית: {labelId}",
+  "labelUpdateFailed": "עדכון תווית נכשל: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "התווית \"$labelText\" עודכנה בהצלחה",
+  "languageSettings": "הגדרות שפה",
+  "languageSettingsSubtitle": "שנה את שפת התצוגה של האפליקציה",
+  "languageSettingsTitle": "הגדרות שפה",
+  "lastSyncLabel": "סנכרון אחרון",
+  "lastUpdated": "עודכן לאחרונה: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "חברות לכל החיים",
+  "lifetimeMembershipDescription": "רכישה חד פעמית, פתח לצמיתות את כל התכונות הפרימיום ועדכונים עתידיים",
+  "loadContactsFailed": "טעינת אנשי קשר נכשלה: {error}",
+  "loadDataFailed": "טעינת נתונים נכשלה",
+  "loading": "טוען...",
+  "loadingTags": "טוען תגיות...",
+  "loadLabelFailed": "טעינת תוויות נכשלה: {error}",
+  "loadLabelsFailed": "טעינת תוויות נכשלה: {error}",
+  "loadMarkCountFailed": "טעינת מספרים מסומנים נכשלה: {error}",
+  "loadMarkedPhonesFailed": "טעינת טלפונים מסומנים נכשלה: {error}",
+  "loadPluginsFailed": "טעינת פלאגינים נכשלה: {error}",
+  "loadSettingsFailed": "טעינת הגדרות נכשלה: {error}",
+  "loadSmsRulesFailed": "טעינת כללי SMS נכשלה: {error}",
+  "loadStatusFailedMessage": "טעינת מצב נכשלה",
+  "loadSubscriptionsFailed": "טעינת מינויים נכשלה: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "הלוואה",
+  "localCounterFilter": "סינון מונה מקומי",
+  "localCounterFilterSubtitle": "סנן אוטומטית שיחות ספאם על פי תדירות שיחות",
+  "localCountFilter": "סינון ספירת מקומית",
+  "localCountFilterDescription": "יירוט שיחות תכופות על בסיס ספירת מספרים מקומיים",
+  "localCountFilterExplanationContent": "סינון ספירת המספרים המקומי מנתח רשומות היסטוריית שיחות כדי לזהות ולחסום אוטומטית שיחות ספאם תכופות.",
+  "localCountFilterExplanationTitle": "הסבר לסינון ספירת מקומית",
+  "localCountFilterHowItWorksPoint1": "• קבע אם לחסום על בסיס ערך הספירה של המספר",
+  "localCountFilterHowItWorksPoint2": "• כאשר ספירת מספר חורגת מהסף שנקבע, ניתן לבחור לחסום אותו אוטומטית",
+  "localCountFilterHowItWorksPoint3": "• ניתן לאפשר באופן סלקטיבי מספרים שאינם חורגים מהסף",
+  "localCountFilterHowItWorksPoint4": "• ניתן לבחור אם לרשום את כל יומני השאילתות",
+  "localCountFiltering": "סינון ספירת מקומית",
+  "localCountFilteringExplanation": "• סינון ספירת מקומית: כללי סינון המבוססים על ספירת סימון מקומי",
+  "localCountFilterSettings": "הגדרות סינון ספירת מקומית",
+  "localCountFilterUseCases": "מסנן זה מתאים במיוחד לזיהוי שיחות ספאם אוטומטיות ושיחות שיווקיות.",
+  "localFilterSettings": "הגדרות סינון מקומי",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "התראה מקומית מושבתת",
+  "localNotificationEnabled": "התראה מקומית מופעלת",
+  "localServices": "שירותים מקומיים",
+  "locationColor": "צבע מיקום",
+  "locationFontSize": "גודל גופן מיקום",
+  "locationIconColor": "צבע אייקון מיקום",
+  "locationPosition": "מיקום מיקום",
+  "logAllLocalQueries": "רשום את כל השאילתות המקומיות",
+  "logAllLocalQueriesDescription": "רשום יומנים לכל השאילתות של מספרים מקומיים",
+  "logAllRemoteQueries": "רשום את כל השאילתות מרחוק",
+  "logAllRemoteQueriesDescription": "רשום את כל פעולות השאילתה של מספרים מרחוק",
+  "manage": "נהל אנשי קשר",
+  "manageFavoriteContacts": "נהל אנשי קשר מועדפים",
+  "manageFilterRules": "נהל כללי סינון",
+  "manageFilterRulesDescription": "הוסף, ערוך או מחק כללי סינון SMS",
+  "markCounts": "ספירות סימון",
+  "markCount": "ספירת סימון",
+  "markedByCount": "סומן על ידי {count}",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Marked Phone Numbers",
+  "markExchange": "החלפת סימון",
+  "markPhone": "סמן מספר טלפון",
+  "markPhoneFailed": "נכשל סימון מספר טלפון: {error}",
+  "markPhoneManagementTitle": "ניהול סימון טלפונים",
+  "markPhoneSuccess": "מספר הטלפון סומן בהצלחה",
+  "matchFailedMessage": "התאמה נכשלה.",
+  "matchNumbersWithSpecialCharacters": "מתאים לפורמט מספר ספציפי",
+  "matchNumbersWithSpecialCharactersTitle": "התאם מספרים עם תווים מיוחדים:",
+  "matchSpecificDigitPatterns": "מתאים לפורמט XXX-XXXX-XXXX",
+  "matchSpecificDigitPatternsTitle": "התאם תבניות ספרות ספציפיות:",
+  "matchSuccessfulMessage": "התאמה הצליחה!",
+  "medical": "רפואי",
+  "membershipPrivileges": "זכויות חברות",
+  "migrationTool": "כלי הגירה",
+  "minutes": "דקות",
+  "month": "חודש",
+  "monthly": "חודשי",
+  "monthlyCallCount": "שיחות חודשיות",
+  "monthlyMembership": "חברות חודשית",
+  "monthlyMembershipDescription": "פתח את כל התכונות הפרימיום, חידוש אוטומטי חודשי",
+  "monthlyTotal": "סך הכל חודשי",
+  "moreOptions": "עוד אפשרויות",
+  "name": "שם",
+  "nameAndPhoneNumberCannotBeEmpty": "שם ומספר טלפון אינם יכולים להיות ריקים",
+  "nameColor": "צבע שם",
+  "nameFontSize": "גודל גופן שם",
+  "namePosition": "מיקום שם",
+  "nameUnknown": "שם: לא ידוע",
+  "nextStep": "הבא",
+  "noAction": "אין פעולה",
+  "noActionRules": "אין כללי פעולה",
+  "noActiveCloudSyncServiceMessage": "אין שירות סנכרון ענן פעיל",
+  "noCallRecords": "אין רישומי שיחות",
+  "noContactsYet": "עדיין אין אנשי קשר",
+  "noData": "אין נתונים",
+  "noDevicesRegisteredMessage": "אין מכשירים רשומים",
+  "noLabels": "עדיין אין תוויות",
+  "noMarkedPhones": "אין מספרי טלפון מסומנים",
+  "noMatchingContactsFound": "לא נמצאו אנשי קשר תואמים",
+  "noMatchingNumbersFound": "לא נמצאו מספרים תואמים",
+  "noMatchingRules": "אין {ruleType} תואמים",
+  "none": "אין",
+  "noneServiceType": "אין",
+  "noPlugins": "עדיין אין פלאגינים",
+  "noRules": "עדיין אין {ruleType}",
+  "noRulesPrompt": "לא נמצאו כללים, אנא הוסף כללים",
+  "noRulesToExport": "אין כללים לייצוא",
+  "noSmsFilterRulesYet": "עדיין אין כללי סינון SMS",
+  "noSmsRulesYet": "עדיין אין כללי SMS",
+  "noSubscriptions": "אין מנויים",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "לא הוענק",
+  "notificationModeDescription": "הצג מידע על המתקשר בשורת ההתראות",
+  "notificationPermission": "הרשאת התראה",
+  "notificationPermissionDescription": "משמש להצגת התראות על שיחות והודעות נכנסות.",
+  "notifications": "התראות",
+  "notificationSettings": "הגדרות התראות",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "לא מאומת",
+  "noValidSmsRulesFoundInFile": "לא נמצאו כללי SMS תקינים בקובץ",
+  "number": "מספר",
+  "numberColor": "צבע מספר",
+  "numberFontSize": "גודל גופן מספר",
+  "numberPosition": "מיקום מספר",
+  "numberSearch": "חיפוש מספר",
+  "numberTypeColor": "צבע סוג מספר",
+  "numberTypeFontSize": "גודל גופן סוג מספר",
+  "numberTypePosition": "מיקום סוג מספר",
+  "okButton": "אישור",
+  "onboardingCompleteDescription": "מנהל אבטחת השיחות שלך מוכן, התחל ליהנות מחוויית שיחה בטוחה!",
+  "onboardingLanguageDescription": "בחר את השפה המועדפת עליך לחוויה הטובה ביותר.",
+  "onboardingPermissionsDescription": "כדי לספק שירות מלא, אנו זקוקים להרשאות הבאות:",
+  "onboardingPowerfulSpamBlockingDescription": "חסימה בלחיצה אחת של שיחות וודעות זבל, התאם אישית כללי חסימה, ותן לך סביבה שקטה.",
+  "onboardingSmartCallerIdDescription": "זהה אוטומטית שיחות לא ידועות, סמן מספרים חשודים, והגן על בטיחות השיחות שלך.",
+  "onboardingWelcomeDescription": "מומחה ניהול השיחות שלך, המספק זיהוי שיחות וחסימה מקיפים.",
+  "oneDriveAuthDescription": "אשר באמצעות מזהה לקוח OneDrive ואישור המוגדרים במערכת",
+  "oneDriveConfigTitle": "תצורת OneDrive",
+  "onlineCallerIdSubscription": "מנוי לזיהוי מתקשר אונליין",
+  "openAppSettings": "פתח הגדרות אפליקציה",
+  "openAppSettingsFailed": "כשל בפתיחת הגדרות האפליקציה: {error}",
+  "operationFailed": "הפעולה נכשלה: {error}",
+  "operationFailure": "הפעולה נכשלה",
+  "operationSuccess": "הפעולה הצליחה",
+  "other": "אחר",
+  "ourOtherApps": "אפליקציות נוספות שלנו",
+  "overlayMode": "חלון צף",
+  "overlayModeDescription": "הצג מידע מתקשר בחלון צף",
+  "overlayPermission": "הרשאת חלון צף",
+  "overlayPermissionDescription": "משמש להצגת שכבת-על של שיחות נכנסות.",
+  "overview": "סקירה כללית",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "סיסמה",
+  "passwordCannotBeEmpty": "סיסמה אינה יכולה להיות ריקה",
+  "passwordLabel": "סיסמה",
+  "passwordsDoNotMatch": "סיסמאות אינן תואמות",
+  "pattern": "תבנית",
+  "pendingSync": "סנכרון ממתין",
+  "periodMonth": "חודש",
+  "periodWeek": "שבוע",
+  "periodYear": "שנה",
+  "permissionDenied": "בקשת הרשאה נדחתה",
+  "permissionGranted": "הרשאה ניתנה",
+  "permissionManagement": "ניהול הרשאות",
+  "phoneCallsTab": "טלפון",
+  "phoneNumber": "מספר טלפון",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "מספר טלפון אינו יכול להיות ריק",
+  "phoneNumberLabel": "מספר טלפון",
+  "phoneNumberTypeFixedLine": "קו קבוע",
+  "phoneNumberTypeFixedLineOrMobile": "קו קבוע או נייד",
+  "phoneNumberTypeMobile": "נייד",
+  "phoneNumberTypePager": "בייג'ר",
+  "phoneNumberTypePersonalNumber": "מספר אישי",
+  "phoneNumberTypePremiumRate": "שיעור פרמיום",
+  "phoneNumberTypeSharedCost": "עלות משותפת",
+  "phoneNumberTypeTollFree": "ללא תשלום",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "לא ידוע",
+  "phoneNumberTypeVoicemail": "דואר קולי",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "הרשאת טלפון",
+  "phonePermissionDescription": "משמש לזיהוי וחסימת שיחות נכנסות.",
+  "phoneRule": "כלל טלפון",
+  "phoneRuleManagement": "ניהול כללי טלפון",
+  "phoneRuleSubscription": "מנוי כללי טלפון",
+  "phoneSubscription": "מנוי טלפון",
+  "phoneSubscriptionRulesDescription": "הירשם לרשימות כללי טלפון באמצעות URL כדי לעדכן אוטומטית כללי רשימה לבנה ושחורה. תומך בקובצי כללים בפורמט JSON.",
+  "pleaseSelectLabelAndEnterValidPhone": "אנא בחר תווית והזן מספר טלפון תקין",
+  "pluginAddedSuccess": "התוסף \"{name}\" הוסף בהצלחה",
+  "pluginDeleted": "התוסף נמחק",
+  "pluginLatestVersion": "התוסף כבר בגרסה האחרונה",
+  "pluginListExportSuccess": "רשימת התוספים יצואנה בהצלחה",
+  "pluginManagement": "ניהול תוספים",
+  "pluginManagementSubtitle": "נהל והגדר תוספים של צד שלישי",
+  "pluginName": "שם תוסף",
+  "pluginsDeleted": "{count} תוספים נמחקו בהצלחה.",
+  "pluginService": "שירות תוספים",
+  "pluginTestPageTitle": "בדיקת תוסף",
+  "pluginUpdateSuccess": "התוסף עודכן בהצלחה",
+  "pluginUrl": "כתובת URL של תוסף",
+  "pluginVersion": "גרסת תוסף",
+  "political": "פוליטי",
+  "powerfulSpamBlocking": "חסימת ספאם עוצמתית",
+  "previousStep": "קודם",
+  "prioritizeRemoteAction": "העדפת הגדרות פעולה מרוחקות",
+  "prioritizeRemoteActionDescription": "העדפת הגדרות פעולה מבסיס הנתונים המרוחק",
+  "processing": "מעבד...",
+  "processingOperation": "מעבד...",
+  "purchase": "רכישה",
+  "quarterlyMembership": "חברות רבעונית",
+  "quarterlyMembershipDescription": "פתח את כל התכונות הפרימיום, חידוש אוטומטי כל רבעון",
+  "ready": "מוכן!",
+  "recruiter": "מגייס",
+  "refresh": "רענן",
+  "refreshPermissionStatus": "רענן סטטוס הרשאה",
+  "refreshTooltip": "רענן",
+  "regexErrorMessage": "שגיאת Regex: {error}",
+  "regexPattern": "דפוס ביטוי רגולרי",
+  "regexPatternExplanation": "הסבר לדפוס ביטוי רגולרי",
+  "regexPatternExplanationButton": "הסבר לדפוס ביטוי רגולרי",
+  "regexPatternLabel": "דפוס ביטוי רגולרי",
+  "regexPatternsForPhoneNumberMatching": "דפוסי ביטוי רגולרי להתאמת מספרי טלפון",
+  "regexRule": "כלל ביטוי רגולרי",
+  "regexRuleAddFailed": "הוספת כלל ביטוי רגולרי נכשלה: {error}",
+  "regexRuleAddSuccess": "כלל ביטוי רגולרי נוסף בהצלחה",
+  "regexRuleManagement": "ניהול כללי ביטוי רגולרי",
+  "regexRuleNamePatternRequired": "שם הכלל ודפוס הביטוי הרגולרי לא יכולים להיות ריקים",
+  "regexRules": "כללי ביטוי רגולרי",
+  "regexTesterTitle": "בוחן ביטויים רגולריים",
+  "region": "אזור",
+  "registeredDevicesTitle": "מכשירים רשומים",
+  "rejectAllCalls": "דחה את כל השיחות",
+  "rejectAllCallsDescription": "כאשר מופעל, כל השיחות יידחו בעדיפות הגבוהה ביותר",
+  "rejectAllNumbers": "דחה את כל המספרים",
+  "rejectAllNumbersDesc": "דחה את כל השיחות הנכנסות כאשר מופעל",
+  "rejectExceededNumbers": "דחה מספרים חורגים",
+  "rejectExceededNumbersDescription": "דחה אוטומטית מספרים החורגים מסף הספירה",
+  "remoteFilterSettings": "הגדרות מסנן מרחוק",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "הגדרות מסנן מספרים מרחוק",
+  "remoteNumberFilter": "מסנן מספרים מרחוק",
+  "remoteNumberFilterDescription": "יירט שיחות מטרידות על בסיס מידע ממסד נתונים מרחוק",
+  "remoteNumberFiltering": "סינון מספרים מרחוק",
+  "remoteNumberFilteringExplanation": "• סינון מספרים מרחוק: כללי סינון המבוססים על מידע ממסד נתונים מרחוק",
+  "remoteNumberFilterSubtitle": "זהה שיחות ספאם באמצעות מסד נתונים בענן ודיווחים קהילתיים",
+  "removeAdsDescription": "הסר לצמיתות את כל הפרסומות באפליקציה לחוויה חלקה יותר",
+  "removeAdsTitle": "הסר פרסומות",
+  "removedFromFavorites": "הוסר מרשימת המועדפים",
+  "removeFromFavorites": "הסר מרשימת המועדפים",
+  "renameDeviceTitle": "שנה שם למכשיר",
+  "requestAllPermissions": "בקש את כל ההרשאות",
+  "requestPermission": "בקש הרשאה",
+  "requestPermissionFailed": "בקשת הרשאה נכשלה: {error}",
+  "requiredMarks": "{count} סימנים",
+  "reset": "אפס",
+  "restore": "שחזר",
+  "restoreApplicationSettingsFromBackup": "שחזר הגדרות אפליקציה מגיבוי",
+  "restoreFromCloud": "שחזר מהענן",
+  "restoreFromCloudFailed": "שחזור מהענן נכשל: {error}",
+  "restoreFromCloudSuccess": "שוחזר בהצלחה מהענן",
+  "restorePurchases": "שחזר רכישות",
+  "restoreSettings": "שחזר הגדרות",
+  "restoreSettingsConfirmation": "פעולה זו תחליף את כל ההגדרות הנוכחיות שלך. האם אתה בטוח שברצונך להמשיך?",
+  "retry": "נסה שוב",
+  "ridesharing": "שיתוף נסיעות",
+  "risk": "סיכון",
+  "robocall": "שיחת רובו",
+  "ruleAction": "פעולת כלל",
+  "ruleAddedSuccess": "כלל נוסף בהצלחה",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "כלל נוסף בהצלחה",
+  "ruleDeleteConfirmContent": "האם אתה בטוח שברצונך למחוק את ה-{ruleType} הזה?",
+  "ruleDeleteConfirmTitle": "מחק כלל",
+  "ruleDeletedSuccessfully": "כלל נמחק בהצלחה",
+  "ruleDeleteFailed": "מחיקת כלל נכשלה: {error}",
+  "ruleDeleteSuccess": "כלל נמחק בהצלחה",
+  "ruleDisabledSuccessfully": "כלל הושבת בהצלחה",
+  "ruleEnabledSuccessfully": "כלל הופעל בהצלחה",
+  "ruleLoadFailed": "טעינת כללים נכשלה: {error}",
+  "ruleManagement": "ניהול כללים",
+  "ruleName": "שם הכלל",
+  "ruleNameAndContentRegexCannotBeEmpty": "שם הכלל וביטוי התוכן הרגולרי לא יכולים להיות ריקים",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "שם הכלל ומספר הטלפון לא יכולים להיות ריקים",
+  "ruleNameHint": "למשל, משפחה, חברים, וכו'.",
+  "ruleNameLabel": "שם הכלל",
+  "ruleNameRequired": "שם הכלל ומספר הטלפון לא יכולים להיות ריקים",
+  "ruleNotExist": "הכלל אינו קיים או נמחק",
+  "ruleNotFound": "הכלל לא נמצא: {error}",
+  "ruleSavedSuccessMessage": "הכלל נשמר בהצלחה!",
+  "rulesExportedSuccessfully": "כללים יצאו בהצלחה",
+  "rulesExportedTo": "כללים יצאו ל: {path}",
+  "rulesImported": "כללים יובאו בהצלחה",
+  "rulesImportedSuccessfully": "{count} כללים יובאו בהצלחה",
+  "ruleStatusChanged": "הכלל {status} בהצלחה",
+  "ruleToggleFailed": "הפעולה נכשלה: {error}",
+  "ruleToggleSuccess": "הכלל {status} בהצלחה",
+  "ruleUpdateFailed": "נכשל עדכון הכלל: {error}",
+  "ruleUpdateSuccess": "הכלל עודכן בהצלחה",
+  "ruleVerification": "אימות כללים",
+  "save": "שמור",
+  "saveButton": "שמור",
+  "saveButtonText": "שמור",
+  "saveFailed": "שמירה נכשלה: {error}",
+  "saveSettings": "שמור הגדרות",
+  "scamsLikely": "סביר להניח שמדובר בהונאות",
+  "search": "חיפוש",
+  "searchContacts": "חפש אנשי קשר",
+  "searchError": "שגיאת חיפוש: {error}",
+  "searchHint": "חפש...",
+  "securityMessage": "אל תסמוך על שיחות טלפון כלשהן. תמיד אמת מספרי שירות לקוחות באופן עצמאי. לעולם אל תשתף סיסמאות, קודי אימות, מספרי כרטיסים או מידע אישי.",
+  "selectActionWhenBlockingCalls": "בחר פעולה בעת חסימת שיחות",
+  "selectActionWhenRuleMatches": "בחר פעולה כאשר הכלל תואם",
+  "selectAll": "בחר הכל",
+  "selectCountry": "בחר מדינה",
+  "selectedItems": "{count} פריטים נבחרו",
+  "selectedLabel": "נבחר:",
+  "selectExportFormat": "בחר פורמט ייצוא",
+  "selectLabel": "בחר תווית",
+  "selectLabelAndEnterPhoneNumber": "אנא בחר תווית והזן מספר טלפון חוקי",
+  "selectLanguage": "בחר שפה",
+  "selectMultiple": "בחר מרובה",
+  "selectSimCard": "בחר כרטיס SIM",
+  "selectTags": "בחר תגיות",
+  "selectTrustedDataSource": "אנא בחר מקורות נתונים מהימנים",
+  "selectYourLanguage": "בחר את השפה שלך",
+  "sender": "שולח",
+  "senderRegexOptional": "ביטוי רגולרי של שולח (אופציונלי)",
+  "serverAddressLabel": "כתובת שרת",
+  "serviceTypeContact": "מנוי איש קשר",
+  "serviceTypeLabel": "סוג שירות",
+  "serviceTypePhone": "מנוי טלפון",
+  "serviceTypePlugin": "עדכון תוסף",
+  "serviceTypeSms": "מנוי SMS",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "הגדר סיסמת הצפנה",
+  "settings": "הגדרות",
+  "settingsBackedUpTo": "הגדרות גובו ל: {path}",
+  "settingsRestoredSuccessfully": "הגדרות שוחזרו בהצלחה. אנא הפעל מחדש את האפליקציה כדי שהשינויים ייכנסו לתוקף.",
+  "settingsSaved": "הגדרות נשמרו",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "נכשל שמירת הגדרות: {error}",
+  "settingsTab": "הגדרות",
+  "settingsTitle": "הגדרות",
+  "setup": "הגדרה",
+  "silence": "השתק",
+  "silenceAndNoAnswer": "השתק וללא מענה",
+  "silenceNoAnswer": "השתק ללא מענה",
+  "silentCallVoiceClone": "שכפול קול שיחה מושתקת",
+  "silentRules": "כללים מושתקים",
+  "simCard": "כרטיס SIM {simNumber}",
+  "simCardColor": "צבע כרטיס SIM",
+  "simCardConfigurationExplanation": "• הגדרת כרטיס SIM: הגדר כללי סינון עצמאיים לכל כרטיס SIM",
+  "simCardFilterRules": "כללי סינון כרטיס SIM",
+  "simCardFilterRulesDescription": "הגדר כללי סינון שונים בהתבסס על חריצי כרטיס SIM",
+  "simCardFontSize": "גודל גופן כרטיס SIM",
+  "simCardPosition": "מיקום כרטיס SIM",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "כללי כרטיס ה-SIM מאפשרים לך להגדיר כללי סינון עצמאיים עבור כל חריץ SIM.",
+  "simRuleInstructionsTitle": "כללי חריץ SIM",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "הגדר כללי סינון עצמאיים עבור כל כרטיס SIM:",
+  "simSlotFilterSettingsTitle": "הגדרות מסנן חריץ SIM {slotNumber}",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "ניהול חריץ SIM",
+  "simSlotPosition": "מיקום חריץ SIM {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• כללי חריץ SIM: אסטרטגיות סינון עצמאיות לכל SIM",
+  "simSlotRuleListTitle": "רשימת כללי חריץ SIM",
+  "simSlotRuleManagement": "כללי חריץ SIM",
+  "simSlotTitle": "חריץ SIM {slotNumber}",
+  "skip": "דלג",
+  "smartCallerId": "זיהוי מתקשר חכם",
+  "sms": "SMS",
+  "smsFilterDescription": "סינון SMS עוזר לך לסנן הודעות ספאם באופן אוטומטי ולשמור על רשימת ההודעות שלך נקייה. ניתן להגדיר כללי סינון ושיטות הודעה.",
+  "smsFilterDisabled": "סינון SMS מושבת",
+  "smsFilterEnabled": "סינון SMS מופעל",
+  "smsFilterRuleAddedSuccessfully": "כלל סינון SMS נוסף בהצלחה",
+  "smsFilterRules": "כללי סינון SMS",
+  "smsFilterSettings": "הגדרות סינון SMS",
+  "smsManagement": "ניהול SMS",
+  "smsPermission": "הרשאת SMS",
+  "smsPermissionDescription": "משמש לסינון הודעות ספאם.",
+  "smsRuleAddedSuccessfully": "כלל SMS נוסף בהצלחה",
+  "smsRuleDeletedSuccessfully": "כלל SMS נמחק בהצלחה",
+  "smsRuleLoadFailed": "טעינת כללי SMS נכשלה: {error}",
+  "smsRuleManagement": "ניהול כללי SMS",
+  "smsRuleSubscription": "מנוי כללי SMS",
+  "smsSubscription": "מנוי SMS",
+  "smsSubscriptionAddedSuccessfully": "מנוי SMS נוסף בהצלחה",
+  "smsSubscriptionRulesDescription": "הירשם לרשימות כללי SMS באמצעות URL, תומך בהתאמת ביטוי רגולרי. ניתן להגדיר פעולות חסימה או הרשאה.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "חלק מבקשות ההרשאה נדחו",
+  "spamLikely": "ספאם סביר",
+  "startColor": "צבע התחלה",
+  "startDate": "תאריך התחלה",
+  "startUsing": "התחל להשתמש",
+  "statAnswered": "נענה",
+  "statBlocked": "נחסם",
+  "statistics": "סטטיסטיקה",
+  "statisticsPageTitle": "ניתוח נתונים",
+  "stirColor": "צבע STIR",
+  "stirFontSize": "גודל גופן STIR",
+  "stirPosition": "מיקום STIR",
+  "storagePermission": "הרשאת אחסון",
+  "storagePermissionDescription": "משמש לשמירת הגדרות וכללים.",
+  "subscribe": "הירשם כמנוי",
+  "subscriptionAddSuccess": "המנוי \"{name}\" נוסף בהצלחה",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "האם אתה בטוח שברצונך למחוק מנוי זה?",
+  "subscriptionDeleteConfirmTitle": "מחיקת מנוי",
+  "subscriptionDeleted": "המנוי נמחק",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "מחיקת המנוי נכשלה: {error}",
+  "subscriptionDeleteSuccess": "המנוי נמחק",
+  "subscriptionLoadFailed": "טעינת מנויים נכשלה: {error}",
+  "subscriptionName": "שם המנוי",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "שם המנוי וכתובת ה-URL אינם יכולים להיות ריקים",
+  "subscriptionNameHint": "הזן שם מנוי",
+  "subscriptionStatusChangeFailed": "שינוי סטטוס המנוי נכשל: {error}",
+  "subscriptionUpdateFailed": "עדכון המנוי נכשל: {error}",
+  "subscriptionUpdateSuccess": "המנוי עודכן בהצלחה",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "כתובת URL של מנוי",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "הזן כתובת URL של מנוי",
+  "successfullyImportedRules": "{count} כללים יובאו בהצלחה",
+  "supportSync": "תמיכה בסנכרון",
+  "survey": "סקר",
+  "syncDevicesButton": "סנכרן מכשירים",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "הסנכרון נכשל",
+  "syncFailedMessage": "הסנכרון נכשל",
+  "syncFolderNameLabel": "שם תיקיית סנכרון",
+  "synchronized": "מסונכרן",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "מסנכרן...",
+  "syncNow": "סנכרן עכשיו",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "סנכרן עכשיו",
+  "syncStatusTitle": "סטטוס סינכרון",
+  "syncStatusUpdatedMessage": "סטטוס הסינכרון עודכן",
+  "syncSuccessMessage": "סינכרון הושלם בהצלחה",
+  "syncWithCloudStorage": "סנכרן עם אחסון ענן",
+  "systemFeatures": "תכונות מערכת:",
+  "systemSettingsTitle": "הגדרות מערכת",
+  "tabAll": "הכל",
+  "tabAnswered": "נענו",
+  "tabBlocked": "נחסמו",
+  "tabMissed": "הוחמצו",
+  "tabOutgoing": "יוצאים",
+  "tagLabel": "תגית: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "טייק אווי",
+  "telecommunication": "תקשורת",
+  "telegram": "טלגרם",
+  "telemarketing": "שיווק טלפוני",
+  "testButton": "בדיקה",
+  "testConnectionButton": "בדוק חיבור",
+  "textColorsSetting": "צבעי טקסט ותוויות",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "אפליקציה זו היא כלי מזהה שיחות עוצמתי המאפשר לך לזהות ולחסום שיחות לא רצויות.",
+  "thisWeek": "השבוע",
+  "timeInterceptor": "חוטם זמן",
+  "timeInterceptorDescription": "יירט/אפשר שיחות פוטנציאליות באופן אוטומטי בהתבסס על תדירות שיחות",
+  "timeInterceptorExplanation": "• חוטם זמן: יירוט/אפשר שיחות חוזרות בפרק זמן קצר",
+  "timeInterceptorExplanationContent": "תכונת יירוט תדירות השיחות מנתחת את תדירות השיחות כדי לזהות באופן אוטומטי וליירט/לאפשר שיחות זבל תכופות.",
+  "timeInterceptorExplanationTitle": "הסבר יירוט תדירות שיחות",
+  "timeInterceptorSettingsTitle": "הגדרות יירוט תדירות שיחות",
+  "timeWindowDescription": "קבע את גודל חלון הזמן להתרת שיחות חוזרות. שיחות מאותו מספר בתוך חלון זה יותרו",
+  "timeWindowLabel": "חלון זמן יירוט (דקות): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "היום",
+  "total": "סה\"כ",
+  "totalBlocked": "סה\"כ נחסמו",
+  "transferDataBetweenDevicesOrPlatforms": "העבר נתונים בין מכשירים או פלטפורמות",
+  "travelTicketing": "כרטיסי נסיעה",
+  "tutorial": "מדריך",
+  "type": "סוג",
+  "unassignedSIMCard": "כרטיס SIM לא משויך",
+  "unknown": "לא ידוע",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "תגית: לא ידוע",
+  "unregisterButton": "בטל רישום",
+  "unregisterDeviceConfirmationMessage": "האם אתה בטוח שברצונך לבטל רישום של {deviceName}?",
+  "unregisterDeviceTitle": "בטל רישום מכשיר",
+  "unsupportedFileFormat": "פורמט קובץ לא נתמך",
+  "update": "עדכון",
+  "updateAllNow": "עדכן הכל עכשיו",
+  "updateContactFailed": "שגיאה בעדכון איש קשר: {error}",
+  "updateFavoriteStatus": "עדכן סטטוס מועדף",
+  "updateInterval": "מרווח עדכון",
+  "updateNow": "עדכן עכשיו",
+  "updatePlugin": "עדכן תוסף",
+  "updatePluginFailed": "שגיאה בעדכון תוסף: {error}",
+  "updateRuleFailed": "שגיאה בעדכון כלל: {error}",
+  "updateSubscriptionFailed": "שגיאה בעדכון מנוי: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} עודכן בהצלחה ({count} כללים)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• זיהוי שיחות זבל של חייגן אוטומטי",
+  "useCasesPoint2": "• יירוט שיחות שיווק שמתקשרות מספר פעמים בפרק זמן קצר",
+  "useCasesPoint3": "• מניעת הטלת טלפונים והטרדות",
+  "useCasesTitle": "מקרים לשימוש:",
+  "useGlobalSettings": "השתמש בהגדרות גלובליות",
+  "usernameLabel": "שם משתמש",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "השתמש בתחביר Regex סטנדרטי להגדרת תבניות. דוגמאות:",
+  "verificationFailedText": "נכשל",
+  "verifiedText": "מאומת",
+  "verify": "אמת",
+  "version": "גרסה: {version}",
+  "vipExchangeDescription": "החלף חברות VIP בספירת סימוני טלפון",
+  "vipExchangeTitle": "החלפת VIP סימונים",
+  "watchAd": "צפה בפרסומת",
+  "watchAdForTemp": "צפה בפרסומת להרשאות זמניות",
+  "watchAdForTempDescription": "צפה בפרסומת קצרה כדי לפתוח באופן זמני חלק מהתכונות הפרימיום",
+  "webDAVConfigTitle": "תצורת WebDAV",
+  "week": "שבוע",
+  "welcome": "ברוכים הבאים",
+  "whitelist": "רשימה לבנה",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "רוחב",
+  "wildcardMatchingDescription": "השתמשו ב-'.' כדי להתאים לכל תו (לדוגמה, '123.456' יתאים ל-123-456)",
+  "wildcardMatchingTitle": "התאמת תווים כלליים:",
+  "wildcardSupportForFlexibleFiltering": "תמיכה בתווים כלליים לסינון גמיש",
+  "windowSizeSetting": "גודל חלון",
+  "year": "שנה",
+  "noSimCardsDetected": "לא זוהו כרטיסי SIM",
+  "filterManagementDescription": "הגדר מסנני שיחות",
+  "callerIdCustomizationSubtitle": "התאמה אישית של פריסת מזהה מתקשר",
+  "fraudAlerSettingTitle": "הגדרת התראת הונאה",
+  "fraudAlerSettingSubtitle": "להגדרת התראת הונאה",
+  "enableFraudAlert": "הפעל התראת הונאה",
+  "enableFraudAlertDescription": "התראות לשיחות חשודות כהונאה",
+  "enableVibration": "הפעל רטט",
+  "enableVibrationDescription": "רעד כאשר שיחות חשודות כהונאה",
+  "notificationSettingsTitle": "הגדרות התראות",
+  "useLocalNotification": "השתמש בהתראות מקומיות",
+  "useLocalNotificationDescription": "הפעל התראות מקומיות לשיחות נכנסות",
+  "cancelLocalNotification": "סגור התראות מקומיות",
+  "useStirNotification": "השתמש בהתראה מ-STIR",
+  "cancelLocalNotificationDescription": "סגור התראות מקומיות באופן אוטומטי",
+  "callerIdSettingsTitle": "הגדרות מזהה מתקשר",
+  "callerIdSettingsSubtitle": "להגדרת התראה ותצוגה של שיחה נכנסת",
+  "purchaseTitle": "רכישה",
+  "purchaseSubtitle": "לרכישת השירות",
+  "callerIdNotificationTitle": "מידע על שיחה נכנסת",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "שיחה חסומה",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "שיחה חסומה מ- {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "מאומת",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "לא מאומת",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "אימות נכשל",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "סטטוס אימות לא ידוע",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "אימות STIR/SHAKEN",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} עבור מספר {phoneNumber}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "הגדרות הודעות אבטחה מתגלגלות",
+  "messageColor": "צבע הודעה",
+  "messageFontSize": "גודל גופן הודעה",
+  "messagePosition": "מיקום הודעה",
+  "containerWidth": "רוחב מכלול",
+  "scrollSpeed": "מהירות גלילה",
+  "enableSecurityMessage": "הפעל הודעת אבטחה",
+  "fraudAlertTitle": "התראת הונאה",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "אין נתוני סוג חסימה זמינים",
+  "importEntity": "ייבוא {entityTypeName}",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} יובא בהצלחה, סך הכל {count} רשומות יובאו",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "נכשל ייבוא {entityTypeName}: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "ייצוא {entityTypeName}",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} ייוצא בהצלחה",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "נכשל ייצוא {entityTypeName}: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "שירות סנכרון ענן",
+  "membershipCenter": "מרכז חברות",
+  "redeemVipWithMarks": "מימוש VIP עם סימנים",
+  "currentMarkCount": "כמות סימנים נוכחית",
+  "markMoreNumbersForMore": "סמן עוד מספרים לעוד סימנים",
+  "noAds": "אין פרסומות",
+  "cloudBackup": "גיבוי בענן",
+  "callerIdEnhancement": "שיפור מזהה מתקשר",
+  "voiceRecognition": "זיהוי קולי",
+  "feature": "תכונה",
+  "normalUser": "משתמש רגיל",
+  "vipUser": "משתמש VIP",
+  "temporaryVip": "VIP זמני",
+  "removeAds": "הסרת פרסומות",
+  "settingsBackup": "גיבוי הגדרות ",
+  "allServicesStatusTitle": "סטטוס שירותים נוכחי",
+  "allServicesStatusSubtitle": "סטטוס נוכחי של כל שירותי הענן",
+  "redirect": "הפנה",
+  "notify": "הודע",
+  "log": "יומן",
+  "custom": "מותאם אישית",
+  "allowActionDescription": "שיחות יורשו, גם אם המספר נמצא ברשימת החסימה.",
+  "blockActionDescription": "שיחות ייחסמו ויוצגו ביומן השיחות.",
+  "silenceActionDescription": "שיחות יושקטו אך יוצגו ביומן השיחות.",
+  "noneActionDescription": "לא תתבצע פעולה מיוחדת עבור השיחה.",
+  "redirectActionDescription": "הפנה את השיחה למספר שצוין.",
+  "labelActionDescription": "הוסף תווית לשיחה לצורך זיהוי קל.",
+  "notifyActionDescription": "שלח התראה בעת קבלת שיחה.",
+  "logActionDescription": "רשום את פרטי השיחה מבלי לבצע פעולה אחרת.",
+  "customActionDescription": "בצע פעולה מותאמת אישית.",
+  "synced": "מסונכרן",
+  "needVipAccess": "אתה זקוק לגישת VIP כדי להשתמש בתכונה זו",
+  "importExportDescription": "ייבוא או ייצוא של נתוני {entityTypeName}",
+  "importExportTitle": "ייבוא/ייצוא",
+  "noPhoneRules": "לא נמצאו כללי טלפון",
+  "noRegexRules": "לא נמצאו כללי Regex",
+  "noAllowedBlockedRules": "לא נמצאו כללים מותרים/חסומים",
+  "importExport": "ייבוא/ייצוא",
+  "filterByAction": "סנן לפי פעולה",
+  "upgradeToVip": "שדרג ל-VIP",
+  "batteryOptimizationPermission": "אופטימיזציה של סוללה",
+  "batteryOptimizationPermissionDescription": "אפשר לאפליקציה לפעול ברקע כדי לספק שירותים כמו זיהוי מתקשר.",
+  "permissionTitle": "הרשאות מיוחדות",
+  "permissionSubtitle": "נהל הרשאות שכבת-על ואופטימיזציה של סוללה",
+  "themeSettingsTitle": "הגדרות ערכת נושא",
+  "themeSettingsSubtitle": "בחר את ערכת הנושא המועדפת עליך",
+  "databaseSyncTitle": "סנכרון מסד נתונים",
+  "countrySyncSettingsTitle": "הגדרות סנכרון מסד נתונים מבוסס מדינה",
+  "countrySyncSettingsSubtitle": "בחר מדינות לסנכרון נתונים",
+  "countryDataDisclaimer": "שימו לב: מסד הנתונים עשוי שלא לכלול נתונים עבור כל המדינות או האזורים הספציפיים.",
+  "editSubscription": "ערוך מנוי",
+  "searchByNameOrPhoneNumber": "חפש לפי שם או מספר טלפון",
+  "allowedBlockedRulesInfo": "כללים מותרים/חסומים משמשים להתאמת שיחות למספרי טלפון ספציפיים, בעלי עדיפות הגבוהה ביותר.",
+  "searchPhoneRulesHint": "חפש כללי טלפון",
+  "phoneRulesInfo": "כללי טלפון משמשים להתאמת שיחות למספרי טלפון ספציפיים, בעלי עדיפות נמוכה יותר. חלקם מגיעים ממנויי phoneRule.",
+  "searchSubscriptionsHint": "חפש מנויים",
+  "searchPluginsHint": "חפש פלאגינים",
+  "searchLabelsHint": "חפש תוויות",
+  "pluginDescription": "תיאור פלאגין",
+  "enterPluginDescription": "הכנס תיאור פלאגין",
+  "searchRegexRulesHint": "חפש כללי Regex",
+  "regexRulesInfo": "כללי Regex משמשים לסינון שיחות על סמך תבניות Regex.",
+  "searchMarkedPhonesHint": "חפש טלפונים מסומנים",
+  "searchContactSubscriptionsHint": "חפש מנויי קשר",
+  "showAllContacts": "הצג את כל אנשי הקשר",
+  "showFavorites": "הצג מועדפים",
+  "manualEntry": "מידע על כניסה ידנית",
+  "scriptSaved": "סקריפט נשמר",
+  "editScriptFor": "ערוך סקריפט עבור {pluginName}",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "שמור סקריפט",
+  "testPlugin": "בדוק פלאגין",
+  "description": "תיאור",
+  "accessTargetUrl": "גישה לכתובת URL יעד",
+  "result": "תוצאה",
+  "editScript": "ערוך סקריפט",
+  "numberFormat": "פורמט מספר",
+  "nationalNumber": "מספר לאומי",
+  "e164Number": "מספר E164",
+  "pluginRulesInfo": "למען אבטחה, השתמש רק בפלאגינים ממקורות מהימנים. אל תהסס להשתמש בתבניות שלנו ליצירת פלאגינים מותאמים אישית משלך!",
+  "advancedMode": "מצב מתקדם",
+  "pleaseEnterAtLeastOneNumber": "אנא הכנס לפחות מספר אחד.",
+  "openInWebView": "פתח ב-WebView",
+  "pluginLabel": "תווית פלאגין",
+  "pluginID": "מזהה",
+  "pluginURL": "כתובת URL",
+  "messageBackgroundColor": "צבע רקע הודעה",
+  "clearAllCallLogs": "נקה את כל יומני השיחות",
+  "clearAllCallLogsConfirmation": "אשר לנקות את כל יומני השיחות",
+  "allCallLogsCleared": "כל יומני השיחות נוקו",
+  "unblocked": "בוטל חסימה",
+  "blockNumber": "חסום מספר",
+  "blockNumberSuccess": "חסימת מספר הצליחה",
+  "unblockNumberConfirmation": "האם אתה בטוח שברצונך לבטל חסימה של {phoneNumber}?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "הצג פרטים",
+  "unblock": "בטל חסימה",
+  "unblockNumber": "בטל חסימה של מספר",
+  "unblockNumberSuccess": "המספר בוטל חסימה בהצלחה",
+  "unblockNumberFailed": "ביטול חסימת מספר נכשל",
+  "callingNumberFailed": "שיחת מספר נכשלה",
+  "listView": "תצוגת רשימה",
+  "timelineView": "תצוגת ציר זמן",
+  "nameCannotBeEmpty": "שם לא יכול להיות ריק",
+  "selectAction": "בחר פעולה",
+  "selectTargetService": "בחר את שירות היעד",
+  "callDetails": "פרטי שיחה",
+  "callType": "סוג שיחה",
+  "callTime": "זמן שיחה",
+  "numberInvalidFormat": "פורמט מספר לא תקין",
+  "medium": "בינוני",
+  "finalRisk": "סיכון סופי",
+  "simState": "מצב SIM",
+  "ipCountry": "מדינת IP",
+  "simCountry": "מדינת SIM",
+  "isRoaming": "בנדידה",
+  "isNumberMatch": "התאמת מספר",
+  "support": "תמיכה",
+  "rewardedAdService": "שירות מודעות מתגמלות",
+  "hasVipPrivilegeExceptAds": "כבר יש לך הרשאות VIP (למעט מודעות)",
+  "hasTempPrivilegeWithExpiry": "כבר יש לך הרשאות זמניות, תאריך תפוגה: {expiryDate}",
+  "watchMoreAdsForTempVip": "עליך לצפות בעוד {count} מודעות כדי לקבל הרשאות VIP זמניות",
+  "grantedTempPurchaseWithExpiry": "הוענקו לך {days} ימי הרשאות רכישה זמניות. תאריך תפוגה: {expiryDate}",
+  "tempPurchaseExpired": "זכות הרכישה הזמנית פגה תוקף",
+  "loadingAd": "טוען מודעה...",
+  "earnedTempVip": "זכית ב-VIP זמני",
+  "vipExchangeService": "שירות החלפת VIP",
+  "marksInsufficient": "סימנים לא מספיקים להחלפה",
+  "invalidExchangeRule": "כלל החלפה לא תקין",
+  "exchangeSuccess": "הוחלף בהצלחה עבור {description}, תאריך תפוגה: {expiryDate}",
+  "exchangeFailed": "החלפה נכשלה: {error}",
+  "vip3DaysWithAds": "VIP של 3 ימים עם מודעות (סנכרון בלבד)",
+  "vip5DaysNoAds": "VIP של 5 ימים ללא מודעות ועם כל התכונות",
+  "vip7DaysNoAds": "VIP של 7 ימים ללא מודעות ועם כל התכונות",
+  "noNotifications": "אין התראות",
+  "clearAllNotifications": "נקה את כל ההתראות",
+  "clearAllNotificationsConfirmation": "אשר לנקות את כל ההתראות",
+  "clearButton": "נקה",
+  "justNow": "הרגע",
+  "minutesAgo": "{count,plural, =1{לפני דקה אחת} other{לפני {count} דקות}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{לפני שעה אחת} other{לפני {count} שעות}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{לפני יום אחד} other{לפני {count} ימים}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "אתמול",
+  "deletionProposal": "הצעת מחיקה",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "צור הצעת מחיקה",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "צור הצעת מחיקה",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "סיבה",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "מספר מיושן",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "חשש לפרטיות",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "לא בשירות",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "זוהה בטעות",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "מידע שגוי",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "אחר",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "שלח",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "בטל",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "רמת סיכון",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "נמוך",
+  "@riskLevelLow": {
+    "description": "Label for low risk level"
+  },
+  "riskLevelHigh": "גבוה",
+  "@riskLevelHigh": {
+    "description": "Label for high risk level"
+  },
+  "agreeVotes": "הסכמה: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "סה\"כ: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "הסכמה",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "אי-הסכמה",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "נוצר: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "דוח אימות",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "סטטיסטיקות הצעה",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "סה\"כ הצעות",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "הצעות פעילות",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "הצעת מחיקה נוצרה בהצלחה",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "הצבעה הוגשה בהצלחה",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "לא נמצאו הצעות",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "רענן הצעות",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "סה\"כ הצעות ממתינות",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "סיכון גבוה",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "סיכון בינוני",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "סיכון נמוך",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "השפעה קהילתית",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "בעיות קריטיות",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "השתתפות קהילתית",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "אין פעילות",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "נמוך",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "בינוני",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "גבוה",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "גבוה מאוד",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "הצבעתי",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "הצבעות קהילה",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "ממתין ליותר הצבעות קהילה",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "הצעה זו עובדה",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "נתמך",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "התנגד",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "אושר",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "נדחה",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "הושלם",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "ממתין",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "קריטי",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "התנגד",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "נמוך מאוד",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "הצעות מחיקה",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "התראות על תוצאות ועדכונים של הצבעות להצעות מחיקה.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "הצעת מחיקה נוצרה",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "הצעת המחיקה שלך למספר {phoneNumber} הוגשה לבדיקת הקהילה.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "הצעה אושרה ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "הצעת המחיקה למספר {phoneNumber} אושרה על ידי הקהילה ({supportPercentage}% תמיכה, {totalVotes} הצבעות).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "הצעה נדחתה ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "הצעת המחיקה למספר {phoneNumber} נדחתה על ידי הקהילה ({supportPercentage}% תמיכה, {totalVotes} הצבעות).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "הצבעת הקהילה החלה",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "הצעת מחיקה חדשה למספר {phoneNumber} פתוחה כעת להצבעת הקהילה.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "ההצבעה הסתיימה",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "הצבעת הקהילה עבור {phoneNumber} הסתיימה. תוצאה: {result} ({supportPercentage}% תמיכה).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "התקבלה הצבעה חדשה",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "מישהו הצביע ל{voteType} את מחיקת המספר {phoneNumber}. הצבעות נוכחיות: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "מספר הצבעות",
+  "deletionProposalDescription": "הצע למספרים למחיקה המפרים את כללי הקהילה. השתתפותך עוזרת לשמור על הפלטפורמה בטוחה.",
+  "searchProposals": "חפש הצעות",
+  "defaultNotifications": "התראות ברירת מחדל",
+  "defaultNotificationsDescription": "ערוץ ההתראות ברירת המחדל לאפליקציה.",
+  "blockedCallNotifications": "התראות שיחות חסומות",
+  "blockedCallNotificationsDescription": "מציג מידע על שיחות חסומות.",
+  "stirVerification": "אימות STIR/SHAKEN",
+  "stirVerificationDescription": "מציג תוצאות אימות STIR/SHAKEN עבור מספרים.",
+  "fraudAlerts": "התראות הונאה",
+  "fraudAlertsDescription": "מציג אזהרות עבור שיחות פוטנציאליות של הונאה.",
+  "notificationMode": "מצב התראה",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "הצעות ממתינות",
+  "pendingProposalsBody": "יש לך {count, plural, =0 {אין הצעות ממתינות} one {הצעה ממתינה אחת} other {{count} הצעות ממתינות}}.",
+  "guidelinesLabel": "הנחיות",
+  "riskLevelLabel": "רמת סיכון",
+  "phoneNumberMinDigits": "מספר הטלפון חייב להיות לפחות 7 ספרות",
+  "provideDetailedExplanation": "ספק הסבר מפורט (מינימום 10 תווים)",
+  "reasonMinCharacters": "הסיבה חייבת להיות לפחות 10 תווים",
+  "countryCodeTwoLetters": "קידומת מדינה (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "קידומת מדינה (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "לדוגמה, US, CN, GB",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "קידומת מדינה נדרשת",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "הזן מספר טלפון",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "מספר טלפון נדרש",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "סיבה נדרשת",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "קריטי",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "בינוני",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "נמוך מאוד",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "תדירות התראות",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "שגיאה: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• דווח רק על מספרים שהם באמת בעייתיים\n• ספק סיבות מדויקות ומפורטות\n• בחר רמת סיכון מתאימה בהתאם לחומרה\n• דיווחים שקריים עלולים לגרום להגבלות על החשבון",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "תדירות התראות (שעות)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "תמיכה ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "התנגדות ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} הצבעות ({supportPercentage}% תמיכה)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 שעות} =1{שעה אחת} other{{count} שעות}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "הודעה חשובה",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "מספרים נלקחים מהאינטרנט ומדיווחים של משתמשים. איננו יכולים להבטיח שמספר, לאחר שנמחק, לא יוגש מחדש על ידי משתמשים או מקורות אחרים. אנא חפש ואמת מידע באופן פעיל.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "תמונת פרופיל",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "מיקום",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "כרטיס SIM",
+  "liveActivitiesSettingsTitle": "הגדרות פעילויות חיות",
+  "elementsSettingsTitle": "הגדרות אלמנטים",
+  "liveActivityMode": "פעילות חיה",
+  "liveActivityModeDescription": "מציג מידע על שיחות כהתראה מתמשכת על מסך הנעילה וב-Dynamic Island (iOS).",
+  "phoneNumberType": "סוג מספר טלפון",
+  "liveActivitiesTestEndActivity": "סיים פעילות",
+  "liveActivitiesTestSendNewActivity": "שלח פעילות חדשה",
+  "liveActivitiesTestUpdateActivity": "עדכן פעילות",
+  "liveActivityControlsTitle": "בקרות פעילות חיה",
+  "liveActivitiesTestTitle": "מבחן פעילויות חיות",
+  "liveNotificationCustomizationTitle": "התאמה אישית של התראות חיות",
+  "liveNotificationCustomizationSubtitle": "התאם אישית את מראה ההתראות החיות.",
+  "notification_instructions": "הוראות:\n1. לחץ על \"שלח\" ליצירה או עדכון של התראה.\n2. עבור למסך הבית שלך או משוך מטה את מגירת ההתראות כדי לראות את התוצאה.\n3. לחץ על \"סיים\" כדי לבטל את ההתראה.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "ביטול אוטומטי של התראה",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "אם מסומן, ההתראה תבוטל אוטומטית כאשר המשתמש לוחץ עליה.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "הגדר זמן השהייה",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "פרטי הצעה",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "הצעה לא נמצאה",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "עובד",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "סנן ומיון",
+  "filterVerifiedOwner": "סנן בעלים מאומתים",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "סנן לפי",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "מיון מהישן ביותר",
+  "sortNewest": "מיון מהחדש ביותר",
+  "sortMostPopular": "מיון הפופולרי ביותר",
+  "sortLeastPopular": "מיון הכי פחות פופולרי",
+  "sortBy": "מיון לפי",
+  "simRulesNotFound": "כללי SIM לא נמצאו",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "כללים של חריץ SIM",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "לא זוהה כרטיס SIM",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "נתוני SIM לא חוקיים",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "חריץ SIM",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "אפשר סינון",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "הגדרות מפורטות",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "תצוגת נקודת כניסה",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "נדחה",
+  "callTypeSilenced": "הושתק",
+  "andMoreItems": "ועוד {count} פריטים",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Rule Type",
+  "localDatabaseSyncTitle": "Local Database Sync",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Sync data across devices",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Supabase Project URL",
+  "supabaseAnonKey": "Anon Key",
+  "supabaseAnonKeyHint": "API Key, anon public key",
+  "connectionString": "Connection String (URI)",
+  "connectionStringHelper": "Only needed for 'Initialize Database'",
+  "syncCallHistory": "Sync Call History",
+  "syncCallHistorySubtitle": "Include private call logs in sync",
+  "requiredField": "Required",
+  "requiredInitField": "Required for initialization",
+  "initDbButton": "Initialize Database",
+  "dbInitSuccess": "Database Initialized Successfully!",
+  "syncSuccess": "Sync Complete. Sent: {pushed}, Received: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Error",
+  "errorLoadingSettings": "Error loading settings",
+  "statusLabel": "Status",
+  "statusConnected": "Connected / Configured",
+  "statusNotConfigured": "Not Configured",
+  "configSaved": "Configuration Saved!",
+  "masterDeviceLabel": "Is Master Device (Admin)",
+  "masterDeviceHelp": "Only the master device can initialize the database structure.",
+  "syncIntervalLabel": "Auto-sync Interval",
+  "syncIntervalValue": "Every {hours} hours",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Leave empty to use default",
+  "vipAccessSubtitle": "Watch ads for free or purchase VIP",
+  "failedToLoadSettingsSchema": "Failed to load settings schema: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "This field is required",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Automatically answer the incoming call and then immediately hang up to terminate it",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}
