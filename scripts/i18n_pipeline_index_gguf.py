@@ -5,9 +5,11 @@ scripts/i18n_pipeline_index_gguf.py
 Index-Translate 2B GGUF (llama.cpp CPU 极速量化推理) 全量 ARB 翻译管道
 特点：
   1. 采用官方 Index-Translate-2B-GGUF (Index-Translate-2B.IQ4_XS.gguf 1.23GB 极速轻量) 模型
-  2. 60 条批次组包，单模型独占 2 线程 (n_threads=2) 完美适配 GitHub Actions Runner
-  3. 具备多层 JSON 自愈、二分重试与异常兜底容错机制，绝不卡死
-  4. 累计每满 1000 条或子任务完成时向 i18n/checkpoint-progress 分支执行单条 Commit 覆盖推送
+  2. 严格对齐普通版逻辑：600 条大任务切分，内部按 60 条批次 (CHUNK_SIZE = 60) 组包推进
+  3. 单模型独占 2 线程 (n_threads=2) 完美适配 GitHub Actions Runner
+  4. 具备多层 JSON 自愈、二分重试与异常兜底容错机制，绝不卡死
+  5. 每次批次落盘强制 gc.collect() 释放内存，防止 Swap 换页卡顿
+  6. 累计每满 1000 条或子任务完成时向 i18n/checkpoint-progress 分支执行单条 Commit 覆盖推送
 """
 
 import json
@@ -28,9 +30,9 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 MODEL_REPO = "IndexTeam/Index-Translate-2B-GGUF"
 MODEL_FILENAME = "Index-Translate-2B.IQ4_XS.gguf"
-CHUNK_SIZE = 60
-SUBTASK_MAX_SIZE = 600
-PUSH_INTERVAL = 1000
+CHUNK_SIZE = 60        # 严格与普通版保持一致：60 条批次组包
+SUBTASK_MAX_SIZE = 600 # 严格与普通版保持一致：600 条大任务切分上限
+PUSH_INTERVAL = 1000   # 累计每满 1000 条词条才执行一次远程分支存盘推送
 
 llm = None
 translated_counter = 0
@@ -125,11 +127,14 @@ def extract_json_from_text(text: str) -> dict:
 
 
 def translate_chunk_with_gguf_safe(chunk: dict, target_lang: str, depth: int = 0) -> dict:
-    """带自动重试与二分降级容错的 GGUF 推理"""
+    """60 条 JSON 批次提交 llama.cpp GGUF 推理，带自动重试与二分降级容错"""
     if not chunk:
         return {}
 
-    prompt = f"Translate the values in the following JSON key-value pairs from English into target language '{target_lang}'. Note that you should only output the translated result without any additional explanation:\n\n{json.dumps(chunk, ensure_ascii=False)}"
+    prompt = f"""Translate the values in the following JSON key-value pairs from English into target language '{target_lang}'. Note that you should only output the translated result without any additional explanation:
+
+{json.dumps(chunk, ensure_ascii=False)}"""
+
     messages = [{"role": "user", "content": prompt}]
 
     for attempt in range(1, 3):
@@ -149,8 +154,9 @@ def translate_chunk_with_gguf_safe(chunk: dict, target_lang: str, depth: int = 0
             if attempt < 2:
                 time.sleep(1)
             else:
-                log(f"⚠️ 批次推理异常: {e}")
+                log(f"⚠️ GGUF 批次推理异常: {e}")
 
+    # 若整体解析失败且当前 chunk > 1，自动二分切小重试（隔离毒药词条）
     if len(chunk) > 1 and depth < 3:
         items = list(chunk.items())
         mid = len(items) // 2
@@ -173,8 +179,28 @@ def load_arb(path: str) -> dict:
         return {}
 
 
+def load_arb_with_fallback(target_locale: str) -> tuple[dict, str]:
+    arb_path = os.path.join(L10N_DIR, f"app_{target_locale}.arb")
+    if os.path.exists(arb_path):
+        return load_arb(arb_path), arb_path
+
+    if "_" in target_locale:
+        base_lang = target_locale.split("_")[0]
+        base_path = os.path.join(L10N_DIR, f"app_{base_lang}.arb")
+        if os.path.exists(base_path):
+            return load_arb(base_path), arb_path
+
+    if target_locale.startswith("nb"):
+        no_path = os.path.join(L10N_DIR, "app_no.arb")
+        if os.path.exists(no_path):
+            return load_arb(no_path), arb_path
+
+    return {}, arb_path
+
+
 def save_arb_with_fallback(path: str, data: dict, target_locale: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
+
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
@@ -221,25 +247,6 @@ def is_untranslated_value(en_val: str, target_val: str) -> bool:
     return False
 
 
-def load_arb_with_fallback(target_locale: str) -> tuple[dict, str]:
-    arb_path = os.path.join(L10N_DIR, f"app_{target_locale}.arb")
-    if os.path.exists(arb_path):
-        return load_arb(arb_path), arb_path
-
-    if "_" in target_locale:
-        base_lang = target_locale.split("_")[0]
-        base_path = os.path.join(L10N_DIR, f"app_{base_lang}.arb")
-        if os.path.exists(base_path):
-            return load_arb(base_path), arb_path
-
-    if target_locale.startswith("nb"):
-        no_path = os.path.join(L10N_DIR, "app_no.arb")
-        if os.path.exists(no_path):
-            return load_arb(no_path), arb_path
-
-    return {}, arb_path
-
-
 def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, baseline_data: dict):
     """单线性顺畅处理不超过 600 条词条的子任务（按 60 条批次组包），累计存盘并推送隔离分支"""
     current_data, arb_path = load_arb_with_fallback(target_locale)
@@ -273,6 +280,7 @@ def process_subtask_index(subtask_id: str, target_locale: str, sub_items: list, 
         except Exception as e:
             log(f"⚠️ `{subtask_id}` 批次 {chunk_idx}/{total_chunks} 翻译异常: {e}")
 
+        # 每次批次执行完毕强制清理内存，防止 Swap 卡死
         gc.collect()
 
     git_checkpoint_commit_amend(target_locale, force=True)
@@ -348,6 +356,7 @@ def main():
             log(f"✅ 语言 `{locale}` 数据完备。")
             continue
 
+        # 按 600 条切分子任务
         sub_count = (len(need_items) + SUBTASK_MAX_SIZE - 1) // SUBTASK_MAX_SIZE
         for s_idx in range(sub_count):
             part_items = need_items[s_idx * SUBTASK_MAX_SIZE: (s_idx + 1) * SUBTASK_MAX_SIZE]
