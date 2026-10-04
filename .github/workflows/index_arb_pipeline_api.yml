@@ -1,0 +1,41 @@
+name: Index-Translate 35B-A3B Official API Fast Pipeline
+
+# 采用官方免费 35B-A3B 公网 API 的极速 ARB 本地化翻译管道 (免 GPU / 秒级响应)
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  index-arb-pipeline-api:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUNBUFFERED: "1"
+      GIT_TERMINAL_PROMPT: "0"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: 1. Checkout 测试仓库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 2. Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 3. 执行 Index-Translate 35B-A3B 官方免费 API 全量 ARB 翻译管道
+        run: |
+          python scripts/i18n_pipeline_index_api.py
+
+      - name: 4. 保底机制：无论成功还是超时中断，强制打包上传全量 ARB 产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: translated-arb-files-api
+          path: lib/l10n/*.arb
