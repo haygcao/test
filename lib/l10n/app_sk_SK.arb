@@ -1,0 +1,2372 @@
+{
+  "@@locale": "sk",
+  "aboutContactSubscription": "O predplatnom zozname kontaktov",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "O štítkoch",
+  "aboutPhoneSubscriptionRules": "O pravidlách predplatného telefónnych čísel",
+  "aboutSmsFilter": "O filtrovaní SMS",
+  "aboutSmsSubscriptionRules": "O pravidlách predplatného SMS",
+  "aboutSubtitle": "Verzia aplikácie a právne informácie",
+  "aboutTitle": "O aplikácii",
+  "action": "Akcia",
+  "actionAll": "Všetky",
+  "actionAllow": "Povoliť",
+  "actionBlock": "Blokovať",
+  "actionFilterTitle": "Filtrovať podľa typu akcie",
+  "actionFilterTooltip": "Filter akcií",
+  "actionNone": "Žiadna akcia",
+  "actionSilence": "Ticho",
+  "actionTag": "Akcia: {actionType}",
+  "actionType": "Typ akcie",
+  "actionUnknown": "Neznáme",
+  "add": "Pridať",
+  "addAllowedBlockedRule": "Pridať pravidlo povoliť/blokovať",
+  "addAllowSubscription": "Pridať predplatné povolenia",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Pridať predplatné blokovania",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Pridať kontakt",
+  "addContactFailed": "Nepodarilo sa pridať kontakt: {error}",
+  "addedToFavorites": "Pridané k obľúbeným",
+  "addLabel": "Pridať štítok",
+  "addLabelButton": "Pridať štítok",
+  "addLabelFailed": "Nepodarilo sa pridať štítok: {error}",
+  "addName": "Pridať meno",
+  "addNoneSubscription": "Pridať žiadne predplatné",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Pridať označenie telefónu",
+  "addPhoneNumberRule": "Pridať pravidlo telefónneho čísla",
+  "addPlugin": "Pridať doplnok",
+  "addPluginFailed": "Nepodarilo sa pridať doplnok",
+  "addPluginFailedWithError": "Nepodarilo sa pridať doplnok: {error}",
+  "addPluginFromLocalFile": "Pridať doplnok z lokálneho súboru",
+  "addPluginFromUrl": "Pridať doplnok z URL",
+  "addRegexRule": "Pridať regulárne pravidlo",
+  "addRule": "Pridať pravidlo",
+  "addRuleFailed": "Nepodarilo sa pridať pravidlo: {error}",
+  "addRuleTooltip": "Pridať pravidlo",
+  "addSilenceSubscription": "Pridať predplatné ticha",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Pridať pravidlo filtra SMS",
+  "addSmsRule": "Pridať pravidlo SMS",
+  "addSmsSubscription": "Pridať predplatné SMS",
+  "addSubscription": "Pridať predplatné",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Pridať predplatné",
+  "addSubscriptionFailed": "Nepodarilo sa pridať predplatné: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Pridať predplatné",
+  "addToBlacklist": "Pridať do zoznamu blokovaných",
+  "addToFavorites": "Pridať k obľúbeným",
+  "addToRules": "Pridať do pravidiel",
+  "addToWhitelist": "Pridať do zoznamu povolených",
+  "agent": "Agent",
+  "all": "Všetky",
+  "allCallsTab": "Všetky",
+  "allow": "Povoliť",
+  "allowAllAllowRules": "Povoliť všetky pravidlá povolenia",
+  "allowAllAllowRulesDesc": "Povoliť hovory z pravidiel povolenia",
+  "allowAllBlacklistedNumbers": "Povoliť všetky blokované čísla",
+  "allowAllBlockRules": "Povoliť všetky pravidlá blokovania",
+  "allowAllBlockRulesDesc": "Povoliť hovory z pravidiel blokovania",
+  "allowAllowedNumbers": "Povoliť povolené čísla",
+  "allowAllowedNumbersDesc": "Povoliť hovory zo zoznamu povolených",
+  "allowBlock": "Povoliť/Blokovať",
+  "allowBlockedNumbers": "Povoliť blokované čísla",
+  "allowBlockedNumbersDesc": "Povoliť hovory zo zoznamu blokovaných",
+  "allowedBlockedRule": "Pravidlo povoliť/blokovať",
+  "allowedBlockedRuleEditDialogTitle": "Upraviť pravidlo povoliť/blokovať",
+  "allowedBlockedRuleManagement": "Správa pravidiel povoliť/blokovať",
+  "allowNonExceededNumbers": "Povoliť čísla, ktoré neprekročili limit",
+  "allowNonExceededNumbersDescription": "Automaticky povoliť čísla, ktoré neprekročia prahovú hodnotu počtu",
+  "allowRegexAllowRules": "Povoliť pravidlá povolenia pomocou regulárneho výrazu",
+  "allowRegexAllowRulesDesc": "Povoliť porovnávanie vzoriek regulárneho výrazu pre pravidlá povolenia",
+  "allowRegexAllowRulesDescription": "Povoliť pravidlá povolenia na základe regulárneho výrazu",
+  "allowRegexBlockRules": "Povoliť pravidlá blokovania pomocou regulárneho výrazu",
+  "allowRegexBlockRulesDesc": "Povoliť porovnávanie vzoriek regulárneho výrazu pre pravidlá blokovania",
+  "allowRegexBlockRulesDescription": "Povoliť pravidlá blokovania na základe regulárneho výrazu",
+  "allowRule": "Pravidlo povolenia",
+  "allowRules": "Pravidlá povolenia",
+  "allPermissionsGranted": "Všetky povolenia udelené",
+  "allSettingsCompleted": "Všetky nastavenia dokončené.",
+  "allUpdateSuccess": "Všetky aktualizácie dokončené ({count} pravidiel)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "Prijať a zavesiť",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "Softvér aplikácie",
+  "apply": "Použiť",
+  "appName": "Tvoj hovor, Tvoje pravidlo",
+  "authorizationFailedCheckCredentialsMessage": "Autorizácia zlyhala: Skontrolujte prosím ID klienta a kľúč",
+  "authorizationFailedMessage": "Autorizácia zlyhala",
+  "authorizationSuccessMessage": "Autorizácia úspešná",
+  "authorizeLoginButton": "Autorizovať prihlásenie",
+  "automotiveIndustry": "Automobilový priemysel",
+  "autoSyncLabel": "Automatická synchronizácia",
+  "autoUpdate": "Automatická aktualizácia",
+  "autoUpdateDescription": "Nastavte intervaly automatických aktualizácií pre odberateľov alebo aktualizujte manuálne",
+  "autoUpdateSettings": "Nastavenia automatickej aktualizácie",
+  "autoUpdateSubtitle": "Spravovať automatické aktualizácie pravidiel a doplnkov",
+  "autoUpdateTitle": "Automatická aktualizácia",
+  "avatarBorderColor": "Farba okraja avatara",
+  "avatarBorderSize": "Veľkosť okraja avatara",
+  "avatarIconSizesSetting": "Veľkosti avatara a ikon",
+  "avatarPosition": "Pozícia avatara",
+  "avatarSize": "Veľkosť avatara",
+  "axisPosition": "Pozícia {axis}",
+  "backgroundGradientSetting": "Prechod pozadia",
+  "backup": "Záloha",
+  "backupAndRestore": "Zálohovanie a obnova",
+  "backupAndRestoreSubtitle": "Zálohovanie alebo obnova údajov aplikácie",
+  "backupAndRestoreTitle": "Zálohovanie a obnova",
+  "backupFailed": "Zálohovanie zlyhalo",
+  "backupSettings": "Nastavenia zálohovania",
+  "backupToCloud": "Záloha do cloudu",
+  "backupToCloudFailed": "Zálohovanie do cloudu zlyhalo: {error}",
+  "backupToCloudSuccess": "Úspešne zálohované do cloudu",
+  "bank": "Banka",
+  "basicInfo": "Základné informácie",
+  "basicRuleFilter": "Základný filter pravidiel",
+  "basicRuleFiltering": "Základné filtrovanie pravidiel",
+  "basicRuleFilteringExplanation": "• Základné filtrovanie pravidiel: Filtrovanie pravidiel na základe čierneho zoznamu, bieleho zoznamu a regulárnych výrazov",
+  "basicRuleFilterSubtitle": "Filtrujte hovory pomocou čierneho/bieleho zoznamu a regulárnych výrazov",
+  "batchDeleteContactsConfirm": "Ste si istí, že chcete odstrániť {count} vybraných kontaktov?",
+  "batchDeleteLabelsConfirm": "Ste si istí, že chcete odstrániť {count} štítkov?",
+  "blacklist": "Čierny zoznam",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "Čierne a biele zoznamy",
+  "blackWhiteList": "Čierny/Biely zoznam",
+  "block": "Blokovať",
+  "blockCalls": "Blokovať hovory",
+  "blocked": "Blokované",
+  "blockedCalls": "Blokované hovory",
+  "blockedCallsTitle": "Blokované hovory",
+  "blockedSpamCalls": "Blokované spamové hovory",
+  "blockingTrend": "Trend blokovania",
+  "blockInternationalCalls": "zhoduje sa s číslami, ktoré nezačínajú na + alebo 00",
+  "blockInternationalCallsTitle": "Blokovať medzinárodné hovory",
+  "blockMobileNumbers": "zhoduje sa s číslami, ktoré nezačínajú na 13-19",
+  "blockMobileNumbersTitle": "Blokovať mobilné čísla",
+  "blockPremiumRateNumbers": "zhoduje sa s číslami, ktoré nezačínajú na 118 alebo 120-190",
+  "blockPremiumRateNumbersTitle": "Blokovať čísla s prémiovým poplatkom",
+  "blockRule": "Pravidlo blokovania",
+  "blockRules": "Pravidlá blokovania",
+  "blockSpecificAreaCodes": "zhoduje sa s číslami začínajúcimi na 0 + 2-3 číslice",
+  "blockSpecificAreaCodesTitle": "Blokovať špecifické predvoľby:",
+  "blockTypeAnalysisTitle": "Analýza typu blokovania",
+  "both": "Oboje",
+  "bulkDelete": "Hromadné mazanie kontaktov",
+  "bulkDeleteContacts": "Hromadné mazanie kontaktov",
+  "bulkDeleteLabels": "Hromadné mazanie štítkov",
+  "call": "Hovor",
+  "callback": "Spätný hovor",
+  "callBlocking": "Blokovanie hovorov",
+  "callerIdApp": "Aplikácia Caller ID",
+  "callerIdCustomizationTitle": "Prispôsobiť Caller ID",
+  "callerIdDisplayMode": "Zobrazenie ID volajúceho",
+  "callerIdMarkedByCount": "Označilo {count}",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "Náhľad ID volajúceho",
+  "callFilterRules": "Pravidlá filtra hovorov",
+  "callFilterRulesDescription": "Nastaviť základné pravidlá pre filtrovanie hovorov",
+  "callFilterSettings": "Nastavenia filtra hovorov",
+  "callFrequencyInterceptionSubtitle": "Nastavte limity frekvencie hovorov a pravidlá blokovania",
+  "callFrequencyInterceptionTitle": "Zachytávanie frekvencie hovorov",
+  "callHistory": "História hovorov",
+  "callHistoryInfoDesc": "Tu sa zobrazuje vaša história hovorov vrátane prichádzajúcich, odchádzajúcich a zmeškaných hovorov.",
+  "callHistoryInfoTitle": "História hovorov",
+  "callHistoryTab": "História hovorov",
+  "callScreeningPermission": "Povolenie na filtrovanie hovorov",
+  "callScreeningPermissionDescription": "Používa sa na filtrovanie a blokovanie nevyžiadaných hovorov.",
+  "callScreeningPermissionNotGranted": "Povolenie na filtrovanie hovorov nebolo udelené, môže to ovplyvniť funkčnosť aplikácie.",
+  "callStatistics": "Štatistiky hovorov",
+  "callTypeAnswered": "Prijaté",
+  "callTypeBlocked": "Blokované",
+  "callTypeIconColor": "Farba ikony typu hovoru",
+  "callTypeMissed": "Zmeškaný hovor",
+  "callTypeOutgoing": "Odchádzajúci",
+  "callTypePosition": "Umiestnenie typu hovoru",
+  "callTypeUnknown": "Neznáme",
+  "cancelButton": "Zrušiť",
+  "carRental": "Prenájom áut",
+  "carrier": "Operátor",
+  "carrierColor": "Farba operátora",
+  "carrierFontSize": "Veľkosť písma operátora",
+  "carrierPosition": "Umiestnenie operátora",
+  "changeLabel": "Zmeniť označenie",
+  "changePluginStatusFailed": "Nepodarilo sa zmeniť stav doplnku: {error}",
+  "changeSubscriptionStatusFailed": "Nepodarilo sa zmeniť stav predplatného: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "Charita",
+  "chartOneWeekAgo": "Pred 1 týždňom",
+  "chartThreeDaysAgo": "Pred 3 dňami",
+  "chartToday": "Dnes",
+  "checkFileFormat": "Skontrolujte formát súboru alebo povolenia",
+  "checkPermissionFailed": "Nepodarilo sa skontrolovať povolenia: {error}",
+  "chooseDefaultInterceptAction": "Vyberte predvolenú akciu zachytenia",
+  "clearFilter": "Vymazať filter",
+  "clearLabelFilterButton": "Vymazať filter označení",
+  "closeButton": "Zavrieť",
+  "cloudSync": "Synchronizácia v cloude",
+  "cloudSyncAndBackupTitle": "Synchronizácia a zálohovanie v cloude",
+  "cloudSyncSettingsSubtitle": "Konfigurácia WebDAV, OneDrive a Google Drive",
+  "cloudSyncSettingsTitle": "Nastavenia synchronizácie v cloude",
+  "cloudSyncTitle": "Synchronizácia v cloude",
+  "collection": "Vymáhanie dlhov",
+  "colorPickerTitle": "Vyberte farbu",
+  "configManagement": "Správa konfigurácie",
+  "configUpdated": "Konfigurácia aktualizovaná",
+  "configurationAdvice": "Prostredníctvom správnej konfigurácie môžete nastaviť rôzne stratégie filtrovania pre pracovné a osobné SIM karty.",
+  "configureBackupOptions": "Konfigurácia možností zálohovania",
+  "configureCloudSyncService": "Konfigurácia služby synchronizácie v cloude",
+  "configureCloudSyncServiceMessage": "Nakonfigurujte službu synchronizácie v cloude, aby ste povolili synchronizáciu medzi viacerými zariadeniami.",
+  "configureSimCardFilterRules": "Konfigurácia pravidiel filtra pre SIM kartu",
+  "confirm": "Potvrdiť",
+  "confirmButton": "Potvrdiť",
+  "confirmDelete": "Potvrdiť odstránenie",
+  "confirmDeleteLabel": "Ste si istí, že chcete odstrániť označenie \"{name}\"",
+  "confirmDeletePlugin": "Ste si istí, že chcete odstrániť doplnok \"{name}\"?",
+  "confirmDeletePlugins": "Ste si istí, že chcete odstrániť {count} doplnkov?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "Ste si istí, že chcete odstrániť toto pravidlo? Táto akcia sa nedá vrátiť späť.",
+  "confirmDeleteSmsFilterRule": "Ste si istí, že chcete odstrániť toto pravidlo filtra SMS?",
+  "confirmDeleteSmsRule": "Ste si istí, že chcete odstrániť toto pravidlo SMS?",
+  "confirmDeleteSubscriptions": "Ste si istí, že chcete odstrániť {name}?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "Potvrdiť heslo",
+  "connectedStatus": "Pripojené",
+  "connectionFailedCheckCredentialsMessage": "Spojenie zlyhalo: Skontrolujte adresu servera, používateľské meno a heslo",
+  "connectionFailedMessage": "Spojenie zlyhalo",
+  "connectionStatusLabel": "Stav pripojenia",
+  "connectionSuccessMessage": "Pripojenie úspešné",
+  "contactAddSuccess": "Kontakt bol úspešne pridaný",
+  "contactDeleted": "Kontakt bol odstránený",
+  "contactNameLabel": "Meno",
+  "contactNotFound": "Kontakt nebol nájdený",
+  "contacts": "kontakty",
+  "contactsDeleted": "Odstránených {count} kontaktov",
+  "contactsManagement": "Správa kontaktov",
+  "contactsPermission": "Povolenie na prístup ku kontaktom",
+  "contactsPermissionDescription": "Používa sa na identifikáciu hovorov od kontaktov.",
+  "contactsTab": "Kontakty",
+  "contactSubscriptionDescription": "Prihláste sa na odber zoznamov kontaktov cez URL, automaticky aktualizujte informácie o kontaktoch a štítky. Podporuje údaje vo formáte JSON.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "Kontakt bol úspešne aktualizovaný",
+  "contactUs": "Kontaktujte nás",
+  "content": "Obsah",
+  "contentRegex": "Obsahový regulárny výraz",
+  "countColor": "Farba počtu",
+  "countFontSize": "Veľkosť písma počtu",
+  "countPosition": "Pozícia počtu",
+  "country": "Krajina",
+  "countryNameColor": "Farba názvu krajiny",
+  "countryNameFontSize": "Veľkosť písma názvu krajiny",
+  "countryRegionNamePosition": "Pozícia názvu krajiny/regiónu",
+  "countThresholdDescription": "Nastavte minimálny prah počtu potrebný na spustenie akcie filtrovania",
+  "countThresholdLabel": "Prah počtu",
+  "createdRules": "Vytvorené pravidlá",
+  "csvFormat": "CSV formát",
+  "currentDeviceLabel": "Štítok súčasného zariadenia",
+  "currentDeviceTitle": "Súčasné zariadenie",
+  "currentLanguage": "Súčasný jazyk",
+  "customerService": "Zákaznícky servis",
+  "dashboardTab": "Prístrojová doska",
+  "dataAnalysis": "Analýza údajov",
+  "dataLoadFailure": "Načítanie údajov zlyhalo: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "Načítanie údajov zlyhalo: {error}",
+  "dataMigration": "Migrácia údajov",
+  "dataMigrationDescription": "Táto funkcia umožňuje prenášať všetky vaše údaje medzi zariadeniami. V súčasnosti môžete použiť funkcie zálohovania a obnovenia na manuálnu migráciu vašich údajov.",
+  "dataSourceReminder": "Pripomienka zdroja údajov",
+  "days": "{count, plural, =1{1 deň} other{{count} dní}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} Dní VIP",
+  "debtCollection": "Vymáhanie dlhu",
+  "delete": "Odstrániť",
+  "deleteButton": "Odstrániť",
+  "deleteContact": "Odstrániť kontakt",
+  "deleteContactConfirm": "Ste si istí, že chcete odstrániť {name}?",
+  "deleteFailed": "Odstránenie zlyhalo: {error}",
+  "deleteLabel": "Odstrániť štítok",
+  "deleteLabelFailed": "Odstránenie štítku zlyhalo: {error}",
+  "deletePlugin": "Odstrániť plugin",
+  "deletePluginFailed": "Odstránenie pluginu zlyhalo: {error}",
+  "deletePlugins": "Odstrániť pluginy",
+  "deletePluginsFailed": "Odstránenie pluginov zlyhalo: {error}",
+  "deleteRule": "Odstrániť pravidlo",
+  "deleteRuleFailed": "Odstránenie zlyhalo: {error}",
+  "deleteSelected": "Odstrániť vybrané",
+  "deleteSubscription": "Odstrániť odber",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "Ste si istí, že chcete odstrániť odber \"{name}\"?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "Odstránenie odberu zlyhalo: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "Odstránenie úspešné",
+  "delivery": "Doručenie",
+  "deviceIDLabel": "ID zariadenia",
+  "deviceManagementSubtitle": "Spravujte synchronizáciu viacerých zariadení",
+  "deviceManagementTitle": "Správa zariadení",
+  "deviceModelLabel": "Model zariadenia",
+  "deviceName": "Názov zariadenia",
+  "deviceNameLabel": "Názov zariadenia",
+  "deviceRenamedSuccessfullyMessage": "Zariadenie bolo úspešne premenované",
+  "devicesSynchronizedSuccessfullyMessage": "Zariadenia boli úspešne synchronizované",
+  "deviceUnregisteredSuccessfullyMessage": "Zariadenie bolo úspešne odhlásené",
+  "dialogTitle": "Vysvetlenie regulárneho výrazu",
+  "differentFromLocalCounter": "Táto funkcia sa líši od lokálneho čítača, pretože sa zameriava na opakované vzory volaní v krátkom čase namiesto dlhodobého značkovania počtu.",
+  "disabled": "Neaktívne",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "Neaktívne",
+  "disableGlobalPlugins": "Zakázať globálne pluginy",
+  "disconnectButton": "Odpojiť",
+  "disconnectedMessage": "Odpojené",
+  "disconnectedStatus": "Odpojené",
+  "disconnectFailedMessage": "Odpojenie zlyhalo",
+  "done": "Hotovo",
+  "dualSimAdvice": "Táto funkcia je obzvlášť užitočná pre dual-SIM telefóny, aby ste mohli nastaviť rôzne stratégie filtrovania pre pracovné a súkromné SIM karty.",
+  "earlier": "Skôr",
+  "ecommerce": "Elektronický obchod",
+  "edit": "Upraviť",
+  "editContact": "Upraviť kontakt",
+  "editLabel": "Upraviť štítok",
+  "editPhoneRule": "Upraviť pravidlo telefónu",
+  "editRule": "Upraviť pravidlo",
+  "education": "Vzdelávanie",
+  "elementPositionsSetting": "Pozície prvkov",
+  "email": "E-mail",
+  "enableCallFilter": "Povoliť filter hovorov",
+  "enableCallFilterDescription": "Keď je povolené, prichádzajúce hovory sa kontrolujú podľa nižšie uvedeného zoznamu pravidiel. Pravidlá filtrovania hovorov sa štandardne nesynchronizujú medzi zariadeniami.",
+  "enabled": "Povolené",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "Povolené",
+  "enableEncryption": "Povoliť šifrovanie",
+  "enableEncryptionDescription": "Šifrovať záložné súbory",
+  "enableGlobalPlugins": "Povoliť globálne pluginy",
+  "enableLocalCountFilter": "Povoliť lokálny čítač",
+  "enableLocalCountFilterDescription": "Automaticky filtrovať spamové hovory na základe počtu označení hovorov",
+  "enableLocalNotification": "Použiť lokálne upozornenia",
+  "enableLocalNotificationDescription": "Keď je povolené, upozornenia na filtrované správy sa zobrazia na zariadení",
+  "enableLocationSummary": "Poloha",
+  "enableMuteRules": "Povoliť pravidlá stlmenia",
+  "enableMuteRulesDesc": "Aplikovať konfiguráciu pravidiel pre prerušenie stlmenia",
+  "enableNoneActionRules": "Povoliť pravidlá bez akcie",
+  "enableNoneActionRulesDesc": "Povoliť konfigurácie pravidiel bez akcie prerušenia",
+  "enableRemoteNumberFilter": "Povoliť vzdialený filter čísel",
+  "enableRemoteNumberFilterDescription": "Použiť vzdialenú databázu na filtrovanie čísel",
+  "enableRule": "Povoliť pravidlo",
+  "enableSmsFilter": "Povoliť filtrovanie SMS",
+  "enableSmsFilterDescription": "Keď je povolené, správy sa automaticky filtrujú podľa pravidiel",
+  "enableTimeInterception": "Povoliť časové prerušenie",
+  "enableTimeInterceptionDescription": "Prerušovať opakované hovory v krátkom čase",
+  "enableTimeInterceptor": "Povoliť časové prerušenie",
+  "endCallImmediately": "Ukončiť hovor okamžite",
+  "endColor": "Koncová farba",
+  "endDate": "Dátum ukončenia",
+  "enhancedFilterInstructionsTitle": "Pokyny pre rozšírený systém filtrovania",
+  "enhancedFilterSettings": "Nastavenia rozšíreného filtra",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "Nastavenia rozšíreného filtra",
+  "enhancedFilterSystemDescription": "Rozšírený systém filtrovania podporuje globálne pravidlá aj konfigurácie filtrovania pre každú SIM kartu.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "Zadajte telefónne číslo aj regulárny výraz.",
+  "enterContactName": "Zadajte meno kontaktu",
+  "enterDeviceName": "Zadajte názov zariadenia",
+  "enterEmailOptional": "Zadajte e-mail (voliteľné)",
+  "enterEncryptionPasswordHint": "Zadajte šifrovacie heslo",
+  "enterIconCode": "Zadajte kód ikony",
+  "enterName": "Zadajte meno kontaktu",
+  "enterNewDeviceNameHint": "Zadajte nový názov tohto zariadenia",
+  "enterPasswordAgain": "Zadajte heslo znova",
+  "enterPhoneNumber": "Zadajte telefónne číslo",
+  "enterPhoneNumberHint": "Zadajte telefónne číslo na testovanie",
+  "enterPhoneNumberMultiple": "Zadajte telefónne číslo, viacero čísel oddelených čiarkami",
+  "enterPhoneNumberToStartSearch": "Zadajte telefónne číslo na začatie vyhľadávania",
+  "enterPhoneNumberToVerify": "Zadajte telefónne číslo na overenie",
+  "enterPluginName": "Zadajte názov pluginu",
+  "enterPluginUrl": "Zadajte adresu URL pluginu",
+  "enterRegexHint": "Zadajte regulárny výraz",
+  "enterRuleNameAndPatternMessage": "Prosím, zadajte názov pravidla a vzor regulárneho výrazu.",
+  "enterRuleNameHint": "Zadajte názov pravidla",
+  "enterSearchContent": "Prosím, zadajte vyhľadávací obsah",
+  "enterSubscriptionName": "Zadajte názov odberu",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "Zadajte URL odberu",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Prosím, zadajte názov synchronizačného priečinka (predvolené: NotificationManager)",
+  "entertainment": "Zábava",
+  "enterValidNameAndUrl": "Prosím, zadajte platný názov a URL",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "Prosím, zadajte platnú URL",
+  "enterVersion": "Zadajte verziu",
+  "enterWebDAVPasswordHint": "Prosím, zadajte heslo WebDAV",
+  "enterWebDAVServerAddressHint": "Prosím, zadajte adresu servera WebDAV",
+  "enterWebDAVUsernameHint": "Prosím, zadajte používateľské meno WebDAV",
+  "errorOccurredMessage": "Vyskytla sa chyba: {error}",
+  "errorRenamingDeviceMessage": "Chyba pri premenovávaní zariadenia: {error}",
+  "errorSynchronizingDevicesMessage": "Chyba pri synchronizácii zariadení: {error}",
+  "errorUnregisteringDeviceMessage": "Chyba pri odhlásení zariadenia: {error}",
+  "exampleBlock400Prefix": "napr. Blokovať čísla s predvoľbou 400",
+  "exampleBlockMarketingSms": "napr. Blokovať marketingové SMS",
+  "exampleContentRegexHint": "Príklad regulárneho výrazu pre obsah",
+  "exampleCouponPromotionDiscount": "napr. .*(kupón|akcia|zľava).*",
+  "exampleFamilyFriends": "napr. Rodina, priatelia atď.",
+  "examplePhoneNumber": "napr. 10086, 12345 atď.",
+  "exampleRegex400Prefix": "Príklad regulárneho výrazu pre predvoľbu 400",
+  "exampleSenderRegexHint": "Príklad",
+  "exchange": "Vymeniť",
+  "exchangeNow": "Vymeniť teraz",
+  "exchangeVip": "Vymeniť VIP",
+  "expiryTime": "Čas vypršania platnosti: {time}",
+  "export": "Exportovať",
+  "exportAllApplicationSettings": "Exportovať všetky nastavenia aplikácie",
+  "exportAllRuleConfigurations": "Exportovať všetky konfigurácie pravidiel",
+  "exportConfig": "Exportovať konfiguráciu",
+  "exportContacts": "Exportovať kontakty",
+  "exportData": "Exportovať údaje",
+  "exportFailed": "Export zlyhal",
+  "exportFailure": "Nepodarilo sa exportovať konfiguráciu",
+  "exportFeatureComingSoon": "Funkcia exportu čoskoro",
+  "exportLabels": "Exportovať štítky",
+  "exportLabelsFailed": "Nepodarilo sa exportovať štítky: {error}",
+  "exportPluginList": "Exportovať zoznam doplnkov",
+  "exportPluginListFailed": "Nepodarilo sa exportovať zoznam doplnkov: {error}",
+  "exportRules": "Exportovať pravidlá",
+  "exportSmsRules": "Exportovať pravidlá SMS",
+  "exportStatisticsData": "Exportovať štatistické údaje",
+  "exportSuccesslly": "Konfigurácia úspešne exportovaná",
+  "failedToAddRule": "Nepodarilo sa pridať pravidlo: {error}",
+  "failedToAddSmsSubscription": "Nepodarilo sa pridať odber SMS: {error}",
+  "failedToBackupSettings": "Nepodarilo sa zálohovať nastavenia: {error}",
+  "failedToDecryptBackupFile": "Nepodarilo sa dešifrovať záložný súbor",
+  "failedToDeleteSmsRule": "Nepodarilo sa vymazať pravidlo SMS: {error}",
+  "failedToExportRules": "Nepodarilo sa exportovať pravidlá: {error}",
+  "failedToGetCallerIdInfo": "Nepodarilo sa získať informácie o ID volajúceho: {error}",
+  "failedToImportRules": "Nepodarilo sa importovať pravidlá: {error}",
+  "failedToRestoreSettings": "Nepodarilo sa obnoviť nastavenia",
+  "failedToRestoreSettingsWithError": "Nepodarilo sa obnoviť nastavenia: {error}",
+  "failedToToggleRuleStatus": "Nepodarilo sa prepnúť stav pravidla: {error}",
+  "favoriteContacts": "Obľúbené kontakty",
+  "featureAddRules": "• Pridať pravidlá pre konkrétne telefónne čísla",
+  "featureCenter": "Centrum funkcií",
+  "featureEnableDisable": "• Povoliť/zakázať rôzne filtre na SIM kartu",
+  "featureListTitle": "Funkcie:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• Spravovať zoznamy pravidiel na SIM kartu",
+  "features": "Funkcie",
+  "fetchingCallerIdInfo": "Načítavajú sa informácie o ID volajúceho...",
+  "fileSavedTo": "Súbor uložený do: {path}",
+  "filter": "Filter",
+  "filterByLabel": "Filtrovať podľa štítku",
+  "filterControlPanelTitle": "Ovládací panel filtra",
+  "filterControlSubtitle": "Spravovať stav zapnutia/vypnutia všetkých filtrov",
+  "filterControlTitle": "Ovládanie filtra",
+  "filtered": "Filtrované",
+  "filterExplanation": "Vysvetlenie filtra",
+  "filterManagement": "Správa filtrov",
+  "filterName": "Názov filtra",
+  "filterPriorityNote": "Poznámka: Medzi filtrami existujú prioritné vzťahy, podrobnosti nájdete v dokumentácii pomoci.",
+  "filterSettings": "Nastavenia filtra",
+  "filterSettingsTitle": "Nastavenia filtra",
+  "filterSMS": "Filtrovať SMS",
+  "filterToggleInstructions": "Zapnite alebo vypnite filtre pre tento slot SIM:",
+  "filterToggleStatus": "Filter {status}: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "Typ filtra",
+  "financial": "Finančné",
+  "flexibleCombinationFeature": "• Flexibilné kombinácie: Zapnutie/vypnutie filtrov podľa slotu SIM",
+  "fontSizesSetting": "Veľkosti písma",
+  "foundRules": "Nájdené {count} pravidiel",
+  "fraudAlert": "POZOR NA PODVOD - Zložte telefón",
+  "fraudScamLikely": "Pravdepodobne podvod/podvodník",
+  "free": "Zadarmo",
+  "functionSettingsTitle": "Nastavenia funkcií",
+  "generalUpdateFailure": "Aktualizácia zlyhala: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "Získať zadarmo",
+  "github": "GitHub",
+  "globalFilterDescription": "Nastaviť globálne filtre pre všetky SIM karty:",
+  "globalFilterFeature": "• Globálne filtre: Základné pravidlá pre všetky prichádzajúce hovory",
+  "globalFilterSettings": "Nastavenia globálneho filtra",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "Globálne nastavenia",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "Autorizovať pomocou systémom nakonfigurovaného klient ID a kľúča Google Drive",
+  "googleDriveConfigTitle": "Konfigurácia Google Drive",
+  "government": "Vládne",
+  "granted": "Udelené",
+  "grantNecessaryPermissions": "Udeľte potrebné povolenia",
+  "grantPermissions": "Udeľte povolenia",
+  "headhunter": "Náborár",
+  "height": "Výška",
+  "homeTab": "Domov",
+  "howItWorksPoint1": "• Systém automaticky povolí hovory z rovnakého čísla v rámci nastaveného časového okna",
+  "howItWorksPoint2": "• Kratšie časové okná znamenajú prísnejšie zachytávanie; dlhšie časové okná znamenajú voľnejšie zachytávanie",
+  "howItWorksPoint3": "• Systém kontroluje denníky hovorov, aby určil, či ide o opakovaný hovor",
+  "howItWorksTitle": "Ako to funguje:",
+  "iconCodeOptional": "Kód ikony (voliteľné)",
+  "iconSize": "Veľkosť ikony",
+  "import": "Importovať",
+  "important": "Dôležité",
+  "importConfig": "Importovať konfiguráciu",
+  "importContacts": "Importovať kontakty",
+  "importExportContacts": "Import/Export kontaktov",
+  "importExportContactsTooltip": "Import/Export kontaktov",
+  "importExportRules": "Import/Export pravidiel",
+  "importFailed": "Import zlyhal: {error}",
+  "importFailure": "Nepodarilo sa importovať konfiguráciu",
+  "importFeatureComingSoon": "Funkcia importu už čoskoro",
+  "importLabels": "Importovať štítky",
+  "importLabelsFailed": "Nepodarilo sa importovať štítky: {error}",
+  "importPluginList": "Importovať zoznam pluginov",
+  "importPluginListFailed": "Nepodarilo sa importovať zoznam pluginov: {error}",
+  "importPluginSuccess": "Úspešne importované {count} pluginov",
+  "importRuleConfigurationsFromFile": "Importovať konfigurácie pravidiel zo súboru",
+  "importRules": "Importovať pravidlá",
+  "importSuccess": "Import úspešný",
+  "incomingCallInterceptAction": "Akcia zachytenia prichádzajúceho hovoru",
+  "incorrectPassword": "Nesprávne heslo",
+  "initializing": "Inicializujem",
+  "installed": "Nainštalované",
+  "insufficientMarks": "Nedostatočné body",
+  "insurance": "Poisťovňa",
+  "interceptAction": "Akcia zachytenia",
+  "interceptionActionSettingsSubtitle": "Nastaviť, ako sa zaobchádza so zablokovanými hovormi",
+  "interceptionActionSettingsTitle": "Nastavenia akcie zachytenia",
+  "interceptionTimeInterval": "Časový interval zachytenia",
+  "internet": "Internet",
+  "intervalSetSuccess": "Interval aktualizácie {service} nastavený na {days} dní",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "Neplatná regulárna téza obsahu",
+  "invalidLabel": "Neplatný štítok",
+  "invalidRegexPattern": "Neplatný vzor regulárneho výrazu",
+  "invalidSenderRegex": "Neplatný regulárny výraz odosielateľa",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "Pripojte sa k Telegram kanálu a skupine pre viac informácií",
+  "jsonFormat": "Formát JSON",
+  "keepAllVersions": "Ponechať všetky verzie",
+  "keepAllVersionsDescription": "Ponechať všetky historické verzie každého zálohovania",
+  "label": "Štítok",
+  "labelAddedSuccessfully": "Štítok \"{name}\" bol úspešne pridaný",
+  "labelCategories": "Kategórie štítkov",
+  "labelDeleted": "Štítok bol odstránený",
+  "labelDescription": "Štítky vám pomôžu lepšie spravovať kontakty, pridávajte vlastné štítky k telefónnym číslam pre jednoduchú identifikáciu hovorov a správ.",
+  "labelFilterTooltip": "Filter štítkov",
+  "labelIconColor": "Farba ikony štítku",
+  "labelManagement": "Správa štítkov",
+  "labelNotFound": "Štítok nebol nájdený",
+  "labels": "Štítky",
+  "labelsColor": "Farba štítkov",
+  "labelsDeleted": "{count} štítkov bolo odstránených",
+  "labelsExportedSuccessfully": "Štítky boli úspešne exportované",
+  "labelsFontSize": "Veľkosť písma štítkov",
+  "labelsImportedSuccessfully": "Úspešne importovaných {count} štítkov",
+  "labelsPosition": "Pozícia štítkov",
+  "labelTag": "Štítok: {labelId}",
+  "labelUpdateFailed": "Chyba pri aktualizácii štítku: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "Štítok \"$labelText\" bol úspešne aktualizovaný",
+  "languageSettings": "Nastavenia jazyka",
+  "languageSettingsSubtitle": "Zmeniť jazyk zobrazenia aplikácie",
+  "languageSettingsTitle": "Nastavenia jazyka",
+  "lastSyncLabel": "Posledná synchronizácia",
+  "lastUpdated": "Posledná aktualizácia: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "Doživotné členstvo",
+  "lifetimeMembershipDescription": "Jednorazová platba, trvalo odomknite všetky prémiové funkcie a budúce aktualizácie",
+  "loadContactsFailed": "Chyba pri načítavaní kontaktov: {error}",
+  "loadDataFailed": "Chyba pri načítavaní dát",
+  "loading": "Načítava sa...",
+  "loadingTags": "Načítavajú sa značky...",
+  "loadLabelFailed": "Chyba pri načítavaní štítkov: {error}",
+  "loadLabelsFailed": "Chyba pri načítavaní štítkov: {error}",
+  "loadMarkCountFailed": "Chyba pri načítavaní označených telefónnych čísel: {error}",
+  "loadMarkedPhonesFailed": "Chyba pri načítavaní označených telefónnych čísel: {error}",
+  "loadPluginsFailed": "Chyba pri načítavaní doplnkov: {error}",
+  "loadSettingsFailed": "Chyba pri načítavaní nastavení: {error}",
+  "loadSmsRulesFailed": "Chyba pri načítavaní pravidiel SMS: {error}",
+  "loadStatusFailedMessage": "Chyba pri načítavaní stavu",
+  "loadSubscriptionsFailed": "Chyba pri načítavaní predplatných: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "Pôžička",
+  "localCounterFilter": "Lokálny číselný filter",
+  "localCounterFilterSubtitle": "Automaticky filtrujte spamové hovory na základe frekvencie hovorov",
+  "localCountFilter": "Lokálny filter počtu",
+  "localCountFilterDescription": "Zachytávajte časté hovory na základe lokálnych počtov čísel",
+  "localCountFilterExplanationContent": "Lokálny filter počtu analyzuje záznamy histórie hovorov na automatickú identifikáciu a blokovanie častých spamových hovorov.",
+  "localCountFilterExplanationTitle": "Vysvetlenie lokálneho filtra počtu",
+  "localCountFilterHowItWorksPoint1": "• Určte, či blokovať na základe hodnoty počtu čísla",
+  "localCountFilterHowItWorksPoint2": "• Keď počet čísla prekročí nastavený prah, môžete ho automaticky zablokovať",
+  "localCountFilterHowItWorksPoint3": "• Môžete selektívne povoliť čísla, ktoré neprekračujú prah",
+  "localCountFilterHowItWorksPoint4": "• Môžete zvoliť, či sa majú zaznamenávať všetky logy dopytov",
+  "localCountFiltering": "Lokálne filtrovanie počtu",
+  "localCountFilteringExplanation": "• Lokálne filtrovanie počtu: Pravidlá filtrovania na základe lokálneho počtu označení",
+  "localCountFilterSettings": "Nastavenia lokálneho filtra počtu",
+  "localCountFilterUseCases": "Tento filter je obzvlášť vhodný na identifikáciu automaticky vytáčaných spamových hovorov a marketingových hovorov.",
+  "localFilterSettings": "Nastavenia lokálneho filtra",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "Lokálne notifikácie zakázané",
+  "localNotificationEnabled": "Lokálne notifikácie povolené",
+  "localServices": "Lokálne služby",
+  "locationColor": "Farba polohy",
+  "locationFontSize": "Veľkosť písma polohy",
+  "locationIconColor": "Farba ikony polohy",
+  "locationPosition": "Pozícia polohy",
+  "logAllLocalQueries": "Logovať všetky lokálne dopyty",
+  "logAllLocalQueriesDescription": "Zaznamenávať logy pre všetky lokálne dopyty čísel",
+  "logAllRemoteQueries": "Logovať všetky vzdialené dopyty",
+  "logAllRemoteQueriesDescription": "Zaznamenávať všetky operácie vzdialených dopytov čísel",
+  "manage": "Spravovať kontakty",
+  "manageFavoriteContacts": "Spravovať obľúbené kontakty",
+  "manageFilterRules": "Spravovať pravidlá filtra",
+  "manageFilterRulesDescription": "Pridávať, upravovať alebo odstraňovať pravidlá filtra SMS",
+  "markCounts": "Počty označení",
+  "markCount": "Označenie počtu",
+  "markedByCount": "Označené {count}",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Označené telefónne čísla",
+  "markExchange": "Vymeniť označenie",
+  "markPhone": "Označiť telefónne číslo",
+  "markPhoneFailed": "Nepodarilo sa označiť telefónne číslo: {error}",
+  "markPhoneManagementTitle": "Správa označovania telefónnych čísel",
+  "markPhoneSuccess": "Telefónne číslo úspešne označené",
+  "matchFailedMessage": "Zhoda zlyhala.",
+  "matchNumbersWithSpecialCharacters": "zhoduje sa so špecifickým formátom čísla",
+  "matchNumbersWithSpecialCharactersTitle": "Zhodu čísel so špeciálnymi znakmi:",
+  "matchSpecificDigitPatterns": "zhoduje sa s formátom XXX-XXXX-XXXX",
+  "matchSpecificDigitPatternsTitle": "Zhodu špecifických vzorov číslic:",
+  "matchSuccessfulMessage": "Zhoda úspešná!",
+  "medical": "Zdravotníctvo",
+  "membershipPrivileges": "Členské výhody",
+  "migrationTool": "Nástroj na migráciu",
+  "minutes": "minúty",
+  "month": "Mesiac",
+  "monthly": "Mesačne",
+  "monthlyCallCount": "Mesačné hovory",
+  "monthlyMembership": "Mesačné členstvo",
+  "monthlyMembershipDescription": "Odomknite všetky prémiové funkcie, automatické obnovenie mesačne",
+  "monthlyTotal": "Mesačný súčet",
+  "moreOptions": "Viac možností",
+  "name": "Meno",
+  "nameAndPhoneNumberCannotBeEmpty": "Meno a telefónne číslo nemôžu byť prázdne",
+  "nameColor": "Farba mena",
+  "nameFontSize": "Veľkosť písma mena",
+  "namePosition": "Pozícia mena",
+  "nameUnknown": "Meno: Neznáme",
+  "nextStep": "Ďalší krok",
+  "noAction": "Žiadna akcia",
+  "noActionRules": "Pravidlá žiadnej akcie",
+  "noActiveCloudSyncServiceMessage": "Žiadna aktívna služba synchronizácie cloudu",
+  "noCallRecords": "Žiadne záznamy hovorov",
+  "noContactsYet": "Zatiaľ žiadne kontakty",
+  "noData": "Žiadne dáta",
+  "noDevicesRegisteredMessage": "Žiadne registrované zariadenia",
+  "noLabels": "Zatiaľ žiadne štítky",
+  "noMarkedPhones": "Žiadne označené telefónne čísla",
+  "noMatchingContactsFound": "Nenašli sa žiadne zodpovedajúce kontakty",
+  "noMatchingNumbersFound": "Nenašli sa žiadne zodpovedajúce čísla",
+  "noMatchingRules": "Žiadne zodpovedajúce {ruleType}",
+  "none": "Žiadne",
+  "noneServiceType": "Žiadne",
+  "noPlugins": "Zatiaľ žiadne pluginy",
+  "noRules": "Zatiaľ žiadne {ruleType}",
+  "noRulesPrompt": "Nenašli sa žiadne pravidlá, pridajte prosím pravidlá",
+  "noRulesToExport": "Žiadne pravidlá na export",
+  "noSmsFilterRulesYet": "Zatiaľ žiadne pravidlá filtra SMS",
+  "noSmsRulesYet": "Zatiaľ žiadne pravidlá SMS",
+  "noSubscriptions": "Žiadne predplatné",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "Neposkytnuté",
+  "notificationModeDescription": "Zobraziť informácie o volajúcom v notifikačnej lište",
+  "notificationPermission": "Povolenie na upozornenia",
+  "notificationPermissionDescription": "Používa sa na zobrazovanie upozornení na prichádzajúce hovory a správy.",
+  "notifications": "Upozornenia",
+  "notificationSettings": "Nastavenia upozornení",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "Overené",
+  "noValidSmsRulesFoundInFile": "V súbore sa nenašli žiadne platné pravidlá SMS",
+  "number": "Číslo",
+  "numberColor": "Farba čísla",
+  "numberFontSize": "Veľkosť písma čísla",
+  "numberPosition": "Pozícia čísla",
+  "numberSearch": "Vyhľadávanie čísla",
+  "numberTypeColor": "Farba typu čísla",
+  "numberTypeFontSize": "Veľkosť písma typu čísla",
+  "numberTypePosition": "Pozícia typu čísla",
+  "okButton": "OK",
+  "onboardingCompleteDescription": "Váš manažér zabezpečenia hovorov je pripravený, začnite si užívať bezpečné hovory!",
+  "onboardingLanguageDescription": "Vyberte si preferovaný jazyk pre najlepší zážitok.",
+  "onboardingPermissionsDescription": "Na poskytovanie úplných služieb potrebujeme nasledujúce povolenia:",
+  "onboardingPowerfulSpamBlockingDescription": "Jedným kliknutím blokujte spamové hovory a správy, prispôsobte si pravidlá blokovania a získajte pokojné prostredie.",
+  "onboardingSmartCallerIdDescription": "Automaticky identifikujte neznáme hovory, označte podozrivé čísla a chráňte bezpečnosť vašich hovorov.",
+  "onboardingWelcomeDescription": "Váš expert na správu hovorov, ktorý poskytuje komplexné služby identifikácie a blokovania hovorov.",
+  "oneDriveAuthDescription": "Autorizujte pomocou klientskeho ID a kľúča OneDrive nakonfigurovaného v systéme",
+  "oneDriveConfigTitle": "Konfigurácia OneDrive",
+  "onlineCallerIdSubscription": "Predplatné online identifikácie volajúceho",
+  "openAppSettings": "Otvoriť nastavenia aplikácie",
+  "openAppSettingsFailed": "Nepodarilo sa otvoriť nastavenia aplikácie: {error}",
+  "operationFailed": "Operácia zlyhala: {error}",
+  "operationFailure": "Operácia zlyhala",
+  "operationSuccess": "Operácia úspešná",
+  "other": "Iné",
+  "ourOtherApps": "Naše ďalšie aplikácie",
+  "overlayMode": "Plávajúce okno",
+  "overlayModeDescription": "Zobraziť informácie o volajúcom v plávajúcom okne",
+  "overlayPermission": "Povolenie plávajúceho okna",
+  "overlayPermissionDescription": "Používa sa na zobrazenie prekrytia prichádzajúceho hovoru.",
+  "overview": "Prehľad",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "Heslo",
+  "passwordCannotBeEmpty": "Heslo nemôže byť prázdne",
+  "passwordLabel": "Heslo",
+  "passwordsDoNotMatch": "Heslá sa nezhodujú",
+  "pattern": "Vzor",
+  "pendingSync": "Čaká na synchronizáciu",
+  "periodMonth": "Mesiac",
+  "periodWeek": "Týždeň",
+  "periodYear": "Rok",
+  "permissionDenied": "Požiadavka na povolenie odmietnutá",
+  "permissionGranted": "Povolenie udelené",
+  "permissionManagement": "Správa povolení",
+  "phoneCallsTab": "Telefón",
+  "phoneNumber": "Telefónne číslo",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "Telefónne číslo nemôže byť prázdne",
+  "phoneNumberLabel": "Telefónne číslo",
+  "phoneNumberTypeFixedLine": "Pevná linka",
+  "phoneNumberTypeFixedLineOrMobile": "Pevná linka alebo mobil",
+  "phoneNumberTypeMobile": "Mobil",
+  "phoneNumberTypePager": "Pager",
+  "phoneNumberTypePersonalNumber": "Osobné číslo",
+  "phoneNumberTypePremiumRate": "Prémiová sadzba",
+  "phoneNumberTypeSharedCost": "Spoločné náklady",
+  "phoneNumberTypeTollFree": "Bezplatné",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "Neznámy",
+  "phoneNumberTypeVoicemail": "Hlasová schránka",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "Povolenie telefónu",
+  "phonePermissionDescription": "Používa sa na identifikáciu a blokovanie prichádzajúcich hovorov.",
+  "phoneRule": "Pravidlo telefónu",
+  "phoneRuleManagement": "Správa pravidiel telefónu",
+  "phoneRuleSubscription": "Predplatné pravidiel telefónu",
+  "phoneSubscription": "Predplatné telefónu",
+  "phoneSubscriptionRulesDescription": "Prihláste sa na odber zoznamov pravidiel telefónu prostredníctvom URL na automatickú aktualizáciu zoznamov povolených a zakázaných pravidiel. Podporuje súbory pravidiel vo formáte JSON.",
+  "pleaseSelectLabelAndEnterValidPhone": "Vyberte označenie a zadajte platné telefónne číslo",
+  "pluginAddedSuccess": "Doplnok „{name}“ bol úspešne pridaný",
+  "pluginDeleted": "Doplnok bol odstránený",
+  "pluginLatestVersion": "Doplnok je už v najnovšej verzii",
+  "pluginListExportSuccess": "Zoznam doplnkov bol úspešne exportovaný",
+  "pluginManagement": "Správa doplnkov",
+  "pluginManagementSubtitle": "Spravujte a konfigurujte doplnky tretích strán",
+  "pluginName": "Názov doplnku",
+  "pluginsDeleted": "{count} doplnkov bolo úspešne odstránených.",
+  "pluginService": "Služba doplnkov",
+  "pluginTestPageTitle": "Test doplnku",
+  "pluginUpdateSuccess": "Doplnok bol úspešne aktualizovaný",
+  "pluginUrl": "URL doplnku",
+  "pluginVersion": "Verzia doplnku",
+  "political": "Politické",
+  "powerfulSpamBlocking": "Výkonné blokovanie spamu",
+  "previousStep": "Predchádzajúci",
+  "prioritizeRemoteAction": "Uprednostniť nastavenia vzdialených akcií",
+  "prioritizeRemoteActionDescription": "Uprednostniť nastavenia akcií zo vzdialenej databázy",
+  "processing": "Spracováva sa...",
+  "processingOperation": "Spracováva sa...",
+  "purchase": "Kúpiť",
+  "quarterlyMembership": "Štvrťročné členstvo",
+  "quarterlyMembershipDescription": "Odomknite všetky prémiové funkcie, automatické obnovenie štvrťročne",
+  "ready": "Pripravené!",
+  "recruiter": "Náborár",
+  "refresh": "Obnoviť",
+  "refreshPermissionStatus": "Obnoviť stav povolenia",
+  "refreshTooltip": "Obnoviť",
+  "regexErrorMessage": "Chyba regulárneho výrazu: {error}",
+  "regexPattern": "Vzor regulárneho výrazu",
+  "regexPatternExplanation": "Vysvetlenie vzoru regulárneho výrazu",
+  "regexPatternExplanationButton": "Vysvetlenie vzoru regulárneho výrazu",
+  "regexPatternLabel": "Vzor regulárneho výrazu",
+  "regexPatternsForPhoneNumberMatching": "Vzory regulárnych výrazov na zhodu telefónnych čísel",
+  "regexRule": "Pravidlo regulárneho výrazu",
+  "regexRuleAddFailed": "Nepodarilo sa pridať pravidlo regulárneho výrazu: {error}",
+  "regexRuleAddSuccess": "Pravidlo regulárneho výrazu bolo úspešne pridané",
+  "regexRuleManagement": "Správa pravidiel regulárnych výrazov",
+  "regexRuleNamePatternRequired": "Názov pravidla a vzor regulárneho výrazu nemôžu byť prázdne",
+  "regexRules": "Pravidlá regulárnych výrazov",
+  "regexTesterTitle": "Tester regulárnych výrazov",
+  "region": "Región",
+  "registeredDevicesTitle": "Registrované zariadenia",
+  "rejectAllCalls": "Odmietnuť všetky hovory",
+  "rejectAllCallsDescription": "Keď je povolené, všetky hovory budú odmietnuté s najvyššou prioritou",
+  "rejectAllNumbers": "Odmietnuť všetky čísla",
+  "rejectAllNumbersDesc": "Pri povolení odmietnuť všetky prichádzajúce hovory",
+  "rejectExceededNumbers": "Odmietnuť prekročené čísla",
+  "rejectExceededNumbersDescription": "Automaticky odmietnuť čísla, ktoré prekročili prahovú hodnotu počtu",
+  "remoteFilterSettings": "Nastavenia vzdialeného filtra",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "Nastavenia vzdialeného filtra čísel",
+  "remoteNumberFilter": "Vzdialený filter čísel",
+  "remoteNumberFilterDescription": "Zachytáva obťažujúce hovory na základe informácií zo vzdialenej databázy",
+  "remoteNumberFiltering": "Vzdialené filtrovanie čísel",
+  "remoteNumberFilteringExplanation": "• Vzdialené filtrovanie čísel: Filtračné pravidlá založené na informáciách zo vzdialenej databázy",
+  "remoteNumberFilterSubtitle": "Identifikujte spamové hovory pomocou cloudovej databázy a hlásení komunity",
+  "removeAdsDescription": "Trvalo odstráňte všetky reklamy v aplikácii pre plynulejší zážitok",
+  "removeAdsTitle": "Odstrániť reklamy",
+  "removedFromFavorites": "Odstránené z obľúbených",
+  "removeFromFavorites": "Odstrániť z obľúbených",
+  "renameDeviceTitle": "Premenovať zariadenie",
+  "requestAllPermissions": "Požiadať o všetky povolenia",
+  "requestPermission": "Požiadať o povolenie",
+  "requestPermissionFailed": "Nepodarilo sa požiadať o povolenie: {error}",
+  "requiredMarks": "{count} bodov",
+  "reset": "Resetovať",
+  "restore": "Obnoviť",
+  "restoreApplicationSettingsFromBackup": "Obnoviť nastavenia aplikácie z zálohy",
+  "restoreFromCloud": "Obnoviť z cloudu",
+  "restoreFromCloudFailed": "Nepodarilo sa obnoviť z cloudu: {error}",
+  "restoreFromCloudSuccess": "Úspešne obnovené z cloudu",
+  "restorePurchases": "Obnoviť nákupy",
+  "restoreSettings": "Obnoviť nastavenia",
+  "restoreSettingsConfirmation": "Toto nahradí všetky vaše súčasné nastavenia. Ste si istí, že chcete pokračovať?",
+  "retry": "Skúsiť znova",
+  "ridesharing": "Zdieľanie jázd",
+  "risk": "Riziko",
+  "robocall": "Robohovor",
+  "ruleAction": "Akcia pravidla",
+  "ruleAddedSuccess": "Pravidlo bolo úspešne pridané",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "Pravidlo bolo úspešne pridané",
+  "ruleDeleteConfirmContent": "Ste si istí, že chcete odstrániť tento {ruleType}?",
+  "ruleDeleteConfirmTitle": "Odstrániť pravidlo",
+  "ruleDeletedSuccessfully": "Pravidlo bolo úspešne odstránené",
+  "ruleDeleteFailed": "Nepodarilo sa odstrániť pravidlo: {error}",
+  "ruleDeleteSuccess": "Pravidlo bolo úspešne odstránené",
+  "ruleDisabledSuccessfully": "Pravidlo bolo úspešne zakázané",
+  "ruleEnabledSuccessfully": "Pravidlo bolo úspešne povolené",
+  "ruleLoadFailed": "Nepodarilo sa načítať pravidlá: {error}",
+  "ruleManagement": "Správa pravidiel",
+  "ruleName": "Názov pravidla",
+  "ruleNameAndContentRegexCannotBeEmpty": "Názov pravidla a regulárny výraz obsahu nemôžu byť prázdne",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "Názov pravidla a telefónne číslo nemôžu byť prázdne",
+  "ruleNameHint": "napr. Rodina, Priatelia atď.",
+  "ruleNameLabel": "Názov pravidla",
+  "ruleNameRequired": "Názov pravidla a telefónne číslo nemôžu byť prázdne",
+  "ruleNotExist": "Pravidlo neexistuje alebo bolo odstránené",
+  "ruleNotFound": "Pravidlo nenájdené: {error}",
+  "ruleSavedSuccessMessage": "Pravidlo úspešne uložené!",
+  "rulesExportedSuccessfully": "Pravidlá úspešne exportované",
+  "rulesExportedTo": "Pravidlá exportované do: {path}",
+  "rulesImported": "Pravidlá úspešne importované",
+  "rulesImportedSuccessfully": "{count} pravidiel úspešne importovaných",
+  "ruleStatusChanged": "Pravidlo {status} úspešne",
+  "ruleToggleFailed": "Operácia zlyhala: {error}",
+  "ruleToggleSuccess": "Pravidlo {status} úspešne",
+  "ruleUpdateFailed": "Nepodarilo sa aktualizovať pravidlo: {error}",
+  "ruleUpdateSuccess": "Pravidlo úspešne aktualizované",
+  "ruleVerification": "Overenie pravidla",
+  "save": "Uložiť",
+  "saveButton": "Uložiť",
+  "saveButtonText": "Uložiť",
+  "saveFailed": "Uloženie zlyhalo: {error}",
+  "saveSettings": "Uložiť nastavenia",
+  "scamsLikely": "Pravdepodobné podvody",
+  "search": "Hľadať",
+  "searchContacts": "Vyhľadať kontakty",
+  "searchError": "Chyba vyhľadávania: {error}",
+  "searchHint": "Hľadať...",
+  "securityMessage": "Neverte žiadnym telefonátom. Vždy si nezávisle overte čísla zákazníckej podpory. Nikdy nezdieľajte heslá, overovacie kódy, čísla kariet ani osobné údaje.",
+  "selectActionWhenBlockingCalls": "Vyberte akciu pri blokovaní hovorov",
+  "selectActionWhenRuleMatches": "Vyberte akciu, keď pravidlo zodpovedá",
+  "selectAll": "Vybrať všetko",
+  "selectCountry": "Vybrať krajinu",
+  "selectedItems": "{count} položiek vybraných",
+  "selectedLabel": "Vybrané:",
+  "selectExportFormat": "Vybrať formát exportu",
+  "selectLabel": "Vybrať štítok",
+  "selectLabelAndEnterPhoneNumber": "Prosím, vyberte štítok a zadajte platné telefónne číslo",
+  "selectLanguage": "Vybrať jazyk",
+  "selectMultiple": "Vybrať viacero",
+  "selectSimCard": "Vybrať SIM kartu",
+  "selectTags": "Vybrať značky",
+  "selectTrustedDataSource": "Prosím, vyberte dôveryhodné zdroje údajov",
+  "selectYourLanguage": "Vybrať váš jazyk",
+  "sender": "Odosielateľ",
+  "senderRegexOptional": "RegEx odosielateľa (voliteľné)",
+  "serverAddressLabel": "Adresa servera",
+  "serviceTypeContact": "Predplatné kontaktu",
+  "serviceTypeLabel": "Typ služby",
+  "serviceTypePhone": "Predplatné telefónu",
+  "serviceTypePlugin": "Aktualizácia pluginu",
+  "serviceTypeSms": "Predplatné SMS",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "Nastaviť heslo šifrovania",
+  "settings": "Nastavenia",
+  "settingsBackedUpTo": "Nastavenia zálohované do: {path}",
+  "settingsRestoredSuccessfully": "Nastavenia úspešne obnovené. Pre prejdenie zmien reštartujte aplikáciu.",
+  "settingsSaved": "Nastavenia uložené",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "Nepodarilo sa uložiť nastavenia: {error}",
+  "settingsTab": "Nastavenia",
+  "settingsTitle": "Nastavenia",
+  "setup": "Nastavenie",
+  "silence": "Ticho",
+  "silenceAndNoAnswer": "Ticho a bez odpovede",
+  "silenceNoAnswer": "Ticho bez odpovede",
+  "silentCallVoiceClone": "Tichý hlasový klon hovoru",
+  "silentRules": "Tiché pravidlá",
+  "simCard": "SIM karta {simNumber}",
+  "simCardColor": "Farba SIM karty",
+  "simCardConfigurationExplanation": "• Konfigurácia SIM karty: Nastavte nezávislé pravidlá filtrovania pre každú SIM kartu",
+  "simCardFilterRules": "Pravidlá filtrovania SIM karty",
+  "simCardFilterRulesDescription": "Nastavte rôzne pravidlá filtrovania na základe slotov SIM kariet",
+  "simCardFontSize": "Veľkosť písma SIM karty",
+  "simCardPosition": "Pozícia SIM karty",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "Pravidlá slotov SIM vám umožňujú nakonfigurovať nezávislé pravidlá filtrovania pre každý slot SIM.",
+  "simRuleInstructionsTitle": "Pravidlá slotov SIM",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "Nakonfigurujte nezávislé pravidlá filtrovania pre každú SIM kartu:",
+  "simSlotFilterSettingsTitle": "Nastavenia filtra slotu SIM {slotNumber}",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "Správa slotov SIM",
+  "simSlotPosition": "Pozícia slotu SIM {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• Pravidlá slotov SIM: Nezávislé stratégie filtrovania na slot SIM",
+  "simSlotRuleListTitle": "Zoznam pravidiel slotov SIM",
+  "simSlotRuleManagement": "Pravidlá slotov SIM",
+  "simSlotTitle": "Slot SIM {slotNumber}",
+  "skip": "Preskočiť",
+  "smartCallerId": "Inteligentná identifikácia volajúceho",
+  "sms": "SMS",
+  "smsFilterDescription": "Filtrovanie SMS vám pomáha automaticky filtrovať spamové správy a udržiavať váš zoznam správ čistý. Môžete nastaviť pravidlá filtrovania a metódy upozornení.",
+  "smsFilterDisabled": "Filtrovanie SMS je vypnuté",
+  "smsFilterEnabled": "Filtrovanie SMS je zapnuté",
+  "smsFilterRuleAddedSuccessfully": "Pravidlo filtra SMS bolo úspešne pridané",
+  "smsFilterRules": "Pravidlá filtra SMS",
+  "smsFilterSettings": "Nastavenia filtra SMS",
+  "smsManagement": "Správa SMS",
+  "smsPermission": "Povolenie SMS",
+  "smsPermissionDescription": "Používa sa na filtrovanie spamových správ.",
+  "smsRuleAddedSuccessfully": "Pravidlo SMS bolo úspešne pridané",
+  "smsRuleDeletedSuccessfully": "Pravidlo SMS bolo úspešne odstránené",
+  "smsRuleLoadFailed": "Nepodarilo sa načítať pravidlá SMS: {error}",
+  "smsRuleManagement": "Správa pravidiel SMS",
+  "smsRuleSubscription": "Predplatné pravidiel SMS",
+  "smsSubscription": "Predplatné SMS",
+  "smsSubscriptionAddedSuccessfully": "Predplatné SMS bolo úspešne pridané",
+  "smsSubscriptionRulesDescription": "Prihláste sa na odber zoznamov pravidiel SMS pomocou URL, podporuje zhodu s regulárnymi výrazmi. Môžete nastaviť akcie blokovania alebo povolenia.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "Niektoré žiadosti o povolenie boli odmietnuté",
+  "spamLikely": "Pravdepodobne spam",
+  "startColor": "Štartovacia farba",
+  "startDate": "Dátum začiatku",
+  "startUsing": "Začať používať",
+  "statAnswered": "Odpovedané",
+  "statBlocked": "Blokované",
+  "statistics": "Štatistiky",
+  "statisticsPageTitle": "Analýza dát",
+  "stirColor": "Farba STIR",
+  "stirFontSize": "Veľkosť písma STIR",
+  "stirPosition": "Pozícia STIR",
+  "storagePermission": "Povolenie úložiska",
+  "storagePermissionDescription": "Používa sa na ukladanie nastavení a pravidiel.",
+  "subscribe": "Prihlásiť sa",
+  "subscriptionAddSuccess": "Predplatné \"{name}\" bolo úspešne pridané",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "Ste si istí, že chcete toto predplatné odstrániť?",
+  "subscriptionDeleteConfirmTitle": "Odstrániť predplatné",
+  "subscriptionDeleted": "Predplatné bolo odstránené",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "Nepodarilo sa odstrániť predplatné: {error}",
+  "subscriptionDeleteSuccess": "Predplatné bolo odstránené",
+  "subscriptionLoadFailed": "Nepodarilo sa načítať predplatné: {error}",
+  "subscriptionName": "Názov predplatného",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "Názov predplatného a URL nemôžu byť prázdne",
+  "subscriptionNameHint": "Zadajte názov predplatného",
+  "subscriptionStatusChangeFailed": "Nepodarilo sa zmeniť stav predplatného: {error}",
+  "subscriptionUpdateFailed": "Nepodarilo sa aktualizovať predplatné: {error}",
+  "subscriptionUpdateSuccess": "Predplatné bolo úspešne aktualizované",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "URL predplatného",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "Zadajte URL predplatného",
+  "successfullyImportedRules": "Úspešne importovaných {count} pravidiel",
+  "supportSync": "Podporovať synchronizáciu",
+  "survey": "Prieskum",
+  "syncDevicesButton": "Synchronizovať zariadenia",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "Synchronizácia zlyhala",
+  "syncFailedMessage": "Synchronizácia zlyhala",
+  "syncFolderNameLabel": "Názov synchronizačného priečinka",
+  "synchronized": "Synchronizované",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "Synchronizuje sa...",
+  "syncNow": "Synchronizovať teraz",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "Synchronizovať teraz",
+  "syncStatusTitle": "Stav synchronizácie",
+  "syncStatusUpdatedMessage": "Stav synchronizácie aktualizovaný",
+  "syncSuccessMessage": "Synchronizácia úspešná",
+  "syncWithCloudStorage": "Synchronizovať s cloudovým úložiskom",
+  "systemFeatures": "Funkcie systému:",
+  "systemSettingsTitle": "Nastavenia systému",
+  "tabAll": "Všetky",
+  "tabAnswered": "Zodpovedané",
+  "tabBlocked": "Blokované",
+  "tabMissed": "Zmeškané",
+  "tabOutgoing": "Odchádzajúce",
+  "tagLabel": "Štítok: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "So sebou",
+  "telecommunication": "Telekomunikácie",
+  "telegram": "Telegram",
+  "telemarketing": "Telemarketing",
+  "testButton": "TEST",
+  "testConnectionButton": "Otestovať pripojenie",
+  "textColorsSetting": "Farby textu a štítkov",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "Táto aplikácia je výkonný nástroj na identifikáciu volajúceho, ktorý vám umožňuje identifikovať a blokovať nechcené hovory.",
+  "thisWeek": "Tento týždeň",
+  "timeInterceptor": "Časový prerušovač",
+  "timeInterceptorDescription": "Automaticky prerušovať/povoliť potenciálne hovory na základe frekvencie hovorov",
+  "timeInterceptorExplanation": "• Časový prerušovač: Prerušovať/povoliť opakované hovory v krátkom časovom období",
+  "timeInterceptorExplanationContent": "Funkcia prerušenia frekvencie hovorov analyzuje frekvenciu hovorov na automatickú identifikáciu a prerušenie/povolenie častých spamových hovorov.",
+  "timeInterceptorExplanationTitle": "Vysvetlenie prerušenia frekvencie hovorov",
+  "timeInterceptorSettingsTitle": "Nastavenia prerušenia frekvencie hovorov",
+  "timeWindowDescription": "Nastavte veľkosť časového okna na povolenie opakovaných hovorov. Hovory z rovnakého čísla v rámci tohto okna budú povolené.",
+  "timeWindowLabel": "Časové okno prerušenia (minúty): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "Dnes",
+  "total": "Celkom",
+  "totalBlocked": "Celkom blokovaných",
+  "transferDataBetweenDevicesOrPlatforms": "Preniesť dáta medzi zariadeniami alebo platformami",
+  "travelTicketing": "Cestovné lístky",
+  "tutorial": "Tutoriál",
+  "type": "Typ",
+  "unassignedSIMCard": "NeprcurrentNodej SIM karta",
+  "unknown": "Neznáme",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "Štítok: Neznáme",
+  "unregisterButton": "Odhlásiť",
+  "unregisterDeviceConfirmationMessage": "Ste si istí, že chcete odhlásiť {deviceName}?",
+  "unregisterDeviceTitle": "Odhlásiť zariadenie",
+  "unsupportedFileFormat": "Nepodporovaný formát súboru",
+  "update": "Aktualizovať",
+  "updateAllNow": "Aktualizovať všetko teraz",
+  "updateContactFailed": "Chyba pri aktualizácii kontaktu: {error}",
+  "updateFavoriteStatus": "Aktualizovať stav obľúbených",
+  "updateInterval": "Interval aktualizácií",
+  "updateNow": "Aktualizovať teraz",
+  "updatePlugin": "Aktualizovať doplnok",
+  "updatePluginFailed": "Chyba pri aktualizácii doplnku: {error}",
+  "updateRuleFailed": "Chyba pri aktualizácii pravidla: {error}",
+  "updateSubscriptionFailed": "Chyba pri aktualizácii predplatného: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} úspešne aktualizované ({count} pravidiel)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• Identifikovať automatické spamové hovory s opakovaným vytáčaním",
+  "useCasesPoint2": "• Prerušovať marketingové hovory, ktoré volajú viackrát v krátkom čase",
+  "useCasesPoint3": "• Zabraňovať telefonickému bombardovaniu a obťažovaniu",
+  "useCasesTitle": "Prípady použitia:",
+  "useGlobalSettings": "Použiť globálne nastavenia",
+  "usernameLabel": "Užívateľské meno",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "Použite štandardnú syntax Regex na definovanie vzorov. Príklady:",
+  "verificationFailedText": "Zlyhalo",
+  "verifiedText": "Overené",
+  "verify": "Overiť",
+  "version": "Verzia: {version}",
+  "vipExchangeDescription": "Vymeniť VIP členstvo za počty označení telefónneho čísla",
+  "vipExchangeTitle": "Výmena VIP označení",
+  "watchAd": "Pozrieť reklamu",
+  "watchAdForTemp": "Pozrieť reklamu pre dočasné privilégiá",
+  "watchAdForTempDescription": "Pozrite si krátku reklamu na dočasné odomknutie niektorých prémiových funkcií",
+  "webDAVConfigTitle": "Konfigurácia WebDAV",
+  "week": "Týždeň",
+  "welcome": "Vitajte",
+  "whitelist": "Biela listina",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "Šírka",
+  "wildcardMatchingDescription": "Použite '.' na zhodu s akýmkoľvek znakom (napr. '123.456' sa zhoduje s 123-456)",
+  "wildcardMatchingTitle": "Zhoda s divokou kartou:",
+  "wildcardSupportForFlexibleFiltering": "Podpora divokých kariet pre flexibilné filtrovanie",
+  "windowSizeSetting": "Veľkosť okna",
+  "year": "Rok",
+  "noSimCardsDetected": "Nenájdené žiadne SIM karty",
+  "filterManagementDescription": "Nastaviť filtre hovorov",
+  "callerIdCustomizationSubtitle": "Prispôsobiť rozloženie identifikácie volajúceho",
+  "fraudAlerSettingTitle": "Nastavenie upozornenia na podvod",
+  "fraudAlerSettingSubtitle": "Nastaviť upozornenie na podvod",
+  "enableFraudAlert": "Povoliť upozornenie na podvod",
+  "enableFraudAlertDescription": "Upozornenie na podozrivé podvodné hovory",
+  "enableVibration": "Povoliť vibrácie",
+  "enableVibrationDescription": "Vibrovať pri podozrivých podvodných hovoroch",
+  "notificationSettingsTitle": "Nastavenia oznámení",
+  "useLocalNotification": "Použiť miestne oznámenia",
+  "useLocalNotificationDescription": "Povoliť miestne oznámenia pre prichádzajúce hovory",
+  "cancelLocalNotification": "Zavrieť miestne oznámenia",
+  "useStirNotification": "Použiť oznámenie z STIR",
+  "cancelLocalNotificationDescription": "Automaticky zavrieť miestne oznámenia",
+  "callerIdSettingsTitle": "Nastavenia identifikácie volajúceho",
+  "callerIdSettingsSubtitle": "Nastaviť upozornenie na prichádzajúce hovory a režim zobrazenia",
+  "purchaseTitle": "Nákup",
+  "purchaseSubtitle": "Zakúpiť službu",
+  "callerIdNotificationTitle": "Informácie o prichádzajúcom hovore",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "Blokovaný hovor",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "Blokovaný hovor z čísla {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "Overené",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "Neoverené",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "Overenie zlyhalo",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "Neznámy stav overenia",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "Overenie STIR/SHAKEN",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} pre číslo {phoneNumber}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "Nastavenia posúvaných bezpečnostných správ",
+  "messageColor": "Farba správy",
+  "messageFontSize": "Veľkosť písma správy",
+  "messagePosition": "Pozícia správy",
+  "containerWidth": "Šírka kontajnera",
+  "scrollSpeed": "Rýchlosť posúvania",
+  "enableSecurityMessage": "Povoliť bezpečnostnú správu",
+  "fraudAlertTitle": "Upozornenie na podvod",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "Žiadne údaje o type blokovania",
+  "importEntity": "Importovať {entityTypeName}",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} úspešne importovaný, celkovo importovaných {count} záznamov",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "Nepodarilo sa importovať {entityTypeName}: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "Exportovať {entityTypeName}",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} úspešne exportovaný",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "Nepodarilo sa exportovať {entityTypeName}: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "Služba synchronizácie v cloude",
+  "membershipCenter": "Centrum členstva",
+  "redeemVipWithMarks": "Vykúpiť VIP s bodmi",
+  "currentMarkCount": "Aktuálny počet bodov",
+  "markMoreNumbersForMore": "Označte viac čísel pre viac bodov",
+  "noAds": "Žiadne reklamy",
+  "cloudBackup": "Zálohovanie v cloude",
+  "callerIdEnhancement": "Vylepšenie identifikácie volajúceho",
+  "voiceRecognition": "Rozpoznávanie hlasu",
+  "feature": "Funkcia",
+  "normalUser": "Bežný používateľ",
+  "vipUser": "VIP používateľ",
+  "temporaryVip": "Dočasný VIP",
+  "removeAds": "Odstrániť reklamy",
+  "settingsBackup": "Zálohovanie nastavení",
+  "allServicesStatusTitle": "Stav aktuálnych služieb",
+  "allServicesStatusSubtitle": "Aktuálny stav každej cloudovej služby",
+  "redirect": "Presmerovať",
+  "notify": "Upozorniť",
+  "log": "Záznam",
+  "custom": "Vlastné",
+  "allowActionDescription": "Hovory budú povolené, aj keď je číslo na zozname blokovaných.",
+  "blockActionDescription": "Hovory budú zablokované a zobrazené v zázname hovorov.",
+  "silenceActionDescription": "Hovory budú umlčané, ale zobrazené v zázname hovorov.",
+  "noneActionDescription": "Pre hovor sa nevykoná žiadna špeciálna akcia.",
+  "redirectActionDescription": "Presmerovať hovor na zadané číslo.",
+  "labelActionDescription": "Pridať k hovoru označenie pre ľahkú identifikáciu.",
+  "notifyActionDescription": "Poslať upozornenie pri prijatí hovoru.",
+  "logActionDescription": "Zalogovať informácie o hovore bez vykonania inej akcie.",
+  "customActionDescription": "Vykonajte vlastnú akciu.",
+  "synced": "Synchronizované",
+  "needVipAccess": "Potrebujete prístup VIP, aby ste mohli použiť túto funkciu",
+  "importExportDescription": "Importovať alebo exportovať údaje {entityTypeName}",
+  "importExportTitle": "Import/Export",
+  "noPhoneRules": "Nenájdené žiadne telefónne pravidlá",
+  "noRegexRules": "Nenájdené žiadne regex pravidlá",
+  "noAllowedBlockedRules": "Nenájdené žiadne povolené/blokované pravidlá",
+  "importExport": "Import/Export",
+  "filterByAction": "Filtrovať podľa akcie",
+  "upgradeToVip": "Aktualizovať na VIP",
+  "batteryOptimizationPermission": "Optimalizácia batérie",
+  "batteryOptimizationPermissionDescription": "Povoľte aplikácii bežať na pozadí, aby poskytovala služby, ako je identifikácia volajúceho.",
+  "permissionTitle": "Špeciálne povolenia",
+  "permissionSubtitle": "Spravovať povolenia prekrytia a optimalizácie batérie",
+  "themeSettingsTitle": "Nastavenia vzhľadu",
+  "themeSettingsSubtitle": "Vyberte si svoj obľúbený vzhľad",
+  "databaseSyncTitle": "Synchronizácia databázy",
+  "countrySyncSettingsTitle": "Nastavenia synchronizácie databázy podľa krajiny",
+  "countrySyncSettingsSubtitle": "Vyberte krajiny na synchronizáciu údajov",
+  "countryDataDisclaimer": "Upozornenie: Databáza nemusí obsahovať údaje pre všetky konkrétne krajiny alebo regióny.",
+  "editSubscription": "Upraviť predplatné",
+  "searchByNameOrPhoneNumber": "Hľadať podľa mena alebo telefónneho čísla",
+  "allowedBlockedRulesInfo": "Povolené/blokované pravidlá sa používajú na priraďovanie hovorov ku konkrétnym telefónnym číslam, ktoré majú najvyššiu prioritu.",
+  "searchPhoneRulesHint": "Hľadať telefónne pravidlá",
+  "phoneRulesInfo": "Telefónne pravidlá sa používajú na priraďovanie hovorov ku konkrétnym telefónnym číslam, ktoré majú nižšiu prioritu. Niektoré pochádzajú z predplatného telefónnych pravidiel",
+  "searchSubscriptionsHint": "Hľadať predplatné",
+  "searchPluginsHint": "Hľadať pluginy",
+  "searchLabelsHint": "Hľadať štítky",
+  "pluginDescription": "Popis pluginu",
+  "enterPluginDescription": "Zadajte popis pluginu",
+  "searchRegexRulesHint": "Hľadať regex pravidlá",
+  "regexRulesInfo": "Regex pravidlá sa používajú na filtrovanie hovorov na základe Regex vzorov.",
+  "searchMarkedPhonesHint": "Hľadať označené telefóny",
+  "searchContactSubscriptionsHint": "Hľadať predplatné kontaktov",
+  "showAllContacts": "Zobraziť všetky kontakty",
+  "showFavorites": "Zobraziť obľúbené",
+  "manualEntry": "Informácie o manuálnom zadaní",
+  "scriptSaved": "Skript bol uložený",
+  "editScriptFor": "Upraviť skript pre {pluginName}",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "Uložiť skript",
+  "testPlugin": "Testovať plugin",
+  "description": "Popis",
+  "accessTargetUrl": "Prístup k cieľovej URL",
+  "result": "Výsledok",
+  "editScript": "Upraviť skript",
+  "numberFormat": "Formát čísla",
+  "nationalNumber": "Národné číslo",
+  "e164Number": "Číslo E164",
+  "pluginRulesInfo": "Z bezpečnostných dôvodov používajte pluginy iba z dôveryhodných zdrojov. Neváhajte použiť naše šablóny na vytvorenie vlastných pluginov!",
+  "advancedMode": "Pokročilý režim",
+  "pleaseEnterAtLeastOneNumber": "Zadajte aspoň jedno číslo.",
+  "openInWebView": "Otvoriť v prehliadači WebView",
+  "pluginLabel": "Štítok pluginu",
+  "pluginID": "ID",
+  "pluginURL": "URL",
+  "messageBackgroundColor": "Farba pozadia správy",
+  "clearAllCallLogs": "Vymazať všetky záznamy hovorov",
+  "clearAllCallLogsConfirmation": "Potvrďte vymazanie všetkých záznamov hovorov",
+  "allCallLogsCleared": "Všetky záznamy hovorov boli vymazané",
+  "unblocked": "Odomknuté",
+  "blockNumber": "Blokovať číslo",
+  "blockNumberSuccess": "Číslo úspešne zablokované",
+  "unblockNumberConfirmation": "Ste si istí, že chcete odblokovať číslo {phoneNumber}?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "Zobraziť podrobnosti",
+  "unblock": "Odomknúť",
+  "unblockNumber": "Odomknúť číslo",
+  "unblockNumberSuccess": "Číslo úspešne odblokované",
+  "unblockNumberFailed": "Odblokovanie čísla zlyhalo",
+  "callingNumberFailed": "Volanie čísla zlyhalo",
+  "listView": "Zoznamový pohľad",
+  "timelineView": "Časový pohľad",
+  "nameCannotBeEmpty": "Meno nemôže byť prázdne",
+  "selectAction": "Vyberte akciu",
+  "selectTargetService": "Vyberte cieľovú službu",
+  "callDetails": "Podrobnosti o hovore",
+  "callType": "Typ hovoru",
+  "callTime": "Čas hovoru",
+  "numberInvalidFormat": "Číslo má neplatný formát",
+  "medium": "Stredné",
+  "finalRisk": "Konečné riziko",
+  "simState": "Stav SIM karty",
+  "ipCountry": "Krajina IP",
+  "simCountry": "Krajina SIM",
+  "isRoaming": "Roaming",
+  "isNumberMatch": "Zhoda čísla",
+  "support": "Podpora",
+  "rewardedAdService": "Služba sponzorovaných reklám",
+  "hasVipPrivilegeExceptAds": "Už máte VIP oprávnenia (okrem reklám)",
+  "hasTempPrivilegeWithExpiry": "Už máte dočasné oprávnenia, s dátumom vypršania platnosti: {expiryDate}",
+  "watchMoreAdsForTempVip": "Potrebujete pozrieť ešte {count} reklám, aby ste získali dočasné VIP oprávnenia",
+  "grantedTempPurchaseWithExpiry": "Boli vám udelené {days} dní dočasných nákupných oprávnení. Dátum vypršania platnosti: {expiryDate}",
+  "tempPurchaseExpired": "Dočasné nákupné oprávnenie vypršalo",
+  "loadingAd": "Načítava sa reklama...",
+  "earnedTempVip": "Získané dočasné VIP",
+  "vipExchangeService": "Služba výmeny VIP",
+  "marksInsufficient": "Nedostatok bodov na výmenu",
+  "invalidExchangeRule": "Neplatné pravidlo výmeny",
+  "exchangeSuccess": "Úspešne vymenené za {description}, dátum vypršania platnosti: {expiryDate}",
+  "exchangeFailed": "Výmena zlyhala: {error}",
+  "vip3DaysWithAds": "3-dňové VIP s reklamami (iba synchronizácia)",
+  "vip5DaysNoAds": "5-dňové plnohodnotné VIP bez reklám",
+  "vip7DaysNoAds": "7-dňové plnohodnotné VIP bez reklám",
+  "noNotifications": "Žiadne oznámenia",
+  "clearAllNotifications": "Vymazať všetky oznámenia",
+  "clearAllNotificationsConfirmation": "Potvrďte vymazanie všetkých oznámení",
+  "clearButton": "Vymazať",
+  "justNow": "Práve teraz",
+  "minutesAgo": "{count,plural, =1{pred 1 minútou} other{pred {count} minútami}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{pred 1 hodinou} other{pred {count} hodinami}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{pred 1 dňom} other{pred {count} dňami}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "Včera",
+  "deletionProposal": "Návrh na vymazanie",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "Vytvoriť návrh",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "Vytvoriť návrh na vymazanie",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "Dôvod",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "Zastaralé číslo",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "Obava o súkromie",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "Nie je v prevádzke",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "Nesprávne identifikované",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "Nepresné informácie",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "Iné",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "Odoslať",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Zrušiť",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "Úroveň rizika",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Nízke",
+  "@riskLevelLow": {
+    "description": "Label for low risk level"
+  },
+  "riskLevelHigh": "Vysoké",
+  "@riskLevelHigh": {
+    "description": "Label for high risk level"
+  },
+  "agreeVotes": "Súhlasí: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "Celkom: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "Súhlasím",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "Nesúhlasím",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "Vytvorené: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "Správa o overení",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "Štatistiky návrhov",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "Celkový počet návrhov",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "Aktívne návrhy",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "Návrh bol úspešne vytvorený",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "Hlasovanie bolo úspešne odoslané",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "Nenašli sa žiadne návrhy",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "Obnoviť návrhy",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "Celkový počet čakajúcich návrhov",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "Vysoké riziko",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "Stredné riziko",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "Nízke riziko",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "Dopad na komunitu",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "Kritické problémy",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "Účasť komunity",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "Žiadna aktivita",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Nízke",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "Stredné",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "Vysoké",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "Veľmi vysoké",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "Hlasované",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "Hlasy komunity",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "Čaká sa na ďalšie hlasy komunity",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "Tento návrh bol spracovaný",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "PODPORENÉ",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "ODMIETNUTÉ",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "SCHVÁLENÉ",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "ZAMIETNUTÉ",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "DOKONČENÉ",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "ČAKAJÚCE",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "Kritické",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "Nesúhlasiť",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "Veľmi nízke",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "Návrhy na vymazanie",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "Oznámenia o výsledkoch hlasovania o návrhu na vymazanie a aktualizáciách.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "Návrh na vymazanie vytvorený",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "Váš návrh na vymazanie čísla {phoneNumber} bol predložený na posúdenie komunitou.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "Návrh schválený ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "Návrh na vymazanie čísla {phoneNumber} bol schválený komunitou ({supportPercentage}% podpory, {totalVotes} hlasov).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "Návrh zamietnutý ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "Návrh na vymazanie čísla {phoneNumber} bol zamietnutý komunitou ({supportPercentage}% podpory, {totalVotes} hlasov).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "Hlasovanie komunity začalo",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "Nový návrh na vymazanie čísla {phoneNumber} je teraz otvorený na hlasovanie komunity.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "Hlasovanie dokončené",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "Hlasovanie komunity pre {phoneNumber} sa skončilo. Výsledok: {result} ({supportPercentage}% podpory).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "Prijatý nový hlas",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "Niekto hlasoval za {voteType} vymazanie čísla {phoneNumber}. Aktuálny počet hlasov: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "Počet hlasov",
+  "deletionProposalDescription": "Navrhujte čísla na vymazanie, ktoré porušujú pravidlá komunity. Vaša účasť pomáha udržiavať platformu bezpečnú.",
+  "searchProposals": "Hľadať návrhy",
+  "defaultNotifications": "Predvolené oznámenia",
+  "defaultNotificationsDescription": "Predvolený kanál oznámení pre aplikáciu.",
+  "blockedCallNotifications": "Oznámenia o zablokovaných hovoroch",
+  "blockedCallNotificationsDescription": "Zobrazuje informácie o zablokovaných hovoroch.",
+  "stirVerification": "STIR/SHAKEN overenie",
+  "stirVerificationDescription": "Zobrazuje výsledky overenia STIR/SHAKEN pre čísla.",
+  "fraudAlerts": "Upozornenia na podvody",
+  "fraudAlertsDescription": "Zobrazuje varovania pred potenciálne podvodnými hovormi.",
+  "notificationMode": "Režim upozornení",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "Čakajúce návrhy",
+  "pendingProposalsBody": "Máte {count, plural, =0 {žiadne čakajúce návrhy} one {1 čakajúci návrh} other {{count} čakajúcich návrhov}}.",
+  "guidelinesLabel": "Pokyny",
+  "riskLevelLabel": "Úroveň rizika",
+  "phoneNumberMinDigits": "Telefónne číslo musí mať minimálne 7 číslic",
+  "provideDetailedExplanation": "Poskytnite podrobné vysvetlenie (minimum 10 znakov)",
+  "reasonMinCharacters": "Dôvod musí mať minimálne 10 znakov",
+  "countryCodeTwoLetters": "Kód krajiny (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "Kód krajiny (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "napr. SK, CZ, US",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "Kód krajiny je povinný",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "Zadajte telefónne číslo",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "Telefónne číslo je povinné",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "Dôvod je povinný",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "Kritické",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "Stredné",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "Veľmi nízke",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "Frekvencia oznámení",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "Chyba: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• Nahlasujte iba čísla, ktoré sú skutočne problematické\n• Poskytnite presné a podrobné dôvody\n• Zvoľte vhodnú úroveň rizika na základe závažnosti\n• Falošné hlásenia môžu viesť k obmedzeniu účtu",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Frekvencia oznámení (hodiny)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "Podpora ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "Proti ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} hlasov ({supportPercentage}% podpora)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 hodín} =1{1 hodina} other{{count} hodín}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "Dôležité upozornenie",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "Čísla pochádzajú z internetu a od používateľov. Nemôžeme zaručiť, že číslo po odstránení nebude znovu odoslané inými používateľmi alebo zdrojmi. Aktívne vyhľadávajte a overujte informácie.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "Avatar",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "Miesto",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "SIM karta",
+  "liveActivitiesSettingsTitle": "Nastavenia živých aktivít",
+  "elementsSettingsTitle": "Nastavenia prvkov",
+  "liveActivityMode": "Živá aktivita",
+  "liveActivityModeDescription": "Zobrazuje informácie o hovore ako trvalé oznámenie na uzamknutej obrazovke a v Dynamic Island (iOS).",
+  "phoneNumberType": "Typ telefónneho čísla",
+  "liveActivitiesTestEndActivity": "Ukončiť aktivitu",
+  "liveActivitiesTestSendNewActivity": "Odoslať novú aktivitu",
+  "liveActivitiesTestUpdateActivity": "Aktualizovať aktivitu",
+  "liveActivityControlsTitle": "Ovládacie prvky živej aktivity",
+  "liveActivitiesTestTitle": "Test živej aktivity",
+  "liveNotificationCustomizationTitle": "Prispôsobenie živých oznámení",
+  "liveNotificationCustomizationSubtitle": "Prispôsobte si vzhľad živých oznámení.",
+  "notification_instructions": "Inštrukcie:\n1. Klepnite na \"ODOSLAŤ\" na vytvorenie alebo aktualizáciu oznámenia.\n2. Prejdite na domovskú obrazovku alebo stiahnite oznamovaciu lištu, aby ste videli výsledok.\n3. Klepnite na \"UKONČIŤ\" na zatvorenie oznámenia.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "Automaticky zrušiť oznámenie",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "Ak je začiarknuté, oznámenie sa automaticky zatvorí, keď naň používateľ klepne.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "Nastaviť čas oneskorenia",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "Detaily návrhu",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "Návrh nebol nájdený",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "Spracované",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "Filtrovať a triediť",
+  "filterVerifiedOwner": "Filtrovať overeného vlastníka",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "Filtrovať podľa",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "Najstaršie",
+  "sortNewest": "Najnovšie",
+  "sortMostPopular": "Najpopulárnejšie",
+  "sortLeastPopular": "Najmenej populárne",
+  "sortBy": "Radiť podľa",
+  "simRulesNotFound": "Pravidlá SIM karty nenájdené",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "Pravidlá slotov SIM karty",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "Nenájdená žiadna SIM karta",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "Neplatné údaje SIM karty",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "Slot SIM karty",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "Povoliť filtrovanie",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "Podrobné nastavenia",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "Zobrazovacia časť vstupu",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "Odmietnuté",
+  "callTypeSilenced": "Stlmené",
+  "andMoreItems": "a {count} ďalších položiek",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Typ pravidla",
+  "localDatabaseSyncTitle": "Synchronizácia lokálnej databázy",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Synchronizujte údaje medzi zariadeniami",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Adresa projektu Supabase",
+  "supabaseAnonKey": "Anonymný kľúč",
+  "supabaseAnonKeyHint": "API kľúč, verejný anonymný kľúč",
+  "connectionString": "Pripojovací reťazec (URI)",
+  "connectionStringHelper": "Potrebné iba pre „Inicializovať databázu“",
+  "syncCallHistory": "Synchronizovať históriu hovorov",
+  "syncCallHistorySubtitle": "Zahrnúť do synchronizácie aj súkromné záznamy hovorov",
+  "requiredField": "Povinné",
+  "requiredInitField": "Povinné pri inicializácii",
+  "initDbButton": "Inicializovať databázu",
+  "dbInitSuccess": "Databáza bola úspešne inicializovaná!",
+  "syncSuccess": "Synchronizácia dokončená. Odoslané: {pushed}, prijaté: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Chyba",
+  "errorLoadingSettings": "Chyba pri načítavaní nastavení",
+  "statusLabel": "Stav",
+  "statusConnected": "Pripojené / nakonfigurované",
+  "statusNotConfigured": "Nenakonfigurované",
+  "configSaved": "Konfigurácia bola uložená!",
+  "masterDeviceLabel": "Je hlavné zariadenie (správca)",
+  "masterDeviceHelp": "Iba hlavné zariadenie môže inicializovať štruktúru databázy.",
+  "syncIntervalLabel": "Interval automatickej synchronizácie",
+  "syncIntervalValue": "Každé {hours} hodín",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Nechajte prázdne pre použitie predvolenej hodnoty",
+  "vipAccessSubtitle": "Sledujte reklamy zadarmo alebo si zakúpte VIP",
+  "failedToLoadSettingsSchema": "Zlyhalo načítanie schémy nastavení: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "Toto pole je povinné",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Automaticky prijať prichádzajúci hovor a potom ho okamžite ukončiť",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}

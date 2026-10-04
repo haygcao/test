@@ -1,0 +1,89 @@
+{
+  "@@locale": "jv",
+  "aboutContactSubscription": "Ngenani Kontak Langganan",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Ngenani Label",
+  "aboutPhoneSubscriptionRules": "Ngenani Aturan Langganan Telepon",
+  "aboutSmsFilter": "Ngenani Penyaringan SMS",
+  "aboutSmsSubscriptionRules": "Ngenani Aturan Langganan SMS",
+  "aboutSubtitle": "Versi aplikasi lan informasi hukum",
+  "aboutTitle": "Ngenani",
+  "action": "Tindakan",
+  "actionAll": "Kabeh",
+  "actionAllow": "Idinake",
+  "actionBlock": "Blokir",
+  "actionFilterTitle": "Saring miturut jinis tindakan",
+  "actionFilterTooltip": "Saringan Tindakan",
+  "actionNone": "Ora Ana Tindakan",
+  "actionSilence": "Menengake",
+  "actionTag": "Tindakan: {actionType}",
+  "actionType": "Jinis Tindakan",
+  "actionUnknown": "Ora dingerteni",
+  "add": "Tambah",
+  "addAllowedBlockedRule": "Tambah Aturan Idin/Blokir",
+  "addAllowSubscription": "Tambah Langganan Idin",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Tambah Langganan Blok",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Tambah Kontak",
+  "addContactFailed": "Gagal nambahake kontak: {error}",
+  "addedToFavorites": "Wis ditambahake menyang kontak favorit",
+  "addLabel": "Tambah Label",
+  "addLabelButton": "Tambah Label",
+  "addLabelFailed": "Gagal nambahake label: {error}",
+  "addName": "Tambah Jeneng",
+  "addNoneSubscription": "Tambah Langganan Ora Ana",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Tambah Tandha Telepon",
+  "addPhoneNumberRule": "Tambah Aturan Nomer Telepon",
+  "addPlugin": "Tambah Plugin",
+  "addPluginFailed": "Gagal nambah plugin",
+  "addPluginFailedWithError": "Gagal nambah plugin: {error}",
+  "addPluginFromLocalFile": "Tambah Plugin saka File Lokal",
+  "addPluginFromUrl": "Tambah Plugin saka URL",
+  "addRegexRule": "Tambah Aturan Regex",
+  "addRule": "Tambah Aturan",
+  "addRuleFailed": "Gagal nambah aturan: {error}",
+  "addRuleTooltip": "Tambah Aturan",
+  "addSilenceSubscription": "Tambah Langganan Senyap",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Tambah Aturan Filter SMS",
+  "addSmsRule": "Tambah Aturan SMS",
+  "addSmsSubscription": "Tambah Langganan SMS",
+  "addSubscription": "Tambah Langganan",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Tambah Langganan",
+  "addSubscriptionFailed": "Gagal nambah langganan: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Tambah Langganan",
+  "addToBlacklist": "Tambah menyang Daftar Ireng",
+  "addToFavorites": "Tambah menyang Favorit",
+  "addToRules": "Tambah menyang Aturan",
+  "addToWhitelist": "Tambah menyang Daftar Putih",
+  "agent": "Agen",
+  "all": "Kabeh",
+  "allCallsTab": "Kabeh",
+  "allow": "Idinake",
+  "allowAllAllowRules": "Idinake Kabeh Aturan Idin",
+  "allowAllAllowRulesDesc": "Idinake telpon saka aturan idin",
+  "allowAllBlacklistedNumbers": "Idinake Kabeh Nomer ing Daftar Ireng"
+}

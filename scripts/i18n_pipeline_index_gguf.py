@@ -9,7 +9,7 @@ Index-Translate 2B GGUF (llama.cpp CPU 极速量化推理) 全量 ARB 翻译管�
   3. 单模型独占 2 线程 (n_threads=2) 完美适配 GitHub Actions Runner
   4. 具备多层 JSON 自愈、二分重试与异常兜底容错机制，绝不卡死
   5. 每次批次落盘强制 gc.collect() 释放内存，防止 Swap 换页卡顿
-  6. 累计每满 1000 条或子任务完成时向 i18n/checkpoint-progress 分支执行单条 Commit 覆盖推送
+  6. 独立进度分支 i18n/checkpoint-gguf-progress，避免与普通版分支互相覆盖
 """
 
 import json
@@ -33,6 +33,7 @@ MODEL_FILENAME = "Index-Translate-2B.IQ4_XS.gguf"
 CHUNK_SIZE = 60        # 严格与普通版保持一致：60 条批次组包
 SUBTASK_MAX_SIZE = 600 # 严格与普通版保持一致：600 条大任务切分上限
 PUSH_INTERVAL = 1000   # 累计每满 1000 条词条才执行一次远程分支存盘推送
+PROGRESS_BRANCH = "i18n/checkpoint-gguf-progress"  # 独立隔离分支，防与普通版覆盖
 
 llm = None
 translated_counter = 0
@@ -43,7 +44,7 @@ def log(msg: str):
 
 
 def git_checkpoint_commit_amend(target_locale: str, force: bool = False, count_inc: int = 0):
-    """在隔离进度分支上保持永远只有一条 commit 记录，支持累计满额或强制存盘推送"""
+    """在独立隔离分支 i18n/checkpoint-gguf-progress 上保持永远只有一条 commit 记录存盘推送"""
     global translated_counter
     translated_counter += count_inc
 
@@ -58,17 +59,17 @@ def git_checkpoint_commit_amend(target_locale: str, force: bool = False, count_i
 
         os.system("git config user.name 'github-actions[bot]'")
         os.system("git config user.email '41898282+github-actions[bot]@users.noreply.github.com'")
-        os.system("git checkout -B i18n/checkpoint-progress")
+        os.system(f"git checkout -B {PROGRESS_BRANCH}")
         os.system("git add lib/l10n/*.arb")
 
-        commit_msg = f"style(i18n): checkpoint translation progress for {target_locale} [github-actions-bot]"
+        commit_msg = f"style(i18n): checkpoint GGUF translation progress for {target_locale} [github-actions-bot]"
         os.system(f"git commit --amend -m '{commit_msg}' || git commit -m '{commit_msg}'")
 
         if token and repository:
             push_url = f"https://x-access-token:{token}@github.com/{repository}.git"
-            ret = os.system(f"git push --force {push_url} i18n/checkpoint-progress")
+            ret = os.system(f"git push --force {push_url} {PROGRESS_BRANCH}")
             if ret == 0:
-                log(f"💾 [隔离分支增量存盘] 进度已成功单条覆盖推送至 i18n/checkpoint-progress 分支！")
+                log(f"💾 [隔离分支增量存盘] 进度已成功单条覆盖推送至 `{PROGRESS_BRANCH}` 分支！")
     except Exception as e:
         log(f"⚠️ 隔离分支增量存盘提示: {e}")
 

@@ -1,0 +1,89 @@
+{
+  "@@locale": "yo",
+  "aboutContactSubscription": "Nipa Ìbánisọ̀rọ̀ Ìforúkọsílẹ̀",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Nipa Àwọn Àmì",
+  "aboutPhoneSubscriptionRules": "Nipa Ìlànà Ìforúkọsílẹ̀ Fóònù",
+  "aboutSmsFilter": "Nipa Dídín SMS Mọ́",
+  "aboutSmsSubscriptionRules": "Nipa Ìlànà Ìforúkọsílẹ̀ SMS",
+  "aboutSubtitle": "Ẹ̀yà ohun èlò àti ìsọfúnni òfin",
+  "aboutTitle": "Nipa",
+  "action": "Ìgbésẹ̀",
+  "actionAll": "Gbogbo",
+  "actionAllow": "Jẹ́kìnnì",
+  "actionBlock": "Dènà",
+  "actionFilterTitle": "Dín Dípò Gẹ́gẹ́ Bí Irú Ìgbésẹ̀",
+  "actionFilterTooltip": "Dídín Ìgbésẹ̀ Mọ́",
+  "actionNone": "Kò sí Ìgbésẹ̀",
+  "actionSilence": "Dákẹ́",
+  "actionTag": "Ìgbésẹ̀: {actionType}",
+  "actionType": "Irú Ìgbésẹ̀",
+  "actionUnknown": "A kò mọ̀",
+  "add": "Fi Kún",
+  "addAllowedBlockedRule": "Fi Ìlànà Jẹ́kìnnì/Dènà Kún",
+  "addAllowSubscription": "Fi Ìforúkọsílẹ̀ Jẹ́kìnnì Kún",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Fi Ìforúkọsílẹ̀ Dènà Kún",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Fi Olùkanṣe Kún",
+  "addContactFailed": "Kò ṣeé ṣe láti fi olùkanṣe kún: {error}",
+  "addedToFavorites": "A ti fi sí àwọn olùkanṣe àṣàyàn",
+  "addLabel": "Fi Àmì Kún",
+  "addLabelButton": "Fi Àmì Kún",
+  "addLabelFailed": "Kò ṣeé ṣe láti fi àmì kún: {error}",
+  "addName": "Fi Orúkọ Kún",
+  "addNoneSubscription": "Fi Ìforúkọsílẹ̀ Kò sí Kún",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Fi Ẹ̀kùn Fóònù",
+  "addPhoneNumberRule": "Fi Òfin Nọ́mbà Fóònù Kún",
+  "addPlugin": "Fi Píláìńì Kún",
+  "addPluginFailed": "Kò Ṣeé Ṣe Láti Fi Píláìńì Kún",
+  "addPluginFailedWithError": "Kò Ṣeé Ṣe Láti Fi Píláìńì Kún: {error}",
+  "addPluginFromLocalFile": "Fi Píláìńì Kún Láti Fájì Tó Wà Lórí Kọ̀ǹpútà",
+  "addPluginFromUrl": "Fi Píláìńì Kún Láti Adirẹ́sì Íńtánẹ́ẹ̀tì",
+  "addRegexRule": "Fi Òfin Regex Kún",
+  "addRule": "Fi Òfin Kún",
+  "addRuleFailed": "Kò Ṣeé Ṣe Láti Fi Òfin Kún: {error}",
+  "addRuleTooltip": "Fi Òfin Kún",
+  "addSilenceSubscription": "Fi Ìforúkọsílẹ̀ Ìdákẹ́jẹ́ Kún",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Fi Òfin Àtọ́ka SMS Kún",
+  "addSmsRule": "Fi Òfin SMS Kún",
+  "addSmsSubscription": "Fi Ìforúkọsílẹ̀ SMS Kún",
+  "addSubscription": "Fi Ẹ̀ka",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Fi Ẹ̀ka",
+  "addSubscriptionFailed": "Kò ṣeé ṣe láti fi ẹ̀ka kún: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Fi Ẹ̀ka",
+  "addToBlacklist": "Fi sí Àkójọ Dúdú",
+  "addToFavorites": "Fi sí Àwọn Tó Fẹ́ràn",
+  "addToRules": "Fi sí Àwọn Òfin",
+  "addToWhitelist": "Fi sí Àkójọ Funfun",
+  "agent": "Aṣojú",
+  "all": "Gbogbo",
+  "allCallsTab": "Gbogbo",
+  "allow": "Jẹ́́ṣẹ́",
+  "allowAllAllowRules": "Jẹ́́ṣẹ́ Gbogbo Àwọn Òfin Jẹ́́ṣẹ́",
+  "allowAllAllowRulesDesc": "Jẹ́́ṣẹ́ àwọn ìpè láti inú àwọn òfin jẹ́́ṣẹ́",
+  "allowAllBlacklistedNumbers": "Jẹ́́ṣẹ́ Gbogbo Nọ́mbà Tí A Fi Sí Àkójọ Dúdú"
+}

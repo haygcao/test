@@ -1,0 +1,2372 @@
+{
+  "@@locale": "el",
+  "aboutContactSubscription": "Σχετικά με την Συνδρομή Επαφών",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Σχετικά με τις Ετικέτες",
+  "aboutPhoneSubscriptionRules": "Σχετικά με τους Κανόνες Συνδρομής Τηλεφώνου",
+  "aboutSmsFilter": "Σχετικά με το Φιλτράρισμα SMS",
+  "aboutSmsSubscriptionRules": "Σχετικά με τους Κανόνες Συνδρομής SMS",
+  "aboutSubtitle": "Έκδοση εφαρμογής και νομικές πληροφορίες",
+  "aboutTitle": "Σχετικά",
+  "action": "Ενέργεια",
+  "actionAll": "Όλα",
+  "actionAllow": "Αποδοχή",
+  "actionBlock": "Απόρριψη",
+  "actionFilterTitle": "Φιλτράρισμα ανά Τύπο Ενέργειας",
+  "actionFilterTooltip": "Φίλτρο Ενέργειας",
+  "actionNone": "Καμία Ενέργεια",
+  "actionSilence": "Σίγαση",
+  "actionTag": "Ενέργεια: {actionType}",
+  "actionType": "Τύπος Ενέργειας",
+  "actionUnknown": "Άγνωστο",
+  "add": "Προσθήκη",
+  "addAllowedBlockedRule": "Προσθήκη Κανόνα Αποδοχής/Απόρριψης",
+  "addAllowSubscription": "Προσθήκη Συνδρομής Αποδοχής",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Προσθήκη Συνδρομής Απόρριψης",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Προσθήκη Επαφής",
+  "addContactFailed": "Αποτυχία προσθήκης επαφής: {error}",
+  "addedToFavorites": "Προστέθηκε στα αγαπημένα",
+  "addLabel": "Προσθήκη Ετικέτας",
+  "addLabelButton": "Προσθήκη Ετικέτας",
+  "addLabelFailed": "Αποτυχία προσθήκης ετικέτας: {error}",
+  "addName": "Προσθήκη Ονόματος",
+  "addNoneSubscription": "Προσθήκη Συνδρομής Καμίας Ενέργειας",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Προσθήκη Σήμανσης Τηλεφώνου",
+  "addPhoneNumberRule": "Προσθήκη Κανόνα Αριθμού Τηλεφώνου",
+  "addPlugin": "Προσθήκη Πρόσθετου",
+  "addPluginFailed": "Αποτυχία προσθήκης πρόσθετου",
+  "addPluginFailedWithError": "Αποτυχία προσθήκης πρόσθετου: {error}",
+  "addPluginFromLocalFile": "Προσθήκη Πρόσθετου από Τοπικό Αρχείο",
+  "addPluginFromUrl": "Προσθήκη Πρόσθετου από URL",
+  "addRegexRule": "Προσθήκη Κανόνα Regex",
+  "addRule": "Προσθήκη Κανόνα",
+  "addRuleFailed": "Αποτυχία προσθήκης κανόνα: {error}",
+  "addRuleTooltip": "Προσθήκη Κανόνα",
+  "addSilenceSubscription": "Προσθήκη Συνδρομής Σίγασης",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Προσθήκη Κανόνα Φίλτρου SMS",
+  "addSmsRule": "Προσθήκη Κανόνα SMS",
+  "addSmsSubscription": "Προσθήκη Συνδρομής SMS",
+  "addSubscription": "Προσθήκη Συνδρομής",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Προσθήκη Συνδρομής",
+  "addSubscriptionFailed": "Αποτυχία προσθήκης συνδρομής: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Προσθήκη Συνδρομής",
+  "addToBlacklist": "Προσθήκη στη Μαύρη Λίστα",
+  "addToFavorites": "Προσθήκη στα Αγαπημένα",
+  "addToRules": "Προσθήκη στους κανόνες",
+  "addToWhitelist": "Προσθήκη στη Λευκή Λίστα",
+  "agent": "Πράκτορας",
+  "all": "Όλα",
+  "allCallsTab": "Όλες",
+  "allow": "Αποδοχή",
+  "allowAllAllowRules": "Αποδοχή Όλων των Κανόνων Αποδοχής",
+  "allowAllAllowRulesDesc": "Αποδοχή κλήσεων από κανόνες αποδοχής",
+  "allowAllBlacklistedNumbers": "Αποδοχή Όλων των Αριθμών της Μαύρης Λίστας",
+  "allowAllBlockRules": "Αποδοχή Όλων των Κανόνων Απόρριψης",
+  "allowAllBlockRulesDesc": "Αποδοχή κλήσεων από κανόνες απόρριψης",
+  "allowAllowedNumbers": "Αποδοχή Επιτρεπόμενων Αριθμών",
+  "allowAllowedNumbersDesc": "Αποδοχή κλήσεων από τη λίστα επιτρεπόμενων",
+  "allowBlock": "Αποδοχή/Απόρριψη",
+  "allowBlockedNumbers": "Αποδοχή Απορριφθέντων Αριθμών",
+  "allowBlockedNumbersDesc": "Αποδοχή κλήσεων από τη λίστα απόρριψης",
+  "allowedBlockedRule": "Κανόνας Αποδοχής/Απόρριψης",
+  "allowedBlockedRuleEditDialogTitle": "Επεξεργασία Κανόνα Αποδοχής/Απόρριψης",
+  "allowedBlockedRuleManagement": "Διαχείριση Κανόνων Αποδοχής/Απόρριψης",
+  "allowNonExceededNumbers": "Αποδοχή Αριθμών που δεν Υπερβαίνουν το Όριο",
+  "allowNonExceededNumbersDescription": "Αυτόματη αποδοχή αριθμών που δεν υπερβαίνουν το όριο μέτρησης",
+  "allowRegexAllowRules": "Αποδοχή Κανόνων Regex Αποδοχής",
+  "allowRegexAllowRulesDesc": "Ενεργοποίηση αντιστοίχισης μοτίβου regex για κανόνες αποδοχής",
+  "allowRegexAllowRulesDescription": "Ενεργοποίηση κανόνων αποδοχής βάσει regex",
+  "allowRegexBlockRules": "Αποδοχή Κανόνων Regex Απόρριψης",
+  "allowRegexBlockRulesDesc": "Ενεργοποίηση αντιστοίχισης μοτίβου regex για κανόνες απόρριψης",
+  "allowRegexBlockRulesDescription": "Ενεργοποίηση κανόνων απόρριψης βάσει regex",
+  "allowRule": "Κανόνας Αποδοχής",
+  "allowRules": "Κανόνες Αποδοχής",
+  "allPermissionsGranted": "Όλες οι άδειες έχουν παραχωρηθεί",
+  "allSettingsCompleted": "Όλες οι ρυθμίσεις ολοκληρώθηκαν.",
+  "allUpdateSuccess": "Όλες οι ενημερώσεις ολοκληρώθηκαν ({count} κανόνες)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "Απάντηση και μετά αποσύνδεση",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "Λογισμικό Εφαρμογής",
+  "apply": "Εφαρμογή",
+  "appName": "Το Κλήμα Σου, Ο Κανόνας Σου",
+  "authorizationFailedCheckCredentialsMessage": "Η εξουσιοδότηση απέτυχε: Ελέγξτε το αναγνωριστικό πελάτη και το κλειδί",
+  "authorizationFailedMessage": "Η εξουσιοδότηση απέτυχε",
+  "authorizationSuccessMessage": "Η εξουσιοδότηση ήταν επιτυχής",
+  "authorizeLoginButton": "Εξουσιοδότηση Σύνδεσης",
+  "automotiveIndustry": "Αυτοκινητοβιομηχανία",
+  "autoSyncLabel": "Αυτόματη Συγχρονισμός",
+  "autoUpdate": "Αυτόματη Ενημέρωση",
+  "autoUpdateDescription": "Ορίστε διαστήματα αυτόματης ενημέρωσης για συνδρομές ή ενημερώστε χειροκίνητα",
+  "autoUpdateSettings": "Ρυθμίσεις Αυτόματης Ενημέρωσης",
+  "autoUpdateSubtitle": "Διαχείριση αυτόματων ενημερώσεων για κανόνες και πρόσθετα",
+  "autoUpdateTitle": "Αυτόματη Ενημέρωση",
+  "avatarBorderColor": "Χρώμα Περίγραμμα Εικονιδίου",
+  "avatarBorderSize": "Μέγεθος Περίγραμμα Εικονιδίου",
+  "avatarIconSizesSetting": "Μέγεθος Εικονιδίων & Avatars",
+  "avatarPosition": "Θέση Εικονιδίου",
+  "avatarSize": "Μέγεθος Εικονιδίου",
+  "axisPosition": "{axis} Θέση",
+  "backgroundGradientSetting": "Ντεγκραντέ Φόντου",
+  "backup": "Αντίγραφο Ασφαλείας",
+  "backupAndRestore": "Αντίγραφο Ασφαλείας και Επαναφορά",
+  "backupAndRestoreSubtitle": "Αντίγραφο ασφαλείας ή επαναφορά δεδομένων εφαρμογής",
+  "backupAndRestoreTitle": "Αντίγραφο Ασφαλείας & Επαναφορά",
+  "backupFailed": "Το αντίγραφο ασφαλείας απέτυχε",
+  "backupSettings": "Ρυθμίσεις Αντιγράφου Ασφαλείας",
+  "backupToCloud": "Αντίγραφο Ασφαλείας στο Cloud",
+  "backupToCloudFailed": "Απέτυχε η δημιουργία αντιγράφου ασφαλείας στο cloud: {error}",
+  "backupToCloudSuccess": "Επιτυχής δημιουργία αντιγράφου ασφαλείας στο cloud",
+  "bank": "Τράπεζα",
+  "basicInfo": "Βασικές Πληροφορίες",
+  "basicRuleFilter": "Βασικό Φίλτρο Κανόνων",
+  "basicRuleFiltering": "Βασική Φιλτράριση Κανόνων",
+  "basicRuleFilteringExplanation": "• Βασική Φιλτράριση Κανόνων: Φιλτράρισμα κανόνων βάσει μαύρης λίστας, λίστας επιτρεπόμενων και regex",
+  "basicRuleFilterSubtitle": "Φιλτράρισμα κλήσεων χρησιμοποιώντας μαύρη λίστα/λίστα επιτρεπόμενων και κανονικές εκφράσεις",
+  "batchDeleteContactsConfirm": "Είστε σίγουροι ότι θέλετε να διαγράψετε {count} επιλεγμένες επαφές;",
+  "batchDeleteLabelsConfirm": "Είστε σίγουροι ότι θέλετε να διαγράψετε {count} ετικέτες;",
+  "blacklist": "Μαύρη Λίστα",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "Μαύρη Λίστα και Λίστα Επιτρεπόμενων",
+  "blackWhiteList": "Μαύρη/Λευκή Λίστα",
+  "block": "Αποκλεισμός",
+  "blockCalls": "Αποκλεισμός Κλήσεων",
+  "blocked": "Αποκλεισμένο",
+  "blockedCalls": "Αποκλεισμένες Κλήσεις",
+  "blockedCallsTitle": "Αποκλεισμένες Κλήσεις",
+  "blockedSpamCalls": "Αποκλεισμένες Κλήσεις Spam",
+  "blockingTrend": "Τάση Αποκλεισμού",
+  "blockInternationalCalls": "αντιστοιχεί σε αριθμούς που δεν ξεκινούν με + ή 00",
+  "blockInternationalCallsTitle": "Αποκλεισμός Διεθνών Κλήσεων",
+  "blockMobileNumbers": "αντιστοιχεί σε αριθμούς που δεν ξεκινούν με 13-19",
+  "blockMobileNumbersTitle": "Αποκλεισμός Αριθμών Κινητής Τηλεφωνίας",
+  "blockPremiumRateNumbers": "αντιστοιχεί σε αριθμούς που δεν ξεκινούν με 118 ή 120-190",
+  "blockPremiumRateNumbersTitle": "Αποκλεισμός Αριθμών Υψηλής Χρέωσης",
+  "blockRule": "Κανόνας Αποκλεισμού",
+  "blockRules": "Κανόνες Αποκλεισμού",
+  "blockSpecificAreaCodes": "αντιστοιχεί σε αριθμούς που ξεκινούν με 0 + 2-3 ψηφία",
+  "blockSpecificAreaCodesTitle": "Αποκλεισμός συγκεκριμένων κωδικών περιοχής:",
+  "blockTypeAnalysisTitle": "Ανάλυση Τύπου Αποκλεισμού",
+  "both": "Και τα δύο",
+  "bulkDelete": "Μαζική Διαγραφή Επαφών",
+  "bulkDeleteContacts": "Μαζική Διαγραφή Επαφών",
+  "bulkDeleteLabels": "Μαζική Διαγραφή Ετικετών",
+  "call": "Κλήση",
+  "callback": "Επιστροφή Κλήσης",
+  "callBlocking": "Αποκλεισμός Κλήσεων",
+  "callerIdApp": "Εφαρμογή Αναγνώρισης Κλήσης",
+  "callerIdCustomizationTitle": "Προσαρμογή Αναγνώρισης Κλήσης",
+  "callerIdDisplayMode": "Λειτουργία Εμφάνισης Αναγνώρισης Κλήσης",
+  "callerIdMarkedByCount": "Σημειώθηκε από {count}",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "Προεπισκόπηση Αναγνώρισης Κλήσης",
+  "callFilterRules": "Κανόνες Φίλτρου Κλήσεων",
+  "callFilterRulesDescription": "Ορισμός βασικών κανόνων για το φιλτράρισμα κλήσεων",
+  "callFilterSettings": "Ρυθμίσεις Φίλτρου Κλήσεων",
+  "callFrequencyInterceptionSubtitle": "Ορισμός ορίων συχνότητας κλήσεων και κανόνων αποκλεισμού",
+  "callFrequencyInterceptionTitle": "Παρεμπόδιση Συχνότητας Κλήσεων",
+  "callHistory": "Ιστορικό Κλήσεων",
+  "callHistoryInfoDesc": "Εδώ εμφανίζεται το ιστορικό κλήσεών σας, συμπεριλαμβανομένων των εισερχόμενων, εξερχόμενων και αναπάντητων κλήσεων.",
+  "callHistoryInfoTitle": "Ιστορικό Κλήσεων",
+  "callHistoryTab": "Ιστορικό Κλήσεων",
+  "callScreeningPermission": "Άδεια Ελέγχου Κλήσεων",
+  "callScreeningPermissionDescription": "Χρησιμοποιείται για τον έλεγχο και τον αποκλεισμό κλήσεων spam.",
+  "callScreeningPermissionNotGranted": "Η άδεια ελέγχου κλήσεων δεν έχει χορηγηθεί, ενδέχεται να επηρεάσει τη λειτουργικότητα της εφαρμογής.",
+  "callStatistics": "Στατιστικά Κλήσεων",
+  "callTypeAnswered": "Απαντημένη",
+  "callTypeBlocked": "Αποκλεισμένη",
+  "callTypeIconColor": "Χρώμα Εικονιδίου Τύπου Κλήσης",
+  "callTypeMissed": "Αναπάντητη Κλήση",
+  "callTypeOutgoing": "Εξερχόμενη",
+  "callTypePosition": "Θέση Τύπου Κλήσης",
+  "callTypeUnknown": "Άγνωστο",
+  "cancelButton": "Ακύρωση",
+  "carRental": "Ενοικίαση Αυτοκινήτου",
+  "carrier": "Πάροχος",
+  "carrierColor": "Χρώμα Παρόχου",
+  "carrierFontSize": "Μέγεθος Γραμματοσειράς Παρόχου",
+  "carrierPosition": "Θέση Παρόχου",
+  "changeLabel": "Αλλαγή Ετικέτας",
+  "changePluginStatusFailed": "Απέτυχε η αλλαγή κατάστασης plugin: {error}",
+  "changeSubscriptionStatusFailed": "Απέτυχε η αλλαγή κατάστασης συνδρομής: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "Φιλανθρωπία",
+  "chartOneWeekAgo": "1 εβδομάδα πριν",
+  "chartThreeDaysAgo": "3 ημέρες πριν",
+  "chartToday": "Σήμερα",
+  "checkFileFormat": "Ελέγξτε τη μορφή αρχείου ή τα δικαιώματα",
+  "checkPermissionFailed": "Απέτυχε ο έλεγχος δικαιωμάτων: {error}",
+  "chooseDefaultInterceptAction": "Επιλέξτε την προεπιλεγμένη ενέργεια παρεμπόδισης",
+  "clearFilter": "Εκκαθάριση Φίλτρου",
+  "clearLabelFilterButton": "Εκκαθάριση Φίλτρου Ετικετών",
+  "closeButton": "Κλείσιμο",
+  "cloudSync": "Σύγχρονιση στο Νέφος",
+  "cloudSyncAndBackupTitle": "Σύγχρονιση & Αντίγραφο Ασφαλείας στο Νέφος",
+  "cloudSyncSettingsSubtitle": "Ρύθμιση WebDAV, OneDrive και Google Drive",
+  "cloudSyncSettingsTitle": "Ρυθμίσεις Cloud Sync",
+  "cloudSyncTitle": "Σύγχρονιση στο Νέφος",
+  "collection": "Συλλογή Χρεών",
+  "colorPickerTitle": "Επιλογή Χρώματος",
+  "configManagement": "Διαχείριση Ρυθμίσεων",
+  "configUpdated": "Ρυθμίσεις ενημερώθηκαν",
+  "configurationAdvice": "Μέσω σωστής διαμόρφωσης, μπορείτε να ορίσετε διαφορετικές στρατηγικές φιλτραρίσματος για επαγγελματικές και προσωπικές κάρτες SIM.",
+  "configureBackupOptions": "Ρύθμιση Επιλογών Δημιουργίας Αντιγράφων Ασφαλείας",
+  "configureCloudSyncService": "Ρύθμιση Υπηρεσίας Cloud Sync",
+  "configureCloudSyncServiceMessage": "Παρακαλώ ρυθμίστε μια υπηρεσία cloud sync για να ενεργοποιήσετε τον συγχρονισμό πολλαπλών συσκευών.",
+  "configureSimCardFilterRules": "Ρύθμιση Κανόνων Φίλτρου Κάρτας SIM",
+  "confirm": "Επιβεβαίωση",
+  "confirmButton": "Επιβεβαίωση",
+  "confirmDelete": "Επιβεβαίωση Διαγραφής",
+  "confirmDeleteLabel": "Είστε σίγουροι ότι θέλετε να διαγράψετε την ετικέτα \"{name}\"",
+  "confirmDeletePlugin": "Είστε σίγουροι ότι θέλετε να διαγράψετε το plugin \"{name}\";",
+  "confirmDeletePlugins": "Είστε σίγουροι ότι θέλετε να διαγράψετε {count} plugins;",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτόν τον κανόνα; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+  "confirmDeleteSmsFilterRule": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτόν τον κανόνα φίλτρου SMS;",
+  "confirmDeleteSmsRule": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτόν τον κανόνα SMS;",
+  "confirmDeleteSubscriptions": "Είστε σίγουροι ότι θέλετε να διαγράψετε {name};",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "Επιβεβαίωση Κωδικού",
+  "connectedStatus": "Συνδεδεμένο",
+  "connectionFailedCheckCredentialsMessage": "Η σύνδεση απέτυχε: Ελέγξτε τη διεύθυνση διακομιστή, το όνομα χρήστη και τον κωδικό πρόσβασης",
+  "connectionFailedMessage": "Η σύνδεση απέτυχε",
+  "connectionStatusLabel": "Κατάσταση Σύνδεσης",
+  "connectionSuccessMessage": "Η σύνδεση είναι επιτυχής",
+  "contactAddSuccess": "Η επαφή προστέθηκε με επιτυχία",
+  "contactDeleted": "Η επαφή διαγράφηκε",
+  "contactNameLabel": "Όνομα",
+  "contactNotFound": "Η επαφή δεν βρέθηκε",
+  "contacts": "Επαφές",
+  "contactsDeleted": "Διαγράφηκαν {count} επαφές",
+  "contactsManagement": "Διαχείριση Επαφών",
+  "contactsPermission": "Άδεια Επαφών",
+  "contactsPermissionDescription": "Χρησιμοποιείται για την αναγνώριση κλήσεων από επαφές.",
+  "contactsTab": "Επαφές",
+  "contactSubscriptionDescription": "Εγγραφείτε σε λίστες επαφών μέσω URL, ενημερώστε αυτόματα τα στοιχεία και τις ετικέτες των επαφών. Υποστηρίζει δεδομένα σε μορφή JSON.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "Η επαφή ενημερώθηκε με επιτυχία",
+  "contactUs": "Επικοινωνήστε μαζί μας",
+  "content": "Περιεχόμενο",
+  "contentRegex": "Regex Περιεχομένου",
+  "countColor": "Χρώμα Μετρητή",
+  "countFontSize": "Μέγεθος Γραμματοσειράς Μετρητή",
+  "countPosition": "Θέση Μετρητή",
+  "country": "Χώρα",
+  "countryNameColor": "Χρώμα Ονόματος Χώρας",
+  "countryNameFontSize": "Μέγεθος Γραμματοσειράς Ονόματος Χώρας",
+  "countryRegionNamePosition": "Θέση Ονόματος Χώρας/Περιοχής",
+  "countThresholdDescription": "Ορίστε το ελάχιστο όριο μετρητή που απαιτείται για την ενεργοποίηση ενεργειών φιλτραρίσματος",
+  "countThresholdLabel": "Όριο Μετρητή",
+  "createdRules": "Δημιουργημένοι Κανόνες",
+  "csvFormat": "Μορφή CSV",
+  "currentDeviceLabel": "Ετικέτα Τρέχουσας Συσκευής",
+  "currentDeviceTitle": "Τρέχουσα Συσκευή",
+  "currentLanguage": "Τρέχουσα Γλώσσα",
+  "customerService": "Εξυπηρέτηση Πελατών",
+  "dashboardTab": "Πίνακας Ελέγχου",
+  "dataAnalysis": "Ανάλυση Δεδομένων",
+  "dataLoadFailure": "Η φόρτωση δεδομένων απέτυχε: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "Απέτυχε η φόρτωση δεδομένων: {error}",
+  "dataMigration": "Μεταφορά Δεδομένων",
+  "dataMigrationDescription": "Αυτή η λειτουργία σας επιτρέπει να μεταφέρετε όλα τα δεδομένα σας μεταξύ συσκευών. Επί του παρόντος, μπορείτε να χρησιμοποιήσετε τις λειτουργίες δημιουργίας αντιγράφων ασφαλείας και επαναφοράς για να μεταφέρετε χειροκίνητα τα δεδομένα σας.",
+  "dataSourceReminder": "Υπενθύμιση Πηγής Δεδομένων",
+  "days": "{count, plural, =1{1 ημέρα} other{{count} ημέρες}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} Ημέρες VIP",
+  "debtCollection": "Είσπραξη Χρεών",
+  "delete": "Διαγραφή",
+  "deleteButton": "Διαγραφή",
+  "deleteContact": "Διαγραφή Επαφής",
+  "deleteContactConfirm": "Είστε σίγουροι ότι θέλετε να διαγράψετε {name};",
+  "deleteFailed": "Η διαγραφή απέτυχε: {error}",
+  "deleteLabel": "Διαγραφή Ετικέτας",
+  "deleteLabelFailed": "Απέτυχε η διαγραφή ετικέτας: {error}",
+  "deletePlugin": "Διαγραφή Plugin",
+  "deletePluginFailed": "Απέτυχε η διαγραφή plugin: {error}",
+  "deletePlugins": "Διαγραφή Plugins",
+  "deletePluginsFailed": "Απέτυχε η διαγραφή plugins: {error}",
+  "deleteRule": "Διαγραφή Κανόνα",
+  "deleteRuleFailed": "Η διαγραφή απέτυχε: {error}",
+  "deleteSelected": "Διαγραφή Επιλεγμένων",
+  "deleteSubscription": "Διαγραφή Συνδρομής",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "Είστε σίγουροι ότι θέλετε να διαγράψετε τη συνδρομή \"{name}\";",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "Απέτυχε η διαγραφή συνδρομής: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "Η διαγραφή ήταν επιτυχής",
+  "delivery": "Παράδοση",
+  "deviceIDLabel": "Αναγνωριστικό Συσκευής",
+  "deviceManagementSubtitle": "Διαχείριση συγχρονισμού πολλαπλών συσκευών",
+  "deviceManagementTitle": "Διαχείριση Συσκευών",
+  "deviceModelLabel": "Μοντέλο Συσκευής",
+  "deviceName": "Όνομα Συσκευής",
+  "deviceNameLabel": "Όνομα Συσκευής",
+  "deviceRenamedSuccessfullyMessage": "Η συσκευή μετονομάστηκε με επιτυχία",
+  "devicesSynchronizedSuccessfullyMessage": "Οι συσκευές συγχρονίστηκαν με επιτυχία",
+  "deviceUnregisteredSuccessfullyMessage": "Η συσκευή καταργήθηκε με επιτυχία",
+  "dialogTitle": "Επεξήγηση Μοτίβου Regex",
+  "differentFromLocalCounter": "Αυτή η λειτουργία διαφέρει από το φίλτρο τοπικού μετρητή, καθώς εστιάζει σε επαναλαμβανόμενα μοτίβα κλήσεων σε σύντομο χρονικό διάστημα αντί για μακροπρόθεσμες καταμετρήσεις σήμανσης.",
+  "disabled": "Απενεργοποιημένο",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "Απενεργοποιημένο",
+  "disableGlobalPlugins": "Απενεργοποίηση καθολικών πρόσθετων",
+  "disconnectButton": "Αποσύνδεση",
+  "disconnectedMessage": "Αποσυνδέθηκε",
+  "disconnectedStatus": "Αποσυνδέθηκε",
+  "disconnectFailedMessage": "Η αποσύνδεση απέτυχε",
+  "done": "Έγινε",
+  "dualSimAdvice": "Αυτή η λειτουργία είναι ιδιαίτερα χρήσιμη για τηλέφωνα διπλής SIM για τον καθορισμό διαφορετικών στρατηγικών φιλτραρίσματος για κάρτες SIM εργασίας και προσωπικές.",
+  "earlier": "Νωρίτερα",
+  "ecommerce": "Ηλεκτρονικό εμπόριο",
+  "edit": "Επεξεργασία",
+  "editContact": "Επεξεργασία Επαφής",
+  "editLabel": "Επεξεργασία Ετικέτας",
+  "editPhoneRule": "Επεξεργασία Κανόνα Τηλεφώνου",
+  "editRule": "Επεξεργασία Κανόνα",
+  "education": "Εκπαίδευση",
+  "elementPositionsSetting": "Θέσεις Στοιχείων",
+  "email": "Ηλεκτρονικό Ταχυδρομείο",
+  "enableCallFilter": "Ενεργοποίηση Φίλτρου Κλήσεων",
+  "enableCallFilterDescription": "Όταν είναι ενεργοποιημένες, οι εισερχόμενες κλήσεις ελέγχονται έναντι της λίστας κανόνων παρακάτω. Οι κανόνες φιλτραρίσματος κλήσεων δεν συγχρονίζονται μεταξύ συσκευών από προεπιλογή.",
+  "enabled": "Ενεργοποιημένο",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "Ενεργοποιημένο",
+  "enableEncryption": "Ενεργοποίηση Κρυπτογράφησης",
+  "enableEncryptionDescription": "Κρυπτογράφηση αρχείων αντιγράφων ασφαλείας",
+  "enableGlobalPlugins": "Ενεργοποίηση καθολικών πρόσθετων",
+  "enableLocalCountFilter": "Ενεργοποίηση Τοπικού Φίλτρου Μετρητή",
+  "enableLocalCountFilterDescription": "Αυτόματη φίλτρανση κλήσεων spam βάσει του αριθμού σήμανσης κλήσεων",
+  "enableLocalNotification": "Χρήση Τοπικής Ειδοποίησης",
+  "enableLocalNotificationDescription": "Όταν είναι ενεργοποιημένες, οι ειδοποιήσεις για τα φιλτραρισμένα μηνύματα θα εμφανίζονται στη συσκευή",
+  "enableLocationSummary": "Τοποθεσία",
+  "enableMuteRules": "Ενεργοποίηση Κανόνων Σίγασης",
+  "enableMuteRulesDesc": "Εφαρμογή ρύθμισης κανόνων παρεμβολής σίγασης",
+  "enableNoneActionRules": "Ενεργοποίηση Κανόνων Χωρίς Ενέργεια",
+  "enableNoneActionRulesDesc": "Επιτρέψτε ρυθμίσεις κανόνων χωρίς ενέργειες παρεμβολής",
+  "enableRemoteNumberFilter": "Ενεργοποίηση Απομακρυσμένου Φίλτρου Αριθμών",
+  "enableRemoteNumberFilterDescription": "Χρήση απομακρυσμένης βάσης δεδομένων για φιλτράρισμα αριθμών",
+  "enableRule": "Ενεργοποίηση Κανόνα",
+  "enableSmsFilter": "Ενεργοποίηση Φιλτραρίσματος SMS",
+  "enableSmsFilterDescription": "Όταν είναι ενεργοποιημένα, τα μηνύματα θα φιλτράρονται αυτόματα σύμφωνα με τους κανόνες",
+  "enableTimeInterception": "Ενεργοποίηση Παρεμβολής Χρόνου",
+  "enableTimeInterceptionDescription": "Παρεμβολή επαναλαμβανόμενων κλήσεων εντός σύντομου χρονικού διαστήματος",
+  "enableTimeInterceptor": "Ενεργοποίηση Παρεμβολέα Χρόνου",
+  "endCallImmediately": "Τερματισμός κλήσης αμέσως",
+  "endColor": "Τελικό Χρώμα",
+  "endDate": "Ημερομηνία Λήξης",
+  "enhancedFilterInstructionsTitle": "Ενισχυμένο Σύστημα Φίλτρων",
+  "enhancedFilterSettings": "Ρυθμίσεις Ενισχυμένου Φίλτρου",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "Ρυθμίσεις Ενισχυμένου Φίλτρου",
+  "enhancedFilterSystemDescription": "Το ενισχυμένο σύστημα φίλτρων υποστηρίζει τόσο καθολικούς κανόνες όσο και ρυθμίσεις φιλτραρίσματος ανά κάρτα SIM.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "Εισαγάγετε και τον αριθμό τηλεφώνου και το μοτίβο regex.",
+  "enterContactName": "Εισαγάγετε όνομα επαφής",
+  "enterDeviceName": "Εισαγωγή Ονόματος Συσκευής",
+  "enterEmailOptional": "Εισαγάγετε email (προαιρετικό)",
+  "enterEncryptionPasswordHint": "Εισαγάγετε κωδικό κρυπτογράφησης",
+  "enterIconCode": "Εισαγωγή κωδικού εικονιδίου",
+  "enterName": "Εισαγωγή ονόματος επαφής",
+  "enterNewDeviceNameHint": "Εισαγάγετε ένα νέο όνομα για αυτήν τη συσκευή",
+  "enterPasswordAgain": "Εισαγωγή Κωδικού Ξανά",
+  "enterPhoneNumber": "Εισαγωγή αριθμού τηλεφώνου",
+  "enterPhoneNumberHint": "Εισαγάγετε αριθμό τηλεφώνου για έλεγχο",
+  "enterPhoneNumberMultiple": "Εισαγάγετε αριθμό τηλεφώνου, πολλαπλούς αριθμούς χωρισμένους με κόμματα",
+  "enterPhoneNumberToStartSearch": "Εισαγάγετε αριθμό τηλεφώνου για να ξεκινήσετε την αναζήτηση",
+  "enterPhoneNumberToVerify": "Εισαγάγετε αριθμό τηλεφώνου για επαλήθευση",
+  "enterPluginName": "Εισαγωγή ονόματος πρόσθετου",
+  "enterPluginUrl": "Εισαγωγή διεύθυνσης URL πρόσθετου",
+  "enterRegexHint": "Εισαγωγή μοτίβου regex",
+  "enterRuleNameAndPatternMessage": "Παρακαλώ εισάγετε όνομα κανόνα και μοτίβο regex.",
+  "enterRuleNameHint": "Εισάγετε όνομα κανόνα",
+  "enterSearchContent": "Παρακαλώ εισάγετε περιεχόμενο αναζήτησης",
+  "enterSubscriptionName": "Εισάγετε όνομα συνδρομής",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "Εισάγετε URL συνδρομής",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Παρακαλώ εισάγετε όνομα φακέλου συγχρονισμού (προεπιλογή: NotificationManager)",
+  "entertainment": "Ψυχαγωγία",
+  "enterValidNameAndUrl": "Παρακαλώ εισάγετε έγκυρο όνομα και URL",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "Παρακαλώ εισάγετε έγκυρο URL",
+  "enterVersion": "Εισάγετε έκδοση",
+  "enterWebDAVPasswordHint": "Παρακαλώ εισάγετε κωδικό πρόσβασης WebDAV",
+  "enterWebDAVServerAddressHint": "Παρακαλώ εισάγετε διεύθυνση διακομιστή WebDAV",
+  "enterWebDAVUsernameHint": "Παρακαλώ εισάγετε όνομα χρήστη WebDAV",
+  "errorOccurredMessage": "Παρουσιάστηκε σφάλμα: {error}",
+  "errorRenamingDeviceMessage": "Σφάλμα κατά την αλλαγή ονόματος συσκευής: {error}",
+  "errorSynchronizingDevicesMessage": "Σφάλμα κατά το συγχρονισμό συσκευών: {error}",
+  "errorUnregisteringDeviceMessage": "Σφάλμα κατά την αποεγγραφή συσκευής: {error}",
+  "exampleBlock400Prefix": "π.χ. Αποκλεισμός αριθμών προθέματος 400",
+  "exampleBlockMarketingSms": "π.χ. Αποκλεισμός SMS μάρκετινγκ",
+  "exampleContentRegexHint": "Παράδειγμα Regex Περιεχομένου",
+  "exampleCouponPromotionDiscount": "π.χ. .*(κουπόνι|προσφορά|έκπτωση).*",
+  "exampleFamilyFriends": "π.χ. Οικογένεια, Φίλοι, κ.λπ.",
+  "examplePhoneNumber": "π.χ. 10086, 12345, κ.λπ.",
+  "exampleRegex400Prefix": "Παράδειγμα regex για πρόθεμα 400",
+  "exampleSenderRegexHint": "Παράδειγμα",
+  "exchange": "Ανταλλαγή",
+  "exchangeNow": "Ανταλλαγή Τώρα",
+  "exchangeVip": "Ανταλλαγή VIP",
+  "expiryTime": "Ώρα λήξης: {time}",
+  "export": "Εξαγωγή",
+  "exportAllApplicationSettings": "Εξαγωγή όλων των ρυθμίσεων εφαρμογής",
+  "exportAllRuleConfigurations": "Εξαγωγή όλων των ρυθμίσεων κανόνων",
+  "exportConfig": "Εξαγωγή Ρύθμισης",
+  "exportContacts": "Εξαγωγή Επαφών",
+  "exportData": "Εξαγωγή Δεδομένων",
+  "exportFailed": "Η εξαγωγή απέτυχε",
+  "exportFailure": "Αποτυχία εξαγωγής ρύθμισης",
+  "exportFeatureComingSoon": "Η λειτουργία εξαγωγής έρχεται σύντομα",
+  "exportLabels": "Εξαγωγή Ετικετών",
+  "exportLabelsFailed": "Αποτυχία εξαγωγής ετικετών: {error}",
+  "exportPluginList": "Εξαγωγή Λίστας Plugins",
+  "exportPluginListFailed": "Αποτυχία εξαγωγής λίστας plugins: {error}",
+  "exportRules": "Εξαγωγή Κανόνων",
+  "exportSmsRules": "Εξαγωγή Κανόνων SMS",
+  "exportStatisticsData": "Εξαγωγή Δεδομένων Στατιστικών",
+  "exportSuccesslly": "Η ρύθμιση εξήχθη επιτυχώς",
+  "failedToAddRule": "Αποτυχία προσθήκης κανόνα: {error}",
+  "failedToAddSmsSubscription": "Αποτυχία προσθήκης συνδρομής SMS: {error}",
+  "failedToBackupSettings": "Αποτυχία δημιουργίας αντιγράφων ασφαλείας ρυθμίσεων: {error}",
+  "failedToDecryptBackupFile": "Αποτυχία αποκρυπτογράφησης αρχείου αντιγράφων ασφαλείας",
+  "failedToDeleteSmsRule": "Αποτυχία διαγραφής κανόνα SMS: {error}",
+  "failedToExportRules": "Αποτυχία εξαγωγής κανόνων: {error}",
+  "failedToGetCallerIdInfo": "Αποτυχία λήψης πληροφοριών αναγνώρισης κλήσης: {error}",
+  "failedToImportRules": "Αποτυχία εισαγωγής κανόνων: {error}",
+  "failedToRestoreSettings": "Αποτυχία επαναφοράς ρυθμίσεων",
+  "failedToRestoreSettingsWithError": "Αποτυχία επαναφοράς ρυθμίσεων: {error}",
+  "failedToToggleRuleStatus": "Αποτυχία εναλλαγής κατάστασης κανόνα: {error}",
+  "favoriteContacts": "Αγαπημένες Επαφές",
+  "featureAddRules": "• Προσθήκη κανόνων για συγκεκριμένο αριθμό τηλεφώνου",
+  "featureCenter": "Κέντρο Λειτουργιών",
+  "featureEnableDisable": "• Ενεργοποίηση/απενεργοποίηση διαφορετικών φίλτρων ανά SIM",
+  "featureListTitle": "Λειτουργίες:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• Διαχείριση λιστών κανόνων ανά SIM",
+  "features": "Λειτουργίες",
+  "fetchingCallerIdInfo": "Γίνεται λήψη πληροφοριών αναγνώρισης κλήσης...",
+  "fileSavedTo": "Το αρχείο αποθηκεύτηκε στο: {path}",
+  "filter": "Φίλτρο",
+  "filterByLabel": "Φιλτράρισμα κατά Ετικέτα",
+  "filterControlPanelTitle": "Πίνακας Ελέγχου Φίλτρου",
+  "filterControlSubtitle": "Διαχείριση κατάστασης ενεργοποίησης/απενεργοποίησης όλων των φίλτρων",
+  "filterControlTitle": "Έλεγχος Φίλτρων",
+  "filtered": "Φιλτραρισμένα",
+  "filterExplanation": "Επεξήγηση Φίλτρου",
+  "filterManagement": "Διαχείριση Φίλτρων",
+  "filterName": "Όνομα Φίλτρου",
+  "filterPriorityNote": "Σημείωση: Υπάρχουν σχέσεις προτεραιότητας μεταξύ των φίλτρων, ανατρέξτε στην τεκμηρίωση βοήθειας για λεπτομέρειες",
+  "filterSettings": "Ρυθμίσεις Φίλτρου",
+  "filterSettingsTitle": "Ρυθμίσεις Φίλτρων",
+  "filterSMS": "Φιλτράρισμα SMS",
+  "filterToggleInstructions": "Ενεργοποίηση ή απενεργοποίηση φίλτρων για αυτήν την υποδοχή SIM:",
+  "filterToggleStatus": "Φίλτρο {status}: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "Τύπος Φίλτρου",
+  "financial": "Οικονομικά",
+  "flexibleCombinationFeature": "• Ευέλικτοι Συνδυασμοί: Ενεργοποίηση/απενεργοποίηση φίλτρων ανά υποδοχή SIM",
+  "fontSizesSetting": "Μεγέθη Γραμματοσειράς",
+  "foundRules": "Βρέθηκαν {count} κανόνες",
+  "fraudAlert": "ΕΙΔΟΠΟΙΗΣΗ ΑΠΑΤΗΣ - Κλείστε την κλήση",
+  "fraudScamLikely": "Πιθανή Απάτη",
+  "free": "Δωρεάν",
+  "functionSettingsTitle": "Ρυθμίσεις Λειτουργιών",
+  "generalUpdateFailure": "Η ενημέρωση απέτυχε: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "Λάβετε Δωρεάν",
+  "github": "GitHub",
+  "globalFilterDescription": "Ρυθμίστε καθολικά φίλτρα για όλες τις κάρτες SIM:",
+  "globalFilterFeature": "• Καθολικά Φίλτρα: Βασικοί κανόνες για όλες τις εισερχόμενες κλήσεις",
+  "globalFilterSettings": "Ρυθμίσεις Καθολικού Φίλτρου",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "Καθολικές Ρυθμίσεις",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "Εξουσιοδοτήστε χρησιμοποιώντας το αναγνωριστικό πελάτη και το κλειδί Google Drive που έχουν ρυθμιστεί στο σύστημα",
+  "googleDriveConfigTitle": "Ρύθμιση Google Drive",
+  "government": "Κυβέρνηση",
+  "granted": "Επιχορηγήθηκε",
+  "grantNecessaryPermissions": "Παραχώρηση Απαραίτητων Δικαιωμάτων",
+  "grantPermissions": "Παραχώρηση Δικαιωμάτων",
+  "headhunter": "Headhunter",
+  "height": "Ύψος",
+  "homeTab": "Αρχική",
+  "howItWorksPoint1": "• Το σύστημα θα επιτρέπει αυτόματα τις κλήσεις από τον ίδιο αριθμό εντός του καθορισμένου χρονικού παραθύρου",
+  "howItWorksPoint2": "• Μικρότερα χρονικά παράθυρα οδηγούν σε αυστηρότερη παρεμβολή. Μεγαλύτερα χρονικά παράθυρα οδηγούν σε χαλαρότερη παρεμβολή",
+  "howItWorksPoint3": "• Το σύστημα ελέγχει τα αρχεία καταγραφής κλήσεων για να προσδιορίσει αν πρόκειται για επαναλαμβανόμενη κλήση",
+  "howItWorksTitle": "Πώς Λειτουργεί:",
+  "iconCodeOptional": "Κωδικός Εικονιδίου (Προαιρετικό)",
+  "iconSize": "Μέγεθος Εικονιδίου",
+  "import": "Εισαγωγή",
+  "important": "Σημαντικό",
+  "importConfig": "Εισαγωγή Ρύθμισης",
+  "importContacts": "Εισαγωγή Επαφών",
+  "importExportContacts": "Εισαγωγή/Εξαγωγή Επαφών",
+  "importExportContactsTooltip": "Εισαγωγή/Εξαγωγή Επαφών",
+  "importExportRules": "Εισαγωγή/Εξαγωγή Κανόνων",
+  "importFailed": "Η εισαγωγή απέτυχε: {error}",
+  "importFailure": "Αδυναμία εισαγωγής ρύθμισης",
+  "importFeatureComingSoon": "Η λειτουργία εισαγωγής σύντομα",
+  "importLabels": "Εισαγωγή Ετικετών",
+  "importLabelsFailed": "Αδυναμία εισαγωγής ετικετών: {error}",
+  "importPluginList": "Εισαγωγή Λίστας Plugins",
+  "importPluginListFailed": "Αδυναμία εισαγωγής λίστας plugins: {error}",
+  "importPluginSuccess": "Επιτυχής εισαγωγή {count} plugins",
+  "importRuleConfigurationsFromFile": "Εισαγωγή Ρυθμίσεων Κανόνων από Αρχείο",
+  "importRules": "Εισαγωγή Κανόνων",
+  "importSuccess": "Η εισαγωγή ολοκληρώθηκε",
+  "incomingCallInterceptAction": "Ενέργεια Παρεμβολής Εισερχόμενης Κλήσης",
+  "incorrectPassword": "Λανθασμένος κωδικός πρόσβασης",
+  "initializing": "Αρχικοποίηση",
+  "installed": "Εγκαταστάθηκε",
+  "insufficientMarks": "Ανεπαρκή Σημάδια",
+  "insurance": "Ασφάλιση",
+  "interceptAction": "Ενέργεια Παρεμβολής",
+  "interceptionActionSettingsSubtitle": "Ορίστε πώς θα χειρίζονται οι αποκλεισμένες κλήσεις",
+  "interceptionActionSettingsTitle": "Ρυθμίσεις Ενέργειας Παρεμβολής",
+  "interceptionTimeInterval": "Χρονικό Διάστημα Παρεμβολής",
+  "internet": "Διαδίκτυο",
+  "intervalSetSuccess": "Το διάστημα ενημέρωσης {service} ορίστηκε σε {days} ημέρες",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "Μη έγκυρο regex περιεχομένου",
+  "invalidLabel": "Μη έγκυρη ετικέτα",
+  "invalidRegexPattern": "Μη έγκυρο μοτίβο regex",
+  "invalidSenderRegex": "Μη έγκυρο regex αποστολέα",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "Συμμετοχή στο Κανάλι και την Ομάδα Telegram για Περισσότερες Πληροφορίες",
+  "jsonFormat": "Μορφή JSON",
+  "keepAllVersions": "Διατήρηση όλων των εκδόσεων",
+  "keepAllVersionsDescription": "Διατηρήστε όλες τις ιστορικές εκδόσεις κάθε αντιγράφου ασφαλείας",
+  "label": "Ετικέτα",
+  "labelAddedSuccessfully": "Η ετικέτα \"{name}\" προστέθηκε επιτυχώς",
+  "labelCategories": "Κατηγορίες ετικετών",
+  "labelDeleted": "Η ετικέτα διαγράφηκε",
+  "labelDescription": "Οι ετικέτες σας βοηθούν να διαχειρίζεστε καλύτερα τις επαφές, προσθέστε προσαρμοσμένες ετικέτες σε αριθμούς τηλεφώνου για εύκολη αναγνώριση κλήσεων και μηνυμάτων.",
+  "labelFilterTooltip": "Φίλτρο ετικέτας",
+  "labelIconColor": "Χρώμα εικονιδίου ετικέτας",
+  "labelManagement": "Διαχείριση ετικετών",
+  "labelNotFound": "Η ετικέτα δεν βρέθηκε",
+  "labels": "Ετικέτες",
+  "labelsColor": "Χρώμα ετικετών",
+  "labelsDeleted": "{count} ετικέτες διαγράφηκαν",
+  "labelsExportedSuccessfully": "Οι ετικέτες εξήχθησαν με επιτυχία",
+  "labelsFontSize": "Μέγεθος γραμματοσειράς ετικετών",
+  "labelsImportedSuccessfully": "Επιτυχής εισαγωγή {count} ετικετών",
+  "labelsPosition": "Θέση ετικετών",
+  "labelTag": "Ετικέτα: {labelId}",
+  "labelUpdateFailed": "Αποτυχία ενημέρωσης ετικέτας: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "Η ετικέτα \"$labelText\" ενημερώθηκε επιτυχώς",
+  "languageSettings": "Ρυθμίσεις γλώσσας",
+  "languageSettingsSubtitle": "Αλλαγή της γλώσσας εμφάνισης της εφαρμογής",
+  "languageSettingsTitle": "Ρυθμίσεις γλώσσας",
+  "lastSyncLabel": "Τελευταία Συγχρονισμός",
+  "lastUpdated": "Τελευταία ενημέρωση: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "Εφ' όρου ζωής συνδρομή",
+  "lifetimeMembershipDescription": "Εφάπαξ αγορά, ξεκλειδώστε μόνιμα όλες τις premium λειτουργίες και τις μελλοντικές ενημερώσεις",
+  "loadContactsFailed": "Αποτυχία φόρτωσης επαφών: {error}",
+  "loadDataFailed": "Αποτυχία φόρτωσης δεδομένων",
+  "loading": "Φόρτωση...",
+  "loadingTags": "Φόρτωση ετικετών...",
+  "loadLabelFailed": "Αποτυχία φόρτωσης ετικετών: {error}",
+  "loadLabelsFailed": "Αποτυχία φόρτωσης ετικετών: {error}",
+  "loadMarkCountFailed": "Αποτυχία φόρτωσης αριθμών τηλεφώνου με σήμανση: {error}",
+  "loadMarkedPhonesFailed": "Αποτυχία φόρτωσης αριθμών με σήμανση: {error}",
+  "loadPluginsFailed": "Αποτυχία φόρτωσης πρόσθετων: {error}",
+  "loadSettingsFailed": "Αποτυχία φόρτωσης ρυθμίσεων: {error}",
+  "loadSmsRulesFailed": "Αποτυχία φόρτωσης κανόνων SMS: {error}",
+  "loadStatusFailedMessage": "Αποτυχία φόρτωσης κατάστασης",
+  "loadSubscriptionsFailed": "Αποτυχία φόρτωσης συνδρομών: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "Δάνειο",
+  "localCounterFilter": "Φίλτρο τοπικού μετρητή",
+  "localCounterFilterSubtitle": "Αυτόματη φίλτρανση κλήσεων spam με βάση τη συχνότητα κλήσεων",
+  "localCountFilter": "Φίλτρο τοπικής καταμέτρησης",
+  "localCountFilterDescription": "Παρεμπόδιση συχνών κλήσεων με βάση τις τοπικές καταμετρήσεις αριθμών",
+  "localCountFilterExplanationContent": "Το φίλτρο τοπικής καταμέτρησης αναλύει αρχεία ιστορικού κλήσεων για να εντοπίσει και να αποκλείσει αυτόματα συχνές κλήσεις spam.",
+  "localCountFilterExplanationTitle": "Επεξήγηση Φίλτρου Τοπικής Καταμέτρησης",
+  "localCountFilterHowItWorksPoint1": "• Προσδιορισμός εάν θα αποκλειστεί με βάση την τιμή καταμέτρησης του αριθμού",
+  "localCountFilterHowItWorksPoint2": "• Όταν ο αριθμός καταμετρήσεων ενός αριθμού υπερβαίνει το καθορισμένο όριο, μπορείτε να επιλέξετε να τον αποκλείσετε αυτόματα",
+  "localCountFilterHowItWorksPoint3": "• Μπορείτε να επιτρέψετε επιλεκτικά αριθμούς που δεν υπερβαίνουν το όριο",
+  "localCountFilterHowItWorksPoint4": "• Μπορείτε να επιλέξετε αν θα καταγραφούν όλα τα αρχεία καταγραφής ερωτημάτων",
+  "localCountFiltering": "Τοπική Καταμέτρηση Φιλτραρίσματος",
+  "localCountFilteringExplanation": "• Τοπική Καταμέτρηση Φιλτραρίσματος: Κανόνες φιλτραρίσματος με βάση την τοπική καταμέτρηση σήμανσης",
+  "localCountFilterSettings": "Ρυθμίσεις Φίλτρου Τοπικής Καταμέτρησης",
+  "localCountFilterUseCases": "Αυτό το φίλτρο είναι ιδιαίτερα κατάλληλο για τον εντοπισμό αυτόματων κλήσεων spam και κλήσεων μάρκετινγκ.",
+  "localFilterSettings": "Ρυθμίσεις Τοπικού Φίλτρου",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "Τοπική ειδοποίηση απενεργοποιημένη",
+  "localNotificationEnabled": "Τοπική ειδοποίηση ενεργοποιημένη",
+  "localServices": "Τοπικές Υπηρεσίες",
+  "locationColor": "Χρώμα τοποθεσίας",
+  "locationFontSize": "Μέγεθος γραμματοσειράς τοποθεσίας",
+  "locationIconColor": "Χρώμα εικονιδίου τοποθεσίας",
+  "locationPosition": "Θέση τοποθεσίας",
+  "logAllLocalQueries": "Καταγραφή όλων των τοπικών ερωτημάτων",
+  "logAllLocalQueriesDescription": "Καταγραφή όλων των ερωτημάτων τοπικών αριθμών",
+  "logAllRemoteQueries": "Καταγραφή όλων των απομακρυσμένων ερωτημάτων",
+  "logAllRemoteQueriesDescription": "Καταγραφή όλων των λειτουργιών ερωτημάτων απομακρυσμένων αριθμών",
+  "manage": "Διαχείριση Επαφών",
+  "manageFavoriteContacts": "Διαχείριση αγαπημένων επαφών",
+  "manageFilterRules": "Διαχείριση κανόνων φίλτρου",
+  "manageFilterRulesDescription": "Προσθήκη, επεξεργασία ή διαγραφή κανόνων φίλτρου SMS",
+  "markCounts": "Μετρήσεις σήμανσης",
+  "markCount": "Μέτρηση σήμανσης",
+  "markedByCount": "Σημασμένο από {count}",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Λίστα αριθμών τηλεφώνου με σήμανση",
+  "markExchange": "Ανταλλαγή σήμανσης",
+  "markPhone": "Σήμανση αριθμού τηλεφώνου",
+  "markPhoneFailed": "Αποτυχία σήμανσης αριθμού τηλεφώνου: {error}",
+  "markPhoneManagementTitle": "Διαχείριση Σήμανσης Αριθμών",
+  "markPhoneSuccess": "Ο αριθμός τηλεφώνου σημάνθηκε επιτυχώς",
+  "matchFailedMessage": "Η αντιστοίχιση απέτυχε.",
+  "matchNumbersWithSpecialCharacters": "αντιστοιχεί σε συγκεκριμένη μορφή αριθμού",
+  "matchNumbersWithSpecialCharactersTitle": "Αντιστοίχιση αριθμών με ειδικούς χαρακτήρες:",
+  "matchSpecificDigitPatterns": "αντιστοιχεί σε μορφή XXX-XXXX-XXXX",
+  "matchSpecificDigitPatternsTitle": "Αντιστοίχιση συγκεκριμένων μοτίβων ψηφίων:",
+  "matchSuccessfulMessage": "Η αντιστοίχιση ήταν επιτυχής!",
+  "medical": "Ιατρικό",
+  "membershipPrivileges": "Προνόμια Μέλους",
+  "migrationTool": "Εργαλείο Μετανάστευσης",
+  "minutes": "λεπτά",
+  "month": "Μήνας",
+  "monthly": "Μηνιαίο",
+  "monthlyCallCount": "Μηνιαίες Κλήσεις",
+  "monthlyMembership": "Μηνιαία Συνδρομή",
+  "monthlyMembershipDescription": "Ξεκλειδώστε όλες τις premium λειτουργίες, αυτόματη ανανέωση μηνιαίως",
+  "monthlyTotal": "Μηνιαίο Σύνολο",
+  "moreOptions": "Περισσότερες Επιλογές",
+  "name": "Όνομα",
+  "nameAndPhoneNumberCannotBeEmpty": "Το όνομα και ο αριθμός τηλεφώνου δεν μπορούν να είναι κενά",
+  "nameColor": "Χρώμα Ονόματος",
+  "nameFontSize": "Μέγεθος Γραμματοσειράς Ονόματος",
+  "namePosition": "Θέση Ονόματος",
+  "nameUnknown": "Όνομα: Άγνωστο",
+  "nextStep": "Επόμενο",
+  "noAction": "Καμία Ενέργεια",
+  "noActionRules": "Κανόνες Καμίας Ενέργειας",
+  "noActiveCloudSyncServiceMessage": "Δεν υπάρχει ενεργή υπηρεσία συγχρονισμού cloud",
+  "noCallRecords": "Δεν υπάρχουν αρχεία κλήσεων",
+  "noContactsYet": "Δεν υπάρχουν επαφές ακόμα",
+  "noData": "Δεν υπάρχουν Δεδομένα",
+  "noDevicesRegisteredMessage": "Δεν έχουν καταχωρηθεί συσκευές",
+  "noLabels": "Δεν υπάρχουν ετικέτες ακόμα",
+  "noMarkedPhones": "Δεν υπάρχουν σημειωμένοι αριθμοί τηλεφώνου",
+  "noMatchingContactsFound": "Δεν βρέθηκαν αντίστοιχες επαφές",
+  "noMatchingNumbersFound": "Δεν βρέθηκαν αντίστοιχοι αριθμοί",
+  "noMatchingRules": "Δεν υπάρχουν αντίστοιχοι {ruleType}",
+  "none": "Κανένα",
+  "noneServiceType": "Κανένα",
+  "noPlugins": "Δεν υπάρχουν plugins ακόμα",
+  "noRules": "Δεν υπάρχουν {ruleType} ακόμα",
+  "noRulesPrompt": "Δεν βρέθηκαν κανόνες, προσθέστε κανόνες",
+  "noRulesToExport": "Δεν υπάρχουν κανόνες για εξαγωγή",
+  "noSmsFilterRulesYet": "Δεν υπάρχουν κανόνες φίλτρου SMS ακόμα",
+  "noSmsRulesYet": "Δεν υπάρχουν κανόνες SMS ακόμα",
+  "noSubscriptions": "Δεν υπάρχουν συνδρομές",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "Δεν Παραχωρήθηκε",
+  "notificationModeDescription": "Εμφάνιση πληροφοριών καλούντος στη γραμμή ειδοποιήσεων",
+  "notificationPermission": "Άδεια Ειδοποίησης",
+  "notificationPermissionDescription": "Χρησιμοποιείται για την εμφάνιση ειδοποιήσεων εισερχόμενων κλήσεων και μηνυμάτων.",
+  "notifications": "Ειδοποιήσεις",
+  "notificationSettings": "Ρυθμίσεις Ειδοποιήσεων",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "Δεν έχει Επαληθευτεί",
+  "noValidSmsRulesFoundInFile": "Δεν βρέθηκαν έγκυροι κανόνες SMS στο αρχείο",
+  "number": "Αριθμός",
+  "numberColor": "Χρώμα Αριθμού",
+  "numberFontSize": "Μέγεθος Γραμματοσειράς Αριθμού",
+  "numberPosition": "Θέση Αριθμού",
+  "numberSearch": "Αναζήτηση Αριθμού",
+  "numberTypeColor": "Χρώμα Τύπου Αριθμού",
+  "numberTypeFontSize": "Μέγεθος Γραμματοσειράς Τύπου Αριθμού",
+  "numberTypePosition": "Θέση Τύπου Αριθμού",
+  "okButton": "Εντάξει",
+  "onboardingCompleteDescription": "Ο διαχειριστής ασφάλειας κλήσεων σας είναι έτοιμος, ξεκινήστε να απολαμβάνετε μια ασφαλή εμπειρία κλήσεων!",
+  "onboardingLanguageDescription": "Επιλέξτε την προτιμώμενη γλώσσα σας για την καλύτερη εμπειρία.",
+  "onboardingPermissionsDescription": "Για να παρέχουμε πλήρη υπηρεσία, χρειαζόμαστε τις ακόλουθες άδειες:",
+  "onboardingPowerfulSpamBlockingDescription": "Αποκλεισμός κλήσεων και μηνυμάτων spam με ένα κλικ, προσαρμογή κανόνων αποκλεισμού και παροχή ενός ήσυχου περιβάλλοντος.",
+  "onboardingSmartCallerIdDescription": "Αυτόματη αναγνώριση άγνωστων κλήσεων, σήμανση ύποπτων αριθμών και προστασία της ασφάλειας των κλήσεών σας.",
+  "onboardingWelcomeDescription": "Ο ειδικός διαχείρισης κλήσεων σας, παρέχει ολοκληρωμένες υπηρεσίες αναγνώρισης και αποκλεισμού κλήσεων.",
+  "oneDriveAuthDescription": "Εξουσιοδοτήστε χρησιμοποιώντας το αναγνωριστικό και το κλειδί του πελάτη OneDrive που έχει ρυθμιστεί από το σύστημα",
+  "oneDriveConfigTitle": "Ρύθμιση OneDrive",
+  "onlineCallerIdSubscription": "Συνδρομή Online Αναγνώρισης Κλήσεων",
+  "openAppSettings": "Άνοιγμα ρυθμίσεων εφαρμογής",
+  "openAppSettingsFailed": "Απέτυχε το άνοιγμα των ρυθμίσεων της εφαρμογής: {error}",
+  "operationFailed": "Η λειτουργία απέτυχε: {error}",
+  "operationFailure": "Η λειτουργία απέτυχε",
+  "operationSuccess": "Η λειτουργία πέτυχε",
+  "other": "Άλλο",
+  "ourOtherApps": "Άλλες Εφαρμογές μας",
+  "overlayMode": "Επίπλεον Παράθυρο",
+  "overlayModeDescription": "Εμφάνιση πληροφοριών καλούντος σε επίπλεον παράθυρο",
+  "overlayPermission": "Άδεια Επίπλεον Παραθύρου",
+  "overlayPermissionDescription": "Χρησιμοποιείται για την εμφάνιση επικάλυψης εισερχόμενης κλήσης.",
+  "overview": "Επισκόπηση",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "Κωδικός πρόσβασης",
+  "passwordCannotBeEmpty": "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός",
+  "passwordLabel": "Κωδικός πρόσβασης",
+  "passwordsDoNotMatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν",
+  "pattern": "Μοτίβο",
+  "pendingSync": "Αναμονή συγχρονισμού",
+  "periodMonth": "Μήνας",
+  "periodWeek": "Εβδομάδα",
+  "periodYear": "Έτος",
+  "permissionDenied": "Η αίτηση άδειας απορρίφθηκε",
+  "permissionGranted": "Η άδεια χορηγήθηκε",
+  "permissionManagement": "Διαχείριση αδειών",
+  "phoneCallsTab": "Τηλέφωνο",
+  "phoneNumber": "Αριθμός τηλεφώνου",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "Ο αριθμός τηλεφώνου δεν μπορεί να είναι κενός",
+  "phoneNumberLabel": "Αριθμός τηλεφώνου",
+  "phoneNumberTypeFixedLine": "Σταθερή γραμμή",
+  "phoneNumberTypeFixedLineOrMobile": "Σταθερή γραμμή ή κινητό",
+  "phoneNumberTypeMobile": "Κινητό",
+  "phoneNumberTypePager": "Pager",
+  "phoneNumberTypePersonalNumber": "Προσωπικός αριθμός",
+  "phoneNumberTypePremiumRate": "Premium Rate",
+  "phoneNumberTypeSharedCost": "Κοινό κόστος",
+  "phoneNumberTypeTollFree": "Χωρίς χρέωση",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "Άγνωστο",
+  "phoneNumberTypeVoicemail": "Φωνοτηλεφωνία",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "Άδεια Τηλεφώνου",
+  "phonePermissionDescription": "Χρησιμοποιείται για την αναγνώριση και τον αποκλεισμό εισερχόμενων κλήσεων.",
+  "phoneRule": "Κανόνας Τηλεφώνου",
+  "phoneRuleManagement": "Διαχείριση Κανόνων Τηλεφώνου",
+  "phoneRuleSubscription": "Συνδρομή Κανόνων Τηλεφώνου",
+  "phoneSubscription": "Συνδρομή Τηλεφώνου",
+  "phoneSubscriptionRulesDescription": "Εγγραφείτε σε λίστες κανόνων τηλεφώνου μέσω URL για αυτόματη ενημέρωση λευκών και μαύρων λιστών. Υποστηρίζει αρχεία κανόνων σε μορφή JSON.",
+  "pleaseSelectLabelAndEnterValidPhone": "Παρακαλώ επιλέξτε μια ετικέτα και εισαγάγετε έναν έγκυρο αριθμό τηλεφώνου",
+  "pluginAddedSuccess": "Το πρόσθετο \"{name}\" προστέθηκε επιτυχώς",
+  "pluginDeleted": "Το πρόσθετο διαγράφηκε",
+  "pluginLatestVersion": "Το πρόσθετο είναι ήδη στην τελευταία έκδοση",
+  "pluginListExportSuccess": "Η λίστα πρόσθετων εξαγάχθηκε επιτυχώς",
+  "pluginManagement": "Διαχείριση Πρόσθετων",
+  "pluginManagementSubtitle": "Διαχειριστείτε και διαμορφώστε πρόσθετα τρίτων",
+  "pluginName": "Όνομα Πρόσθετου",
+  "pluginsDeleted": "{count} πρόσθετα διαγράφηκαν επιτυχώς.",
+  "pluginService": "Υπηρεσία Πρόσθετων",
+  "pluginTestPageTitle": "Δοκιμή Πρόσθετου",
+  "pluginUpdateSuccess": "Το πρόσθετο ενημερώθηκε επιτυχώς",
+  "pluginUrl": "URL Πρόσθετου",
+  "pluginVersion": "Έκδοση Πρόσθετου",
+  "political": "Πολιτικό",
+  "powerfulSpamBlocking": "Ισχυρός Αποκλεισμός Spam",
+  "previousStep": "Προηγούμενο",
+  "prioritizeRemoteAction": "Προτεραιότητα Ρυθμίσεων Απομακρυσμένης Ενέργειας",
+  "prioritizeRemoteActionDescription": "Προτεραιότητα ρυθμίσεων ενεργειών από την απομακρυσμένη βάση δεδομένων",
+  "processing": "Επεξεργασία...",
+  "processingOperation": "Επεξεργασία...",
+  "purchase": "Αγορά",
+  "quarterlyMembership": "Τριμηνιαία Συνδρομή",
+  "quarterlyMembershipDescription": "Ξεκλειδώστε όλες τις premium λειτουργίες, αυτόματη ανανέωση ανά τρίμηνο",
+  "ready": "Έτοιμο!",
+  "recruiter": "Προσλήψεις",
+  "refresh": "Ανανέωση",
+  "refreshPermissionStatus": "Ανανέωση κατάστασης άδειας",
+  "refreshTooltip": "Ανανέωση",
+  "regexErrorMessage": "Σφάλμα Regex: {error}",
+  "regexPattern": "Μοτίβο Regex",
+  "regexPatternExplanation": "Επεξήγηση Μοτίβου Regex",
+  "regexPatternExplanationButton": "Επεξήγηση Μοτίβου Regex",
+  "regexPatternLabel": "Μοτίβο Regex",
+  "regexPatternsForPhoneNumberMatching": "Μοτίβα Regex για Αντιστοίχιση Αριθμών Τηλεφώνου",
+  "regexRule": "Κανόνας Regex",
+  "regexRuleAddFailed": "Αποτυχία προσθήκης κανόνα regex: {error}",
+  "regexRuleAddSuccess": "Ο κανόνας regex προστέθηκε επιτυχώς",
+  "regexRuleManagement": "Διαχείριση Κανόνων Regex",
+  "regexRuleNamePatternRequired": "Το όνομα του κανόνα και το μοτίβο regex δεν μπορούν να είναι κενά",
+  "regexRules": "Κανόνες Regex",
+  "regexTesterTitle": "Ελεγκτής Regex",
+  "region": "Περιοχή",
+  "registeredDevicesTitle": "Καταχωρημένες Συσκευές",
+  "rejectAllCalls": "Απόρριψη Όλων των Κλήσεων",
+  "rejectAllCallsDescription": "Όταν είναι ενεργοποιημένο, όλες οι κλήσεις θα απορρίπτονται με την υψηλότερη προτεραιότητα",
+  "rejectAllNumbers": "Απόρριψη Όλων των Αριθμών",
+  "rejectAllNumbersDesc": "Απόρριψη όλων των εισερχόμενων κλήσεων όταν είναι ενεργοποιημένο",
+  "rejectExceededNumbers": "Απόρριψη Υπέρβασης Αριθμών",
+  "rejectExceededNumbersDescription": "Αυτόματη απόρριψη αριθμών που υπερβαίνουν το όριο του πλήθους",
+  "remoteFilterSettings": "Ρυθμίσεις Απομακρυσμένου Φίλτρου",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "Ρυθμίσεις Απομακρυσμένου Φίλτρου Αριθμών",
+  "remoteNumberFilter": "Απομακρυσμένο Φίλτρο Αριθμών",
+  "remoteNumberFilterDescription": "Αναχαίτιση ενοχλητικών κλήσεων βάσει πληροφοριών απομακρυσμένης βάσης δεδομένων",
+  "remoteNumberFiltering": "Απομακρυσμένο Φιλτράρισμα Αριθμών",
+  "remoteNumberFilteringExplanation": "• Απομακρυσμένο Φιλτράρισμα Αριθμών: Κανόνες φιλτραρίσματος βάσει πληροφοριών απομακρυσμένης βάσης δεδομένων",
+  "remoteNumberFilterSubtitle": "Αναγνωρίστε κλήσεις spam χρησιμοποιώντας βάση δεδομένων cloud και αναφορές κοινότητας",
+  "removeAdsDescription": "Αφαιρέστε μόνιμα όλες τις διαφημίσεις στην εφαρμογή για μια πιο ομαλή εμπειρία",
+  "removeAdsTitle": "Αφαίρεση Διαφημίσεων",
+  "removedFromFavorites": "Αφαιρέθηκε από τις αγαπημένες επαφές",
+  "removeFromFavorites": "Αφαίρεση από Αγαπημένα",
+  "renameDeviceTitle": "Μετονομασία Συσκευής",
+  "requestAllPermissions": "Αίτηση Όλων των Δικαιωμάτων",
+  "requestPermission": "Αίτηση Δικαιώματος",
+  "requestPermissionFailed": "Αποτυχία αίτησης δικαιώματος: {error}",
+  "requiredMarks": "{count} Σημάδια",
+  "reset": "Επαναφορά",
+  "restore": "Επαναφορά",
+  "restoreApplicationSettingsFromBackup": "Επαναφορά Ρυθμίσεων Εφαρμογής από Αντίγραφο Ασφαλείας",
+  "restoreFromCloud": "Επαναφορά από το Cloud",
+  "restoreFromCloudFailed": "Αποτυχία επαναφοράς από το cloud: {error}",
+  "restoreFromCloudSuccess": "Επιτυχής επαναφορά από το cloud",
+  "restorePurchases": "Επαναφορά Αγορών",
+  "restoreSettings": "Επαναφορά Ρυθμίσεων",
+  "restoreSettingsConfirmation": "Αυτό θα αντικαταστήσει όλες τις τρέχουσες ρυθμίσεις σας. Είστε σίγουροι ότι θέλετε να συνεχίσετε;",
+  "retry": "Επανάληψη",
+  "ridesharing": "Κοινή Χρήση Μετακινήσεων",
+  "risk": "Κίνδυνος",
+  "robocall": "Αυτόματη Κλήση",
+  "ruleAction": "Ενέργεια Κανόνα",
+  "ruleAddedSuccess": "Ο κανόνας προστέθηκε επιτυχώς",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "Ο κανόνας προστέθηκε επιτυχώς",
+  "ruleDeleteConfirmContent": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτόν τον {ruleType};",
+  "ruleDeleteConfirmTitle": "Διαγραφή Κανόνα",
+  "ruleDeletedSuccessfully": "Ο κανόνας διαγράφηκε επιτυχώς",
+  "ruleDeleteFailed": "Αποτυχία διαγραφής κανόνα: {error}",
+  "ruleDeleteSuccess": "Ο κανόνας διαγράφηκε επιτυχώς",
+  "ruleDisabledSuccessfully": "Ο κανόνας απενεργοποιήθηκε επιτυχώς",
+  "ruleEnabledSuccessfully": "Ο κανόνας ενεργοποιήθηκε επιτυχώς",
+  "ruleLoadFailed": "Αποτυχία φόρτωσης κανόνων: {error}",
+  "ruleManagement": "Διαχείριση Κανόνων",
+  "ruleName": "Όνομα Κανόνα",
+  "ruleNameAndContentRegexCannotBeEmpty": "Το όνομα του κανόνα και το regex περιεχομένου δεν μπορούν να είναι κενά",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "Το όνομα του κανόνα και ο αριθμός τηλεφώνου δεν μπορούν να είναι κενά",
+  "ruleNameHint": "π.χ., Οικογένεια, Φίλοι, κ.λπ.",
+  "ruleNameLabel": "Όνομα Κανόνα",
+  "ruleNameRequired": "Το όνομα του κανόνα και ο αριθμός τηλεφώνου δεν μπορούν να είναι κενά",
+  "ruleNotExist": "Ο κανόνας δεν υπάρχει ή έχει διαγραφεί",
+  "ruleNotFound": "Ο κανόνας δεν βρέθηκε: {error}",
+  "ruleSavedSuccessMessage": "Ο κανόνας αποθηκεύτηκε με επιτυχία!",
+  "rulesExportedSuccessfully": "Οι κανόνες εξήχθησαν με επιτυχία",
+  "rulesExportedTo": "Οι κανόνες εξήχθησαν σε: {path}",
+  "rulesImported": "Οι κανόνες εισήχθησαν με επιτυχία",
+  "rulesImportedSuccessfully": "{count} κανόνες εισήχθησαν με επιτυχία",
+  "ruleStatusChanged": "Ο κανόνας {status} με επιτυχία",
+  "ruleToggleFailed": "Η λειτουργία απέτυχε: {error}",
+  "ruleToggleSuccess": "Ο κανόνας {status} με επιτυχία",
+  "ruleUpdateFailed": "Αποτυχία ενημέρωσης κανόνα: {error}",
+  "ruleUpdateSuccess": "Ο κανόνας ενημερώθηκε με επιτυχία",
+  "ruleVerification": "Επαλήθευση κανόνα",
+  "save": "Αποθήκευση",
+  "saveButton": "Αποθήκευση",
+  "saveButtonText": "Αποθήκευση",
+  "saveFailed": "Η αποθήκευση απέτυχε: {error}",
+  "saveSettings": "Αποθήκευση ρυθμίσεων",
+  "scamsLikely": "Πιθανές Απάτες",
+  "search": "Αναζήτηση",
+  "searchContacts": "Αναζήτηση επαφών",
+  "searchError": "Σφάλμα αναζήτησης: {error}",
+  "searchHint": "Αναζήτηση...",
+  "securityMessage": "Μην εμπιστεύεστε καμία τηλεφωνική κλήση. Επαληθεύετε πάντα τους αριθμούς εξυπηρέτησης πελατών ανεξάρτητα. Ποτέ μην μοιράζεστε κωδικούς πρόσβασης, κωδικούς επαλήθευσης, αριθμούς καρτών ή προσωπικά στοιχεία.",
+  "selectActionWhenBlockingCalls": "Επιλέξτε ενέργεια κατά τον αποκλεισμό κλήσεων",
+  "selectActionWhenRuleMatches": "Επιλέξτε ενέργεια όταν ο κανόνας ταιριάζει",
+  "selectAll": "Επιλογή όλων",
+  "selectCountry": "Επιλογή χώρας",
+  "selectedItems": "{count} στοιχεία επιλέχθηκαν",
+  "selectedLabel": "Επιλεγμένο:",
+  "selectExportFormat": "Επιλογή μορφής εξαγωγής",
+  "selectLabel": "Επιλογή ετικέτας",
+  "selectLabelAndEnterPhoneNumber": "Επιλέξτε μια ετικέτα και εισαγάγετε έναν έγκυρο αριθμό τηλεφώνου",
+  "selectLanguage": "Επιλογή γλώσσας",
+  "selectMultiple": "Επιλογή πολλαπλών",
+  "selectSimCard": "Επιλογή κάρτας SIM",
+  "selectTags": "Επιλογή ετικετών",
+  "selectTrustedDataSource": "Παρακαλώ επιλέξτε αξιόπιστες πηγές δεδομένων",
+  "selectYourLanguage": "Επιλέξτε τη γλώσσα σας",
+  "sender": "Αποστολέας",
+  "senderRegexOptional": "Κανονική έκφραση αποστολέα (Προαιρετικό)",
+  "serverAddressLabel": "Διεύθυνση διακομιστή",
+  "serviceTypeContact": "Συνδρομή επαφής",
+  "serviceTypeLabel": "Τύπος υπηρεσίας",
+  "serviceTypePhone": "Συνδρομή τηλεφώνου",
+  "serviceTypePlugin": "Ενημέρωση plugin",
+  "serviceTypeSms": "Συνδρομή SMS",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "Ορισμός κωδικού κρυπτογράφησης",
+  "settings": "Ρυθμίσεις",
+  "settingsBackedUpTo": "Οι ρυθμίσεις δημιουργήθηκαν αντίγραφο ασφαλείας σε: {path}",
+  "settingsRestoredSuccessfully": "Οι ρυθμίσεις επαναφέρθηκαν με επιτυχία. Παρακαλώ επανεκκινήστε την εφαρμογή για να τεθούν σε ισχύ οι αλλαγές.",
+  "settingsSaved": "Οι ρυθμίσεις αποθηκεύτηκαν",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "Αποτυχία αποθήκευσης ρυθμίσεων: {error}",
+  "settingsTab": "Ρυθμίσεις",
+  "settingsTitle": "Ρυθμίσεις",
+  "setup": "Εγκατάσταση",
+  "silence": "Σίγαση",
+  "silenceAndNoAnswer": "Σίγαση και χωρίς απάντηση",
+  "silenceNoAnswer": "Σίγαση χωρίς απάντηση",
+  "silentCallVoiceClone": "Φωνητική κλωνοποίηση σιωπηλής κλήσης",
+  "silentRules": "Σιωπηλοί κανόνες",
+  "simCard": "Κάρτα SIM {simNumber}",
+  "simCardColor": "Χρώμα κάρτας SIM",
+  "simCardConfigurationExplanation": "• Διαμόρφωση κάρτας SIM: Ορισμός ανεξάρτητων κανόνων φιλτραρίσματος για κάθε κάρτα SIM",
+  "simCardFilterRules": "Κανόνες φιλτραρίσματος κάρτας SIM",
+  "simCardFilterRulesDescription": "Ορισμός διαφορετικών κανόνων φιλτραρίσματος με βάση τις υποδοχές κάρτας SIM",
+  "simCardFontSize": "Μέγεθος γραμματοσειράς κάρτας SIM",
+  "simCardPosition": "Θέση κάρτας SIM",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "Οι κανόνες καρτών SIM σάς επιτρέπουν να διαμορφώσετε ανεξάρτητους κανόνες φιλτραρίσματος για κάθε υποδοχή κάρτας SIM.",
+  "simRuleInstructionsTitle": "Κανόνες Υποδοχής Κάρτας SIM",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "Διαμορφώστε ανεξάρτητους κανόνες φιλτραρίσματος για κάθε κάρτα SIM:",
+  "simSlotFilterSettingsTitle": "Ρυθμίσεις Φίλτρου Υποδοχής Κάρτας SIM {slotNumber}",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "Διαχείριση Υποδοχής Κάρτας SIM",
+  "simSlotPosition": "Θέση Υποδοχής Κάρτας SIM {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• Κανόνες Υποδοχής Κάρτας SIM: Ανεξάρτητες στρατηγικές φιλτραρίσματος ανά SIM",
+  "simSlotRuleListTitle": "Λίστα Κανόνων Υποδοχής Κάρτας SIM",
+  "simSlotRuleManagement": "Κανόνες Υποδοχής Κάρτας SIM",
+  "simSlotTitle": "Υποδοχή Κάρτας SIM {slotNumber}",
+  "skip": "Παράλειψη",
+  "smartCallerId": "Έξυπνη Αναγνώριση Κλήσεων",
+  "sms": "SMS",
+  "smsFilterDescription": "Το φιλτράρισμα SMS σας βοηθά να φιλτράρετε αυτόματα τα ανεπιθύμητα μηνύματα και να διατηρείτε καθαρή τη λίστα μηνυμάτων σας. Μπορείτε να ορίσετε κανόνες φιλτραρίσματος και μεθόδους ειδοποίησης.",
+  "smsFilterDisabled": "Το φιλτράρισμα SMS είναι απενεργοποιημένο",
+  "smsFilterEnabled": "Το φιλτράρισμα SMS είναι ενεργοποιημένο",
+  "smsFilterRuleAddedSuccessfully": "Ο κανόνας φίλτρου SMS προστέθηκε επιτυχώς",
+  "smsFilterRules": "Κανόνες Φίλτρου SMS",
+  "smsFilterSettings": "Ρυθμίσεις Φίλτρου SMS",
+  "smsManagement": "Διαχείριση SMS",
+  "smsPermission": "Άδεια SMS",
+  "smsPermissionDescription": "Χρησιμοποιείται για το φιλτράρισμα ανεπιθύμητων μηνυμάτων.",
+  "smsRuleAddedSuccessfully": "Ο κανόνας SMS προστέθηκε επιτυχώς",
+  "smsRuleDeletedSuccessfully": "Ο κανόνας SMS διαγράφηκε επιτυχώς",
+  "smsRuleLoadFailed": "Αποτυχία φόρτωσης κανόνων SMS: {error}",
+  "smsRuleManagement": "Διαχείριση Κανόνων SMS",
+  "smsRuleSubscription": "Συνδρομή Κανόνων SMS",
+  "smsSubscription": "Συνδρομή SMS",
+  "smsSubscriptionAddedSuccessfully": "Η συνδρομή SMS προστέθηκε επιτυχώς",
+  "smsSubscriptionRulesDescription": "Εγγραφείτε σε λίστες κανόνων SMS μέσω URL, υποστηρίζοντας αντιστοίχιση κανονικών εκφράσεων. Μπορείτε να ορίσετε ενέργειες αποκλεισμού ή αποδοχής.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "Ορισμένα αιτήματα αδειών απορρίφθηκαν",
+  "spamLikely": "Πιθανώς Spam",
+  "startColor": "Χρώμα Έναρξης",
+  "startDate": "Ημερομηνία Έναρξης",
+  "startUsing": "Ξεκινήστε",
+  "statAnswered": "Απαντήθηκαν",
+  "statBlocked": "Αποκλείστηκαν",
+  "statistics": "Στατιστικά",
+  "statisticsPageTitle": "Ανάλυση Δεδομένων",
+  "stirColor": "Χρώμα STIR",
+  "stirFontSize": "Μέγεθος Γραμματοσειράς STIR",
+  "stirPosition": "Θέση STIR",
+  "storagePermission": "Άδεια Αποθήκευσης",
+  "storagePermissionDescription": "Χρησιμοποιείται για την αποθήκευση ρυθμίσεων και κανόνων.",
+  "subscribe": "Εγγραφή",
+  "subscriptionAddSuccess": "Η συνδρομή \"{name}\" προστέθηκε επιτυχώς",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτήν τη συνδρομή;",
+  "subscriptionDeleteConfirmTitle": "Διαγραφή Συνδρομής",
+  "subscriptionDeleted": "Η συνδρομή διαγράφηκε",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "Αποτυχία διαγραφής συνδρομής: {error}",
+  "subscriptionDeleteSuccess": "Η συνδρομή διαγράφηκε",
+  "subscriptionLoadFailed": "Αποτυχία φόρτωσης συνδρομών: {error}",
+  "subscriptionName": "Όνομα Συνδρομής",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "Το όνομα και η διεύθυνση URL της συνδρομής δεν μπορούν να είναι κενά",
+  "subscriptionNameHint": "Εισάγετε όνομα συνδρομής",
+  "subscriptionStatusChangeFailed": "Αποτυχία αλλαγής κατάστασης συνδρομής: {error}",
+  "subscriptionUpdateFailed": "Αποτυχία ενημέρωσης συνδρομής: {error}",
+  "subscriptionUpdateSuccess": "Η συνδρομή ενημερώθηκε επιτυχώς",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "Διεύθυνση URL Συνδρομής",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "Εισάγετε διεύθυνση URL συνδρομής",
+  "successfullyImportedRules": "Επιτυχής εισαγωγή {count} κανόνων",
+  "supportSync": "Υποστήριξη Συγχρονισμού",
+  "survey": "Έρευνα",
+  "syncDevicesButton": "Συγχρονισμός Συσκευών",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "Ο συγχρονισμός απέτυχε",
+  "syncFailedMessage": "Ο συγχρονισμός απέτυχε",
+  "syncFolderNameLabel": "Όνομα Φακέλου Συγχρονισμού",
+  "synchronized": "Συγχρονισμένο",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "Συγχρονισμός...",
+  "syncNow": "Συγχρονισμός τώρα",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "Συγχρονισμός Τώρα",
+  "syncStatusTitle": "Κατάσταση Συγχρονισμού",
+  "syncStatusUpdatedMessage": "Η κατάσταση συγχρονισμού ενημερώθηκε",
+  "syncSuccessMessage": "Ο συγχρονισμός ήταν επιτυχής",
+  "syncWithCloudStorage": "Συγχρονισμός με Αποθηκευτικό Χώρο Cloud",
+  "systemFeatures": "Λειτουργίες Συστήματος:",
+  "systemSettingsTitle": "Ρυθμίσεις Συστήματος",
+  "tabAll": "Όλα",
+  "tabAnswered": "Απαντημένες",
+  "tabBlocked": "Αποκλεισμένες",
+  "tabMissed": "Αναπάντητες",
+  "tabOutgoing": "Εξερχόμενες",
+  "tagLabel": "Ετικέτα: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "Λήψη",
+  "telecommunication": "Τηλεπικοινωνίες",
+  "telegram": "Telegram",
+  "telemarketing": "Τηλεμάρκετινγκ",
+  "testButton": "ΔΟΚΙΜΗ",
+  "testConnectionButton": "Έλεγχος Σύνδεσης",
+  "textColorsSetting": "Χρώματα Κειμένου & Ετικετών",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "Αυτή η εφαρμογή είναι ένα ισχυρό εργαλείο αναγνώρισης κλήσεων που σας επιτρέπει να αναγνωρίζετε και να αποκλείετε ανεπιθύμητες κλήσεις.",
+  "thisWeek": "Αυτή την Εβδομάδα",
+  "timeInterceptor": "Χρονικός Παρεμβολέας",
+  "timeInterceptorDescription": "Αυτόματη παρεμβολή/αποδοχή πιθανών κλήσεων βάσει συχνότητας κλήσεων",
+  "timeInterceptorExplanation": "• Χρονικός Παρεμβολέας: Παρεμβολή/αποδοχή επαναλαμβανόμενων κλήσεων σε σύντομο χρονικό διάστημα",
+  "timeInterceptorExplanationContent": "Η λειτουργία παρεμβολής συχνότητας κλήσεων αναλύει τη συχνότητα κλήσεων για να αναγνωρίζει και να παρεμβαίνει/αποδέχεται αυτόματα συχνές κλήσεις spam.",
+  "timeInterceptorExplanationTitle": "Επεξήγηση Παρεμβολής Συχνότητας Κλήσεων",
+  "timeInterceptorSettingsTitle": "Ρυθμίσεις Παρεμβολής Συχνότητας Κλήσεων",
+  "timeWindowDescription": "Ορίστε το μέγεθος του χρονικού παραθύρου για την αποδοχή επαναλαμβανόμενων κλήσεων. Κλήσεις από τον ίδιο αριθμό εντός αυτού του παραθύρου θα γίνονται αποδεκτές",
+  "timeWindowLabel": "Χρονικό Παράθυρο Παρεμβολής (λεπτά): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "Σήμερα",
+  "total": "Σύνολο",
+  "totalBlocked": "Σύνολο Αποκλεισμένων",
+  "transferDataBetweenDevicesOrPlatforms": "Μεταφορά δεδομένων μεταξύ συσκευών ή πλατφορμών",
+  "travelTicketing": "Εισιτήρια Ταξιδίων",
+  "tutorial": "Οδηγός",
+  "type": "Τύπος",
+  "unassignedSIMCard": "Μη ανατεθειμένη κάρτα SIM",
+  "unknown": "Άγνωστο",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "Ετικέτα: Άγνωστο",
+  "unregisterButton": "Αποεγγραφή",
+  "unregisterDeviceConfirmationMessage": "Είστε σίγουροι ότι θέλετε να αποεγγράψετε τη συσκευή {deviceName};",
+  "unregisterDeviceTitle": "Αποεγγραφή Συσκευής",
+  "unsupportedFileFormat": "Μη υποστηριζόμενη μορφή αρχείου",
+  "update": "Ενημέρωση",
+  "updateAllNow": "Ενημέρωση Όλων Τώρα",
+  "updateContactFailed": "Αποτυχία ενημέρωσης επαφής: {error}",
+  "updateFavoriteStatus": "Ενημέρωση Κατάστασης Αγαπημένου",
+  "updateInterval": "Διάστημα Ενημέρωσης",
+  "updateNow": "Ενημέρωση Τώρα",
+  "updatePlugin": "Ενημέρωση Πρόσθετου",
+  "updatePluginFailed": "Αποτυχία ενημέρωσης πρόσθετου: {error}",
+  "updateRuleFailed": "Αποτυχία ενημέρωσης κανόνα: {error}",
+  "updateSubscriptionFailed": "Αποτυχία ενημέρωσης συνδρομής: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "Η υπηρεσία {service} ενημερώθηκε με επιτυχία ({count} κανόνες)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• Αναγνώριση αυτόματων επανακλήσεων spam",
+  "useCasesPoint2": "• Παρεμβολή διαφημιστικών κλήσεων που καλούν πολλές φορές σε σύντομο χρονικό διάστημα",
+  "useCasesPoint3": "• Αποτροπή βομβαρδισμών τηλεφώνου και παρενόχλησης",
+  "useCasesTitle": "Περιπτώσεις Χρήσης:",
+  "useGlobalSettings": "Χρήση Γενικών Ρυθμίσεων",
+  "usernameLabel": "Όνομα χρήστη",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "Χρησιμοποιήστε τυπική σύνταξη regex για τον ορισμό προτύπων. Παραδείγματα:",
+  "verificationFailedText": "Απέτυχε",
+  "verifiedText": "Επαληθεύτηκε",
+  "verify": "Επαλήθευση",
+  "version": "Έκδοση: {version}",
+  "vipExchangeDescription": "Ανταλλαγή VIP συνδρομής με αριθμό κλήσεων σήμανσης",
+  "vipExchangeTitle": "Ανταλλαγή VIP Σήμανσης",
+  "watchAd": "Παρακολούθηση Διαφήμισης",
+  "watchAdForTemp": "Παρακολούθηση Διαφήμισης για Προσωρινά Προνόμια",
+  "watchAdForTempDescription": "Παρακολουθήστε μια σύντομη διαφήμιση για να ξεκλειδώσετε προσωρινά ορισμένες premium λειτουργίες",
+  "webDAVConfigTitle": "Ρυθμίσεις WebDAV",
+  "week": "Εβδομάδα",
+  "welcome": "Καλώς ορίσατε",
+  "whitelist": "Λευκή λίστα",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "Πλάτος",
+  "wildcardMatchingDescription": "Χρησιμοποιήστε το '.' για να ταιριάξετε οποιονδήποτε χαρακτήρα (π.χ. το '123.456' ταιριάζει με 123-456)",
+  "wildcardMatchingTitle": "Αντιστοίχιση μπαλαντέρ:",
+  "wildcardSupportForFlexibleFiltering": "Υποστήριξη μπαλαντέρ για ευέλικτο φιλτράρισμα",
+  "windowSizeSetting": "Μέγεθος παραθύρου",
+  "year": "Έτος",
+  "noSimCardsDetected": "Δεν εντοπίστηκαν κάρτες SIM",
+  "filterManagementDescription": "Ορισμός φίλτρων κλήσεων",
+  "callerIdCustomizationSubtitle": "Προσαρμογή διάταξης αναγνώρισης κλήσης",
+  "fraudAlerSettingTitle": "Ρύθμιση ειδοποίησης απάτης",
+  "fraudAlerSettingSubtitle": "Για ρύθμιση ειδοποίησης απάτης",
+  "enableFraudAlert": "Ενεργοποίηση ειδοποίησης απάτης",
+  "enableFraudAlertDescription": "Ειδοποίηση για ύποπτες κλήσεις απάτης",
+  "enableVibration": "Ενεργοποίηση δόνησης",
+  "enableVibrationDescription": "Δόνηση όταν η κλήση είναι ύποπτη για κλήσεις απάτης",
+  "notificationSettingsTitle": "Ρυθμίσεις ειδοποιήσεων",
+  "useLocalNotification": "Χρήση τοπικών ειδοποιήσεων",
+  "useLocalNotificationDescription": "Ενεργοποίηση τοπικών ειδοποιήσεων για εισερχόμενες κλήσεις",
+  "cancelLocalNotification": "Κλείσιμο τοπικών ειδοποιήσεων",
+  "useStirNotification": "Χρήση ειδοποίησης από STIR",
+  "cancelLocalNotificationDescription": "Αυτόματο κλείσιμο τοπικών ειδοποιήσεων",
+  "callerIdSettingsTitle": "Ρυθμίσεις αναγνώρισης κλήσης",
+  "callerIdSettingsSubtitle": "Για ρύθμιση εισερχόμενων ειδοποιήσεων κλήσης & λειτουργίας εμφάνισης",
+  "purchaseTitle": "Αγορά",
+  "purchaseSubtitle": "Για αγορά της υπηρεσίας",
+  "callerIdNotificationTitle": "Πληροφορίες εισερχόμενης κλήσης",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "Αποκλεισμένη κλήση",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "Αποκλεισμένη κλήση από {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "Επαληθεύτηκε",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "Δεν επαληθεύτηκε",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "Η επαλήθευση απέτυχε",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "Άγνωστη κατάσταση επαλήθευσης",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "Επαλήθευση STIR/SHAKEN",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} για τον αριθμό {phoneNumber}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "Ρυθμίσεις μηνύματος ασφαλείας κύλισης",
+  "messageColor": "Χρώμα μηνύματος",
+  "messageFontSize": "Μέγεθος γραμματοσειράς μηνύματος",
+  "messagePosition": "Θέση μηνύματος",
+  "containerWidth": "Πλάτος κοντέινερ",
+  "scrollSpeed": "Ταχύτητα κύλισης",
+  "enableSecurityMessage": "Ενεργοποίηση μηνύματος ασφαλείας",
+  "fraudAlertTitle": "Ειδοποίηση απάτης",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "Δεν υπάρχουν διαθέσιμα δεδομένα τύπου αποκλεισμού",
+  "importEntity": "Εισαγωγή {entityTypeName}",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "Επιτυχής εισαγωγή {entityTypeName}, εισήχθησαν συνολικά {count} εγγραφές",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "Αποτυχία εισαγωγής {entityTypeName}: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "Εξαγωγή {entityTypeName}",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "Επιτυχής εξαγωγή {entityTypeName}",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "Αποτυχία εξαγωγής {entityTypeName}: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "Υπηρεσία συγχρονισμού cloud",
+  "membershipCenter": "Κέντρο μελών",
+  "redeemVipWithMarks": "Εξαργύρωση VIP με σήματα",
+  "currentMarkCount": "Τρέχον πλήθος σημάτων",
+  "markMoreNumbersForMore": "Σημειώστε περισσότερους αριθμούς για περισσότερα σήματα",
+  "noAds": "Χωρίς διαφημίσεις",
+  "cloudBackup": "Αντίγραφο ασφαλείας cloud",
+  "callerIdEnhancement": "Βελτίωση αναγνώρισης κλήσης",
+  "voiceRecognition": "Αναγνώριση φωνής",
+  "feature": "Δυνατότητα",
+  "normalUser": "Κανονικός χρήστης",
+  "vipUser": "VIP χρήστης",
+  "temporaryVip": "Προσωρινό VIP",
+  "removeAds": "Κατάργηση διαφημίσεων",
+  "settingsBackup": "Αντίγραφο ασφαλείας ρυθμίσεων ",
+  "allServicesStatusTitle": "Τρέχουσα κατάσταση υπηρεσίας",
+  "allServicesStatusSubtitle": "Τρέχουσα κατάσταση κάθε υπηρεσίας cloud",
+  "redirect": "Ανακατεύθυνση",
+  "notify": "Ειδοποίηση",
+  "log": "Καταγραφή",
+  "custom": "Προσαρμοσμένο",
+  "allowActionDescription": "Οι κλήσεις θα επιτρέπονται, ακόμα κι αν ο αριθμός βρίσκεται στη λίστα αποκλεισμού.",
+  "blockActionDescription": "Οι κλήσεις θα αποκλείονται και θα εμφανίζονται στο αρχείο καταγραφής κλήσεων.",
+  "silenceActionDescription": "Οι κλήσεις θα σιωπούν, αλλά θα εμφανίζονται στο αρχείο καταγραφής κλήσεων.",
+  "noneActionDescription": "Δεν θα πραγματοποιηθεί καμία ειδική ενέργεια για την κλήση.",
+  "redirectActionDescription": "Ανακατεύθυνση της κλήσης σε έναν καθορισμένο αριθμό.",
+  "labelActionDescription": "Προσθήκη ετικέτας στην κλήση για εύκολη αναγνώριση.",
+  "notifyActionDescription": "Αποστολή ειδοποίησης κατά τη λήψη μιας κλήσης.",
+  "logActionDescription": "Καταγραφή των πληροφοριών της κλήσης χωρίς καμία άλλη ενέργεια.",
+  "customActionDescription": "Εκτέλεση προσαρμοσμένης ενέργειας.",
+  "synced": "Συγχρονισμένο",
+  "needVipAccess": "Χρειάζεστε πρόσβαση VIP για να χρησιμοποιήσετε αυτήν τη δυνατότητα",
+  "importExportDescription": "Εισαγωγή ή εξαγωγή δεδομένων {entityTypeName}",
+  "importExportTitle": "Εισαγωγή/Εξαγωγή",
+  "noPhoneRules": "Δεν βρέθηκαν κανόνες τηλεφώνου",
+  "noRegexRules": "Δεν βρέθηκαν κανόνες regex",
+  "noAllowedBlockedRules": "Δεν βρέθηκαν κανόνες άδειας/αποκλεισμού",
+  "importExport": "Εισαγωγή/Εξαγωγή",
+  "filterByAction": "Φιλτράρισμα κατά ενέργεια",
+  "upgradeToVip": "Αναβάθμιση σε VIP",
+  "batteryOptimizationPermission": "Βελτιστοποίηση Μπαταρίας",
+  "batteryOptimizationPermissionDescription": "Επιτρέψτε στην εφαρμογή να εκτελείται στο παρασκήνιο για την παροχή υπηρεσιών όπως αναγνώριση κλήσεων.",
+  "permissionTitle": "Ειδικές Άδειες",
+  "permissionSubtitle": "Διαχείριση αδειών επικάλυψης και βελτιστοποίησης μπαταρίας",
+  "themeSettingsTitle": "Ρυθμίσεις Θέματος",
+  "themeSettingsSubtitle": "Επιλέξτε το αγαπημένο σας θέμα",
+  "databaseSyncTitle": "Συγχρονισμός Βάσης Δεδομένων",
+  "countrySyncSettingsTitle": "Ρυθμίσεις Συγχρονισμού Βάσης Δεδομένων βάσει Χώρας",
+  "countrySyncSettingsSubtitle": "Επιλέξτε χώρες για συγχρονισμό δεδομένων",
+  "countryDataDisclaimer": "Σημείωση: Η βάση δεδομένων ενδέχεται να μην περιλαμβάνει δεδομένα για όλες τις συγκεκριμένες χώρες ή περιοχές.",
+  "editSubscription": "Επεξεργασία Συνδρομής",
+  "searchByNameOrPhoneNumber": "Αναζήτηση κατά Όνομα ή Τηλεφώνου",
+  "allowedBlockedRulesInfo": "Οι κανόνες άδειας/απόρριψης χρησιμοποιούνται για την αντιστοίχιση κλήσεων με συγκεκριμένους αριθμούς τηλεφώνου, οι οποίοι έχουν την υψηλότερη προτεραιότητα.",
+  "searchPhoneRulesHint": "Αναζήτηση κανόνων τηλεφώνου",
+  "phoneRulesInfo": "Οι κανόνες τηλεφώνου χρησιμοποιούνται για την αντιστοίχιση κλήσεων με συγκεκριμένους αριθμούς τηλεφώνου, οι οποίοι έχουν χαμηλότερη προτεραιότητα. Κάποιοι προέρχονται από τις συνδρομές phoneRule.",
+  "searchSubscriptionsHint": "Αναζήτηση συνδρομών",
+  "searchPluginsHint": "Αναζήτηση plugins",
+  "searchLabelsHint": "Αναζήτηση ετικετών",
+  "pluginDescription": "Περιγραφή plugin",
+  "enterPluginDescription": "Εισάγετε περιγραφή plugin",
+  "searchRegexRulesHint": "Αναζήτηση κανόνων regex",
+  "regexRulesInfo": "Οι κανόνες Regex χρησιμοποιούνται για το φιλτράρισμα κλήσεων με βάση τα μοτίβα Regex.",
+  "searchMarkedPhonesHint": "Αναζήτηση σημειωμένων τηλεφώνων",
+  "searchContactSubscriptionsHint": "Αναζήτηση συνδρομών επαφών",
+  "showAllContacts": "Εμφάνιση Όλων Επαφών",
+  "showFavorites": "Εμφάνιση Αγαπημένων",
+  "manualEntry": "Πληροφορίες Χειροκίνητης Εισαγωγής",
+  "scriptSaved": "Το σενάριο αποθηκεύτηκε",
+  "editScriptFor": "Επεξεργασία σεναρίου για {pluginName}",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "Αποθήκευση Σεναρίου",
+  "testPlugin": "Δοκιμή Plugin",
+  "description": "Περιγραφή",
+  "accessTargetUrl": "Πρόσβαση σε Διεύθυνση URL Στόχου",
+  "result": "Αποτέλεσμα",
+  "editScript": "Επεξεργασία Σεναρίου",
+  "numberFormat": "Μορφή Αριθμού",
+  "nationalNumber": "Εθνικός Αριθμός",
+  "e164Number": "Αριθμός E164",
+  "pluginRulesInfo": "Για λόγους ασφαλείας, χρησιμοποιήστε plugins μόνο από αξιόπιστες πηγές. Μη διστάσετε να χρησιμοποιήσετε τα πρότυπά μας για να δημιουργήσετε τα δικά σας προσαρμοσμένα plugins!",
+  "advancedMode": "Προχωρημένη Λειτουργία",
+  "pleaseEnterAtLeastOneNumber": "Παρακαλώ εισάγετε τουλάχιστον έναν αριθμό.",
+  "openInWebView": "Άνοιγμα σε WebView",
+  "pluginLabel": "Ετικέτα Plugin",
+  "pluginID": "ID",
+  "pluginURL": "URL",
+  "messageBackgroundColor": "Χρώμα Υποβάθρου Μηνύματος",
+  "clearAllCallLogs": "Εκκαθάριση Όλων των Καταγραφών Κλήσεων",
+  "clearAllCallLogsConfirmation": "Επιβεβαίωση εκκαθάρισης όλων των καταγραφών κλήσεων",
+  "allCallLogsCleared": "Όλες οι καταγραφές κλήσεων εκκαθαρίστηκαν",
+  "unblocked": "Αποκλεισμένο",
+  "blockNumber": "Μπλοκάρισμα Αριθμού",
+  "blockNumberSuccess": "Επιτυχία μπλοκαρίσματος αριθμού",
+  "unblockNumberConfirmation": "Είστε σίγουροι ότι θέλετε να ξεμπλοκάρετε τον αριθμό {phoneNumber};",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "Προβολή Λεπτομερειών",
+  "unblock": "Ξεμπλοκάρισμα",
+  "unblockNumber": "Ξεμπλοκάρισμα Αριθμού",
+  "unblockNumberSuccess": "Ο αριθμός ξεμπλοκαρίστηκε επιτυχώς",
+  "unblockNumberFailed": "Αποτυχία ξεμπλοκαρίσματος αριθμού",
+  "callingNumberFailed": "Η κλήση αριθμού απέτυχε",
+  "listView": "Προβολή Λίστας",
+  "timelineView": "Προβολή Χρονοδιαγράμματος",
+  "nameCannotBeEmpty": "Το όνομα δεν μπορεί να είναι κενό",
+  "selectAction": "Επιλέξτε την ενέργεια",
+  "selectTargetService": "Επιλέξτε την υπηρεσία στόχο",
+  "callDetails": "Λεπτομέρειες Κλήσης",
+  "callType": "Τύπος Κλήσης",
+  "callTime": "Ώρα Κλήσης",
+  "numberInvalidFormat": "Μη έγκυρη μορφή αριθμού",
+  "medium": "Μέσο",
+  "finalRisk": "Τελικός Κίνδυνος",
+  "simState": "Κατάσταση SIM",
+  "ipCountry": "Χώρα IP",
+  "simCountry": "Χώρα SIM",
+  "isRoaming": "Περιαγωγή",
+  "isNumberMatch": "Αντιστοιχία Αριθμού",
+  "support": "Υποστήριξη",
+  "rewardedAdService": "Υπηρεσία Διαφημίσεων με Ανταμοιβή",
+  "hasVipPrivilegeExceptAds": "Έχετε ήδη προνόμια VIP (εκτός διαφημίσεων)",
+  "hasTempPrivilegeWithExpiry": "Έχετε ήδη προσωρινά προνόμια, ημερομηνία λήξης: {expiryDate}",
+  "watchMoreAdsForTempVip": "Πρέπει να παρακολουθήσετε άλλες {count} διαφημίσεις για να λάβετε προσωρινά προνόμια VIP",
+  "grantedTempPurchaseWithExpiry": "Σας έχουν χορηγηθεί {days} ημέρες προσωρινών προνομίων αγοράς. Ημερομηνία λήξης: {expiryDate}",
+  "tempPurchaseExpired": "Το προσωρινό προνόμιο αγοράς έχει λήξει",
+  "loadingAd": "Φόρτωση διαφήμισης...",
+  "earnedTempVip": "Κερδήθηκε προσωρινό VIP",
+  "vipExchangeService": "Υπηρεσία Ανταλλαγής VIP",
+  "marksInsufficient": "Ανεπαρκή σημεία για ανταλλαγή",
+  "invalidExchangeRule": "Μη έγκυρος κανόνας ανταλλαγής",
+  "exchangeSuccess": "Επιτυχής ανταλλαγή για {description}, ημερομηνία λήξης: {expiryDate}",
+  "exchangeFailed": "Η ανταλλαγή απέτυχε: {error}",
+  "vip3DaysWithAds": "3ήμερο VIP με διαφημίσεις (μόνο συγχρονισμός)",
+  "vip5DaysNoAds": "5ήμερο πλήρες VIP χωρίς διαφημίσεις",
+  "vip7DaysNoAds": "7ήμερο πλήρες VIP χωρίς διαφημίσεις",
+  "noNotifications": "Καμία ειδοποίηση",
+  "clearAllNotifications": "Εκκαθάριση Όλων των Ειδοποιήσεων",
+  "clearAllNotificationsConfirmation": "Επιβεβαίωση εκκαθάρισης όλων των ειδοποιήσεων",
+  "clearButton": "Εκκαθάριση",
+  "justNow": "Τώρα",
+  "minutesAgo": "{count,plural, =1{1 λεπτό πριν} other{{count} λεπτά πριν}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{1 ώρα πριν} other{{count} ώρες πριν}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{1 ημέρα πριν} other{{count} ημέρες πριν}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "Χθες",
+  "deletionProposal": "Πρόταση Διαγραφής",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "Δημιουργία Πρότασης",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "Δημιουργία Πρότασης Διαγραφής",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "Λόγος",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "Απαριθμημένος Αριθμός",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "Ανησυχία Απορρήτου",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "Όχι σε Υπηρεσία",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "Λανθασμένη Ταυτοποίηση",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "Ανακριβείς Πληροφορίες",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "Άλλο",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "Υποβολή",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Ακύρωση",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "Επίπεδο Κινδύνου",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Χαμηλό",
+  "@riskLevelLow": {
+    "description": "Label for low risk level"
+  },
+  "riskLevelHigh": "Υψηλό",
+  "@riskLevelHigh": {
+    "description": "Label for high risk level"
+  },
+  "agreeVotes": "Σύμφωνοι: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "Σύνολο: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "Συμφωνώ",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "Διαφωνώ",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "Δημιουργήθηκε: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "Έκθεση Επαλήθευσης",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "Στατιστικά Πρότασης",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "Σύνολο Προτάσεων",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "Ενεργές Προτάσεις",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "Η πρόταση δημιουργήθηκε επιτυχώς",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "Η ψήφος υποβλήθηκε επιτυχώς",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "Δεν βρέθηκαν προτάσεις",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "Ανανέωση Προτάσεων",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "Σύνολο Προτάσεων σε Εκκρεμότητα",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "Υψηλός Κίνδυνος",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "Μεσαίος Κίνδυνος",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "Χαμηλός Κίνδυνος",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "Επίπτωση στην Κοινότητα",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "Κρίσιμα Θέματα",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "Συμμετοχή Κοινότητας",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "Καμία Δραστηριότητα",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Χαμηλό",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "Μέτριο",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "Υψηλό",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "Πολύ Υψηλό",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "Ψήφισε",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "Ψήφοι Κοινότητας",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "Αναμονή για περισσότερες ψήφους κοινότητας",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "Αυτή η πρόταση έχει διεκπεραιωθεί",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "ΥΠΟΣΤΗΡΙΞΗ",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "ΑΝΤΙΘΕΣΗ",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "ΕΓΚΡΙΘΗΚΕ",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "ΑΠΟΡΡΙΦΘΗΚΕ",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "ΟΛΟΚΛΗΡΩΘΗΚΕ",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "ΣΕ ΕΚΚΡΕΜΟΤΗΤΑ",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "Κρίσιμο",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "Αντίθεση",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "Πολύ Χαμηλό",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "Προτάσεις Διαγραφής",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "Ειδοποιήσεις για τα αποτελέσματα και τις ενημερώσεις ψηφοφορίας προτάσεων διαγραφής.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "Δημιουργήθηκε Πρόταση Διαγραφής",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "Η πρότασή σας για διαγραφή του {phoneNumber} υποβλήθηκε για αναθεώρηση από την κοινότητα.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "Η Πρόταση Εγκρίθηκε ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "Η πρόταση διαγραφής για το {phoneNumber} εγκρίθηκε από την κοινότητα ({supportPercentage}% υποστήριξη, {totalVotes} ψήφοι).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "Η Πρόταση Απορρίφθηκε ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "Η πρόταση διαγραφής για το {phoneNumber} απορρίφθηκε από την κοινότητα ({supportPercentage}% υποστήριξη, {totalVotes} ψήφοι).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "Ξεκίνησε η Ψηφοφορία Κοινότητας",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "Μια νέα πρόταση διαγραφής για το {phoneNumber} είναι πλέον διαθέσιμη για ψηφοφορία από την κοινότητα.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "Η Ψηφοφορία Ολοκληρώθηκε",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "Η ψηφοφορία της κοινότητας για το {phoneNumber} ολοκληρώθηκε. Αποτέλεσμα: {result} ({supportPercentage}% υποστήριξη).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "Λήφθηκε Νέα Ψήφος",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "Κάποιος ψήφισε να {voteType} τη διαγραφή του {phoneNumber}. Τρέχουσες ψήφοι: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "Αριθμός Ψήφων",
+  "deletionProposalDescription": "Προτείνετε αριθμούς για διαγραφή που παραβιάζουν τις οδηγίες της κοινότητας. Η συμμετοχή σας βοηθά να διατηρηθεί η πλατφόρμα ασφαλής.",
+  "searchProposals": "Αναζήτηση Προτάσεων",
+  "defaultNotifications": "Προεπιλεγμένες Ειδοποιήσεις",
+  "defaultNotificationsDescription": "Προεπιλεγμένο κανάλι ειδοποιήσεων για την εφαρμογή.",
+  "blockedCallNotifications": "Ειδοποιήσεις Αποκλεισμένων Κλήσεων",
+  "blockedCallNotificationsDescription": "Εμφανίζει πληροφορίες σχετικά με τις αποκλεισμένες κλήσεις.",
+  "stirVerification": "Επαλήθευση STIR/SHAKEN",
+  "stirVerificationDescription": "Εμφανίζει τα αποτελέσματα επαλήθευσης STIR/SHAKEN για αριθμούς.",
+  "fraudAlerts": "Ειδοποιήσεις Απάτης",
+  "fraudAlertsDescription": "Εμφανίζει προειδοποιήσεις για πιθανές δόλιες κλήσεις.",
+  "notificationMode": "Λειτουργία Ειδοποίησης",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "Εκκρεμείς Προτάσεις",
+  "pendingProposalsBody": "Έχετε {count, plural, =0 {καμία εκκρεμή πρόταση} one {1 εκκρεμή πρόταση} other {{count} εκκρεμείς προτάσεις}}.",
+  "guidelinesLabel": "Οδηγίες",
+  "riskLevelLabel": "Επίπεδο Κινδύνου",
+  "phoneNumberMinDigits": "Ο αριθμός τηλεφώνου πρέπει να έχει τουλάχιστον 7 ψηφία",
+  "provideDetailedExplanation": "Παρέχετε λεπτομερή εξήγηση (τουλάχιστον 10 χαρακτήρες)",
+  "reasonMinCharacters": "Ο λόγος πρέπει να είναι τουλάχιστον 10 χαρακτήρες",
+  "countryCodeTwoLetters": "Κωδικός χώρας (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "Κωδικός χώρας (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "π.χ., US, CN, GB",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "Απαιτείται κωδικός χώρας",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "Εισαγάγετε αριθμό τηλεφώνου",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "Απαιτείται αριθμός τηλεφώνου",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "Απαιτείται λόγος",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "Κρίσιμο",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "Μεσαίο",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "Πολύ Χαμηλό",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "Συχνότητα Ειδοποιήσεων",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "Σφάλμα: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• Αναφέρετε μόνο αριθμούς που είναι πραγματικά προβληματικοί\n• Παρέχετε ακριβείς και λεπτομερείς λόγους\n• Επιλέξτε το κατάλληλο επίπεδο κινδύνου ανάλογα με τη σοβαρότητα\n• Ψευδείς αναφορές μπορεί να οδηγήσουν σε περιορισμούς λογαριασμού",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Συχνότητα Ειδοποιήσεων (Ώρες)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "Υποστήριξη ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "Κατά ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} ψήφοι ({supportPercentage}% υποστήριξη)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 ώρες} =1{1 ώρα} other{{count} ώρες}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "Σημαντική Ειδοποίηση",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "Οι αριθμοί προέρχονται από το διαδίκτυο και υποβολές χρηστών. Δεν μπορούμε να εγγυηθούμε ότι ένας αριθμός, μόλις διαγραφεί, δεν θα υποβληθεί ξανά από άλλους χρήστες ή πηγές. Παρακαλούμε αναζητήστε και επαληθεύστε ενεργά τις πληροφορίες.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "Εικονίδιο",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "Τοποθεσία",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "Κάρτα SIM",
+  "liveActivitiesSettingsTitle": "Ρυθμίσεις Ζωντανών Δραστηριοτήτων",
+  "elementsSettingsTitle": "Ρυθμίσεις Στοιχείων",
+  "liveActivityMode": "Ζωντανή Δραστηριότητα",
+  "liveActivityModeDescription": "Εμφανίζει πληροφορίες κλήσεων ως συνεχή ειδοποίηση στην οθόνη κλειδώματος και στο Dynamic Island (iOS).",
+  "phoneNumberType": "Τύπος Αριθμού Τηλεφώνου",
+  "liveActivitiesTestEndActivity": "Τέλος Δραστηριότητας",
+  "liveActivitiesTestSendNewActivity": "Αποστολή Νέας Δραστηριότητας",
+  "liveActivitiesTestUpdateActivity": "Ενημέρωση Δραστηριότητας",
+  "liveActivityControlsTitle": "Έλεγχοι Ζωντανής Δραστηριότητας",
+  "liveActivitiesTestTitle": "Δοκιμή Ζωντανών Δραστηριοτήτων",
+  "liveNotificationCustomizationTitle": "Προσαρμογή Ζωντανών Ειδοποιήσεων",
+  "liveNotificationCustomizationSubtitle": "Προσαρμόστε την εμφάνιση των ζωντανών ειδοποιήσεων.",
+  "notification_instructions": "Οδηγίες:\n1. Πατήστε \"ΑΠΟΣΤΟΛΗ\" για να δημιουργήσετε ή να ενημερώσετε μια ειδοποίηση.\n2. Μεταβείτε στην αρχική οθόνη ή τραβήξτε προς τα κάτω τη γραμμή ειδοποιήσεων για να δείτε το αποτέλεσμα.\n3. Πατήστε \"ΤΕΛΟΣ\" για να απορρίψετε την ειδοποίηση.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "Αυτόματη Απόρριψη Ειδοποίησης",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "Αν επιλεγεί, η ειδοποίηση θα απορριφθεί αυτόματα όταν ο χρήστης την πατήσει.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "Ορισμός Χρόνου Καθυστέρησης",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "Λεπτομέρειες Πρότασης",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "Η πρόταση δεν βρέθηκε",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "Επεξεργασμένο",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "Φιλτράρισμα και Ταξινόμηση",
+  "filterVerifiedOwner": "Φιλτράρισμα Επαληθευμένου Ιδιοκτήτη",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "Φιλτράρισμα κατά",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "Ταξινόμηση Παλαιότερων",
+  "sortNewest": "Ταξινόμηση Νεότερων",
+  "sortMostPopular": "Ταξινόμηση Δημοφιλέστερων",
+  "sortLeastPopular": "Ταξινόμηση Λιγότερο Δημοφιλών",
+  "sortBy": "Ταξινόμηση κατά",
+  "simRulesNotFound": "Κανόνες SIM δεν βρέθηκαν",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "Κανόνες Υποδοχής SIM",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "Δεν ανιχνεύθηκε κάρτα SIM",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "Μη έγκυρα δεδομένα SIM",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "Υποδοχή SIM",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "Ενεργοποίηση Φιλτραρίσματος",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "Λεπτομερείς Ρυθμίσεις",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "Οθόνη Σημείου Εισόδου",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "Απορρίφθηκε",
+  "callTypeSilenced": "Σίγαση",
+  "andMoreItems": "και άλλα {count} στοιχεία",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Τύπος Κανόνα",
+  "localDatabaseSyncTitle": "Σύγχρονιση Τοπικής Βάσης Δεδομένων",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Σύγχρονισε δεδομένα μεταξύ συσκευών",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "URL Έργου Supabase",
+  "supabaseAnonKey": "Κλειδί Ανώνυμης Πρόσβασης",
+  "supabaseAnonKeyHint": "Κλειδί API, δημόσιο κλειδί ανώνυμης πρόσβασης",
+  "connectionString": "Αλυσίδα σύνδεσης (URI)",
+  "connectionStringHelper": "Χρειάζεται μόνο για την 'Ενεργοποίηση βάσης δεδομένων'",
+  "syncCallHistory": "Συγχρονισμός ιστορικού κλήσεων",
+  "syncCallHistorySubtitle": "Συμπερίληψη των απορρήτων καταγραφών κλήσεων στον συγχρονισμό",
+  "requiredField": "Υποχρεωτικό",
+  "requiredInitField": "Υποχρεωτικό για την ενεργοποίηση",
+  "initDbButton": "Ενεργοποίηση βάσης δεδομένων",
+  "dbInitSuccess": "Η βάση δεδομένων ενεργοποιήθηκε επιτυχώς!",
+  "syncSuccess": "Ο συγχρονισμός ολοκληρώθηκε. Αποστολή: {pushed}, Λήψη: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Σφάλμα",
+  "errorLoadingSettings": "Σφάλμα κατά τη φόρτωση των ρυθμίσεων",
+  "statusLabel": "Κατάσταση",
+  "statusConnected": "Συνδεδεμένο / Διαμορφωμένο",
+  "statusNotConfigured": "Δεν είναι διαμορφωμένο",
+  "configSaved": "Η διαμόρφωση αποθηκεύτηκε!",
+  "masterDeviceLabel": "Είναι κύρια συσκευή (διαχειριστής)",
+  "masterDeviceHelp": "Μόνο η κύρια συσκευή μπορεί να ενεργοποιήσει τη δομή της βάσης δεδομένων.",
+  "syncIntervalLabel": "Διαστήματα αυτόματου συγχρονισμού",
+  "syncIntervalValue": "Κάθε {hours} ώρες",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Αφήστε το κενό για να χρησιμοποιηθεί η προεπιλεγμένη τιμή",
+  "vipAccessSubtitle": "Παρακολουθήστε διαφημίσεις δωρεάν ή αγοράστε VIP",
+  "failedToLoadSettingsSchema": "Αποτυχία φόρτωσης του σχήματος ρυθμίσεων: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "Αυτό το πεδίο είναι υποχρεωτικό",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Απάντηση αυτόματα στην εισερχόμενη κλήση και αμέσως μετά τερματισμός της για διακοπή της",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}

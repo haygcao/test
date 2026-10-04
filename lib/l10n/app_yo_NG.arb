@@ -1,0 +1,2372 @@
+{
+  "@@locale": "yo_NG",
+  "aboutContactSubscription": "Nipa Ìbánisọ̀rọ̀ Ìforúkọsílẹ̀",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Nipa Àwọn Àmì",
+  "aboutPhoneSubscriptionRules": "Nipa Ìlànà Ìforúkọsílẹ̀ Fóònù",
+  "aboutSmsFilter": "Nipa Dídín SMS Mọ́",
+  "aboutSmsSubscriptionRules": "Nipa Ìlànà Ìforúkọsílẹ̀ SMS",
+  "aboutSubtitle": "Ẹ̀yà ohun èlò àti ìsọfúnni òfin",
+  "aboutTitle": "Nipa",
+  "action": "Ìgbésẹ̀",
+  "actionAll": "Gbogbo",
+  "actionAllow": "Jẹ́kìnnì",
+  "actionBlock": "Dènà",
+  "actionFilterTitle": "Dín Dípò Gẹ́gẹ́ Bí Irú Ìgbésẹ̀",
+  "actionFilterTooltip": "Dídín Ìgbésẹ̀ Mọ́",
+  "actionNone": "Kò sí Ìgbésẹ̀",
+  "actionSilence": "Dákẹ́",
+  "actionTag": "Ìgbésẹ̀: {actionType}",
+  "actionType": "Irú Ìgbésẹ̀",
+  "actionUnknown": "A kò mọ̀",
+  "add": "Fi Kún",
+  "addAllowedBlockedRule": "Fi Ìlànà Jẹ́kìnnì/Dènà Kún",
+  "addAllowSubscription": "Fi Ìforúkọsílẹ̀ Jẹ́kìnnì Kún",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Fi Ìforúkọsílẹ̀ Dènà Kún",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Fi Olùkanṣe Kún",
+  "addContactFailed": "Kò ṣeé ṣe láti fi olùkanṣe kún: {error}",
+  "addedToFavorites": "A ti fi sí àwọn olùkanṣe àṣàyàn",
+  "addLabel": "Fi Àmì Kún",
+  "addLabelButton": "Fi Àmì Kún",
+  "addLabelFailed": "Kò ṣeé ṣe láti fi àmì kún: {error}",
+  "addName": "Fi Orúkọ Kún",
+  "addNoneSubscription": "Fi Ìforúkọsílẹ̀ Kò sí Kún",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Fi Ẹ̀kùn Fóònù",
+  "addPhoneNumberRule": "Fi Òfin Nọ́mbà Fóònù Kún",
+  "addPlugin": "Fi Píláìńì Kún",
+  "addPluginFailed": "Kò Ṣeé Ṣe Láti Fi Píláìńì Kún",
+  "addPluginFailedWithError": "Kò Ṣeé Ṣe Láti Fi Píláìńì Kún: {error}",
+  "addPluginFromLocalFile": "Fi Píláìńì Kún Láti Fájì Tó Wà Lórí Kọ̀ǹpútà",
+  "addPluginFromUrl": "Fi Píláìńì Kún Láti Adirẹ́sì Íńtánẹ́ẹ̀tì",
+  "addRegexRule": "Fi Òfin Regex Kún",
+  "addRule": "Fi Òfin Kún",
+  "addRuleFailed": "Kò Ṣeé Ṣe Láti Fi Òfin Kún: {error}",
+  "addRuleTooltip": "Fi Òfin Kún",
+  "addSilenceSubscription": "Fi Ìforúkọsílẹ̀ Ìdákẹ́jẹ́ Kún",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "Fi Òfin Àtọ́ka SMS Kún",
+  "addSmsRule": "Fi Òfin SMS Kún",
+  "addSmsSubscription": "Fi Ìforúkọsílẹ̀ SMS Kún",
+  "addSubscription": "Fi Ẹ̀ka",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Fi Ẹ̀ka",
+  "addSubscriptionFailed": "Kò ṣeé ṣe láti fi ẹ̀ka kún: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Fi Ẹ̀ka",
+  "addToBlacklist": "Fi sí Àkójọ Dúdú",
+  "addToFavorites": "Fi sí Àwọn Tó Fẹ́ràn",
+  "addToRules": "Fi sí Àwọn Òfin",
+  "addToWhitelist": "Fi sí Àkójọ Funfun",
+  "agent": "Aṣojú",
+  "all": "Gbogbo",
+  "allCallsTab": "Gbogbo",
+  "allow": "Jẹ́́ṣẹ́",
+  "allowAllAllowRules": "Jẹ́́ṣẹ́ Gbogbo Àwọn Òfin Jẹ́́ṣẹ́",
+  "allowAllAllowRulesDesc": "Jẹ́́ṣẹ́ àwọn ìpè láti inú àwọn òfin jẹ́́ṣẹ́",
+  "allowAllBlacklistedNumbers": "Jẹ́́ṣẹ́ Gbogbo Nọ́mbà Tí A Fi Sí Àkójọ Dúdú",
+  "allowAllBlockRules": "Gba gbogbo òfin ìdènà lọ́wọ́",
+  "allowAllBlockRulesDesc": "Gba àwọn ìpè láti inú òfin ìdènà lọ́wọ́",
+  "allowAllowedNumbers": "Gba àwọn nọ́mbà tí a gba lọ́wọ́",
+  "allowAllowedNumbersDesc": "Gba àwọn ìpè láti inú àkójọ àwọn tí a gba lọ́wọ́",
+  "allowBlock": "Gba/Idènà",
+  "allowBlockedNumbers": "Gba àwọn nọ́mbà tí a idènà",
+  "allowBlockedNumbersDesc": "Gba àwọn ìpè láti inú àkójọ àwọn tí a idènà",
+  "allowedBlockedRule": "Òfin Gba/Idènà",
+  "allowedBlockedRuleEditDialogTitle": "Ṣàyẹ̀wò Òfin Gba/Idènà",
+  "allowedBlockedRuleManagement": "Ìṣàkóso Òfin Gba/Idènà",
+  "allowNonExceededNumbers": "Gba àwọn nọ́mbà tí kò kọjá ààlà",
+  "allowNonExceededNumbersDescription": "Gba àwọn nọ́mbà tí kò kọjá ààlà iye lọ́wọ́ láìfọwọ́ṣe",
+  "allowRegexAllowRules": "Gba àwọn òfin ìṣàtúnṣe Regex",
+  "allowRegexAllowRulesDesc": "Túnṣe ìbámu àpẹẹrẹ Regex fún àwọn òfin ìgba",
+  "allowRegexAllowRulesDescription": "Túnṣe àwọn òfin ìgba tí ó dá lórí Regex",
+  "allowRegexBlockRules": "Gba Ìlànà Ìdènà Regex",
+  "allowRegexBlockRulesDesc": "Túnṣe ìbámu àpẹẹrẹ regex fún ìlànà ìdènà",
+  "allowRegexBlockRulesDescription": "Túnṣe ìlànà ìdènà tó dá lórí regex",
+  "allowRule": "Ìlànà Gba",
+  "allowRules": "Àwọn Ìlànà Gba",
+  "allPermissionsGranted": "Gbogbo àṣẹ ti fún",
+  "allSettingsCompleted": "Gbogbo àwọn àṣàyàn ti parí.",
+  "allUpdateSuccess": "Gbogbo àwọn ìmúdójúìwọ̀n ti parí ({count} ìlànà)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "Dáhùn lẹ́yìn náà kí o pa ìbánisọ̀rọ̀ dúró",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "Sọ́fitiwia Ohun Èlò",
+  "apply": "Lo",
+  "appName": "Ìbánisọ̀rọ̀ Rẹ, Ìlànà Rẹ",
+  "authorizationFailedCheckCredentialsMessage": "Ìfọwọ́sí kùnà: Jọ̀wọ́ ṣàyẹ̀wò ID oníbàárà àti kọ́kọ́rọ́",
+  "authorizationFailedMessage": "Ìfọwọ́sí kùnà",
+  "authorizationSuccessMessage": "Ìfọwọ́sí ṣàṣeyọrí",
+  "authorizeLoginButton": "Fọwọ́si Ìwọlé",
+  "automotiveIndustry": "Ilé-iṣẹ́ Ọkọ̀ Ayọ́kẹ́lẹ́",
+  "autoSyncLabel": "Ṣe Ìṣọ̀kan Láìṣe",
+  "autoUpdate": "Ṣe Àtúnṣe Láìṣe",
+  "autoUpdateDescription": "Ṣètò àwọn àárín àkókò fún àtúnṣe láìṣe ti àwọn ìforúkọsílẹ̀ tàbí ṣe àtúnṣe lọ́wọ́",
+  "autoUpdateSettings": "Àwọn Ìṣètò Àtúnṣe Láìṣe",
+  "autoUpdateSubtitle": "Ṣàkóso àwọn àtúnṣe láìṣe fún àwọn òfin àti àwọn plugin",
+  "autoUpdateTitle": "Àtúnṣe Láìṣe",
+  "avatarBorderColor": "Àwọ̀ Ààlà Avatar",
+  "avatarBorderSize": "Ìwọ̀n Ààlà Avatar",
+  "avatarIconSizesSetting": "Ìwọ̀n Avatar àti Àwòrán-àmì",
+  "avatarPosition": "Ìpò Avatar",
+  "avatarSize": "Ìwọ̀n Avatar",
+  "axisPosition": "Ìpò {axis}",
+  "backgroundGradientSetting": "Ìyípadà Àwọ̀ Ẹ̀yìn",
+  "backup": "Ìṣàkóso-àtìlẹ́yìn",
+  "backupAndRestore": "Ìṣàkóso-àtìlẹ́yìn àti Ìṣàtúnṣe",
+  "backupAndRestoreSubtitle": "Ṣe ìṣàkóso-àtìlẹ́yìn tàbí ṣàtúnṣe dátà ohun èlò",
+  "backupAndRestoreTitle": "Ìṣàkóso-àtìlẹ́yìn & Ìṣàtúnṣe",
+  "backupFailed": "Ìṣàkóso-àtìlẹ́yìn kùnà",
+  "backupSettings": "Àwọn Ìṣètò Ìṣàkóso-àtìlẹ́yìn",
+  "backupToCloud": "Ṣe Ìṣàkóso-àtìlẹ́yìn sí Ojú-ìbojì",
+  "backupToCloudFailed": "Kùnà láti ṣe ìṣàkóso-àtìlẹ́yìn sí ojú-ìbojì: {error}",
+  "backupToCloudSuccess": "A ṣe ìṣàkóso-àtìlẹ́yìn sí ojú-ìbojì lọ́ṣùọ́",
+  "bank": "Bánkì",
+  "basicInfo": "Ìsọfúnnì Ìpìlẹ̀",
+  "basicRuleFilter": "Àtọ́ka Òfin Ìpìlẹ̀",
+  "basicRuleFiltering": "Fífi Àtọ́ka Òfin Ìpìlẹ̀ Ṣe Àyẹ̀wò",
+  "basicRuleFilteringExplanation": "• Fífi Àtọ́ka Òfin Ìpìlẹ̀ Ṣe Àyẹ̀wò: Fífi àwọn òfin àyẹ̀wò ṣe àyẹ̀wò lórí àkójọ dúdú, àkójọ funfun àti regex",
+  "basicRuleFilterSubtitle": "Ṣe àyẹ̀wò àwọn ìpè nípa lílo àkójọ dúdú/àkójọ funfun àti àwọn àfihàn àgbékalẹ̀",
+  "batchDeleteContactsConfirm": "Ṣé o dájú pé o fẹ́ pa {count} àwọn olubasọrọ tí o yàn rẹ́?",
+  "batchDeleteLabelsConfirm": "Ṣé o dájú pé o fẹ́ pa {count} àwọn àmì rẹ́?",
+  "blacklist": "Àkójọ Dúdú",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "Fífi sí Àkójọ Dúdú àti Àkójọ Funfun",
+  "blackWhiteList": "Àkójọ Dúdú/Àkójọ Funfun",
+  "block": "Dènà",
+  "blockCalls": "Dènà Àwọn Ìbánisọ̀rọ̀",
+  "blocked": "Tí a ti dènà",
+  "blockedCalls": "Àwọn Ìbánisọ̀rọ̀ Tí a Ti Dènà",
+  "blockedCallsTitle": "Àwọn Ìbánisọ̀rọ̀ Tí a Ti Dènà",
+  "blockedSpamCalls": "Àwọn Ìbánisọ̀rọ̀ Àìlò Tí a Ti Dènà",
+  "blockingTrend": "Ìtọ́kasí Ìdènà",
+  "blockInternationalCalls": "ó bá àwọn nọ́mbà tí kì í bẹ̀rẹ̀ pẹ̀lú + tàbí 00 mu",
+  "blockInternationalCallsTitle": "Dènà Àwọn Ìbánisọ̀rọ̀ Ìjàmbá",
+  "blockMobileNumbers": "ó bá àwọn nọ́mbà tí kì í bẹ̀rẹ̀ pẹ̀lú 13-19 mu",
+  "blockMobileNumbersTitle": "Dínà àwọn Nọ́mbà Fóònù Aláyè",
+  "blockPremiumRateNumbers": "ó bá àwọn nọ́mbà tí kì í bẹ̀rẹ̀ pẹ̀lú 118 tàbí 120-190 mu",
+  "blockPremiumRateNumbersTitle": "Dínà àwọn Nọ́mbà Ìpàṣẹ Olówó Gíga",
+  "blockRule": "Òfin Dídínà",
+  "blockRules": "Àwọn Òfin Dídínà",
+  "blockSpecificAreaCodes": "ó bá àwọn nọ́mbà tí ó bẹ̀rẹ̀ pẹ̀lú 0 + díjítì 2-3 mu",
+  "blockSpecificAreaCodesTitle": "Dínà àwọn kóòdù agbègbè pàtó:",
+  "blockTypeAnalysisTitle": "Ìtúpalẹ̀ Irú Dídínà",
+  "both": "Méjèèjì",
+  "bulkDelete": "Pa Àwọn Olùkanṣe Pọ̀ Ní Ẹgbẹ́",
+  "bulkDeleteContacts": "Pa Àwọn Olùkanṣe Pọ̀ Ní Ẹgbẹ́",
+  "bulkDeleteLabels": "Pa Àwọn Àmì Pọ̀ Ní Ẹgbẹ́",
+  "call": "Pe",
+  "callback": "Pe Padà",
+  "callBlocking": "Dídínà Àwọn Ìpè",
+  "callerIdApp": "Àpùkàn ID Olùpè",
+  "callerIdCustomizationTitle": "Ṣàtúnṣe ID Olùpè",
+  "callerIdDisplayMode": "Ọ̀nà Ìfihàn ID Olùpè",
+  "callerIdMarkedByCount": "A ṣàmì rẹ̀ nípasẹ̀ {count}",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "Ìṣàkíyèsí ID Olùpè",
+  "callFilterRules": "Àwọn Òfin Ìtọ́ka Olùpè",
+  "callFilterRulesDescription": "Ṣètò àwọn òfin ìpìlẹ̀ fún ìtọ́ka olùpè",
+  "callFilterSettings": "Àwọn Ìṣètò Ìtọ́ka Olùpè",
+  "callFrequencyInterceptionSubtitle": "Ṣètò àwọn ààlà ìgbà tí a ń pè àti àwọn òfin ìdènà",
+  "callFrequencyInterceptionTitle": "Ìdènà Ìgbà Tí A ń Pè",
+  "callHistory": "Ìtàn Olùpè",
+  "callHistoryInfoDesc": "Níhìn-ín ni a fi hàn ìtàn olùpè rẹ, tó ní àwọn olùpè tí a gba, tí a fi ránṣẹ́ àti tí a pàdánù.",
+  "callHistoryInfoTitle": "Ìtàn Olùpè",
+  "callHistoryTab": "Ìtàn Olùpè",
+  "callScreeningPermission": "Ìgbàwọ́ fún Ṣíṣàyẹ̀wò Olùpè",
+  "callScreeningPermissionDescription": "A ńlo wọ́n láti ṣàyẹ̀wò àti dí àwọn ìpè àìbámu.",
+  "callScreeningPermissionNotGranted": "A kò fún ìtọ́kasí fún ṣíṣàyẹ̀wò ìpè, èyí lè ní ipa lórí iṣẹ́ ohun èlò náà.",
+  "callStatistics": "Àwọn Àkíyèsí Ìpè",
+  "callTypeAnswered": "A dáhùn",
+  "callTypeBlocked": "A dí",
+  "callTypeIconColor": "Àwọ̀ Àwòrán Irú Ìpè",
+  "callTypeMissed": "Ìpè tí a pàdánù",
+  "callTypeOutgoing": "Ìpè tí a ránṣẹ́",
+  "callTypePosition": "Ìpò Irú Ìpè",
+  "callTypeUnknown": "A kò mọ̀",
+  "cancelButton": "Fagilé",
+  "carRental": "Ìyáwò Ọkọ̀ Ayọ́kẹ́lẹ́",
+  "carrier": "Olùpèsè Ìbánisọ̀rọ̀",
+  "carrierColor": "Àwọ̀ Olùpèsè Ìbánisọ̀rọ̀",
+  "carrierFontSize": "Ìwọ̀n Fọ́ńtì Olùpèsè Ìbánisọ̀rọ̀",
+  "carrierPosition": "Ipò Gbajúgbajà",
+  "changeLabel": "Àmì Àtúnṣe",
+  "changePluginStatusFailed": "Kò ṣeé ṣe láti yí ipò plugin padà: {error}",
+  "changeSubscriptionStatusFailed": "Kò ṣeé ṣe láti yí ipò ìforúkọsílẹ̀ padà: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "Iṣẹ́ Ìrànlọ́wọ́",
+  "chartOneWeekAgo": "Ọ̀sẹ̀ kan sẹ́yìn",
+  "chartThreeDaysAgo": "Ọjọ́ mẹ́ta sẹ́yìn",
+  "chartToday": "Òní",
+  "checkFileFormat": "Jọ̀wọ́ ṣàyẹ̀wò fọ́ọ̀mù fáìlì tàbí àṣẹ rẹ̀",
+  "checkPermissionFailed": "Kò ṣeé ṣe láti ṣàyẹ̀wò àṣẹ: {error}",
+  "chooseDefaultInterceptAction": "Yan ìgbésẹ̀ ìdènà àbùdá",
+  "clearFilter": "Pa Fíltà Rẹ́",
+  "clearLabelFilterButton": "Pa Fíltà Àmì Rẹ́",
+  "closeButton": "Típa",
+  "cloudSync": "Ìṣọ̀kan Ojú Ọ̀run",
+  "cloudSyncAndBackupTitle": "Ìṣọ̀kan Àwọ̀n & Ìfipamọ́ Àwọ̀n",
+  "cloudSyncSettingsSubtitle": "Ṣètò WebDAV, OneDrive àti Google Drive",
+  "cloudSyncSettingsTitle": "Àwọn Ìṣètò Ìṣọ̀kan Àwọ̀n",
+  "cloudSyncTitle": "Ìṣọ̀kan Àwọ̀n",
+  "collection": "Ìṣàkóso Ẹ̀bùn",
+  "colorPickerTitle": "Yan Àwọ̀",
+  "configManagement": "Ìṣàkóso Ìṣètò",
+  "configUpdated": "A ti ṣe àtúnṣe ìṣètò",
+  "configurationAdvice": "Nípasẹ̀ ìṣètò tó yẹ, o lè ṣètò àwọn ọgbọ́n àyẹ̀wò tó yàtọ̀ fún káàdì SIM iṣẹ́ àti ti ara ẹni.",
+  "configureBackupOptions": "Ṣètò Àwọn Àṣàyàn Ìfipamọ́",
+  "configureCloudSyncService": "Ṣètò Iṣẹ́ Ìṣọ̀kan Àwọ̀n",
+  "configureCloudSyncServiceMessage": "Jọ̀wọ́ ṣètò iṣẹ́ ìṣọ̀kan àwọ̀n kan láti mú ìṣọ̀kan láàárín ẹ̀rọ púpọ̀ ṣeé lò.",
+  "configureSimCardFilterRules": "Ṣètò Àwọn Òfin Àyẹ̀wò Káàdì SIM",
+  "confirm": "Fìdí rẹ̀ múlẹ̀",
+  "confirmButton": "Fìdí rẹ̀ múlẹ̀",
+  "confirmDelete": "Fìdí Ìtúsílẹ̀",
+  "confirmDeleteLabel": "Ṣé o dájú pé o fẹ́ tú àmì \"{name}\" kúrò",
+  "confirmDeletePlugin": "Ṣé o dájú pé o fẹ́ tú àfikún \"{name}\" kúrò?",
+  "confirmDeletePlugins": "Ṣé o dájú pé o fẹ́ tú àwọn àfikún {count} kúrò?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "Ṣé o dájú pé o fẹ́ tú òfin yìí kúrò? A kò lè ṣe ìgbésẹ̀ yìí padà.",
+  "confirmDeleteSmsFilterRule": "Ṣé o dájú pé o fẹ́ tú òfin àyẹ̀wò SMS yìí kúrò?",
+  "confirmDeleteSmsRule": "Ṣé o dájú pé o fẹ́ tú òfin SMS yìí kúrò?",
+  "confirmDeleteSubscriptions": "Ṣé o dájú pé o fẹ́ tú {name} kúrò?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "Fìdí Ọ̀rọ̀ Àṣírí múlẹ̀",
+  "connectedStatus": "A Ti Sopọ̀",
+  "connectionFailedCheckCredentialsMessage": "Ìsopọ̀ kò ṣeé ṣe: Jọ̀wọ́ ṣàyẹ̀wò adiresi olupin, orúkọ àmísọ̀rọ̀ àti ọ̀rọ̀ àṣírí",
+  "connectionFailedMessage": "Ìsopọ̀ kò ṣeé ṣe",
+  "connectionStatusLabel": "Ìpò Ìsopọ̀",
+  "connectionSuccessMessage": "Ìsopọ̀ ṣeé ṣe",
+  "contactAddSuccess": "A Ti Ṣàfikún Olùkanṣe Ṣáájú",
+  "contactDeleted": "A kọ́kọ́rọ́ ti pa",
+  "contactNameLabel": "Orúkọ",
+  "contactNotFound": "A kọ́kọ́rọ́ kò rí",
+  "contacts": "àwọn kọ́kọ́rọ́",
+  "contactsDeleted": "A ti pa {count} kọ́kọ́rọ́",
+  "contactsManagement": "Ìṣàkóso Àwọn Kọ́kọ́rọ́",
+  "contactsPermission": "Ìtọ́kasí Àwọn Kọ́kọ́rọ́",
+  "contactsPermissionDescription": "A lò ó láti dá àwọn ìpè kọ́kọ́rọ́ mọ̀.",
+  "contactsTab": "Àwọn Kọ́kọ́rọ́",
+  "contactSubscriptionDescription": "Tẹ̀lé àwọn àkójọ kọ́kọ́rọ́ nípasẹ̀ URL, kí o sì ṣe àtúnṣe àwọn ìsọfúnni àti àmì kọ́kọ́rọ́ lọ́wọ́. Ó ṣe àtìlẹ́yìn fún dátà ní fọ́ọ̀mù JSON.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "A ti ṣe àtúnṣe kọ́kọ́rọ́ náà lọ́ṣẹ́",
+  "contactUs": "Kàn sí Wa",
+  "content": "Àkóónú",
+  "contentRegex": "Régíṣì Àkóónú",
+  "countColor": "Àwọ̀ Ìṣirò",
+  "countFontSize": "Ìwọ̀n Fọ́ńtì Ìṣírò",
+  "countPosition": "Ìpò Ìṣírò",
+  "country": "Orílẹ̀-èdè",
+  "countryNameColor": "Àwọ̀ Orúkọ Orílẹ̀-èdè",
+  "countryNameFontSize": "Ìwọ̀n Fọ́ńtì Orúkọ Orílẹ̀-èdè",
+  "countryRegionNamePosition": "Ìpò Orúkọ Orílẹ̀-èdè/Agbègbè",
+  "countThresholdDescription": "Ṣètò ìwọ̀n ìsàlẹ̀ ti iye ìṣírò tó nílò láti bẹ̀rẹ̀ àwọn ìgbésẹ̀ ìfọwọ́kàn",
+  "countThresholdLabel": "Ìwọ̀n Ìṣírò",
+  "createdRules": "Àwọn Òfin Tí A Ṣẹ̀dá",
+  "csvFormat": "Ìṣètò CSV",
+  "currentDeviceLabel": "Àmì Ẹ̀rọ Tí A ń Lò Ní Bayi",
+  "currentDeviceTitle": "Ẹ̀rọ Tí A ń Lò Ní Bayi",
+  "currentLanguage": "Èdè Tí A ń Lò Ní Bayi",
+  "customerService": "Ìṣẹ́ Oníbàárà",
+  "dashboardTab": "Pánẹ́ẹ̀lì Ìṣàkóso",
+  "dataAnalysis": "Ìtúpalẹ̀ Data",
+  "dataLoadFailure": "Kò ṣeé ṣe láti gba data: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "Kò ṣeé ṣe láti gba data: {error}",
+  "dataMigration": "Ìṣíṣe Data",
+  "dataMigrationDescription": "Àfikún yìí ń jẹ́ kí o lè gbé gbogbo data rẹ láti ẹ̀rọ kan sí òmíràn. Ní báyìí, o lè lo àfikún ìfipamọ́ àti ìṣàtúnṣe láti ṣe ìṣíṣe data rẹ lọ́nà ọwọ́.",
+  "dataSourceReminder": "Ìránnilétí Orísun Data",
+  "days": "{count, plural, =1{1 ọjọ́} other{{count} ọjọ́}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} Ọjọ́ VIP",
+  "debtCollection": "Ìkójọ́ Ọ̀rà",
+  "delete": "Pa",
+  "deleteButton": "Pa",
+  "deleteContact": "Pa Olùkanṣe",
+  "deleteContactConfirm": "Ṣé o dájú pé o fẹ́ pa {name}?",
+  "deleteFailed": "Kò ṣeé ṣe láti pa: {error}",
+  "deleteLabel": "Pa Àmì",
+  "deleteLabelFailed": "Kò ṣeé ṣe láti pa àmì náà rẹ́: {error}",
+  "deletePlugin": "Pa Pẹ́lẹ́bẹ́ Rẹ́",
+  "deletePluginFailed": "Kò ṣeé ṣe láti pa pẹ́lẹ́bẹ́ náà rẹ́: {error}",
+  "deletePlugins": "Pa Àwọn Pẹ́lẹ́bẹ́ Rẹ́",
+  "deletePluginsFailed": "Kò ṣeé ṣe láti pa àwọn pẹ́lẹ́bẹ́ náà rẹ́: {error}",
+  "deleteRule": "Pa Òfin Rẹ́",
+  "deleteRuleFailed": "Ìpa rẹ́ kò ṣeé ṣe: {error}",
+  "deleteSelected": "Pa Ohun Tí A Yàn Rẹ́",
+  "deleteSubscription": "Pa Ìforúkọsílẹ̀ Rẹ́",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "Ṣé o dájú pé o fẹ́ pa ìforúkọsílẹ̀ \"{name}\" rẹ́?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "Kò ṣeé ṣe láti pa ìforúkọsílẹ̀ náà rẹ́: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "Ìpa ṣeé ṣe",
+  "delivery": "Ìfijiṣẹ́",
+  "deviceIDLabel": "ID Ẹ̀rọ",
+  "deviceManagementSubtitle": "Ṣàkóso ìṣọ̀kan ẹ̀rọ púpọ̀",
+  "deviceManagementTitle": "Ìṣàkóso Ẹ̀rọ",
+  "deviceModelLabel": "Àwòṣe Ẹ̀rọ",
+  "deviceName": "Orúkọ Ẹ̀rọ",
+  "deviceNameLabel": "Orúkọ Ẹ̀rọ",
+  "deviceRenamedSuccessfullyMessage": "A ti tún orúkọ ẹ̀rọ náà ṣe àṣeyọrí",
+  "devicesSynchronizedSuccessfullyMessage": "A ti ṣe ìṣọ̀kan àwọn ẹ̀rọ náà àṣeyọrí",
+  "deviceUnregisteredSuccessfullyMessage": "A ti fagilé ìforúkọsílẹ̀ ẹ̀rọ náà àṣeyọrí",
+  "dialogTitle": "Àlàyé Nípa Àpẹẹrẹ Regex",
+  "differentFromLocalCounter": "Ìṣẹ́ yìí yàtọ̀ sí àlẹ̀mọ́ ìṣírò agbègbè, nítorí ó dá lórí àwọn àpẹẹrẹ ìpè tí ó tún ṣẹlẹ̀ léraléra láàárín àkókò kúkúrú, kì í ṣe ìṣírò àmì fún àkókò gígùn.",
+  "disabled": "Ti kó sẹ́yìn",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "Ti kó sẹ́yìn",
+  "disableGlobalPlugins": "Kó àwọn plugin àgbáyé sẹ́yìn",
+  "disconnectButton": "Fagilé ìsopọ̀",
+  "disconnectedMessage": "A ti fagilé ìsopọ̀",
+  "disconnectedStatus": "A ti fagilé ìsopọ̀",
+  "disconnectFailedMessage": "Ìsopọ̀ kùnà",
+  "done": "Parí",
+  "dualSimAdvice": "Àṣàyàn yìí wúlò gan-an fún fóònù alá-SIM méjì láti ṣètò ọgbọ́n àyẹ̀wò tó yàtọ̀ fún káàdì SIM iṣẹ́ àti ti ara ẹni.",
+  "earlier": "Tẹ́lẹ̀",
+  "ecommerce": "Ọjà orí ayélujára",
+  "edit": "Ṣàtúnṣe",
+  "editContact": "Ṣàtúnṣe Olùkanṣe",
+  "editLabel": "Ṣàtúnṣe Àmì",
+  "editPhoneRule": "Ṣàtúnṣe Òfin Fóònù",
+  "editRule": "Ṣàtúnṣe Òfin",
+  "education": "Ètò ẹ̀kọ́",
+  "elementPositionsSetting": "Ìpò Àwọn Èròjà",
+  "email": "Ìméélì",
+  "enableCallFilter": "Tún Ìyẹ̀wò Ìpè Ṣiṣẹ́",
+  "enableCallFilterDescription": "Nígbà tí a bá tún un ṣiṣẹ́, a máa ṣàyẹ̀wò àwọn ìpè tí ń wọlé lẹ́gbẹ̀ẹ́ àkójọ òfin tó wà ní ìsàlẹ̀. Ní àìṣedéédé, àwọn òfin ìyẹ̀wò ìpè kò ní ṣe ìṣọ̀kan láàárín àwọn ẹ̀rọ.",
+  "enabled": "Aṣeyọrí",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "Aṣeyọrí",
+  "enableEncryption": "Tún ìfihàn ìkọ̀kọ̀ ṣiṣẹ́",
+  "enableEncryptionDescription": "Ṣe ìkọ̀kọ̀ àwọn fáìlì ìfipamọ́",
+  "enableGlobalPlugins": "Tún àwọn plugin àgbáyé ṣiṣẹ́",
+  "enableLocalCountFilter": "Tún Ìṣàyẹ̀wò Ìye Àdúróṣinṣin Ṣiṣẹ́",
+  "enableLocalCountFilterDescription": "Ṣàyẹ̀wò àwọn ìpè àìbámu ní ọ̀nà àdánidá nípa ìye ìtọ́ka ìpè",
+  "enableLocalNotification": "Lo Ìfitónilétí Àdúróṣinṣin",
+  "enableLocalNotificationDescription": "Nígbà tí a bá tún un ṣiṣẹ́, a ó fi àwọn ìfitónilétí fún àwọn ìfiránṣẹ́ tí a ti ṣàyẹ̀wò hàn lórí ẹ̀rọ",
+  "enableLocationSummary": "Ibùdó",
+  "enableMuteRules": "Tún Àwọn Òfin Ìdákẹ́jẹ́ Ṣiṣẹ́",
+  "enableMuteRulesDesc": "Lo àwọn ìṣètò òfin ìdákẹ́jẹ́ àti ìdènà",
+  "enableNoneActionRules": "Tún Àwọn Òfin Àìṣe Kankan Ṣiṣẹ́",
+  "enableNoneActionRulesDesc": "Jẹ́ kí àwọn ìṣètò òfin tí kò ní ìgbésẹ̀ ìdènà ṣeé lò",
+  "enableRemoteNumberFilter": "Tún Ìṣàyẹ̀wò Nọ́mbà Ìjìnnà Ṣiṣẹ́",
+  "enableRemoteNumberFilterDescription": "Loose àgbàlé ìpamọ́ láti ṣe àyẹ̀wò àwọn nọ́mbà",
+  "enableRule": "Tún òfin ṣiṣẹ́",
+  "enableSmsFilter": "Tún àyẹ̀wò SMS ṣiṣẹ́",
+  "enableSmsFilterDescription": "Nígbà tí a bá tún un ṣiṣẹ́, àwọn ìfiránṣẹ́ yóò ṣe àyẹ̀wò fúnra wọn gẹ́gẹ́ bí àwọn òfin ṣe sọ",
+  "enableTimeInterception": "Tún ìdènà àkókò ṣiṣẹ́",
+  "enableTimeInterceptionDescription": "Dènà àwọn ìpè tó tún ṣẹlẹ̀ láàárín àkókò kúkúrú",
+  "enableTimeInterceptor": "Tún olùdènà àkókò ṣiṣẹ́",
+  "endCallImmediately": "Parí ìpè lẹ́sẹ̀kẹsẹ̀",
+  "endColor": "Àwọ̀ ìparí",
+  "endDate": "Ọjọ́ ìparí",
+  "enhancedFilterInstructionsTitle": "Ètò Àyẹ̀wò Tí A Ti Mú Dára Sí i",
+  "enhancedFilterSettings": "Àwọn Ìṣètò Àyẹ̀wò Tí A Ti Mú Dára Sí i",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "Àwọn Ìṣètò Àyẹ̀wò Tí A Ti Mú Dára Sí i",
+  "enhancedFilterSystemDescription": "Ètò àyẹ̀wò tí a ti mú dáadáa sí i ṣe àtìlẹ́yìn fún àwọn òfin gbogbogbò àti àwọn ìṣètò àyẹ̀wò fún káàdì SIM kọ̀ọ̀kan.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "Jọ̀wọ́ tẹ nọ́mbà fóònù àti àpẹẹrẹ regex wọlé.",
+  "enterContactName": "Jọ̀wọ́ tẹ orúkọ olùkanṣe sílẹ̀",
+  "enterDeviceName": "Tẹ Orúkọ Ẹ̀rọ Sílẹ̀",
+  "enterEmailOptional": "Jọ̀wọ́ tẹ imeẹ̀lì sílẹ̀ (kò pọndandan)",
+  "enterEncryptionPasswordHint": "Tẹ ọ̀rọ̀ aṣínà ìfipamọ́ sílẹ̀",
+  "enterIconCode": "Tẹ kóòdù àwòrán sílẹ̀",
+  "enterName": "Tẹ orúkọ olùkanṣe sílẹ̀",
+  "enterNewDeviceNameHint": "Tẹ orúkọ tuntun fún ẹ̀rọ yìí sílẹ̀",
+  "enterPasswordAgain": "Tẹ Ọ̀rọ̀ Aṣínà Sílẹ̀ Lẹ́ẹ̀kan Sí i",
+  "enterPhoneNumber": "Tẹ nọ́mbà fóònù sílẹ̀",
+  "enterPhoneNumberHint": "Tẹ nọ́mbà fóònù sílẹ̀ láti dán an wò",
+  "enterPhoneNumberMultiple": "Jọ̀wọ́ tẹ nọ́mbà fóònù sílẹ̀, pín àwọn nọ́mbà pẹ̀lú kọ́mà",
+  "enterPhoneNumberToStartSearch": "Tẹ nọ́mbà fóònù sílẹ̀ láti bẹ̀rẹ̀ ìwádìí",
+  "enterPhoneNumberToVerify": "Tẹ nọ́mbà fóònù sílẹ̀ láti fìdí rẹ̀ múlẹ̀",
+  "enterPluginName": "Tẹ Orúkọ Àfikún Sílẹ̀",
+  "enterPluginUrl": "Tẹ àdírẹ́sì URL àfikún sílẹ̀",
+  "enterRegexHint": "Tẹ̀ sílẹ̀ àpẹẹrẹ regex",
+  "enterRuleNameAndPatternMessage": "Jọ̀wọ́ tẹ̀ sílẹ̀ orúkọ òfin àti àpẹẹrẹ regex.",
+  "enterRuleNameHint": "Tẹ̀ sílẹ̀ orúkọ òfin",
+  "enterSearchContent": "Jọ̀wọ́ tẹ̀ sílẹ̀ ohun tí o fẹ́ wá",
+  "enterSubscriptionName": "Tẹ̀ sílẹ̀ orúkọ ìforúkọsílẹ̀",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "Tẹ̀ sílẹ̀ URL ìforúkọsílẹ̀",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Jọ̀wọ́ tẹ̀ sílẹ̀ orúkọ folda ìṣọ̀kan (àìpín: NotificationManager)",
+  "entertainment": "Ìgbádùn",
+  "enterValidNameAndUrl": "Jọ̀wọ́ tẹ̀ sílẹ̀ orúkọ àti URL tó bójú mu",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "Jọ̀wọ́ tẹ̀ sílẹ̀ URL tó bójú mu",
+  "enterVersion": "Tẹ̀ sílẹ̀ Ẹ̀yà",
+  "enterWebDAVPasswordHint": "Jọ̀wọ́ tẹ̀ sílẹ̀ ọ̀rọ̀ aṣínà WebDAV",
+  "enterWebDAVServerAddressHint": "Jọ̀wọ́ tẹ̀ sílẹ̀ àdírẹ́sì olupin WebDAV",
+  "enterWebDAVUsernameHint": "Jọ̀wọ́ tẹ̀ sílẹ̀ orúkọ olùwọlé WebDAV",
+  "errorOccurredMessage": "Àṣìṣe kan ṣẹlẹ̀: {error}",
+  "errorRenamingDeviceMessage": "Àṣìṣe nígbà tí a ń tún orúkọ ẹ̀rọ rọ́pò: {error}",
+  "errorSynchronizingDevicesMessage": "Àṣìṣe nígbà tí a ń mú àwọn ẹ̀rọ ṣe ìbámu: {error}",
+  "errorUnregisteringDeviceMessage": "Àṣìṣe nígbà tí a ń yọ ẹ̀rọ kúrò nínú àkọsílẹ̀: {error}",
+  "exampleBlock400Prefix": "fún àpẹẹrẹ, àwọn nọ́mbà ìbẹ̀rẹ̀ 400",
+  "exampleBlockMarketingSms": "fún àpẹẹrẹ, dídènà SMS ìpolówó",
+  "exampleContentRegexHint": "Àpẹẹrẹ Regex Àkóónú",
+  "exampleCouponPromotionDiscount": "fún àpẹẹrẹ: .*(kúponù|ìpolówó|ìdínkù).*",
+  "exampleFamilyFriends": "fún àpẹẹrẹ, Ìdílé, Àwọn Ọ̀rẹ́, àti bẹ́ẹ̀ bẹ́ẹ̀ lọ",
+  "examplePhoneNumber": "fún àpẹẹrẹ: 10086, 12345, àti bẹ́ẹ̀ bẹ́ẹ̀ lọ",
+  "exampleRegex400Prefix": "Àpẹẹrẹ regex fún ìbẹ̀rẹ̀ 400",
+  "exampleSenderRegexHint": "Àpẹẹrẹ",
+  "exchange": "Ìyípadà",
+  "exchangeNow": "Yípadà Báyìí",
+  "exchangeVip": "Ìyípadà VIP",
+  "expiryTime": "Àkókò ìparí: {time}",
+  "export": "Ṣe ìtúsílẹ̀",
+  "exportAllApplicationSettings": "Ṣe ìtúsílẹ̀ gbogbo àwọn àṣàyàn ohun èlò",
+  "exportAllRuleConfigurations": "Ṣe ìtúsílẹ̀ gbogbo àwọn àṣètò òfin",
+  "exportConfig": "Ṣe ìtúsílẹ̀ Àṣètò",
+  "exportContacts": "Ṣe ìtúsílẹ̀ Àwọn Olùkanṣe",
+  "exportData": "Ṣe ìtúsílẹ̀ Dátà",
+  "exportFailed": "Ìtúsílẹ̀ kùnà",
+  "exportFailure": "Kùnà láti ṣe ìtúsílẹ̀ àṣètò",
+  "exportFeatureComingSoon": "Àfikún ìtúsílẹ̀ yóò dé láìpẹ́",
+  "exportLabels": "Ṣe ìtúsílẹ̀ Àwọn Àmì",
+  "exportLabelsFailed": "Kùnà láti ṣe ìtúsílẹ̀ àwọn àmì: {error}",
+  "exportPluginList": "Ṣe ìtúsílẹ̀ Àkójọ Àwọn Plugin",
+  "exportPluginListFailed": "Kùnà láti ṣe ìtúsílẹ̀ àkójọ plugin: {error}",
+  "exportRules": "Ṣe ìtúsílẹ̀ Àwọn Òfin",
+  "exportSmsRules": "Ṣe ìtúsílẹ̀ Àwọn Òfin SMS",
+  "exportStatisticsData": "Data Ìṣirò Ìtújáde",
+  "exportSuccesslly": "A ṣe àtúnpadà àgbékalẹ̀ lọ́ṣùwọ́n",
+  "failedToAddRule": "Kò ṣeé ṣe láti fi òfin kún: {error}",
+  "failedToAddSmsSubscription": "Kò ṣeé ṣe láti fi ìforúkọsílẹ̀ SMS kún: {error}",
+  "failedToBackupSettings": "Kò ṣeé ṣe láti ṣe àkójọpọ̀ àwọn àgbékalẹ̀: {error}",
+  "failedToDecryptBackupFile": "Kò ṣeé ṣe láti tú fáìlì àkójọpọ̀ ṣí",
+  "failedToDeleteSmsRule": "Kò ṣeé ṣe láti pa òfin SMS rẹ̀ rẹ́: {error}",
+  "failedToExportRules": "Kò ṣeé ṣe láti tú àwọn òfin jáde: {error}",
+  "failedToGetCallerIdInfo": "Kò ṣeé ṣe láti gba ìsọfúnni ID olùpè: {error}",
+  "failedToImportRules": "Kò ṣeé ṣe láti mú àwọn òfin wọlé: {error}",
+  "failedToRestoreSettings": "Kò ṣeé ṣe láti tún àwọn àgbékalẹ̀ ṣe",
+  "failedToRestoreSettingsWithError": "Kò ṣeé ṣe láti tún àwọn àgbékalẹ̀ ṣe: {error}",
+  "failedToToggleRuleStatus": "Kò ṣeé ṣe láti yí ipò òfin padà: {error}",
+  "favoriteContacts": "Àwọn Olùkanṣe Àṣàyàn",
+  "featureAddRules": "• Fi àwọn òfin pàtó fún nọ́mbà fóònù kún",
+  "featureCenter": "Ile-ìṣẹ́ Àwọn Ẹ̀ya",
+  "featureEnableDisable": "• Ṣí/da àwọn àyẹ̀wò ọ̀tọ̀ọ̀tọ̀ sílẹ̀ fún SIM kọ̀ọ̀kan",
+  "featureListTitle": "Àwọn Ẹ̀ya:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• Ṣàkóso àwọn àkójọ òfin fún SIM kọ̀ọ̀kan",
+  "features": "Àwọn Ẹ̀ya",
+  "fetchingCallerIdInfo": "A ń gba ìsọfúnni ID olùpè...",
+  "fileSavedTo": "A fi fáìlì pamọ́ sí: {path}",
+  "filter": "Àyẹ̀wò",
+  "filterByLabel": "Ṣàyẹ̀wò nípa Àmì",
+  "filterControlPanelTitle": "Pánẹ́ẹ̀lì Ìṣàkóso Àyẹ̀wò",
+  "filterControlSubtitle": "Ṣàkóso ipò ṣíṣi/ṣíwọ̀n ti gbogbo àwọn àyẹ̀wò",
+  "filterControlTitle": "Ìṣàkóso Àyẹ̀wò",
+  "filtered": "A ti ṣàyẹ̀wò rẹ̀",
+  "filterExplanation": "Ìtumọ̀ Àyẹ̀wò",
+  "filterManagement": "Ìṣàkóso Àyẹ̀wò",
+  "filterName": "Orúkọ Àtọ́ka",
+  "filterPriorityNote": "Àkíyèsí: Àwọn ìbáṣepọ̀ ìpínṣẹ́ wà láàárín àwọn àtọ́ka, jọ̀wọ́ wo ìwé ìtọ́sọ́nà ìrànlọ́wọ́ fún àlàyé",
+  "filterSettings": "Àwọn Ìṣètò Àtọ́ka",
+  "filterSettingsTitle": "Àwọn Ìfẹ́ Àtọ́ka",
+  "filterSMS": "Tọ́ka SMS",
+  "filterToggleInstructions": "Tún àwọn àtọ́ka sílì tàbí dá wọn dúró fún ibi SIM yìí:",
+  "filterToggleStatus": "{status} àtọ́ka: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "Irú Àtọ́ka",
+  "financial": "Owó",
+  "flexibleCombinationFeature": "• Àwọn Àkójọpọ̀ Tí A Lè Ṣàtúnṣe: Tún àwọn àtọ́ka sílì tàbí dá wọn dúró fún ibi SIM kọ̀ọ̀kan",
+  "fontSizesSetting": "Àwọn Ìwọ̀n Fọ́ńtì",
+  "foundRules": "A rí àwọn òfin {count}",
+  "fraudAlert": "ÌKÍLỌ̀ ÌWỌ̀N-ÌBẸ́RÚ - Pa ìpè náà dúró",
+  "fraudScamLikely": "Ó Ṣeé Ṣe Kó Jẹ́ Ìwọ̀n-Ìbẹ́rù",
+  "free": "Ọ̀fẹ́",
+  "functionSettingsTitle": "Àwọn Àtòjọ Iṣẹ́",
+  "generalUpdateFailure": "Ìmúdójúìwọ̀n kùnà: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "Gba Ẹ̀fọ́",
+  "github": "GitHub",
+  "globalFilterDescription": "Ṣètò àwọn àlẹ̀mọ́ àgbàlá fún gbogbo káàdì SIM:",
+  "globalFilterFeature": "• Àwọn Àlẹ̀mọ́ Àgbàlá: Àwọn òfin ìpìlẹ̀ fún gbogbo ìpele tó ń wọlé",
+  "globalFilterSettings": "Àwọn Àtòjọ Àlẹ̀mọ́ Àgbàlá",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "Àwọn Àtòjọ Àgbàlá",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "Fún ìtọ́kasí nípa lílo ID àti kọ́kọ́rọ́ Google Drive tí ètò ti ṣètò",
+  "googleDriveConfigTitle": "Ìṣètò Google Drive",
+  "government": "Ìjọba",
+  "granted": "A Fún Un",
+  "grantNecessaryPermissions": "Fún Àwọn Ìtọ́kasí Tó Níyelori",
+  "grantPermissions": "Fún Àwọn Ìtọ́kasí",
+  "headhunter": "Olùṣàwárí Òṣìṣẹ́",
+  "height": "Gíga",
+  "homeTab": "Ilé",
+  "howItWorksPoint1": "• Ètò náà yóò gba àwọn ìpè láti inú nọ́mbà kan náà láàyè láìfọwọ́ṣe láàárín àkókò tí a ṣètò",
+  "howItWorksPoint2": "• Àkókò tí ó kúrú máa ń mú kí ìdènà le sí i; àkókò tí ó gùn máa ń mú kí ìdènà rọ̀ sí i",
+  "howItWorksPoint3": "• Ètò náà máa ń ṣàyẹ̀wò àkọsílẹ̀ àwọn ìpè láti mọ̀ bóyá ìpè náà ti ṣẹlẹ̀ tẹ́lẹ̀",
+  "howItWorksTitle": "Bí Ó Ṣe N Ṣiṣẹ́:",
+  "iconCodeOptional": "Kóòdù Àwòrán (Kò Ṣe Dandan)",
+  "iconSize": "Ìwọ̀n Àwòrán",
+  "import": "Ṣe Ìwọlé",
+  "important": "Ó Ṣe Pàtàkì",
+  "importConfig": "Ṣètò Ìwọlé",
+  "importContacts": "Ṣe Ìwọlé Àwọn Olubasọrọ̀",
+  "importExportContacts": "Ṣe Ìwọlé/Ìtújáde Àwọn Olubasọrọ̀",
+  "importExportContactsTooltip": "Ṣe Ìwọlé/Ìtújáde Àwọn Olubasọrọ̀",
+  "importExportRules": "Ṣe Ìwọlé/Ìtújáde Àwọn Òfin",
+  "importFailed": "Ìṣàkóso kùnà: {error}",
+  "importFailure": "Kùnà láti ṣàkóso àgbékalẹ̀",
+  "importFeatureComingSoon": "Àfikún ìṣàkóso yóò dé láìpẹ́",
+  "importLabels": "Ṣàkóso Àwọn Àmì",
+  "importLabelsFailed": "Kùnà láti ṣàkóso àwọn àmì: {error}",
+  "importPluginList": "Ṣàkóso Àkójọ Àwọn Àfikún",
+  "importPluginListFailed": "Kùnà láti ṣàkóso àkójọ àwọn àfikún: {error}",
+  "importPluginSuccess": "A ṣàkóso àwọn àfikún {count} lọ́nà tó ṣeéṣe",
+  "importRuleConfigurationsFromFile": "Ṣàkóso Àwọn Àgbékalẹ̀ Òfin Láti Fájìlì",
+  "importRules": "Ṣàkóso Àwọn Òfin",
+  "importSuccess": "Ìṣàkóso ṣeéṣe",
+  "incomingCallInterceptAction": "Ìgbésẹ̀ Dídènà Ìpè Tó ń Wá",
+  "incorrectPassword": "Ọ̀rọ̀ aṣínà tí kò tọ́",
+  "initializing": "Bíbẹ̀rẹ̀",
+  "installed": "Ti fi sílẹ̀",
+  "insufficientMarks": "Àmì Kò Tó",
+  "insurance": "Ìṣeduro",
+  "interceptAction": "Ìgbésẹ̀ Dídènà",
+  "interceptionActionSettingsSubtitle": "Ṣètò bí a ṣe máa ṣe àwọn ìpè tí a dí",
+  "interceptionActionSettingsTitle": "Àwọn Ìṣètò Ìgbésẹ̀ Dídènà",
+  "interceptionTimeInterval": "Àárín Àkókò Dídènà",
+  "internet": "Íńtánẹ́ẹ̀tì",
+  "intervalSetSuccess": "A ti ṣètò àárín ìmúdójúìwọ̀n {service} sí ọjọ́ {days}",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "Régìkísì àkóónú tí kò bójú mu",
+  "invalidLabel": "Àmì tí kò bójú mu",
+  "invalidRegexPattern": "Àwòrán régìkísì tí kò bójú mu",
+  "invalidSenderRegex": "Régìkísì olùfiránṣẹ́ tí kò bójú mu",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "Darapọ̀ mọ́ Chánẹ́lì àti Ẹgbẹ́ Telegram fún ìsọfúnni sí i",
+  "jsonFormat": "Ìṣètò JSON",
+  "keepAllVersions": "Pa gbogbo ẹ̀yà mọ́",
+  "keepAllVersionsDescription": "Pa gbogbo àwọn ẹ̀dà ìtàn ti ìfipamọ́ kọ̀ọ̀kan",
+  "label": "Àmì",
+  "labelAddedSuccessfully": "A ti fi àmì \"{name}\" kún ní àṣeyọrí",
+  "labelCategories": "Àwọn Ẹ̀ka Àmì",
+  "labelDeleted": "A ti pa àmì náà rẹ́",
+  "labelDescription": "Àwọn àmì ń ran ọ́ lọ́wọ́ láti ṣàkóso àwọn olubasọrọ́ dáadáa sí i; fi àwọn àmì àrà ọ̀tọ̀ sí àwọn nọ́mbà fóònù kí ó rọrùn láti dá àwọn ìpè àti ìfiránṣẹ́ mọ̀.",
+  "labelFilterTooltip": "Àlẹ̀mọ́ Àmì",
+  "labelIconColor": "Àwọ̀ Àwòrán Àmì",
+  "labelManagement": "Ìṣàkóso Àmì",
+  "labelNotFound": "A kò rí àmì náà",
+  "labels": "Àwọn Àmì",
+  "labelsColor": "Àwọ̀ Àwọn Àmì",
+  "labelsDeleted": "A ti pa àwọn àmì {count} rẹ́",
+  "labelsExportedSuccessfully": "A ti ṣe àtẹ̀jáde àwọn àmì ní àṣeyọrí",
+  "labelsFontSize": "Ìwọ̀n Fọ́ọ̀tì Àwọn Àmì",
+  "labelsImportedSuccessfully": "A ṣàṣeyọrí láti ṣàkójọ {count} àmì",
+  "labelsPosition": "Ìpò Àmì",
+  "labelTag": "Àmì: {labelId}",
+  "labelUpdateFailed": "Kò ṣàṣeyọrí láti ṣàtúnṣe àmì: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "A ṣàtúnṣe àmì \"$labelText\" ṣàṣeyọrí",
+  "languageSettings": "Àwọn Àṣàyàn Èdè",
+  "languageSettingsSubtitle": "Yí èdè tí ohun èlò fi ń ṣàfihàn padà",
+  "languageSettingsTitle": "Àwọn Àṣàyàn Èdè",
+  "lastSyncLabel": "Ìṣọ̀kan Tó Kẹ́yìn",
+  "lastUpdated": "A ṣàtúnṣe rẹ̀ tó kẹ́yìn ní: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "Ìwà Ẹgbẹ́ Títí Láé",
+  "lifetimeMembershipDescription": "Rà ní ẹ̀ẹ̀kan, kí o sì ṣí gbogbo àwọn ẹ̀ya olówó àti àwọn ìmúdójúìwọ̀n ọjọ́ iwájú sílẹ̀ títí láé",
+  "loadContactsFailed": "Kò ṣàṣeyọrí láti kó àwọn olubasọrọ̀ wọlé: {error}",
+  "loadDataFailed": "Kò ṣàṣeyọrí láti kó dátà wọlé",
+  "loading": "Ó ń kó wọlé...",
+  "loadingTags": "A ń kó ń tags...",
+  "loadLabelFailed": "Kò ń kó ń labels: {error}",
+  "loadLabelsFailed": "Kò ń kó ń labels: {error}",
+  "loadMarkCountFailed": "Kò ń kó ń phone numbers marked: {error}",
+  "loadMarkedPhonesFailed": "Kò ń kó ń phones marked: {error}",
+  "loadPluginsFailed": "Kò ń kó ń plugins: {error}",
+  "loadSettingsFailed": "Kò ń kó ń settings: {error}",
+  "loadSmsRulesFailed": "Kò ń kó ń SMS rules: {error}",
+  "loadStatusFailedMessage": "Kò ń kó ń status",
+  "loadSubscriptionsFailed": "Kò ń kó ń subscriptions: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "Loan",
+  "localCounterFilter": "Local Counter Filter",
+  "localCounterFilterSubtitle": "Filter spam calls automatically based on call frequency",
+  "localCountFilter": "Local Count Filter",
+  "localCountFilterDescription": "Intercept frequent calls based on local number counts",
+  "localCountFilterExplanationContent": "Àwọ̀n ìṣírò agbègbè ń ṣàyẹ̀wò àwọn àkọsílẹ̀ ìtàn ìpè láti dá àwọn ìpè ìdẹ̀rù tí ó sábà máa ń ṣẹlẹ̀ mọ̀ láìfọwọ́ṣe, kí ó sì dí wọn.",
+  "localCountFilterExplanationTitle": "Ìtumọ̀ Nípa Àwọ̀n Ìṣírò Agbègbè",
+  "localCountFilterHowItWorksPoint1": "• Pinnu bóyá a ó dí i ní ìbámu pẹ̀lú iye ìṣírò nọ́mbà náà",
+  "localCountFilterHowItWorksPoint2": "• Nígbà tí iye ìṣírò nọ́mbà kan bá kọjá òpin tí a ṣètò, o lè yan láti dí i láìfọwọ́ṣe",
+  "localCountFilterHowItWorksPoint3": "• O lè yan láti gba àwọn nọ́mbà tí kò kọjá òpin náà ṣinṣin",
+  "localCountFilterHowItWorksPoint4": "• O lè yan bóyá a ó kọ gbogbo àkọsílẹ̀ ìbéèrè sílẹ̀",
+  "localCountFiltering": "Ìdènà Nípa Ìṣírò Agbègbè",
+  "localCountFilteringExplanation": "• Àyẹ̀wò Iye Agbègbè: Àwọn òfin àyẹ̀wò tó dá lórí iye àmì agbègbè",
+  "localCountFilterSettings": "Àwọn Àṣàyàn Àyẹ̀wò Iye Agbègbè",
+  "localCountFilterUseCases": "Àyẹ̀wò yìí dára gan-an fún ṣíṣe ìdánimọ̀ àwọn ìpè spam tí ẹ̀rọ ń pè fúnra rẹ̀ àti àwọn ìpè ìpolówó.",
+  "localFilterSettings": "Àwọn Àṣàyàn Àyẹ̀wò Agbègbè",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "Ìfitónilétí agbègbè ti kùnà",
+  "localNotificationEnabled": "Ìfitónilétí agbègbè ti ṣiṣẹ́",
+  "localServices": "Àwọn Iṣẹ́ Agbègbè",
+  "locationColor": "Àwọ̀ Ibi",
+  "locationFontSize": "Ìwọ̀n Fọ́ńtì Ibi",
+  "locationIconColor": "Àwọ̀ Àmì Ibi",
+  "locationPosition": "Ìpò Ibi",
+  "logAllLocalQueries": "Fọwọ́sí Gbogbo Ìbéèrè Agbègbè",
+  "logAllLocalQueriesDescription": "Ṣàkọsílẹ̀ àwọn ìtọ́kasí fún gbogbo ìbéèrè nọ́mbà agbègbè",
+  "logAllRemoteQueries": "Fọwọ́sí Gbogbo Ìbéèrè Kíkún",
+  "logAllRemoteQueriesDescription": "Ṣàkọsílẹ̀ gbogbo ìṣiṣẹ́ ìbéèrè nọ́mbà kíkún",
+  "manage": "Ṣàkóso Àwọn Ìbánisọ̀rọ̀",
+  "manageFavoriteContacts": "Ṣàkóso Àwọn Ìbánisọ̀rọ̀ Aṣayan",
+  "manageFilterRules": "Ṣàkóso Àwọn Òfin Ìṣàyẹ̀wò",
+  "manageFilterRulesDescription": "Fi àwọn òfin ìṣàyẹ̀wò SMS kún, ṣàtúnṣe wọn, tàbí pa wọn rẹ́",
+  "markCounts": "Àwọn Ìṣirò Àmì",
+  "markCount": "Ìṣirò Àmì",
+  "markedByCount": "A ti ṣàmì rẹ̀ ní ìṣirò {count}",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Àwọn Nọ́mbà Fóònù Tí A Ti Ṣàmì",
+  "markExchange": "Ìyípadà Mark",
+  "markPhone": "Nọ́mbà Fóònù Mark",
+  "markPhoneFailed": "Kò ṣeé ṣe láti fi àmì sí nọ́mbà fóònù: {error}",
+  "markPhoneManagementTitle": "Ìṣàkóso Nọ́mbà Fóònù Mark",
+  "markPhoneSuccess": "A ti fi àmì sí nọ́mbà fóònù náà lọ́ṣùwọ̀n",
+  "matchFailedMessage": "Ìbámu kò ṣeé ṣe.",
+  "matchNumbersWithSpecialCharacters": "ó bá ìṣètò nọ́mbà kan pàtó mu",
+  "matchNumbersWithSpecialCharactersTitle": "Bá nọ́mbà tó ní àwọn àmì àkànṣe mu:",
+  "matchSpecificDigitPatterns": "ó bá ìṣètò XXX-XXXX-XXXX mu",
+  "matchSpecificDigitPatternsTitle": "Bá àwọn àwòrán díjítì pàtó mu:",
+  "matchSuccessfulMessage": "Ìbámu ṣeé ṣe!",
+  "medical": "Ìṣègùn",
+  "membershipPrivileges": "Àwọn Ẹ̀tọ́ Àkànṣe Ẹgbẹ́",
+  "migrationTool": "Irinṣẹ́ Ìṣípò",
+  "minutes": "ìṣẹ́jú",
+  "month": "Oṣù",
+  "monthly": "Ọ̀sà",
+  "monthlyCallCount": "Ìpè Ọ̀sà",
+  "monthlyMembership": "Ìwọlé Ọ̀sà",
+  "monthlyMembershipDescription": "Ṣí gbogbo àwọn àǹfààní premium, ó tún ara rẹ̀ ṣe lórí ọ̀sà",
+  "monthlyTotal": "Àpapọ̀ Ọ̀sà",
+  "moreOptions": "Àwọn Àṣàyàn Sí i",
+  "name": "Orúkọ",
+  "nameAndPhoneNumberCannotBeEmpty": "Orúkọ àti nọ́mbà fóònù kò lè ṣófo",
+  "nameColor": "Àwọ̀ Orúkọ",
+  "nameFontSize": "Ìwọ̀n Fọ́ńtì Orúkọ",
+  "namePosition": "Ìdúró Orúkọ",
+  "nameUnknown": "Orúkọ: Aìsírò",
+  "nextStep": "Ìgbésẹ̀ Tó Kàn",
+  "noAction": "Kò sí Ìgbésẹ̀",
+  "noActionRules": "Àwọn Òfin Kò sí Ìgbésẹ̀",
+  "noActiveCloudSyncServiceMessage": "Kò sí iṣẹ́ ìṣọ̀kan ojú ọ̀run tó ń ṣiṣẹ́",
+  "noCallRecords": "Kò sí ìwé ìpè",
+  "noContactsYet": "Kò sí olùkan síbẹ̀",
+  "noData": "Kò sí dátà",
+  "noDevicesRegisteredMessage": "Kò sí ẹ̀rọ tí a forúkọ sílẹ̀",
+  "noLabels": "Kò sí àmì síbẹ̀",
+  "noMarkedPhones": "Kò sí nọ́mbà fóònù tí a fi àmì sí",
+  "noMatchingContactsFound": "Kò sí olùkan tó bá mu",
+  "noMatchingNumbersFound": "Kò sí nọ́mbà tó bá mu",
+  "noMatchingRules": "Kò sí {ruleType} tó bá mu",
+  "none": "Kò sí",
+  "noneServiceType": "Kò sí",
+  "noPlugins": "Kò sí plugin síbẹ̀",
+  "noRules": "Kò sí {ruleType} síbẹ̀",
+  "noRulesPrompt": "Kò sí òfin kankan, jọ̀wọ́ fi òfin kún un",
+  "noRulesToExport": "Kò sí òfin láti ṣe àgbéjáde",
+  "noSmsFilterRulesYet": "Kò sí òfin àyẹ̀wò SMS rárá",
+  "noSmsRulesYet": "Kò sí òfin SMS rárá",
+  "noSubscriptions": "Kò sí ìforúkọsílẹ̀ rárá",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "Kò Fún Un",
+  "notificationModeDescription": "Fi ìsọfúnni nípa ẹni tó ń pe hàn ní bára ìfitónilétí",
+  "notificationPermission": "Ìtọ́wọ́ Fún Ìfitónilétí",
+  "notificationPermissionDescription": "A lò ó láti fi ìfitónilétí nípa ìpele àti ìfiránṣẹ́ tó ń wọlé hàn.",
+  "notifications": "Ìfitónilétí",
+  "notificationSettings": "Àwọn Ìṣètò Ìfitónilétí",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "Kò Ti Fìdí Rẹ̀ múlẹ̀",
+  "noValidSmsRulesFoundInFile": "Kò sí òfin SMS tó bófin mu tí a rí nínú fáìlì náà",
+  "number": "Nọ́mbà",
+  "numberColor": "Àwọ̀ Nọ́mbà",
+  "numberFontSize": "Ìwọ̀n Fọ́ńtì Nọ́mbà",
+  "numberPosition": "Ìpò Nọ́mbà",
+  "numberSearch": "Ìṣàwárí Nọ́mbà",
+  "numberTypeColor": "Àwọ̀ Irú Nọ́mbà",
+  "numberTypeFontSize": "Ìwọ̀n Fọ́ńtì Irú Nọ́mbà",
+  "numberTypePosition": "Ìpò Irú Nọ́mbà",
+  "okButton": "Ó dáa",
+  "onboardingCompleteDescription": "Olùṣàkóso ààbò ìpè rẹ ti múra tán, bẹ̀rẹ̀ sí í gbádùn ìrírí ìpè tó ní ààbò!",
+  "onboardingLanguageDescription": "Yan èdè tí o fẹ́ràn fún ìrírí tó dára jù lọ.",
+  "onboardingPermissionsDescription": "Láti pèsè iṣẹ́ kíkún, a nílò àwọn àṣẹ wọ̀nyí:",
+  "onboardingPowerfulSpamBlockingDescription": "Dín ìpè àti ìfiránṣẹ́ ìdọ̀tí kù ní títẹ̀ kan, ṣàtúnṣe àwọn òfin ìdènà, kí ó sì fún ọ ní àyíká tó balẹ̀.",
+  "onboardingSmartCallerIdDescription": "Mọ àwọn ìpè tí a kò mọ̀ ní àdánidá, ṣe àmì àwọn nọ́mbà tí ó ṣeni àníyàn, kí o sì dáàbò bo ààbò ìpè rẹ.",
+  "onboardingWelcomeDescription": "Amòye rẹ fún ìṣàkóso ìpè, tó ń pèsè iṣẹ́ ìdánimọ̀ àti ìdènà ìpè tó péye.",
+  "oneDriveAuthDescription": "Fún àṣẹ nípa lílo ID àti kọ́kọ́rọ́ OneDrive tí ètò ti ṣètò",
+  "oneDriveConfigTitle": "Ìṣètò OneDrive",
+  "onlineCallerIdSubscription": "Ìforúkọsílẹ̀ ID Olùpè Lórí Íńtánẹ́ẹ̀tì",
+  "openAppSettings": "Ṣí àwọn ìṣètò ohun èlò",
+  "openAppSettingsFailed": "Kò ṣeé ṣí àwọn ìṣètò ohun èlò: {error}",
+  "operationFailed": "Ìgbésẹ̀ náà kùnà: {error}",
+  "operationFailure": "Ìgbésẹ̀ náà kùnà",
+  "operationSuccess": "Ìgbésẹ̀ náà ṣàṣeyọrí",
+  "other": "Ẹlòmíràn",
+  "ourOtherApps": "Àwọn Ohun Èlò Wa Yòókù",
+  "overlayMode": "Fíńdì Tí ń Fò",
+  "overlayModeDescription": "Fi ìsọfúnni olùpè hàn nínú fíńdì tí ń fò",
+  "overlayPermission": "Ìgbàtìlẹ́yìn Fíńdì Tí ń Fò",
+  "overlayPermissionDescription": "A lò ó láti fi fíńdì ìpè tí ń wọlé hàn.",
+  "overview": "Àkótán",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "Ọ̀rọ̀ aṣínà",
+  "passwordCannotBeEmpty": "Ọ̀rọ̀ aṣínà kò gbọdọ̀ ṣófo",
+  "passwordLabel": "Ọ̀rọ̀ aṣínà",
+  "passwordsDoNotMatch": "Àwọn ọ̀rọ̀ aṣínà náà kò bá ara wọn mu",
+  "pattern": "Àpẹẹrẹ",
+  "pendingSync": "Ìṣọ̀kan Tí ń Dúró",
+  "periodMonth": "Oṣù",
+  "periodWeek": "Ọ̀sẹ̀",
+  "periodYear": "Ọdún",
+  "permissionDenied": "A kọ ìbéèrè ìgbàtìlẹ́yìn náà",
+  "permissionGranted": "A fún ní ìgbàtìlẹ́yìn",
+  "permissionManagement": "Ìṣàkóso Ìgbàtìlẹ́yìn",
+  "phoneCallsTab": "Foonu",
+  "phoneNumber": "Nọ́mbà Foonu",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "Nọ́mbà foonu kò gbọdọ̀ ṣófo",
+  "phoneNumberLabel": "Nọ́mbà Foonu",
+  "phoneNumberTypeFixedLine": "Foonu àìyípadà",
+  "phoneNumberTypeFixedLineOrMobile": "Laini àdììtì tàbí alagbára",
+  "phoneNumberTypeMobile": "Alagbára",
+  "phoneNumberTypePager": "Págà",
+  "phoneNumberTypePersonalNumber": "Nọ́mbà ara ẹni",
+  "phoneNumberTypePremiumRate": "Ìṣẹ́ owó gíga",
+  "phoneNumberTypeSharedCost": "Ìṣẹ́ tí a pín owó rẹ̀",
+  "phoneNumberTypeTollFree": "Ìṣẹ́ ọ̀fẹ́",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "Aìmọ̀",
+  "phoneNumberTypeVoicemail": "Ìfiránṣẹ́ ohùn",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "Ìgbàdọ́gba Fóònù",
+  "phonePermissionDescription": "A lò ó láti dá àwọn ìpè tí ń wọlé mọ̀ kí a sì dí wọn.",
+  "phoneRule": "Òfin Fóònù",
+  "phoneRuleManagement": "Ìṣàkóso Òfin Fóònù",
+  "phoneRuleSubscription": "Ìforúkọsílẹ̀ Òfin Fóònù",
+  "phoneSubscription": "Ìforúkọsílẹ̀ Fóònù",
+  "phoneSubscriptionRulesDescription": "Forúkọ sí àwọn àkójọ òfin fóònù nípasẹ̀ URL láti ṣe àtúnṣe àwọn òfin àkójọ funfun àti àkójọ dúdú lọ́nà àdáni. Ó ṣe àtìlẹ́yìn fún àwọn fáìlì òfin ní fọ́ọ̀mù JSON.",
+  "pleaseSelectLabelAndEnterValidPhone": "Jọ̀wọ́ yan àmì kan kí o sì tẹ nọ́mbà fóònù tó bójú mu wọlé",
+  "pluginAddedSuccess": "A ti fi plugin \"{name}\" kún un lọ́ṣeyọrí",
+  "pluginDeleted": "A ti pa plugin náà rẹ́",
+  "pluginLatestVersion": "Plugin náà ti jẹ́ ẹ̀yà tuntun jù lọ",
+  "pluginListExportSuccess": "A ti ṣe àtẹ̀jáde àkójọ plugin lọ́ṣeyọrí",
+  "pluginManagement": "Ìṣàkóso Plugin",
+  "pluginManagementSubtitle": "Ṣàkóso kí o sì ṣètò àwọn plugin ẹni-kẹta",
+  "pluginName": "Orúkọ Plugin",
+  "pluginsDeleted": "{count} plugin ni a ti pa rẹ́ lọ́ṣeyọrí.",
+  "pluginService": "Iṣẹ́ Plugin",
+  "pluginTestPageTitle": "Ìdánwò Plugin",
+  "pluginUpdateSuccess": "A ti ṣe àtúnṣe plugin náà lọ́ṣeyọrí",
+  "pluginUrl": "URL Pẹlẹbẹ",
+  "pluginVersion": "Ẹ̀yà Pẹlẹbẹ",
+  "political": "Ọ̀rọ̀ Ìṣèlú",
+  "powerfulSpamBlocking": "Dídènà Ìfìwéránṣẹ́ Àìṣe Tó Lágbára",
+  "previousStep": "Tẹ́lẹ̀",
+  "prioritizeRemoteAction": "Ṣe Àkọ́kọ́ Àwọn Àṣàyàn Ìṣe Láti Àwọn Dátábéèsì Kíkùn",
+  "prioritizeRemoteActionDescription": "Ṣe àkọ́kọ́ àwọn àṣàyàn ìṣe láti inú dátábéèsì kíkùn",
+  "processing": "Ní ìṣiṣẹ́...",
+  "processingOperation": "Ní ìṣiṣẹ́...",
+  "purchase": "Rà",
+  "quarterlyMembership": "Ìwọ̀n Ìbánisọ̀rọ̀ Ọdún mẹ́rin",
+  "quarterlyMembershipDescription": "Ṣí gbogbo àwọn ẹ̀ya àgbàyanu, ó máa tún ara rẹ̀ ṣe ní gbogbo ọdún mẹ́rin",
+  "ready": "Ó Ṣe tán!",
+  "recruiter": "Olùṣàkóso Ìṣàkóso",
+  "refresh": "Tún Ṣe",
+  "refreshPermissionStatus": "Tuntun ipinìwọ̀n ìtọ́kasí",
+  "refreshTooltip": "Tuntun",
+  "regexErrorMessage": "Ìṣòro Regex: {error}",
+  "regexPattern": "Àpẹẹrẹ Regex",
+  "regexPatternExplanation": "Àlàyé Àpẹẹrẹ Regex",
+  "regexPatternExplanationButton": "Àlàyé Àpẹẹrẹ Regex",
+  "regexPatternLabel": "Àpẹẹrẹ Regex",
+  "regexPatternsForPhoneNumberMatching": "Àwọn Àpẹẹrẹ Regex fún Ìbámu Nọ́mbà Fóònù",
+  "regexRule": "Ìlànà Regex",
+  "regexRuleAddFailed": "Kò ṣeé ṣe láti fi ìlànà Regex kún: {error}",
+  "regexRuleAddSuccess": "A ti fi ìlànà Regex kún ṣe àṣeyọrí",
+  "regexRuleManagement": "Ìṣàkóso Ìlànà Regex",
+  "regexRuleNamePatternRequired": "Orúkọ ìlànà àti àpẹẹrẹ Regex kò gbọdọ̀ ṣófo",
+  "regexRules": "Àwọn Ìlànà Regex",
+  "regexTesterTitle": "Olùṣàyẹ̀wò Regex",
+  "region": "Agbègbè",
+  "registeredDevicesTitle": "Àwọn Ẹ̀rọ Tí A Forúkọ Sílẹ̀",
+  "rejectAllCalls": "Kọ gbogbo Ìpè",
+  "rejectAllCallsDescription": "Nígbà tí a bá tan án, a ó kọ gbogbo ìpè pẹ̀lú ìṣe tó ṣe pàtàkì jù lọ",
+  "rejectAllNumbers": "Kọ gbogbo Nọ́mbà",
+  "rejectAllNumbersDesc": "Kọ gbogbo ìpè tí ń wọlé nígbà tí a bá tan án",
+  "rejectExceededNumbers": "Kọ Àwọn Nọ́mbà Tó Kọjá Ààlà",
+  "rejectExceededNumbersDescription": "Kọ àwọn nọ́mbà tó kọjá ìwọ̀n ààlà iye lọ́wọ́-àdáni",
+  "remoteFilterSettings": "Àwọn Ìṣètò Àtọ́ka Lọ́kàn",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "Àwọn Ìṣètò Àtọ́ka Nọ́mbà Lọ́kàn",
+  "remoteNumberFilter": "Àtọ́ka Nọ́mbà Lọ́kàn",
+  "remoteNumberFilterDescription": "Dènà àwọn ìpè ìkà nípa lílo ìsọfúnni láti inú ìpàkọ́ data lọ́kàn",
+  "remoteNumberFiltering": "Ìṣe Àtọ́ka Nọ́mbà Lọ́kàn",
+  "remoteNumberFilteringExplanation": "• Ìṣe Àtọ́ka Nọ́mbà Lọ́kàn: Àwọn òfin àtọ́ka tó dá lórí ìsọfúnni láti inú ìpàkọ́ data lọ́kàn",
+  "remoteNumberFilterSubtitle": "Mọ àwọn ìpè ìkà nípa lílo ìpàkọ́ data ọ̀run àti àwọn ìròyìn láti ọ̀dọ̀ àwùjọ",
+  "removeAdsDescription": "Yọ́ gbogbo ìpolówó nínú app náà pátápátá fún ìrírí tó rọrùn sí i",
+  "removeAdsTitle": "Yọ́ Ìpolówó",
+  "removedFromFavorites": "A ti yọ́ ọ́ kúrò nínú àwọn olubasọrọ́ tí a fẹ́ràn",
+  "removeFromFavorites": "Yọ́ Kúrò Nínú Àwọn Tí A Fẹ́ràn",
+  "renameDeviceTitle": "Pààrọ̀ Orúkọ Ẹ̀rọ",
+  "requestAllPermissions": "Béèrè Fún Gbogbo Òye",
+  "requestPermission": "Béèrè Fún Òye",
+  "requestPermissionFailed": "Kò ṣeé ṣe láti béèrè òye: {error}",
+  "requiredMarks": "{count} Àmì",
+  "reset": "Ṣàtúnṣe",
+  "restore": "Ṣàtúnṣe",
+  "restoreApplicationSettingsFromBackup": "Ṣàtúnṣe Àwọn Àṣàyàn App Láti Ìfipamọ́ Àtẹ̀yìn",
+  "restoreFromCloud": "Ṣàtúnṣe Láti Àwọ̀n",
+  "restoreFromCloudFailed": "Kò ṣeé ṣe láti ṣàtúnṣe láti àwọ̀n: {error}",
+  "restoreFromCloudSuccess": "A ti ṣàtúnṣe rẹ̀ láti àwọ̀n lọ́dánilójú",
+  "restorePurchases": "Ṣe Àtúnṣe Àwọn Ìṣòwò",
+  "restoreSettings": "Ṣe Àtúnṣe Àwọn Àṣàyàn",
+  "restoreSettingsConfirmation": "Èyí yóò rọ́pò gbogbo àwọn àṣàyàn rẹ̀ lọ́wọ́lọ́wọ́. Ṣé o dájú pé o fẹ́ tẹ̀síwájú?",
+  "retry": "Gbìyànjú Lẹ́ẹ̀kan Sí i",
+  "ridesharing": "Pínpín Ọkọ̀ Ayọ́kẹ́lẹ́",
+  "risk": "Ewu",
+  "robocall": "Ìpè Alákóso",
+  "ruleAction": "Ìgbésẹ̀ Òfin",
+  "ruleAddedSuccess": "A ti fi òfin náà kún ní àṣeyọrí",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "A ti fi òfin náà kún ní àṣeyọrí",
+  "ruleDeleteConfirmContent": "Ṣé o dájú pé o fẹ́ pa òfin {ruleType} yìí rẹ́?",
+  "ruleDeleteConfirmTitle": "Pa Òfin Rẹ́",
+  "ruleDeletedSuccessfully": "A ti pa òfin náà rẹ́ ní àṣeyọrí",
+  "ruleDeleteFailed": "Kò ṣeé ṣe láti pa òfin náà rẹ́: {error}",
+  "ruleDeleteSuccess": "A ti pa òfin náà rẹ́ ní àṣeyọrí",
+  "ruleDisabledSuccessfully": "Aṣẹ ti fagilé dáadáa",
+  "ruleEnabledSuccessfully": "Aṣẹ ti tan dáadáa",
+  "ruleLoadFailed": "Kò ṣeé ṣe láti gba àwọn àṣẹ: {error}",
+  "ruleManagement": "Ìṣàkóso Àṣẹ",
+  "ruleName": "Orúkọ Àṣẹ",
+  "ruleNameAndContentRegexCannotBeEmpty": "Orúkọ àṣẹ àti regex àkóónú kò gbọdọ̀ ṣófo",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "Orúkọ àṣẹ àti nọ́mbà fóònù kò gbọdọ̀ ṣófo",
+  "ruleNameHint": "fún àpẹẹrẹ, Ìdílé, Àwọn Ọ̀rẹ́, àti bẹ́ẹ̀ bẹ́ẹ̀ lọ",
+  "ruleNameLabel": "Orúkọ Àṣẹ",
+  "ruleNameRequired": "Orúkọ àṣẹ àti nọ́mbà fóònù kò gbọdọ̀ ṣófo",
+  "ruleNotExist": "Àṣẹ náà kò sí tàbí a ti pa á rẹ́",
+  "ruleNotFound": "A kò rí àṣẹ náà: {error}",
+  "ruleSavedSuccessMessage": "A ti fi àṣẹ pamọ́ dáadáa!",
+  "rulesExportedSuccessfully": "A ti ṣe àtẹ̀jáde àwọn àṣẹ dáadáa",
+  "rulesExportedTo": "A ti ṣe àtẹ̀jáde àwọn àṣẹ sí: {path}",
+  "rulesImported": "Aṣẹ ti wọlé ṣe àṣeyọrí",
+  "rulesImportedSuccessfully": "{count} aṣẹ ti wọlé ṣe àṣeyọrí",
+  "ruleStatusChanged": "Ìṣòro aṣẹ {status} ṣe àṣeyọrí",
+  "ruleToggleFailed": "Ṣíṣe náà kùnà: {error}",
+  "ruleToggleSuccess": "Aṣẹ {status} ṣe àṣeyọrí",
+  "ruleUpdateFailed": "Kùnà láti ṣe àtúnṣe aṣẹ: {error}",
+  "ruleUpdateSuccess": "Aṣẹ ti ṣe àtúnṣe ṣe àṣeyọrí",
+  "ruleVerification": "Ìdánwò Aṣẹ",
+  "save": "Fipamọ́",
+  "saveButton": "Fipamọ́",
+  "saveButtonText": "Fipamọ́",
+  "saveFailed": "Fipamọ́ kùnà: {error}",
+  "saveSettings": "Fipamọ́ Àwọn Ìṣètò",
+  "scamsLikely": "Ó Ṣeé Ṣe Kí Ó Jẹ́ Ìṣẹ̀lẹ̀ Àṣìṣe",
+  "search": "Wá",
+  "searchContacts": "Wáàjọ́ àwọn ìbáṣepọ̀",
+  "searchError": "Àṣìṣe ìwádìí: {error}",
+  "searchHint": "Wá...",
+  "securityMessage": "Má gbẹ́kẹ̀ lé ìpè fóònù kankan. Máa ṣàyẹ̀wò àwọn nọ́mbà iṣẹ́ oníbàárà lọ́nà ọ̀tọ̀ọ̀tọ̀ nígbà gbogbo. Má ṣe pín àwọn ọ̀rọ̀ aṣínà, àwọn kóòdù ìfìdí rẹ̀ múlẹ̀, àwọn nọ́mbà káàdì tàbí àwọn ìsọfúnni ara ẹni rárá.",
+  "selectActionWhenBlockingCalls": "Yan ìgbésẹ̀ nígbà tí a bá dí àwọn ìpè",
+  "selectActionWhenRuleMatches": "Yan ìgbésẹ̀ nígbà tí òfin bá bá ohun mu",
+  "selectAll": "Yan Gbogbo",
+  "selectCountry": "Yan Orílẹ̀-èdè",
+  "selectedItems": "{count} ohun ni a yan",
+  "selectedLabel": "Àwọn tí a yan:",
+  "selectExportFormat": "Yan Fọ́ọ̀mù Ìtújáde",
+  "selectLabel": "Yan Àmì",
+  "selectLabelAndEnterPhoneNumber": "Jọ̀wọ́ yan àmì kan kí o sì tẹ nọ́mbà fóònù tó bófin mu",
+  "selectLanguage": "Yan Èdè",
+  "selectMultiple": "Yan Ọ̀pọ̀",
+  "selectSimCard": "Yan SIM Card",
+  "selectTags": "Yan Tags",
+  "selectTrustedDataSource": "Jọ̀wọ́ yan àwọn orísun dátà tí a gbẹ́kẹ̀ lé",
+  "selectYourLanguage": "Yan Èdè Rẹ",
+  "sender": "Olùfiránṣẹ́",
+  "senderRegexOptional": "Regex Olùfiránṣẹ́ (Kò Ṣe Dandan)",
+  "serverAddressLabel": "Ìbéèrè Olùṣiṣẹ́",
+  "serviceTypeContact": "Ìforúkọsílẹ̀ Kíkanṣoṣo",
+  "serviceTypeLabel": "Irú Iṣẹ́",
+  "serviceTypePhone": "Ìforúkọsílẹ̀ Fóònù",
+  "serviceTypePlugin": "Ìmúdójúìwọ̀n Plugin",
+  "serviceTypeSms": "Ìforúkọsílẹ̀ SMS",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "Ṣètò Ọ̀rọ̀ Àṣírí Ìkódi",
+  "settings": "Àwọn Àṣàyàn",
+  "settingsBackedUpTo": "Àwọn àtòjọ tí a fi pamọ́ sí: {path}",
+  "settingsRestoredSuccessfully": "Àwọn àtòjọ ti tún ṣe àṣeyọrí. Jọ̀wọ́ bẹ̀rẹ̀ àpù náà padà kí àwọn àyípadà lè ṣiṣẹ́.",
+  "settingsSaved": "Àwọn àtòjọ ti fipamọ́",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "Kò ṣeé ṣe láti fipamọ́ àwọn àtòjọ: {error}",
+  "settingsTab": "Àwọn Àtòjọ",
+  "settingsTitle": "Àwọn Àtòjọ",
+  "setup": "Ìṣètò",
+  "silence": "Ìdákẹ́jẹ́",
+  "silenceAndNoAnswer": "Ìdákẹ́jẹ́ àti Kò sí Ìdáhùn",
+  "silenceNoAnswer": "Ìdákẹ́jẹ́ Kò sí Ìdáhùn",
+  "silentCallVoiceClone": "Ìṣọ̀kan Ohùn Fún Ìpè Aládẹ́kẹ́",
+  "silentRules": "Àwọn Òfin Aládẹ́kẹ́",
+  "simCard": "Káàdì SIM {simNumber}",
+  "simCardColor": "Àwọ̀ Káàdì SIM",
+  "simCardConfigurationExplanation": "• Ìṣètò Káàdì SIM: Ṣètò àwọn òfin ìyọ̀da ọ̀tọ̀ọ̀tọ̀ fún káàdì SIM kọ̀ọ̀kan",
+  "simCardFilterRules": "Àwọn Ìlànà Ìyọ̀ SIM",
+  "simCardFilterRulesDescription": "Ṣètò àwọn ìlànà ìyọ̀ ọ̀tọ̀ọ̀tọ̀ ní ìbámu pẹ̀lú àwọn ààyè SIM",
+  "simCardFontSize": "Ìwọ̀n Fọ́ńtì Káàdì SIM",
+  "simCardPosition": "Ìpò Káàdì SIM",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "Àwọn ìlànà ààyè SIM ń jẹ́ kí o lè ṣètò àwọn ìlànà ìyọ̀ ọ̀tọ̀ọ̀tọ̀ fún ààyè SIM kọ̀ọ̀kan.",
+  "simRuleInstructionsTitle": "Àwọn Ìlànà Ààyè SIM",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "Ṣètò àwọn ìlànà ìyọ̀ ọ̀tọ̀ọ̀tọ̀ fún káàdì SIM kọ̀ọ̀kan:",
+  "simSlotFilterSettingsTitle": "Àwọn Ìṣètò Ìyọ̀ Ààyè SIM {slotNumber}",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "Ìṣàkóso Ààyè SIM",
+  "simSlotPosition": "Ìpò Ààyè SIM {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• Àwọn Ìlànà Ààyè SIM: Àwọn ọgbọ́n ìyọ̀ ọ̀tọ̀ọ̀tọ̀ fún SIM kọ̀ọ̀kan",
+  "simSlotRuleListTitle": "Àkójọ Àwọn Ìlànà Ààyè SIM",
+  "simSlotRuleManagement": "Àwọn Ìlànà Slot SIM",
+  "simSlotTitle": "Slot SIM {slotNumber}",
+  "skip": "Kọjá",
+  "smartCallerId": "Ìdánimọ̀ Olùpè Ọlọ́gbọ́n",
+  "sms": "SMS",
+  "smsFilterDescription": "Ìtọ́pa SMS ń ran ọ́ lọ́wọ́ láti tọ́pa àwọn ìfiránṣẹ́ aṣiwèrè ní ọ̀nà àdánidá, kí o sì pa àkójọ ìfiránṣẹ́ rẹ mọ́. O lè ṣètò àwọn ìlànà ìtọ́pa àti ọ̀nà ìfitónilétí.",
+  "smsFilterDisabled": "Ìtọ́pa SMS ti kó sílẹ̀",
+  "smsFilterEnabled": "Ìtọ́pa SMS ti tan",
+  "smsFilterRuleAddedSuccessfully": "A ti fi ìlànà ìtọ́pa SMS kún un lọ́ṣeyọrí",
+  "smsFilterRules": "Àwọn Ìlànà Ìtọ́pa SMS",
+  "smsFilterSettings": "Àwọn Ìṣètò Ìtọ́pa SMS",
+  "smsManagement": "Ìṣàkóso SMS",
+  "smsPermission": "Ìgbàtìlẹ́yìn SMS",
+  "smsPermissionDescription": "A ń lò ó láti tọ́pa àwọn ìfiránṣẹ́ aṣiwèrè.",
+  "smsRuleAddedSuccessfully": "A ti fi ìlànà SMS kún un lọ́ṣeyọrí",
+  "smsRuleDeletedSuccessfully": "Aṣẹ SMS ti pa nínú ṣeṣe",
+  "smsRuleLoadFailed": "Kò ṣeé ṣe láti gba àwọn àṣẹ SMS: {error}",
+  "smsRuleManagement": "Ìṣàkóso Àṣẹ SMS",
+  "smsRuleSubscription": "Ìforúkọsílẹ̀ fún Àṣẹ SMS",
+  "smsSubscription": "Ìforúkọsílẹ̀ SMS",
+  "smsSubscriptionAddedSuccessfully": "A ti fi ìforúkọsílẹ̀ SMS kún un ṣeṣe",
+  "smsSubscriptionRulesDescription": "Forúkọ sí àwọn àkójọ àṣẹ SMS nípasẹ̀ URL, tí ó ṣe àtìlẹ́yìn fún ìbámu pẹ̀lú regular expression. O lè ṣètò ìṣe ìdènà tàbí ìgbàlà.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "A kọ àwọn ìbéèrè àṣẹ kan sílẹ̀",
+  "spamLikely": "Ó ṣeé ṣe kó jẹ́ spam",
+  "startColor": "Àwọ̀ Ìbẹ̀rẹ̀",
+  "startDate": "Ọjọ́ Ìbẹ̀rẹ̀",
+  "startUsing": "Bẹ̀rẹ̀ sí í lò ó",
+  "statAnswered": "A ti dáhùn",
+  "statBlocked": "A ti dí",
+  "statistics": "Àwọn ìṣirò",
+  "statisticsPageTitle": "Ìtúpalẹ̀ dátà",
+  "stirColor": "Àwọ̀ STIR",
+  "stirFontSize": "Ìwọ̀n Fọ́ńtì STIR",
+  "stirPosition": "Ìpò STIR",
+  "storagePermission": "Ìgbàtìlẹ́yìn ìpamọ́",
+  "storagePermissionDescription": "A ń lò ó láti fi àwọn ìṣètò àti òfin pamọ́.",
+  "subscribe": "Tẹ̀lé",
+  "subscriptionAddSuccess": "A ti fi ìforúkọsílẹ̀ \"{name}\" kún un lọ́nà tó ṣeéṣe",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "Ṣé o dájú pé o fẹ́ pa ìforúkọsílẹ̀ yìí rẹ́?",
+  "subscriptionDeleteConfirmTitle": "Pa Ìforúkọsílẹ̀ Rẹ́",
+  "subscriptionDeleted": "A ti pa ìforúkọsílẹ̀ náà rẹ́",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "Kò ṣeé ṣe láti pa ìforúkọsílẹ̀ náà rẹ́: {error}",
+  "subscriptionDeleteSuccess": "A ti pa ìforúkọsílẹ̀ náà rẹ́",
+  "subscriptionLoadFailed": "Kò ṣeé ṣe láti gba àwọn ìforúkọsílẹ̀ náà wọlé: {error}",
+  "subscriptionName": "Orúkọ Ìforúkọsílẹ̀",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "Orúkọ ìforúkọsílẹ̀ àti URL kò gbọdọ̀ ṣófo",
+  "subscriptionNameHint": "Tẹ orúkọ ìforúkọsílẹ̀ wọlé",
+  "subscriptionStatusChangeFailed": "Kò ṣeé ṣe láti yí ipò ìforúkọsílẹ̀ padà: {error}",
+  "subscriptionUpdateFailed": "Kò ṣeé ṣe láti ṣàtúnṣe ìforúkọsílẹ̀: {error}",
+  "subscriptionUpdateSuccess": "A ti ṣàtúnṣe ìforúkọsílẹ̀ ṣáájú",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "URL Ìforúkọsílẹ̀",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "Tẹ URL ìforúkọsílẹ̀ wọlé",
+  "successfullyImportedRules": "A ti kó àwọn òfin {count} wọlé ṣáájú",
+  "supportSync": "Ìṣọ̀kan Ìtìlẹ́yìn",
+  "survey": "Ìwádìí",
+  "syncDevicesButton": "Ṣe Ìṣọ̀kan Àwọn Ẹ̀rọ",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "Ìṣọ̀kan kò ṣeé ṣe",
+  "syncFailedMessage": "Ìṣọ̀kan kò ṣeé ṣe",
+  "syncFolderNameLabel": "Orúkọ Fọ́lẹ̀dà Ìṣọ̀kan",
+  "synchronized": "A ṣe ìṣọ̀kan",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "Ó ń ṣe ìṣọ̀kan...",
+  "syncNow": "Ṣe ìṣọ̀kan báyìí",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "Ṣe ìṣọ̀kan báyìí",
+  "syncStatusTitle": "Ìpò Ìṣọ̀kan",
+  "syncStatusUpdatedMessage": "A ti ṣe àtúnṣe ìpò ìṣọ̀kan",
+  "syncSuccessMessage": "Ìṣọ̀kan ṣàṣeyọrí",
+  "syncWithCloudStorage": "Ṣe ìṣọ̀kan pẹ̀lú Ìpamọ́ Ojúlówó",
+  "systemFeatures": "Àwọn Ẹ̀yà Ètò:",
+  "systemSettingsTitle": "Àwọn Ìṣètò Ètò",
+  "tabAll": "Gbogbo",
+  "tabAnswered": "Tí a ti dáhùn",
+  "tabBlocked": "Tí a ti dí",
+  "tabMissed": "Tí a ti pàdánù",
+  "tabOutgoing": "Tí ń lọ",
+  "tagLabel": "Àmì: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "Àkótán",
+  "telecommunication": "Ìbánisọ̀rọ̀ jíjìn",
+  "telegram": "Telegram",
+  "telemarketing": "Títà nípa fóònù",
+  "testButton": "ÌDÁNÝÒ",
+  "testConnectionButton": "Dán Àsopọ̀ Ṣe",
+  "textColorsSetting": "Àwọ̀ Ẹ̀kọ́ àti Àmì",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "Ètò yìí jẹ́ irinṣẹ́ alágbára fún ìdánimọ̀ olùpè, tó ń jẹ́ kí o lè mọ àti dí àwọn ìpè tí o kò fẹ́.",
+  "thisWeek": "Ọ̀sẹ̀ Yìí",
+  "timeInterceptor": "Olùṣàkóso Àkókò",
+  "timeInterceptorDescription": "Dí/ṣe àtìlẹ́yìn fún àwọn ìpè tó ṣeé ṣe ní ọ̀nà àdánidá ní ìbámu pẹ̀lú ìgbà tí wọ́n fi ń pè",
+  "timeInterceptorExplanation": "• Olùṣàkóso Àkókò: Dì àwọn ìpè tó ń tún ṣe láàárín àkókò kúkúrú",
+  "timeInterceptorExplanationContent": "Ìṣẹ́ ìdènà ìgbà tí ìpè fi ń ṣe ń ṣàyẹ̀wò ìgbà tí ìpè fi ń ṣe láti mọ̀ àti dì àwọn ìpè ìjìnlẹ̀ tó ń tún ṣe lọ́pọ̀ ìgbà ní ọ̀nà àdánidá.",
+  "timeInterceptorExplanationTitle": "Àlàyé Ìdènà Ìgbà Tí Ìpè Fi ń Ṣe",
+  "timeInterceptorSettingsTitle": "Àwọn Àṣàyàn Fífi Ìdádúró Ṣe Ìdènà Ìpele Ìpele Ìbánisọ̀rọ̀",
+  "timeWindowDescription": "Ṣètò ìwọ̀n àkókò fún fífi ìdádúró ṣe ìdènà àwọn ìpele ìbánisọ̀rọ̀ tí ó tún ṣẹlẹ̀. Àwọn ìpele ìbánisọ̀rọ̀ láti nọ́mbà kan náà láàárín àkókò yìí ni a ó fi ìdádúró ṣe ìdènà",
+  "timeWindowLabel": "Àkókò Ìdádúró Fífi Ìdènà Ṣe (ìṣẹ́jú): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "Òní",
+  "total": "Gbogbo",
+  "totalBlocked": "Gbogbo Tí A Dènà",
+  "transferDataBetweenDevicesOrPlatforms": "Gbé dátà láàárín àwọn ẹ̀rọ tàbí àwọn pẹpẹ",
+  "travelTicketing": "Tíkẹ́ẹ̀tì Ìrìnàjò",
+  "tutorial": "Ìkọ́ni",
+  "type": "Irú",
+  "unassignedSIMCard": "Káàdì SIM Tí A Kò Yàn Fún",
+  "unknown": "A Kò Mọ̀",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "Àmì: A Kò Mọ̀",
+  "unregisterButton": "Fagilé Ìforúkọsílẹ̀",
+  "unregisterDeviceConfirmationMessage": "Ṣé o dájú pé o fẹ́ fagilé ìforúkọsílẹ̀ {deviceName}?",
+  "unregisterDeviceTitle": "Yọ̀ Ẹ̀rọ Láti Àkọsílẹ̀",
+  "unsupportedFileFormat": "Ìrú fáìlì tí kò ṣeé gbàgbọ́",
+  "update": "Ṣe Àtúnṣe",
+  "updateAllNow": "Ṣe Àtúnṣe Gbogbo Ní Báyìí",
+  "updateContactFailed": "Kò ṣeé ṣe àtúnṣe olubasọrọ̀: {error}",
+  "updateFavoriteStatus": "Ṣe Àtúnṣe Ìpò Ohun Àṣeyọrí",
+  "updateInterval": "Àárín Àkókò Àtúnṣe",
+  "updateNow": "Ṣe Àtúnṣe Ní Báyìí",
+  "updatePlugin": "Ṣe Àtúnṣe Píláìnì",
+  "updatePluginFailed": "Kò ṣeé ṣe àtúnṣe píláìnì: {error}",
+  "updateRuleFailed": "Kò ṣeé ṣe àtúnṣe òfin: {error}",
+  "updateSubscriptionFailed": "Kò ṣeé ṣe àtúnṣe ìforúkọsílẹ̀: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} ti ṣe àtúnṣe lọ́ṣọ́ ({count} òfin)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• Ṣe ìdánimọ̀ àwọn ìpè spam tí ń tún ṣe ní àìmọye",
+  "useCasesPoint2": "• Dènà àwọn ìpè ìpolówó tí ń pe lẹ́ẹ̀kọ̀ọ̀kan láàárín àkókò kúkúrú",
+  "useCasesPoint3": "• Dènà fíìbọ́ọ̀lù àti ìkàníyàn lórí fóònù",
+  "useCasesTitle": "Àwọn ọ̀ràn ìlò:",
+  "useGlobalSettings": "Lo Àwọn Ìṣètò Àgbáyé",
+  "usernameLabel": "Orúkko Ìdánimọ̀",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "Lo ìlànà regex boṣewa láti ṣàlàyé àwọn àpẹẹrẹ. Àwọn àpẹẹrẹ:",
+  "verificationFailedText": "Kò Ṣàṣeyọrí",
+  "verifiedText": "Ti Fìdí Rẹ̀ múlẹ̀",
+  "verify": "Fìdí Rẹ̀ múlẹ̀",
+  "version": "Ẹ̀yà: {version}",
+  "vipExchangeDescription": "Yí ìwé-àṣẹ VIP padà pẹ̀lú iye àmì nọ́mbà fóònù",
+  "vipExchangeTitle": "Yí Ìwé-àṣẹ VIP Padà",
+  "watchAd": "Wo Ìpolówó",
+  "watchAdForTemp": "Wo Ìpolówó fún Àǹfààní Àkókò",
+  "watchAdForTempDescription": "Wo ìpolówó kúkúrú kan láti ṣí àwọn àǹfààní àgbà kan ṣí fún àkókò díẹ̀",
+  "webDAVConfigTitle": "Ìṣètò WebDAV",
+  "week": "Ọ̀sẹ̀",
+  "welcome": "Káàbọ̀",
+  "whitelist": "Atokò àgbàyanu",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "Fífẹ̀",
+  "wildcardMatchingDescription": "Lo '.' láti bá àkọsílẹ̀ kankan mu (fún àpẹẹrẹ, '123.456' bá 123-456 mu)",
+  "wildcardMatchingTitle": "Ìbámu àmì àìpé:",
+  "wildcardSupportForFlexibleFiltering": "Ìtìlẹ́yìn Àmì Àìpé fún Ìtọ́pa Tí A Lè Ṣàtúnṣe",
+  "windowSizeSetting": "Ìṣètò Ìwọ̀n Fèrèsé",
+  "year": "Ọdún",
+  "noSimCardsDetected": "Kò sí káàdì SIM tí a rí",
+  "filterManagementDescription": "Ṣètò Àwọn Ìtọ́pa Ìbánisọ̀rọ̀",
+  "callerIdCustomizationSubtitle": "Ṣàtúnṣe Ìṣètò ID Olùbánisọ̀rọ̀",
+  "fraudAlerSettingTitle": "Ìṣètò Ìkìlọ̀ Ẹ̀ṣẹ̀",
+  "fraudAlerSettingSubtitle": "Láti Ṣètò Ìkìlọ̀ Ẹ̀ṣẹ̀",
+  "enableFraudAlert": "Tún Ìkìlọ̀ Ẹ̀ṣẹ̀ Ṣí",
+  "enableFraudAlertDescription": "Ìkìlọ̀ fún àwọn ìpè tí a fura pé ó jẹ́ ẹ̀tanṣe",
+  "enableVibration": "Tún ìgbọ̀nṣẹ́ ṣiṣẹ́",
+  "enableVibrationDescription": "Gbọ̀nṣẹ́ nígbà tí a bá fura pé ìpè náà jẹ́ ẹ̀tanṣe",
+  "notificationSettingsTitle": "Àwọn ìṣètò ìfitónilétí",
+  "useLocalNotification": "Lo Ìfitónilétí Agbègbè",
+  "useLocalNotificationDescription": "Tún ìfitónilétí agbègbè ṣiṣẹ́ fún àwọn ìpè tí ń wọlé",
+  "cancelLocalNotification": "Pa Ìfitónilétí Agbègbè Mọ́",
+  "useStirNotification": "Lo Ìfitónilétí Láti STIR",
+  "cancelLocalNotificationDescription": "Pa Ìfitónilétí Agbègbè Mọ́ LáìṢe Àdánwò",
+  "callerIdSettingsTitle": "Àwọn ìṣètò ID Olùpè",
+  "callerIdSettingsSubtitle": "Fún Ṣíṣètò Ìfitónilétí Ìpè Tí ń Wọlé & Ọ̀nà Ìfihàn",
+  "purchaseTitle": "Rà",
+  "purchaseSubtitle": "Fún Rírà Iṣẹ́ Náà",
+  "callerIdNotificationTitle": "Ìsọfúnni Ìpè Tí ń Wọlé",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "Ìpè Tí A Dènà",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "Ìpè tí a dí láti ọ̀dọ̀ {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "A ti fìdí rẹ̀ múlẹ̀",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "A kò tíì fìdí rẹ̀ múlẹ̀",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "Ìdánwò fìdí múlẹ̀ kùnà",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "Ìpò ìdánwò fìdí múlẹ̀ aìmọ̀",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "Ìdánwò Fìdí Múlẹ̀ STIR/SHAKEN",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} fún nọ́mbà {phoneNumber}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "Àwọn Ìṣètò Ìfiranṣẹ́ Ààbò Tí ń Yí Ká",
+  "messageColor": "Àwọ̀ Ìfiranṣẹ́",
+  "messageFontSize": "Ìwọ̀n Fọ́ńtì Ìfiranṣẹ́",
+  "messagePosition": "Ìpò Ìfiranṣẹ́",
+  "containerWidth": "Ìbú Àpótí",
+  "scrollSpeed": "Ìyára Ìyí Ká",
+  "enableSecurityMessage": "Tún Ìfiranṣẹ́ Ààbò Ṣíṣiṣẹ́",
+  "fraudAlertTitle": "Ìkìlọ̀ Ẹ̀ṣẹ̀",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "Kò sí dátà irú-ẹ̀yà tí a dí",
+  "importEntity": "Ṣe àgbékalẹ̀ {entityTypeName},",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} ti ni àgbékalẹ̀ ṣe àṣeyọrí, àpapọ̀ {count} àkọsílẹ̀ ni a ti ṣe àgbékalẹ̀",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "Kò ṣeé ṣe láti ṣe àgbékalẹ̀ {entityTypeName}: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "Ṣe ìtúsílẹ̀ {entityTypeName}",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} ti ni ìtúsílẹ̀ ṣe àṣeyọrí",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "Kò ṣeé ṣe láti ṣe ìtúsílẹ̀ {entityTypeName}: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "Iṣẹ́ Ìṣọ̀kan Ojú-Ọ̀nà",
+  "membershipCenter": "Ilé Ìṣàkóso Ẹgbẹ́",
+  "redeemVipWithMarks": "Lo Àmì láti Rí VIP",
+  "currentMarkCount": "Ìye Àmì Tí Ó Wà Lọ́wọ́lọ́wọ́",
+  "markMoreNumbersForMore": "Tọ́ka sí iye púpọ̀ sí i fún àmì púpọ̀ sí i",
+  "noAds": "Kò sí Ìpolówó",
+  "cloudBackup": "Ìṣọ́ Ojú-Ọ̀nà",
+  "callerIdEnhancement": "Ìmúdára Ìdánimọ̀ Olùpè",
+  "voiceRecognition": "Ìdánimọ̀ Èdè",
+  "feature": "Àbùdá",
+  "normalUser": "Olùṣe Déédéé",
+  "vipUser": "Olùṣe VIP",
+  "temporaryVip": "VIP Àkókò Díẹ̀",
+  "removeAds": "Yọ Àwọn Ìpolówó Kúrò",
+  "settingsBackup": "Ìfipamọ́ Àwọn Ìṣètò",
+  "allServicesStatusTitle": "Ìpò Àwọn Iṣẹ́ Lọ́wọ́lọ́wọ́",
+  "allServicesStatusSubtitle": "Ìpò Lọ́wọ́lọ́wọ́ ti Iṣẹ́ Ojúkojú Kọ̀ọ̀kan",
+  "redirect": "Ìtọ́sọ́nà Padà",
+  "notify": "Kíyè sílẹ̀",
+  "log": "Ìwé Àkọsílẹ̀",
+  "custom": "Àṣàyàn Ara Ẹni",
+  "allowActionDescription": "A ó gba àwọn ìpè láàyè, kódà bí nọ́mbà náà bá wà nínú àkójọ àwọn nọ́mbà tí a dí.",
+  "blockActionDescription": "A ó dí àwọn ìpè náà, a ó sì fi wọ́n hàn nínú ìwé àkọsílẹ̀ ìpè.",
+  "silenceActionDescription": "A máa dákẹ́ àwọn ìpè, ṣùgbọ́n wọn yóò hàn nínú àkọsílẹ̀ ìpè.",
+  "noneActionDescription": "Kò ní ṣe ìgbésẹ̀ pàtàkì kankan fún ìpè náà.",
+  "redirectActionDescription": "Darí ìpè náà sí nọ́mbà tí a yàn.",
+  "labelActionDescription": "Fi àmì sí ìpè náà kí ó rọrùn láti dá a mọ̀.",
+  "notifyActionDescription": "Fi ìfitónilétí ránṣẹ́ nígbà tí ìpè kan bá wọlé.",
+  "logActionDescription": "Kọ ìsọfúnni ìpè náà sí àkọsílẹ̀ láìṣe ìgbésẹ̀ mìíràn.",
+  "customActionDescription": "Ṣe ìgbésẹ̀ àrà ọ̀tọ̀.",
+  "synced": "A ti ṣe ìṣọ̀kan",
+  "needVipAccess": "O nílò ìwọlé VIP láti lo ẹ̀ya yìí",
+  "importExportDescription": "Gba dátà {entityTypeName} wọlé tàbí ránṣẹ́ jáde",
+  "importExportTitle": "Gba Wọlé/Ránṣẹ́ Jáde",
+  "noPhoneRules": "Kò sí òfin fóònù kankan tí a rí",
+  "noRegexRules": "Kò sí òfin regex kankan tí a rí",
+  "noAllowedBlockedRules": "Kò sí òfin tí a gba tàbí tí a dí kankan tí a rí",
+  "importExport": "Gba Wọlé/Ránṣẹ́ Jáde",
+  "filterByAction": "Yan filteri gẹ́gẹ́ bí Ìgbésẹ̀",
+  "upgradeToVip": "Gbé sí VIP",
+  "batteryOptimizationPermission": "Ìṣàtúnṣe Batiri",
+  "batteryOptimizationPermissionDescription": "Jẹ́ kí app náà ṣiṣẹ́ ní ẹ̀yìn láti pèsè iṣẹ́ bíi ìdánimọ̀ ẹni tó ń pe.",
+  "permissionTitle": "Àwọn Ìgbàtìlẹ́yìn Pàtàkì",
+  "permissionSubtitle": "Ṣàkóso àwọn ìgbàtìlẹ́yìn àwòrán ìbòrí àti ìṣàtúnṣe batiri",
+  "themeSettingsTitle": "Àwọn Ìṣètò Àkòrí",
+  "themeSettingsSubtitle": "Yan àkòrí tí o fẹ́ràn jù lọ",
+  "databaseSyncTitle": "Ìṣọ̀kan Dátábẹ́sì",
+  "countrySyncSettingsTitle": "Àwọn Ìṣètò Ìṣọ̀kan Dátábẹ́sì Gẹ́gẹ́ bí Orílẹ̀-èdè",
+  "countrySyncSettingsSubtitle": "Yan àwọn orílẹ̀-èdè fún ìṣọ̀kan dátà",
+  "countryDataDisclaimer": "Ẹ jọ̀wọ́ kíyè sí: Dátábẹ́sì náà lè má ní dátà fún gbogbo àwọn orílẹ̀-èdè tàbí agbègbè pàtó.",
+  "editSubscription": "Ṣàtúnṣe Ìforúkọsílẹ̀",
+  "searchByNameOrPhoneNumber": "Wá Nípa Orúkọ tàbí Nọ́mbà Fóònù",
+  "allowedBlockedRulesInfo": "Àwọn òfin tí a gba/èyí tí a dènà ni a ń lò láti bá àwọn nọ́mbà fóònù pàtó mu, tí wọ́n sì ní àṣẹ tó ga jù lọ.",
+  "searchPhoneRulesHint": "Wáárí àwọn òfin fóònù",
+  "phoneRulesInfo": "Àwọn òfin fóònù ni a ń lò láti bá àwọn nọ́mbà fóònù kan pàdé, tí wọ́n ní ìpínṣẹ́ kékeré. Díẹ̀ lára wọn wá láti inú àwọn ìforúkọsílẹ̀ òfin fóònù",
+  "searchSubscriptionsHint": "Wáàrí àwọn ìforúkọsílẹ̀",
+  "searchPluginsHint": "Wáàrí àwọn plugin",
+  "searchLabelsHint": "Wáàrí àwọn àmì",
+  "pluginDescription": "Àlàyé plugin",
+  "enterPluginDescription": "Tẹ àlàyé plugin wọlé",
+  "searchRegexRulesHint": "Wáàrí àwọn òfin regex",
+  "regexRulesInfo": "Àwọn òfin regex ni a ń lò láti yọ àwọn ìpè kúrò nípasẹ̀ àwọn àpẹẹrẹ regex.",
+  "searchMarkedPhonesHint": "Wáàrí àwọn fóònù tí a ti ṣàmì",
+  "searchContactSubscriptionsHint": "Wáàrí àwọn ìforúkọsílẹ̀ olubasọrọ",
+  "showAllContacts": "Fi gbogbo olubasọrọ hàn",
+  "showFavorites": "Fi àwọn olólùfẹ́ hàn",
+  "manualEntry": "Àlàyé ìtẹ̀wọlé ọwọ́",
+  "scriptSaved": "A ti pamọ́ script náà",
+  "editScriptFor": "Iṣẹ́ àtúnṣe fún {pluginName}",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "Fi Iṣẹ́ pamọ́",
+  "testPlugin": "Wòórí Àṣàṣe",
+  "description": "Àpèjúwe",
+  "accessTargetUrl": "Wọ́lé sí URL Ibùdó",
+  "result": "Àbájáde",
+  "editScript": "Tún Iṣẹ́ Ṣe",
+  "numberFormat": "Ìṣètò Nọ́mbà",
+  "nationalNumber": "Nọ́mbà Orílẹ̀-èdè",
+  "e164Number": "Nọ́mbà E164",
+  "pluginRulesInfo": "Fún ààbò, jọ̀wọ́ lo àwọn àṣàṣe láti àwọn orísun tí a gbẹ́kẹ̀ lé nìkan. Ẹ lè lo àwọn àwòṣe wa láti ṣẹ̀dá àwọn àṣàṣe àrà ọ̀tọ̀ ti ẹ̀yin!",
+  "advancedMode": "Ìṣẹ̀dá Àgbà",
+  "pleaseEnterAtLeastOneNumber": "Jọ̀wọ́ tẹ nọ́mbà kan sílẹ̀.",
+  "openInWebView": "Ṣí i nínú WebView",
+  "pluginLabel": "Àmì Àṣàṣe",
+  "pluginID": "ID",
+  "pluginURL": "URL",
+  "messageBackgroundColor": "Àwọ̀ Ìsàlẹ̀-ìpìlẹ̀ Ìfiránṣẹ́",
+  "clearAllCallLogs": "Pa gbogbo ìtọ́kasí ìpè rẹ̀ rẹ̀",
+  "clearAllCallLogsConfirmation": "Fìdí rẹ̀ múlẹ̀ pé o fẹ́ pa gbogbo ìtọ́kasí ìpè rẹ̀ rẹ̀",
+  "allCallLogsCleared": "A ti pa gbogbo ìtọ́kasí ìpè rẹ̀ rẹ̀",
+  "unblocked": "A ti yọ ọ́ kúrò nínú ìdènà",
+  "blockNumber": "Nọ́mbà Ìdènà",
+  "blockNumberSuccess": "A ti ṣàṣeyọrí nínú dídènà nọ́mbà náà",
+  "unblockNumberConfirmation": "Ṣé o dájú pé o fẹ́ yọ {phoneNumber} kúrò nínú ìdènà?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "Wo Àwọn Àlàyé",
+  "unblock": "Yọ Kúrò Nínú Ìdènà",
+  "unblockNumber": "Yọ Nọ́mbà Kúrò Nínú Ìdènà",
+  "unblockNumberSuccess": "A ti yọ nọ́mbà náà kúrò nínú ìdènà lọ́nà tó ṣàṣeyọrí",
+  "unblockNumberFailed": "Kò ṣeé ṣe láti yọ nọ́mbà náà kúrò nínú ìdènà",
+  "callingNumberFailed": "Nọ́mbà tí a ń pe kùnà",
+  "listView": "Ìwòran Àkójọpọ̀",
+  "timelineView": "Ìwòran Àkókò",
+  "nameCannotBeEmpty": "Orúkọ kò gbọdọ̀ ṣófo",
+  "selectAction": "Yan ìgbésẹ̀",
+  "selectTargetService": "Yan iṣẹ́ tí a fẹ́ dé",
+  "callDetails": "Àlàyé Ìpè",
+  "callType": "Irú Ìpè",
+  "callTime": "Àkókò Ìpè",
+  "numberInvalidFormat": "Ìrísí nọ́mbà kò tọ́",
+  "medium": "Ìlànà",
+  "finalRisk": "Ewu Ìkẹyìn",
+  "simState": "Ìpò SIM",
+  "ipCountry": "Orílẹ̀-èdè IP",
+  "simCountry": "Orílẹ̀-èdè SIM",
+  "isRoaming": "Rọ́mììng",
+  "isNumberMatch": "Ìbámu Nọ́mbà",
+  "support": "Ìtìlẹ́yìn",
+  "rewardedAdService": "Iṣẹ́ Ìpolówó Tí A Sanwó Fún",
+  "hasVipPrivilegeExceptAds": "O ti ní àǹfààní VIP tẹ́lẹ̀ (àyàfi fún ìpolówó)",
+  "hasTempPrivilegeWithExpiry": "O ti ní àǹfààní àkókò- díẹ̀ tẹ́lẹ̀, ọjọ́ tí yóò parí: {expiryDate}",
+  "watchMoreAdsForTempVip": "O nílò láti wo àwọn ìpolówó míì {count} láti gba àǹfààní VIP àkókò- díẹ̀",
+  "grantedTempPurchaseWithExpiry": "A ti fún ọ ní àǹfààní rírà àkókò- díẹ̀ fún ọjọ́ {days}. Ọjọ́ tí yóò parí: {expiryDate}",
+  "tempPurchaseExpired": "Àǹfààní rírà àkókò- díẹ̀ ti parí",
+  "loadingAd": "A ń ṣe ìgba ìpolówó...",
+  "earnedTempVip": "O ti ṣàṣeyọrí VIP àkókò- díẹ̀",
+  "vipExchangeService": "Iṣẹ́ Ìyípadà VIP",
+  "marksInsufficient": "Àmì kò tó fún ìyípadà",
+  "invalidExchangeRule": "Òfin ìyípadà kò bófin mu",
+  "exchangeSuccess": "A ti ṣe ìyípadà rẹ̀ ṣáájú sí {description}, ọjọ́ tí yóò parí: {expiryDate}",
+  "exchangeFailed": "Ìyípadà kùnà: {error}",
+  "vip3DaysWithAds": "VIP ọjọ́ 3 pẹ̀lú àwọn ìpolówó (ìṣọ̀kan nìkan)",
+  "vip5DaysNoAds": "VIP ọjọ́ 5 aláìní ìpolówó pẹ̀lú gbogbo iṣẹ́",
+  "vip7DaysNoAds": "VIP ọjọ́ 7 aláìní ìpolówó pẹ̀lú gbogbo iṣẹ́",
+  "noNotifications": "Kò sí ìfitónilétí",
+  "clearAllNotifications": "Pa gbogbo ìfitónilétí rẹ́",
+  "clearAllNotificationsConfirmation": "Fìdí rẹ̀ múlẹ̀ láti pa gbogbo ìfitónilétí rẹ́",
+  "clearButton": "Pa rẹ́",
+  "justNow": "Ní báyìí gan-an",
+  "minutesAgo": "{count,plural, =1{ìṣẹ́jú 1 sẹ́yìn} other{{count} ìṣẹ́jú sẹ́yìn}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{wákàtí 1 sẹ́yìn} other{{count} wákàtí sẹ́yìn}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{ọjọ́ 1 sẹ́yìn} other{{count} ọjọ́ sẹ́yìn}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "Àná",
+  "deletionProposal": "Ìdánimọ̀ Fífagilé",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "Ṣẹ̀dá Ìdánimọ̀",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "Ṣẹ̀dá Ìdánimọ̀ Fífagilé",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "Ìdí",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "Nọ́mbà Tó Ti Darú",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "Ìṣòro Ìkọ̀kọ̀",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "Kò Sí Nínú Iṣẹ́",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "A Ṣe Ìdánimọ̀ Rẹ̀ Ní Àṣìṣe",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "Ìsọfúnni Tó Kò Péye",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "Èkeji",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "Fi ránṣẹ́",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Fagilé",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "Ìpele Ewu",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Kékeré",
+  "@riskLevelLow": {
+    "description": "Low risk level"
+  },
+  "riskLevelHigh": "Gíga",
+  "@riskLevelHigh": {
+    "description": "High risk level"
+  },
+  "agreeVotes": "Àwọn tó fara mọ́ ọn: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "Gbogbo: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "Mòye",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "Kò mòye",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "A ṣẹ̀dá: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "Ìròyìn Ìdánwò",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "Àwọn Ìṣirò Ìdábàá",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "Gbogbo Ìdábàá",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "Àwọn Ìdábàá Tí ń Ṣiṣẹ́",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "A ṣẹ̀dá ìdábàá náà dáadáa",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "A fi ìdìbò náà ránṣẹ́ dáadáa",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "A kò rí ìdábàá kankan",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "Tún Àwọn Ìdábàá Ṣe",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "Gbogbo Ìdábàá Tí Kò tíì Ṣeé Ṣe",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "Ewu Gíga",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "Ewu Àárín",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "Ewu Kéré",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "Ìpa Lórí Àwùjọ",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "Àwọn Ìṣòro Pàtàkì",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "Ìkópa Àwùjọ",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "Kò sí ìṣe kankan",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Kéré",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "Àárín",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "Gíga",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "Gíga Kánkán",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "Ti Dìbò",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "Àwọn Ìdìbò Àwùjọ",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "Ní ìdúró fún àwọn ìdìbò àwùjọ sí i",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "A ti ṣe ìdábàá yìí",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "A ṢE ÌTÌLẸ́YÌN",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "A KÒ ṢE ÌTÌLẸ́YÌN",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "A FỌWỌ́ SÌ",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "A KỌ",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "A PARÍ",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "NÍ DÍDE",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "Pàtàkì",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "Kọ",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "Kéré gan-an",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "Àwọn Ìmọ̀ràn Ìfagilé",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "Àwọn ìfitónilétí nípa àbájáde ìdìbò àti àwọn ìmúdójúìwọ̀n lórí ìmọ̀ràn ìfagilé.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "A Ṣẹ̀dá Ìmọ̀ràn Ìfagilé",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "A ti fi ìmọ̀ràn ìfagilé rẹ fún {phoneNumber} ránṣẹ́ fún àyẹ̀wò àwùjọ.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "A Fọwọ́ Sí Ìmọ̀ràn ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "Àwùjọ ti fọwọ́ sí ìmọ̀ràn ìfagilé fún {phoneNumber} (ìtìlẹ́yìn {supportPercentage}%, ìdìbò {totalVotes}).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "A Kọ Ìmọ̀ràn ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "Àwùjọ ti kọ ìmọ̀ràn ìfagilé fún {phoneNumber} (ìtìlẹ́yìn {supportPercentage}%, ìdìbò {totalVotes}).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "Ìdìbò Àwùjọ Ti Bẹ̀rẹ̀",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "Àdéhùn ìfọ́ tuntun fún {phoneNumber} ti ṣí sílẹ̀ fún ìdìbò àwùjọ báyìí.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "Ìdìbò Ti Parí",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "Ìdìbò àwùjọ fún {phoneNumber} ti parí. Àbájáde: {result} ({supportPercentage}% àtìlẹ́yìn).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "Ìdìbò Tuntun Ti Dé",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "Ẹnì kan ti dìbò láti {voteType} ìfọ́ {phoneNumber}. Àwọn ìdìbò tó wà lọ́wọ́lọ́wọ́: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "Ìye Ìdìbò",
+  "deletionProposalDescription": "Dábàá àwọn nọ́mbà tó ń lù kọjá òfin àwùjọ fún ìfọ́. Ìkópa rẹ ń ran àwọn ènìyàn lọ́wọ́ láti mú kí pẹpẹ náà ní ààbò.",
+  "searchProposals": "Wá Àwọn Àdéhùn",
+  "defaultNotifications": "Ìfitónilétí Àṣẹ Ìbẹ̀rẹ̀",
+  "defaultNotificationsDescription": "Ọ̀nà ìfitónilétí àṣẹ ìbẹ̀rẹ̀ fún ohun èlò náà.",
+  "blockedCallNotifications": "Ìfitónilétí Àwọn Ìpè Tí A Dènà",
+  "blockedCallNotificationsDescription": "Ó ń fi ìsọfúnni tó ní í ṣe pẹ̀lú àwọn ìpè tí a dènà hàn.",
+  "stirVerification": "Ìdánwò STIR/SHAKEN",
+  "stirVerificationDescription": "Ó ń fi àwọn àbájáde ìdánwò STIR/SHAKEN fún àwọn nọ́mbà hàn.",
+  "fraudAlerts": "Ìkìlọ̀ Nípa Ẹ̀ṣẹ̀",
+  "fraudAlertsDescription": "Ó ṣàfihàn àwọn ìkìlọ̀ fún àwọn ìbánisọ̀rọ̀ tí ó ṣeé ṣe kí wọ́n jẹ́ ẹ̀gàn.",
+  "notificationMode": "Ọ̀nà Ìfitónítóní",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "Àwọn Ìdánimọ̀ Tí Kò tíì Dájú",
+  "pendingProposalsBody": "O ní {count, plural, =0 {kò sí ìdánimọ̀ tí kò tíì dájú} one {ìdánimọ̀ 1 tí kò tíì dájú} other {{count} ìdánimọ̀ tí kò tíì dájú}.",
+  "guidelinesLabel": "Àwọn Ìlànà",
+  "riskLevelLabel": "Ìpele Ewu",
+  "phoneNumberMinDigits": "Nọ́mbà fóònù gbọ́dọ̀ ní díjítì 7 ó kéré tán",
+  "provideDetailedExplanation": "Pèsè àlàyé kíkún (ó kéré tán àkọsílẹ̀ 10)",
+  "reasonMinCharacters": "Ìdí gbọ́dọ̀ ní àkọsílẹ̀ 10 ó kéré tán",
+  "countryCodeTwoLetters": "Kóòdù Orílẹ̀-èdè (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "Kóòdù Orílẹ̀-èdè (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "fún àpẹẹrẹ, US, CN, GB",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "Kóòdù orílẹ̀-èdè ṣe pàtàkì",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "Tẹ nọ́mbà fóònù sílẹ̀",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "Nọ́mbà fóònù ṣe pàtàkì",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "Ọ̀ràn pàtàkì nílò",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "Pàtàkì",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "Àárín",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "Kéré gan-an",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "Ìgbà tí ìfitónilétí ń dé",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "Àṣìṣe: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• Kàn ṣàfikún àwọn nọ́mbà tí ó ní ìṣòro gan-an\n• Pèsè ìdí tó péye tí ó sì kún fún àlàyé\n• Yan ìpele ewu tó yẹ ní ìbámu pẹ̀lú bí ìṣòro náà ṣe le gan-an\n• Àfikún èké lè fa ìdènà sí àkọọ́lẹ̀",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Ìgbà tí ìfitónilétí ń dé (wákàtí)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "Ìtìlẹ́yìn ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "Ìtakora ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} ìdìbò ({supportPercentage}% ìtìlẹ́yìn)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{wákàtí 0} =1{wákàtí 1} other{{count} wákàtí}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "Ìkìlọ̀ Pàtàkì",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "Àwọn nọ́mbà wá láti orí ayélujára àti láti àwọn ìfìdí rẹ̀ àwọn olùlò. A kò lè ṣe ìdánilójú pé nígbà tí a bá pa nọ́mbà kan rẹ́, àwọn olùlò tàbí orísun mìíràn kò ní tún fi ránṣẹ́. Jọ̀wọ́ ṣàwárí kí o sì ṣàyẹ̀wò ìsọfúnni dáadáa.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "Àwòrán ìdánimọ̀",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "Ibùdó",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "Káàdì SIM",
+  "liveActivitiesSettingsTitle": "Àwọn Ìṣètò Ìṣe Aláyè",
+  "elementsSettingsTitle": "Àwọn Ìṣètò Àwọn Èròjà",
+  "liveActivityMode": "Ìṣe Aláyè",
+  "liveActivityModeDescription": "Ó ń fi àwọn ìsọfúnni ìpè hàn gẹ́gẹ́ bí ìfitónilétí tó dúró ṣinṣin lórí ojú-ìbojú tí a ti pa àti nínú Dynamic Island (iOS).",
+  "phoneNumberType": "Irú Nọ́mbà Fóònù",
+  "liveActivitiesTestEndActivity": "Parí Ìṣe",
+  "liveActivitiesTestSendNewActivity": "Fi Ìṣe Tuntun ránṣẹ́",
+  "liveActivitiesTestUpdateActivity": "Ṣe Àtúnṣe Ìṣe",
+  "liveActivityControlsTitle": "Àwọn Ìṣàkóso Ìṣe Aláyè",
+  "liveActivitiesTestTitle": "Ìdánwò Àwọn Ìṣe Aláyè",
+  "liveNotificationCustomizationTitle": "Àṣà Ìfitónilétí Aláyè",
+  "liveNotificationCustomizationSubtitle": "Ṣe àṣà bí àwọn ìfitónilétí aláyè ṣe máa rí.",
+  "notification_instructions": "Àwọn ìtọ́nisọ́nà:\n1. Tẹ̀ \"RÁNṢẸ́\" láti dá ìfitónilétí sílẹ̀ tàbí láti ṣe àtúnṣe rẹ̀.\n2. Lọ sí ojú-ìbojú ilé rẹ tàbí fa àpótí ìfitónilétí sí ìsàlẹ̀ láti rí àbájáde.\n3. Tẹ̀ \"PARÍ\" láti pa ìfitónilétí náà rẹ́.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "Ìfitónilétí Ìfagilé Láìṣe",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "Tí a bá yan án, ìfitónilétí náà yóò parẹ́ fúnra rẹ̀ nígbà tí olùlò bá tẹ̀ ẹ́.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "Ṣètò Àkókò Ìdádúró",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "Àlàyé Ìdánimọ̀",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "A kò rí ìdánimọ̀ náà",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "A ti ṣe é",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "Yan àti Ṣètò",
+  "filterVerifiedOwner": "Yan Oníṣẹ́-Tí-a-Ṣàyẹ̀wò",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "Yan Gẹ́gẹ́ Bí",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "Ṣètò Láti Àtijọ́ Jù lọ",
+  "sortNewest": "Ṣètò Láti Àtijọ́ Jù lọ",
+  "sortMostPopular": "Ṣètò Láti Tíẹ̀ Gba Olùfẹ́ Jù lọ",
+  "sortLeastPopular": "Ṣètò Láti Tíẹ̀ Gba Olùfẹ́ Kéré Jù lọ",
+  "sortBy": "Ṣètò Gẹ́gẹ́ Bí",
+  "simRulesNotFound": "A kò rí Òfin SIM náà",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "Ìlànà Ààyè SIM",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "Kò sí káàdì SIM tí a rí",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "Data SIM tí kò tọ́",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "Ààyè SIM",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "Tún Ìṣàyẹ̀wò Ṣíṣi",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "Àwọn Àṣàyàn Kíkún",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "Ìwòye Ojú-ọ̀nà Ìbẹ̀rẹ̀",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "A Kọ̀",
+  "callTypeSilenced": "A Dìbọ́",
+  "andMoreItems": "àti àwọn nǹkan {count} míì",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Irú Ìlànà",
+  "localDatabaseSyncTitle": "Ìṣọ̀kan Dátábẹ́ẹ̀sì Agbègbè",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Ṣọ̀kan data láàárín àwọn ẹ̀rọ",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "URL Iṣẹ́ Supabase",
+  "supabaseAnonKey": "Kí Àìdánimọ̀",
+  "supabaseAnonKeyHint": "Kí API, kí àìdánimọ̀ gbangba",
+  "connectionString": "Ọ̀rọ̀ Ìsopọ̀ (URI)",
+  "connectionStringHelper": "Ó ṣeé ṣe nìkan fún 'Bẹ̀rẹ̀ Dátábẹ́ẹ̀sì'",
+  "syncCallHistory": "Ṣọ̀kan Ìtàn Ìpè",
+  "syncCallHistorySubtitle": "Fi àwọn àkọsílẹ̀ ìpè àdáni sínú ìṣọ̀kan",
+  "requiredField": "Ó Ṣe Dandan",
+  "requiredInitField": "Ó ṣe dandan fún ìbẹ̀rẹ̀",
+  "initDbButton": "Bẹ̀rẹ̀ Dátábẹ́ẹ̀sì",
+  "dbInitSuccess": "A Ti Bẹ̀rẹ̀ Dátábẹ́ẹ̀sì Ṣáájú!",
+  "syncSuccess": "Ìṣọ̀kan Parí. A Fi ránṣẹ́: {pushed}, A Gba: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Àṣìṣe",
+  "errorLoadingSettings": "Àṣìṣe nígbà tí a ń gba àwọn àṣàyàn",
+  "statusLabel": "Ìpò",
+  "statusConnected": "A Ti Sopọ̀ / A Ti Ṣètò Rẹ̀",
+  "statusNotConfigured": "A Kò Ṣètò Rẹ̀",
+  "configSaved": "Aṣètò Ti Gbà!",
+  "masterDeviceLabel": "Ṣé Ó Jẹ́ Ẹ̀rọ Àkọ́kọ́ (Alákòóso)",
+  "masterDeviceHelp": "Ẹ̀rọ àkọ́kọ́ nìkan ló lè bẹ̀rẹ̀ ètò dátà.",
+  "syncIntervalLabel": "Àárín Àkókò Ìṣọ̀kan Aṣínà",
+  "syncIntervalValue": "Ní gbogbo {hours} wákàtí",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Fi òfo sílẹ̀ láti lo èyí tó jẹ́ àṣàn",
+  "vipAccessSubtitle": "Wo ìpolówó lọ́fẹ̀ẹ́ tàbí ra VIP",
+  "failedToLoadSettingsSchema": "Kò Ṣeé Ṣe Láti Gba Ètò Àṣàyàn: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "A Nílò pápá yìí",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Dáhùn sí ìpè tó ń wọlé ní àṣínà, lẹ́yìn náà kí o sì pa ìpè náà ní kété láti parí rẹ̀",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}

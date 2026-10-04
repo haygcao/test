@@ -1,0 +1,89 @@
+{
+  "@@locale": "hu",
+  "aboutContactSubscription": "Rólunk Kapcsolat Feliratkozás",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Rólunk címkék",
+  "aboutPhoneSubscriptionRules": "Rólunk telefonos feliratkozási szabályok",
+  "aboutSmsFilter": "Rólunk SMS-szűrés",
+  "aboutSmsSubscriptionRules": "Rólunk SMS-feliratkozási szabályok",
+  "aboutSubtitle": "Alkalmazásverzió és jogi információk",
+  "aboutTitle": "Rólunk",
+  "action": "Művelet",
+  "actionAll": "Összes",
+  "actionAllow": "Engedélyezés",
+  "actionBlock": "Blokálás",
+  "actionFilterTitle": "Szűrés művelettípus szerint",
+  "actionFilterTooltip": "Műveletszűrő",
+  "actionNone": "Nincs művelet",
+  "actionSilence": "Némítás",
+  "actionTag": "Művelet: {actionType}",
+  "actionType": "Művelettípus",
+  "actionUnknown": "Ismeretlen",
+  "add": "Hozzáadás",
+  "addAllowedBlockedRule": "Engedélyezési/blokálási szabály hozzáadása",
+  "addAllowSubscription": "Engedélyezési feliratkozás hozzáadása",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Blokálási feliratkozás hozzáadása",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Névjegy hozzáadása",
+  "addContactFailed": "Nem sikerült hozzáadni a névjegyet: {error}",
+  "addedToFavorites": "Hozzáadva a kedvenc névjegyekhez",
+  "addLabel": "Címke hozzáadása",
+  "addLabelButton": "Címke hozzáadása",
+  "addLabelFailed": "Nem sikerült hozzáadni a címkét: {error}",
+  "addName": "Név hozzáadása",
+  "addNoneSubscription": "„Nincs” feliratkozás hozzáadása",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Telefonjelzés hozzáadása",
+  "addPhoneNumberRule": "Telefonszabály hozzáadása",
+  "addPlugin": "Bővítmény hozzáadása",
+  "addPluginFailed": "Nem sikerült hozzáadni a bővítményt",
+  "addPluginFailedWithError": "Nem sikerült hozzáadni a bővítményt: {error}",
+  "addPluginFromLocalFile": "Bővítmény hozzáadása helyi fájlból",
+  "addPluginFromUrl": "Bővítmény hozzáadása URL-ről",
+  "addRegexRule": "Rexx-szabály hozzáadása",
+  "addRule": "Szabály hozzáadása",
+  "addRuleFailed": "Nem sikerült hozzáadni a szabályt: {error}",
+  "addRuleTooltip": "Szabály hozzáadása",
+  "addSilenceSubscription": "Csend-előfizetés hozzáadása",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "SMS-szűrőszabály hozzáadása",
+  "addSmsRule": "SMS-szabály hozzáadása",
+  "addSmsSubscription": "SMS-előfizetés hozzáadása",
+  "addSubscription": "Előfizetés hozzáadása",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Előfizetés hozzáadása",
+  "addSubscriptionFailed": "Nem sikerült hozzáadni az előfizetést: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Előfizetés hozzáadása",
+  "addToBlacklist": "Fekete listához adás",
+  "addToFavorites": "Kedvencekhez adás",
+  "addToRules": "Szabályokhoz adás",
+  "addToWhitelist": "Fehér listához adás",
+  "agent": "Ügynök",
+  "all": "Összes",
+  "allCallsTab": "Összes",
+  "allow": "Engedélyezés",
+  "allowAllAllowRules": "Engedélyezés minden engedélyező szabályhoz",
+  "allowAllAllowRulesDesc": "Engedélyezze a hívásokat az engedélyező szabályokból",
+  "allowAllBlacklistedNumbers": "Engedélyezés minden fekete listán szereplő számhoz"
+}

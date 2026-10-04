@@ -1,0 +1,2372 @@
+{
+  "@@locale": "my",
+  "aboutContactSubscription": "အကြောင်းအရာ ဆက်သွယ်မှု မှတ်ပုံတင်",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "အကြောင်းအရာ တံဆိပ်များ",
+  "aboutPhoneSubscriptionRules": "ဖုန်း မှတ်ပုံတင် စည်းမျဉ်းများ အကြောင်း",
+  "aboutSmsFilter": "SMS စစ်ထုတ်မှု အကြောင်း",
+  "aboutSmsSubscriptionRules": "SMS မှတ်ပုံတင် စည်းမျဉ်းများ အကြောင်း",
+  "aboutSubtitle": "အက်ပ်ဗားရှင်းနှင့် ဥပဒေဆိုင်ရာ အချက်အလက်များ",
+  "aboutTitle": "အကြောင်းအရာ",
+  "action": "လုပ်ဆောင်ချက်",
+  "actionAll": "All",
+  "actionAllow": "ခွင့်ပြု",
+  "actionBlock": "ပိတ်ပင်",
+  "actionFilterTitle": "လုပ်ဆောင်ချက် အမျိုးအစားအလိုက် စစ်ထုတ်",
+  "actionFilterTooltip": "လုပ်ဆောင်ချက် စစ်ထုတ်ချက်",
+  "actionNone": "လုပ်ဆောင်ချက် မရှိ",
+  "actionSilence": "အသံမထွက်စေ",
+  "actionTag": "လုပ်ဆောင်ချက်: {actionType}",
+  "actionType": "လုပ်ဆောင်မှုအမျိုးအစား",
+  "actionUnknown": "မသိရှိနိုင်",
+  "add": "Add",
+  "addAllowedBlockedRule": "ခွင့်ပြု/တားမြစ်မှုစည်းမျဉ်း ထည့်သွင်းခြင်း",
+  "addAllowSubscription": "ခွင့်ပြုမှုစာရင်းသွင်းခြင်း ထည့်သွင်းခြင်း",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "တားမြစ်မှုစာရင်းသွင်းခြင်း ထည့်သွင်းခြင်း",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "ထိတွေ့ချက် ထည့်သွင်းခြင်း",
+  "addContactFailed": "ထိတွေ့ချက် ထည့်သွင်းရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "addedToFavorites": "နှစ်သက်သော ထိတွေ့ချက်များထဲသို့ ထည့်သွင်းပြီးဖြစ်သည်",
+  "addLabel": "အညွှန်းအမှတ် ထည့်သွင်းခြင်း",
+  "addLabelButton": "အညွှန်းအမှတ် ထည့်သွင်းခြင်း",
+  "addLabelFailed": "အညွှန်းအမှတ် ထည့်သွင်းရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "addName": "အမည် ထည့်သွင်းခြင်း",
+  "addNoneSubscription": "မည်သည့်မျှ မစာရင်းသွင်းခြင်း ထည့်သွင်းခြင်း",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "ဖုန်းအမှတ်အသား ထည့်သွင်းခြင်း",
+  "addPhoneNumberRule": "ဖုန်းနံပါတ်စည်းမျဉ်း ထည့်သွင်းခြင်း",
+  "addPlugin": "ပလဂင်ထည့်သွင်းခြင်း",
+  "addPluginFailed": "ပလဂင်ထည့်သွင်းရာ မအောင်မြင်ခဲ့ပါ",
+  "addPluginFailedWithError": "ပလဂင်ထည့်သွင်းရာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "addPluginFromLocalFile": "ဒေသဆိုင်ရာဖိုင်မှ ပလဂင်ထည့်သွင်းခြင်း",
+  "addPluginFromUrl": "URL မှ ပလဂင်ထည့်သွင်းခြင်း",
+  "addRegexRule": "Regex စည်းမျဉ်းထည့်သွင်းခြင်း",
+  "addRule": "စည်းမျဉ်းထည့်သွင်းခြင်း",
+  "addRuleFailed": "စည်းမျဉ်းထည့်သွင်းရာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "addRuleTooltip": "စည်းမျဉ်းထည့်သွင်းခြင်း",
+  "addSilenceSubscription": "အသံမထွက်စေသော စာရင်းသွင်းခြင်းထည့်သွင်းခြင်း",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "SMS စစ်ထုတ်စည်းမျဉ်းထည့်သွင်းခြင်း",
+  "addSmsRule": "SMS စည်းမျဉ်းထည့်သွင်းခြင်း",
+  "addSmsSubscription": "SMS စာရင်းသွင်းခြင်းထည့်သွင်းခြင်း",
+  "addSubscription": "စာရင်းသွင်းခြင်းထည့်သွင်းခြင်း",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "စာရင်းသွင်းခြင်းထည့်သွင်းရန်",
+  "addSubscriptionFailed": "စာရင်းသွင်းခြင်း ထည့်သွင်းရန် မအောင်မြင်ခဲ့ပါ: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "စာရင်းသွင်းခြင်း ထည့်သွင်းပါ",
+  "addToBlacklist": "အနက်ရောင်စာရင်းထဲ ထည့်ပါ",
+  "addToFavorites": "ကြိုက်စာရင်းထဲ ထည့်ပါ",
+  "addToRules": "စည်းမျဉ်းများထဲ ထည့်ပါ",
+  "addToWhitelist": "ဖြူစာရင်းထဲ ထည့်ပါ",
+  "agent": "ကိုယ်စားလှယ်",
+  "all": "All",
+  "allCallsTab": "All",
+  "allow": "ခွင့်ပြုပါ",
+  "allowAllAllowRules": "ခွင့်ပြုစည်းမျဉ်းအားလုံးကို ခွင့်ပြုပါ",
+  "allowAllAllowRulesDesc": "ခွင့်ပြုစည်းမျဉ်းများမှ ခေါ်ဆိုမှုများကို ခွင့်ပြုပါ",
+  "allowAllBlacklistedNumbers": "အနက်ရောင်စာရင်းထည့်ထားသော နံပါတ်အားလုံးကို ခွင့်ပြုပါ",
+  "allowAllBlockRules": "တားမြစ်စည်းမျဉ်းအားလုံးကို ခွင့်ပြုပါ",
+  "allowAllBlockRulesDesc": "တားမြစ်စည်းမျဉ်းများမှ ခေါ်ဆိုမှုများကို ခွင့်ပြုပါ",
+  "allowAllowedNumbers": "ခွင့်ပြုထားသော နံပါတ်များကို ခွင့်ပြုပါ",
+  "allowAllowedNumbersDesc": "ခွင့်ပြုစာရင်းမှ ခေါ်ဆိုမှုများကို ခွင့်ပြုပါ",
+  "allowBlock": "ခွင့်ပြု/တားမြစ်",
+  "allowBlockedNumbers": "တားမြစ်ထားသော နံပါတ်များကို ခွင့်ပြုခြင်း",
+  "allowBlockedNumbersDesc": "တားမြစ်စာရင်းရှိ နံပါတ်များမှ ခေါ်ဆိုမှုများကို ခွင့်ပြုခြင်း",
+  "allowedBlockedRule": "ခွင့်ပြု/တားမြစ် စည်းမျဉ်း",
+  "allowedBlockedRuleEditDialogTitle": "ခွင့်ပြု/တားမြစ် စည်းမျဉ်းကို တည်းဖြတ်ခြင်း",
+  "allowedBlockedRuleManagement": "ခွင့်ပြု/တားမြစ် စည်းမျဉ်း စီမံခန့်ခွဲမှု",
+  "allowNonExceededNumbers": "အကန့်အသတ် မကျော်လွန်သော နံပါတ်များကို ခွင့်ပြုခြင်း",
+  "allowNonExceededNumbersDescription": "အရေအတွက်အကန့်အသတ်ကို မကျော်လွန်သော ကိန်းဂဏန်းများကို အလိုအလျောက် ခွင့်ပြုပါ",
+  "allowRegexAllowRules": "ခွင့်ပြုရေး Regex စည်းမျဉ်းများ",
+  "allowRegexAllowRulesDesc": "ခွင့်ပြုရေးစည်းမျဉ်းများအတွက် regex ပုံစံကိုက်ညီမှုကို အသက်သွင်းပါ",
+  "allowRegexAllowRulesDescription": "regex အခြေပြု ခွင့်ပြုရေးစည်းမျဉ်းများကို အသက်သွင်းပါ",
+  "allowRegexBlockRules": "ခွင့်မပြုရေး Regex စည်းမျဉ်းများ",
+  "allowRegexBlockRulesDesc": "ခွင့်မပြုရေးစည်းမျဉ်းများအတွက် regex ပုံစံကိုက်ညီမှုကို အသက်သွင်းပါ",
+  "allowRegexBlockRulesDescription": "regex အခြေပြု ခွင့်မပြုရေးစည်းမျဉ်းများကို အသက်သွင်းပါ",
+  "allowRule": "ခွင့်ပြုရေးစည်းမျဉ်း",
+  "allowRules": "ခွင့်ပြုမှု စည်းမျဉ်းများ",
+  "allPermissionsGranted": "ခွင့်ပြုချက်အားလုံး ရရှိပါပြီ",
+  "allSettingsCompleted": "ဆက်တင်များအားလုံး ပြီးစီးပါပြီ။",
+  "allUpdateSuccess": "အပ်ဒိတ်များအားလုံး ပြီးစီးပါပြီ ({count} စည်းကမ်းချက်)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "ဖြေပြီး ခေါ်ဆိုမှု ရပ်ပါ",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "လျှောက်လွှာ ဆော့ဖ်ဝဲ",
+  "apply": "လျှောက်ထားပါ",
+  "appName": "သင်၏ခေါ်ဆိုမှု သင်၏စည်းမျဉ်း",
+  "authorizationFailedCheckCredentialsMessage": "ခွင့်ပြုချက် ပျက်ကွက်ပါသည်: client ID နှင့် key ကို စစ်ဆေးပါ",
+  "authorizationFailedMessage": "ခွင့်ပြုချက် ပျက်ကွက်ပါသည်",
+  "authorizationSuccessMessage": "ခွင့်ပြုချက် အောင်မြင်ပါသည်",
+  "authorizeLoginButton": "အကောင့်ဝင်ရန် ခွင့်ပြုပါ",
+  "automotiveIndustry": "မော်တော်ကား လုပ်ငန်း",
+  "autoSyncLabel": "အလိုအလျောက် ပင်ဆင်ပါ",
+  "autoUpdate": "အလိုအလျောက် အပ်ဒိတ်",
+  "autoUpdateDescription": "စာရင်းသွင်းမှုများအတွက် အလိုအလျောက် အပ်ဒိတ်ကြားကာလ သတ်မှတ်ပါ သို့မဟုတ် ကိုယ်တိုင် အပ်ဒိတ်လုပ်ပါ",
+  "autoUpdateSettings": "အလိုအလျောက် အပ်ဒိတ် ဆက်တင်များ",
+  "autoUpdateSubtitle": "စည်းမျဉ်းများနှင့် ပလပ်အင်များအတွက် အလိုအလျောက် အပ်ဒိတ်များကို စီမံပါ။",
+  "autoUpdateTitle": "အလိုအလျောက် အပ်ဒိတ်",
+  "avatarBorderColor": "အိုင်ကွန် အစွန်းအရောင်",
+  "avatarBorderSize": "အိုင်ကွန် အစွန်း အထူ",
+  "avatarIconSizesSetting": "အိုင်ကွန် & အိုင်ကွန် အရွယ်အစားများ",
+  "avatarPosition": "အိုင်ကွန် အနေအထား",
+  "avatarSize": "အိုင်ကွန် အရွယ်အစား",
+  "axisPosition": "{axis} ၏ အနေအထား",
+  "backgroundGradientSetting": "နောက်ခံ ရေနွေးငွေ့",
+  "backup": "နောက်သို့ ထားပါ",
+  "backupAndRestore": "နောက်သို့ ထားပါ နှင့် ပြန်လည်ရယူပါ",
+  "backupAndRestoreSubtitle": "လျှောက်လွှာ ဒေတာကို နောက်သို့ ထားပါ သို့မဟုတ် ပြန်လည်ရယူပါ။",
+  "backupAndRestoreTitle": "နောက်သို့ ထားပါ & ပြန်လည်ရယူပါ",
+  "backupFailed": "နောက်သို့ ထားပါ ပျက်ကွက်ပါသည်",
+  "backupSettings": "နောက်သို့ ထားပါ ဆက်တင်များ",
+  "backupToCloud": "Cloud သို့ နောက်သို့ ထားပါ",
+  "backupToCloudFailed": "Cloud သို့ နောက်သို့ ထားပါ ပျက်ကွက်ပါသည်: {error}",
+  "backupToCloudSuccess": "Cloud သို့ အောင်မြင်စွာ နောက်သို့ ထားပါသည်",
+  "bank": "ဘဏ်",
+  "basicInfo": "အခြေခံ အချက်အလက်",
+  "basicRuleFilter": "အခြေခံ စည်းမျဉ်း စစ်ထုတ်",
+  "basicRuleFiltering": "အခြေခံ စည်းမျဉ်း စစ်ထုတ်ခြင်း",
+  "basicRuleFilteringExplanation": "• အခြေခံ စည်းမျဉ်း စစ်ထုတ်ခြင်း: အနက်စာရင်း၊ အဖြူစာရင်းနှင့် regex ကို အခြေခံ၍ စစ်ထုတ်ခြင်း",
+  "basicRuleFilterSubtitle": "အနက်စာရင်း/အဖြူစာရင်းနှင့် ပုံမှန်အသုံးအနှုန်းများကို အသုံးပြု၍ ခေါ်ဆိုမှုများကို စစ်ထုတ်ပါ။",
+  "batchDeleteContactsConfirm": "ရွေးချယ်ထားသော အဆက်အသွယ် {count} ခုကို ဖျက်ရန် သေချာပါသလား။",
+  "batchDeleteLabelsConfirm": "ရွေးချယ်ထားသော တံဆိပ် {count} ခုကို ဖျက်ရန် သေချာပါသလား။",
+  "blacklist": "အနက်စာရင်း",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "အနက်စာရင်းနှင့် အဖြူစာရင်း",
+  "blackWhiteList": "အနက်/အဖြူ စာရင်း",
+  "block": "ပိတ်ပါ",
+  "blockCalls": "ခေါ်ဆိုမှုများ ပိတ်ပါ",
+  "blocked": "ပိတ်ဆို့ထားသည်",
+  "blockedCalls": "ပိတ်ဆို့ထားသော ခေါ်ဆိုမှုများ",
+  "blockedCallsTitle": "ပိတ်ဆို့ထားသော ခေါ်ဆိုမှုများ",
+  "blockedSpamCalls": "ပိတ်ဆို့ထားသော Spam ခေါ်ဆိုမှုများ",
+  "blockingTrend": "ပိတ်ဆို့မှု ခေတ်ရေစီးကြောင်း",
+  "blockInternationalCalls": "+ သို့မဟုတ် 00 ဖြင့် မစတင်သော နံပါတ်များနှင့် ကိုက်ညီသည်",
+  "blockInternationalCallsTitle": "နိုင်ငံတကာ ခေါ်ဆိုမှုများကို ပိတ်ဆို့ပါ",
+  "blockMobileNumbers": "13-19 ဖြင့် မစတင်သော နံပါတ်များနှင့် ကိုက်ညီသည်",
+  "blockMobileNumbersTitle": "မိုဘိုင်း နံပါတ်များကို ပိတ်ဆို့ပါ",
+  "blockPremiumRateNumbers": "118 သို့မဟုတ် 120-190 ဖြင့် မစတင်သော နံပါတ်များနှင့် ကိုက်ညီသည်",
+  "blockPremiumRateNumbersTitle": "ကြေးကြီး နံပါတ်များကို ပိတ်ဆို့ပါ",
+  "blockRule": "ပိတ်ဆို့ရေး စည်းမျဉ်း",
+  "blockRules": "ပိတ်ဆို့ရေး စည်းမျဉ်းများ",
+  "blockSpecificAreaCodes": "0 + 2-3 ဂဏန်း ဖြင့် စတင်သော နံပါတ်များနှင့် ကိုက်ညီသည်",
+  "blockSpecificAreaCodesTitle": "အထူး ဒေသကုတ်များကို ပိတ်ဆို့ပါ:",
+  "blockTypeAnalysisTitle": "ပိတ်ဆို့မှု အမျိုးအစား ခွဲခြမ်းစိတ်ဖြာမှု",
+  "both": "နှစ်ခုလုံး",
+  "bulkDelete": "အစုလိုက် အဆက်အသွယ် ဖျက်ပါ",
+  "bulkDeleteContacts": "အစုလိုက် အဆက်အသွယ် ဖျက်ပါ",
+  "bulkDeleteLabels": "အစုလိုက် တံဆိပ် ဖျက်ပါ",
+  "call": "ခေါ်ပါ",
+  "callback": "ပြန်ခေါ်ပါ",
+  "callBlocking": "ခေါ်ဆိုမှု ပိတ်ဆို့ခြင်း",
+  "callerIdApp": "ခေါ်ဆိုသူ ID အက်ပ်",
+  "callerIdCustomizationTitle": "ခေါ်ဆိုသူ ID ကို စိတ်ကြိုက်ပြုလုပ်ပါ",
+  "callerIdDisplayMode": "ခေါ်သူ ID ပြသမှု ပုံစံ",
+  "callerIdMarkedByCount": "{count} ခုဖြင့် အမှတ်အသားပြုထားသည်",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "ခေါ်သူ ID ကြိုတင်ကြည့်ရှုမှု",
+  "callFilterRules": "ခေါ်ဆိုမှု စစ်ထုတ်မှု စည်းမျဉ်းများ",
+  "callFilterRulesDescription": "ခေါ်ဆိုမှု စစ်ထုတ်ရန် အခြေခံစည်းမျဉ်းများကို သတ်မှတ်ပါ",
+  "callFilterSettings": "ခေါ်ဆိုမှု စစ်ထုတ်မှု تنظیمများ",
+  "callFrequencyInterceptionSubtitle": "ခေါ်ဆိုမှု ကြိမ်နှုန်း အကန့်အသတ်များနှင့် ပိတ်ဆို့မှု စည်းမျဉ်းများကို သတ်မှတ်ပါ",
+  "callFrequencyInterceptionTitle": "ခေါ်ဆိုမှု ကြိမ်နှုန်း ကြားဖြတ်မှု",
+  "callHistory": "ခေါ်ဆိုမှု မှတ်တမ်း",
+  "callHistoryInfoDesc": "ဤနေရာတွင် သင့်၏ ခေါ်ဆိုမှု မှတ်တမ်းများကို ပြသထားပြီး ဝင်လာသောခေါ်ဆိုမှုများ၊ ထွက်သွားသောခေါ်ဆိုမှုများနှင့် မတွေ့ဆုံနိုင်ခဲ့သောခေါ်ဆိုမှုများ ပါဝင်သည်။",
+  "callHistoryInfoTitle": "ခေါ်ဆိုမှု မှတ်တမ်း",
+  "callHistoryTab": "ခေါ်ဆိုမှု မှတ်တမ်း",
+  "callScreeningPermission": "ခေါ်ဆိုမှု စစ်ဆေးခွင့်",
+  "callScreeningPermissionDescription": "စပမ်းခေါ်ဆိုမှုများကို စစ်ဆေးပြီး ပိတ်ဆို့ရန် အသုံးပြုသည်။",
+  "callScreeningPermissionNotGranted": "ခေါ်ဆိုမှုစစ်ဆေးခွင့် မပေးထားသေးပါ၊ အက်ပ်၏လုပ်ဆောင်ချက်များအပေါ် သက်ရောက်မှုရှိနိုင်သည်။",
+  "callStatistics": "ခေါ်ဆိုမှုအချက်အလက်များ",
+  "callTypeAnswered": "ခေါ်ဆိုမှုကို လက်ခံထားသည်",
+  "callTypeBlocked": "ပိတ်ထားသည်",
+  "callTypeIconColor": "ခေါ်ဆိုမှုအမျိုးအစား အိုင်ကွန်အရောင်",
+  "callTypeMissed": "ခေါ်ဆိုမှု လက်မခံနိုင်ခဲ့သည်",
+  "callTypeOutgoing": "ပြင်ပသို့ ခေါ်ဆိုသည်",
+  "callTypePosition": "ခေါ်ဆိုမှုအမျိုးအစား တည်နေရာ",
+  "callTypeUnknown": "မသိရှိနိုင်သည်",
+  "cancelButton": "ယူဆပယ်ချခြင်း",
+  "carRental": "ကားငှားခြင်း",
+  "carrier": "ကေရီယာ",
+  "carrierColor": "ကေရီယာအရောင်",
+  "carrierFontSize": "ကေရီယာ စာလုံးအရွယ်အစား",
+  "carrierPosition": "ကေရီယာ တည်နေရာ",
+  "changeLabel": "ပြောင်းလဲမှု အညွှန်း",
+  "changePluginStatusFailed": "ပလပ်အင်အခြေအနေကို ပြောင်းလဲရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "changeSubscriptionStatusFailed": "စာရင်းသွင်းအခြေအနေကို ပြောင်းလဲရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "အလှူရှင်အဖွဲ့အစည်း",
+  "chartOneWeekAgo": "တစ်ပတ်က",
+  "chartThreeDaysAgo": "သုံးရက်က",
+  "chartToday": "ယနေ့",
+  "checkFileFormat": "ဖိုင်ပုံစံ သို့မဟုတ် ခွင့်ပြုချက်များကို ကျေးဇူးပြု၍ စစ်ဆေးပါ",
+  "checkPermissionFailed": "ခွင့်ပြုချက်များကို စစ်ဆေးရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "chooseDefaultInterceptAction": "မူလတန်ဖိုး ဟန့်တားဆောင်ရွက်မှုကို ရွေးချယ်ပါ",
+  "clearFilter": "ဖလတာကို ရှင်းလင်းပါ",
+  "clearLabelFilterButton": "အညွှန်း ဖလတာကို ရှင်းလင်းပါ",
+  "closeButton": "ပိတ်ပါ",
+  "cloudSync": "ကလောက်ဒ် သင်ခ်",
+  "cloudSyncAndBackupTitle": "ကလောက်ဒ် သင်ခ်နှင့် ဘက်အပ်ချ်",
+  "cloudSyncSettingsSubtitle": "WebDAV၊ OneDrive နှင့် Google Drive ကို ချိန်ညှိပါ",
+  "cloudSyncSettingsTitle": "Cloud Sync ချိန်ညှိမှုများ",
+  "cloudSyncTitle": "Cloud Sync",
+  "collection": "အကြွေးတိုင်တင်မှု",
+  "colorPickerTitle": "အရောင်ရွေးချယ်ပါ",
+  "configManagement": "ချိန်ညှိမှုစီမံခန့်ခွဲမှု",
+  "configUpdated": "ချိန်ညှိမှုကို အပ်ဒိတ်လုပ်ပြီးဖြစ်သည်",
+  "configurationAdvice": "မှန်ကန်စွာ ချိန်ညှိခြင်းဖြင့် အလုပ်သုံး SIM ကတ်နှင့် ကိုယ်ပိုင်သုံး SIM ကတ်တို့အတွက် မတူညီသော စစ်ထုတ်မှုမဟာဗျူဟာများကို သတ်မှတ်နိုင်သည်။",
+  "configureBackupOptions": "ဘက်အပ်ရွေးချယ်မှုများကို ချိန်ညှိပါ",
+  "configureCloudSyncService": "Cloud Sync ဝန်ဆောင်မှုကို ချိန်ညှိပါ",
+  "configureCloudSyncServiceMessage": "စက်အများအပြားအကြား သင်္ကြုပ်ဆွဲနိုင်ရန် cloud sync ဝန်ဆောင်မှုတစ်ခုကို ချိန်ညှိပေးပါ။",
+  "configureSimCardFilterRules": "SIM ကတ်စစ်ထုတ်မှုစည်းမျဉ်းများကို ချိန်ညှိပါ",
+  "confirm": "အတည်ပြုပါ",
+  "confirmButton": "အတည်ပြုပါ",
+  "confirmDelete": "ဖျက်ပစ်ရန် အတည်ပြုပါ",
+  "confirmDeleteLabel": "{name} အညွှန်းကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား",
+  "confirmDeletePlugin": "{name} ပလပ်အင်ကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား?",
+  "confirmDeletePlugins": "ပလပ်အင် {count} ခုကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "ဤစည်းမျဉ်းကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား? ဤလုပ်ဆောင်ချက်ကို ပြန်လည်ယူဆောင်၍ မရနိုင်ပါ။",
+  "confirmDeleteSmsFilterRule": "ဤ SMS စစ်ထုတ်စည်းမျဉ်းကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား?",
+  "confirmDeleteSmsRule": "ဤ SMS စည်းမျဉ်းကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား?",
+  "confirmDeleteSubscriptions": "{name} ကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "ဝေါဟာရကို အတည်ပြုပါ",
+  "connectedStatus": "ချိတ်ဆက်ထားသည်",
+  "connectionFailedCheckCredentialsMessage": "ချိတ်ဆက်မှု မအောင်မြင်ခဲ့ပါ: ဆာဗာလိပ်စာ၊ အသုံးပြုသူနာမည်နှင့် ဝေါဟာရတို့ကို စစ်ဆေးပါ",
+  "connectionFailedMessage": "ချိတ်ဆက်မှု မအောင်မြင်ခဲ့ပါ",
+  "connectionStatusLabel": "ချိတ်ဆက်မှု အခြေအနေ",
+  "connectionSuccessMessage": "ချိတ်ဆက်မှု အောင်မြင်ခဲ့သည်",
+  "contactAddSuccess": "ထိတွေ့ဆက်သွယ်သူကို အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်",
+  "contactDeleted": "ထိတွေ့ဆက်သွယ်သူကို ဖျက်သိမ်းခဲ့သည်",
+  "contactNameLabel": "အမည်",
+  "contactNotFound": "ထိတွေ့မှုကို မတွေ့ရှိနိုင်",
+  "contacts": "ထိတွေ့မှုများ",
+  "contactsDeleted": "{count} ခုသော ထိတွေ့မှုများကို ဖျက်သိမ်းပြီးဖြစ်သည်",
+  "contactsManagement": "ထိတွေ့မှုများ စီမံခန့်ခွဲမှု",
+  "contactsPermission": "ထိတွေ့မှုများ အတွက် ခွင့်ပြုချက်",
+  "contactsPermissionDescription": "ထိတွေ့မှုဆိုင်ရာ ခေါ်ဆိုမှုများကို ခွဲခြားသတ်မှတ်ရန် အသုံးပြုသည်။",
+  "contactsTab": "ထိတွေ့မှုများ",
+  "contactSubscriptionDescription": "URL မှတစ်ဆင့် ထိတွေ့မှုစာရင်းများကို စာရင်းသွင်းပြီး ထိတွေ့မှုအချက်အလက်များနှင့် တံဆိပ်များကို အလိုအလျောက် အပ်ဒိတ်လုပ်နိုင်သည်။ JSON ပုံစံဒေတာကို ပံ့ပိုးပေးသည်။",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "ထိတွေ့မှုကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးဖြစ်သည်",
+  "contactUs": "ဆက်သွယ်ပါ",
+  "content": "အကြောင်းအရာ",
+  "contentRegex": "အကြောင်းအရာ Regex",
+  "countColor": "အရေအတွက်အရောင်",
+  "countFontSize": "အရေအတွက် အက္ခရာအရွယ်အစား",
+  "countPosition": "ရေတွက်မှု အနေအထား",
+  "country": "နိုင်ငံ",
+  "countryNameColor": "နိုင်ငံအမည် အရောင်",
+  "countryNameFontSize": "နိုင်ငံအမည် အက္ခရာအရွယ်အစား",
+  "countryRegionNamePosition": "နိုင်ငံ/ဒေသအမည် အနေအထား",
+  "countThresholdDescription": "ဖြတ်တောက်မှုဆိုင်ရာ လုပ်ဆောင်ချက်များကို စတင်ရန် လိုအပ်သော အနည်းဆုံးရေတွက်မှု အတားအဆီးကို သတ်မှတ်ပါ",
+  "countThresholdLabel": "ရေတွက်မှု အတားအဆီး",
+  "createdRules": "ဖန်တီးထားသော စည်းမျဉ်းများ",
+  "csvFormat": "CSV ပုံစံ",
+  "currentDeviceLabel": "လက်ရှိစက်ပစ္စည်း အညွှန်း",
+  "currentDeviceTitle": "လက်ရှိစက်ပစ္စည်း",
+  "currentLanguage": "လက်ရှိဘာသာစကား",
+  "customerService": "ဖောက်သည်ဝန်ဆောင်မှု",
+  "dashboardTab": "ဒက်ရှ်ဘုတ်",
+  "dataAnalysis": "ဒေတာခွဲခြမ်းစိတ်ဖြာမှု",
+  "dataLoadFailure": "ဒေတာတင်မရခဲ့ပါ: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "ဒေတာတင်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "dataMigration": "ဒေတာပြောင်းရွှေ့ခြင်း",
+  "dataMigrationDescription": "ဒီလုပ်ဆောင်ချက်က သင့်ဒေတာအားလုံးကို စက်ပစ္စည်းတွေကြား ပြောင်းရွှေ့နိုင်စေပါတယ်။ လောလောဆယ်မှာတော့ ဘက်အပ်နဲ့ ပြန်လည်တင်ဆင်းခြင်း လုပ်ဆောင်ချက်တွေကို အသုံးပြုပြီး သင့်ဒေတာကို လက်နဲ့ပြောင်းရွှေ့နိုင်ပါတယ်။",
+  "dataSourceReminder": "ဒေတာရင်းမြစ် သတိပေးချက်",
+  "days": "{count, plural, =1{၁ ရက်} other{{count} ရက်}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} ရက် VIP",
+  "debtCollection": "ငွေတောင်းခံခြင်း",
+  "delete": "ဖျက်ပစ်",
+  "deleteButton": "ဖျက်ပစ်",
+  "deleteContact": "ထိတွေ့သူကို ဖျက်ပစ်",
+  "deleteContactConfirm": "{name} ကို ဖျက်ပစ်လိုက်မယ်ဆိုတာ သေချာပါသလား?",
+  "deleteFailed": "ဖျက်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "deleteLabel": "လေဘယ်ကို ဖျက်ပစ်",
+  "deleteLabelFailed": "လေဘယ်ဖျက်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "deletePlugin": "ပလဂ်အင်ဖျက်ရန်",
+  "deletePluginFailed": "ပလဂ်အင်ကို ဖျက်ရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "deletePlugins": "ပလဂ်အင်များဖျက်ရန်",
+  "deletePluginsFailed": "ပလဂ်အင်များကို ဖျက်ရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "deleteRule": "စည်းမျဉ်းဖျက်ရန်",
+  "deleteRuleFailed": "ဖျက်ရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "deleteSelected": "ရွေးချယ်ထားသောများဖျက်ရန်",
+  "deleteSubscription": "စာရင်းသွင်းမှုဖျက်ရန်",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "စာရင်းသွင်းမှု \"{name}\" ကို ဖျက်လိုက်မည်ဟု သေချာပါသလား?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "စာရင်းသွင်းမှုကို ဖျက်ရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "ဖျက်ရာတွင် အောင်မြင်ခဲ့ပါသည်",
+  "delivery": "ပို့ဆောင်မှု",
+  "deviceIDLabel": "စက်ပစ္စည်း ID",
+  "deviceManagementSubtitle": "စက်ပစ္စည်းအများအပြား စင်ကရိုနိုက်စ်ချိန်ညှိမှုကို စီမံခန့်ခွဲပါ",
+  "deviceManagementTitle": "စက်ပစ္စည်းစီမံခန့်ခွဲမှု",
+  "deviceModelLabel": "စက်ပစ္စည်းမော်ဒယ်",
+  "deviceName": "စက်ပစ္စည်းအမည်",
+  "deviceNameLabel": "စက်ပစ္စည်းအမည်",
+  "deviceRenamedSuccessfullyMessage": "စက်ပစ္စည်းအမည်ကို အောင်မြင်စွာ ပြောင်းလဲပြီးဖြစ်သည်",
+  "devicesSynchronizedSuccessfullyMessage": "စက်ပစ္စည်းများကို အောင်မြင်စွာ သင်္ကြာလိုက်ပြီးဖြစ်သည်",
+  "deviceUnregisteredSuccessfullyMessage": "စက်ပစ္စည်းကို အောင်မြင်စွာ မှတ်ပုံတင်ဖျက်သိမ်းပြီးဖြစ်သည်",
+  "dialogTitle": "Regex ပုံစံ ရှင်းလင်းချက်",
+  "differentFromLocalCounter": "ဤလုပ်ဆောင်ချက်သည် ဒေသဆိုင်ရာ အရေအတွက်စစ်ထုတ်ချက်နှင့် မတူညီပြီး၊ ရေရှည်အတွက် မှတ်တမ်းတင်မှုအရေအတွက်များအစား အချိန်တိုအတွင်း ထပ်ခါတလဲလဲ ဖြစ်ပေါ်သော ခေါ်ဆိုမှုပုံစံများကို အာရုံစိုက်သည်။",
+  "disabled": "ပိတ်ထားသည်",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "ပိတ်ထားသည်",
+  "disableGlobalPlugins": "ကမ္ဘာလုံးဆိုင်ရာ ပလပ်အင်များကို ပိတ်ရန်",
+  "disconnectButton": "ချိတ်ဆက်မှုဖြတ်တောက်ရန်",
+  "disconnectedMessage": "ချိတ်ဆက်မှုဖြတ်တောက်ထားသည်",
+  "disconnectedStatus": "ချိတ်ဆက်မှုဖြတ်တောက်ထားသည်",
+  "disconnectFailedMessage": "ချိတ်ဆက်မှုဖြတ်တောက်ရာတွင် မအောင်မြင်ခဲ့ပါ",
+  "done": "ပြီးစီးပြီ",
+  "dualSimAdvice": "ဒီလုပ်ဆောင်ချက်ဟာ dual-SIM ဖုန်းများအတွက် အလုပ်နှင့် ကိုယ်ရေး SIM ကတ်များအတွက် မတူညီသော စစ်ထုတ်မှုမူဘောင်များကို သတ်မှတ်ရန် အထူးအသုံးဝင်ပါသည်။",
+  "earlier": "ယခင်က",
+  "ecommerce": "အီလက်ထရွန်နစ်ကုန်သွယ်မှု",
+  "edit": "แก้ไข",
+  "editContact": "ထိတ်ဆက်မှုကို แก้ไข",
+  "editLabel": "အညွှန်းကို แก้ไข",
+  "editPhoneRule": "ဖုန်းမူဘောင်ကို แก้ไข",
+  "editRule": "မူဘောင်ကို แก้ไข",
+  "education": "ပညာရေး",
+  "elementPositionsSetting": "အစိတ်အပိုင်းများ၏ တည်နေရာများ",
+  "email": "အီးမေးလ်",
+  "enableCallFilter": "ခေါ်ဆိုမှုစစ်ထုတ်မှုကို ဖွင့်ပါ",
+  "enableCallFilterDescription": "ဖွင့်ထားသည့်အခါ လာသောခေါ်ဆိုမှုများကို အောက်ပါမူဘောင်စာရင်းနှင့် နှိုင်းယှဉ်စစ်ဆေးမည်ဖြစ်သည်။ ဖုန်းခေါ်ဆိုမှုစစ်ထုတ်မှုမူဘောင်များသည် စက်ပစ္စည်းများအကြား သတ်မှတ်ချက်အရ မသင်္ကြူပေးပို့ပါ။",
+  "enabled": "ဖွင့်ထားသည်",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "ပင်ထား",
+  "enableEncryption": "အကုတ်ခံစနစ်ကို ပင်ထား",
+  "enableEncryptionDescription": "ဘက်အပ်ဖိုင်များကို အကုတ်ခံထား",
+  "enableGlobalPlugins": "ဂလိုဘယ်ပလပ်အင်များကို ပင်ထား",
+  "enableLocalCountFilter": "ဒေသဆိုင်ရာ အရေအတွက်ဖလတာကို ပင်ထား",
+  "enableLocalCountFilterDescription": "ခေါ်ဆိုမှုအမှတ်အသားအရေအတွက်အပေါ် အခြေခံ၍ စပမ်ခေါ်ဆိုမှုများကို အလိုအလျောက် ဖလတ်ထား",
+  "enableLocalNotification": "ဒေသဆိုင်ရာ အသိပေးချက်ကို အသုံးပြု",
+  "enableLocalNotificationDescription": "ပင်ထားသည့်အခါ ဖလတ်ထားသော စာများအတွက် အသိပေးချက်များကို စက်ပစ္စည်းပေါ်တွင် ပြသမည်",
+  "enableLocationSummary": "တည်နေရာ",
+  "enableMuteRules": "အသံပိတ်စည်းမျဉ်းများကို ပင်ထား",
+  "enableMuteRulesDesc": "အသံပိတ် ဖြတ်တောက်မှုစည်းမျဉ်းများ၏ ချမှုဖြစ်ပုံကို အသုံးချပါ",
+  "enableNoneActionRules": "လုပ်ဆောင်ချက်မရှိသော စည်းမျဉ်းများကို ပင်ထား",
+  "enableNoneActionRulesDesc": "ဖြတ်တောက်မှုလုပ်ဆောင်ချက်မရှိသော စည်းမျဉ်းချမှုများကို ခွင့်ပြု",
+  "enableRemoteNumberFilter": "အဝေးရှိ နံပါတ်ဖလတာကို ပင်ထား",
+  "enableRemoteNumberFilterDescription": "နံပါတ်များကို ဖလတ်ရန် အဝေးရှိ ဒေတာဘေ့စ်ကို အသုံးပြု",
+  "enableRule": "စည်းမျဉ်းကို အသက်သွင်းပါ",
+  "enableSmsFilter": "SMS စစ်ထုတ်မှုကို အသက်သွင်းပါ",
+  "enableSmsFilterDescription": "အသက်သွင်းထားသည့်အခါ စည်းမျဉ်းများအရ စာတမ်းများကို အလိုအလျောက် စစ်ထုတ်ပေးမည်",
+  "enableTimeInterception": "အချိန်အခါ အတားအဆီးကို အသက်သွင်းပါ",
+  "enableTimeInterceptionDescription": "အချိန်တိုအတွင်း ထပ်တလဲလဲ ခေါ်ဆိုမှုများကို အတားအဆီးပေးပါ",
+  "enableTimeInterceptor": "အချိန်အတားအဆီးကို အသက်သွင်းပါ",
+  "endCallImmediately": "ခေါ်ဆိုမှုကို ချက်ချင်းပိတ်ပါ",
+  "endColor": "အဆုံးအရောင်",
+  "endDate": "အဆုံးရက်စွဲ",
+  "enhancedFilterInstructionsTitle": "မြှင့်တင်ထားသော ဖလ်တာစနစ်",
+  "enhancedFilterSettings": "မြှင့်တင်ထားသော ဖလ်တာချိန်ညှိမှုများ",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "မြှင့်တင်ထားသော ဖလ်တာချိန်ညှိမှုများ",
+  "enhancedFilterSystemDescription": "မြှင့်တင်ထားသော ဖလ်တာစနစ်သည် ဂလိုဘယ်စည်းမျဉ်းများနှင့် SIM ကတ်တစ်ခုစီအတွက် ဖလ်တာချိန်ညှိမှုများ နှစ်မျိုးစလုံးကို ပံ့ပိုးပေးသည်။",
+  "enterBothPhoneNumberAndRegexPatternMessage": "ဖုန်းနံပါတ်နှင့် regex ပုံစံ နှစ်မျိုးစလုံး ဝင်ရိုက်ပေးပါ။",
+  "enterContactName": "ထိတွေ့ဆက်သွယ်မှုအမည်ကို ဝင်ရိုက်ပေးပါ",
+  "enterDeviceName": "စက်ပစ္စည်းအမည် ဝင်ရိုက်ပါ",
+  "enterEmailOptional": "အီးမေးလ်ကို ဝင်ရိုက်ပါ (မဖြစ်မနေ မဟုတ်ပါ)",
+  "enterEncryptionPasswordHint": "သံချပ်ကာဝှက်ကုဒ်ဝှက်ခြင်း ချောင်းမှုန်းဝှက်ကုဒ်ကို ဝင်ရိုက်ပါ",
+  "enterIconCode": "အိုင်ကွန်ကုဒ်ကို ဝင်ရိုက်ပါ",
+  "enterName": "ဆက်သွယ်သူအမည်ကို ဝင်ရိုက်ပါ",
+  "enterNewDeviceNameHint": "ဤစက်ပစ္စည်းအတွက် အမည်အသစ်တစ်ခုကို ဝင်ရိုက်ပါ",
+  "enterPasswordAgain": "ချောင်းမှုန်းဝှက်ကုဒ်ကို ထပ်မံဝင်ရိုက်ပါ",
+  "enterPhoneNumber": "ဖုန်းနံပါတ်ကို ဝင်ရိုက်ပါ",
+  "enterPhoneNumberHint": "စမ်းသပ်ရန် ဖုန်းနံပါတ်ကို ဝင်ရိုက်ပါ",
+  "enterPhoneNumberMultiple": "ဖုန်းနံပါတ်များကို ဝင်ရိုက်ပါ၊ နံပါတ်များကို ကော်မာဖြင့် ခွဲထားပါ",
+  "enterPhoneNumberToStartSearch": "ရှာဖွေမှုစတင်ရန် ဖုန်းနံပါတ်ကို ဝင်ရိုက်ပါ",
+  "enterPhoneNumberToVerify": "စစ်ဆေးရန် ဖုန်းနံပါတ်ကို ဝင်ရိုက်ပါ",
+  "enterPluginName": "ပလဂ်အင်အမည်ကို ဝင်ရိုက်ပါ",
+  "enterPluginUrl": "ပလဂ်အင် URL လိပ်စာကို ဝင်ရိုက်ပါ",
+  "enterRegexHint": "regex ပုံစံကို ဝင်ရိုက်ပါ",
+  "enterRuleNameAndPatternMessage": "စည်းမျဉ်းအမည်နှင့် regex ပုံစံ နှစ်မျိုးစလုံး ဝင်ရိုက်ပေးပါ။",
+  "enterRuleNameHint": "စည်းမျဉ်းအမည် ဝင်ရိုက်ပါ",
+  "enterSearchContent": "ရှာဖွေမည့် အကြောင်းအရာ ဝင်ရိုက်ပေးပါ",
+  "enterSubscriptionName": "စာရင်းသွင်းမှုအမည် ဝင်ရိုက်ပါ",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "စာရင်းသွင်းမှု URL ဝင်ရိုက်ပါ",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Sync ဖိုင်တိုင်းအမည် ဝင်ရိုက်ပေးပါ (မူလတန်ဖိုး: NotificationManager)",
+  "entertainment": "ဖျော်ဖြေရေး",
+  "enterValidNameAndUrl": "မှန်ကန်သော အမည်နှင့် URL ဝင်ရိုက်ပေးပါ",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "မှန်ကန်သော URL တစ်ခု ဝင်ရိုက်ပေးပါ",
+  "enterVersion": "ဗားရှင်း ဝင်ရိုက်ပါ",
+  "enterWebDAVPasswordHint": "WebDAV ဝှက်စာ ဝင်ရိုက်ပေးပါ",
+  "enterWebDAVServerAddressHint": "WebDAV ဆာဗာလိပ်စာ ဝင်ရိုက်ပေးပါ",
+  "enterWebDAVUsernameHint": "WebDAV အသုံးပြုသူအမည် ဝင်ရိုက်ပေးပါ",
+  "errorOccurredMessage": "အမှားတစ်ခု ဖြစ်ပေါ်ခဲ့သည်: {error}",
+  "errorRenamingDeviceMessage": "စက်ပစ္စည်းအမည် ပြောင်းရာတွင် အမှားဖြစ်ပေါ်ခဲ့သည်: {error}",
+  "errorSynchronizingDevicesMessage": "စက်ပစ္စည်းများကို စင်က်ခရိုနိုက်လုပ်ရာတွင် အမှားဖြစ်ပေါ်ခဲ့သည်: {error}",
+  "errorUnregisteringDeviceMessage": "စက်ပစ္စည်းကို မှတ်ပုံတင်ဖျက်ရာတွင် အမှားဖြစ်ပေါ်ခဲ့သည်: {error}",
+  "exampleBlock400Prefix": "ဥပမာ 400 ဖြင့် စတင်သော နံပါတ်များ",
+  "exampleBlockMarketingSms": "ဥပမာ ကြော်ငြာအကြောင်းအရာ SMS များကို ပိတ်ပင်ခြင်း",
+  "exampleContentRegexHint": "အကြောင်းအရာ Regex ဥပမာ",
+  "exampleCouponPromotionDiscount": "ဥပမာ .*(coupon|promotion|discount).*",
+  "exampleFamilyFriends": "ဥပမာ မိသားစု၊ သူငယ်ချင်းများ စသည်",
+  "examplePhoneNumber": "ဥပမာ 10086၊ 12345 စသည်",
+  "exampleRegex400Prefix": "400 ဖြင့် စတင်သော နံပါတ်များအတွက် Regex ဥပမာ",
+  "exampleSenderRegexHint": "ဥပမာ",
+  "exchange": "လဲလှယ်ခြင်း",
+  "exchangeNow": "ယခုလဲလှယ်ခြင်း",
+  "exchangeVip": "VIP လဲလှယ်ခြင်း",
+  "expiryTime": "မှုန်းကုန်ချိန်: {time}",
+  "export": "တင်ပို့ခြင်း",
+  "exportAllApplicationSettings": "အက်ပ်လီကေးရှင်းအချက်အလက်အားလုံးကို တင်ပို့ခြင်း",
+  "exportAllRuleConfigurations": "စည်းမျဉ်းချမ်းသက်မှုများအားလုံးကို တင်ပို့ခြင်း",
+  "exportConfig": "ချမ်းသက်မှုကို တင်ပို့ခြင်း",
+  "exportContacts": "ထိတွေ့ဆက်သွယ်သူများကို တင်ပို့ခြင်း",
+  "exportData": "ဒေတာကို တင်ပို့ခြင်း",
+  "exportFailed": "တင်ပို့ရာမှာ အောင်မြင်မှုမရှိခဲ့",
+  "exportFailure": "ချမ်းသက်မှုကို တင်ပို့ရာမှာ အောင်မြင်မှုမရှိခဲ့",
+  "exportFeatureComingSoon": "တင်ပို့ရေးလုပ်ဆောင်ချက်သည် မကြာမီမှာ ရရှိနိုင်မည်",
+  "exportLabels": "ကံစာများကို တင်ပို့ခြင်း",
+  "exportLabelsFailed": "ကံစာများကို တင်ပို့ရာမှာ အောင်မြင်မှုမရှိခဲ့: {error}",
+  "exportPluginList": "ပလဂင်စာရင်းကို တင်ပို့ခြင်း",
+  "exportPluginListFailed": "ပလဂင်စာရင်းကို တင်ပို့ရာမှာ အောင်မြင်မှုမရှိခဲ့: {error}",
+  "exportRules": "စည်းမျဉ်းများကို တင်ပို့ခြင်း",
+  "exportSmsRules": "SMS စည်းမျဉ်းများကို တင်ပို့ခြင်း",
+  "exportStatisticsData": "စာရင်းအင်းဒေတာကို တင်ပို့ခြင်း",
+  "exportSuccesslly": "ကြိုတင်ပြင်ဆင်ချက်များကို အောင်မြင်စွာ တင်ပြထားပြီးဖြစ်သည်",
+  "failedToAddRule": "စည်းမျဉ်းကို ထည့်သွင်းရာတွင် အောင်မြင်ခြင်းမရှိခဲ့ပါ: {error}",
+  "failedToAddSmsSubscription": "SMS စာရင်းသွင်းခြင်းကို ထည့်သွင်းရာတွင် အောင်မြင်ခြင်းမရှိခဲ့ပါ: {error}",
+  "failedToBackupSettings": "ကြိုတင်ပြင်ဆင်ချက်များကို ဘက်အပ်ရာတွင် အောင်မြင်ခြင်းမရှိခဲ့ပါ: {error}",
+  "failedToDecryptBackupFile": "ဘက်အပ်ဖိုင်ကို ဖော်ထုတ်ရာတွင် အောင်မြင်ခြင်းမရှိခဲ့ပါ",
+  "failedToDeleteSmsRule": "SMS စည်းမျဉ်းကို ဖျက်ရာတွင် အောင်မြင်ခြင်းမရှိခဲ့ပါ: {error}",
+  "failedToExportRules": "စည်းမျဉ်းများကို တင်ပြရာတွင် အောင်မြင်ခြင်းမရှိခဲ့ပါ: {error}",
+  "failedToGetCallerIdInfo": "ခေါ်ဆိုသူ ID အချက်အလက်ကို ရယူရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "failedToImportRules": "စည်းမျဉ်းများကို တင်သွင်းရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "failedToRestoreSettings": "ချိန်ညှိမှုများကို ပြန်လည်ထူထောင်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ",
+  "failedToRestoreSettingsWithError": "ချိန်ညှိမှုများကို ပြန်လည်ထူထောင်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "failedToToggleRuleStatus": "စည်းမျဉ်းအခြေအနေကို ပြောင်းလဲရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "favoriteContacts": "နှစ်သက်သော ဆက်သွယ်သူများ",
+  "featureAddRules": "• ဖုန်းနံပါတ်အလိုက် သီးသန့်စည်းမျဉ်းများ ထည့်သွင်းနိုင်ပါသည်",
+  "featureCenter": "အင်္ဂါရပ်ဗဟိုချုပ်",
+  "featureEnableDisable": "• SIM တစ်ခုစီအတွက် ဖလ်တာများကို ဖွင့်/ပိတ်နိုင်သည်",
+  "featureListTitle": "အင်္ဂါရပ်များ:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• SIM တစ်ခုစီအတွက် စည်းမျဉ်းစာရင်းများကို စီမံနိုင်သည်",
+  "features": "အင်္ဂါရပ်များ",
+  "fetchingCallerIdInfo": "ခေါ်ဆိုသူအမည်အချက်အလက်များကို ရယူနေပါသည်...",
+  "fileSavedTo": "ဖိုင်ကို ဤနေရာတွင် သိမ်းဆည်းထားသည်: {path}",
+  "filter": "ဖလ်တာ",
+  "filterByLabel": "အညွှန်းအရ ဖလ်တာလုပ်ခြင်း",
+  "filterControlPanelTitle": "ဖလ်တာထိန်းချုပ်ရေးပန်နယ်",
+  "filterControlSubtitle": "ဖလ်တာအားလုံး၏ ဖွင့်/ပိတ်အခြေအနေကို စီမံနိုင်သည်",
+  "filterControlTitle": "ဖလ်တာထိန်းချုပ်မှု",
+  "filtered": "ဖလ်တာလုပ်ထားသည်",
+  "filterExplanation": "ဖလ်တာရှင်းလင်းချက်",
+  "filterManagement": "ဖလ်တာစီမံခန့်ခွဲမှု",
+  "filterName": "ဖလ်တာအမည်",
+  "filterPriorityNote": "မှတ်ချက်- ဖီလ်တာများအကြား ဦးစားပေးမှုဆက်နွှယ်မှုများရှိပါသည်၊ အသေးစိတ်အချက်အလက်များအတွက် ကူညီမှုစာတမ်းကို ကြည့်ပါ",
+  "filterSettings": "ဖီလ်တာချိန်ညှိမှုများ",
+  "filterSettingsTitle": "Filter Settings",
+  "filterSMS": "SMS ဖီလ်တာ",
+  "filterToggleInstructions": "ဤ SIM စလော့အတွက် ဖီလ်တာများကို ဖွင့်သို့မဟုတ် ပိတ်ပါ-:",
+  "filterToggleStatus": "{status} ဖီလ်တာ- {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "ဖီလ်တာအမျိုးအစား",
+  "financial": "ငွေကြေးဆိုင်ရာ",
+  "flexibleCombinationFeature": "• ပြောင်းလဲလိုက်ဖက်နိုင်သော ပေါင်းစပ်မှုများ- SIM စလော့တစ်ခုစီအလိုက် ဖီလ်တာများကို ဖွင့်/ပိတ်နိုင်ပါသည်",
+  "fontSizesSetting": "စာလုံးအရွယ်အစားများ",
+  "foundRules": "{count} ခုတွေ့ရှိခဲ့သည်",
+  "fraudAlert": "ပိုက်ဆံရေးရာလိမ်လည်မှု သတိပေးချက်- ခေါ်ဆိုမှုကို ပိတ်ပါ",
+  "fraudScamLikely": "ပိုက်ဆံရေးရာလိမ်လည်မှု ဖြစ်နိုင်ခြေများသည်",
+  "free": "အခမဲ့",
+  "functionSettingsTitle": "လုပ်ဆောင်ချက်ချိန်ညှိမှုများ",
+  "generalUpdateFailure": "အပ်ဒိတ်မအောင်မြင်ပါ- {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "အခမဲ့ရယူ",
+  "github": "GitHub",
+  "globalFilterDescription": "SIM ကတ်အားလုံးအတွက် ကမ္ဘာလုံးဆိုင်ရာ ဖလ်တာများကို تنظیمပါ:",
+  "globalFilterFeature": "• ကမ္ဘာလုံးဆိုင်ရာ ဖလ်တာများ: လာသောခေါ်ဆိုမှုအားလုံးအတွက် အခြေခံစည်းမျဉ်းများ",
+  "globalFilterSettings": "ကမ္ဘာလုံးဆိုင်ရာ ဖလ်တာ تنظیمများ",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "ကမ္ဘာလုံးဆိုင်ရာ تنظیمများ",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "စနစ်က تنظیمပေးထားသော Google Drive client ID နှင့် key ကို အသုံးပြု၍ အတည်ပြုပါ",
+  "googleDriveConfigTitle": "Google Drive تنظیمများ",
+  "government": "အစိုးရ",
+  "granted": "ခွင့်ပြုထား",
+  "grantNecessaryPermissions": "လိုအပ်သော ခွင့်ပြုချက်များကို ပေးပါ",
+  "grantPermissions": "ခွင့်ပြုချက်များ ပေးပါ",
+  "headhunter": "လူဝင်မှုရှာဖွေသူ",
+  "height": "အမြင့်",
+  "homeTab": "အိမ်",
+  "howItWorksPoint1": "• စနစ်သည် သတ်မှတ်ထားသော အချိန်ကာလအတွင်း အမှတ်တူနံပါတ်မှ ခေါ်ဆိုမှုများကို အလိုအလျောက် ခွင့်ပြုပေးမည်",
+  "howItWorksPoint2": "• အချိန်ကာလ ပိုတိုလေလေ ပိုမိုတင်းကျပ်စွာ ချိတ်ဆက်တားဆီးမည်ဖြစ်ပြီး၊ အချိန်ကာလ ပိုရှည်လေလေ ပိုမိုလျော့လျော့ရှုပ်ရှုပ် ချိတ်ဆက်တားဆီးမည်ဖြစ်သည်",
+  "howItWorksPoint3": "• စနစ်သည် ခေါ်ဆိုမှုမှတ်တမ်းများကို စစ်ဆေး၍ ထပ်တလဲလဲ ခေါ်ဆိုမှုဖြစ်မဖြစ် ဆုံးဖြတ်သည်",
+  "howItWorksTitle": "အလုပ်လုပ်ပုံမှာ:",
+  "iconCodeOptional": "ပုံမှတ်ကုဒ် (မဖြစ်မနေ မဟုတ်)",
+  "iconSize": "ပုံအရွယ်အစား",
+  "import": "တင်သွင်းခြင်း",
+  "important": "အရေးကြီး",
+  "importConfig": "တင်သွင်းခြင်း ကိရိယာပုံစံ",
+  "importContacts": "ထိတ်ဆက်သူများ တင်သွင်းခြင်း",
+  "importExportContacts": "ထိတ်ဆက်သူများ တင်သွင်း/တင်ပို့ခြင်း",
+  "importExportContactsTooltip": "ထိတ်ဆက်သူများ တင်သွင်း/တင်ပို့ခြင်း",
+  "importExportRules": "စည်းမျဉ်းများ တင်သွင်း/တင်ပို့ခြင်း",
+  "importFailed": "တင်သွင်းရာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "importFailure": "ကိရိယာပုံစံကို တင်သွင်းရာ မအောင်မြင်ခဲ့ပါ",
+  "importFeatureComingSoon": "တင်သွင်းခြင်းဆိုင်ရာ လုပ်ဆောင်ချက် မကြာမီ ရောက်ရှိလာမည်",
+  "importLabels": "တံဆိပ်များ တင်သွင်းခြင်း",
+  "importLabelsFailed": "တံဆိပ်များကို တင်သွင်းရာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "importPluginList": "ပလဂင်စာရင်း တင်သွင်းခြင်း",
+  "importPluginListFailed": "ပလဂင်စာရင်းကို တင်သွင်းရာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "importPluginSuccess": "{count} ခုသော ပလဂင်များကို အောင်မြင်စွာ တင်သွင်းပြီးဖြစ်သည်",
+  "importRuleConfigurationsFromFile": "ဖိုင်မှ စည်းမျဉ်းချမ်းသက်မှုများကို တင်သွင်းခြင်း",
+  "importRules": "စည်းမျဉ်းများ တင်သွင်းခြင်း",
+  "importSuccess": "တင်သွင်းမှု အောင်မြင်သည်",
+  "incomingCallInterceptAction": "ဝင်လာသော ခေါ်ဆိုမှုကို ဟန့်တားသည့် လုပ်ဆောင်ချက်",
+  "incorrectPassword": "ဝှက်စာ မမှန်ကန်ပါ",
+  "initializing": "စတင်တည်ဆောက်နေသည်",
+  "installed": "တပ်ဆင်ပြီးဖြစ်သည်",
+  "insufficientMarks": "မှတ်ပေါင်း မလုံလောက်ပါ",
+  "insurance": "အာမခံ",
+  "interceptAction": "ဖမ်းဆီးဆောင်ရွက်မှု",
+  "interceptionActionSettingsSubtitle": "ပိတ်ပင်ထားသော ခေါ်ဆိုမှုများကို မည်သို့စီမံမည်ကို သတ်မှတ်ပါ",
+  "interceptionActionSettingsTitle": "ဖမ်းဆီးဆောင်ရွက်မှု ဆောင်ရွက်မှုဆိုင်ရာ သတ်မှတ်ချက်များ",
+  "interceptionTimeInterval": "ဖမ်းဆီးဆောင်ရွက်မှု အချိန်ကြားကာလ",
+  "internet": "အင်တာနက်",
+  "intervalSetSuccess": "{service} အပ်ဒိတ်ကြားကာလကို {days} ရက်အဖြစ် သတ်မှတ်ပြီးဖြစ်သည်",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "မသင့်လျော်သော အကြောင်းအရေ regex",
+  "invalidLabel": "မသင့်လျော်သော အညွှန်း",
+  "invalidRegexPattern": "မသင့်လျော်သော regex ပုံစံ",
+  "invalidSenderRegex": "မသင့်လျော်သော ပို့ဆောင်သူ regex",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "အချက်အလက်အပိုင်းအပိုင်းများအတွက် Telegram Channel နှင့် Group ကို ဝင်ရောက်ပါ",
+  "jsonFormat": "JSON ပုံစံ",
+  "keepAllVersions": "ဗားရှင်းအားလုံးကို ထိန်းသိမ်းပါ",
+  "keepAllVersionsDescription": "ဘက်အပ်တစ်ခုစီ၏ ယခင်ဗားရှင်းအားလုံးကို ထိန်းသိမ်းထားပါ",
+  "label": "အညွှန်း",
+  "labelAddedSuccessfully": "Label \"{name}\" ကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "labelCategories": "Label အမျိုးအစားများ",
+  "labelDeleted": "Label ကို ဖျက်ပြီးဖြစ်သည်",
+  "labelDescription": "Label များသည် ဆက်သွယ်သူများကို ပိုမိုကောင်းမွန်စွာ စီမံခန့်ခွဲရန် ကူညီပေးပြီး ဖုန်းခေါ်ဆိုမှုများနှင့် စာတမ်းများကို လွယ်ကူစွာ ခွဲခြားသိရှိနိုင်ရန် ဖုန်းနံပါတ်များတွင် ကိုယ်ပိုင်กำหนด Label များ ထည့်သွင်းနိုင်သည်။",
+  "labelFilterTooltip": "Label စစ်ထုတ်ချက်",
+  "labelIconColor": "Label အိုင်ကွန်အရောင်",
+  "labelManagement": "Label စီမံခန့်ခွဲမှု",
+  "labelNotFound": "Label ကို မတွေ့ရှိနိုင်ပါ",
+  "labels": "Label များ",
+  "labelsColor": "Label အရောင်",
+  "labelsDeleted": "{count} ခုသော Label များကို ဖျက်ပြီးဖြစ်သည်",
+  "labelsExportedSuccessfully": "Label များကို အောင်မြင်စွာ ပြင်ပတင်ပြပြီးဖြစ်သည်",
+  "labelsFontSize": "Label စာလုံးအရွယ်အစား",
+  "labelsImportedSuccessfully": "{count} ခုသော Label များကို အောင်မြင်စွာ တင်သွင်းပြီးဖြစ်သည်",
+  "labelsPosition": "Label တည်နေရာ",
+  "labelTag": "အညွှန်း: {labelId}",
+  "labelUpdateFailed": "အညွှန်းကို အပ်ဒိတ်မလုပ်နိုင်ခဲ့ပါ: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "အညွှန်း \"$labelText\" ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးဖြစ်သည်",
+  "languageSettings": "ဘာသာစကားချိန်ညှိမှုများ",
+  "languageSettingsSubtitle": "အက်ပ်၏ ပြသဘာသာစကားကို ပြောင်းလဲပါ",
+  "languageSettingsTitle": "ဘာသာစကားချိန်ညှိမှုများ",
+  "lastSyncLabel": "နောက်ဆုံးသင်ခ်နိုက်ချိန်",
+  "lastUpdated": "နောက်ဆုံးအပ်ဒိတ်လုပ်ခဲ့သည့်အချိန်: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "သက်တမ်းတစ်လျှောက် အဖွဲ့ဝင်စည်းမှု",
+  "lifetimeMembershipDescription": "တစ်ကြိမ်သာ ဝယ်ယူခြင်းဖြင့် ပရီမီယံအင်္ဂါရပ်အားလုံးနှင့် အနာဂတ်အပ်ဒိတ်များကို ထာဝရ ဖွင့်လှစ်နိုင်မည်",
+  "loadContactsFailed": "ထိတွေ့သူများကို ဖွင့်မမြင်နိုင်ခဲ့ပါ: {error}",
+  "loadDataFailed": "ဒေတာကို ဖွင့်မမြင်နိုင်ခဲ့ပါ",
+  "loading": "ဖွင့်နေပါသည်...",
+  "loadingTags": "အညွှန်းများကို ဖွင့်နေပါသည်...",
+  "loadLabelFailed": "အညွှန်းများကို ဖွင့်မမြင်နိုင်ခဲ့ပါ: {error}",
+  "loadLabelsFailed": "လေဘယ်များကို ဖွင့်မရခဲ့ပါ: {error}",
+  "loadMarkCountFailed": "အမှတ်အသားပြုထားသော ဖုန်းနံပါတ်များကို ဖွင့်မရခဲ့ပါ: {error}",
+  "loadMarkedPhonesFailed": "အမှတ်အသားပြုထားသော ဖုန်းများကို ဖွင့်မရခဲ့ပါ: {error}",
+  "loadPluginsFailed": "ပလပ်အင်များကို ဖွင့်မရခဲ့ပါ: {error}",
+  "loadSettingsFailed": "အချက်အလက်များကို ဖွင့်မရခဲ့ပါ: {error}",
+  "loadSmsRulesFailed": "SMS စည်းမျဉ်းများကို ဖွင့်မရခဲ့ပါ: {error}",
+  "loadStatusFailedMessage": "အခြေအနေကို ဖွင့်မရခဲ့ပါ",
+  "loadSubscriptionsFailed": "စာရင်းသွင်းမှုများကို ဖွင့်မရခဲ့ပါ: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "အကြွေး",
+  "localCounterFilter": "ဒေသဆိုင်ရာ အရေအတွက် စစ်ထုတ်ချက်",
+  "localCounterFilterSubtitle": "ခေါ်ဆိုမှုအကြိမ်ရေအပေါ် အခြေခံ၍ စပမ်ခေါ်ဆိုမှုများကို အလိုအလျောက် စစ်ထုတ်ပါ",
+  "localCountFilter": "ဒေသဆိုင်ရာ အရေအတွက် စစ်ထုတ်ချက်",
+  "localCountFilterDescription": "ဒေသဆိုင်ရာ နံပါတ်အရေအတွက်များအပေါ် အခြေခံ၍ မကြာခဏ ခေါ်ဆိုမှုများကို ဟန့်တားပါ",
+  "localCountFilterExplanationContent": "ဒေသဆိုင်ရာ အရေအတွက် စစ်ထုတ်ချက်သည် ခေါ်ဆိုမှုမှတ်တမ်းများကို လေ့လာဆန်းစစ်၍ မကြာခဏ ခေါ်ဆိုသော စပမ်ခေါ်ဆိုမှုများကို အလိုအလျောက် ဖော်ထုတ်ပြီး ပိတ်ဆို့ပေးပါသည်။",
+  "localCountFilterExplanationTitle": "ဒေသဆိုင်ရာ အရေအတွက် စစ်ထုတ်ချက် ရှင်းလင်းချက်",
+  "localCountFilterHowItWorksPoint1": "• နံပါတ်၏ အရေအတွက်တန်ဖိုးအပေါ် အခြေခံ၍ ပိတ်ဆို့မည်/မပိတ်ဆို့မည် ဆုံးဖြတ်ပါ",
+  "localCountFilterHowItWorksPoint2": "• နံပါတ်တစ်ခု၏ အရေအတွက်သည် သတ်မှတ်ထားသော အဆုံးအတိုင်းအတာကို ကျော်လွန်သွားသည့်အခါ အလိုအလျောက် ပိတ်ဆို့ရန် ရွေးချယ်နိုင်ပါသည်",
+  "localCountFilterHowItWorksPoint3": "• အဆုံးအတိုင်းအတာကို မကျော်လွန်သော နံပါတ်များကိုသာ ရွေးချယ်၍ ခွင့်ပြုနိုင်ပါသည်",
+  "localCountFilterHowItWorksPoint4": "• စုံစမ်းမှုမှတ်တမ်းအားလုံးကို မှတ်တမ်းတင်မည်/မတင်မည် ရွေးချယ်နိုင်ပါသည်",
+  "localCountFiltering": "ဒေသဆိုင်ရာ အရေအတွက် စိစစ်ခြင်း",
+  "localCountFilteringExplanation": "• ဒေသဆိုင်ရာ အရေအတွက် စိစစ်ခြင်း- ဒေသဆိုင်ရာ အမှတ်အသားအရေအတွက်အပေါ် အခြေခံသော စိစစ်မှုစည်းမျဉ်းများ",
+  "localCountFilterSettings": "ဒေသဆိုင်ရာ အရေအတွက် စိစစ်မှု သတ်မှတ်ချက်များ",
+  "localCountFilterUseCases": "ဤဖီလ်တာသည် အလိုအလျောက် ခေါ်ဆိုထားသော စပမ်ခေါ်ဆိုမှုများနှင့် မားကက်တင်းခေါ်ဆိုမှုများကို ခွဲခြားရန် အထူးသင့်လျော်သည်။",
+  "localFilterSettings": "ဒေသဆိုင်ရာ ဖီလ်တာချိန်ညှိမှုများ",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "ဒေသဆိုင်ရာ အသိပေးချက် ပိတ်ထားသည်",
+  "localNotificationEnabled": "ဒေသဆိုင်ရာ အသိပေးချက် ဖွင့်ထားသည်",
+  "localServices": "ဒေသဆိုင်ရာ ဝန်ဆောင်မှုများ",
+  "locationColor": "တည်နေရာအရောင်",
+  "locationFontSize": "တည်နေရာ အက္ခရာအရွယ်အစား",
+  "locationIconColor": "တည်နေရာ အိုင်ကွန်အရောင်",
+  "locationPosition": "တည်နေရာအနေအထား",
+  "logAllLocalQueries": "ဒေသတွင်းအမှန်းစာရင်းများအားလုံးကို မှတ်တမ်းတင်ခြင်း",
+  "logAllLocalQueriesDescription": "ဒေသတွင်းနံပါတ်များအားလုံးကို ရှာဖွေမှုများ၏ မှတ်တမ်းများကို မှတ်တမ်းတင်ခြင်း",
+  "logAllRemoteQueries": "အဝေးရှိအမှန်းစာရင်းများအားလုံးကို မှတ်တမ်းတင်ခြင်း",
+  "logAllRemoteQueriesDescription": "အဝေးရှိနံပါတ်များကို ရှာဖွေမှုဆိုင်ရာ လုပ်ဆောင်မှုအားလုံးကို မှတ်တမ်းတင်ခြင်း",
+  "manage": "ထိတ်လိုက်များကို စီမံခန့်ခွဲခြင်း",
+  "manageFavoriteContacts": "နှစ်သက်သောထိတ်လိုက်များကို စီမံခန့်ခွဲခြင်း",
+  "manageFilterRules": "ဖလ်တာစည်းမျဉ်းများကို စီမံခန့်ခွဲခြင်း",
+  "manageFilterRulesDescription": "SMS ဖလ်တာစည်းမျဉ်းများကို ထည့်သွင်းခြင်း၊ တည်းဖြတ်ခြင်း သို့မဟုတ် ဖျက်သိမ်းခြင်း",
+  "markCounts": "မှတ်သားထားသောအရေအတွက်များ",
+  "markCount": "မှတ်သားထားသောအရေအတွက်",
+  "markedByCount": "{count} ဖြင့် မှတ်သားထားသည်",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "မှတ်သားထားသောဖုန်းနံပါတ်များ",
+  "markExchange": "အပြောင်းအလဲကို မှတ်သားခြင်း",
+  "markPhone": "ဖုန်းနံပါတ်ကို မှတ်သားခြင်း",
+  "markPhoneFailed": "ဖုန်းနံပါတ် မှတ်သားရန် ပျက်ကွက်သည်: {error}",
+  "markPhoneManagementTitle": "ဖုန်းနံပါတ် မှတ်သားမှု စီမံခန့်ခွဲမှု",
+  "markPhoneSuccess": "ဖုန်းနံပါတ် အောင်မြင်စွာ မှတ်သားခဲ့သည်",
+  "matchFailedMessage": "ကိုက်ညီမှု မအောင်မြင်ပါ။",
+  "matchNumbersWithSpecialCharacters": "အထူး အက္ခရာများဖြင့် နံပါတ်ကိုက်ညီခြင်း",
+  "matchNumbersWithSpecialCharactersTitle": "အထူး အက္ခရာများဖြင့် နံပါတ်ကိုက်ညီပါ:",
+  "matchSpecificDigitPatterns": "XXX-XXXX-XXXX ပုံစံကို ကိုက်ညီသည်",
+  "matchSpecificDigitPatternsTitle": "တိကျသော နံပါတ်ပုံစံများကို ကိုက်ညီပါ:",
+  "matchSuccessfulMessage": "ကိုက်ညီမှု အောင်မြင်ပါသည်။",
+  "medical": "ဆေးဘက်ဆိုင်ရာ",
+  "membershipPrivileges": "အသင်းဝင် အခွင့်အရေးများ",
+  "migrationTool": "ပြောင်းရွှေ့ရေး ကိရိယာ",
+  "minutes": "မိနစ်",
+  "month": "လ",
+  "monthly": "လစဉ်",
+  "monthlyCallCount": "လစဉ် ခေါ်ဆိုမှုများ",
+  "monthlyMembership": "လစဉ် အသင်းဝင်",
+  "monthlyMembershipDescription": "ပရီမီယံ အင်္ဂါရပ်အားလုံးကို လော့ခ်ဖွင့်ပါ၊ လစဉ် အလိုအလျောက် ပြန်လည်သက်တမ်းတိုးပါ",
+  "monthlyTotal": "လစဉ် စုစုပေါင်း",
+  "moreOptions": "နောက်ထပ် ရွေးချယ်စရာများ",
+  "name": "အမည်",
+  "nameAndPhoneNumberCannotBeEmpty": "အမည်နှင့် ဖုန်းနံပါတ်ကို လုံးဝ မလွတ်ထားရ",
+  "nameColor": "အမည် အရောင်",
+  "nameFontSize": "အမည် ဖောင့်အရွယ်အစား",
+  "namePosition": "အမည် တည်နေရာ",
+  "nameUnknown": "အမည်: မသိပါ",
+  "nextStep": "နောက်တစ်ခု",
+  "noAction": "အရေးယူမှု မရှိပါ",
+  "noActionRules": "အရေးယူမှု မရှိသော စည်းမျဉ်းများ",
+  "noActiveCloudSyncServiceMessage": "တက်ကြွသော Cloud Sync ဝန်ဆောင်မှု မရှိပါ",
+  "noCallRecords": "ခေါ်ဆိုမှု မှတ်တမ်း မရှိပါ",
+  "noContactsYet": "အဆက်အသွယ် မရှိသေးပါ",
+  "noData": "အချက်အလက် မရှိပါ",
+  "noDevicesRegisteredMessage": "မှတ်ပုံတင်ထားသော စက်ပစ္စည်း မရှိပါ",
+  "noLabels": "တံဆိပ်များ မရှိသေးပါ",
+  "noMarkedPhones": "မှတ်သားထားသော ဖုန်းနံပါတ် မရှိပါ",
+  "noMatchingContactsFound": "ကိုက်ညီသော အဆက်အသွယ် မတွေ့ပါ",
+  "noMatchingNumbersFound": "ကိုက်ညီသော နံပါတ် မတွေ့ပါ",
+  "noMatchingRules": "ကိုက်ညီသော {ruleType} မရှိပါ",
+  "none": "မရှိပါ",
+  "noneServiceType": "မရှိပါ",
+  "noPlugins": "Plugin မရှိသေးပါ",
+  "noRules": "{ruleType} မရှိသေးပါ",
+  "noRulesPrompt": "စည်းမျဉ်းများ မတွေ့ပါ၊ ကျေးဇူးပြု၍ စည်းမျဉ်းများ ထည့်ပါ",
+  "noRulesToExport": "တင်ပို့ရန် စည်းမျဉ်းများ မရှိပါ",
+  "noSmsFilterRulesYet": "SMS စစ်ထုတ်မှု စည်းမျဉ်းများ မရှိသေးပါ",
+  "noSmsRulesYet": "SMS စည်းမျဉ်းများ မရှိသေးပါ",
+  "noSubscriptions": "အသင်းဝင် မရှိပါ",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "ခွင့်မပြုပါ",
+  "notificationModeDescription": "ဖုန်းခေါ်သူ၏ အချက်အလက်ကို အကြောင်းကြားချက် ဘားတွင် ပြသပါ",
+  "notificationPermission": "အကြောင်းကြားချက် ခွင့်ပြုချက်",
+  "notificationPermissionDescription": "ဝင်လာသော ခေါ်ဆိုမှုနှင့် မက်ဆေ့ခ်ျ အကြောင်းကြားချက်များကို ပြသရန် အသုံးပြုပါသည်",
+  "notifications": "အကြောင်းကြားချက်များ",
+  "notificationSettings": "အကြောင်းကြားချက် ဆက်တင်များ",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "အတည်မပြုရသေးပါ",
+  "noValidSmsRulesFoundInFile": "ဖိုင်တွင် မှန်ကန်သော SMS စည်းမျဉ်းများ မတွေ့ပါ",
+  "number": "နံပါတ်",
+  "numberColor": "နံပါတ် အရောင်",
+  "numberFontSize": "နံပါတ် ဖောင့်အရွယ်အစား",
+  "numberPosition": "နံပါတ် တည်နေရာ",
+  "numberSearch": "နံပါတ် ရှာဖွေရေး",
+  "numberTypeColor": "နံပါတ် အမျိုးအစား အရောင်",
+  "numberTypeFontSize": "နံပါတ် အမျိုးအစား ဖောင့်အရွယ်အစား",
+  "numberTypePosition": "နံပါတ် အမျိုးအစား တည်နေရာ",
+  "okButton": "ကောင်းပါပြီ",
+  "onboardingCompleteDescription": "သင့်ခေါ်ဆိုမှု လုံခြုံရေး မန်နေဂျာ အသင့်ဖြစ်ပါပြီ၊ လုံခြုံသော ခေါ်ဆိုမှု အတွေ့အကြုံကို စတင် ခံစားပါ!",
+  "onboardingLanguageDescription": "အကောင်းဆုံး အတွေ့အကြုံအတွက် သင်နှစ်သက်သော ဘာသာစကားကို ရွေးချယ်ပါ။",
+  "onboardingPermissionsDescription": "ဝန်ဆောင်မှု အပြည့်အဝ ပေးရန်၊ ကျွန်ုပ်တို့တွင် အောက်ပါ ခွင့်ပြုချက်များ လိုအပ်သည်:",
+  "onboardingPowerfulSpamBlockingDescription": "Spam ခေါ်ဆိုမှုများနှင့် မက်ဆေ့ခ်ျများကို တစ်ချက်နှိပ်ရုံဖြင့် ပိတ်ဆို့ပါ၊ ပိတ်ဆို့ရေး စည်းမျဉ်းများကို စိတ်ကြိုက်ပြုလုပ်ပါ၊ သင့်အား တိတ်ဆိတ်သော ပတ်ဝန်းကျင်ကို ပေးပါ။",
+  "onboardingSmartCallerIdDescription": "အမည်မသိ ခေါ်ဆိုမှုများကို အလိုအလျောက် မှတ်မိပါ၊ သံသယဖြစ်ဖွယ် နံပါတ်များကို မှတ်သားပါ၊ သင့်ခေါ်ဆိုမှု လုံခြုံရေးကို ကာကွယ်ပါ။",
+  "onboardingWelcomeDescription": "သင့်ခေါ်ဆိုမှု စီမံခန့်ခွဲမှု ကျွမ်းကျင်သူ၊ ခေါ်ဆိုမှု အချက်အလက်နှင့် ပိတ်ဆို့ရေး ဝန်ဆောင်မှုများကို အပြည့်အဝ ပေးပါသည်။",
+  "oneDriveAuthDescription": "System-configured OneDrive client ID နှင့် key ကို အသုံးပြု၍ ခွင့်ပြုချက်",
+  "oneDriveConfigTitle": "OneDrive ကွန်ဖစ်ဂရေးရှင်း",
+  "onlineCallerIdSubscription": "အွန်လိုင်း ခေါ်ဆိုသူအမည် ဖော်ပြချက် စာရင်းသွင်းခြင်း",
+  "openAppSettings": "အက်ပ်အခြေအနေများကို ဖွင့်ပါ",
+  "openAppSettingsFailed": "အက်ပ်အခြေအနေများကို ဖွင့်ရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "operationFailed": "လုပ်ဆောင်ချက် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "operationFailure": "လုပ်ဆောင်ချက် အောင်မြင်မှုမရှိခဲ့ပါ",
+  "operationSuccess": "လုပ်ဆောင်ချက် အောင်မြင်ခဲ့ပါ",
+  "other": "အခြား",
+  "ourOtherApps": "ငါတို့၏ အခြားအက်ပ်များ",
+  "overlayMode": "ပေါ်လာသော ဝင်းဒိုး",
+  "overlayModeDescription": "ခေါ်ဆိုသူအချက်အလက်များကို ပေါ်လာသော ဝင်းဒိုးတစ်ခုတွင် ပြသပါ",
+  "overlayPermission": "ပေါ်လာသော ဝင်းဒိုး အသုံးပြုခွင့်",
+  "overlayPermissionDescription": "ဝင်လာသော ခေါ်ဆိုမှု ပေါ်လာသော ဝင်းဒိုးကို ပြသရန် အသုံးပြုသည်။",
+  "overview": "အကျဉ်းချုပ်",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "ဝှက်စာ",
+  "passwordCannotBeEmpty": "ဝှက်စာသည် ဟာကွက်မဖြစ်နိုင်ပါ",
+  "passwordLabel": "ဝှက်စာသား",
+  "passwordsDoNotMatch": "ဝှက်စာသားများ မကိုက်ညီပါ",
+  "pattern": "ပုံစံ",
+  "pendingSync": "စောင့်ဆိုင်းနေသော စင့်ခ်",
+  "periodMonth": "လ",
+  "periodWeek": "အပတ်",
+  "periodYear": "နှစ်",
+  "permissionDenied": "ခွင့်ပြုချက် တောင်းဆိုမှု ငြင်းပယ်ခံရ",
+  "permissionGranted": "ခွင့်ပြုချက် ပေးအပ်ခံရ",
+  "permissionManagement": "ခွင့်ပြုချက် စီမံခန့်ခွဲမှု",
+  "phoneCallsTab": "ဖုန်း",
+  "phoneNumber": "ဖုန်းနံပါတ်",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "ဖုန်းနံပါတ်ကို ဟာကွက်ထား၍ မရပါ",
+  "phoneNumberLabel": "ဖုန်းနံပါတ်",
+  "phoneNumberTypeFixedLine": "မိုဘိုင်းမဟုတ်သော ဖုန်းလိုင်း",
+  "phoneNumberTypeFixedLineOrMobile": "အဆက်သွယ်ဖုန်း သို့မဟုတ် လက်ပတ်ဖုန်း",
+  "phoneNumberTypeMobile": "လက်ပတ်ဖုန်း",
+  "phoneNumberTypePager": "ပေဂျာ",
+  "phoneNumberTypePersonalNumber": "ပုဂ္ဂိုလ်ရေးနံပါတ်",
+  "phoneNumberTypePremiumRate": "အထူးနှုန်းထား",
+  "phoneNumberTypeSharedCost": "ကုန်ကျစရိတ်မျှဝေခြင်း",
+  "phoneNumberTypeTollFree": "အခမဲ့အဆက်သွယ်",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "မသိရှိနိုင်သည်",
+  "phoneNumberTypeVoicemail": "အသံမှတ်စု",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "ဖုန်းခွင့်ပြုချက်",
+  "phonePermissionDescription": "ဝင်လာသောအဆက်သွယ်များကို ခွဲခြားသတ်မှတ်ပြီး ပိတ်ဆို့ရန် အသုံးပြုသည်။",
+  "phoneRule": "ဖုန်းစည်းမျဉ်း",
+  "phoneRuleManagement": "ဖုန်းစည်းမျဉ်းစီမံခန့်ခွဲမှု",
+  "phoneRuleSubscription": "ဖုန်းစည်းမျဉ်းစာရင်းသွင်းမှု",
+  "phoneSubscription": "ဖုန်းစာရင်းသွင်းခြင်း",
+  "phoneSubscriptionRulesDescription": "URL မှတစ်ဆင့် ဖုန်းစည်းမျဉ်းစာရင်းများကို စာရင်းသွင်းခြင်းဖြင့် အဖြူစာရင်းနှင့် အမည်းစာရင်း စည်းမျဉ်းများကို အလိုအလျောက် အပ်ဒိတ်လုပ်နိုင်သည်။ JSON ပုံစံ စည်းမျဉ်းဖိုင်များကို ပံ့ပိုးပေးသည်။",
+  "pleaseSelectLabelAndEnterValidPhone": "လေဘယ်တစ်ခုကို ရွေးချယ်ပြီး ဖုန်းနံပါတ်မှန်ကန်တစ်ခု ဝင်ရိုက်ပါ",
+  "pluginAddedSuccess": "ပလဂ်အင် \"{name}\" ကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "pluginDeleted": "ပလဂ်အင်ကို ဖျက်သိမ်းပြီးဖြစ်သည်",
+  "pluginLatestVersion": "ပလဂ်အင်သည် နောက်ဆုံးဗားရှင်းဖြစ်နေပြီးဖြစ်သည်",
+  "pluginListExportSuccess": "ပလဂ်အင်စာရင်းကို အောင်မြင်စွာ တင်ပြထားပြီးဖြစ်သည်",
+  "pluginManagement": "ပလဂ်င်စီမံခန့်ခွဲမှု",
+  "pluginManagementSubtitle": "တတိယပုဂ္ဂိုလ်ပလဂ်င်များကို စီမံခန့်ခွဲပြီး ချိန်ညှိပါ",
+  "pluginName": "ပလဂ်င်အမည်",
+  "pluginsDeleted": "{count} ခုသော ပလဂ်င်များကို အောင်မြင်စွာ ဖျက်သိမ်းပြီးဖြစ်သည်။",
+  "pluginService": "ပလဂ်င်ဝန်ဆောင်မှု",
+  "pluginTestPageTitle": "ပလဂ်င်စမ်းသပ်မှု",
+  "pluginUpdateSuccess": "ပလဂ်င်ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးဖြစ်သည်",
+  "pluginUrl": "ပလဂ်င် URL",
+  "pluginVersion": "ပလဂ်င်းဗားရှင်း",
+  "political": "နိုင်ငံရေး",
+  "powerfulSpamBlocking": "အားကောင်းသော စပမ်တားဆီးမှု",
+  "previousStep": "ယခင်အဆင့်",
+  "prioritizeRemoteAction": "အဝေးရှိ လုပ်ဆောင်ချက်ချိန်ညှိမှုများကို ဦးစားပေးခြင်း",
+  "prioritizeRemoteActionDescription": "အဝေးရှိ ဒေတာဘေ့စ်မှ လုပ်ဆောင်ချက်ချိန်ညှိမှုများကို ဦးစားပေးခြင်း",
+  "processing": "စီမံနေပါသည်...",
+  "processingOperation": "စီမံနေပါသည်...",
+  "purchase": "ဝယ်ယူခြင်း",
+  "quarterlyMembership": "တစ်လတွင်တစ်ကြိမ် အဖွဲ့ဝင်ဝယ်ယူမှု",
+  "quarterlyMembershipDescription": "ပရီမီယမ်အင်္ဂါရပ်အားလုံးကို ဖွင့်လှစ်နိုင်ပြီး တစ်လတွင်တစ်ကြိမ် အလိုအလျောက် ဆက်လက်ဝယ်ယူမည်",
+  "ready": "ပြင်ဆင်ပြီး!",
+  "recruiter": "လူစုဆောင်းသူ",
+  "refresh": "သစ်စတင်မြင်ပြခြင်း",
+  "refreshPermissionStatus": "ခွင့်ပြုချက်အခြေအနေကို သစ်စတင်မြင်ပြခြင်း",
+  "refreshTooltip": "သက်သာပြန်လည်ခြင်း",
+  "regexErrorMessage": "Regex အမှား: {error}",
+  "regexPattern": "Regex ပုံစံ",
+  "regexPatternExplanation": "Regex ပုံစံ ရှင်းလင်းချက်",
+  "regexPatternExplanationButton": "Regex ပုံစံ ရှင်းလင်းချက်",
+  "regexPatternLabel": "Regex ပုံစံ",
+  "regexPatternsForPhoneNumberMatching": "ဖုန်းနံပါတ်ကို ကိုက်ညီစေရန် Regex ပုံစံများ",
+  "regexRule": "Regex စည်းမျဉ်း",
+  "regexRuleAddFailed": "Regex စည်းမျဉ်း ထည့်သွင်းရာ မအောင်မြင်ခဲ့: {error}",
+  "regexRuleAddSuccess": "Regex စည်းမျဉ်းကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "regexRuleManagement": "Regex စည်းမျဉ်း စီမံခန့်ခွဲမှု",
+  "regexRuleNamePatternRequired": "စည်းမျဉ်းအမည်နှင့် Regex ပုံစံတို့သည် ဟာကွက်ဖြစ်၍ မရနိုင်ပါ",
+  "regexRules": "Regex စည်းမျဉ်းများ",
+  "regexTesterTitle": "Regex စမ်းသပ်ကိရိယာ",
+  "region": "ဒေသ",
+  "registeredDevicesTitle": "စာရင်းသွင်းထားသော စက်ပစ္စည်းများ",
+  "rejectAllCalls": "ခေါ်ဆိုမှုအားလုံးကို ပယ်ချရန်",
+  "rejectAllCallsDescription": "ဖွင့်ထားသည့်အခါ ခေါ်ဆိုမှုအားလုံးကို အလေးအနက်အမြင့်ဆုံးဖြင့် ပယ်ချမည်",
+  "rejectAllNumbers": "နံပါတ်အားလုံးကို ပယ်ချရန်",
+  "rejectAllNumbersDesc": "ဖွင့်ထားသည့်အခါ လာသောခေါ်ဆိုမှုအားလုံးကို ပယ်ချမည်",
+  "rejectExceededNumbers": "လွန်ကဲသော နံပါတ်များကို ပယ်ချရန်",
+  "rejectExceededNumbersDescription": "အရေအတွက်အကန့်အသတ်ကို လွန်သွားသော နံပါတ်များကို အလိုအလျောက် ပယ်ချမည်",
+  "remoteFilterSettings": "အဝေးရှိ စိစစ်မှု ကိရိယာချိန်ညှိမှုများ",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "အဝေးရှိ နံပါတ်စိစစ်မှု ကိရိယာချိန်ညှိမှုများ",
+  "remoteNumberFilter": "အဝေးရှိ နံပါတ်စိစစ်မှု",
+  "remoteNumberFilterDescription": "အဝေးရှိ ဒေတာဘေ့စ်အချက်အလက်များအပေါ် အခြေခံ၍ စော်ကားခေါ်ဆိုမှုများကို ဟန့်တားပါ",
+  "remoteNumberFiltering": "အဝေးရှိ နံပါတ်စိစစ်ခြင်း",
+  "remoteNumberFilteringExplanation": "• အဝေးရှိ နံပါတ်စိစစ်ခြင်း: အဝေးရှိ ဒေတာဘေ့စ်အချက်အလက်များအပေါ် အခြေခံသော စိစစ်မှုစည်းမျဉ်းများ",
+  "remoteNumberFilterSubtitle": "ကလောက်ဒ်ဒေတာဘေ့စ်နှင့် လူမှုအသိုင်းအဝိုင်း၏ အစီရင်ခံမှုများကို အသုံးပြု၍ စပမ်ခေါ်ဆိုမှုများကို ခွဲခြားသတ်မှတ်ပါ",
+  "removeAdsDescription": "ပိုမိုချောမွေ့သော အသုံးပြုမှုအတွက် အက်ပ်အတွင်းရှိ ကြော်ငြာအားလုံးကို ထာဝစဉ်ဖယ်ရှားပါ",
+  "removeAdsTitle": "ကြော်ငြာများ ဖယ်ရှားခြင်း",
+  "removedFromFavorites": "နှစ်သက်စာရင်းမှ ဖယ်ရှားလိုက်ပြီ",
+  "removeFromFavorites": "နှစ်သက်စာရင်းမှ ဖယ်ရှားခြင်း",
+  "renameDeviceTitle": "စက်ပစ္စည်းအမည် ပြောင်းခြင်း",
+  "requestAllPermissions": "ခွင့်ပြုချက်အားလုံး တောင်းဆိုခြင်း",
+  "requestPermission": "ခွင့်ပြုချက် တောင်းဆိုခြင်း",
+  "requestPermissionFailed": "ခွင့်ပြုချက် တောင်းဆိုရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "requiredMarks": "{count} မှတ်",
+  "reset": "ပြန်လည်သတ်မှတ်ခြင်း",
+  "restore": "ပြန်လည်ထူထောင်ခြင်း",
+  "restoreApplicationSettingsFromBackup": "ဘက်အပ်မှုမှ အက်ပ်လိုင်းဆက်င်းများကို ပြန်လည်ထူထောင်ခြင်း",
+  "restoreFromCloud": "ကလောက်ဒ်မှ ပြန်လည်ထူထောင်ခြင်း",
+  "restoreFromCloudFailed": "ကလောက်ဒ်မှ ပြန်လည်ထူထောင်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "restoreFromCloudSuccess": "ကလောက်ဒ်မှ အောင်မြင်စွာ ပြန်လည်ထူထောင်နိုင်ခဲ့ပါပြီ",
+  "restorePurchases": "ဝယ်ယူမှုများ ပြန်လည်ထူထောင်ခြင်း",
+  "restoreSettings": "အချက်အလက်များ ပြန်လည်ထူထောင်ခြင်း",
+  "restoreSettingsConfirmation": "ဤလုပ်ဆောင်ချက်သည် သင့်၏လက်ရှိအချက်အလက်အားလုံးကို အစားထိုးသွားမည်ဖြစ်သည်။ ဆက်လက်ဆောင်ရွက်လိုကြောင်း သေချာပါသလား။",
+  "retry": "ပြန်လည်ကြိုးစားခြင်း",
+  "ridesharing": "ယာဉ်မျှဝေခြင်း",
+  "risk": "အန္တရာယ်",
+  "robocall": "အလိုအလျောက်ဖုန်းခေါ်ခြင်း",
+  "ruleAction": "စည်းမျဉ်းလုပ်ဆောင်ချက်",
+  "ruleAddedSuccess": "စည်းမျဉ်းကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "စည်းမျဉ်းကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "ruleDeleteConfirmContent": "ဤ {ruleType} ကို ဖျက်သိမ်းလိုက်လား။",
+  "ruleDeleteConfirmTitle": "စည်းမျဉ်းဖျက်သိမ်းခြင်း",
+  "ruleDeletedSuccessfully": "စည်းမျဉ်းကို အောင်မြင်စွာ ဖျက်သိမ်းပြီးဖြစ်သည်",
+  "ruleDeleteFailed": "စည်းမျဉ်းဖျက်သိမ်းရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ။ {error}",
+  "ruleDeleteSuccess": "စည်းမျဉ်းကို အောင်မြင်စွာ ဖျက်သိမ်းပြီးဖြစ်သည်",
+  "ruleDisabledSuccessfully": "စည်းမျဉ်းကို အောင်မြင်စွာ ပိတ်ထားပြီးဖြစ်သည်",
+  "ruleEnabledSuccessfully": "စည်းမျဉ်းကို အောင်မြင်စွာ အသက်သွင်းထားပြီ",
+  "ruleLoadFailed": "စည်းမျဉ်းများကို ဖွင့်မရခဲ့ပါ: {error}",
+  "ruleManagement": "စည်းမျဉ်းစီမံခန့်ခွဲမှု",
+  "ruleName": "စည်းမျဉ်းအမည်",
+  "ruleNameAndContentRegexCannotBeEmpty": "စည်းမျဉ်းအမည်နှင့် အကြောင်းအရာ regex ကို ဟာကွက်ထား၍မရပါ",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "စည်းမျဉ်းအမည်နှင့် ဖုန်းနံပါတ်ကို ဟာကွက်ထား၍မရပါ",
+  "ruleNameHint": "ဥပမာ၊ မိသားစု၊ သူငယ်ချင်းများ စသည်",
+  "ruleNameLabel": "စည်းမျဉ်းအမည်",
+  "ruleNameRequired": "စည်းမျဉ်းအမည်နှင့် ဖုန်းနံပါတ်ကို ဟာကွက်ထား၍မရပါ",
+  "ruleNotExist": "စည်းမျဉ်းမရှိတော့ပါ သို့မဟုတ် ဖျက်ပစ်လိုက်ပါပြီ",
+  "ruleNotFound": "စည်းမျဉ်းမတွေ့ပါ - {error}",
+  "ruleSavedSuccessMessage": "စည်းမျဉ်းကို အောင်မြင်စွာ သိမ်းဆည်းပြီးပါပြီ။",
+  "rulesExportedSuccessfully": "စည်းမျဉ်းများကို အောင်မြင်စွာ တင်ပို့ပြီးပါပြီ။",
+  "rulesExportedTo": "စည်းမျဉ်းများကို တင်ပို့ပြီး - {path}",
+  "rulesImported": "စည်းမျဉ်းများကို အောင်မြင်စွာ တင်သွင်းပြီးပါပြီ။",
+  "rulesImportedSuccessfully": "{count} စည်းမျဉ်းကို အောင်မြင်စွာ တင်သွင်းပြီးပါပြီ။",
+  "ruleStatusChanged": "စည်းမျဉ်း {status} အောင်မြင်ပါသည်",
+  "ruleToggleFailed": "လုပ်ဆောင်မှု ပျက်ကွက်ပါသည် - {error}",
+  "ruleToggleSuccess": "စည်းမျဉ်း {status} အောင်မြင်ပါသည်",
+  "ruleUpdateFailed": "စည်းမျဉ်းကို အပ်ဒိတ်လုပ်ရန် ပျက်ကွက်ပါသည် - {error}",
+  "ruleUpdateSuccess": "စည်းမျဉ်းကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးပါပြီ။",
+  "ruleVerification": "စည်းမျဉ်း စစ်ဆေးခြင်း",
+  "save": "သိမ်းဆည်း",
+  "saveButton": "သိမ်းဆည်း",
+  "saveButtonText": "သိမ်းဆည်း",
+  "saveFailed": "သိမ်းဆည်းရန် ပျက်ကွက်ပါသည် - {error}",
+  "saveSettings": "ဆက်တင်များကို သိမ်းဆည်း",
+  "scamsLikely": "လှည့်စားမှုများ ဖြစ်နိုင်သည်",
+  "search": "ရှာဖွေ",
+  "searchContacts": "အဆက်အသွယ်များကို ရှာဖွေ",
+  "searchError": "ရှာဖွေမှု အမှား - {error}",
+  "searchHint": "ရှာဖွေ...",
+  "securityMessage": "မည်သည့်ဖုန်းခေါ်ဆိုမှုကိုမှ မယုံကြည်ပါနှင့်။ ဝန်ဆောင်မှုနံပါတ်များကို အမြဲတမ်း လွတ်လပ်စွာ စစ်ဆေးပါ။ စကားဝှက်များ၊ အတည်ပြုကုဒ်များ၊ ကဒ်နံပါတ်များ သို့မဟုတ် ကိုယ်ရေးကိုယ်တာ အချက်အလက်များကို ဘယ်တော့မှ မမျှဝေပါနှင့်။",
+  "selectActionWhenBlockingCalls": "ဖုန်းခေါ်ဆိုမှုများကို ပိတ်ဆို့သည့်အခါ လုပ်ဆောင်ရန် ရွေးချယ်ပါ",
+  "selectActionWhenRuleMatches": "စည်းမျဉ်းနှင့် ကိုက်ညီသည့်အခါ လုပ်ဆောင်ရန် ရွေးချယ်ပါ",
+  "selectAll": "အားလုံးကို ရွေးချယ်ပါ",
+  "selectCountry": "နိုင်ငံကို ရွေးချယ်ပါ",
+  "selectedItems": "{count} ပစ္စည်းများ ရွေးချယ်ပြီးပါပြီ",
+  "selectedLabel": "ရွေးချယ်ပြီး -",
+  "selectExportFormat": "တင်ပို့မည့် ဖော်မတ်ကို ရွေးချယ်ပါ",
+  "selectLabel": "အညွှန်းကို ရွေးချယ်ပါ",
+  "selectLabelAndEnterPhoneNumber": "အညွှန်းတစ်ခုကို ရွေးချယ်ပြီး မှန်ကန်သော ဖုန်းနံပါတ်ကို ထည့်သွင်းပါ",
+  "selectLanguage": "ဘာသာစကားကို ရွေးချယ်ပါ",
+  "selectMultiple": "အများအပြားကို ရွေးချယ်ပါ",
+  "selectSimCard": "SIM ကတ်ကို ရွေးချယ်ပါ",
+  "selectTags": "တဂ်များကို ရွေးချယ်ပါ",
+  "selectTrustedDataSource": "ယုံကြည်စိတ်ချရသော ဒေတာရင်းမြစ်များကို ရွေးချယ်ပါ",
+  "selectYourLanguage": "သင်၏ ဘာသာစကားကို ရွေးချယ်ပါ",
+  "sender": "ပေးပို့သူ",
+  "senderRegexOptional": "ပေးပို့သူ Regex (အလွတ်ထည့်သွင်းနိုင်သည်)",
+  "serverAddressLabel": "ဆာဗာ လိပ်စာ",
+  "serviceTypeContact": "ဆက်သွယ်ရန် စာရင်းသွင်းခြင်း",
+  "serviceTypeLabel": "ဝန်ဆောင်မှု အမျိုးအစား",
+  "serviceTypePhone": "ဖုန်း စာရင်းသွင်းခြင်း",
+  "serviceTypePlugin": "Plugin အပ်ဒိတ်",
+  "serviceTypeSms": "SMS စာရင်းသွင်းခြင်း",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "စာဝှက်စကားဝှက် သတ်မှတ်",
+  "settings": "ဆက်တင်များ",
+  "settingsBackedUpTo": "ဆက်တင်များကို သိမ်းဆည်းထားသည် - {path}",
+  "settingsRestoredSuccessfully": "ဆက်တင်များကို အောင်မြင်စွာ ပြန်လည်ရယူပြီးပါပြီ။ အပြောင်းအလဲများ အကျိုးသက်ရောက်စေရန် အက်ပ်ကို ပြန်လည်စတင်ပါ။",
+  "settingsSaved": "ဆက်တင်များကို သိမ်းဆည်းပါပြီ",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "ဆက်တင်များ သိမ်းဆည်းရန် ပျက်ကွက်ပါသည် - {error}",
+  "settingsTab": "ဆက်တင်များ",
+  "settingsTitle": "ဆက်တင်များ",
+  "setup": "ပြင်ဆင်ခြင်း",
+  "silence": "တိတ်ဆိတ်",
+  "silenceAndNoAnswer": "တိတ်ဆိတ်ပြီး အဖြေမရှိပါ",
+  "silenceNoAnswer": "တိတ်ဆိတ် အဖြေမရှိပါ",
+  "silentCallVoiceClone": "တိတ်ဆိတ် ခေါ်ဆိုမှု အသံ ကူးယူခြင်း",
+  "silentRules": "တိတ်ဆိတ် စည်းမျဉ်းများ",
+  "simCard": "SIM ကတ် {simNumber}",
+  "simCardColor": "SIM ကတ် အရောင်",
+  "simCardConfigurationExplanation": "• SIM ကတ် ထည့်သွင်းမှု - SIM ကတ်တစ်ခုစီအတွက် သီးခြား စစ်ထုတ်ရေး စည်းမျဉ်းများကို သတ်မှတ်ပါ။",
+  "simCardFilterRules": "SIM ကတ် စစ်ထုတ်ရေး စည်းမျဉ်းများ",
+  "simCardFilterRulesDescription": "SIM ကတ် နေရာများအပေါ် အခြေခံ၍ ကွဲပြားသော စစ်ထုတ်ရေး စည်းမျဉ်းများကို သတ်မှတ်ပါ။",
+  "simCardFontSize": "SIM ကတ် စာလုံးအရွယ်အစား",
+  "simCardPosition": "SIM ကတ် နေရာ",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "SIM စလော့စည်းမျဉ်းများသည် SIM စလော့တစ်ခုစီအတွက် သီးခြားဖြတ်တောက်ရေးစည်းမျဉ်းများကို ကိုယ်ပိုင်သတ်မှတ်နိုင်စေသည်။",
+  "simRuleInstructionsTitle": "SIM စလော့စည်းမျဉ်းများ",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "SIM ကတ်တစ်ခုစီအတွက် သီးခြားဖြတ်တောက်မှုစည်းမျဉ်းများကို تنظیمပါ:",
+  "simSlotFilterSettingsTitle": "SIM Slot {slotNumber} ဖြတ်တောက်မှု تنظیمများ",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "SIM Slot စီမံခန့်ခွဲမှု",
+  "simSlotPosition": "SIM Slot နေရာ {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• SIM Slot စည်းမျဉ်းများ: SIM တစ်ခုစီအတွက် သီးခြားဖြတ်တောက်မှုဗျူဟာများ",
+  "simSlotRuleListTitle": "SIM Slot စည်းမျဉ်းများစာရင်း",
+  "simSlotRuleManagement": "SIM Slot စည်းမျဉ်းများ",
+  "simSlotTitle": "SIM Slot {slotNumber}",
+  "skip": "ဖြတ်ကျော်",
+  "smartCallerId": "စမတ်ခေါ်ဆိုသူမှန်းသတ်မှတ်မှု",
+  "sms": "SMS",
+  "smsFilterDescription": "SMS ဖြတ်တောက်မှုသည် စပမ်စာများကို အလိုအလျောက်ဖြတ်တောက်ပြီး သင့်စာရွက်စာတမ်းစာရင်းကို သန့်ရှင်းစွာထားရှိရန် ကူညီပေးပါသည်။ ဖြတ်တောက်မှုစည်းမျဉ်းများနှင့် အသိပေးမှုနည်းလမ်းများကို သင်กำหนดနိုင်ပါသည်။",
+  "smsFilterDisabled": "SMS ဖြတ်တောက်မှု ပိတ်ထားသည်",
+  "smsFilterEnabled": "SMS ဖြတ်တောက်မှု ဖွင့်ထားသည်",
+  "smsFilterRuleAddedSuccessfully": "SMS ဖြတ်တောက်မှုစည်းမျဉ်းကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "smsFilterRules": "SMS ဖြတ်တောက်မှုစည်းမျဉ်းများ",
+  "smsFilterSettings": "SMS စစ်ထုတ်ခြင်း သတ်မှတ်ချက်များ",
+  "smsManagement": "SMS စီမံခန့်ခွဲမှု",
+  "smsPermission": "SMS ခွင့်ပြုချက်",
+  "smsPermissionDescription": "စပမ်းစာများကို စစ်ထုတ်ရန် အသုံးပြုသည်။",
+  "smsRuleAddedSuccessfully": "SMS စည်းမျဉ်းကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "smsRuleDeletedSuccessfully": "SMS စည်းမျဉ်းကို အောင်မြင်စွာ ဖျက်သိမ်းပြီးဖြစ်သည်",
+  "smsRuleLoadFailed": "SMS စည်းမျဉ်းများကို ဖွင့်မရနိုင်ခဲ့ပါ: {error}",
+  "smsRuleManagement": "SMS စည်းမျဉ်းစီမံခန့်ခွဲမှု",
+  "smsRuleSubscription": "SMS စည်းမျဉ်းစာရင်း မှတ်ပုံတင်ခြင်း",
+  "smsSubscription": "SMS မှတ်ပုံတင်ခြင်း",
+  "smsSubscriptionAddedSuccessfully": "SMS မှတ်ပုံတင်ခြင်းကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "smsSubscriptionRulesDescription": "URL မှတစ်ဆင့် SMS စည်းမျဉ်းစာရင်းများကို မှတ်ပုံတင်ပါ၊ regular expression နှိုင်းယှဉ်မှုကို ပံ့ပိုးပေးသည်။ ပိတ်ဆို့ခြင်း သို့မဟုတ် ခွင့်ပြုခြင်း လုပ်ဆောင်ချက်များကို သတ်မှတ်နိုင်သည်။",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "ခွင့်ပြုချက်တောင်းဆိုမှုအချို့ကို ငြင်းပယ်ထားသည်",
+  "spamLikely": "စပမ်ဖြစ်နိုင်ခြေရှိသည်",
+  "startColor": "အစအရောင်",
+  "startDate": "စတင်ရက်",
+  "startUsing": "စတင်အသုံးပြုပါ",
+  "statAnswered": "ဖြေဆိုပြီးဖြစ်",
+  "statBlocked": "ပိတ်ထား",
+  "statistics": "စာရင်းအင်းများ",
+  "statisticsPageTitle": "ဒေတာခွဲခြမ်းစိတ်ဖြာမှု",
+  "stirColor": "STIR အရောင်",
+  "stirFontSize": "STIR အက္ခရာအရွယ်အစား",
+  "stirPosition": "STIR တည်နေရာ",
+  "storagePermission": "သိုလှောင်မှုခွင့်ပြုချက်",
+  "storagePermissionDescription": "သတ်မှတ်ချက်များနှင့် စည်းမျဉ်းများကို သိမ်းဆည်းရန် အသုံးပြုသည်။",
+  "subscribe": "စာရင်းသွင်းပါ",
+  "subscriptionAddSuccess": "စာရင်းသွင်းမှု \"{name}\" ကို အောင်မြင်စွာ ထည့်သွင်းပြီးဖြစ်သည်",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "ဤစာရင်းသွင်းမှုကို ဖျက်ပစ်လိုက်မည်ဟု သေချာပါသလား။",
+  "subscriptionDeleteConfirmTitle": "စာရင်းသွင်းမှုဖျက်ရန်",
+  "subscriptionDeleted": "စာရင်းသွင်းမှု ဖျက်သိမ်းပြီးပါပြီ",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "စာရင်းသွင်းမှုကို ဖျက်သိမ်းရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "subscriptionDeleteSuccess": "စာရင်းသွင်းမှု ဖျက်သိမ်းပြီးပါပြီ",
+  "subscriptionLoadFailed": "စာရင်းသွင်းမှုများကို ဖွင့်လိုက်ရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "subscriptionName": "စာရင်းသွင်းမှုအမည်",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "စာရင်းသွင်းမှုအမည်နှင့် URL တို့ကို ဟာသာထား၍မရပါ",
+  "subscriptionNameHint": "စာရင်းသွင်းမှုအမည်ကို ဝင်ရိုက်ပါ",
+  "subscriptionStatusChangeFailed": "စာရင်းသွင်းမှုအခြေအနေကို ပြောင်းလဲရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "subscriptionUpdateFailed": "စာရင်းသွင်းမှုကို အပ်ဒိတ်လုပ်ရာတွင် အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "subscriptionUpdateSuccess": "စာရင်းသွင်းမှုကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးပါပြီ",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "စာရင်းသွင်းမှု URL",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "စာရင်းသွင်းမှု URL ကို ဝင်ရိုက်ပါ",
+  "successfullyImportedRules": "စည်းမျဉ်း {count} ခုကို အောင်မြင်စွာ တင်သွင်းပြီးပါပြီ",
+  "supportSync": "ထောက်ပံ့မှု သင်ထရုန်း",
+  "survey": "စစ်တမ်း",
+  "syncDevicesButton": "စက်ပစ္စည်းများကို စင့်ခ်ပါ",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "စင့်ခ်မှု မအောင်မြင်ခဲ့ပါ",
+  "syncFailedMessage": "စင့်ခ်မှု မအောင်မြင်ခဲ့ပါ",
+  "syncFolderNameLabel": "စင့်ခ်မည့် ဖိုင်တိုက်အမည်",
+  "synchronized": "စင့်ခ်ထားပြီး",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "စင့်ခ်နေပါ...",
+  "syncNow": "ယခု စင့်ခ်ပါ",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "ယခု စင့်ခ်ပါ",
+  "syncStatusTitle": "စင့်ခ်မှု အခြေအနေ",
+  "syncStatusUpdatedMessage": "စင့်ခ်မှု အခြေအနေကို အပ်ဒိတ်လုပ်ထားပါပြီ",
+  "syncSuccessMessage": "စင့်ခ်မှု အောင်မြင်ခဲ့ပါ",
+  "syncWithCloudStorage": "ကလောက်စတိုရေဂျ်နှင့် စင့်ခ်ပါ",
+  "systemFeatures": "စနစ်လုပ်ဆောင်ချက်များ:",
+  "systemSettingsTitle": "စနစ်ချိန်ညှိမှုများ",
+  "tabAll": "All",
+  "tabAnswered": "ဖြေဆိုပြီး",
+  "tabBlocked": "ပိတ်ထားသည်",
+  "tabMissed": "လွတ်သွားသည်",
+  "tabOutgoing": "ထွက်ခေါ်သည်",
+  "tagLabel": "တက်ဂ်: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "ယူသွားခြင်း",
+  "telecommunication": "ဆက်သွယ်ရေး",
+  "telegram": "Telegram",
+  "telemarketing": "ဖုန်းမှတစ်ဆင့် ကြော်ငြာခြင်း",
+  "testButton": "စမ်းသပ်ခြင်း",
+  "testConnectionButton": "ချိတ်ဆက်မှု စမ်းသပ်ခြင်း",
+  "textColorsSetting": "စာသားနှင့် တက်ဂ်အရောင်များ",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "ဤအက်ပ်သည် မလိုလားအပ်သော ခေါ်ဆိုမှုများကို ဖော်ထုတ်ပြီး ပိတ်ဆို့နိုင်စေသည့် အစွမ်းထက်သော ခေါ်ဆိုသူအမည် ဖော်ထုတ်ရေးကိရိယာတစ်ခု ဖြစ်သည်။",
+  "thisWeek": "ဤအပတ်",
+  "timeInterceptor": "အချိန်ကြားဖြတ်ကိရိယာ",
+  "timeInterceptorDescription": "ခေါ်ဆိုမှုအကြိမ်ရေအပေါ် အခြေခံ၍ ဖြစ်နိုင်ခြေရှိသော ခေါ်ဆိုမှုများကို အလိုအလျောက် ကြားဖြတ်ခြင်း/ခွင့်ပြုခြင်း",
+  "timeInterceptorExplanation": "• Time Interceptor: Intercept/allow repeated calls within a short time",
+  "timeInterceptorExplanationContent": "The call frequency interception feature analyzes call frequency to automatically identify and intercept/ allow frequent spam calls.",
+  "timeInterceptorExplanationTitle": "ခေါ်ဆိုမှုကြိမ်နှုန်း ကြားဖြတ်မှု ရှင်းလင်းချက်",
+  "timeInterceptorSettingsTitle": "ခေါ်ဆိုမှုကြိမ်နှုန်း ကြားဖြတ်မှု သတ်မှတ်ချက်များ",
+  "timeWindowDescription": "Set the time window size for allowing repeated calls. Calls from the same number within this window will be allowed",
+  "timeWindowLabel": "ကြားဖြတ်မှု အချိန်ကာလ (မိနစ်): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "ယနေ့",
+  "total": "စုစုပေါင်း",
+  "totalBlocked": "စုစုပေါင်း ပိတ်ဆို့ထားသည်",
+  "transferDataBetweenDevicesOrPlatforms": "စက်ပစ္စည်းများ သို့မဟုတ် ပလက်ဖောင်းများကြား ဒေတာပြောင်းရွှေ့ခြင်း",
+  "travelTicketing": "ခရီးသွား လက်မှတ်ဝယ်ယူမှု",
+  "tutorial": "သင်ခန်းစာ",
+  "type": "အမျိုးအစား",
+  "unassignedSIMCard": "မခွဲဝေထားသော SIM ကတ်",
+  "unknown": "မသိရှိနိုင်",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "တက်ဂ်: မသိရှိနိုင်",
+  "unregisterButton": "စာရင်းဖျက်ခြင်း",
+  "unregisterDeviceConfirmationMessage": "{deviceName} ကို စာရင်းဖျက်လိုက်မည်ဟု သေချာပါသလား?",
+  "unregisterDeviceTitle": "စက်ပစ္စည်းကို မှတ်ပုံတင်ဖျက်ခြင်း",
+  "unsupportedFileFormat": "မထောက်ပံ့သော ဖိုင်ပုံစံ",
+  "update": "အပ်ဒိတ်လုပ်ခြင်း",
+  "updateAllNow": "အားလုံးကို အခုအပ်ဒိတ်လုပ်ခြင်း",
+  "updateContactFailed": "ထိတွေ့ဆက်သွယ်မှုကို အပ်ဒိတ်လုပ်ရာမှာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "updateFavoriteStatus": "ကြိုက်နှစ်သက်မှုအခြေအနေကို အပ်ဒိတ်လုပ်ခြင်း",
+  "updateInterval": "အပ်ဒိတ်ကြားချိန်",
+  "updateNow": "ယခု အပ်ဒိတ်လုပ်ပါ",
+  "updatePlugin": "ပလပ်ဂင်ကို အပ်ဒိတ်လုပ်ပါ",
+  "updatePluginFailed": "ပလပ်ဂင်ကို အပ်ဒိတ်လုပ်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "updateRuleFailed": "စည်းမျဉ်းကို အပ်ဒိတ်လုပ်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "updateSubscriptionFailed": "စာရင်းသွင်းမှုကို အပ်ဒိတ်လုပ်ရာမှာ အောင်မြင်မှုမရှိခဲ့ပါ: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ပြီးဖြစ်ပါသည် ({count} ခုသော စည်းမျဉ်းများ)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• အလိုအလျောက် ပြန်ခေါ်ဆိုသော စပမ်ဖုန်းခေါ်ဆိုမှုများကို ဖော်ထုတ်ခြင်း",
+  "useCasesPoint2": "• အချိန်တိုအတွင်း အကြိမ်ကြိမ် ခေါ်ဆိုသော မားကက်တင်းဖုန်းခေါ်ဆိုမှုများကို ဟန့်တားခြင်း",
+  "useCasesPoint3": "• ဖုန်းဖြင့် အဆက်ပြုခြင်းနှင့် စော်ကားမှုများကို တားဆီးခြင်း",
+  "useCasesTitle": "အသုံးပြုမှုဖြစ်ရပ်များ:",
+  "useGlobalSettings": "ကမ္ဘာလုံးဆိုင်ရာ သတ်မှတ်ချက်များကို အသုံးပြုခြင်း",
+  "usernameLabel": "အသုံးပြုသူအမည်",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "ပုံစံများကို သတ်မှတ်ရန် စံ regex ဝါကျပုံစံကို အသုံးပြုပါ။ ဥပမာများ:",
+  "verificationFailedText": "အောင်မြင်မှုမရှိ",
+  "verifiedText": "အတည်ပြုထား",
+  "verify": "အတည်ပြုခြင်း",
+  "version": "ဗားရှင်း: {version}",
+  "vipExchangeDescription": "ဖုန်းနံပါတ် အမှတ်ပေးမှုအရေအတွက်ဖြင့် VIP အဖွဲ့ဝင်အဖြစ် လဲလှယ်ခြင်း",
+  "vipExchangeTitle": "VIP အမှတ်လဲလှယ်ခြင်း",
+  "watchAd": "ကြော်ငြာကြည့်ခြင်း",
+  "watchAdForTemp": "ယာယီအခွင့်အရေးများအတွက် ကြော်ငြာကြည့်ခြင်း",
+  "watchAdForTempDescription": "ကြော်ငြာတိုတစ်ခုကို ကြည့်ရှု၍ premium လုပ်ဆောင်ချက်အချို့ကို ယာယီဖွင့်လှစ်နိုင်သည်",
+  "webDAVConfigTitle": "WebDAV ချိန်ညှိမှု",
+  "week": "အပတ်",
+  "welcome": "ကြိုဆိုပါတယ်",
+  "whitelist": "ဝိုင်းလစ်စ်",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "အကျယ်",
+  "wildcardMatchingDescription": "အက္ခရာတစ်ခုစီကို ကိုယ်စားပြုရန် '.' ကို အသုံးပြုပါ (ဥပမာ '123.456' သည် 123-456 နှင့် ကိုက်ညီသည်)",
+  "wildcardMatchingTitle": "ဝိုင်းလ်ကတ် ကိုက်ညီမှု:",
+  "wildcardSupportForFlexibleFiltering": "လိုင်းလျောညီထွေ ဖြစ်အောင် ဖြစ်စေသော ဖြစ်စဉ်အတွက် ဝိုင်းလ်ကတ် ထောက်ပံ့မှု",
+  "windowSizeSetting": "ပြတင်းပေါက်အရွယ်အစား",
+  "year": "နှစ်",
+  "noSimCardsDetected": "SIM ကတ်များ မတွေ့ရှိရ",
+  "filterManagementDescription": "ခေါ်ဆိုမှု ဖြတ်တောက်ချက်များ သတ်မှတ်ပါ",
+  "callerIdCustomizationSubtitle": "ခေါ်ဆိုသူ ID ဖွဲ့စည်းပုံကို ကိုယ်ပိုင်သတ်မှတ်ပါ",
+  "fraudAlerSettingTitle": "လိမ်လည်မှု သတိပေးချက် သတ်မှတ်ချက်",
+  "fraudAlerSettingSubtitle": "လိမ်လည်မှု သတိပေးချက်ကို သတ်မှတ်ရန်",
+  "enableFraudAlert": "လိမ်လည်မှု သတိပေးချက်ကို ဖွင့်ပါ",
+  "enableFraudAlertDescription": "သံသယဖြစ်ဖွယ် လိမ်လည်မှုဖုန်းခေါ်မှုများအတွက် သတိပေးချက်",
+  "enableVibration": "တုန်ခါမှုကို ဖွင့်ပါ",
+  "enableVibrationDescription": "ဖုန်းခေါ်မှုသည် လိမ်လည်မှုဖုန်းခေါ်မှုဟု သံသယဖြစ်ရပ် တုန်ခါစေပါ",
+  "notificationSettingsTitle": "သတိပေးချက် تنظیمများ",
+  "useLocalNotification": "ဒေသဆိုင်ရာ သတိပေးချက်များကို အသုံးပြုပါ",
+  "useLocalNotificationDescription": "ဝင်လာသော ဖုန်းခေါ်မှုများအတွက် ဒေသဆိုင်ရာ သတိပေးချက်များကို ဖွင့်ပါ",
+  "cancelLocalNotification": "ဒေသဆိုင်ရာ သတိပေးချက်များကို ပိတ်ပါ",
+  "useStirNotification": "STIR မှ သတိပေးချက်ကို အသုံးပြုပါ",
+  "cancelLocalNotificationDescription": "ဒေသဆိုင်ရာ သတိပေးချက်များကို အလိုအလျောက် ပိတ်ပါ",
+  "callerIdSettingsTitle": "ဖုန်းခေါ်သူ ID تنظیمများ",
+  "callerIdSettingsSubtitle": "ဝင်လာသော ဖုန်းခေါ်မှု သတိပေးချက်နှင့် ပြသမှုပုံစံကို تنظیمရန်",
+  "purchaseTitle": "ဝယ်ယူခြင်း",
+  "purchaseSubtitle": "ဝန်ဆောင်မှုကို ဝယ်ယူရန်",
+  "callerIdNotificationTitle": "ဝင်လာသော ဖုန်းခေါ်မှု အချက်အလက်",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "ပိတ်ပင်ထားသော ဖုန်းခေါ်မှု",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "{phoneNumber} မှ ဘလော့ခ်လုပ်ထားသော ခေါ်ဆိုမှု",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "စစ်ဆေးအတည်ပြုထားသည်",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "စစ်ဆေးအတည်ပြုထားခြင်းမရှိ",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "စစ်ဆေးအတည်ပြုမှု မအောင်မြင်",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "စစ်ဆေးအတည်ပြုမှု အခြေအနေ မသိရှိ",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "STIR/SHAKEN စစ်ဆေးအတည်ပြုမှု",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{phoneNumber} အတွက် {stirResultMessage}",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "လှည့်ပြသသော လုံခြုံရေးအကြောင်းအရာ သတ်မှတ်ချက်များ",
+  "messageColor": "အကြောင်းအရာ အရောင်",
+  "messageFontSize": "အကြောင်းအရာ စာလုံးအရွယ်အစား",
+  "messagePosition": "အကြောင်းအရာ တည်နေရာ",
+  "containerWidth": "အိမ်ရာ အကျယ်အဝန်း",
+  "scrollSpeed": "လှည့်ပြသမှု အမြန်နှုန်း",
+  "enableSecurityMessage": "လုံခြုံရေးအကြောင်းအရာ ကို အသုံးပြုခြင်း",
+  "fraudAlertTitle": "လိမ်လည်မှု သတိပေးချက်",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "တားဆီးထားသော အမျိုးအစားဒေတာ မရှိပါ",
+  "importEntity": "{entityTypeName} ကို တင်သွင်းခြင်း",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} ကို အောင်မြင်စွာ တင်သွင်းပြီး စုစုပေါင်း {count} ခုကို တင်သွင်းခဲ့သည်",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "{entityTypeName} ကို တင်သွင်းရာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "{entityTypeName} ကို တင်ပြခြင်း",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} ကို အောင်မြင်စွာ တင်ပြခဲ့သည်",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "{entityTypeName} ကို တင်ပြရာ မအောင်မြင်ခဲ့ပါ: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "ကလောက်ဒ် စင့်ခ်ဝန်ဆောင်မှု",
+  "membershipCenter": "အဖွဲ့ဝင်စင်တာ",
+  "redeemVipWithMarks": "မှတ်ပေါင်းများဖြင့် VIP ကို လဲယူခြင်း",
+  "currentMarkCount": "လက်ရှိ မှတ်ပေါင်း",
+  "markMoreNumbersForMore": "မှတ်ပေါင်းများ ရရှိရန် ကိန်းဂဏန်းများကို ပိုမိုမှတ်ခြင်း",
+  "noAds": "ကြော်ငြာမရှိ",
+  "cloudBackup": "ကလောက်ဒ် ဘက်အပ်ခြင်း",
+  "callerIdEnhancement": "ခေါ်ဆိုသူ ID မြှင့်တင်မှု",
+  "voiceRecognition": "အသံအမှတ်အသား",
+  "feature": "အင်္ဂါရပ်",
+  "normalUser": "စံအသုံးပြုသူ",
+  "vipUser": "VIP အသုံးပြုသူ",
+  "temporaryVip": "ယာယီVIP",
+  "removeAds": "ကြော်ငြာများဖယ်ရှားခြင်း",
+  "settingsBackup": "ချိန်ညှိမှုများ ဘက်အပြားယူခြင်း",
+  "allServicesStatusTitle": "လက်ရှိဝန်ဆောင်မှုအခြေအနေ",
+  "allServicesStatusSubtitle": "ကလောက်ဝန်ဆောင်မှုတစ်ခုစီ၏ လက်ရှိအခြေအနေ",
+  "redirect": "ပြန်လည်လမ်းညွှန်ခြင်း",
+  "notify": "အသိပေးခြင်း",
+  "log": "Log",
+  "custom": "ကိုယ်ပိုင်သတ်မှတ်ခြင်း",
+  "allowActionDescription": "နံပါတ်သည် ပိတ်ပင်ထားသောစာရင်းတွင် ပါဝင်နေသော်လည်း ခေါ်ဆိုမှုများကို ခွင့်ပြုမည်။",
+  "blockActionDescription": "ခေါ်ဆိုမှုများကို ပိတ်ပင်ပြီး ခေါ်ဆိုမှုမှတ်တမ်းတွင် ပြသမည်။",
+  "silenceActionDescription": "ခေါ်ဆိုမှုများကို အသံမထွက်စေပြီး ခေါ်ဆိုမှုမှတ်တမ်းတွင် ပြသမည်။",
+  "noneActionDescription": "ခေါ်ဆိုမှုအတွက် အထူးလုပ်ဆောင်ချက် တစ်စုံတစ်ရာ မဆောင်ရွက်ပါ။",
+  "redirectActionDescription": "ခေါ်ဆိုမှုကို သတ်မှတ်ထားသော နံပါတ်တစ်ခုဆီသို့ ပြန်လည်လမ်းကြောင်းပြောင်းပါ။",
+  "labelActionDescription": "လွယ်ကူစွာ ခွဲခြားသိရှိနိုင်ရန် ခေါ်ဆိုမှုအတွက် တံဆိပ်တစ်ခု ထည့်သွင်းပါ။",
+  "notifyActionDescription": "ခေါ်ဆိုမှုတစ်ခု ရရှိသည့်အခါ အသိပေးချက်တစ်ခု ပို့ပါ။",
+  "logActionDescription": "အခြားလုပ်ဆောင်ချက် မဆောင်ရွက်ဘဲ ခေါ်ဆိုမှုအချက်အလက်များကို မှတ်တမ်းတင်ပါ။",
+  "customActionDescription": "ကိုယ်ပိုင်သတ်မှတ်ထားသော လုပ်ဆောင်ချက်တစ်ခုကို ဆောင်ရွက်ပါ။",
+  "synced": "သင်ခ်ရှင်းထားပြီး",
+  "needVipAccess": "ဤလုပ်ဆောင်ချက်ကို အသုံးပြုရန် VIP အသုံးပြုခွင့် လိုအပ်ပါသည်",
+  "importExportDescription": "{entityTypeName} ဒေတာများကို တင်သွင်းခြင်း သို့မဟုတ် တင်ထုတ်ခြင်း",
+  "importExportTitle": "တင်သွင်း/တင်ထုတ်ခြင်း",
+  "noPhoneRules": "ဖုန်းစည်းမျဉ်းများ မတွေ့ရှိရပါ",
+  "noRegexRules": "regex စည်းမျဉ်းများ မတွေ့ရှိရပါ",
+  "noAllowedBlockedRules": "ခွင့်ပြုထားသော/တားမြစ်ထားသော စည်းမျဉ်းများ မတွေ့ရှိရပါ",
+  "importExport": "တင်သွင်း/တင်ထုတ်ခြင်း",
+  "filterByAction": "လုပ်ဆောင်ချက်အလိုက် စစ်ထုတ်ခြင်း",
+  "upgradeToVip": "VIP အဖြစ် အဆင့်မြှင့်တင်ပါ",
+  "batteryOptimizationPermission": "ဘက်ထရီအကောင်းဆုံးပြုခြင်း",
+  "batteryOptimizationPermissionDescription": "ဖုန်းခေါ်သူအမည်ပြခြင်းကဲ့သို့သော ဝန်ဆောင်မှုများပေးနိုင်ရန် အက်ပ်ကို နောက်ခံတွင် လည်ပတ်ခွင့်ပြုပါ။",
+  "permissionTitle": "အထူးခွင့်ပြုချက်များ",
+  "permissionSubtitle": "အပေါ်ယံပြခြင်းနှင့် ဘက်ထရီအကောင်းဆုံးပြုခြင်းဆိုင်ရာ ခွင့်ပြုချက်များကို စီမံပါ",
+  "themeSettingsTitle": "အကြောင်းအရာချုပ်ချုပ်ခြင်း",
+  "themeSettingsSubtitle": "သင့်နှစ်သက်ရာ အကြောင်းအရာချုပ်ချုပ်မှုကို ရွေးချယ်ပါ",
+  "databaseSyncTitle": "ဒေတာဘေ့စ် သင်ခ်ရန်",
+  "countrySyncSettingsTitle": "နိုင်ငံအခြေပြု ဒေတာဘေ့စ် သင်ခ်ရန် သတ်မှတ်ချက်များ",
+  "countrySyncSettingsSubtitle": "ဒေတာသင်ခ်ရန်အတွက် နိုင်ငံများကို ရွေးချယ်ပါ",
+  "countryDataDisclaimer": "သတိပြုပါ: ဒေတာဘေ့စ်တွင် နိုင်ငံ သို့မဟုတ် ဒေသအချို့၏ ဒေတာများ ပါဝင်ခြင်းမရှိနိုင်ပါ။",
+  "editSubscription": "စာရင်းသွင်းမှုကို တည်းဖြတ်ပါ",
+  "searchByNameOrPhoneNumber": "အမည် သို့မဟုတ် ဖုန်းနံပါတ်ဖြင့် ရှာဖွေပါ",
+  "allowedBlockedRulesInfo": "ခွင့်ပြုထားသော/တားမြစ်ထားသော စည်းမျဉ်းများသည် ဖုန်းနံပါတ်အထူးသတ်မှတ်ချက်များနှင့် ကိုက်ညီသော ခေါ်ဆိုမှုများကို ရွေးချယ်ရန် အသုံးပြုပြီး ၎င်းတို့တွင် အလိုအလျောက် အရေးပေးဆုံး ဖြစ်သည်။",
+  "searchPhoneRulesHint": "ဖုန်းစည်းမျဉ်းများကို ရှာဖွေပါ",
+  "phoneRulesInfo": "ဖုန်းစည်းမျဉ်းများကို ဖုန်းနံပါတ်အထူးသတ်မှတ်ချက်များနှင့် ကိုက်ညီစေရန် အသုံးပြုပြီး ၎င်းတို့သည် ပိုမိုနိမ့်ကျသော ဦးစားပေးမှုရှိသည်။ အချို့သည် phoneRule စာရင်းသွင်းမှုများမှ ရရှိသည်",
+  "searchSubscriptionsHint": "စာရင်းသွင်းမှုများကို ရှာဖွေပါ",
+  "searchPluginsHint": "ပလဂ်အင်များကို ရှာဖွေပါ",
+  "searchLabelsHint": "အညွှန်းကိန်းများကို ရှာဖွေပါ",
+  "pluginDescription": "ပလဂ်အင်ဖော်ပြချက်",
+  "enterPluginDescription": "ပလဂ်အင်ဖော်ပြချက်ကို ဝင်ရိုက်ပါ",
+  "searchRegexRulesHint": "regex စည်းမျဉ်းများကို ရှာဖွေပါ",
+  "regexRulesInfo": "Regex စည်းမျဉ်းများသည် Regex ပုံစံများအပေါ် အခြေခံ၍ ခေါ်ဆိုမှုများကို စစ်ထုတ်ရန် အသုံးပြုသည်။",
+  "searchMarkedPhonesHint": "အမှတ်အသားပြုထားသော ဖုန်းများကို ရှာဖွေပါ",
+  "searchContactSubscriptionsHint": "ထိတွေ့မှု မှတ်ပုံတင်များကို ရှာဖွေပါ",
+  "showAllContacts": "ထိတွေ့မှုအားလုံးကို ပြသပါ",
+  "showFavorites": "နှစ်သက်စာရင်းများကို ပြသပါ",
+  "manualEntry": "လက်ဖြင့် ဝင်ရိုက်မှု သတင်းအချက်အလက်",
+  "scriptSaved": "စက်ပြုလုပ်စာကို သိမ်းဆည်းပြီးဖြစ်သည်",
+  "editScriptFor": "{pluginName} အတွက် စက်ပြုလုပ်စာကို တည်းဖြတ်ပါ",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "စက်ပြုလုပ်ချက်ကို သိမ်းဆည်းမယ်",
+  "testPlugin": "စမ်းသပ်ပလဂ်အင်",
+  "description": "ဖော်ပြချက်",
+  "accessTargetUrl": "ရောက်ရှိနေရာ URL ကို ဝင်ရောက်မယ်",
+  "result": "ရလဒ်",
+  "editScript": "စက်ပြုလုပ်ချက်ကို တည်းဖြတ်မယ်",
+  "numberFormat": "ကိန်းဂဏန်းပုံစံ",
+  "nationalNumber": "နိုင်ငံတွင်းကိန်းဂဏန်း",
+  "e164Number": "E164 ကိန်းဂဏန်း",
+  "pluginRulesInfo": "လုံခြုံရေးအတွက် ယုံကြည်စိတ်ချရသော အရင်းအမြစ်များမှ ပလဂ်အင်များကိုသာ အသုံးပြုပါ။ ကိုယ်ပိုင်သတ်မှတ်ထားသော ပလဂ်အင်များကို ဖန်တီးရန် ကျွန်ုပ်တို့၏ နမူနာများကို အသုံးပြုနိုင်ပါသည်!",
+  "advancedMode": "ဆန်းကြယ်သော အသုံးပြုမှုပုံစံ",
+  "pleaseEnterAtLeastOneNumber": "အနည်းဆုံး ကိန်းဂဏန်းတစ်လုံး ဝင်သွင်းပါ။",
+  "openInWebView": "WebView တွင် ဖွင့်မယ်",
+  "pluginLabel": "ပလဂ်အင်အညွှန်းအမည်",
+  "pluginID": "ID",
+  "pluginURL": "URL",
+  "messageBackgroundColor": "စာရေးသားချက်၏ နောက်ခံအရောင်",
+  "clearAllCallLogs": "ခေါ်ဆိုမှုမှတ်တမ်းအားလုံးကို ရှင်းလိုက်ပါ",
+  "clearAllCallLogsConfirmation": "ခေါ်ဆိုမှုမှတ်တမ်းအားလုံးကို ရှင်းလိုက်မည်ကို အတည်ပြုပါ",
+  "allCallLogsCleared": "ခေါ်ဆိုမှုမှတ်တမ်းအားလုံးကို ရှင်းလိုက်ပြီးဖြစ်သည်",
+  "unblocked": "ပိတ်ဆို့မှုဖယ်ရှားထားသည်",
+  "blockNumber": "နံပါတ်ပိတ်ဆို့ခြင်း",
+  "blockNumberSuccess": "နံပါတ်ပိတ်ဆို့ခြင်း အောင်မြင်သည်",
+  "unblockNumberConfirmation": "{phoneNumber} ၏ ပိတ်ဆို့မှုကို ဖယ်ရှားလိုက်မည်ဟု သေချာပါသလား?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "အသေးစိတ်ကို ကြည့်ပါ",
+  "unblock": "ပိတ်ဆို့မှုဖယ်ရှားပါ",
+  "unblockNumber": "နံပါတ်ပိတ်ဆို့မှုဖယ်ရှားခြင်း",
+  "unblockNumberSuccess": "နံပါတ်၏ ပိတ်ဆို့မှုကို အောင်မြင်စွာ ဖယ်ရှားလိုက်ပြီးဖြစ်သည်",
+  "unblockNumberFailed": "နံပါတ်ပိတ်ဆို့မှုဖယ်ရှားခြင်း မအောင်မြင်ခဲ့ပါ",
+  "callingNumberFailed": "နံပါတ်ခေါ်ဆိုခြင်း မအောင်မြင်ခဲ့ပါ",
+  "listView": "စာရင်းကြည့်မြင်ပုံ",
+  "timelineView": "အချိန်ဇယားကြည့်မြင်ပုံ",
+  "nameCannotBeEmpty": "အမည်ကို ဟာကွက်ထား၍မရ",
+  "selectAction": "လုပ်ဆောင်ချက်ကို ရွေးချယ်ပါ",
+  "selectTargetService": "ပစ်မှတ်ဝန်ဆောင်မှုကို ရွေးချယ်ပါ",
+  "callDetails": "ခေါ်ဆိုမှုအသေးစိတ်အချက်အလက်များ",
+  "callType": "ခေါ်ဆိုမှုအမျိုးအစား",
+  "callTime": "ခေါ်ဆိုမှုအချိန်",
+  "numberInvalidFormat": "နံပါတ်ပုံစံမမှန်",
+  "medium": "အလယ်အလတ်",
+  "finalRisk": "နောက်ဆုံးအန္တရာယ်အဆင့်",
+  "simState": "SIM အခြေအနေ",
+  "ipCountry": "IP နိုင်ငံ",
+  "simCountry": "SIM နိုင်ငံ",
+  "isRoaming": "ရိုမင်း",
+  "isNumberMatch": "နံပါတ်ကိုက်ညီမှု",
+  "support": "အထောက်အကူပြုမှု",
+  "rewardedAdService": "ဆုလာဘ်ပေး အချက်ပြဝန်ဆောင်မှု",
+  "hasVipPrivilegeExceptAds": "သင်တွင် VIP အခွင့်အရေးများ ရှိနေပြီးဖြစ်သည် (အချက်ပြများမှလွဲ၍)",
+  "hasTempPrivilegeWithExpiry": "သင်တွင် ယာယီအခွင့်အရေးများ ရှိနေပြီးဖြစ်သည်၊ ကုန်ဆုံးရက်: {expiryDate}",
+  "watchMoreAdsForTempVip": "ယာယီ VIP အခွင့်အရေးများ ရရှိရန် အချက်ပြ {count} ခုကို ဆက်လက်ကြည့်ရှုရန် လိုအပ်သည်",
+  "grantedTempPurchaseWithExpiry": "သင့်အား ရက် {days} ကြာ ယာယီဝယ်ယူမှုအခွင့်အရေး ပေးအပ်ထားပါသည်။ ကုန်ဆုံးရက်: {expiryDate}",
+  "tempPurchaseExpired": "ယာယီဝယ်ယူမှုအခွင့်အရေး ကုန်ဆုံးသွားပြီဖြစ်သည်",
+  "loadingAd": "အချက်ပြကို လုပ်ဆောင်နေသည်...",
+  "earnedTempVip": "ရရှိထားသော ယာယီ VIP",
+  "vipExchangeService": "VIP လဲလှယ်ရေးဝန်ဆောင်မှု",
+  "marksInsufficient": "လဲလှယ်ရန် မှတ်ပမာဏ မလုံလောက်",
+  "invalidExchangeRule": "မမှန်ကန်သော လဲလှယ်မှုစည်းမျဉ်း",
+  "exchangeSuccess": "{description} အဖြစ် အောင်မြင်စွာ လဲလှယ်နိုင်ခဲ့ပြီး မှုန်းရက်သည် {expiryDate} ဖြစ်သည်",
+  "exchangeFailed": "လဲလှယ်မှု မအောင်မြင်ခဲ့: {error}",
+  "vip3DaysWithAds": "ကြော်ငြာပါဝင်သော ၃ ရက်ကြာ VIP (sync သာ)",
+  "vip5DaysNoAds": "အင်္ဂါရပ်ပြည့်စုံပြီး ကြော်ငြာမပါသော ၅ ရက်ကြာ VIP",
+  "vip7DaysNoAds": "ရက် ၇ ရက်ကြာ အင်္ဂါရပ်ပြည့်စုံသော ကြော်ငြာမဲ့ VIP",
+  "noNotifications": "အသိပေးချက်မရှိ",
+  "clearAllNotifications": "အသိပေးချက်အားလုံးကို ရှင်းလိုက်",
+  "clearAllNotificationsConfirmation": "အသိပေးချက်အားလုံးကို ရှင်းလိုက်ရန် အတည်ပြုပါ",
+  "clearButton": "ရှင်း",
+  "justNow": "ယခုပဲ",
+  "minutesAgo": "{count,plural, =1{မိနစ် ၁ မိနစ်က} other{{count} မိနစ်က}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{နာရီ ၁ နာရီက} other{{count} နာရီက}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{နေ့ ၁ နေ့က} other{{count} နေ့က}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "မနေ့က",
+  "deletionProposal": "ဖျက်သိမ်းရေးအဆို",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "အဆိုဖန်တီး",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "ဖျက်သိမ်းရေးအဆို ဖန်တီး",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "အကြောင်းပြချက်",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "ရှေးကျသွားသော အကြောင်းပြချက်",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "လုံခြုံရေးစိုးရိမ်မှု",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "ဝန်ဆောင်မှုအတွင်း မပါဝင်ခြင်း",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "မှားယွင်းစွာ ဖော်ထုတ်ခံထားရခြင်း",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "မမှန်ကန်သော အချက်အလက်",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "အခြား",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "တင်သွင်းမည်",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "ဖျက်သိမ်းမည်",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "အန္တရာယ်အဆင့်",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Low",
+  "@riskLevelLow": {
+    "description": "Label for low risk level"
+  },
+  "riskLevelHigh": "မြင့်မား",
+  "@riskLevelHigh": {
+    "description": "Label for high risk level"
+  },
+  "agreeVotes": "သဘောတူ: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "စုစုပေါင်း: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "သဘောတူ",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "သဘောမတူ",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "ဖန်တီးခဲ့သည့်ရက်: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "စစ်ဆေးအတည်ပြုမှုအစီရင်ခံစာ",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "အဆိုပြုချက်များ၏ စာရင်းအင်း",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "အဆိုပြုချက် စုစုပေါင်း",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "လက်ရှိ အဆိုပြုချက်များ",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "အဆိုပြုချက်ကို အောင်မြင်စွာ ဖန်တီးပြီးဖြစ်သည်",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "မဲပေးမှုကို အောင်မြင်စွာ တင်သွင်းပြီးဖြစ်သည်",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "အဆိုပြုချက် မတွေ့ရှိရပါ",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "အဆိုပြုချက်များကို ပြန်လည်သက်သာ်ပါ",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "စောင့်ဆိုင်းနေသော အဆိုပြုချက် စုစုပေါင်း",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "အန္တရာယ် မြင့်မား",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "အန္တရာယ် အလယ်အလတ်",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "အန္တရာယ် နိမ့်ပါး",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "အသိုင်းအဝိုင်းအပေါ် သက်ရောက်မှု",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "အရေးပေါ် ပြဿနာများ",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "အသိုင်းအဝိုင်း ပါဝင်မှု",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "လှုပ်ရှားမှု မရှိ",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Low",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "အလယ်အလတ်",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "မြင့်မား",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "အလွန်မြင့်မား",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "မဲပေးပြီး",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "အသိုင်းအဝိုင်း၏ မဲပေးမှုများ",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "အသိုင်းအဝိုင်း၏ မဲပေးမှုများ ထပ်မံရရှိရန် စောင့်ဆိုင်းနေဆဲ",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "ဤအဆိုပြုချက်ကို ကိုင်တွယ်ပြီးဖြစ်သည်",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "ထောက်ခံထားသည်",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "ဆန့်ကျင်ထားသည်",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "အတည်ပြုထားသည်",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "ငြင်းပယ်ထားသည်",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "ပြီးစီးသည်",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "စောင့်ဆိုင်းနေဆဲ",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "အရေးပေါ်",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "ဆန့်ကျင်ရန်",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "အလွန်နိမ့်",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "ဖျက်သိမ်းရန် အဆိုများ",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "ဖျက်သိမ်းရန် အဆိုမဲပေးမှုရလဒ်များနှင့် အပ်ဒိတ်များနှင့်ပတ်သက်သော အသိပေးချက်များ။",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "ဖျက်သိမ်းရန် အဆို ဖန်တီးထားပြီ",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "သင်၏ {phoneNumber} အတွက် ဖျက်သိမ်းရန် အဆိုကို လူထု၏ သုံးသပ်မှုအတွက် တင်သွင်းထားပြီးဖြစ်သည်။",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "အဆို အတည်ပြုခဲ့ပြီ ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "{phoneNumber} အတွက် ဖျက်သိမ်းရန် အဆိုကို လူထုက အတည်ပြုခဲ့ပြီးဖြစ်သည် (အားပေးမှု {supportPercentage}%၊ မဲပေါင်း {totalVotes} မဲ)။",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "အဆို ပယ်ချခံခဲ့ရ ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "{phoneNumber} အတွက် ဖျက်သိမ်းရေးအဆိုကို လူထုက ပယ်ချခဲ့ပါပြီ (အားပေးမှု {supportPercentage}%၊ မဲပေါင်း {totalVotes})။",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "လူထုမဲပေးမှု စတင်ခဲ့ပြီ",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "{phoneNumber} အတွက် ဖျက်သိမ်းရေးအဆိုအသစ်တစ်ခုကို လူထုမဲပေးမှုအတွက် ဖွင့်လှစ်ထားပါပြီ။",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "မဲပေးမှု ပြီးစီးခဲ့ပြီ",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "{phoneNumber} အတွက် လူထုမဲပေးမှု ပြီးစီးခဲ့ပါပြီ။ ရလဒ်: {result} (အားပေးမှု {supportPercentage}%)။",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "မဲအသစ် ရရှိခဲ့ပြီ",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "{phoneNumber} ကို ဖျက်သိမ်းရန် {voteType} မဲပေးခဲ့သူတစ်ဦး ရှိခဲ့ပါတယ်။ လက်ရှိမဲပေါင်း: {totalVotes}။",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "မဲပေးမှုအရေအတွက်",
+  "deletionProposalDescription": "အသိုင်းအဝိုင်း၏ လမ်းညွှန်မှုများကို ချိုးဖောက်နေသော နံပါတ်များကို ဖျက်သိမ်းရန် အဆိုပြုပါ။ သင်၏ ပါဝင်ဆောင်ရွက်မှုသည် ပလက်ဖောင်းကို ဘေးကင်းလုံခြုံစေရန် ကူညီပေးပါသည်။",
+  "searchProposals": "အဆိုများ ရှာဖွေခြင်း",
+  "defaultNotifications": "မူလ အသိပေးချက်များ",
+  "defaultNotificationsDescription": "အက်ပ်အတွက် မူလ အသိပေးချက်ချန်နယ်။",
+  "blockedCallNotifications": "ပိတ်ပင်ထားသော ခေါ်ဆိုမှု အသိပေးချက်များ",
+  "blockedCallNotificationsDescription": "ပိတ်ဆို့ထားသောခေါ်ဆိုမှုများဆိုင်ရာ အချက်အလက်များကို ပြသသည်.",
+  "stirVerification": "STIR/SHAKEN အတည်ပြုချက်",
+  "stirVerificationDescription": "နံပါတ်များအတွက် STIR/SHAKEN အတည်ပြုချက်ရလဒ်များကို ပြသသည်.",
+  "fraudAlerts": "လိမ်လည်မှုသတိပေးချက်များ",
+  "fraudAlertsDescription": "ဖြစ်နိုင်သော လိမ်လည်မှုခေါ်ဆိုမှုများအတွက် သတိပေးချက်များကို ပြသသည်.",
+  "notificationMode": "အကြောင်းကြားချက် စနစ်",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "စောင့်ဆိုင်းနေသော အဆိုပြုချက်များ",
+  "pendingProposalsBody": "သင်တွင် {count, plural, =0 {စောင့်ဆိုင်းနေသော အဆိုပြုချက်မရှိပါ} one {၁ စောင့်ဆိုင်းနေသော အဆိုပြုချက်} other {{count} စောင့်ဆိုင်းနေသော အဆိုပြုချက်များ}} ရှိသည်။",
+  "guidelinesLabel": "လမ်းညွှန်ချက်များ",
+  "riskLevelLabel": "အန္တရာယ် အဆင့်",
+  "phoneNumberMinDigits": "ဖုန်းနံပါတ်သည် အနည်းဆုံး ၇ လုံး ပါဝင်ရမည်",
+  "provideDetailedExplanation": "အသေးစိတ်ရှင်းလင်းချက်တစ်ခုပေးပါ (အနည်းဆုံး ၁၀ အက္ခရာ)",
+  "reasonMinCharacters": "အကြောင်းရင်းသည် အနည်းဆုံး ၁၀ အက္ခရာ ပါဝင်ရမည်",
+  "countryCodeTwoLetters": "နိုင်ငံ ကုဒ် (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "နိုင်ငံ ကုဒ် (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "ဥပမာ- US, CN, GB",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "နိုင်ငံ ကုဒ် လိုအပ်သည်",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "ဖုန်းနံပါတ် ထည့်သွင်းပါ",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "ဖုန်းနံပါတ် မဖြစ်မနေ လိုအပ်ပါသည်",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "အကြောင်းရင်း လိုအပ်သည်",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "အရေးပေါ်",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "အလယ်အလတ်",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "အလွန်နည်းသည်",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "အသိပေးချက် ကြိမ်နှုန်း",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "အမှား: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• တကယ်ပြဿနာရှိသော နံပါတ်များကိုသာ အစီရင်ခံပါ\n• တိကျပြီး အသေးစိတ်ကျသော အကြောင်းရင်းများကို ပေးပါ\n• ပြင်းထန်မှုအပေါ် အခြေခံ၍ သင့်လျော်သော အန္တရာယ်အဆင့်ကို ရွေးချယ်ပါ\n• မှားယွင်းသော အစီရင်ခံစာများသည် အကောင့် ကန့်သတ်မှုများ ဖြစ်စေနိုင်သည်။",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "အသိပေးချက် ကြိမ်နှုန်း (နာရီ)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "ထောက်ခံ ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "ဆန့်ကျင် ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} မဲ ({supportPercentage}% ထောက်ခံမှု)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 နာရီ} =1{1 နာရီ} other{{count} နာရီ}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "အရေးကြီးသော သတိပေးချက်",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "နံပါတ်များသည် အင်တာနက်နှင့် အသုံးပြုသူ တင်သွင်းမှုများမှ ရယူသည်။ နံပါတ်တစ်ခုကို ဖျက်သိမ်းပြီးနောက် အခြားအသုံးပြုသူများ သို့မဟုတ် အရင်းအမြစ်များမှ ပြန်လည်တင်သွင်းနိုင်မည် မဟုတ်ကြောင်း ကျွန်ုပ်တို့ အာမခံနိုင်ပါ။ တက်ကြွစွာ ရှာဖွေပြီး အချက်အလက်များကို စစ်ဆေးပါ။",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "အိုင်ကွန်",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "တည်နေရာ",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "SIM ကတ်",
+  "liveActivitiesSettingsTitle": "Live Activities ဆက်တင်များ",
+  "elementsSettingsTitle": "Elements ဆက်တင်များ",
+  "liveActivityMode": "တိုက်ရိုက်လှုပ်ရှားမှု",
+  "liveActivityModeDescription": "ခေါ်ဆိုမှုအချက်အလက်များကို လော့ခ်မျက်နှာပြင်နှင့် Dynamic Island (iOS) တွင် အမြဲတမ်း အသိပေးချက်အဖြစ် ပြသသည်။",
+  "phoneNumberType": "ဖုန်းနံပါတ် အမျိုးအစား",
+  "liveActivitiesTestEndActivity": "Activity ကို အဆုံးသတ်ပါ",
+  "liveActivitiesTestSendNewActivity": "Activity အသစ် ပို့ပါ",
+  "liveActivitiesTestUpdateActivity": "Activity ကို အပ်ဒိတ်လုပ်ပါ",
+  "liveActivityControlsTitle": "Live Activity ထိန်းချုပ်မှုများ",
+  "liveActivitiesTestTitle": "Live Activities စမ်းသပ်မှု",
+  "liveNotificationCustomizationTitle": "Live Notification စိတ်ကြိုက်ပြုလုပ်ခြင်း",
+  "liveNotificationCustomizationSubtitle": "Live notification များ၏ ပြင်ပအသွင်အပြင်ကို စိတ်ကြိုက်ပြုလုပ်ပါ။",
+  "notification_instructions": "ညွှန်ကြားချက်များ:\n1. အသိပေးချက်တစ်ခုကို ဖန်တီးရန် သို့မဟုတ် အပ်ဒိတ်လုပ်ရန် \"SEND\" ကိုနှိပ်ပါ။\n2. သင့်အိမ်မျက်နှာပြင်သို့ သွားပါ သို့မဟုတ် ရလဒ်ကိုကြည့်ရှုရန် အသိပေးချက်ဘားကို ဆွဲချပါ။\n3. အသိပေးချက်ကို ပယ်ဖျက်ရန် \"END\" ကိုနှိပ်ပါ။",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "အလိုအလျောက် အသိပေးချက်ကို ပယ်ဖျက်ပါ",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "အကယ်၍ ရွေးချယ်ထားပါက၊ အသုံးပြုသူမှ ၎င်းကိုနှိပ်သောအခါ အသိပေးချက်သည် အလိုအလျောက် ပယ်ဖျက်ပါမည်။",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "နှောင့်နှေးချိန် သတ်မှတ်ပါ",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "အဆိုပြုချက် အသေးစိတ်",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "အဆိုပြုချက်ကို ရှာမတွေ့ပါ",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "အပြီးသတ်",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "စစ်ထုတ်ပြီး အစီ</span>",
+  "filterVerifiedOwner": "စစ်ဆေးထားသော ပိုင်ရှင်ဖြင့် စစ်ထုတ်ပါ",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "ဖြင့် စစ်ထုတ်ပါ",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "အဟောင်းဆုံးကို အစီ</span>",
+  "sortNewest": "အသစ်ဆုံးကို အစီ</span>",
+  "sortMostPopular": "လူကြိုက်အများဆုံးကို အစီ</span>",
+  "sortLeastPopular": "လူကြိုက်အနည်းဆုံးကို အစီ</span>",
+  "sortBy": "ဖြင့် စီ</span>",
+  "simRulesNotFound": "SIM စည်းမျဉ်းများကို ရှာမတွေ့ပါ",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "SIM Slot စည်းမျဉ်းများ",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "SIM ကတ် မတွေ့ရှိပါ",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "SIM ဒေတာ မှားယွင်းနေသည်",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "SIM စလော့",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "စစ်ထုတ်ခြင်းကို ဖွင့်ပါ",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "အသေးစိတ် ဆက်တင်များ",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "ဝင်ရောက်ရာမှ ကြည့်ရှုမှု",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "ငြင်းပယ်ခဲ့သည်",
+  "callTypeSilenced": "အသံပိတ်ထားသည်",
+  "andMoreItems": "နှင့် အခြားအရာများ {count} ခု",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "စည်းမျဉ်းအမျိုးအစား",
+  "localDatabaseSyncTitle": "ဒေတာဘေ့စ် ဒေသဆိုင်ရာ မှတ်ပုံတင်ခြင်း",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "စက်ပစ္စည်းများအကြား ဒေတာများကို မှတ်ပုံတင်ပါ",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Supabase ပရောဂျက် URL",
+  "supabaseAnonKey": "အမည်မဖော်ပြသော ကီး",
+  "supabaseAnonKeyHint": "API ကီး၊ အမည်မဖော်ပြသော အများသုံးကီး",
+  "connectionString": "ချိတ်ဆက်မှု စထရင်း (URI)",
+  "connectionStringHelper": "‘ဒေတာဘေ့စ် စတင်ခြင်း’ အတွက်သာ လိုအပ်သည်",
+  "syncCallHistory": "ခေါ်ဆိုမှု မှတ်တမ်းများကို မှတ်ပုံတင်ခြင်း",
+  "syncCallHistorySubtitle": "ပုဂ္ဂလိက ခေါ်ဆိုမှု မှတ်တမ်းများကို မှတ်ပုံတင်မှုတွင် ထည့်သွင်းပါ",
+  "requiredField": "လိုအပ်သည်",
+  "requiredInitField": "စတင်ရန် လိုအပ်သည်",
+  "initDbButton": "ဒေတာဘေ့စ် စတင်ပါ",
+  "dbInitSuccess": "ဒေတာဘေ့စ်ကို အောင်မြင်စွာ စတင်ပြီးဖြစ်သည်!",
+  "syncSuccess": "မှတ်ပုံတင်ခြင်း ပြီးစီးပြီ။ ပို့ထားသည်: {pushed}၊ ရရှိထားသည်: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "အမှား",
+  "errorLoadingSettings": "ကိန်းဂဏန်းများကို ဖွင့်ရာတွင် အမှားဖြစ်ပေါ်ခဲ့သည်",
+  "statusLabel": "အခြေအနေ",
+  "statusConnected": "ချိတ်ဆက်ထားသည် / ချိန်ညှိထားသည်",
+  "statusNotConfigured": "မချိန်ညှိထားသေးပါ",
+  "configSaved": "ချိန်ညှိမှုကို သိမ်းဆည်းပြီးဖြစ်သည်!",
+  "masterDeviceLabel": "မူလစက်ဖြစ်သလား (အုပ်ချုပ်သူ)",
+  "masterDeviceHelp": "မူလစက်သာ ဒေတာဘေ့စ်ဖွဲ့စည်းပုံကို စတင်နိုင်သည်။",
+  "syncIntervalLabel": "အလိုအလျောက်သွင်းယူမှု အချိန်ကြာချိန်",
+  "syncIntervalValue": "{hours} နာရီတစ်ကြိမ်",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "မွမ်းမံထားသောတန်ဖိုးကို အသုံးပြုရန် ဤနေရာကို ဖြာထားပါ",
+  "vipAccessSubtitle": "ကြော်ငြာများကို အခမဲ့ကြည့်ပါ သို့မဟုတ် VIP ဝယ်ယူပါ",
+  "failedToLoadSettingsSchema": "ကိန်းဂဏန်းစံနမူနာကို ဖွင့်ရာတွင် မအောင်မြင်ခဲ့ပါ: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "ဤနေရာကို မဖြစ်မနေဖြည့်ရန်လိုအပ်သည်",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "ဝင်လာသောခေါ်ဆိုမှုကို အလိုအလျောက်လက်ခံပြီးနောက် ချက်ချင်းဖြတ်တောက်ကာ ပိတ်ပစ်သည်",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}

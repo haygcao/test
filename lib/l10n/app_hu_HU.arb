@@ -1,0 +1,2372 @@
+{
+  "@@locale": "hu_HU",
+  "aboutContactSubscription": "Rólunk Kapcsolat Feliratkozás",
+  "@aboutContactSubscription": {
+    "description": "About contact subscription title"
+  },
+  "aboutLabels": "Rólunk címkék",
+  "aboutPhoneSubscriptionRules": "Rólunk telefonos feliratkozási szabályok",
+  "aboutSmsFilter": "Rólunk SMS-szűrés",
+  "aboutSmsSubscriptionRules": "Rólunk SMS-feliratkozási szabályok",
+  "aboutSubtitle": "Alkalmazásverzió és jogi információk",
+  "aboutTitle": "Rólunk",
+  "action": "Művelet",
+  "actionAll": "Összes",
+  "actionAllow": "Engedélyezés",
+  "actionBlock": "Blokálás",
+  "actionFilterTitle": "Szűrés művelettípus szerint",
+  "actionFilterTooltip": "Műveletszűrő",
+  "actionNone": "Nincs művelet",
+  "actionSilence": "Némítás",
+  "actionTag": "Művelet: {actionType}",
+  "actionType": "Művelettípus",
+  "actionUnknown": "Ismeretlen",
+  "add": "Hozzáadás",
+  "addAllowedBlockedRule": "Engedélyezési/blokálási szabály hozzáadása",
+  "addAllowSubscription": "Engedélyezési feliratkozás hozzáadása",
+  "@addAllowSubscription": {
+    "description": "Add allow subscription dialog title"
+  },
+  "addBlockSubscription": "Blokálási feliratkozás hozzáadása",
+  "@addBlockSubscription": {
+    "description": "Add block subscription dialog title"
+  },
+  "addContactButton": "Névjegy hozzáadása",
+  "addContactFailed": "Nem sikerült hozzáadni a névjegyet: {error}",
+  "addedToFavorites": "Hozzáadva a kedvenc névjegyekhez",
+  "addLabel": "Címke hozzáadása",
+  "addLabelButton": "Címke hozzáadása",
+  "addLabelFailed": "Nem sikerült hozzáadni a címkét: {error}",
+  "addName": "Név hozzáadása",
+  "addNoneSubscription": "„Nincs” feliratkozás hozzáadása",
+  "@addNoneSubscription": {
+    "description": "Add none subscription dialog title"
+  },
+  "addPhoneMark": "Telefonjelzés hozzáadása",
+  "addPhoneNumberRule": "Telefonszabály hozzáadása",
+  "addPlugin": "Bővítmény hozzáadása",
+  "addPluginFailed": "Nem sikerült hozzáadni a bővítményt",
+  "addPluginFailedWithError": "Nem sikerült hozzáadni a bővítményt: {error}",
+  "addPluginFromLocalFile": "Bővítmény hozzáadása helyi fájlból",
+  "addPluginFromUrl": "Bővítmény hozzáadása URL-ről",
+  "addRegexRule": "Rexx-szabály hozzáadása",
+  "addRule": "Szabály hozzáadása",
+  "addRuleFailed": "Nem sikerült hozzáadni a szabályt: {error}",
+  "addRuleTooltip": "Szabály hozzáadása",
+  "addSilenceSubscription": "Csend-előfizetés hozzáadása",
+  "@addSilenceSubscription": {
+    "description": "Add silence subscription dialog title"
+  },
+  "addSmsFilterRule": "SMS-szűrőszabály hozzáadása",
+  "addSmsRule": "SMS-szabály hozzáadása",
+  "addSmsSubscription": "SMS-előfizetés hozzáadása",
+  "addSubscription": "Előfizetés hozzáadása",
+  "@addSubscription": {
+    "description": "Add subscription button text"
+  },
+  "addSubscriptionButton": "Előfizetés hozzáadása",
+  "addSubscriptionFailed": "Nem sikerült hozzáadni az előfizetést: {error}",
+  "@addSubscriptionFailed": {
+    "description": "Failed to add subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "addSubscriptionTooltip": "Előfizetés hozzáadása",
+  "addToBlacklist": "Fekete listához adás",
+  "addToFavorites": "Kedvencekhez adás",
+  "addToRules": "Szabályokhoz adás",
+  "addToWhitelist": "Fehér listához adás",
+  "agent": "Ügynök",
+  "all": "Összes",
+  "allCallsTab": "Összes",
+  "allow": "Engedélyezés",
+  "allowAllAllowRules": "Engedélyezés minden engedélyező szabályhoz",
+  "allowAllAllowRulesDesc": "Engedélyezze a hívásokat az engedélyező szabályokból",
+  "allowAllBlacklistedNumbers": "Engedélyezés minden fekete listán szereplő számhoz",
+  "allowAllBlockRules": "Minden tiltószabály engedélyezése",
+  "allowAllBlockRulesDesc": "Engedélyezze a hívásokat a tiltószabályokból",
+  "allowAllowedNumbers": "Engedélyezett számok engedélyezése",
+  "allowAllowedNumbersDesc": "Engedélyezze a hívásokat az engedélyezési listáról",
+  "allowBlock": "Engedélyezés/Tiltás",
+  "allowBlockedNumbers": "Tiltott számok engedélyezése",
+  "allowBlockedNumbersDesc": "Engedélyezze a hívásokat a tiltólistáról",
+  "allowedBlockedRule": "Engedélyezési/Tiltási szabály",
+  "allowedBlockedRuleEditDialogTitle": "Engedélyezési/Tiltási szabály szerkesztése",
+  "allowedBlockedRuleManagement": "Engedélyezési/Tiltási szabályok kezelése",
+  "allowNonExceededNumbers": "Nem túllépő számok engedélyezése",
+  "allowNonExceededNumbersDescription": "Automatikusan engedélyezze azokat a számokat, amelyek nem haladják meg a számküszöböt",
+  "allowRegexAllowRules": "Engedélyező regex-szabályok",
+  "allowRegexAllowRulesDesc": "Engedélyezze a regex-mintaillesztést az engedélyező szabályokhoz",
+  "allowRegexAllowRulesDescription": "Engedélyezze a regex-alapú engedélyező szabályokat",
+  "allowRegexBlockRules": "Tiltó regex-szabályok",
+  "allowRegexBlockRulesDesc": "Engedélyezze a regex-mintaillesztést a tiltó szabályokhoz",
+  "allowRegexBlockRulesDescription": "Engedélyezze a regex-alapú tiltó szabályokat",
+  "allowRule": "Engedélyező szabály",
+  "allowRules": "Engedélyező szabályok",
+  "allPermissionsGranted": "Minden engedély megadva",
+  "allSettingsCompleted": "Minden beállítás befejeződött.",
+  "allUpdateSuccess": "Minden frissítés befejeződött ({count} szabály)",
+  "@allUpdateSuccess": {
+    "description": "Full update success message",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "answerThenHangup": "Válaszoljon, majd tegye le a telefont",
+  "@answerThenHangup": {
+    "description": "Automatically answer the incoming call and then immediately hang up to terminate the call."
+  },
+  "applicationSoftware": "Alkalmazásszoftver",
+  "apply": "Alkalmazás",
+  "appName": "Az Ön hívása, az Ön szabálya",
+  "authorizationFailedCheckCredentialsMessage": "A hitelesítés sikertelen: Kérjük, ellenőrizze az ügyfél-azonosítót és a kulcsot",
+  "authorizationFailedMessage": "A hitelesítés sikertelen",
+  "authorizationSuccessMessage": "A hitelesítés sikeres",
+  "authorizeLoginButton": "Bejelentkezés engedélyezése",
+  "automotiveIndustry": "Autóipar",
+  "autoSyncLabel": "Automatikus szinkronizálás",
+  "autoUpdate": "Automatikus frissítés",
+  "autoUpdateDescription": "Állítsa be az előfizetések automatikus frissítési időközét, vagy frissítse kézzel",
+  "autoUpdateSettings": "Automatikus frissítési beállítások",
+  "autoUpdateSubtitle": "A szabályok és bővítmények automatikus frissítéseinek kezelése",
+  "autoUpdateTitle": "Automatikus frissítés",
+  "avatarBorderColor": "Avaatár szegélyének színe",
+  "avatarBorderSize": "Avaatár szegélyének mérete",
+  "avatarIconSizesSetting": "Avaatár- és ikonméretek",
+  "avatarPosition": "Avaatár helyzete",
+  "avatarSize": "Avaatár mérete",
+  "axisPosition": "{axis} helyzete",
+  "backgroundGradientSetting": "Háttérgradiens",
+  "backup": "Biztonsági mentés",
+  "backupAndRestore": "Biztonsági mentés és visszaállítás",
+  "backupAndRestoreSubtitle": "Biztonsági mentés készítése vagy visszaállítás az alkalmazás adataiból",
+  "backupAndRestoreTitle": "Biztonsági mentés és visszaállítás",
+  "backupFailed": "A biztonsági mentés sikertelen volt",
+  "backupSettings": "Biztonsági mentési beállítások",
+  "backupToCloud": "Biztonsági mentés a felhőbe",
+  "backupToCloudFailed": "Nem sikerült biztonsági mentést készíteni a felhőbe: {error}",
+  "backupToCloudSuccess": "Sikeresen biztonsági mentés készült a felhőbe",
+  "bank": "Bank",
+  "basicInfo": "Alapinformációk",
+  "basicRuleFilter": "Alapvető szabályszűrő",
+  "basicRuleFiltering": "Alapvető szabályszűrés",
+  "basicRuleFilteringExplanation": "• Alapvető szabályszűrés: Szabályok szűrése tiltólista, engedélyezőlista és reguláris kifejezések alapján",
+  "basicRuleFilterSubtitle": "Hívások szűrése tiltólista/engedélyezőlista és reguláris kifejezések segítségével",
+  "batchDeleteContactsConfirm": "Biztosan törölni kívánja a kijelölt {count} névjegyet?",
+  "batchDeleteLabelsConfirm": "Biztosan törölni kívánja a {count} címkét?",
+  "blacklist": "Fekete lista",
+  "@blacklist": {
+    "description": "Blacklist label"
+  },
+  "blacklistingAndWhitelisting": "Fekete- és fehérlista-kezelés",
+  "blackWhiteList": "Fekete-/fehérlista",
+  "block": "Blokád",
+  "blockCalls": "Hívások blokkolása",
+  "blocked": "Blokád alá helyezve",
+  "blockedCalls": "Blokád alá helyezett hívások",
+  "blockedCallsTitle": "Blokád alá helyezett hívások",
+  "blockedSpamCalls": "Blokád alá helyezett spamhívások",
+  "blockingTrend": "Blokád trendje",
+  "blockInternationalCalls": "azokat a számokat találja, amelyek nem + vagy 00 előtaggal kezdődnek",
+  "blockInternationalCallsTitle": "Nemzetközi hívások blokkolása",
+  "blockMobileNumbers": "azokat a számokat találja, amelyek nem 13-19 előtaggal kezdődnek",
+  "blockMobileNumbersTitle": "Mobiltelefonszámok blokkolása",
+  "blockPremiumRateNumbers": "azokat a számokat találja, amelyek nem 118 vagy 120-190 előtaggal kezdődnek",
+  "blockPremiumRateNumbersTitle": "Társalgásdíjas számok blokkolása",
+  "blockRule": "Blokádszabály",
+  "blockRules": "Blokádszabályok",
+  "blockSpecificAreaCodes": "azokat a számokat találja, amelyek 0 + 2-3 számjeggyel kezdődnek",
+  "blockSpecificAreaCodesTitle": "Konkrét körzetszámok blokkolása:",
+  "blockTypeAnalysisTitle": "Blokádtípus-elemzés",
+  "both": "Mindkettő",
+  "bulkDelete": "Névjegyek tömeges törlése",
+  "bulkDeleteContacts": "Névjegyek tömeges törlése",
+  "bulkDeleteLabels": "Címkék tömeges törlése",
+  "call": "Hívás",
+  "callback": "Visszahívás",
+  "callBlocking": "Hívásblokkolás",
+  "callerIdApp": "Hívóazonosító-alkalmazás",
+  "callerIdCustomizationTitle": "Hívóazonosító testreszabása",
+  "callerIdDisplayMode": "Hívóazonosító megjelenítési módja",
+  "callerIdMarkedByCount": "{count} alkalommal megjelölve",
+  "@callerIdMarkedByCount": {
+    "description": "Mark count display",
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "callerIdPreview": "Hívóazonosító-előnézet",
+  "callFilterRules": "Hívásszűrési szabályok",
+  "callFilterRulesDescription": "Alapvető szabályok beállítása a hívások szűréséhez",
+  "callFilterSettings": "Hívásszűrési beállítások",
+  "callFrequencyInterceptionSubtitle": "Hívásfrekvencia-korlátok és -blokkolási szabályok beállítása",
+  "callFrequencyInterceptionTitle": "Hívásfrekvencia-közbeavatkozás",
+  "callHistory": "Híváselőzmények",
+  "callHistoryInfoDesc": "Itt jelennek meg a híváselőzményei, beleértve a bejövő, kimenő és elszalasztott hívásokat.",
+  "callHistoryInfoTitle": "Híváselőzmények",
+  "callHistoryTab": "Híváselőzmények",
+  "callScreeningPermission": "Hívásellenőrzési engedély",
+  "callScreeningPermissionDescription": "A spamhívások ellenőrzésére és blokkolására szolgál.",
+  "callScreeningPermissionNotGranted": "A hívásellenőrzési engedély nincs megadva, ami befolyásolhatja az alkalmazás működését.",
+  "callStatistics": "Hívásstatisztikák",
+  "callTypeAnswered": "Válaszolt",
+  "callTypeBlocked": "Blokkolt",
+  "callTypeIconColor": "Hívástípus-ikon színe",
+  "callTypeMissed": "Elszalasztott hívás",
+  "callTypeOutgoing": "Kimenő",
+  "callTypePosition": "Hívástípus helyzete",
+  "callTypeUnknown": "Ismeretlen",
+  "cancelButton": "Mégsem",
+  "carRental": "Autókölcsönzés",
+  "carrier": "Szolgáltató",
+  "carrierColor": "Szolgáltató színe",
+  "carrierFontSize": "Szolgáltató betűmérete",
+  "carrierPosition": "Hordozói pozíció",
+  "changeLabel": "Címke módosítása",
+  "changePluginStatusFailed": "Nem sikerült módosítani a bővítmény állapotát: {error}",
+  "changeSubscriptionStatusFailed": "Nem sikerült módosítani az előfizetés állapotát: {error}",
+  "@changeSubscriptionStatusFailed": {
+    "description": "Failed to change subscription status error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "charity": "Jótékonyság",
+  "chartOneWeekAgo": "1 hete",
+  "chartThreeDaysAgo": "3 napja",
+  "chartToday": "Ma",
+  "checkFileFormat": "Kérjük, ellenőrizze a fájlformátumot vagy a jogosultságokat",
+  "checkPermissionFailed": "Nem sikerült ellenőrizni a jogosultságokat: {error}",
+  "chooseDefaultInterceptAction": "Válassza ki az alapértelmezett elfogási műveletet",
+  "clearFilter": "Szűrő törlése",
+  "clearLabelFilterButton": "Címkeszűrő törlése",
+  "closeButton": "Bezárás",
+  "cloudSync": "Felhőszinkronizálás",
+  "cloudSyncAndBackupTitle": "Felhőszinkronizálás és -biztonsági mentés",
+  "cloudSyncSettingsSubtitle": "A WebDAV, az OneDrive és a Google Drive konfigurálása",
+  "cloudSyncSettingsTitle": "Felhőszinkronizálási beállítások",
+  "cloudSyncTitle": "Felhőszinkronizálás",
+  "collection": "Adósságbehajtás",
+  "colorPickerTitle": "Szín kiválasztása",
+  "configManagement": "Konfigurációkezelés",
+  "configUpdated": "A konfiguráció frissítve",
+  "configurationAdvice": "A megfelelő konfigurációval különböző szűrési stratégiákat állíthat be a munkahelyi és a személyes SIM-kártyákhoz.",
+  "configureBackupOptions": "Biztonsági mentési opciók konfigurálása",
+  "configureCloudSyncService": "Felhőszinkronizálási szolgáltatás konfigurálása",
+  "configureCloudSyncServiceMessage": "Kérjük, konfiguráljon egy felhőszinkronizálási szolgáltatást az eszközök közötti szinkronizálás engedélyezéséhez.",
+  "configureSimCardFilterRules": "SIM-kártya-szűrőszabályok konfigurálása",
+  "confirm": "Megerősítés",
+  "confirmButton": "Megerősítés",
+  "confirmDelete": "Törlés megerősítése",
+  "confirmDeleteLabel": "Biztosan törölni szeretné a(z) \"{name}\" címkét?",
+  "confirmDeletePlugin": "Biztosan törölni szeretné a(z) \"{name}\" bővítményt?",
+  "confirmDeletePlugins": "Biztosan törölni szeretné a {count} bővítményt?",
+  "@confirmDeletePlugins": {
+    "description": "Confirmation message shown before deleting one or more plugins.",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "5"
+      }
+    }
+  },
+  "confirmDeleteRuleMessage": "Biztosan törölni szeretné ezt a szabályt? Ez a művelet nem visszavonható.",
+  "confirmDeleteSmsFilterRule": "Biztosan törölni szeretné ezt az SMS-szűrőszabályt?",
+  "confirmDeleteSmsRule": "Biztosan törölni szeretné ezt az SMS-szabályt?",
+  "confirmDeleteSubscriptions": "Biztosan törölni szeretné a(z) {name} elemet?",
+  "@confirmDeleteSubscriptions": {
+    "description": "Confirmation message shown before deleting a subscription.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Premium Plan"
+      }
+    }
+  },
+  "confirmPassword": "Jelszó megerősítése",
+  "connectedStatus": "Csatlakozva",
+  "connectionFailedCheckCredentialsMessage": "A csatlakozás sikertelen: Kérjük, ellenőrizze a szerver címét, a felhasználónevet és a jelszót",
+  "connectionFailedMessage": "A csatlakozás sikertelen",
+  "connectionStatusLabel": "Csatlakozási állapot",
+  "connectionSuccessMessage": "A csatlakozás sikeres volt",
+  "contactAddSuccess": "Az érintett sikeresen hozzáadva",
+  "contactDeleted": "Az érintett törölve",
+  "contactNameLabel": "Név",
+  "contactNotFound": "Az érintett nem található",
+  "contacts": "érintettek",
+  "contactsDeleted": "{count} érintett törölve",
+  "contactsManagement": "Érintettkezelés",
+  "contactsPermission": "Érintetti jogosultság",
+  "contactsPermissionDescription": "Az érintetti hívások azonosítására szolgál.",
+  "contactsTab": "Érintettek",
+  "contactSubscriptionDescription": "Iratkozzon fel érintettlistákra URL-en keresztül, és automatikusan frissítse az érintettek adatait és címkéit. Támogatja a JSON-formátumú adatokat.",
+  "@contactSubscriptionDescription": {
+    "description": "About contact subscription description"
+  },
+  "contactUpdateSuccess": "Az érintett sikeresen frissítve",
+  "contactUs": "Lépjen kapcsolatba velünk",
+  "content": "Tartalom",
+  "contentRegex": "Tartalmi reguláris kifejezés",
+  "countColor": "Szám színe",
+  "countFontSize": "Betűméret számlálása",
+  "countPosition": "Számlálás helyzete",
+  "country": "Ország",
+  "countryNameColor": "Országnév színe",
+  "countryNameFontSize": "Országnév betűmérete",
+  "countryRegionNamePosition": "Ország/régió neve - helyzete",
+  "countThresholdDescription": "Állítsa be a szűrési műveletek aktiválásához szükséges minimális számlálási küszöbértéket",
+  "countThresholdLabel": "Számlálási küszöb",
+  "createdRules": "Létrehozott szabályok",
+  "csvFormat": "CSV-formátum",
+  "currentDeviceLabel": "Jelenlegi eszköz címkéje",
+  "currentDeviceTitle": "Jelenlegi eszköz",
+  "currentLanguage": "Jelenlegi nyelv",
+  "customerService": "Ügyfélszolgálat",
+  "dashboardTab": "Vezérlőpult",
+  "dataAnalysis": "Adatelemzés",
+  "dataLoadFailure": "Adatbetöltés sikertelen: {error}",
+  "@dataLoadFailure": {
+    "description": "Data loading failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataLoadingFailed": "Nem sikerült betölteni az adatokat: {error}",
+  "dataMigration": "Adatmigrálás",
+  "dataMigrationDescription": "Ez a funkció lehetővé teszi, hogy átmentse összes adatát az eszközök között. Jelenleg az adatok manuális migrálásához használhatja a biztonsági mentés és visszaállítás funkciókat.",
+  "dataSourceReminder": "Adatforrás-emlékeztető",
+  "days": "{count, plural, =1{1 nap} other{{count} nap}}",
+  "@days": {
+    "description": "Day count display",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      }
+    }
+  },
+  "daysVip": "{days} napos VIP",
+  "debtCollection": "Adósságbehajtás",
+  "delete": "Törlés",
+  "deleteButton": "Törlés",
+  "deleteContact": "Névjegy törlése",
+  "deleteContactConfirm": "Biztosan törölni szeretné {name} névjegyét?",
+  "deleteFailed": "Törlés sikertelen: {error}",
+  "deleteLabel": "Törlési címke",
+  "deleteLabelFailed": "Nem sikerült törölni a címkét: {error}",
+  "deletePlugin": "Plugin törlése",
+  "deletePluginFailed": "Nem sikerült törölni a plugint: {error}",
+  "deletePlugins": "Pluginok törlése",
+  "deletePluginsFailed": "Nem sikerült törölni a pluginokat: {error}",
+  "deleteRule": "Szabály törlése",
+  "deleteRuleFailed": "A törlés nem sikerült: {error}",
+  "deleteSelected": "Kiválasztottak törlése",
+  "deleteSubscription": "Előfizetés törlése",
+  "@deleteSubscription": {
+    "description": "Delete subscription dialog title"
+  },
+  "deleteSubscriptionConfirm": "Biztosan törölni szeretné az \"{name}\" előfizetést?",
+  "@deleteSubscriptionConfirm": {
+    "description": "Delete subscription confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSubscriptionFailed": "Nem sikerült törölni az előfizetést: {error}",
+  "@deleteSubscriptionFailed": {
+    "description": "Failed to delete subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "deleteSuccess": "A törlés sikeres volt",
+  "delivery": "Kiszállítás",
+  "deviceIDLabel": "Eszközazonosító",
+  "deviceManagementSubtitle": "Több eszköz szinkronizálásának kezelése",
+  "deviceManagementTitle": "Eszközkezelés",
+  "deviceModelLabel": "Eszközmodell",
+  "deviceName": "Eszköz neve",
+  "deviceNameLabel": "Eszköz neve",
+  "deviceRenamedSuccessfullyMessage": "Az eszköz átnevezése sikeres volt",
+  "devicesSynchronizedSuccessfullyMessage": "Az eszközök szinkronizálása sikeres volt",
+  "deviceUnregisteredSuccessfullyMessage": "Az eszköz törlése sikeres volt",
+  "dialogTitle": "Regex-minta magyarázata",
+  "differentFromLocalCounter": "Ez a funkció eltér a helyi számlálószűrőtől, mivel nem a hosszú távú megjelölési számokra, hanem a rövid időn belül ismétlődő hívásmintákra összpontosít.",
+  "disabled": "Letiltva",
+  "@disabled": {
+    "description": "Disabled status text"
+  },
+  "disabledStatus": "Letiltott állapot",
+  "disableGlobalPlugins": "Globális pluginok letiltása",
+  "disconnectButton": "Kapcsolat megszakítása",
+  "disconnectedMessage": "Kapcsolat megszakítva",
+  "disconnectedStatus": "Kapcsolat megszakított állapot",
+  "disconnectFailedMessage": "A kapcsolat megszakítása sikertelen",
+  "done": "Kész",
+  "dualSimAdvice": "Ez a funkció különösen hasznos a kettős SIM-kártyás telefonok esetében, mivel lehetővé teszi a munkahelyi és a személyes SIM-kártyákhoz eltérő szűrési stratégiák beállítását.",
+  "earlier": "Korábbi",
+  "ecommerce": "E-kereskedelem",
+  "edit": "Szerkesztés",
+  "editContact": "Névjegy szerkesztése",
+  "editLabel": "Címke szerkesztése",
+  "editPhoneRule": "Telefonszabály szerkesztése",
+  "editRule": "Szabály szerkesztése",
+  "education": "Oktatás",
+  "elementPositionsSetting": "Elemek elhelyezkedése",
+  "email": "E-mail",
+  "enableCallFilter": "Hívásszűrő engedélyezése",
+  "enableCallFilterDescription": "Engedélyezéskor a bejövő hívásokat az alábbi szabálylista alapján ellenőrizzük. A hívásszűrési szabályok alapértelmezés szerint nem szinkronizálódnak az eszközök között.",
+  "enabled": "Engedélyezve",
+  "@enabled": {
+    "description": "Enabled status text"
+  },
+  "enabledStatus": "Engedélyezve",
+  "enableEncryption": "Titkosítás engedélyezése",
+  "enableEncryptionDescription": "A biztonsági mentési fájlok titkosítása",
+  "enableGlobalPlugins": "Globális bővítmények engedélyezése",
+  "enableLocalCountFilter": "Helyi számlálási szűrő engedélyezése",
+  "enableLocalCountFilterDescription": "A hívások megjelölési száma alapján automatikusan szűri a spamhívásokat",
+  "enableLocalNotification": "Helyi értesítés használata",
+  "enableLocalNotificationDescription": "Engedélyezéskor a kiszűrt üzenetekhez kapcsolódó értesítések megjelennek az eszközön",
+  "enableLocationSummary": "Helyszín",
+  "enableMuteRules": "Némítási szabályok engedélyezése",
+  "enableMuteRulesDesc": "A némítási és elhárítási szabályok konfigurációjának alkalmazása",
+  "enableNoneActionRules": "Nem műveletet végrehajtó szabályok engedélyezése",
+  "enableNoneActionRulesDesc": "Az olyan szabálykonfigurációk engedélyezése, amelyek nem tartalmaznak elhárítási műveleteket",
+  "enableRemoteNumberFilter": "Távoli számok szűrőjének engedélyezése",
+  "enableRemoteNumberFilterDescription": "Távoli adatbázis használata számok szűréséhez",
+  "enableRule": "Szabály engedélyezése",
+  "enableSmsFilter": "SMS-szűrés engedélyezése",
+  "enableSmsFilterDescription": "Engedélyezéskor az üzenetek automatikusan a szabályok szerint kerülnek kiszűrésre",
+  "enableTimeInterception": "Időalapú hívásinterceptálás engedélyezése",
+  "enableTimeInterceptionDescription": "Rövid időn belül ismétlődő hívások interceptálása",
+  "enableTimeInterceptor": "Időalapú hívásinterceptáló engedélyezése",
+  "endCallImmediately": "Hívás azonnali befejezése",
+  "endColor": "Végleges szín",
+  "endDate": "Végleges dátum",
+  "enhancedFilterInstructionsTitle": "Fejlett szűrőrendszer",
+  "enhancedFilterSettings": "Fejlett szűrőbeállítások",
+  "@enhancedFilterSettings": {
+    "description": "Enhanced filter settings page title"
+  },
+  "enhancedFilterSettingsTitle": "Fejlett szűrőbeállítások",
+  "enhancedFilterSystemDescription": "A fejlett szűrőrendszer támogatja mind az általános szabályokat, mind az egyes SIM-kártyákhoz tartozó szűrőkonfigurációkat.",
+  "enterBothPhoneNumberAndRegexPatternMessage": "Kérjük, adja meg mind a telefonszámot, mind a reguláris kifejezés mintáját.",
+  "enterContactName": "Kérjük, adja meg az elérhetőség nevét",
+  "enterDeviceName": "Adja meg az eszköz nevét",
+  "enterEmailOptional": "Kérjük, adja meg az e-mail-címet (opcionális)",
+  "enterEncryptionPasswordHint": "Adja meg a titkosítási jelszót",
+  "enterIconCode": "Adja meg az ikon kódját",
+  "enterName": "Adja meg az elérhetőség nevét",
+  "enterNewDeviceNameHint": "Adjon meg egy új nevet ehhez az eszközhöz",
+  "enterPasswordAgain": "Adja meg újra a jelszót",
+  "enterPhoneNumber": "Adja meg a telefonszámot",
+  "enterPhoneNumberHint": "Adja meg a telefonszámot a teszteléshez",
+  "enterPhoneNumberMultiple": "Kérjük, adja meg a telefonszámokat; több szám vesszővel választható el egymástól",
+  "enterPhoneNumberToStartSearch": "Adja meg a telefonszámot a keresés megkezdéséhez",
+  "enterPhoneNumberToVerify": "Adja meg a telefonszámot az ellenőrzéshez",
+  "enterPluginName": "Adja meg a bővítmény nevét",
+  "enterPluginUrl": "Adja meg a bővítmény URL-címét",
+  "enterRegexHint": "Adja meg a reguláris kifejezés mintáját",
+  "enterRuleNameAndPatternMessage": "Kérjük, adja meg mind a szabály nevét, mind a reguláris kifejezés mintáját.",
+  "enterRuleNameHint": "Adja meg a szabály nevét",
+  "enterSearchContent": "Kérjük, adja meg a keresendő tartalmat",
+  "enterSubscriptionName": "Adja meg az előfizetés nevét",
+  "@enterSubscriptionName": {
+    "description": "Subscription name field hint"
+  },
+  "enterSubscriptionUrl": "Adja meg az előfizetés URL-jét",
+  "@enterSubscriptionUrl": {
+    "description": "Subscription URL field hint"
+  },
+  "enterSyncFolderNameHint": "Kérjük, adja meg a szinkronizálási mappa nevét (alapértelmezett: NotificationManager)",
+  "entertainment": "Szórakozás",
+  "enterValidNameAndUrl": "Kérjük, adja meg a megfelelő nevet és URL-t",
+  "@enterValidNameAndUrl": {
+    "description": "Enter valid name and URL error message"
+  },
+  "enterValidUrl": "Kérjük, adja meg egy érvényes URL-t",
+  "enterVersion": "Adja meg a verziót",
+  "enterWebDAVPasswordHint": "Kérjük, adja meg a WebDAV jelszavát",
+  "enterWebDAVServerAddressHint": "Kérjük, adja meg a WebDAV-kiszolgáló címét",
+  "enterWebDAVUsernameHint": "Kérjük, adja meg a WebDAV-felhasználónevét",
+  "errorOccurredMessage": "Hiba történt: {error}",
+  "errorRenamingDeviceMessage": "Hiba az eszköz átnevezésekor: {error}",
+  "errorSynchronizingDevicesMessage": "Hiba az eszközök szinkronizálása során: {error}",
+  "errorUnregisteringDeviceMessage": "Hiba az eszköz törlésekor: {error}",
+  "exampleBlock400Prefix": "pl. A 400-as előtaggal kezdődő számok blokkolása",
+  "exampleBlockMarketingSms": "pl. A marketinges SMS-ek blokkolása",
+  "exampleContentRegexHint": "Példa a tartalomra vonatkozó reguláris kifejezésre",
+  "exampleCouponPromotionDiscount": "pl. .*(kupón|akció|kedvezmény).*",
+  "exampleFamilyFriends": "pl. Család, barátok stb.",
+  "examplePhoneNumber": "pl. 10086, 12345 stb.",
+  "exampleRegex400Prefix": "Példa a 400-as előtagra vonatkozó reguláris kifejezésre",
+  "exampleSenderRegexHint": "Példa",
+  "exchange": "Csere",
+  "exchangeNow": "Csere most",
+  "exchangeVip": "VIP-csere",
+  "expiryTime": "Lejárati idő: {time}",
+  "export": "Exportálás",
+  "exportAllApplicationSettings": "Az összes alkalmazásbeállítás exportálása",
+  "exportAllRuleConfigurations": "Az összes szabálykonfiguráció exportálása",
+  "exportConfig": "Konfiguráció exportálása",
+  "exportContacts": "Névjegyek exportálása",
+  "exportData": "Adatok exportálása",
+  "exportFailed": "Az exportálás sikertelen",
+  "exportFailure": "A konfiguráció exportálása sikertelen",
+  "exportFeatureComingSoon": "Az exportálás funkció hamarosan elérhető lesz",
+  "exportLabels": "Címkék exportálása",
+  "exportLabelsFailed": "A címkék exportálása sikertelen: {error}",
+  "exportPluginList": "Bővítménylista exportálása",
+  "exportPluginListFailed": "A bővítménylista exportálása sikertelen: {error}",
+  "exportRules": "Szabályok exportálása",
+  "exportSmsRules": "SMS-szabályok exportálása",
+  "exportStatisticsData": "Statisztikai adatok exportálása",
+  "exportSuccesslly": "A konfiguráció sikeresen exportálva",
+  "failedToAddRule": "A szabály hozzáadása sikertelen: {error}",
+  "failedToAddSmsSubscription": "Az SMS-előfizetés hozzáadása sikertelen: {error}",
+  "failedToBackupSettings": "A beállítások biztonsági mentése sikertelen: {error}",
+  "failedToDecryptBackupFile": "A biztonsági mentési fájl visszafejtése sikertelen",
+  "failedToDeleteSmsRule": "Az SMS-szabály törlése sikertelen: {error}",
+  "failedToExportRules": "A szabályok exportálása sikertelen: {error}",
+  "failedToGetCallerIdInfo": "A hívóazonosító információinak lekérése sikertelen: {error}",
+  "failedToImportRules": "A szabályok importálása sikertelen: {error}",
+  "failedToRestoreSettings": "A beállítások visszaállítása sikertelen",
+  "failedToRestoreSettingsWithError": "A beállítások visszaállítása sikertelen: {error}",
+  "failedToToggleRuleStatus": "A szabály állapotának módosítása sikertelen: {error}",
+  "favoriteContacts": "Kedvenc névjegyek",
+  "featureAddRules": "• Telefonszámhoz kötött szabályok hozzáadása",
+  "featureCenter": "Funkcióközpont",
+  "featureEnableDisable": "• Különböző szűrők engedélyezése/letiltása SIM-kártyánként",
+  "featureListTitle": "Funkciók:",
+  "@featureListTitle": {
+    "description": "Title for features list section"
+  },
+  "featureManageRules": "• Szabálylisták kezelése SIM-kártyánként",
+  "features": "Funkciók",
+  "fetchingCallerIdInfo": "A hívóazonosító adatainak lekérése...",
+  "fileSavedTo": "Fájl mentve: {path}",
+  "filter": "Szűrő",
+  "filterByLabel": "Szűrés címke szerint",
+  "filterControlPanelTitle": "Szűrővezérlő panel",
+  "filterControlSubtitle": "Az összes szűrő be- és kikapcsolásának kezelése",
+  "filterControlTitle": "Szűrővezérlés",
+  "filtered": "Szűrve",
+  "filterExplanation": "Szűrőmagyarázat",
+  "filterManagement": "Szűrőkezelés",
+  "filterName": "Szűrő neve",
+  "filterPriorityNote": "Megjegyzés: A szűrők között prioritási kapcsolatok vannak; a részletekért tekintse meg a súgódokumentációt",
+  "filterSettings": "Szűrőbeállítások",
+  "filterSettingsTitle": "Szűrőpreferenciák",
+  "filterSMS": "SMS-szűrés",
+  "filterToggleInstructions": "Engedélyezze vagy tiltsa le a szűrőket ehhez a SIM-kártyahelyhez:",
+  "filterToggleStatus": "{status} szűrő: {filterName}",
+  "@filterToggleStatus": {
+    "description": "Filter enable/disable status change notification",
+    "placeholders": {
+      "status": {
+        "type": "Object"
+      },
+      "filterName": {
+        "type": "Object"
+      }
+    }
+  },
+  "filterType": "Szűrőtípus",
+  "financial": "Pénzügyi",
+  "flexibleCombinationFeature": "• Rugalmas kombinációk: Szűrők engedélyezése/letiltása SIM-kártyahelyenként",
+  "fontSizesSetting": "Betűméretek",
+  "foundRules": "{count} szabály található",
+  "fraudAlert": "CSALÁSI FIGYELMEZTETÉS - Befejezés a hívásnak",
+  "fraudScamLikely": "Valószínű csalás",
+  "free": "Ingyenes",
+  "functionSettingsTitle": "Funkcióbeállítások",
+  "generalUpdateFailure": "A frissítés sikertelen: {error}",
+  "@generalUpdateFailure": {
+    "description": "General update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "getFree": "Ingyenes beszerzése",
+  "github": "GitHub",
+  "globalFilterDescription": "Globális szűrők konfigurálása az összes SIM-kártyához:",
+  "globalFilterFeature": "• Globális szűrők: Alapvető szabályok az összes bejövő híváshoz",
+  "globalFilterSettings": "Globális szűrőbeállítások",
+  "@globalFilterSettings": {
+    "description": "Global filter settings section title"
+  },
+  "globalSettings": "Globális beállítások",
+  "@globalSettings": {
+    "description": "Title for global settings page"
+  },
+  "googleDriveAuthDescription": "Engedélyezés a rendszer által konfigurált Google Drive-kliens-azonosító és -kulcs használatával",
+  "googleDriveConfigTitle": "Google Drive-konfiguráció",
+  "government": "Kormányzat",
+  "granted": "Megadva",
+  "grantNecessaryPermissions": "A szükséges engedélyek megadása",
+  "grantPermissions": "Engedélyek megadása",
+  "headhunter": "Fejvadász",
+  "height": "Magasság",
+  "homeTab": "Kezdőlap",
+  "howItWorksPoint1": "• A rendszer automatikusan engedélyezi az azonos számról érkező hívásokat a beállított időablakon belül",
+  "howItWorksPoint2": "• Rövidebb időablakok szigorúbb, hosszabb időablakok pedig lazább hívásellenőrzést eredményeznek",
+  "howItWorksPoint3": "• A rendszer ellenőrzi a hívásnaplókat annak meghatározásához, hogy ismétlődő hívásról van-e szó",
+  "howItWorksTitle": "Hogyan működik:",
+  "iconCodeOptional": "Ikonkód (opcionális)",
+  "iconSize": "Ikonméret",
+  "import": "Importálás",
+  "important": "Fontos",
+  "importConfig": "Konfiguráció importálása",
+  "importContacts": "Névjegyek importálása",
+  "importExportContacts": "Névjegyek importálása/kivitelezése",
+  "importExportContactsTooltip": "Névjegyek importálása/kivitelezése",
+  "importExportRules": "Szabályok importálása/kivitelezése",
+  "importFailed": "Importálás sikertelen: {error}",
+  "importFailure": "Nem sikerült konfigurációt importálni",
+  "importFeatureComingSoon": "Az importálási funkció hamarosan elérhető lesz",
+  "importLabels": "Címkék importálása",
+  "importLabelsFailed": "Nem sikerült címkéket importálni: {error}",
+  "importPluginList": "Bővítménylista importálása",
+  "importPluginListFailed": "Nem sikerült bővítménylistát importálni: {error}",
+  "importPluginSuccess": "{count} bővítmény sikeresen importálva",
+  "importRuleConfigurationsFromFile": "Szabálykonfigurációk importálása fájlból",
+  "importRules": "Szabályok importálása",
+  "importSuccess": "Importálás sikeres",
+  "incomingCallInterceptAction": "Bejövő hívás elérésének művelete",
+  "incorrectPassword": "Helytelen jelszó",
+  "initializing": "Kezdeményezés",
+  "installed": "Telepítve",
+  "insufficientMarks": "Nem elegendő pontszám",
+  "insurance": "Biztosítás",
+  "interceptAction": "Elérési művelet",
+  "interceptionActionSettingsSubtitle": "Állítsa be, hogyan kezeljék a blokkolt hívásokat",
+  "interceptionActionSettingsTitle": "Elérési művelet beállításai",
+  "interceptionTimeInterval": "Elérési időintervallum",
+  "internet": "Internet",
+  "intervalSetSuccess": "{service} frissítési intervalluma {days} napra beállítva",
+  "@intervalSetSuccess": {
+    "description": "Update interval confirmation message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidContentRegex": "Érvénytelen tartalmi reguláris kifejezés",
+  "invalidLabel": "Érvénytelen címke",
+  "invalidRegexPattern": "Érvénytelen reguláris kifejezés minta",
+  "invalidSenderRegex": "Érvénytelen feladói reguláris kifejezés",
+  "joinTheTelegramChannelAndGroupForMoreInfo": "Csatlakozzon a Telegram-csatornához és -csoporthoz további információkért",
+  "jsonFormat": "JSON-formátum",
+  "keepAllVersions": "Minden verzió megtartása",
+  "keepAllVersionsDescription": "Mentsen meg minden biztonsági mentés összes korábbi verzióját",
+  "label": "Címke",
+  "labelAddedSuccessfully": "A(z) \"{name}\" címke sikeresen hozzáadva",
+  "labelCategories": "Címkék kategóriái",
+  "labelDeleted": "Címke törölve",
+  "labelDescription": "A címkék segítenek a kapcsolatok jobb kezelésében; egyéni címkéket adhat hozzá telefonszámokhoz, hogy könnyebben azonosíthassa a hívásokat és üzeneteket.",
+  "labelFilterTooltip": "Címkeszűrő",
+  "labelIconColor": "Címke ikonjának színe",
+  "labelManagement": "Címkekezelés",
+  "labelNotFound": "Címke nem található",
+  "labels": "Címkék",
+  "labelsColor": "Címkék színe",
+  "labelsDeleted": "{count} címke törölve",
+  "labelsExportedSuccessfully": "A címkék sikeresen exportálva",
+  "labelsFontSize": "Címkék betűmérete",
+  "labelsImportedSuccessfully": "{count} címke sikeresen importálva",
+  "labelsPosition": "Címkék helyzete",
+  "labelTag": "Címke: {labelId}",
+  "labelUpdateFailed": "Nem sikerült frissíteni a címkét: {error}",
+  "@labelUpdateFailed": {
+    "description": "Label update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "labelUpdateSuccess": "A(z) \"$labelText\" címke sikeresen frissítve",
+  "languageSettings": "Nyelvi beállítások",
+  "languageSettingsSubtitle": "Alkalmazás megjelenítési nyelvének módosítása",
+  "languageSettingsTitle": "Nyelvi beállítások",
+  "lastSyncLabel": "Utolsó szinkronizálás",
+  "lastUpdated": "Utolsó frissítés: {date}",
+  "@lastUpdated": {
+    "description": "Last updated label",
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "lifetimeMembership": "Életre szóló tagság",
+  "lifetimeMembershipDescription": "Egyszeri vásárlással véglegesen elérhetővé válnak az összes prémium funkció és a jövőbeli frissítések",
+  "loadContactsFailed": "Nem sikerült betölteni a kapcsolatokat: {error}",
+  "loadDataFailed": "Nem sikerült betölteni az adatokat",
+  "loading": "Betöltés...",
+  "loadingTags": "Címkék betöltése...",
+  "loadLabelFailed": "Nem sikerült betölteni a címkéket: {error}",
+  "loadLabelsFailed": "Nem sikerült betölteni a címkéket: {error}",
+  "loadMarkCountFailed": "Nem sikerült betölteni a megjelölt telefonszámokat: {error}",
+  "loadMarkedPhonesFailed": "Nem sikerült betölteni a megjelölt telefonokat: {error}",
+  "loadPluginsFailed": "Nem sikerült betölteni a bővítményeket: {error}",
+  "loadSettingsFailed": "Nem sikerült betölteni a beállításokat: {error}",
+  "loadSmsRulesFailed": "Nem sikerült betölteni az SMS-szabályokat: {error}",
+  "loadStatusFailedMessage": "Nem sikerült betölteni az állapotot",
+  "loadSubscriptionsFailed": "Nem sikerült betölteni az előfizetéseket: {error}",
+  "@loadSubscriptionsFailed": {
+    "description": "Failed to load subscriptions error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "loan": "Hitel",
+  "localCounterFilter": "Helyi számlálószűrő",
+  "localCounterFilterSubtitle": "Automatikusan szűri a spamhívásokat a hívások gyakorisága alapján",
+  "localCountFilter": "Helyi számlálószűrő",
+  "localCountFilterDescription": "Megakadályozza a gyakori hívásokat a helyi számok száma alapján",
+  "localCountFilterExplanationContent": "A helyi számlálási szűrő elemzi a híváselőzmény-nyilvántartásokat, hogy automatikusan azonosítsa és blokkolja a gyakori spamhívásokat.",
+  "localCountFilterExplanationTitle": "A helyi számlálási szűrő magyarázata",
+  "localCountFilterHowItWorksPoint1": "• A szám számlálási értéke alapján dönt arról, hogy blokkolásra kerüljön-e",
+  "localCountFilterHowItWorksPoint2": "• Amikor egy szám számlálási értéke meghaladja a beállított küszöbértéket, választhatja, hogy automatikusan blokkolja-e",
+  "localCountFilterHowItWorksPoint3": "• Kiválaszthatja, hogy mely, a küszöbértéket meg nem haladó számokat engedélyezi",
+  "localCountFilterHowItWorksPoint4": "• Dönthet arról, hogy az összes lekérdezési naplót rögzíti-e",
+  "localCountFiltering": "Helyi számlálási szűrés",
+  "localCountFilteringExplanation": "• Helyi számlálási szűrés: a helyi megjelölések számlálása alapján alkalmazott szűrési szabályok",
+  "localCountFilterSettings": "A helyi számlálási szűrő beállításai",
+  "localCountFilterUseCases": "Ez a szűrő különösen alkalmas az automatikusan tárcsázott spamhívások és marketinghívások azonosítására.",
+  "localFilterSettings": "Helyi szűrőbeállítások",
+  "@localFilterSettings": {
+    "description": "Title for local filter settings page"
+  },
+  "localNotificationDisabled": "A helyi értesítés letiltva",
+  "localNotificationEnabled": "A helyi értesítés engedélyezve",
+  "localServices": "Helyi szolgáltatások",
+  "locationColor": "Helyszín színe",
+  "locationFontSize": "Helyszín betűmérete",
+  "locationIconColor": "Helyszín ikonjának színe",
+  "locationPosition": "Helyszín pozíciója",
+  "logAllLocalQueries": "Minden helyi lekérdezés naplózása",
+  "logAllLocalQueriesDescription": "Naplózza az összes helyi számlekérdezést",
+  "logAllRemoteQueries": "Minden távoli lekérdezés naplózása",
+  "logAllRemoteQueriesDescription": "Naplózza az összes távoli számlekérdezési műveletet",
+  "manage": "Névjegyek kezelése",
+  "manageFavoriteContacts": "Kedvenc névjegyek kezelése",
+  "manageFilterRules": "Szűrőszabályok kezelése",
+  "manageFilterRulesDescription": "SMS-szűrőszabályok hozzáadása, szerkesztése vagy törlése",
+  "markCounts": "Megjelölések száma",
+  "markCount": "Megjelölések száma",
+  "markedByCount": "{count} alkalommal megjelölve",
+  "@markedByCount": {
+    "description": "Text showing how many users have marked this number",
+    "placeholders": {
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "markedPhonesList": "Megjelölt telefonszámok",
+  "markExchange": "Hívószám megjelölése",
+  "markPhone": "Telefonszám megjelölése",
+  "markPhoneFailed": "Nem sikerült megjelölni a telefonszámot: {error}",
+  "markPhoneManagementTitle": "Telefonszámok megjelölésének kezelése",
+  "markPhoneSuccess": "A telefonszám sikeresen meg lett jelölve",
+  "matchFailedMessage": "A megfeleltetés sikertelen.",
+  "matchNumbersWithSpecialCharacters": "megfelel egy adott számformátumnak",
+  "matchNumbersWithSpecialCharactersTitle": "Megegyezés speciális karaktereket tartalmazó számokkal:",
+  "matchSpecificDigitPatterns": "megfelel az XXX-XXXX-XXXX formátumnak",
+  "matchSpecificDigitPatternsTitle": "Megegyezés konkrét számjegymintákkal:",
+  "matchSuccessfulMessage": "A megfeleltetés sikeres!",
+  "medical": "Orvosi",
+  "membershipPrivileges": "Tagi előnyök",
+  "migrationTool": "Migrációs eszköz",
+  "minutes": "perc",
+  "month": "Hónap",
+  "monthly": "Havi",
+  "monthlyCallCount": "Havi hívások",
+  "monthlyMembership": "Havi tagság",
+  "monthlyMembershipDescription": "Nyissa meg az összes prémium funkciót, havonta automatikusan megújul",
+  "monthlyTotal": "Havi összesen",
+  "moreOptions": "További lehetőségek",
+  "name": "Név",
+  "nameAndPhoneNumberCannotBeEmpty": "A név és a telefonszám nem lehet üres",
+  "nameColor": "Név színe",
+  "nameFontSize": "Név betűmérete",
+  "namePosition": "Név helyzete",
+  "nameUnknown": "Név: Ismeretlen",
+  "nextStep": "Tovább",
+  "noAction": "Nincs művelet",
+  "noActionRules": "Nincs műveleti szabály",
+  "noActiveCloudSyncServiceMessage": "Nincs aktív felhőalapú szinkronizálási szolgáltatás",
+  "noCallRecords": "Nincs hívásnapló",
+  "noContactsYet": "Még nincs kapcsolat",
+  "noData": "Nincs adat",
+  "noDevicesRegisteredMessage": "Nincs regisztrált eszköz",
+  "noLabels": "Még nincs címke",
+  "noMarkedPhones": "Nincs megjelölt telefonszám",
+  "noMatchingContactsFound": "Nincs megfelelő kapcsolat",
+  "noMatchingNumbersFound": "Nincs megfelelő telefonszám",
+  "noMatchingRules": "Nincs megfelelő {ruleType}",
+  "none": "Nincs",
+  "noneServiceType": "Nincs",
+  "noPlugins": "Még nincs bővítmény",
+  "noRules": "Még nincs {ruleType}",
+  "noRulesPrompt": "Nem található szabály, kérjük, adjon hozzá szabályokat",
+  "noRulesToExport": "Nincs exportálható szabály",
+  "noSmsFilterRulesYet": "Még nincsenek SMS-szűrőszabályok",
+  "noSmsRulesYet": "Még nincsenek SMS-szabályok",
+  "noSubscriptions": "Nincs előfizetés",
+  "@noSubscriptions": {
+    "description": "No subscriptions message"
+  },
+  "notGranted": "Nem engedélyezett",
+  "notificationModeDescription": "A hívó adatainak megjelenítése az értesítési sávban",
+  "notificationPermission": "Értesítési engedély",
+  "notificationPermissionDescription": "A bejövő hívások és üzenetek értesítéseinek megjelenítéséhez használatos.",
+  "notifications": "Értesítések",
+  "notificationSettings": "Értesítési beállítások",
+  "@notificationSettings": {
+    "description": "Notification settings title"
+  },
+  "notVerifiedText": "Nem ellenőrzött",
+  "noValidSmsRulesFoundInFile": "Nem található érvényes SMS-szabály a fájlban",
+  "number": "Szám",
+  "numberColor": "Szám színe",
+  "numberFontSize": "Szám betűmérete",
+  "numberPosition": "Szám helyzete",
+  "numberSearch": "Számkeresés",
+  "numberTypeColor": "Szám típusának színe",
+  "numberTypeFontSize": "Szám típusának betűmérete",
+  "numberTypePosition": "Szám típusának helyzete",
+  "okButton": "OK",
+  "onboardingCompleteDescription": "A hívásbiztonsági kezelője készen áll, kezdje élvezni a biztonságos hívási élményt!",
+  "onboardingLanguageDescription": "Válassza ki az előnyben részesített nyelvet a legjobb felhasználói élmény érdekében.",
+  "onboardingPermissionsDescription": "A teljes szolgáltatás biztosításához az alábbi engedélyekre van szükségünk:",
+  "onboardingPowerfulSpamBlockingDescription": "A spamhívások és -üzenetek egykattintásos blokkolása, a blokkolási szabályok testreszabása, valamint csendes környezet biztosítása.",
+  "onboardingSmartCallerIdDescription": "Az ismeretlen hívások automatikus azonosítása, a gyanús számok megjelölése és a hívásbiztonság védelme.",
+  "onboardingWelcomeDescription": "A híváskezelés szakértője, amely átfogó hívásazonosítási és -blokkolási szolgáltatásokat nyújt.",
+  "oneDriveAuthDescription": "Engedélyezés a rendszer által konfigurált OneDrive-kliens-azonosító és -kulcs használatával",
+  "oneDriveConfigTitle": "OneDrive-konfiguráció",
+  "onlineCallerIdSubscription": "Online hívóazonosító-előfizetés",
+  "openAppSettings": "Alkalmazásbeállítások megnyitása",
+  "openAppSettingsFailed": "Nem sikerült megnyitni az alkalmazásbeállításokat: {error}",
+  "operationFailed": "A művelet sikertelen: {error}",
+  "operationFailure": "A művelet sikertelen",
+  "operationSuccess": "A művelet sikeres volt",
+  "other": "Egyéb",
+  "ourOtherApps": "További alkalmazásaink",
+  "overlayMode": "Úszóablak",
+  "overlayModeDescription": "A hívó adatainak megjelenítése úszóablakban",
+  "overlayPermission": "Átfedési engedély",
+  "overlayPermissionDescription": "A bejövő hívások átfedő megjelenítéséhez használatos.",
+  "overview": "Áttekintés",
+  "@overview": {
+    "description": "Overview label"
+  },
+  "password": "Jelszó",
+  "passwordCannotBeEmpty": "A jelszó nem lehet üres",
+  "passwordLabel": "Jelszó",
+  "passwordsDoNotMatch": "A jelszavak nem egyeznek",
+  "pattern": "Minta",
+  "pendingSync": "Várakozó szinkronizálás",
+  "periodMonth": "Hónap",
+  "periodWeek": "Hét",
+  "periodYear": "Év",
+  "permissionDenied": "Az engedélykérés visszautasítva",
+  "permissionGranted": "Engedély megadva",
+  "permissionManagement": "Engedélykezelés",
+  "phoneCallsTab": "Telefon",
+  "phoneNumber": "Telefonszám",
+  "@phoneNumber": {
+    "description": "Phone number label"
+  },
+  "phoneNumberCannotBeEmpty": "A telefonszám nem lehet üres",
+  "phoneNumberLabel": "Telefonszám",
+  "phoneNumberTypeFixedLine": "Vezetékes vonal",
+  "phoneNumberTypeFixedLineOrMobile": "Vezetékes vagy mobil",
+  "phoneNumberTypeMobile": "Mobil",
+  "phoneNumberTypePager": "Bébiőr",
+  "phoneNumberTypePersonalNumber": "Személyes szám",
+  "phoneNumberTypePremiumRate": "Díjmentes",
+  "phoneNumberTypeSharedCost": "Közös költség",
+  "phoneNumberTypeTollFree": "Ingyenes",
+  "phoneNumberTypeUan": "UAN",
+  "phoneNumberTypeUnknown": "Ismeretlen",
+  "phoneNumberTypeVoicemail": "Hívásüzenet",
+  "phoneNumberTypeVoip": "VoIP",
+  "phonePermission": "Telefonengedély",
+  "phonePermissionDescription": "A bejövő hívások azonosítására és blokkolására szolgál.",
+  "phoneRule": "Telefonszabály",
+  "phoneRuleManagement": "Telefonszabály-kezelés",
+  "phoneRuleSubscription": "Telefonszabály-előfizetés",
+  "phoneSubscription": "Telefon-előfizetés",
+  "phoneSubscriptionRulesDescription": "Előfizethet telefonszabálylistákra URL-en keresztül, hogy automatikusan frissítse a fehérlista- és feketelistaszabályokat. Támogatja a JSON-formátumú szabályfájlokat.",
+  "pleaseSelectLabelAndEnterValidPhone": "Kérjük, válasszon egy címkét, és írjon be egy érvényes telefonszámot",
+  "pluginAddedSuccess": "A(z) \"{name}\" bővítmény sikeresen hozzáadva",
+  "pluginDeleted": "A bővítmény törlésre került",
+  "pluginLatestVersion": "A bővítmény már a legújabb verzió",
+  "pluginListExportSuccess": "A bővítménylista sikeresen exportálva",
+  "pluginManagement": "Bővítménykezelés",
+  "pluginManagementSubtitle": "Harmadik féltől származó bővítmények kezelése és konfigurálása",
+  "pluginName": "Bővítmény neve",
+  "pluginsDeleted": "{count} bővítmény sikeresen törlésre került.",
+  "pluginService": "Bővítményszolgáltatás",
+  "pluginTestPageTitle": "Bővítményteszt",
+  "pluginUpdateSuccess": "A bővítmény sikeresen frissítve",
+  "pluginUrl": "Bővítmény-URL",
+  "pluginVersion": "Bővítményverzió",
+  "political": "Politikai",
+  "powerfulSpamBlocking": "Hatékony spamvédelem",
+  "previousStep": "Előző",
+  "prioritizeRemoteAction": "Távoli műveletbeállítások előtérbe helyezése",
+  "prioritizeRemoteActionDescription": "A távoli adatbázisból származó műveletbeállítások előtérbe helyezése",
+  "processing": "Feldolgozás...",
+  "processingOperation": "Feldolgozás...",
+  "purchase": "Vásárlás",
+  "quarterlyMembership": "Negyedéves tagság",
+  "quarterlyMembershipDescription": "Zárolja az összes prémiumfunkciót, negyedévente automatikusan megújul",
+  "ready": "Készen áll!",
+  "recruiter": "Toborzó",
+  "refresh": "Frissítés",
+  "refreshPermissionStatus": "Engedélyállapot frissítése",
+  "refreshTooltip": "Frissítés",
+  "regexErrorMessage": "Regex-hiba: {error}",
+  "regexPattern": "Regex-minta",
+  "regexPatternExplanation": "Regex-minta magyarázata",
+  "regexPatternExplanationButton": "Regex-minta magyarázata",
+  "regexPatternLabel": "Regex-minta",
+  "regexPatternsForPhoneNumberMatching": "Regex-minták telefonszámokhoz",
+  "regexRule": "Regex-szabály",
+  "regexRuleAddFailed": "Nem sikerült hozzáadni a regex-szabályt: {error}",
+  "regexRuleAddSuccess": "A regex-szabály sikeresen hozzáadva",
+  "regexRuleManagement": "Regex-szabályok kezelése",
+  "regexRuleNamePatternRequired": "A szabály neve és a regex-minta nem lehet üres",
+  "regexRules": "Regex-szabályok",
+  "regexTesterTitle": "Regex-teszter",
+  "region": "Régió",
+  "registeredDevicesTitle": "Regisztrált eszközök",
+  "rejectAllCalls": "Minden hívás elutasítása",
+  "rejectAllCallsDescription": "Ha be van kapcsolva, minden hívás a legmagasabb prioritással elutasításra kerül",
+  "rejectAllNumbers": "Minden szám elutasítása",
+  "rejectAllNumbersDesc": "Ha be van kapcsolva, minden bejövő hívás elutasításra kerül",
+  "rejectExceededNumbers": "Túllépő számok elutasítása",
+  "rejectExceededNumbersDescription": "Automatikusan elutasítja a számküszöböt meghaladó számokat",
+  "remoteFilterSettings": "Távoli szűrőbeállítások",
+  "@remoteFilterSettings": {
+    "description": "Title for remote filter settings page"
+  },
+  "remoteFilterSettingsPageTitle": "Távoli szám szűrőbeállítások",
+  "remoteNumberFilter": "Távoli szám szűrő",
+  "remoteNumberFilterDescription": "A távoli adatbázis információi alapján kiszűri a zaklató hívásokat",
+  "remoteNumberFiltering": "Távoli szám szűrés",
+  "remoteNumberFilteringExplanation": "• Távoli szám szűrés: A távoli adatbázis információin alapuló szűrési szabályok",
+  "remoteNumberFilterSubtitle": "A felhőalapú adatbázis és a közösségi jelentések segítségével azonosítja a spamhívásokat",
+  "removeAdsDescription": "Távolítsa el véglegesen az összes hirdetést az alkalmazásból gördülékenyebb használat érdekében",
+  "removeAdsTitle": "Hirdetések eltávolítása",
+  "removedFromFavorites": "Eltávolítva a kedvenc kapcsolatok közül",
+  "removeFromFavorites": "Eltávolítás a kedvencek közül",
+  "renameDeviceTitle": "Eszköz átnevezése",
+  "requestAllPermissions": "Minden engedély kérése",
+  "requestPermission": "Engedély kérése",
+  "requestPermissionFailed": "Nem sikerült az engedély kérése: {error}",
+  "requiredMarks": "{count} jel",
+  "reset": "Visszaállítás",
+  "restore": "Visszaállítás",
+  "restoreApplicationSettingsFromBackup": "Alkalmazásbeállítások visszaállítása biztonsági másolatból",
+  "restoreFromCloud": "Visszaállítás a felhőből",
+  "restoreFromCloudFailed": "Nem sikerült a felhőből történő visszaállítás: {error}",
+  "restoreFromCloudSuccess": "Sikeresen visszaállítva a felhőből",
+  "restorePurchases": "Vásárlások visszaállítása",
+  "restoreSettings": "Beállítások visszaállítása",
+  "restoreSettingsConfirmation": "Ez felülírja az összes jelenlegi beállítását. Biztosan folytatni kívánja?",
+  "retry": "Újra megkísérlés",
+  "ridesharing": "Közös utazás",
+  "risk": "Kockázat",
+  "robocall": "Automatikus hívás",
+  "ruleAction": "Szabályművelet",
+  "ruleAddedSuccess": "A szabály sikeresen hozzáadva",
+  "@ruleAddedSuccess": {
+    "description": "Rule creation success message"
+  },
+  "ruleAddSuccess": "A szabály sikeresen hozzáadva",
+  "ruleDeleteConfirmContent": "Biztosan törölni kívánja ezt a {ruleType} szabályt?",
+  "ruleDeleteConfirmTitle": "Szabály törlése",
+  "ruleDeletedSuccessfully": "A szabály sikeresen törölve",
+  "ruleDeleteFailed": "Nem sikerült törölni a szabályt: {error}",
+  "ruleDeleteSuccess": "A szabály sikeresen törölve",
+  "ruleDisabledSuccessfully": "A szabály sikeresen letiltva",
+  "ruleEnabledSuccessfully": "A szabály sikeresen engedélyezve",
+  "ruleLoadFailed": "Nem sikerült betölteni a szabályokat: {error}",
+  "ruleManagement": "Szabálykezelés",
+  "ruleName": "Szabály neve",
+  "ruleNameAndContentRegexCannotBeEmpty": "A szabály neve és tartalmának regex kifejezése nem lehet üres",
+  "ruleNameAndPhoneNumberCannotBeEmpty": "A szabály neve és telefonszáma nem lehet üres",
+  "ruleNameHint": "pl.: Család, Barátok stb.",
+  "ruleNameLabel": "Szabály neve",
+  "ruleNameRequired": "A szabály neve és telefonszáma nem lehet üres",
+  "ruleNotExist": "A szabály nem létezik vagy már törölve lett",
+  "ruleNotFound": "A szabály nem található: {error}",
+  "ruleSavedSuccessMessage": "A szabály sikeresen mentve!",
+  "rulesExportedSuccessfully": "A szabályok sikeresen exportálva",
+  "rulesExportedTo": "A szabályok exportálva: {path}",
+  "rulesImported": "A szabályok sikeresen importálva",
+  "rulesImportedSuccessfully": "{count} szabály sikeresen importálva",
+  "ruleStatusChanged": "A szabály {status} sikeresen",
+  "ruleToggleFailed": "A művelet sikertelen: {error}",
+  "ruleToggleSuccess": "A szabály {status} sikeresen",
+  "ruleUpdateFailed": "Nem sikerült frissíteni a szabályt: {error}",
+  "ruleUpdateSuccess": "A szabály sikeresen frissítve",
+  "ruleVerification": "Szabályellenőrzés",
+  "save": "Mentés",
+  "saveButton": "Mentés",
+  "saveButtonText": "Mentés",
+  "saveFailed": "A mentés sikertelen: {error}",
+  "saveSettings": "Beállítások mentése",
+  "scamsLikely": "Valószínűleg csalás",
+  "search": "Keresés",
+  "searchContacts": "Névjegyek keresése",
+  "searchError": "Keresési hiba: {error}",
+  "searchHint": "Keresés...",
+  "securityMessage": "Ne bízzon semmilyen telefonhívásban. Mindig ellenőrizze önállóan az ügyfélszolgálati számokat. Soha ne osszon meg jelszavakat, ellenőrző kódokat, kártyaszámokat vagy személyes adatokat.",
+  "selectActionWhenBlockingCalls": "Válassza ki a hívások blokkolásakor végrehajtandó műveletet",
+  "selectActionWhenRuleMatches": "Válassza ki a szabály egyezésekor végrehajtandó műveletet",
+  "selectAll": "Összes kijelölése",
+  "selectCountry": "Ország kiválasztása",
+  "selectedItems": "{count} elem kijelölve",
+  "selectedLabel": "Kijelölve:",
+  "selectExportFormat": "Exportformátum kiválasztása",
+  "selectLabel": "Címke kiválasztása",
+  "selectLabelAndEnterPhoneNumber": "Kérjük, válasszon ki egy címkét, és írjon be egy érvényes telefonszámot",
+  "selectLanguage": "Nyelv kiválasztása",
+  "selectMultiple": "Több elem kijelölése",
+  "selectSimCard": "SIM-kártya kiválasztása",
+  "selectTags": "Címkék kiválasztása",
+  "selectTrustedDataSource": "Kérjük, válassza ki a megbízható adatforrásokat",
+  "selectYourLanguage": "Válassza ki a nyelvét",
+  "sender": "Feladó",
+  "senderRegexOptional": "Feladó regex (opcionális)",
+  "serverAddressLabel": "Kiszolgálócíme",
+  "serviceTypeContact": "Naplózási szolgáltatás",
+  "serviceTypeLabel": "Szolgáltatástípus",
+  "serviceTypePhone": "Telefonos előfizetés",
+  "serviceTypePlugin": "Bővítményfrissítés",
+  "serviceTypeSms": "SMS-előfizetés",
+  "serviceUpdateFailure": "{error}",
+  "@serviceUpdateFailure": {
+    "description": "Service update failure message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "setEncryptionPassword": "Jelszó beállítása a titkosításhoz",
+  "settings": "Beállítások",
+  "settingsBackedUpTo": "A beállítások biztonsági másolata elkészült: {path}",
+  "settingsRestoredSuccessfully": "A beállítások sikeresen visszaállításra kerültek. Kérjük, indítsa újra az alkalmazást, hogy a módosítások érvénybe lépjenek.",
+  "settingsSaved": "A beállítások mentésre kerültek",
+  "@settingsSaved": {
+    "description": "Settings saved confirmation message"
+  },
+  "settingsSaveFailed": "Nem sikerült menteni a beállításokat: {error}",
+  "settingsTab": "Beállítások",
+  "settingsTitle": "Beállítások",
+  "setup": "Beállítás",
+  "silence": "Néma",
+  "silenceAndNoAnswer": "Néma és nincs válasz",
+  "silenceNoAnswer": "Néma, nincs válasz",
+  "silentCallVoiceClone": "Néma hívás hangklónozás",
+  "silentRules": "Néma szabályok",
+  "simCard": "SIM-kártya {simNumber}",
+  "simCardColor": "SIM-kártya színe",
+  "simCardConfigurationExplanation": "• SIM-kártya konfigurációja: Állítson be független szűrési szabályokat az egyes SIM-kártyákhoz",
+  "simCardFilterRules": "SIM-kártya-szűrési szabályok",
+  "simCardFilterRulesDescription": "Különböző szűrési szabályok beállítása a SIM-kártyahelyek alapján",
+  "simCardFontSize": "SIM-kártya betűmérete",
+  "simCardPosition": "SIM-kártya helyzete",
+  "simInfo": "SIM {slotNumber} - {countryIso}",
+  "@simInfo": {
+    "description": "SIM Card information",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      },
+      "countryIso": {
+        "type": "Object"
+      }
+    }
+  },
+  "simRuleInstructions": "A SIM-kártyahely szabályai lehetővé teszik, hogy minden SIM-kártyahelyhez független szűrési szabályokat konfiguráljon.",
+  "simRuleInstructionsTitle": "SIM-kártyahely szabályok",
+  "@simRuleInstructionsTitle": {
+    "description": "Section title for SIM slot rules instructions"
+  },
+  "simSlot1": "SIM 1,-{countryIso}",
+  "@simSlot1": {
+    "description": "Text showing SIM slot 1 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "US"
+      }
+    }
+  },
+  "simSlot2": "SIM 2,-{countryIso}",
+  "@simSlot2": {
+    "description": "Text showing SIM slot 2 with country ISO code",
+    "placeholders": {
+      "countryIso": {
+        "type": "String",
+        "example": "CN"
+      }
+    }
+  },
+  "simSlotFilterDescription": "Konfiguráljon független szűrési szabályokat minden SIM-kártyához:",
+  "simSlotFilterSettingsTitle": "SIM-kártyahely {slotNumber} szűrési beállításai",
+  "@simSlotFilterSettingsTitle": {
+    "description": "Title for SIM slot filter settings",
+    "placeholders": {
+      "slotNumber": {
+        "type": "Object"
+      }
+    }
+  },
+  "simSlotManagement": "SIM-kártyahely-kezelés",
+  "simSlotPosition": "SIM-kártyahely helyzete {slotNumber}",
+  "@simSlotPosition": {
+    "description": "SIM slot position display",
+    "placeholders": {
+      "slotNumber": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "simSlotRuleFeature": "• SIM-kártyahely szabályok: Független szűrési stratégiák minden SIM-kártyához",
+  "simSlotRuleListTitle": "SIM-kártyahely szabályok listája",
+  "simSlotRuleManagement": "SIM-kártyahely szabályok",
+  "simSlotTitle": "SIM-kártyahely {slotNumber}",
+  "skip": "Kihagyás",
+  "smartCallerId": "Intelligens hívóazonosítás",
+  "sms": "SMS",
+  "smsFilterDescription": "Az SMS-szűrés segít automatikusan kiszűrni a spamüzeneteket, és tisztán tartani az üzenetlistáját. Szűrési szabályokat és értesítési módokat állíthat be.",
+  "smsFilterDisabled": "Az SMS-szűrés letiltva",
+  "smsFilterEnabled": "Az SMS-szűrés engedélyezve",
+  "smsFilterRuleAddedSuccessfully": "Az SMS-szűrési szabály sikeresen hozzáadva",
+  "smsFilterRules": "SMS-szűrési szabályok",
+  "smsFilterSettings": "SMS-szűrési beállítások",
+  "smsManagement": "SMS-kezelés",
+  "smsPermission": "SMS-engedély",
+  "smsPermissionDescription": "Spamüzenetek szűrésére szolgál.",
+  "smsRuleAddedSuccessfully": "Az SMS-szabály sikeresen hozzáadva",
+  "smsRuleDeletedSuccessfully": "Az SMS-szabály sikeresen törlésre került",
+  "smsRuleLoadFailed": "Nem sikerült betölteni az SMS-szabályokat: {error}",
+  "smsRuleManagement": "SMS-szabályok kezelése",
+  "smsRuleSubscription": "SMS-szabály-előfizetés",
+  "smsSubscription": "SMS-előfizetés",
+  "smsSubscriptionAddedSuccessfully": "Az SMS-előfizetés sikeresen hozzáadva",
+  "smsSubscriptionRulesDescription": "Előfizethet az SMS-szabálylistákra URL-en keresztül, támogatva a reguláris kifejezések szerinti illesztést. Letiltási vagy engedélyezési műveleteket állíthat be.",
+  "smsTab": "SMS",
+  "somePermissionsDenied": "Néhány engedélykérés elutasításra került",
+  "spamLikely": "Valószínűleg spam",
+  "startColor": "Kezdőszín",
+  "startDate": "Kezdődátum",
+  "startUsing": "Kezdje el",
+  "statAnswered": "Megválaszolva",
+  "statBlocked": "Letiltva",
+  "statistics": "Statisztikák",
+  "statisticsPageTitle": "Adatelemzés",
+  "stirColor": "STIR-szín",
+  "stirFontSize": "STIR betűméret",
+  "stirPosition": "STIR pozíció",
+  "storagePermission": "Tárhelyengedély",
+  "storagePermissionDescription": "A beállítások és szabályok mentéséhez használatos.",
+  "subscribe": "Előfizetés",
+  "subscriptionAddSuccess": "A(z) \"{name}\" előfizetés sikeresen hozzáadva",
+  "@subscriptionAddSuccess": {
+    "description": "Subscription added success message",
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionDeleteConfirmContent": "Biztosan törölni szeretné ezt az előfizetést?",
+  "subscriptionDeleteConfirmTitle": "Előfizetés törlése",
+  "subscriptionDeleted": "Az előfizetés törlésre került",
+  "@subscriptionDeleted": {
+    "description": "Subscription deleted success message"
+  },
+  "subscriptionDeleteFailed": "Nem sikerült törölni az előfizetést: {error}",
+  "subscriptionDeleteSuccess": "Az előfizetés törlésre került",
+  "subscriptionLoadFailed": "Nem sikerült betölteni az előfizetéseket: {error}",
+  "subscriptionName": "Előfizetés neve",
+  "@subscriptionName": {
+    "description": "Subscription name field label"
+  },
+  "subscriptionNameAndUrlCannotBeEmpty": "Az előfizetés neve és URL-je nem lehet üres",
+  "subscriptionNameHint": "Adja meg az előfizetés nevét",
+  "subscriptionStatusChangeFailed": "Nem sikerült módosítani az előfizetés állapotát: {error}",
+  "subscriptionUpdateFailed": "Nem sikerült frissíteni az előfizetést: {error}",
+  "subscriptionUpdateSuccess": "Az előfizetés sikeresen frissült",
+  "@subscriptionUpdateSuccess": {
+    "description": "Subscription update success message",
+    "placeholders": {}
+  },
+  "subscriptionUrl": "Előfizetés URL-je",
+  "@subscriptionUrl": {
+    "description": "Subscription URL field label"
+  },
+  "subscriptionUrlHint": "Adja meg az előfizetés URL-jét",
+  "successfullyImportedRules": "{count} szabály sikeresen importálva",
+  "supportSync": "Támogatás szinkronizálása",
+  "survey": "Felmérés",
+  "syncDevicesButton": "Eszközök szinkronizálása",
+  "@synced": {
+    "description": "Synced status label"
+  },
+  "syncFailed": "A szinkronizálás sikertelen",
+  "syncFailedMessage": "A szinkronizálás sikertelen",
+  "syncFolderNameLabel": "Szinkronizált mappa neve",
+  "synchronized": "Szinkronizálva",
+  "@synchronized": {
+    "description": "Synchronized status label"
+  },
+  "syncing": "Szinkronizálás folyamatban...",
+  "syncNow": "Szinkronizálás most",
+  "@syncNow": {
+    "description": "Sync now button text"
+  },
+  "syncNowButton": "Szinkronizálás most",
+  "syncStatusTitle": "Szinkronizálási állapot",
+  "syncStatusUpdatedMessage": "A szinkronizálási állapot frissült",
+  "syncSuccessMessage": "A szinkronizálás sikeres volt",
+  "syncWithCloudStorage": "Szinkronizálás felhőtárhellyel",
+  "systemFeatures": "Rendszerfunkciók:",
+  "systemSettingsTitle": "Rendszerbeállítások",
+  "tabAll": "Összes",
+  "tabAnswered": "Megválaszolt",
+  "tabBlocked": "Letiltott",
+  "tabMissed": "Kimaradt",
+  "tabOutgoing": "Kimenő",
+  "tagLabel": "Címke: {tag}",
+  "@tagLabel": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
+  "takeaway": "Tanulság",
+  "telecommunication": "Távközlés",
+  "telegram": "Telegram",
+  "telemarketing": "Telemarketing",
+  "testButton": "TESZT",
+  "testConnectionButton": "Kapcsolat tesztelése",
+  "textColorsSetting": "Szöveg- és címkeszínek",
+  "thisAppIsAPowerfulCallerIdToolThatAllows": "Ez az alkalmazás egy hatékony hívóazonosító eszköz, amellyel azonosíthatja és blokkolhatja a nem kívánt hívásokat.",
+  "thisWeek": "Ezen a héten",
+  "timeInterceptor": "Időinterceptáló",
+  "timeInterceptorDescription": "Automatikusan elkapja/megengedi a potenciális hívásokat a hívások gyakorisága alapján",
+  "timeInterceptorExplanation": "• Időinterceptáló: Rövid időn belül ismétlődő hívások elkapása",
+  "timeInterceptorExplanationContent": "A hívásfrekvencia-interceptáló funkció elemzi a hívások gyakoriságát, hogy automatikusan azonosítsa és elkapja a gyakori spamhívásokat.",
+  "timeInterceptorExplanationTitle": "A hívásfrekvencia-interceptálás magyarázata",
+  "timeInterceptorSettingsTitle": "A hívásfrekvencia-interceptálás beállításai",
+  "timeWindowDescription": "Állítsa be az ismétlődő hívások elkapásához használt időablak méretét. Az ezen ablakon belül ugyanarról a számról érkező hívásokat elkapja",
+  "timeWindowLabel": "Interceptálási időablak (perc): {minutes}",
+  "@timeWindowLabel": {
+    "description": "Time window label with duration in minutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "today": "Ma",
+  "total": "Összesen",
+  "totalBlocked": "Összesen blokkolva",
+  "transferDataBetweenDevicesOrPlatforms": "Adatok átvitele eszközök vagy platformok között",
+  "travelTicketing": "Utazási jegyeladás",
+  "tutorial": "Oktatóanyag",
+  "type": "Típus",
+  "unassignedSIMCard": "Nincs hozzárendelve SIM-kártya",
+  "unknown": "Ismeretlen",
+  "@unknown": {
+    "description": "Display text for unknown status"
+  },
+  "unknownTag": "Címke: Ismeretlen",
+  "unregisterButton": "Törlés",
+  "unregisterDeviceConfirmationMessage": "Biztosan törölni szeretné {deviceName} készüléket?",
+  "unregisterDeviceTitle": "Eszköz törlése",
+  "unsupportedFileFormat": "Nem támogatott fájlformátum",
+  "update": "Frissítés",
+  "updateAllNow": "Minden frissítése most",
+  "updateContactFailed": "Nem sikerült frissíteni a kapcsolatot: {error}",
+  "updateFavoriteStatus": "Kedvencek állapotának frissítése",
+  "updateInterval": "Frissítési intervallum",
+  "updateNow": "Frissítés most",
+  "updatePlugin": "Bővítmény frissítése",
+  "updatePluginFailed": "Nem sikerült frissíteni a bővítményt: {error}",
+  "updateRuleFailed": "Nem sikerült frissíteni a szabályt: {error}",
+  "updateSubscriptionFailed": "Nem sikerült frissíteni az előfizetést: {error}",
+  "@updateSubscriptionFailed": {
+    "description": "Failed to update subscription error message",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "updateSuccess": "{service} sikeresen frissítve ({count} szabály)",
+  "@updateSuccess": {
+    "description": "Single service update success message",
+    "placeholders": {
+      "service": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "useCasesPoint1": "• Az automatikusan újrahívó spamhívások azonosítása",
+  "useCasesPoint2": "• A rövid időn belül többször hívó marketinghívások blokkolása",
+  "useCasesPoint3": "• A telefonbombázás és a zaklatás megelőzése",
+  "useCasesTitle": "Felhasználási esetek:",
+  "useGlobalSettings": "Globális beállítások használata",
+  "usernameLabel": "Felhasználónév",
+  "useStandardRegexSyntaxToDefinePatternsExamples": "Használja a szabványos reguláris kifejezés-szintaxist a minták meghatározásához. Példák:",
+  "verificationFailedText": "Sikertelen",
+  "verifiedText": "Ellenőrzött",
+  "verify": "Ellenőrzés",
+  "version": "Verzió: {version}",
+  "vipExchangeDescription": "VIP-tagság cseréje telefonszám-jelölési pontszámokért",
+  "vipExchangeTitle": "VIP-csere jelöléssel",
+  "watchAd": "Hirdetés megtekintése",
+  "watchAdForTemp": "Hirdetés megtekintése ideiglenes előnyökért",
+  "watchAdForTempDescription": "Nézzen meg egy rövid hirdetést az egyes prémiumfunkciók ideiglenes megnyitásához",
+  "webDAVConfigTitle": "WebDAV-konfiguráció",
+  "week": "Hét",
+  "welcome": "Üdvözöljük",
+  "whitelist": "Engedélyezett lista",
+  "@whitelist": {
+    "description": "Whitelist label"
+  },
+  "width": "Szélesség",
+  "wildcardMatchingDescription": "Használjon '.' karaktert bármely karakter helyettesítéséhez (pl. '123.456' megfelel az 123-456-nak)",
+  "wildcardMatchingTitle": "Jokerező karakterekkel történő megfeleltetés:",
+  "wildcardSupportForFlexibleFiltering": "Jokerező karakterek támogatása a rugalmas szűréshez",
+  "windowSizeSetting": "Ablakméret",
+  "year": "Év",
+  "noSimCardsDetected": "Nem észlelt SIM-kártya",
+  "filterManagementDescription": "Hívásszűrők beállítása",
+  "callerIdCustomizationSubtitle": "A hívóazonosító megjelenésének testreszabása",
+  "fraudAlerSettingTitle": "Csalásriasztás beállítása",
+  "fraudAlerSettingSubtitle": "A csalásriasztás beállítása",
+  "enableFraudAlert": "Csalásriasztás engedélyezése",
+  "enableFraudAlertDescription": "Riasztás gyanús csalási hívások esetén",
+  "enableVibration": "Vibráció engedélyezése",
+  "enableVibrationDescription": "Vibrálás gyanús csalási hívások esetén",
+  "notificationSettingsTitle": "Értesítési beállítások",
+  "useLocalNotification": "Helyi értesítések használata",
+  "useLocalNotificationDescription": "Helyi értesítések engedélyezése bejövő hívásokhoz",
+  "cancelLocalNotification": "Helyi értesítések kikapcsolása",
+  "useStirNotification": "STIR-értesítés használata",
+  "cancelLocalNotificationDescription": "Helyi értesítések automatikus kikapcsolása",
+  "callerIdSettingsTitle": "Hívóazonosító-beállítások",
+  "callerIdSettingsSubtitle": "A bejövő hívások értesítésének és megjelenítési módjának beállítása",
+  "purchaseTitle": "Vásárlás",
+  "purchaseSubtitle": "A szolgáltatás megvásárlása",
+  "callerIdNotificationTitle": "Bejövő hívás információi",
+  "@callerIdNotificationTitle": {
+    "description": "Title for the Incoming Call Info"
+  },
+  "blockedCallTitle": "Letiltott hívás",
+  "@blockedCallTitle": {
+    "description": "Title for blocked call notification"
+  },
+  "blockedCallBody": "Letiltott hívás a következő számról: {phoneNumber}",
+  "@blockedCallBody": {
+    "description": "Body for blocked call notification, showing the phone number",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "stirVerified": "Ellenőrzött",
+  "@stirVerified": {
+    "description": "STIR/SHAKEN verification status: Verified"
+  },
+  "stirNotVerified": "Nem ellenőrzött",
+  "@stirNotVerified": {
+    "description": "STIR/SHAKEN verification status: Not Verified"
+  },
+  "stirFailed": "Az ellenőrzés sikertelen volt",
+  "@stirFailed": {
+    "description": "STIR/SHAKEN verification status: Verification Failed"
+  },
+  "stirUnknown": "Ismeretlen ellenőrzési állapot",
+  "@stirUnknown": {
+    "description": "STIR/SHAKEN verification status: Unknown"
+  },
+  "stirVerificationTitle": "STIR/SHAKEN-ellenőrzés",
+  "@stirVerificationTitle": {
+    "description": "Title for STIR/SHAKEN verification notification"
+  },
+  "stirVerificationBody": "{stirResultMessage} a(z) {phoneNumber} szám esetében",
+  "@stirVerificationBody": {
+    "description": "Body for STIR/SHAKEN verification notification, showing result and phone number",
+    "placeholders": {
+      "stirResultMessage": {
+        "type": "String",
+        "example": "Verified"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "example": "+1234567890"
+      }
+    }
+  },
+  "scrollingSecurityMessageSettings": "Görgetett biztonsági üzenet beállításai",
+  "messageColor": "Üzenet színe",
+  "messageFontSize": "Üzenet betűmérete",
+  "messagePosition": "Üzenet helyzete",
+  "containerWidth": "Tartály szélessége",
+  "scrollSpeed": "Görgetési sebesség",
+  "enableSecurityMessage": "Biztonsági üzenet engedélyezése",
+  "fraudAlertTitle": "Csalási figyelmeztetés",
+  "@fraudAlertTitle": {
+    "description": "Title for the fraud alert notification"
+  },
+  "noBlockedTypeData": "Nem áll rendelkezésre letiltott típusokra vonatkozó adat",
+  "importEntity": "{entityTypeName} importálása",
+  "@importEntity": {
+    "description": "Dialog title for importing an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityImportSuccess": "{entityTypeName} sikeresen importálva, összesen {count} rekord került importálásra",
+  "@entityImportSuccess": {
+    "description": "Success message after importing entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object",
+        "example": "42"
+      }
+    }
+  },
+  "entityImportFailed": "Nem sikerült importálni a(z) {entityTypeName} elemet: {error}",
+  "@entityImportFailed": {
+    "description": "Error message when importing entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "exportEntity": "{entityTypeName} exportálása",
+  "@exportEntity": {
+    "description": "Dialog title for exporting an entity",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportSuccess": "{entityTypeName} sikeresen exportálva",
+  "@entityExportSuccess": {
+    "description": "Success message after exporting entities",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      }
+    }
+  },
+  "entityExportFailed": "Nem sikerült exportálni a(z) {entityTypeName} elemet: {error}",
+  "@entityExportFailed": {
+    "description": "Error message when exporting entities fails",
+    "placeholders": {
+      "entityTypeName": {
+        "type": "Object"
+      },
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cloudSyncService": "Felhőalapú szinkronizálási szolgáltatás",
+  "membershipCenter": "Tagközpont",
+  "redeemVipWithMarks": "VIP-tagság váltás pontokért",
+  "currentMarkCount": "Jelenlegi pontszám",
+  "markMoreNumbersForMore": "Jelöljön be több számot több pontért",
+  "noAds": "Nincs hirdetés",
+  "cloudBackup": "Felhőalapú biztonsági mentés",
+  "callerIdEnhancement": "Hívóazonosító-javítás",
+  "voiceRecognition": "Hangfelismerés",
+  "feature": "Funkció",
+  "normalUser": "Normál felhasználó",
+  "vipUser": "VIP-felhasználó",
+  "temporaryVip": "Ideiglenes VIP",
+  "removeAds": "Hirdetések eltávolítása",
+  "settingsBackup": "Beállítások biztonsági mentése",
+  "allServicesStatusTitle": "A szolgáltatások aktuális állapota",
+  "allServicesStatusSubtitle": "Az egyes felhőalapú szolgáltatások aktuális állapota",
+  "redirect": "Továbbítás",
+  "notify": "Értesítés",
+  "log": "Naplózás",
+  "custom": "Egyéni",
+  "allowActionDescription": "A hívások engedélyezve lesznek, még akkor is, ha a szám szerepel a letiltottak listáján.",
+  "blockActionDescription": "A hívásokat blokkolni kell, és megjelennek a hívásnaplóban.",
+  "silenceActionDescription": "A hívások némításra kerülnek, de megjelennek a hívásnaplóban.",
+  "noneActionDescription": "A hívás esetén nem történik különösebb művelet.",
+  "redirectActionDescription": "A hívás egy megadott számra történő továbbítása.",
+  "labelActionDescription": "Címke hozzáadása a híváshoz a könnyebb azonosítás érdekében.",
+  "notifyActionDescription": "Értesítés küldése hívás fogadásakor.",
+  "logActionDescription": "A hívás információinak naplózása egyéb művelet nélkül.",
+  "customActionDescription": "Egyéni művelet végrehajtása.",
+  "synced": "Szinkronizálva",
+  "needVipAccess": "E funkció használatához VIP-hozzáférés szükséges",
+  "importExportDescription": "{entityTypeName}-adatok importálása vagy exportálása",
+  "importExportTitle": "Importálás/Exportálás",
+  "noPhoneRules": "Nem találhatóak telefonszám-szabályok",
+  "noRegexRules": "Nem találhatóak reguláris kifejezés-szabályok",
+  "noAllowedBlockedRules": "Nem találhatóak engedélyezett/blokkolt szabályok",
+  "importExport": "Importálás/Exportálás",
+  "filterByAction": "Szűrés művelet szerint",
+  "upgradeToVip": "Frissítés VIP-ra",
+  "batteryOptimizationPermission": "Akkumulátor-optimalizálás",
+  "batteryOptimizationPermissionDescription": "Engedélyezze az alkalmazás számára, hogy háttérben fusson, így olyan szolgáltatásokat biztosíthat, mint a hívóazonosító megjelenítése.",
+  "permissionTitle": "Speciális engedélyek",
+  "permissionSubtitle": "A fedőképernyős és akkumulátor-optimalizálási engedélyek kezelése",
+  "themeSettingsTitle": "Téma-beállítások",
+  "themeSettingsSubtitle": "Válassza ki kedvenc témáját",
+  "databaseSyncTitle": "Adatbázis-szinkronizálás",
+  "countrySyncSettingsTitle": "Országalapú adatbázis-szinkronizálási beállítások",
+  "countrySyncSettingsSubtitle": "Jelölje ki az adatok szinkronizálásához használandó országokat",
+  "countryDataDisclaimer": "Felhívjuk figyelmét: az adatbázis nem tartalmazhat adatokat valamennyi konkrét országra vagy régióra vonatkozóan.",
+  "editSubscription": "Előfizetés szerkesztése",
+  "searchByNameOrPhoneNumber": "Keresés név vagy telefonszám szerint",
+  "allowedBlockedRulesInfo": "Az engedélyezett/blokkolt szabályok arra szolgálnak, hogy a hívásokat meghatározott telefonszámokhoz rendeljék, és ezek rendelkeznek a legnagyobb prioritással.",
+  "searchPhoneRulesHint": "Telefon szabályok keresése",
+  "phoneRulesInfo": "A telefon szabályokat arra használják, hogy a hívásokat meghatározott telefonszámokhoz rendeljék, amelyek alacsonyabb prioritással rendelkeznek. Néhány közülük a telefon szabály-előfizetésekből származik",
+  "searchSubscriptionsHint": "Előfizetések keresése",
+  "searchPluginsHint": "Bővítmények keresése",
+  "searchLabelsHint": "Címkék keresése",
+  "pluginDescription": "Bővítmény leírása",
+  "enterPluginDescription": "Adja meg a bővítmény leírását",
+  "searchRegexRulesHint": "Reguláris kifejezés szabályok keresése",
+  "regexRulesInfo": "A reguláris kifejezés szabályokat arra használják, hogy a hívásokat a reguláris kifejezés minták alapján szűrjék.",
+  "searchMarkedPhonesHint": "Megjelölt telefonok keresése",
+  "searchContactSubscriptionsHint": "Névjegyzék-előfizetések keresése",
+  "showAllContacts": "Összes névjegyzék megjelenítése",
+  "showFavorites": "Kedvencek megjelenítése",
+  "manualEntry": "Kézi beviteli információ",
+  "scriptSaved": "A szkript mentve",
+  "editScriptFor": "Szerkesztési szkript a(z) {pluginName} bővítményhez",
+  "@editScriptFor": {
+    "description": "The title text for the page where a user can edit a script for a specific plugin.",
+    "placeholders": {
+      "pluginName": {
+        "type": "String",
+        "description": "The name of the plugin that the script belongs to."
+      }
+    }
+  },
+  "saveScript": "Szkript mentése",
+  "testPlugin": "Bővítmény tesztelése",
+  "description": "Leírás",
+  "accessTargetUrl": "Céloldal elérése",
+  "result": "Eredmény",
+  "editScript": "Szkript szerkesztése",
+  "numberFormat": "Számformátum",
+  "nationalNumber": "Nemzeti szám",
+  "e164Number": "E164-szám",
+  "pluginRulesInfo": "A biztonság érdekében kizárólag megbízható forrásból származó bővítményeket használjon. Bátran használja felkészített sablonjainkat saját, testre szabott bővítményei létrehozásához!",
+  "advancedMode": "Haladó mód",
+  "pleaseEnterAtLeastOneNumber": "Kérjük, adjon meg legalább egy számot.",
+  "openInWebView": "Megnyitás webböngészőben",
+  "pluginLabel": "Bővítménycímke",
+  "pluginID": "Azonosító",
+  "pluginURL": "URL-cím",
+  "messageBackgroundColor": "Üzenet háttérszíne",
+  "clearAllCallLogs": "Összes hívásnapló törlése",
+  "clearAllCallLogsConfirmation": "Megerősítés az összes hívásnapló törléséhez",
+  "allCallLogsCleared": "Az összes hívásnapló törlésre került",
+  "unblocked": "Leblokkolva",
+  "blockNumber": "Szám blokkolása",
+  "blockNumberSuccess": "A szám sikeresen blokkolva",
+  "unblockNumberConfirmation": "Biztosan le kívánja blokkolni a(z) {phoneNumber} számot?",
+  "@unblockNumberConfirmation": {
+    "description": "Confirmation message shown when a user tries to unblock a number from their blocklist.",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number that the user wants to unblock.",
+        "example": "+1 415-555-0132"
+      }
+    }
+  },
+  "viewDetails": "Részletek megtekintése",
+  "unblock": "Leblokkolás",
+  "unblockNumber": "Szám leblokkolása",
+  "unblockNumberSuccess": "A szám sikeresen leblokkolva",
+  "unblockNumberFailed": "A szám leblokkolása sikertelen",
+  "callingNumberFailed": "A hívószám sikertelen",
+  "listView": "Lista nézet",
+  "timelineView": "Idővonal nézet",
+  "nameCannotBeEmpty": "A név nem lehet üres",
+  "selectAction": "Válassza ki a műveletet",
+  "selectTargetService": "Válassza ki a cél szolgáltatást",
+  "callDetails": "Hívás részletei",
+  "callType": "Hívás típusa",
+  "callTime": "Hívás ideje",
+  "numberInvalidFormat": "Érvénytelen számformátum",
+  "medium": "Közepes",
+  "finalRisk": "Végső kockázat",
+  "simState": "SIM-állapot",
+  "ipCountry": "IP-ország",
+  "simCountry": "SIM-ország",
+  "isRoaming": "Rövidítés",
+  "isNumberMatch": "Szammegfelelés",
+  "support": "Támogatás",
+  "rewardedAdService": "Jutalmazott hirdetés szolgáltatás",
+  "hasVipPrivilegeExceptAds": "Már rendelkezik VIP-jogosultságokkal (a hirdetések kivételével)",
+  "hasTempPrivilegeWithExpiry": "Már rendelkezik ideiglenes jogosultságokkal, lejárati dátum: {expiryDate}",
+  "watchMoreAdsForTempVip": "{count} további hirdetést kell megnéznie az ideiglenes VIP-jogosultságok megszerzéséhez",
+  "grantedTempPurchaseWithExpiry": "{days} napos ideiglenes vásárlási jogosultságot kapott. Lejárati dátum: {expiryDate}",
+  "tempPurchaseExpired": "Az ideiglenes vásárlási jogosultság lejárt",
+  "loadingAd": "Hirdetés betöltése...",
+  "earnedTempVip": "Szerezzen ideiglenes VIP-jogosultságot",
+  "vipExchangeService": "VIP-csere szolgáltatás",
+  "marksInsufficient": "Nem elegendő pont a cseréhez",
+  "invalidExchangeRule": "Érvénytelen csere szabály",
+  "exchangeSuccess": "Sikeresen kicserélte {description} elemre, lejárati dátum: {expiryDate}",
+  "exchangeFailed": "A csere sikertelen: {error}",
+  "vip3DaysWithAds": "3 napos VIP hirdetésekkel (csak szinkronizálás)",
+  "vip5DaysNoAds": "5 napos, teljes funkcionalitású, hirdetésmentes VIP",
+  "vip7DaysNoAds": "7 napos, teljes funkcionalitású, hirdetésmentes VIP",
+  "noNotifications": "Nincsenek értesítések",
+  "clearAllNotifications": "Összes értesítés törlése",
+  "clearAllNotificationsConfirmation": "Erősítse meg az összes értesítés törlését",
+  "clearButton": "Törlés",
+  "justNow": "Épp most",
+  "minutesAgo": "{count,plural, =1{1 perce} other{{count} perce}}",
+  "@minutesAgo": {
+    "description": "Relative time for minutes ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "hoursAgo": "{count,plural, =1{1 órája} other{{count} órája}}",
+  "@hoursAgo": {
+    "description": "Relative time for hours ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "daysAgo": "{count,plural, =1{1 napja} other{{count} napja}}",
+  "@daysAgo": {
+    "description": "Relative time for days ago.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "yesterday": "Tegnap",
+  "deletionProposal": "Törlési javaslat",
+  "@deletionProposal": {
+    "description": "Deletion proposal title"
+  },
+  "createProposal": "Javaslat létrehozása",
+  "@createProposal": {
+    "description": "Create proposal button text"
+  },
+  "createProposalTitle": "Törlési javaslat létrehozása",
+  "@createProposalTitle": {
+    "description": "Create proposal dialog title"
+  },
+  "reason": "Indoklás",
+  "@reason": {
+    "description": "Reason label"
+  },
+  "reasonOutdated": "Elavult szám",
+  "@reasonOutdated": {
+    "description": "Outdated Number reason option"
+  },
+  "reasonPrivacy": "Adatvédelmi aggály",
+  "@reasonPrivacy": {
+    "description": "Privacy Concern reason option"
+  },
+  "reasonNotInService": "Nem elérhető szolgáltatás",
+  "@reasonNotInService": {
+    "description": "Not in Service reason option"
+  },
+  "reasonWronglyIdentified": "Tévesen azonosítva",
+  "@reasonWronglyIdentified": {
+    "description": "Wrongly Identified reason option"
+  },
+  "reasonInaccurateInfo": "Pontatlan információ",
+  "@reasonInaccurateInfo": {
+    "description": "Inaccurate Information reason option"
+  },
+  "reasonOther": "Egyéb",
+  "@reasonOther": {
+    "description": "Other reason option"
+  },
+  "submit": "Beküldés",
+  "@submit": {
+    "description": "Submit button text"
+  },
+  "cancel": "Mégsem",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "riskLevel": "Kockázati szint",
+  "@riskLevel": {
+    "description": "Risk level label"
+  },
+  "riskLevelLow": "Alacsony",
+  "@riskLevelLow": {
+    "description": "Low risk level"
+  },
+  "riskLevelHigh": "Magas",
+  "@riskLevelHigh": {
+    "description": "High risk level"
+  },
+  "agreeVotes": "Egyetértők: {count}",
+  "@agreeVotes": {
+    "description": "Agree votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "totalVotes": "Összesen: {count}",
+  "@totalVotes": {
+    "description": "Total votes count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "voteAgree": "Egyetértek",
+  "@voteAgree": {
+    "description": "Vote agree button text"
+  },
+  "voteDisagree": "Nem értek egyet",
+  "@voteDisagree": {
+    "description": "Vote disagree button text"
+  },
+  "createdAt": "Létrehozva: {date}",
+  "@createdAt": {
+    "description": "Created date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "verificationReport": "Ellenőrzési jelentés",
+  "@verificationReport": {
+    "description": "Verification report label"
+  },
+  "proposalStatistics": "Javaslati statisztikák",
+  "@proposalStatistics": {
+    "description": "Proposal statistics title"
+  },
+  "totalProposals": "Összes javaslat",
+  "@totalProposals": {
+    "description": "Total proposals label"
+  },
+  "activeProposals": "Aktív javaslatok",
+  "@activeProposals": {
+    "description": "Active proposals label"
+  },
+  "proposalCreated": "A javaslat sikeresen létrejött",
+  "@proposalCreated": {
+    "description": "Proposal created success message"
+  },
+  "voteSubmitted": "A szavazat sikeresen beküldésre került",
+  "@voteSubmitted": {
+    "description": "Vote submitted success message"
+  },
+  "noProposalsFound": "Nem található javaslat",
+  "@noProposalsFound": {
+    "description": "No proposals found message"
+  },
+  "refreshProposals": "Javaslatok frissítése",
+  "@refreshProposals": {
+    "description": "Refresh proposals button text"
+  },
+  "totalPendingProposals": "Összes függőben lévő javaslat",
+  "@totalPendingProposals": {
+    "description": "Total pending proposals label"
+  },
+  "highRisk": "Nagy kockázat",
+  "@highRisk": {
+    "description": "High risk label"
+  },
+  "mediumRisk": "Közepes kockázat",
+  "@mediumRisk": {
+    "description": "Medium risk label"
+  },
+  "lowRisk": "Alacsony kockázat",
+  "@lowRisk": {
+    "description": "Low risk label"
+  },
+  "communityImpact": "Közösségi hatás",
+  "@communityImpact": {
+    "description": "Community impact label"
+  },
+  "criticalIssues": "Kritikus problémák",
+  "@criticalIssues": {
+    "description": "Critical issues label"
+  },
+  "communityParticipation": "Közösségi részvétel",
+  "@communityParticipation": {
+    "description": "Community participation label"
+  },
+  "noActivity": "Nincs aktivitás",
+  "@noActivity": {
+    "description": "No activity label"
+  },
+  "low": "Alacsony",
+  "@low": {
+    "description": "Low level label"
+  },
+  "moderate": "Közepes",
+  "@moderate": {
+    "description": "Moderate level label"
+  },
+  "high": "Magas",
+  "@high": {
+    "description": "High level label"
+  },
+  "veryHigh": "Nagyon magas",
+  "@veryHigh": {
+    "description": "Very high level label"
+  },
+  "voted": "Szavazott",
+  "@voted": {
+    "description": "Label for when user voted"
+  },
+  "communityVotes": "Közösségi szavazatok",
+  "@communityVotes": {
+    "description": "Label for community votes count"
+  },
+  "waitingForMoreVotes": "További közösségi szavazatokra vár",
+  "@waitingForMoreVotes": {
+    "description": "Message when waiting for more votes"
+  },
+  "proposalProcessed": "Ezt a javaslatot már feldolgozták",
+  "@proposalProcessed": {
+    "description": "Message when proposal is completed"
+  },
+  "supported": "TÁMOGATOTT",
+  "@supported": {
+    "description": "Label for supported vote"
+  },
+  "opposed": "ELLENKEZŐ",
+  "@opposed": {
+    "description": "Label for opposed vote"
+  },
+  "approved": "JÓVÁHAGYOTT",
+  "@approved": {
+    "description": "Status label for approved"
+  },
+  "rejected": "ELUTASÍTVA",
+  "@rejected": {
+    "description": "Status label for rejected"
+  },
+  "completed": "BEFEJEZVE",
+  "@completed": {
+    "description": "Status label for completed"
+  },
+  "pending": "FÜGGŐBEN",
+  "@pending": {
+    "description": "Status label for pending"
+  },
+  "critical": "Kritikus",
+  "@critical": {
+    "description": "Critical risk level label"
+  },
+  "oppose": "Ellenez",
+  "@oppose": {
+    "description": "Label for oppose votes"
+  },
+  "veryLow": "Nagyon alacsony",
+  "@veryLow": {
+    "description": "Very low risk level label"
+  },
+  "deletionProposals": "Törlési javaslatok",
+  "@deletionProposals": {
+    "description": "Title for deletion proposals notification channel"
+  },
+  "deletionProposalNotificationDescription": "Értesítések a törlési javaslatok szavazási eredményeiről és frissítéseiről.",
+  "@deletionProposalNotificationDescription": {
+    "description": "Description for deletion proposal notification channel"
+  },
+  "deletionProposalCreated": "Törlési javaslat létrehozva",
+  "@deletionProposalCreated": {
+    "description": "Title for deletion proposal created notification"
+  },
+  "deletionProposalCreatedBody": "Az Ön {phoneNumber} telefonszámhoz benyújtott törlési javaslatát közösségi véleményezésre továbbítottuk.",
+  "@deletionProposalCreatedBody": {
+    "description": "Body text for deletion proposal created notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "proposalApproved": "A javaslatot jóváhagyták ✅",
+  "@proposalApproved": {
+    "description": "Title for proposal approved notification"
+  },
+  "proposalApprovedBody": "A {phoneNumber} telefonszámhoz benyújtott törlési javaslatot a közösség jóváhagyta ({supportPercentage}% támogatás, {totalVotes} szavazat).",
+  "@proposalApprovedBody": {
+    "description": "Body text for proposal approved notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "proposalRejected": "A javaslatot elutasították ❌",
+  "@proposalRejected": {
+    "description": "Title for proposal rejected notification"
+  },
+  "proposalRejectedBody": "A {phoneNumber} telefonszámhoz benyújtott törlési javaslatot a közösség elutasította ({supportPercentage}% támogatás, {totalVotes} szavazat).",
+  "@proposalRejectedBody": {
+    "description": "Body text for proposal rejected notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "communityVotingStarted": "A közösségi szavazás megkezdődött",
+  "@communityVotingStarted": {
+    "description": "Title for community voting started notification"
+  },
+  "communityVotingStartedBody": "Egy új törlési javaslat a(z) {phoneNumber} számra már elérhető a közösségi szavazáshoz.",
+  "@communityVotingStartedBody": {
+    "description": "Body text for community voting started notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      }
+    }
+  },
+  "votingCompleted": "A szavazás befejeződött",
+  "@votingCompleted": {
+    "description": "Title for voting completed notification"
+  },
+  "votingCompletedBody": "A(z) {phoneNumber} számra vonatkozó közösségi szavazás véget ért. Eredmény: {result} ({supportPercentage}% támogatás).",
+  "@votingCompletedBody": {
+    "description": "Body text for voting completed notification",
+    "placeholders": {
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "result": {
+        "type": "String",
+        "description": "The voting result (Approved/Rejected)"
+      },
+      "supportPercentage": {
+        "type": "int",
+        "description": "The percentage of support votes"
+      }
+    }
+  },
+  "newVoteReceived": "Új szavazat érkezett",
+  "@newVoteReceived": {
+    "description": "Title for new vote received notification"
+  },
+  "newVoteReceivedBody": "Valaki a(z) {phoneNumber} szám törlése mellett szavazott {voteType} formájában. Jelenlegi szavazatszám: {totalVotes}.",
+  "@newVoteReceivedBody": {
+    "description": "Body text for new vote received notification",
+    "placeholders": {
+      "voteType": {
+        "type": "String",
+        "description": "The type of vote (support/oppose)"
+      },
+      "phoneNumber": {
+        "type": "String",
+        "description": "The phone number in the proposal"
+      },
+      "totalVotes": {
+        "type": "int",
+        "description": "The total number of votes"
+      }
+    }
+  },
+  "voteCount": "Szavazatok száma",
+  "deletionProposalDescription": "Javasljon a közösségi irányelveket sértő számok törlését. Részvételével hozzájárulhat a platform biztonságos működéséhez.",
+  "searchProposals": "Javaslatok keresése",
+  "defaultNotifications": "Alapértelmezett értesítések",
+  "defaultNotificationsDescription": "Az alkalmazás alapértelmezett értesítési csatornája.",
+  "blockedCallNotifications": "Elutasított hívásokról szóló értesítések",
+  "blockedCallNotificationsDescription": "Információkat jelenít meg az elutasított hívásokról.",
+  "stirVerification": "STIR/SHAKEN-ellenőrzés",
+  "stirVerificationDescription": "Megjeleníti a számok STIR/SHAKEN-ellenőrzési eredményeit.",
+  "fraudAlerts": "Csalási riasztások",
+  "fraudAlertsDescription": "Figyelmeztetéseket jelenít meg a potenciálisan csalárd hívásokra.",
+  "notificationMode": "Értesítési mód",
+  "@notificationMode": {
+    "description": "Title for the mode selection part (Immediate, Batched, Custom)"
+  },
+  "pendingProposals": "Függőben lévő javaslatok",
+  "pendingProposalsBody": "Önnek {count, plural, =0 {nincs függőben lévő javaslata} one {1 függőben lévő javaslata} other {{count} függőben lévő javaslata} van.",
+  "guidelinesLabel": "Irányelvek",
+  "riskLevelLabel": "Kockázati szint",
+  "phoneNumberMinDigits": "A telefonszámnak legalább 7 jegyűnek kell lennie",
+  "provideDetailedExplanation": "Adjon meg részletes magyarázatot (minimum 10 karakter)",
+  "reasonMinCharacters": "Az indoklásnak legalább 10 karakternek kell lennie",
+  "countryCodeTwoLetters": "Országkód (ISO 3166-1 alpha-2) *",
+  "countryCodeLabel": "Országkód (ISO 3166-1 alpha-2) *",
+  "@countryCodeLabel": {
+    "description": "Label for country code input field"
+  },
+  "countryCodeHint": "pl.: US, CN, GB",
+  "@countryCodeHint": {
+    "description": "Hint text for country code input field"
+  },
+  "countryCodeRequired": "Az országkód megadása kötelező",
+  "@countryCodeRequired": {
+    "description": "Validation message for required country code"
+  },
+  "phoneNumberHint": "Adja meg a telefonszámot",
+  "@phoneNumberHint": {
+    "description": "Hint text for phone number input field"
+  },
+  "phoneNumberRequired": "A telefonszám megadása kötelező",
+  "@phoneNumberRequired": {
+    "description": "Validation message for required phone number"
+  },
+  "reasonRequired": "Indoklás szükséges",
+  "@reasonRequired": {
+    "description": "Validation message for required reason"
+  },
+  "riskLevelCritical": "Kritikus",
+  "@riskLevelCritical": {
+    "description": "Label for critical risk level"
+  },
+  "riskLevelMedium": "Közepes",
+  "@riskLevelMedium": {
+    "description": "Label for medium risk level"
+  },
+  "riskLevelVeryLow": "Nagyon alacsony",
+  "@riskLevelVeryLow": {
+    "description": "Label for very low risk level"
+  },
+  "notificationFrequencyTitle": "Értesítési gyakoriság",
+  "@notificationFrequencyTitle": {
+    "description": "Title for notification frequency settings"
+  },
+  "errorMessage": "Hiba: {error}",
+  "@errorMessage": {
+    "description": "Generic error message template",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "reportingGuidelines": "• Csak azokat a számokat jelentse, amelyek valóban problémásak\n• Adjon pontos és részletes indoklást\n• A súlyossági szint alapján válassza meg a megfelelő kockázati szintet\n• A hamis jelentések fiókkorlátozásokhoz vezethetnek",
+  "@reportingGuidelines": {
+    "description": "Guidelines for reporting a number."
+  },
+  "notificationFrequencyHours": "Értesítési gyakoriság (órában)",
+  "@notificationFrequencyHours": {
+    "description": "Title for the notification frequency setting."
+  },
+  "supportCount": "Támogatás ({supportCount})",
+  "@supportCount": {
+    "description": "Shows the number of support votes.",
+    "placeholders": {
+      "supportCount": {
+        "type": "int"
+      }
+    }
+  },
+  "opposeCount": "Ellenzés ({opposeCount})",
+  "@opposeCount": {
+    "description": "Shows the number of oppose votes.",
+    "placeholders": {
+      "opposeCount": {
+        "type": "int"
+      }
+    }
+  },
+  "votesWithPercentage": "{totalVotes} szavazat ({supportPercentage}% támogatás)",
+  "@votesWithPercentage": {
+    "description": "Displays the total vote count and the percentage of support votes.",
+    "placeholders": {
+      "totalVotes": {
+        "type": "int"
+      },
+      "supportPercentage": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursDuration": "{count, plural, =0{0 óra} =1{1 óra} other{{count} óra}}",
+  "@hoursDuration": {
+    "description": "A duration in hours, formatted to be grammatically correct for singular or plural.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importantNoticeTitle": "Fontos értesítés",
+  "@importantNoticeTitle": {
+    "description": "The title for the data source disclaimer card."
+  },
+  "dataSourceDisclaimer": "A számok forrása az internet és a felhasználói beküldések. Nem tudjuk garantálni, hogy egy törölt számot más felhasználók vagy források nem küldik be újra. Kérjük, aktívan keressen és ellenőrizze az információkat.",
+  "@dataSourceDisclaimer": {
+    "description": "A disclaimer explaining where the phone number data comes from and its limitations."
+  },
+  "avatar": "Avtár",
+  "@avatar": {
+    "description": "The avatar of the user."
+  },
+  "location": "Helyszín",
+  "@location": {
+    "description": "The location of the user."
+  },
+  "simCardTitle": "SIM-kártya",
+  "liveActivitiesSettingsTitle": "Élő tevékenységek beállításai",
+  "elementsSettingsTitle": "Elemek beállításai",
+  "liveActivityMode": "Élő tevékenység",
+  "liveActivityModeDescription": "A hívásinformációkat folyamatos értesítésként jeleníti meg a zárolt képernyőn és a Dinamikus-szigeten (iOS).",
+  "phoneNumberType": "Telefonszám típusa",
+  "liveActivitiesTestEndActivity": "Tevékenység befejezése",
+  "liveActivitiesTestSendNewActivity": "Új tevékenység küldése",
+  "liveActivitiesTestUpdateActivity": "Tevékenység frissítése",
+  "liveActivityControlsTitle": "Élő tevékenység-vezérlők",
+  "liveActivitiesTestTitle": "Élő tevékenységek tesztje",
+  "liveNotificationCustomizationTitle": "Élő értesítések testreszabása",
+  "liveNotificationCustomizationSubtitle": "Testreszabhatja az élő értesítések megjelenését.",
+  "notification_instructions": "Utasítások:\n1. Koppintson a \"KÜLDÉS\" gombra egy értesítés létrehozásához vagy frissítéséhez.\n2. Menjen a kezdőképernyőre, vagy húzza le az értesítési panelt az eredmény megtekintéséhez.\n3. Koppintson az \"BEFEJEZÉS\" gombra az értesítés elrejtéséhez.",
+  "@notification_instructions": {
+    "description": "A single string containing all instructions for the notification."
+  },
+  "autoCancelNotification": "Értesítés automatikus törlése",
+  "@autoCancelNotification": {
+    "description": "A checkbox to toggle whether the notification should be automatically dismissed when the user taps it."
+  },
+  "autoCancelNotificationDescription": "Ha be van jelölve, az értesítést automatikusan eltávolítja, amikor a felhasználó koppint rá.",
+  "@autoCancelNotificationDescription": {
+    "description": "A description of the auto cancel notification checkbox."
+  },
+  "setDelayTime": "Késleltetési idő beállítása",
+  "@setDelayTime": {
+    "description": "A button to set the delay time for the notification."
+  },
+  "proposalDetails": "Javaslat részletei",
+  "@proposalDetails": {
+    "description": "The title of the proposal details page."
+  },
+  "proposalNotFound": "A javaslat nem található",
+  "@proposalNotFound": {
+    "description": "A message displayed when a proposal is not found."
+  },
+  "processed": "Feldolgozva",
+  "@processed": {
+    "description": "A label for the processed status."
+  },
+  "filterAndSortTitle": "Szűrés és rendezés",
+  "filterVerifiedOwner": "Szűrés igazolt tulajdonosra",
+  "@filterVerifiedOwner": {
+    "description": "A checkbox to toggle whether to filter verified owners."
+  },
+  "filterBy": "Szűrés szerint",
+  "@filterBy": {
+    "description": "A label for the filter by dropdown."
+  },
+  "sortOldest": "Rendezés szerint legrégebbi",
+  "sortNewest": "Rendezés szerint legújabb",
+  "sortMostPopular": "Rendezés szerint legnépszerűbb",
+  "sortLeastPopular": "Rendezés szerint legkevésbé népszerű",
+  "sortBy": "Rendezés szerint",
+  "simRulesNotFound": "A SIM-szabályok nem találhatók",
+  "@simRulesNotFound": {
+    "description": "A message displayed when SIM rules are not found."
+  },
+  "simSlotRules": "SIM-kártyahely szabályok",
+  "@simSlotRules": {
+    "description": "A label for the SIM slot rules."
+  },
+  "noSimCardDetected": "Nem észlelt SIM-kártya",
+  "@noSimCardDetected": {
+    "description": "A message displayed when no SIM card is detected."
+  },
+  "invalidSimData": "Érvénytelen SIM-adatok",
+  "@invalidSimData": {
+    "description": "A message displayed when the SIM data is invalid."
+  },
+  "simSlot": "SIM-kártyahely",
+  "@simSlot": {
+    "description": "A label for the SIM slot."
+  },
+  "enableFiltering": "Szűrés engedélyezése",
+  "@enableFiltering": {
+    "description": "A checkbox to toggle whether to enable filtering."
+  },
+  "detailedSettingsTitle": "Részletes beállítások",
+  "@detailedSettingsTitle": {
+    "description": "The title of the detailed settings page."
+  },
+  "entryPointViewTitle": "Belépési pont nézete",
+  "@entryPointViewTitle": {
+    "description": "The title of the entry point view."
+  },
+  "callTypeRejected": "Elutasítva",
+  "callTypeSilenced": "Kikapcsolva",
+  "andMoreItems": "és további {count} elem",
+  "@andMoreItems": {
+    "description": "Text to show when there are more items than displayed.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "ruleType": "Szabálytípus",
+  "localDatabaseSyncTitle": "Helyi adatbázis szinkronizálása",
+  "@localDatabaseSyncTitle": {
+    "description": "The title of the local database sync section."
+  },
+  "localDatabaseSyncSubtitle": "Adatok szinkronizálása az eszközök között",
+  "@localDatabaseSyncSubtitle": {
+    "description": "The subtitle of the local database sync section."
+  },
+  "supabaseProjectUrl": "Supabase-projekt URL-je",
+  "supabaseAnonKey": "Anon kulcs",
+  "supabaseAnonKeyHint": "API-kulcs, nyilvános anon kulcs",
+  "connectionString": "Kapcsolati karakterlánc (URI)",
+  "connectionStringHelper": "Csak az „Adatbázis inicializálása” művelethez szükséges",
+  "syncCallHistory": "Híváselőzmények szinkronizálása",
+  "syncCallHistorySubtitle": "Magán hívásnaplók bevonása a szinkronizálásba",
+  "requiredField": "Kötelező",
+  "requiredInitField": "Az inicializáláshoz kötelező",
+  "initDbButton": "Adatbázis inicializálása",
+  "dbInitSuccess": "Az adatbázis sikeresen inicializálva!",
+  "syncSuccess": "A szinkronizálás befejeződött. Elküldve: {pushed}, fogadva: {pulled}",
+  "@syncSuccess": {
+    "description": "Message shown when sync completes successfully",
+    "placeholders": {
+      "pushed": {
+        "type": "int"
+      },
+      "pulled": {
+        "type": "int"
+      }
+    }
+  },
+  "errorPrefix": "Hiba",
+  "errorLoadingSettings": "Hiba a beállítások betöltésekor",
+  "statusLabel": "Állapot",
+  "statusConnected": "Csatlakoztatva / konfigurálva",
+  "statusNotConfigured": "Nincs konfigurálva",
+  "configSaved": "Beállítások mentve!",
+  "masterDeviceLabel": "Főeszköz (rendszergazda)",
+  "masterDeviceHelp": "Csak a főeszköz inicializálhatja az adatbázis szerkezetét.",
+  "syncIntervalLabel": "Automatikus szinkronizálási időköz",
+  "syncIntervalValue": "Minden {hours} órában",
+  "@syncIntervalValue": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "leaveEmptyToUseDefault": "Hagyja üresen az alapértelmezett érték használatához",
+  "vipAccessSubtitle": "Nézzen hirdetéseket ingyen, vagy vásároljon VIP-előfizetést",
+  "failedToLoadSettingsSchema": "Nem sikerült betölteni a beállítások sémáját: {error}",
+  "@failedToLoadSettingsSchema": {
+    "description": "Error message when plugin settings schema fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldIsRequired": "Ez a mező kötelező",
+  "@fieldIsRequired": {
+    "description": "Validation error message for required fields"
+  },
+  "answerThenHangupDescription": "Automatikusan fogadja a bejövő hívást, majd azonnal szakítsa meg annak megszüntetéséhez",
+  "@answerThenHangupDescription": {
+    "description": "Description explaining what answer-then-hangup does"
+  }
+}
